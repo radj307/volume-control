@@ -20,6 +20,7 @@
             <Converters:MultiBindingBooleanConverter x:Key="MultiBindingBooleanConverter" />
             <Converters:BooleanInverter x:Key="InvertConverter" />
             <Converters:NullToBooleanConverter x:Key="IsNullConverter" />
+            <Converters:TagDoubleConverter x:Key="TagDoubleConverter" />
 
             <!--  Image Icons  -->
             <Style x:Key="IconImageStyle" TargetType="Image">

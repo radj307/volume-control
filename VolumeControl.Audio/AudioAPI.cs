@@ -1,5 +1,4 @@
 ﻿using NAudio.CoreAudioApi;
-using NAudio.CoreAudioApi.Interfaces;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using VolumeControl.Audio.Collections;
@@ -22,7 +21,7 @@ namespace VolumeControl.Audio
         /// <inheritdoc cref="AudioAPI"/>
         public AudioAPI()
         {
-            this.Devices = new(DataFlow.Render);
+            this.Devices = new(this, DataFlow.Render);
             this.Sessions = new(this.Devices);
 
             this.EnableDevices();
@@ -98,10 +97,10 @@ namespace VolumeControl.Audio
                 this.NotifyPropertyChanging(nameof(this.SelectedSession));
                 this.NotifyPropertyChanging(nameof(this.TargetGuid));
 
-                if (FindSessionWithIdentifier(eventArgs.Incoming) is ISession session)
-                    Settings.Target = session.GetTargetInfo();
-                else Settings.Target = new Config.TargetInfo() { ProcessIdentifier = eventArgs.Incoming, SessionInstanceIdentifier = string.Empty };
-                
+                Settings.Target = this.FindSessionWithIdentifier(eventArgs.Incoming) is ISession session
+                    ? session.GetTargetInfo()
+                    : new Config.TargetInfo() { ProcessIdentifier = eventArgs.Incoming, SessionInstanceIdentifier = string.Empty };
+
                 this.NotifyPropertyChanged();
                 this.NotifyPropertyChanged(nameof(this.SelectedSession));
                 this.NotifyPropertyChanged(nameof(this.TargetGuid));
@@ -123,9 +122,9 @@ namespace VolumeControl.Audio
                 this.NotifyPropertyChanging(nameof(this.Target));
                 this.NotifyPropertyChanging(nameof(this.SelectedSession));
 
-                if (!value.Equals(Guid.Empty) && FindSessionWithSessionInstanceIdentifier(value) is ISession session)
-                    Settings.Target = session.GetTargetInfo();
-                else Settings.Target = Config.TargetInfo.Empty;
+                Settings.Target = !value.Equals(Guid.Empty) && this.FindSessionWithSessionInstanceIdentifier(value) is ISession session
+                    ? session.GetTargetInfo()
+                    : Config.TargetInfo.Empty;
 
                 this.NotifyPropertyChanged();
                 this.NotifyPropertyChanged(nameof(this.Target));
@@ -162,7 +161,11 @@ namespace VolumeControl.Audio
                 {
                     return session;
                 }
-                else this.ResolveTarget();
+                else
+                {
+                    this.ResolveTarget();
+                }
+
                 return this.FindSessionWithSessionInstanceIdentifier(this.TargetGuid);
             }
             set
@@ -206,6 +209,7 @@ namespace VolumeControl.Audio
         private void NotifyPropertyChanging([CallerMemberName] string propertyName = "") => PropertyChanging?.Invoke(this, new(propertyName));
         #endregion Events
 
+
         #region Methods
         #region Device
         private void EnableDevices()
@@ -215,12 +219,22 @@ namespace VolumeControl.Audio
                 dev.Enabled = dev.Equals(this.DefaultDevice) ? Settings.EnableDefaultDevice : Settings.EnabledDevices.Contains(dev.DeviceID);
             }
         }
-        private void SaveEnabledDevices()
+        /// <summary>
+        /// Updates the <see cref="Config.EnabledDevices"/> property with the device IDs of all currently-enabled <see cref="AudioDevice"/> instances.
+        /// </summary>
+        public void SaveEnabledDevices()
         {
-            Settings.EnabledDevices.Clear();
-            this.Devices.ForEach(dev => Settings.EnabledDevices.AddIfUnique(dev.DeviceID));
-            if (this.DefaultDevice is not null)
-                Settings.EnableDefaultDevice = this.DefaultDevice.Enabled;
+            foreach (AudioDevice dev in this.Devices)
+            {
+                if (dev.Enabled)
+                {
+                    Settings.EnabledDevices.AddIfUnique(dev.DeviceID);
+                }
+                else
+                {
+                    _ = Settings.EnabledDevices.Remove(dev.DeviceID);
+                }
+            }
         }
         /// <summary>
         /// Clears and reloads all audio devices.
@@ -229,24 +243,6 @@ namespace VolumeControl.Audio
         {
             this.Devices.Reload();
             this.EnableDevices();
-        }
-        /// <summary>Enumerates audio endpoints using the Core Audio API to get a list of all devices with the specified modes.</summary>
-        /// <returns>A list of devices that are currently active.</returns>
-        private List<AudioDevice> GetAllDevices(DataFlow flow = DataFlow.Render, DeviceState state = DeviceState.Active)
-        {
-            List<AudioDevice> devices = new();
-
-            MMDeviceEnumerator enumerator = new();
-            foreach (MMDevice endpoint in enumerator.EnumerateAudioEndPoints(flow, state))
-            {
-                var dev = new AudioDevice(endpoint);
-                if (dev.SessionManager is not null)
-                    dev.SessionManager.OnSessionCreated += this.HandleSessionCreated;
-                devices.Add(dev);
-            }
-            enumerator.Dispose();
-
-            return devices;
         }
         /// <summary>Gets a device from <see cref="Devices"/> using the given <paramref name="predicate"/> function.</summary>
         /// <param name="predicate">A predicate function that accepts <see cref="AudioDevice"/> types.</param>
@@ -268,36 +264,6 @@ namespace VolumeControl.Audio
         public IDevice? FindDeviceWithID(string deviceID, StringComparison sCompareType = StringComparison.Ordinal) => this.FindDevice(dev => dev.DeviceID.Equals(deviceID, sCompareType));
         #endregion Device
 
-        #region SessionEventHandlers
-        /// <summary>Handles session creation events. If they would be fired correctly, that is.</summary>
-        private void HandleSessionCreated(object? _, IAudioSessionControl controller)
-        {
-            var s = new AudioSession(new(controller));
-            s.StateChanged += this.HandleSessionStateChanged;
-            _ = this.Sessions.Add(s);
-        }
-        /// <summary>Handles session state change events.</summary>
-        private void HandleSessionStateChanged(object? sender, AudioSessionState e)
-        {
-            if (sender is AudioSession session)
-            {
-                switch (e)
-                {
-                case AudioSessionState.AudioSessionStateExpired:
-                case AudioSessionState.AudioSessionStateInactive:
-                    if (!session.IsRunning)
-                    {
-                        Log.Debug($"Process {session.ProcessIdentifier} exited.");
-                        _ = this.Sessions.Remove(session);
-                    }
-                    break;
-                case AudioSessionState.AudioSessionStateActive:
-                default: break;
-                }
-                Log.Debug($"Session {session.ProcessIdentifier} state changed to {e:G}");
-            }
-        }
-        #endregion SessionEventHandlers
         #region ReloadSessions
         /// <summary>Forces the sessions list to be reloaded from the audio device list.</summary>
         /// <remarks><b>Note that this invalidates and disposes of all <see cref="AudioSession"/> objects!<br/>This means any audio session objects you had previously saved a reference to will be deleted.</b></remarks>
@@ -429,9 +395,9 @@ namespace VolumeControl.Audio
                     {
 
                         Settings.Target = s.GetTargetInfo();
-                        NotifyPropertyChanged(nameof(Target));
-                        NotifyPropertyChanged(nameof(TargetGuid));
-                        NotifyPropertyChanged(nameof(SelectedSession));
+                        this.NotifyPropertyChanged(nameof(this.Target));
+                        this.NotifyPropertyChanged(nameof(this.TargetGuid));
+                        this.NotifyPropertyChanged(nameof(this.SelectedSession));
                         Log.Info($"Resolved target '{pid}:{pname}' to '{this.Target}'");
                         return;
                     }

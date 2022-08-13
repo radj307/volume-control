@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace VolumeControl.Helpers.Controls
+namespace VolumeControl.Controls
 {
     public class VolumeControlNotifyIcon : NotifyIcon
     {
@@ -12,29 +12,29 @@ namespace VolumeControl.Helpers.Controls
 
             _notifyIcon.Icon = Properties.Resources.iconSilvered;
 
-            Items.AddRange(new List<System.Windows.Forms.ToolStripItem>()
+            this.Items.AddRange(new List<System.Windows.Forms.ToolStripItem>()
             { // TOOLSTRIP:
-                new System.Windows.Forms.ToolStripButton(GetShowText(), Properties.Resources.foreground, HandleShowHideClick),
-                new System.Windows.Forms.ToolStripButton(GetBringToFrontText(), Properties.Resources.bringtofront, HandleBringToFrontClick),
+                new System.Windows.Forms.ToolStripButton(GetShowText(), Properties.Resources.foreground, this.HandleShowHideClick),
+                new System.Windows.Forms.ToolStripButton(GetBringToFrontText(), Properties.Resources.bringtofront, this.HandleBringToFrontClick),
                 new System.Windows.Forms.ToolStripSeparator(),
-                new System.Windows.Forms.ToolStripButton(GetCloseText(), Properties.Resources.X, HandleCloseClicked),
+                new System.Windows.Forms.ToolStripButton(GetCloseText(), Properties.Resources.X, this.HandleCloseClicked),
             }.ToArray());
 
-            Loc.Instance.CurrentLanguageChanged += Handle_CurrentLanguageChanged;
-            _contextMenuStrip.VisibleChanged += Handle_ContextMenuVisibilityChanged;
+            Loc.Instance.CurrentLanguageChanged += this.Handle_CurrentLanguageChanged;
+            _contextMenuStrip.VisibleChanged += this.Handle_ContextMenuVisibilityChanged;
         }
 
         #region Fields
         private readonly Query _mainWindowVisibilityChecker;
-        const int _idx_ShowHide = 0;
-        const int _idx_BringToFront = 1;
-        const int _idx_Close = 3;
+        private const int _idx_ShowHide = 0;
+        private const int _idx_BringToFront = 1;
+        private const int _idx_Close = 3;
         #endregion Fields
 
         #region TranslationGetters
         private static string GetShowText() => Loc.Tr("VolumeControl.NotifyIcon.Show", "Show");
         private static string GetHideText() => Loc.Tr("VolumeControl.NotifyIcon.Hide", "Hide");
-        private static string GetShowHideText(bool isVisible) { if (isVisible) return GetHideText(); else return GetShowText(); }
+        private static string GetShowHideText(bool isVisible) => isVisible ? GetHideText() : GetShowText();
         private static string GetBringToFrontText() => Loc.Tr("VolumeControl.NotifyIcon.BringToFront", "Bring to Front");
         private static string GetCloseText() => Loc.Tr("VolumeControl.NotifyIcon.Close", "Close");
         #endregion TranslationGetters
@@ -42,9 +42,9 @@ namespace VolumeControl.Helpers.Controls
         #region Events
         private void Handle_CurrentLanguageChanged(object? sender, CurrentLanguageChangedEventArgs e)
         {
-            Items[_idx_ShowHide].Text = GetShowHideText(_mainWindowVisibilityChecker());
-            Items[_idx_BringToFront].Text = GetBringToFrontText();
-            Items[_idx_Close].Text = GetCloseText();
+            this.Items[_idx_ShowHide].Text = GetShowHideText(_mainWindowVisibilityChecker());
+            this.Items[_idx_BringToFront].Text = GetBringToFrontText();
+            this.Items[_idx_Close].Text = GetCloseText();
         }
 
         private void Handle_ContextMenuVisibilityChanged(object? sender, EventArgs e)
@@ -52,13 +52,13 @@ namespace VolumeControl.Helpers.Controls
             _contextMenuStrip.SuspendLayout();
             if (_mainWindowVisibilityChecker())
             {
-                Items[_idx_ShowHide].Text = GetShowHideText(true);
-                Items[_idx_ShowHide].Image = Properties.Resources.background;
+                this.Items[_idx_ShowHide].Text = GetShowHideText(true);
+                this.Items[_idx_ShowHide].Image = Properties.Resources.background;
             }
             else
             {
-                Items[_idx_ShowHide].Text = GetShowHideText(false);
-                Items[_idx_ShowHide].Image = Properties.Resources.foreground;
+                this.Items[_idx_ShowHide].Text = GetShowHideText(false);
+                this.Items[_idx_ShowHide].Image = Properties.Resources.foreground;
             }
             _contextMenuStrip.ResumeLayout();
             _contextMenuStrip.Refresh();

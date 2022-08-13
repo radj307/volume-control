@@ -1,6 +1,6 @@
 ﻿using NAudio.CoreAudioApi;
 using System.ComponentModel;
-using System.Timers;
+using System.Runtime.CompilerServices;
 using VolumeControl.Audio.Events;
 using VolumeControl.Core;
 using VolumeControl.Log;
@@ -12,11 +12,15 @@ namespace VolumeControl.Audio.Collections
     /// <summary>
     /// Management container object for the <see cref="AudioDevice"/> class.
     /// </summary>
-    public class AudioDeviceCollection : ObservableImmutableList<AudioDevice>, IDisposable
+    public class AudioDeviceCollection : ObservableImmutableList<AudioDevice>, IDisposable, INotifyPropertyChanged
     {
         #region Constructor
-        internal AudioDeviceCollection(DataFlow flow)
+        internal AudioDeviceCollection(AudioAPI api, DataFlow flow)
         {
+            base.PropertyChanged += this.ForwardPropertyChanged;
+
+            _audioAPI = api;
+
             this.DataFlow = flow;
             using var enumerator = new MMDeviceEnumerator();
 
@@ -29,50 +33,15 @@ namespace VolumeControl.Audio.Collections
             _ = enumerator.RegisterEndpointNotificationCallback(this.DeviceNotificationClient);
             this.DeviceNotificationClient.GlobalDeviceAdded += this.HandleDeviceAdded;
             enumerator.Dispose();
-
-            _peakMeterUpdateTimer = new(Settings.PeakMeterUpdateIntervalMs)
-            {
-                AutoReset = true,
-                Enabled = Settings.ShowPeakMeters
-            };
-            _peakMeterUpdateTimer.Elapsed += HandlePeakMeterUpdateTimerElapsed;
-            Settings.PropertyChanged += HandleSettingsPropertyChanged;
-
         }
         #endregion Constructor
 
         #region Fields
         private bool _disposedValue;
-        private readonly System.Timers.Timer _peakMeterUpdateTimer;
+        private readonly AudioAPI _audioAPI;
         #endregion Fields
 
         #region Events
-        private void HandleSettingsPropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName is string propertyName)
-            {
-                if (propertyName.Equals(nameof(Settings.ShowPeakMeters), StringComparison.Ordinal))
-                { // update state
-                    if (Settings.ShowPeakMeters.Equals(_peakMeterUpdateTimer.Enabled))
-                        return;
-                    if (Settings.ShowPeakMeters)
-                    { // enable
-                        _peakMeterUpdateTimer.Start();
-                    }
-                    else
-                    { // disable
-                        _peakMeterUpdateTimer.Stop();
-                    }
-                }
-                else if (propertyName.Equals(nameof(Settings.PeakMeterUpdateIntervalMs), StringComparison.Ordinal))
-                { // update interval
-                    if (_peakMeterUpdateTimer.Interval.Equals(Settings.PeakMeterUpdateIntervalMs))
-                        return;
-                    _peakMeterUpdateTimer.Interval = Settings.PeakMeterUpdateIntervalMs;
-                }
-            }
-        }
-        private void HandlePeakMeterUpdateTimerElapsed(object? sender, ElapsedEventArgs e) => UpdatePeakMeters();
         /// <summary>Triggered when a managed device's Enabled property was changed.</summary>
         public event EventHandler<bool>? DeviceEnabledChanged;
         private void ForwardDeviceEnabledChanged(object? sender, bool state)
@@ -92,6 +61,10 @@ namespace VolumeControl.Audio.Collections
         /// <summary>Triggered when a managed device has a session removed from it.</summary>
         public event EventHandler<long>? DeviceSessionRemoved;
         private void ForwardSessionRemoved(object? sender, long pid) => DeviceSessionRemoved?.Invoke(sender, pid);
+        /// <inheritdoc/>
+        public new event PropertyChangedEventHandler? PropertyChanged;
+        private void ForwardPropertyChanged(object? sender, PropertyChangedEventArgs e) => PropertyChanged?.Invoke(sender, e);
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         #endregion Events
 
         #region Properties
@@ -104,7 +77,99 @@ namespace VolumeControl.Audio.Collections
         public AudioDevice? Default { get; internal set; }
         #endregion Properties
 
-        #region HandleDeviceEventsga
+        #region Properties
+        /// <summary>
+        /// Enables or disables all devices.
+        /// </summary>
+        public bool? AllDevicesEnabled
+        {
+            get => _allSelected;
+            set
+            {
+                if (value == _allSelected) return;
+                _allSelected = value;
+
+                // Set all other CheckBoxes
+                this.AllDevicesEnabledChanged();
+                this.NotifyPropertyChanged();
+            }
+        }
+        private bool? _allSelected;
+        #endregion Properties
+
+        #region AllDevicesEnabled
+        private bool _allSelectedChanging;
+        private void AllDevicesEnabledChanged()
+        {
+            // Has this change been caused by some other change?
+            // return so we don't mess things up
+            if (_allSelectedChanging) return;
+
+            try
+            {
+                _allSelectedChanging = true;
+
+                if (this.AllDevicesEnabled == true)
+                {
+                    this.ForEach(dev => dev.Enabled = true);
+                }
+                else if (this.AllDevicesEnabled == false)
+                {
+                    this.ForEach(dev => dev.Enabled = false);
+                }
+            }
+            finally
+            {
+                _allSelectedChanging = false;
+            }
+        }
+        private void RecheckAllDevicesEnabled()
+        {
+            // Has this change been caused by some other change?
+            // return so we don't mess things up
+            if (_allSelectedChanging) return;
+
+            try
+            {
+                _allSelectedChanging = true;
+
+                if (this.Count > 0)
+                {
+                    bool prev = this.First().Enabled;
+                    bool fullLoop = true;
+                    for (int i = 1; i < this.Count; ++i)
+                    {
+                        if (this[i].Enabled != prev)
+                        {
+                            fullLoop = false;
+                            this.AllDevicesEnabled = null;
+                            break;
+                        }
+                    }
+                    if (fullLoop)
+                        this.AllDevicesEnabled = prev;
+                }
+                else
+                {
+                    this.AllDevicesEnabled = false;
+                }
+            }
+            finally
+            {
+                _allSelectedChanging = false;
+            }
+        }
+        #endregion AllDevicesEnabled
+        #region HandleDeviceEvents
+        private void AudioDeviceOnPropertyChanged(object? sender, PropertyChangedEventArgs args)
+        {
+            // Only re-check if the IsChecked property changed
+            if (args.PropertyName == nameof(AudioDevice.Enabled))
+                this.RecheckAllDevicesEnabled();
+
+            // save changes to configuration
+            _audioAPI.SaveEnabledDevices();
+        }
         private void HandleDeviceAdded(object? sender, AudioDevice device)
         {
             if (Settings.EnabledDevices.Contains(device.DeviceID))
@@ -130,7 +195,7 @@ namespace VolumeControl.Audio.Collections
             else
             {
                 Log.Error($"{nameof(HandleDeviceStateChanged)} received invalid type {sender?.GetType().FullName}; expected {typeof(AudioDevice).FullName}");
-                Reload();
+                this.Reload();
             }
         }
         private void HandleDeviceRemoved(object? sender, EventArgs e)
@@ -144,20 +209,12 @@ namespace VolumeControl.Audio.Collections
             else
             {
                 Log.Error($"{nameof(HandleDeviceRemoved)} received invalid type {sender?.GetType().FullName}; expected {typeof(AudioDevice).FullName}");
-                Reload();
+                this.Reload();
             }
         }
         #endregion HandleDeviceEvents
 
         #region Methods
-        /// <summary>
-        /// Triggers an <see cref="INotifyPropertyChanged.PropertyChanged"/> event for all device &amp; session instances of <see cref="VolumeControl.Audio.Interfaces.IAudioControllable"/>
-        /// </summary>
-        private void UpdatePeakMeters()
-        {
-            for (int i = 0; i < this.Count; ++i)
-                this[i].UpdatePeakMeter(true);
-        }
         /// <summary>
         /// Finds a device using the <paramref name="predicate"/> function.
         /// </summary>
@@ -180,6 +237,7 @@ namespace VolumeControl.Audio.Collections
             dev.EnabledChanged += this.ForwardDeviceEnabledChanged;
             dev.SessionCreated += this.ForwardSessionCreated;
             dev.SessionRemoved += (s, e) => this.ForwardSessionRemoved(s, e.PID);
+            dev.PropertyChanged += this.AudioDeviceOnPropertyChanged;
             _ = this.Add(dev);
             return dev;
         }

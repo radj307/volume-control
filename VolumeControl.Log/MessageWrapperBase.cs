@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using VolumeControl.Log.Enum;
 
 namespace VolumeControl.Log
 {
@@ -10,7 +9,7 @@ namespace VolumeControl.Log
     {
         #region Constructor
         /// <summary>Creates a new <see cref="MessageWrapperBase"/>-derived instance.</summary>
-        protected MessageWrapperBase() => _message = new(GetMessage, true);
+        protected MessageWrapperBase() => _message = new(this.GetMessage, true);
         #endregion Constructor
 
         #region Properties

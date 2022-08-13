@@ -79,7 +79,7 @@ namespace VolumeControl.Audio
         /// <inheritdoc/>
         public AudioMeterInformation AudioMeterInformation => _controller.AudioMeterInformation;
         /// <inheritdoc/>
-        public float PeakMeterValue => AudioMeterInformation.MasterPeakValue;
+        public float PeakMeterValue => this.AudioMeterInformation.MasterPeakValue;
         /// <inheritdoc/>
         public string SessionIdentifier { get; }
         /// <inheritdoc/>
@@ -114,7 +114,7 @@ namespace VolumeControl.Audio
         /// See <see cref="Icons"/>
         /// </summary>
         /// <remarks><see cref="IconPair.GetBestFitIcon(bool)"/>. Prioritizes small icons.</remarks>
-        public ImageSource? Icon => Icons.GetBestFitIcon(false);
+        public ImageSource? Icon => this.Icons.GetBestFitIcon(false);
         /// <inheritdoc/>
         public int Volume
         {
@@ -247,10 +247,6 @@ namespace VolumeControl.Audio
         #endregion Events
 
         #region Methods
-        /// <summary>
-        /// Triggers the <see cref="PropertyChanged"/> event for the <see cref="PeakMeterValue"/> property, causing WPF to re-check the value &amp; update the meter display.
-        /// </summary>
-        internal void UpdatePeakMeter() => NotifyPropertyChanged(nameof(PeakMeterValue));
         /// <inheritdoc cref="IconGetter.GetIcons(string)"/>
         public IconPair GetIcons()
         {

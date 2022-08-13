@@ -58,9 +58,9 @@ namespace VolumeControl.Audio
 
         #region Properties
         /// <inheritdoc/>
-        public AudioMeterInformation AudioMeterInformation => MMDevice.AudioMeterInformation;
+        public AudioMeterInformation AudioMeterInformation => this.MMDevice.AudioMeterInformation;
         /// <inheritdoc/>
-        public float PeakMeterValue => AudioMeterInformation.MasterPeakValue;
+        public float PeakMeterValue => this.AudioMeterInformation.MasterPeakValue;
         private static LogWriter Log => FLog.Log;
         internal MMDevice MMDevice { get; }
         /// <summary>Whether this device is enabled by the user or not.</summary>
@@ -108,7 +108,7 @@ namespace VolumeControl.Audio
         /// See <see cref="Icons"/>
         /// </summary>
         /// <remarks><see cref="IconPair.GetBestFitIcon(bool)"/>. Prioritizes small icons.</remarks>
-        public ImageSource? Icon => Icons.GetBestFitIcon(false);
+        public ImageSource? Icon => this.Icons.GetBestFitIcon(false);
         /// <summary>
         /// Gets the friendly name of the endpoint adapter, excluding the name of the device.<br/>Example: "Speakers (XYZ Audio Adapter)"
         /// </summary>
@@ -282,15 +282,6 @@ namespace VolumeControl.Audio
         #endregion SessionEventHandlers
 
         #region Methods
-        /// <summary>
-        /// Triggers the <see cref="PropertyChanged"/> event for the <see cref="PeakMeterValue"/> property, causing WPF to re-check the value &amp; update the meter display.
-        /// </summary>
-        /// <param name="recurse_sessions">When <see langword="true"/>, calls the <see cref="AudioSession.UpdatePeakMeter"/> method on all sessions that are present in this instance's <see cref="Sessions"/> property; when <see langword="false"/>, only this device's peak meter is updated.</param>
-        internal void UpdatePeakMeter(bool recurse_sessions = false)
-        {
-            NotifyPropertyChanged(nameof(PeakMeterValue));
-            if (recurse_sessions) Sessions.ForEach(s => s.UpdatePeakMeter());
-        }
         /// <summary>Gets the device name without the interface name.</summary>
         /// <returns><see cref="string"/></returns>
         public string GetDeviceName() => Regex.Replace(this.FriendlyName, $"\\(\\s*?{this.DeviceFriendlyName}\\s*?\\)", "", RegexOptions.Compiled).Trim();

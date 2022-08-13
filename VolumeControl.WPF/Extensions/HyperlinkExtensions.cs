@@ -61,7 +61,7 @@ namespace VolumeControl.WPF.Extensions
         {
             try
             {
-                Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri)
+                _ = Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri)
                 {
                     Verb = "open",
                     UseShellExecute = true

@@ -149,12 +149,11 @@
             "Français (French)": "Audio"
           },
           "DeviceGrid": {
-            "Tooltip": {
-              "Français (French)": "Vous pouvez inclure ou exclure des dispositifs spécifiques à partir d'ici."
-            },
             "Enabled": {
               "Header": {
-                "Français (French)": "✓"
+                "Tooltip": {
+                  "Français (French)": "Vous pouvez inclure ou exclure des dispositifs spécifiques à partir d'ici."
+                }
               }
             },
             "Name": {
@@ -273,6 +272,14 @@
             },
             "Tooltip": {
               "Français (French)": "Lorsqu'il est activé, Volume Control est minimisé au démarrage."
+            }
+          },
+          "MultiInstance": {
+            "Content": {
+              "Français (French)": "Instance Multiple"
+            },
+            "Tooltip": {
+              "Français (French)": "Permet à plusieurs instances de Volume Control de s'exécuter en même temps, à condition qu'elles utilisent un fichier de configuration différent."
             }
           },
           "ShowInTaskbar": {

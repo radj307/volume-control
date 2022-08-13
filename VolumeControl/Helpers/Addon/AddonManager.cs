@@ -112,7 +112,7 @@ namespace VolumeControl.Helpers.Addon
                                 Log.Debug($"[ADDON]\tSkipped assembly {asm.FullName}; no valid types were found.");
                                 continue;
                             }
-                            
+
                             ++asmCount;
                             Log.Debug($"[ADDON]\tLoaded assembly {asm.FullName}");
                         }

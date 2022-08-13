@@ -4,12 +4,9 @@
  * This program creates a dummy locale with all of the values reversed for debugging purposes.
  */
 
+using Newtonsoft.Json.Linq;
 using System.Reflection;
 using TestLangLocalizationGenerator;
-using Newtonsoft;
-using System.Text.Json.Nodes;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 Assembly asm = Assembly.GetExecutingAssembly();
 

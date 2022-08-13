@@ -49,11 +49,9 @@ namespace VolumeControl
         #endregion Initializers
 
         #region Finalizers
-        private void Window_Unloaded(object sender, RoutedEventArgs e)
-        {
+        private void Window_Unloaded(object sender, RoutedEventArgs e) =>
             // Apply settings
             Settings.NotificationTimeoutMs = TimeoutTimer.Interval;
-        }
         #endregion Finalizers
 
         #region Fields

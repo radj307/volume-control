@@ -1,13 +1,12 @@
-﻿using AppConfig;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using VolumeControl.TypeExtensions;
 
-namespace VolumeControl.Helpers.Controls
+namespace VolumeControl.Controls
 {
     public class NotifyIcon : IDisposable
     {
+        #region Constructor
         public NotifyIcon()
         {
             _contextMenuStrip = new()
@@ -27,11 +26,17 @@ namespace VolumeControl.Helpers.Controls
                 ContextMenuStrip = _contextMenuStrip,
             };
 
-            _notifyIcon.MouseUp += HandleNotifyIconClicked;
+            _notifyIcon.MouseUp += this.HandleNotifyIconClicked;
         }
-        ~NotifyIcon() => this.Dispose();
+        #endregion Constructor
 
+        #region Finalizer
+        ~NotifyIcon() => this.Dispose();
+        #endregion Finalizer
+
+        #region Delegates
         public delegate bool Query();
+        #endregion Delegates
 
         #region Fields
         protected System.Windows.Forms.NotifyIcon _notifyIcon;
@@ -42,7 +47,7 @@ namespace VolumeControl.Helpers.Controls
         public event EventHandler? Clicked;
         private void HandleNotifyIconClicked(object? sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if (e.Button.HasAnyFlag(MouseButtonsFireClickedEvent))
+            if (e.Button.HasAnyFlag(this.MouseButtonsFireClickedEvent))
                 Clicked?.Invoke(this, EventArgs.Empty);
         }
         #endregion Events

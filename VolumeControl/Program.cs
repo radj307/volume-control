@@ -81,7 +81,7 @@ namespace VolumeControl
                 }
                 else
                 {
-                    Log.Fatal($"Failed to acquire a mutex lock using identifier '{mutexId}'; ", (Settings.AllowMultipleDistinctInstances ? $"another instance of Volume Control is using the config located at '{Settings.Location}'" : "another instance of Volume Control is already running!"));
+                    Log.Fatal($"Failed to acquire a mutex lock using identifier '{mutexId}'; ", Settings.AllowMultipleDistinctInstances ? $"another instance of Volume Control is using the config located at '{Settings.Location}'" : "another instance of Volume Control is already running!");
                     MessageBox.Show(Loc.Tr($"VolumeControl.Dialogs.AnotherInstanceIsRunning.{(Settings.AllowMultipleDistinctInstances ? "MultiInstance" : "SingleInstance")}", "Another instance of Volume Control is already running!").Replace("${PATH}", Settings.Location));
                     return;
                 }
@@ -129,14 +129,12 @@ namespace VolumeControl
 
         private static string HashFilePath(string path)
         {
-            MD5 md5 = MD5.Create();
+            var md5 = MD5.Create();
 
             byte[] pathBytes = Encoding.UTF8.GetBytes(path.ToLower());
-            md5.TransformFinalBlock(Encoding.UTF8.GetBytes(path.ToLower()), 0, pathBytes.Length);
+            _ = md5.TransformFinalBlock(Encoding.UTF8.GetBytes(path.ToLower()), 0, pathBytes.Length);
 
-            if (md5.Hash is not null)
-                return BitConverter.ToString(md5.Hash);
-            else return path;
+            return md5.Hash is not null ? BitConverter.ToString(md5.Hash) : path;
         }
         private static string GetProgramLocation()
         {

@@ -11,7 +11,7 @@ namespace VolumeControl.Log
     internal class SettingsInterface : INotifyPropertyChanged
     {
         #region Constructor
-        private SettingsInterface() => Settings.PropertyChanged += HandleSettingsPropertyChanged;
+        private SettingsInterface() => Settings.PropertyChanged += this.HandleSettingsPropertyChanged;
         #endregion Constructor
 
         #region Fields
@@ -40,38 +40,38 @@ namespace VolumeControl.Log
         #region Settings
         public bool EnableLogging
         {
-            get => (bool)Settings[nameof(EnableLogging)]!;
-            set => Settings[nameof(EnableLogging)] = value;
+            get => (bool)Settings[nameof(this.EnableLogging)]!;
+            set => Settings[nameof(this.EnableLogging)] = value;
         }
         public string LogPath
         {
-            get => (string)Settings[nameof(LogPath)]!;
-            set => Settings[nameof(LogPath)] = value;
+            get => (string)Settings[nameof(this.LogPath)]!;
+            set => Settings[nameof(this.LogPath)] = value;
         }
         public EventType LogFilter
         {
-            get => (EventType)Settings[nameof(LogFilter)]!;
-            set => Settings[nameof(LogFilter)] = value;
+            get => (EventType)Settings[nameof(this.LogFilter)]!;
+            set => Settings[nameof(this.LogFilter)] = value;
         }
         public bool LogClearOnInitialize
         {
-            get => (bool)Settings[nameof(LogClearOnInitialize)]!;
-            set => Settings[nameof(LogClearOnInitialize)] = value;
+            get => (bool)Settings[nameof(this.LogClearOnInitialize)]!;
+            set => Settings[nameof(this.LogClearOnInitialize)] = value;
         }
         public string LogTimestampFormat
         {
-            get => (string)Settings[nameof(LogTimestampFormat)]!;
-            set => Settings[nameof(LogTimestampFormat)] = value;
+            get => (string)Settings[nameof(this.LogTimestampFormat)]!;
+            set => Settings[nameof(this.LogTimestampFormat)] = value;
         }
         public bool LogEnableStackTrace
         {
-            get => (bool)Settings[nameof(LogEnableStackTrace)]!;
-            set => Settings[nameof(LogEnableStackTrace)] = value;
+            get => (bool)Settings[nameof(this.LogEnableStackTrace)]!;
+            set => Settings[nameof(this.LogEnableStackTrace)] = value;
         }
         public bool LogEnableStackTraceLineCount
         {
-            get => (bool)Settings[nameof(LogEnableStackTraceLineCount)]!;
-            set => Settings[nameof(LogEnableStackTraceLineCount)] = value;
+            get => (bool)Settings[nameof(this.LogEnableStackTraceLineCount)]!;
+            set => Settings[nameof(this.LogEnableStackTraceLineCount)] = value;
         }
         #endregion Settings
         #endregion Properties

@@ -1,7 +1,5 @@
 ﻿using Semver;
 using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -11,7 +9,6 @@ using VolumeControl.Core;
 using VolumeControl.Core.Enum;
 using VolumeControl.Helpers.Win32;
 using VolumeControl.Log;
-using VolumeControl.TypeExtensions;
 using VolumeControl.WPF;
 using VolumeControl.WPF.Collections;
 
@@ -92,18 +89,8 @@ namespace VolumeControl.Helpers
         /// <inheritdoc cref="Config.RunAtStartup"/>
         public bool? RunAtStartup
         {
-            get
-            {
-                if (!RunAtStartupHelper.ValueEquals(this.ExecutablePath) && !RunAtStartupHelper.ValueEqualsNull())
-                {
-                    return null;
-                }
-                return Settings.RunAtStartup;
-            }
-            set
-            {
-                RunAtStartupHelper.Value = (Settings.RunAtStartup = value ?? false) ? this.ExecutablePath : null;
-            }
+            get => !RunAtStartupHelper.ValueEquals(this.ExecutablePath) && !RunAtStartupHelper.ValueEqualsNull() ? null : Settings.RunAtStartup;
+            set => RunAtStartupHelper.Value = (Settings.RunAtStartup = value ?? false) ? this.ExecutablePath : null;
         }
         /// <inheritdoc/>
         public bool StartMinimized
@@ -182,6 +169,15 @@ namespace VolumeControl.Helpers
             get => Settings.ShowInTaskbar;
             set => Settings.ShowInTaskbar = value;
         }
+        public bool AllowMultipleDistinctInstances
+        {
+            get => Settings.AllowMultipleDistinctInstances;
+            set => Settings.AllowMultipleDistinctInstances = value;
+        }
+        /// <summary>
+        /// This is read-only since there wouldn't be a way for volume control to find the config again after restarting
+        /// </summary>
+        public string ConfigLocation => System.IO.Path.Combine(Environment.CurrentDirectory, Settings.Location);
         #endregion Properties
 
         #region Events

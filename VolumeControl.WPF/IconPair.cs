@@ -32,8 +32,8 @@ namespace VolumeControl.WPF
         /// <param name="largeIcon">Handle of a larger-sized icon. See <see cref="LargeIcon"/></param>
         public IconPair(IntPtr? smallIcon, IntPtr? largeIcon)
         {
-            if (smallIcon.HasValue) SmallIcon = CreateImageSourceFromIconHandle(smallIcon.Value);
-            if (largeIcon.HasValue) LargeIcon = CreateImageSourceFromIconHandle(largeIcon.Value);
+            if (smallIcon.HasValue) this.SmallIcon = CreateImageSourceFromIconHandle(smallIcon.Value);
+            if (largeIcon.HasValue) this.LargeIcon = CreateImageSourceFromIconHandle(largeIcon.Value);
         }
         /// <summary>
         /// Creates a new instance of <see cref="IconPair"/> with the given icon sources.
@@ -42,8 +42,8 @@ namespace VolumeControl.WPF
         /// <param name="largeIconSource"><see cref="LargeIcon"/></param>
         public IconPair(ImageSource? smallIconSource, ImageSource? largeIconSource)
         {
-            SmallIcon = smallIconSource;
-            LargeIcon = largeIconSource;
+            this.SmallIcon = smallIconSource;
+            this.LargeIcon = largeIconSource;
         }
 
         /// <summary>
@@ -59,21 +59,21 @@ namespace VolumeControl.WPF
         /// </summary>
         /// <param name="preferLarge"></param>
         /// <returns><see cref="LargeIcon"/> or <see cref="SmallIcon"/>.<br/>When <paramref name="preferLarge"/> is <see langword="true"/>, <see cref="LargeIcon"/> is preferred over <see cref="SmallIcon"/>; otherwise <see cref="SmallIcon"/> is preferred.</returns>
-        public ImageSource? GetBestFitIcon(bool preferLarge = true) => preferLarge ? (LargeIcon ?? SmallIcon) : (SmallIcon ?? LargeIcon);
+        public ImageSource? GetBestFitIcon(bool preferLarge = true) => preferLarge ? (this.LargeIcon ?? this.SmallIcon) : (this.SmallIcon ?? this.LargeIcon);
 
         /// <summary>
         /// Check if this <see cref="IconPair"/> instance does not contain any valid icons.
         /// </summary>
         /// <returns><see langword="true"/> when both <see cref="SmallIcon"/> &amp; <see cref="LargeIcon"/> are <see langword="null"/>; otherwise <see langword="false"/>.</returns>
-        public bool IsNull => SmallIcon is null && LargeIcon is null;
+        public bool IsNull => this.SmallIcon is null && this.LargeIcon is null;
 
         /// <summary>Deconstructs the <see cref="IconPair"/> into a tuple.</summary>
         /// <param name="smallIcon"><see cref="SmallIcon"/></param>
         /// <param name="largeIcon"><see cref="LargeIcon"/></param>
         public void Deconstruct(out ImageSource? smallIcon, out ImageSource? largeIcon)
         {
-            smallIcon = SmallIcon;
-            largeIcon = LargeIcon;
+            smallIcon = this.SmallIcon;
+            largeIcon = this.LargeIcon;
         }
     }
 }

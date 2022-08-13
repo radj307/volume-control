@@ -83,7 +83,7 @@ namespace VolumeControl.Core.Keyboard
                     }
                     catch (Exception ex)
                     {
-                        FLog.Log.Error($"The action handler for Hotkey {ID} ({Modifier:G}+{Key:G}) threw an exception!", ex);
+                        FLog.Log.Error($"The action handler for Hotkey {this.ID} ({this.Modifier:G}+{this.Key:G}) threw an exception!", ex);
                     }
                 }
                 break;

@@ -16,10 +16,10 @@ namespace VolumeControl.SDK
     {
         internal VCAPI(AudioAPI aAPI, HotkeyManager hkManager, IntPtr MainHWnd, Config settings)
         {
-            AudioAPI = aAPI;
-            HotkeyManager = hkManager;
-            MainWindowHWnd = MainHWnd;
-            Settings = settings;
+            this.AudioAPI = aAPI;
+            this.HotkeyManager = hkManager;
+            this.MainWindowHWnd = MainHWnd;
+            this.Settings = settings;
         }
 
         #region Statics

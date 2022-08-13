@@ -185,12 +185,14 @@
             }
           },
           "DeviceGrid": {
-            "Tooltip": {
-              "English (US/CA)": "You can include or exclude specific devices from here."
-            },
             "Enabled": {
               "Header": {
-                "English (US/CA)": "✓"
+                "Tooltip": {
+                  "English (US/CA)": "Checks/Unchecks all devices in the list."
+                }
+              },
+              "Tooltip": {
+                "English (US/CA)": "You can include or exclude specific devices from here."
               }
             },
             "Name": {
@@ -311,6 +313,14 @@
               "English (US/CA)": "When enabled, Volume Control will minimize itself when it starts up."
             }
           },
+          "MultiInstance": {
+            "Content": {
+              "English (US/CA)": "Multi-Instance"
+            },
+            "Tooltip": {
+              "English (US/CA)": "Allows multiple Volume Control instances to run at the same time, so long as they use a different config file."
+            }
+          },
           "ShowInTaskbar": {
             "Content": {
               "English (US/CA)": "Show in Taskbar"
@@ -380,6 +390,22 @@
           },
           "Tooltip": {
             "English (US/CA)": "Open the official Volume Control website in your default browser"
+          }
+        },
+        "ShowDebugInfo": {
+          "Header": {
+            "Content": {
+              "English (US/CA)": "Show Debug Info"
+            },
+            "Tooltip": {}
+          },
+          "ConfigPath": {
+            "Content": {
+              "English (US/CA)": ""
+            },
+            "Tooltip": {
+              "English (US/CA)": ""
+            }
           }
         }
       }

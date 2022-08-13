@@ -1,5 +1,4 @@
-﻿using AppConfig;
-using VolumeControl.Log.Endpoints;
+﻿using VolumeControl.Log.Endpoints;
 using VolumeControl.Log.Enum;
 
 namespace VolumeControl.Log
@@ -69,7 +68,7 @@ namespace VolumeControl.Log
             // get the full filepath to the log
             FilePath = Settings.LogPath;
             // Set the event type filter
-            EventFilter = (EventType)Settings.LogFilter;
+            EventFilter = Settings.LogFilter;
 
             var endpoint = new FileEndpoint(FilePath, Settings.EnableLogging);
 

@@ -15,22 +15,27 @@ namespace VolumeControl.Core
     [JsonObject]
     public class Config : AppConfig.ConfigurationFile
     {
+        #region Constructor
         /// <summary>
         /// Creates a new <see cref="Config"/> instance.
         /// </summary>
         /// <remarks>The first time this is called, the <see cref="AppConfig.Configuration.Default"/> property is set to that instance; all subsequent calls do not update this property.</remarks>
-        public Config() : base(_filePath)
-            => this.PropertyChanged += HandlePropertyChanged;
+        public Config() : base(_filePath) => PropertyChanged += this.HandlePropertyChanged;
+        #endregion Constructor
 
+        #region EventHandlers
         private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             Log.Debug($"Property '{e.PropertyName}' was modified, saving {nameof(Config)}...");
             this.Save();
         }
+        #endregion EventHandlers
 
+        #region Statics
         private static LogWriter Log => FLog.Log;
         // Default filepath used for the config file:
         private const string _filePath = "VolumeControl.json";
+        #endregion Statics
 
         #region Main
         /// <summary>

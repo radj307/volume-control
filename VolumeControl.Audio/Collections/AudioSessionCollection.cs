@@ -5,8 +5,11 @@ using VolumeControl.WPF.Collections;
 namespace VolumeControl.Audio.Collections
 {
     /// <summary>
-    /// Management container object for the <see cref="AudioSession"/> class.
+    /// <see cref="AudioSession"/> management container type.<br/>
+    /// This is implemented as a viewmodel in the <see cref="AudioAPI"/> class.
     /// </summary>
+    /// <remarks>This object does not maintain ownership of <see cref="AudioSession"/> objects; rather, it utilizes <see cref="AudioDevice.Sessions"/> to create a single binding point for the UI.<br/><br/>
+    /// <b>This object cannot be instantiated externally.</b></remarks>
     public class AudioSessionCollection : ObservableImmutableList<AudioSession>
     {
         #region Constructor

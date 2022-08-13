@@ -15,8 +15,8 @@ namespace VolumeControl.Log
         /// <param name="ex">The <see cref="System.Exception"/> instance to print.</param>
         public ExceptionMessage(string? msg, Exception ex)
         {
-            Message = msg;
-            Exception = ex;
+            this.Message = msg;
+            this.Exception = ex;
         }
         #endregion Constructor
 
@@ -35,17 +35,20 @@ namespace VolumeControl.Log
         // gets the formatted message prefix
         private string GetPrefix()
         {
-            if (Message is string msg && msg.Length > 0)
+            if (this.Message is string msg && msg.Length > 0)
             {
                 msg = msg.Trim();
                 if (!char.IsPunctuation(msg.Last()))
                     msg += ':';
                 return msg;
             }
-            else return string.Empty;
+            else
+            {
+                return string.Empty;
+            }
         }
         /// <inheritdoc/>
-        protected override IEnumerable GetMessage() => ToEnumerable($"{GetPrefix()} {LogWriter.FormatExceptionMessage(Exception)}");
+        protected override IEnumerable GetMessage() => ToEnumerable($"{this.GetPrefix()} {LogWriter.FormatExceptionMessage(this.Exception)}");
         #endregion Methods
     }
 }

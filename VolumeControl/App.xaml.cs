@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows;
+using VolumeControl.Controls;
 using VolumeControl.Helpers;
-using VolumeControl.Helpers.Controls;
 using VolumeControl.Log;
 
 namespace VolumeControl
@@ -62,7 +62,7 @@ namespace VolumeControl
         }
         private void HandleTrayIconClick(object? sender, EventArgs e)
         {
-            if (MainWindow.IsVisible)
+            if (this.MainWindow.IsVisible)
                 this.HideMainWindow();
             else
                 this.ShowMainWindow();

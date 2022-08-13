@@ -124,7 +124,7 @@ namespace VolumeControl.Helpers
         private static void CreateDefaultFiles(bool overwrite = false)
         {
             if (!Directory.Exists(DefaultPath))
-                Directory.CreateDirectory(DefaultPath);
+                _ = Directory.CreateDirectory(DefaultPath);
 
             var asm = Assembly.GetExecutingAssembly();
             const string resourcePath = "VolumeControl.Localization"; //< specifies the directory/namespace where localization files are located (relative to the solution dir)
@@ -139,7 +139,7 @@ namespace VolumeControl.Helpers
 
                     if (overwrite || !File.Exists(filepath))
                     {
-                        using var stream = asm.GetManifestResourceStream(embeddedResourceName);
+                        using Stream? stream = asm.GetManifestResourceStream(embeddedResourceName);
 
                         if (stream is null || stream.Length.Equals(0))
                             continue;
@@ -185,7 +185,7 @@ namespace VolumeControl.Helpers
             set
             {
                 _currentPath.Clear();
-                value.Split('.').ForEach(_currentPath.Push);
+                _ = value.Split('.').ForEach(_currentPath.Push);
             }
         }
 
@@ -196,11 +196,11 @@ namespace VolumeControl.Helpers
             _fileName = fileName;
             try
             {
-                JObject root = (JObject)JToken.Parse(File.ReadAllText(fileName));
+                var root = (JObject)JToken.Parse(File.ReadAllText(fileName));
                 if (!root.ContainsKey("LanguageName"))
                     throw new JsonException("Language Config files must contain a 'LanguageName' metadata section!");
-                SetLanguageMetadataFromObject(ref root);
-                LoadFromObject(root, loader);
+                this.SetLanguageMetadataFromObject(ref root);
+                this.LoadFromObject(root, loader);
             }
             catch (Exception ex)
             {
@@ -210,7 +210,7 @@ namespace VolumeControl.Helpers
 
         private void SetLanguageMetadataFromObject(ref JObject root)
         {
-            var meta = root["LanguageName"];
+            JToken? meta = root["LanguageName"];
             if (meta is null || !meta.Type.Equals(JTokenType.Object))
                 throw new JsonException($"Invalid 'LanguageName' metadata section in language config file '{_fileName}'!");
 
@@ -221,7 +221,7 @@ namespace VolumeControl.Helpers
                 _langIndex.Add(key, (string?)valueToken ?? string.Empty);
             }
 
-            root.Remove("LanguageName");
+            _ = root.Remove("LanguageName");
         }
 
         private void LoadFromObject(JObject obj, LocalizationLoader loader)
@@ -236,7 +236,7 @@ namespace VolumeControl.Helpers
                 {
                 case JTokenType.Array:
                     s = string.Empty;
-                    ((JArray)val).ForEach(item =>
+                    _ = ((JArray)val).ForEach(item =>
                     {
                         if (item.Type.Equals(JTokenType.String))
                         {
@@ -253,13 +253,13 @@ namespace VolumeControl.Helpers
                         throw new Exception($"Language '{key}' is missing a metadata entry!");
 
                     if (s is not null && s.Length > 0)
-                        loader.AddTranslation(CurrentPath, _langIndex[key], s, _fileName);
+                        loader.AddTranslation(this.CurrentPath, _langIndex[key], s, _fileName);
 
                     break;
                 case JTokenType.Object:
                     _currentPath.Push(key);
-                    LoadFromObject((JObject)val, loader); //< recurse
-                    _currentPath.Pop();
+                    this.LoadFromObject((JObject)val, loader); //< recurse
+                    _ = _currentPath.Pop();
                     break;
                 default: break;
                 }

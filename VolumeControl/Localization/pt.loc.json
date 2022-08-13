@@ -149,12 +149,11 @@
             "Portuguese (Portugal)": "Áudio"
           },
           "DeviceGrid": {
-            "Tooltip": {
-              "Portuguese (Portugal)": "Pode incluir ou excluir dispositivos específicos a partir daqui."
-            },
             "Enabled": {
               "Header": {
-                "Portuguese (Portugal)": "✓"
+                "Tooltip": {
+                  "Portuguese (Portugal)": "Pode incluir ou excluir dispositivos específicos a partir daqui."
+                }
               }
             },
             "Name": {
@@ -275,6 +274,14 @@
               "Portuguese (Portugal)": "Quando activado, Volume Control irá minimizar-se a si próprio quando arrancar."
             }
           },
+          "MultiInstance": {
+            "Content": {
+              "Portuguese (Portugal)": "Multi-Instâncias"
+            },
+            "Tooltip": {
+              "Portuguese (Portugal)": "Permite que várias instâncias de Volume Control sejam executadas ao mesmo tempo, desde que utilizem um ficheiro config diferente."
+            }
+          },
           "ShowInTaskbar": {
             "Content": {
               "Portuguese (Portugal)": "Mostrar na Barra de Tarefas"
@@ -327,6 +334,7 @@
         }
       }
     },
+
     "Dialogs": {
       "AnotherInstanceIsRunning": {
         "MultiInstance": {
@@ -345,6 +353,7 @@
         }
       }
     },
+
     "NotifyIcon": {
       "BringToFront": {
         "Portuguese (Portugal)": "Traze Para a Frente"

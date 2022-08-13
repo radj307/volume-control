@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using VolumeControl.Log.Endpoints;
@@ -179,7 +178,7 @@ namespace VolumeControl.Log
                 }
                 else if (line is IEnumerable enumerable)
                 { // Special handling for enumerable types that prints each element on a new line.
-                    var e = enumerable.GetEnumerator();
+                    IEnumerator? e = enumerable.GetEnumerator();
 
                     do
                     {

@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Interop;
-using VolumeControl.SDK;
 using VolumeControl.Core;
 using VolumeControl.Hotkeys.Attributes;
+using VolumeControl.SDK;
 
 namespace VolumeControl.Hotkeys.Addons
 {

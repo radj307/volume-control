@@ -20,7 +20,7 @@ namespace VolumeControl
     /// </summary>
     public partial class Mixer : Window
     {
-        #region Init
+        #region Setup
         public Mixer()
         {
             this.InitializeComponent();
@@ -28,17 +28,19 @@ namespace VolumeControl
             this.ShowInTaskbar = Settings.ShowInTaskbar;
             this.Topmost = Settings.AlwaysOnTop;
         }
-
         private void Window_Initialized(object sender, EventArgs e)
         {
             if (Settings.StartMinimized) this.Hide();
         }
+        #endregion Setup
+
+        #region Teardown
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             this.HotkeyAPI.Dispose();
             e.Cancel = false;
         }
-        #endregion Init
+        #endregion Teardown
 
         #region Properties
         private ListNotification ListNotification => (this.FindResource("Notification") as ListNotification)!;
@@ -88,10 +90,7 @@ namespace VolumeControl
         private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e) => this.VCSettings.ResetHotkeySettings();
 
         /// <summary>Handles click events on the language datagrid's add button.</summary>
-        private void Handle_LanguageGridAddClick(object sender, RoutedEventArgs e)
-        {
-            Settings.CustomLocalizationDirectories.Add(string.Empty);
-        }
+        private void Handle_LanguageGridAddClick(object sender, RoutedEventArgs e) => Settings.CustomLocalizationDirectories.Add(string.Empty);
         /// <summary>Handles click events on the language datagrid's remove buttons.</summary>
         private void Handle_LanguageGridRemoveClick(object sender, RoutedEventArgs e)
         {
@@ -100,7 +99,7 @@ namespace VolumeControl
                 int pos = Settings.CustomLocalizationDirectories.IndexOf(name);
                 if (pos != -1)
                 {
-                    Settings.CustomLocalizationDirectories.RemoveAt(pos);
+                    _ = Settings.CustomLocalizationDirectories.RemoveAt(pos);
                 }
             }
         }

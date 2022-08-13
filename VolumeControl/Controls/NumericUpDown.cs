@@ -6,12 +6,11 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
-namespace VolumeControl
+namespace VolumeControl.Controls
 {
     [TemplatePart(Name = "PART_TextBox", Type = typeof(TextBox))]
     [TemplatePart(Name = "PART_IncreaseButton", Type = typeof(RepeatButton))]
     [TemplatePart(Name = "PART_DecreaseButton", Type = typeof(RepeatButton))]
-#   pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class NumericUpDown : Control
     {
         #region Properties
@@ -678,5 +677,4 @@ namespace VolumeControl
 
         #endregion
     }
-#   pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

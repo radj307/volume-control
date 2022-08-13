@@ -107,7 +107,7 @@ namespace AppConfig
             if (JsonFile.Load(path, this.GetType()) is Configuration cfg)
             {
                 this.SetTo(cfg);
-                NotifyLoaded();
+                this.NotifyLoaded();
                 return true;
             }
             return false;
@@ -123,7 +123,7 @@ namespace AppConfig
             if (path.Length == 0)
                 return;
             JsonFile.Save(path, this, formatting);
-            NotifySaved();
+            this.NotifySaved();
         }
         #endregion Methods
     }

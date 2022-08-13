@@ -3,16 +3,18 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Collections="clr-namespace:VolumeControl.WPF.Collections;assembly=VolumeControl.WPF"
+    xmlns:autocomplete="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
     xmlns:b="clr-namespace:VolumeControl.WPF.Bindings;assembly=VolumeControl.WPF"
-    xmlns:behaviors="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
+    xmlns:behaviour="clr-namespace:XamlTimers;assembly=XamlTimers"
+    xmlns:controls="clr-namespace:VolumeControl.Controls"
     xmlns:conv="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
     xmlns:core="clr-namespace:VolumeControl.Core;assembly=VolumeControl.Core"
     xmlns:ctrlz="urn:controlzex"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:extensions="clr-namespace:VolumeControl.WPF.Extensions;assembly=VolumeControl.WPF"
     xmlns:helpers="clr-namespace:VolumeControl.Helpers"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:loc="clr-namespace:CodingSeb.Localization;assembly=CodingSeb.Localization"
-    xmlns:local="clr-namespace:VolumeControl"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
     x:Name="window"
@@ -49,11 +51,12 @@
             <sys:Double x:Key="CaptionHeight">22</sys:Double>
 
             <CornerRadius x:Key="RoundedControlCorner">4</CornerRadius>
+            <CornerRadius x:Key="RoundedWindowCorner">5</CornerRadius>
 
             <!--  Window Colors  -->
             <Color x:Key="WindowBackgroundColor">#D222</Color>
             <SolidColorBrush x:Key="WindowBorderBrush">#D0252525</SolidColorBrush>
-            <Thickness x:Key="WindowBorderThickness">2</Thickness>
+            <Thickness x:Key="WindowBorderThickness">3</Thickness>
             <SolidColorBrush x:Key="UpdateIconBrush">Yellow</SolidColorBrush>
 
             <!--  Tabs  -->
@@ -75,34 +78,6 @@
             <SolidColorBrush x:Key="GridRowAltBrush">#555</SolidColorBrush>
             <SolidColorBrush x:Key="GridHorizontalLineBrush">#222</SolidColorBrush>
 
-            <!--
-            <LinearGradientBrush x:Key="AccentGradient" StartPoint="0.05,0" EndPoint="0.95,1">
-                <GradientStop Offset="0" Color="#DD00C46A" />
-                <GradientStop Offset="1" Color="#DD00C06E" />
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="AccentGradientMouseOver" StartPoint="0.05,0" EndPoint="0.95,1">
-                <GradientStop Offset="0" Color="#DD00D47A" />
-                <GradientStop Offset="1" Color="#DD00D07E" />
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="AccentGradientIsPressed" StartPoint="0.05,0" EndPoint="0.95,1">
-                <GradientStop Offset="0" Color="#DD00E47A" />
-                <GradientStop Offset="1" Color="#DD00E07E" />
-            </LinearGradientBrush>
-            -->
-            <!--
-            <LinearGradientBrush x:Key="AccentGradient" SpreadMethod="Reflect" StartPoint="0.15,-0.1" EndPoint="0.7, 1.1">
-                <GradientStop Offset="0" Color="#5DB3D8" />
-                <GradientStop Offset="1" Color="#56A0D8" />
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="AccentGradientMouseOver" SpreadMethod="Reflect" StartPoint="0.15,-0.1" EndPoint="0.7, 1.1">
-                <GradientStop Offset="0" Color="#DD00D47A" />
-                <GradientStop Offset="1" Color="#DD00D07E" />
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="AccentGradientIsPressed" SpreadMethod="Reflect" StartPoint="0.15,-0.1" EndPoint="0.7, 1.1">
-                <GradientStop Offset="0" Color="#DD00E47A" />
-                <GradientStop Offset="1" Color="#DD00E07E" />
-            </LinearGradientBrush>
-            -->
             <LinearGradientBrush x:Key="AccentGradient" StartPoint="0.05,0" EndPoint="0.95,1">
                 <GradientStop Offset="0" Color="#AFAFAF" />
                 <GradientStop Offset="1" Color="#9E9E9E" />
@@ -122,6 +97,10 @@
             <LinearGradientBrush x:Key="AccentGradientIsChecked" StartPoint="0.05,0" EndPoint="0.95,1">
                 <GradientStop Offset="0" Color="#EEE" />
                 <GradientStop Offset="1" Color="#FFF" />
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="AccentGradientActivatedDark" StartPoint="0.05,0" EndPoint="0.95,1">
+                <GradientStop Offset="0" Color="#CCC" />
+                <GradientStop Offset="1" Color="#EEE" />
             </LinearGradientBrush>
 
             <SolidColorBrush x:Key="AccentForeground" Color="#222" />
@@ -742,96 +721,89 @@
                     </Style>
                 </ControlTemplate.Resources>
                 <Grid Background="#0000">
+                    <Grid.Resources>
+                        <conv:ConverterChain x:Key="InvertedBooleanToVisibilityConverter">
+                            <conv:BooleanInverter />
+                            <BooleanToVisibilityConverter />
+                        </conv:ConverterChain>
+                    </Grid.Resources>
                     <Border
-                        Name="trackBackground"
-                        Height="2"
+                        Height="4"
                         Margin="1,0"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         Background="{TemplateBinding Background}"
-                        BorderThickness="0" />
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <TickBar
-                            x:Name="TopTicks"
-                            Grid.Row="0"
-                            Margin="1,0"
-                            HorizontalAlignment="Stretch"
-                            Fill="Black"
-                            SnapsToDevicePixels="True"
-                            TickFrequency="{TemplateBinding TickFrequency}" />
-                        <Track
-                            Name="PART_Track"
-                            Grid.Row="1"
-                            Value="{TemplateBinding Value}">
-                            <Track.DecreaseRepeatButton>
-                                <RepeatButton
-                                    Background="#0000"
-                                    Command="Slider.DecreaseLarge"
-                                    SnapsToDevicePixels="True" />
-
-                            </Track.DecreaseRepeatButton>
-                            <Track.Thumb>
-                                <Thumb
-                                    x:Name="Thumb"
-                                    Background="{TemplateBinding Foreground}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    SnapsToDevicePixels="True">
-                                    <Thumb.Template>
-                                        <ControlTemplate TargetType="{x:Type Thumb}">
-                                            <Border
-                                                Width="14"
-                                                Height="14"
-                                                VerticalAlignment="Center"
-                                                Background="{TemplateBinding Background}"
-                                                BorderBrush="{TemplateBinding BorderBrush}"
-                                                BorderThickness="{TemplateBinding BorderThickness}"
-                                                CornerRadius="7" />
-                                        </ControlTemplate>
-                                    </Thumb.Template>
-                                </Thumb>
-                            </Track.Thumb>
-                            <Track.IncreaseRepeatButton>
-                                <RepeatButton
-                                    Background="#0000"
-                                    Command="Slider.IncreaseLarge"
-                                    SnapsToDevicePixels="True" />
-                            </Track.IncreaseRepeatButton>
-                        </Track>
-                        <TickBar
-                            x:Name="BottomTicks"
-                            Grid.Row="2"
-                            Margin="1,0"
-                            HorizontalAlignment="Stretch"
-                            Fill="Black"
-                            SnapsToDevicePixels="True"
-                            TickFrequency="{TemplateBinding TickFrequency}" />
-                    </Grid>
+                        BorderThickness="0"
+                        Visibility="{Binding ShowPeakMeters, Source={StaticResource Settings}, Converter={StaticResource InvertedBooleanToVisibilityConverter}}" />
+                    <ProgressBar
+                        Height="4"
+                        Margin="1,0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        Background="{TemplateBinding Background}"
+                        Maximum="1.0"
+                        Minimum="0.0"
+                        Visibility="{Binding ShowPeakMeters, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Value="{Binding Tag, RelativeSource={RelativeSource AncestorType={x:Type Slider}}, Converter={StaticResource TagDoubleConverter}}" />
+                    <Track Name="PART_Track" Value="{TemplateBinding Value}">
+                        <Track.DecreaseRepeatButton>
+                            <RepeatButton
+                                Background="#0000"
+                                Command="Slider.DecreaseLarge"
+                                SnapsToDevicePixels="True" />
+                        </Track.DecreaseRepeatButton>
+                        <Track.Thumb>
+                            <Thumb
+                                x:Name="Thumb"
+                                Background="{TemplateBinding Foreground}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="True">
+                                <Thumb.Template>
+                                    <ControlTemplate TargetType="{x:Type Thumb}">
+                                        <Ellipse
+                                            x:Name="PART_ThumbEllipse"
+                                            Width="15"
+                                            Height="15"
+                                            VerticalAlignment="Center"
+                                            Fill="{TemplateBinding Background}"
+                                            Stroke="{TemplateBinding BorderBrush}"
+                                            StrokeThickness="{TemplateBinding BorderThickness}" />
+                                    </ControlTemplate>
+                                </Thumb.Template>
+                                <Thumb.Style>
+                                    <Style TargetType="{x:Type Thumb}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource AccentGradientMouseOver}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsDragging, RelativeSource={RelativeSource Self}}" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource AccentGradientIsPressed}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="True">
+                                                <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
+                                                <Setter Property="BorderThickness" Value="{StaticResource SelectionBorderThickness}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Thumb.Style>
+                            </Thumb>
+                        </Track.Thumb>
+                        <Track.IncreaseRepeatButton>
+                            <RepeatButton
+                                Background="#0000"
+                                Command="Slider.IncreaseLarge"
+                                SnapsToDevicePixels="True" />
+                        </Track.IncreaseRepeatButton>
+                    </Track>
                 </Grid>
-                <ControlTemplate.Triggers>
-                    <DataTrigger Binding="{Binding TickPlacement, RelativeSource={RelativeSource TemplatedParent}}" Value="TopLeft">
-                        <Setter TargetName="TopTicks" Property="Visibility" Value="Visible" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding TickPlacement, RelativeSource={RelativeSource TemplatedParent}}" Value="BottomRight">
-                        <Setter TargetName="BottomTicks" Property="Visibility" Value="Visible" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding TickPlacement, RelativeSource={RelativeSource TemplatedParent}}" Value="Both">
-                        <Setter TargetName="TopTicks" Property="Visibility" Value="Visible" />
-                        <Setter TargetName="BottomTicks" Property="Visibility" Value="Visible" />
-                    </DataTrigger>
-                </ControlTemplate.Triggers>
             </ControlTemplate>
             <!--  SliderCustomStyle  -->
-            <Style x:Key="SliderCustomStyle" TargetType="{x:Type Slider}">
+            <Style x:Key="{x:Type Slider}" TargetType="{x:Type Slider}">
                 <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
+                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
                         <Setter Property="Foreground" Value="{StaticResource AccentGradientMouseOver}" />
-                    </Trigger>
+                    </DataTrigger>
                 </Style.Triggers>
                 <Setter Property="Template" Value="{StaticResource CustomSliderTemplate}" />
                 <Setter Property="Background" Value="WhiteSmoke" />
@@ -839,7 +811,7 @@
                 <Setter Property="BorderThickness" Value="0" />
             </Style>
             <!--  NumericUpDownStyle  -->
-            <Style TargetType="{x:Type local:NumericUpDown}">
+            <Style TargetType="{x:Type controls:NumericUpDown}">
                 <!--  Use an even number for height so that the buttons are the same size  -->
                 <Setter Property="Height" Value="24" />
                 <Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
@@ -857,7 +829,7 @@
                 <Setter Property="Focusable" Value="False" />
                 <Setter Property="Template">
                     <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type local:NumericUpDown}">
+                        <ControlTemplate TargetType="{x:Type controls:NumericUpDown}">
                             <Border
                                 Name="nudBorder"
                                 Width="{TemplateBinding Width}"
@@ -1003,16 +975,8 @@
                         <ContentPresenter
                             Grid.Column="1"
                             Margin="5,0,0,0"
-                            Content="{TemplateBinding Content}" />
-                        <Ellipse
-                            Name="Circle"
-                            Grid.Column="0"
-                            Width="20"
-                            Height="20"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Stroke="{StaticResource AccentGradient}"
-                            Visibility="Collapsed" />
+                            Content="{TemplateBinding Content}"
+                            TextBlock.FontWeight="Light" />
                         <Path
                             x:Name="ExpanderSymbol"
                             Grid.Column="0"
@@ -1029,14 +993,6 @@
                 <ControlTemplate.Triggers>
                     <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Value="True">
                         <Setter TargetName="ExpanderSymbol" Property="Data" Value="M 4,4 H 10 Z" />
-                        <Setter TargetName="Circle" Property="StrokeThickness" Value="1.1" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter TargetName="Circle" Property="Stroke" Value="{StaticResource AccentGradientMouseOver}" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter TargetName="Circle" Property="Stroke" Value="{StaticResource AccentGradientIsPressed}" />
-                        <Setter TargetName="Circle" Property="StrokeThickness" Value="1.5" />
                     </DataTrigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
@@ -1046,12 +1002,22 @@
                         x:Name="ExpanderButton"
                         Margin="1"
                         Padding="1.5,0"
+                        VerticalAlignment="Center"
                         Content="{TemplateBinding Header}"
                         DockPanel.Dock="Top"
                         IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         OverridesDefaultStyle="True"
-                        Style="{StaticResource ToggleButtonStyle}"
-                        Template="{StaticResource ExpanderToggleButtonTemplate}" />
+                        Template="{StaticResource ExpanderToggleButtonTemplate}">
+                        <ToggleButton.Style>
+                            <Style BasedOn="{StaticResource ToggleButtonStyle}" TargetType="{x:Type ToggleButton}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Value="True">
+                                        <Setter Property="Foreground" Value="{StaticResource AccentGradientActivatedDark}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ToggleButton.Style>
+                    </ToggleButton>
                     <ContentPresenter
                         x:Name="ExpanderContent"
                         Margin="5,6,5,0"
@@ -1110,6 +1076,7 @@
                 <Setter Property="Padding" Value="3" />
             </Style>
 
+            <!--  Hyperlink  -->
             <Style TargetType="{x:Type Hyperlink}">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
@@ -1123,11 +1090,13 @@
             <!--  KeyOptions  -->
             <helpers:KeyOptions x:Key="KeyOptions" />
 
-            <!--  Uris  -->
+            <!--  URIs  -->
             <sys:Uri x:Key="VolumeControlRepository">https://github.com/radj307/volume-control</sys:Uri>
             <sys:Uri x:Key="VolumeControlBugReport">https://github.com/radj307/volume-control/issues/new?assignees=radj307&amp;labels=bug%2Ctriage&amp;template=BugReport.yml&amp;title=%5BBUG%5D+</sys:Uri>
 
             <ImageSource x:Key="VolumeControlIcon">pack://application:,,,/Resources/images/icon.png</ImageSource>
+
+
         </ResourceDictionary>
     </Window.Resources>
     <!--  ( Window Background )  -->
@@ -1137,7 +1106,10 @@
 
     <!--  ( Element Layout )  -->
     <!--  Window Border  -->
-    <Border BorderBrush="{StaticResource WindowBorderBrush}" BorderThickness="{StaticResource WindowBorderThickness}">
+    <Border
+        BorderBrush="{StaticResource WindowBorderBrush}"
+        BorderThickness="{StaticResource WindowBorderThickness}"
+        CornerRadius="{StaticResource RoundedWindowCorner}">
         <VirtualizingStackPanel FlowDirection="LeftToRight" Orientation="Vertical">
             <!--  v Caption Bar v  -->
             <Grid Name="CaptionBar" Height="{StaticResource CaptionHeight}">
@@ -1307,8 +1279,8 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBox
                                             x:Name="targetbox"
-                                            behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TargetAutoCompleteSource, Source={StaticResource Settings}}"
-                                            behaviors:AutoCompleteBehavior.AutoCompleteStringComparison="OrdinalIgnoreCase"
+                                            autocomplete:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TargetAutoCompleteSource, Source={StaticResource Settings}}"
+                                            autocomplete:AutoCompleteBehavior.AutoCompleteStringComparison="OrdinalIgnoreCase"
                                             d:Text=""
                                             AutoWordSelection="True"
                                             Background="#0000"
@@ -1316,7 +1288,7 @@
                                             Foreground="{StaticResource TextBoxForeground}"
                                             HorizontalScrollBarVisibility="Hidden"
                                             IsEnabled="{Binding IsChecked, ElementName=cbLockTargetSelection, Converter={StaticResource InvertConverter}}"
-                                            IsInactiveSelectionHighlightEnabled="False"
+                                            IsInactiveSelectionHighlightEnabled="True"
                                             MouseDoubleClick="Handle_TargetNameBoxDoubleClick"
                                             Style="{StaticResource TextBoxStyle}"
                                             Text="{Binding AudioAPI.Target, Source={StaticResource Settings}, UpdateSourceTrigger=LostFocus}" />
@@ -1439,7 +1411,15 @@
                                                                 Maximum="100"
                                                                 Minimum="0"
                                                                 SmallChange="1"
-                                                                Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                                Tag="{Binding PeakMeterValue}"
+                                                                Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                                                <i:Interaction.Behaviors>
+                                                                    <behaviour:IntervalUpdateBinding
+                                                                        EnableTimer="{Binding ShowPeakMeters, Source={StaticResource Settings}}"
+                                                                        Interval="{Binding PeakMeterUpdateIntervalMs, Source={StaticResource Settings}}"
+                                                                        Property="{x:Static FrameworkElement.TagProperty}" />
+                                                                </i:Interaction.Behaviors>
+                                                            </Slider>
                                                             <!--  TextBox  -->
                                                             <TextBox
                                                                 x:Name="dgVolumeTextBox"
@@ -1450,13 +1430,6 @@
                                                                 BorderThickness="0"
                                                                 Style="{StaticResource TextBoxStyle}"
                                                                 Text="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                                            <ProgressBar
-                                                                Grid.Row="1"
-                                                                Grid.Column="0"
-                                                                Grid.ColumnSpan="4"
-                                                                Style="{StaticResource ProgressBarPeakMeterStyle}"
-                                                                Visibility="{Binding ShowPeakMeters, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                                Value="{Binding PeakMeterValue, Mode=OneWay}" />
                                                         </Grid>
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
@@ -1521,7 +1494,7 @@
                                     Style="{StaticResource LabelStyle}"
                                     ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.VolumeStep.Tooltip',
                                                  DefaultText='This is the number of volume [apos]ticks[apos] that change each time you press the volume up or down hotkeys.'}" />
-                                <local:NumericUpDown
+                                <controls:NumericUpDown
                                     x:Name="nudVolumeStepSize"
                                     MinWidth="55"
                                     HorizontalAlignment="Center"
@@ -1849,9 +1822,8 @@
                                         <Grid Grid.Column="1">
                                             <Border Name="AudioAdditionalSettingsMask" Style="{StaticResource RoundBorderMaskStyle}" />
                                             <UniformGrid
-                                                Margin="2"
                                                 HorizontalAlignment="Stretch"
-                                                Background="{StaticResource TabBackgroundBrush}"
+                                                Background="{StaticResource TextBoxBackground}"
                                                 Columns="1"
                                                 FlowDirection="LeftToRight"
                                                 Rows="2">
@@ -1859,26 +1831,29 @@
                                                     <VisualBrush Visual="{Binding ElementName=AudioAdditionalSettingsMask}" />
                                                 </UniformGrid.OpacityMask>
 
-                                                <DockPanel LastChildFill="True">
+                                                <DockPanel Margin="5,3,5,0" LastChildFill="True">
 
                                                     <CheckBox
-                                                        Content="{Tr 'VolumeControl.MainWindow.Settings.Audio.ShowPeakMeters.Content',
+                                                        VerticalAlignment="Center"
+                                                        Content="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.ShowPeakMeters.Content',
                                                                      DefaultText='Show Peak Meters'}"
                                                         IsChecked="{Binding ShowPeakMeters, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                                         Style="{StaticResource ApplicationSettingsCheckboxStyle}"
-                                                        ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.ShowPeakMeters.Tooltip',
-                                                                     DefaultText='Shows audio peaking meters next to each audio session in the mixer, similar to the Windows Audio Mixer'}" />
+                                                        ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.ShowPeakMeters.Tooltip',
+                                                                     DefaultText='Toggle the audio peaking meters shown in the Mixer.'}" />
                                                     <TextBlock
                                                         Margin="5,3,0,3"
+                                                        VerticalAlignment="Center"
                                                         Style="{StaticResource TextBlockStyle}"
                                                         Text="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.UpdateInterval.Content',
                                                                   DefaultText='Update Interval'}"
                                                         ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.UpdateInterval.Tooltip',
                                                                      DefaultText='The amount of time, in milliseconds, between each update of the peak meters in the Mixer.'}" />
-                                                    <local:NumericUpDown
+                                                    <controls:NumericUpDown
                                                         Grid.Column="1"
                                                         Margin="5,3"
                                                         HorizontalAlignment="Stretch"
+                                                        VerticalAlignment="Center"
                                                         MaxValue="120000"
                                                         MinValue="50"
                                                         ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.UpdateInterval.Tooltip',
@@ -1886,9 +1861,10 @@
                                                         Value="{Binding PeakMeterUpdateIntervalMs, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}" />
                                                 </DockPanel>
 
-                                                <DockPanel LastChildFill="True">
+                                                <DockPanel Margin="5,0,5,3" LastChildFill="True">
                                                     <CheckBox
                                                         Grid.Row="1"
+                                                        VerticalAlignment="Center"
                                                         Content="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.EnableDeviceControl.Content',
                                                                      DefaultText='Show Device Controls'}"
                                                         IsChecked="{Binding EnableDeviceControl, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
@@ -1926,27 +1902,32 @@
                                                 DataContext="{StaticResource Settings}"
                                                 ItemsSource="{Binding AudioAPI.Devices, UpdateSourceTrigger=PropertyChanged}"
                                                 MinRowHeight="22"
-                                                Style="{StaticResource DataGridStyle}"
-                                                ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.DeviceGrid.Tooltip',
-                                                             DefaultText='You can include or exclude specific devices from here.'}">
+                                                Style="{StaticResource DataGridStyle}">
                                                 <DataGrid.OpacityMask>
                                                     <VisualBrush Visual="{Binding ElementName=DeviceGridMask}" />
                                                 </DataGrid.OpacityMask>
                                                 <DataGrid.Columns>
                                                     <!--  Enabled checkbox  -->
-                                                    <DataGridTemplateColumn
-                                                        Width="26"
-                                                        CanUserResize="False"
-                                                        Header="{Tr 'VolumeControl.MainWindow.Settings.Audio.DeviceGrid.Enabled.Header',
-                                                                    DefaultText='✓'}">
+                                                    <DataGridTemplateColumn Width="Auto" CanUserResize="False">
+                                                        <DataGridTemplateColumn.Header>
+                                                            <CheckBox
+                                                                Margin="3,0,0,0"
+                                                                d:IsChecked="{x:Null}"
+                                                                Click="Handle_ThreeStateCheckboxClick"
+                                                                IsChecked="{Binding AudioAPI.Devices.AllDevicesEnabled, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                                                                IsThreeState="True"
+                                                                Style="{StaticResource CheckBoxStyle}"
+                                                                ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.DeviceGrid.Enabled.Header.Tooltip',
+                                                                             DefaultText='Checks/Unchecks all devices.'}" />
+                                                        </DataGridTemplateColumn.Header>
                                                         <DataGridTemplateColumn.CellTemplate>
                                                             <DataTemplate>
                                                                 <CheckBox
-                                                                    Margin="1"
-                                                                    HorizontalAlignment="Center"
-                                                                    VerticalAlignment="Center"
+                                                                    Margin="3,0,0,0"
                                                                     IsChecked="{Binding Enabled, UpdateSourceTrigger=PropertyChanged}"
-                                                                    Style="{StaticResource CheckBoxStyle}" />
+                                                                    Style="{StaticResource CheckBoxStyle}"
+                                                                    ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.DeviceGrid.Enabled.Tooltip',
+                                                                                 DefaultText='The Mixer tab only shows Audio Sessions for enabled Devices.'}" />
                                                             </DataTemplate>
                                                         </DataGridTemplateColumn.CellTemplate>
                                                     </DataGridTemplateColumn>
@@ -2024,12 +2005,21 @@
                                                                     </Grid.ColumnDefinitions>
                                                                     <!--  Slider  -->
                                                                     <Slider
+                                                                        x:Name="sessionVolumeSlider"
                                                                         Grid.Column="0"
                                                                         LargeChange="5"
                                                                         Maximum="100"
                                                                         Minimum="0"
                                                                         SmallChange="1"
-                                                                        Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                                        Tag="{Binding PeakMeterValue}"
+                                                                        Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                                                        <i:Interaction.Behaviors>
+                                                                            <behaviour:IntervalUpdateBinding
+                                                                                EnableTimer="{Binding ShowPeakMeters, Source={StaticResource Settings}}"
+                                                                                Interval="{Binding PeakMeterUpdateIntervalMs, Source={StaticResource Settings}}"
+                                                                                Property="{x:Static FrameworkElement.TagProperty}" />
+                                                                        </i:Interaction.Behaviors>
+                                                                    </Slider>
                                                                     <!--  TextBox  -->
                                                                     <TextBox
                                                                         Grid.Column="2"
@@ -2038,13 +2028,6 @@
                                                                         BorderThickness="0"
                                                                         Style="{StaticResource TextBoxStyle}"
                                                                         Text="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                                                    <ProgressBar
-                                                                        Grid.Row="1"
-                                                                        Grid.Column="0"
-                                                                        Grid.ColumnSpan="4"
-                                                                        Style="{StaticResource ProgressBarPeakMeterStyle}"
-                                                                        Visibility="{Binding ShowPeakMeters, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                                        Value="{Binding PeakMeterValue, Mode=OneWay}" />
                                                                 </Grid>
                                                             </DataTemplate>
                                                         </DataGridTemplateColumn.CellTemplate>
@@ -2145,7 +2128,7 @@
                                                 Style="{StaticResource LabelStyle}"
                                                 ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Timeout.Tooltip',
                                                              DefaultText='The amount of time in milliseconds that notifications will remain visible after being triggered.'}" />
-                                            <local:NumericUpDown
+                                            <controls:NumericUpDown
                                                 MinWidth="88"
                                                 HorizontalAlignment="Stretch"
                                                 DockPanel.Dock="Right"
@@ -2314,6 +2297,7 @@
                                         <CheckBox
                                             Grid.Row="1"
                                             Grid.Column="0"
+                                            Click="Handle_ThreeStateCheckboxClick"
                                             Content="{Tr 'VolumeControl.MainWindow.Settings.Application.RunAtStartup.Content',
                                                          DefaultText='Run at Startup'}"
                                             IsChecked="{Binding RunAtStartup, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
@@ -2330,6 +2314,15 @@
                                             Style="{StaticResource ApplicationSettingsCheckboxStyle}"
                                             ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.StartMinimized.Tooltip',
                                                          DefaultText='When enabled, Volume Control will minimize itself when it starts up.'}" />
+                                        <CheckBox
+                                            Grid.Row="3"
+                                            Grid.Column="0"
+                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Application.MultiInstance.Content',
+                                                         DefaultText='Multi-Instance'}"
+                                            IsChecked="{Binding AllowMultipleDistinctInstances, Source={StaticResource Settings}}"
+                                            Style="{StaticResource ApplicationSettingsCheckboxStyle}"
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.MultiInstance.Tooltip',
+                                                         DefaultText='Allows multiple Volume Control instances to run at the same time, so long as they use a different config file.'}" />
 
                                         <!--  [ COLUMN 2 ]  -->
                                         <CheckBox
@@ -2429,49 +2422,79 @@
                 <!--  ▲ Settings Tab ▲  -->
 
                 <!--  ▼ About Tab ▼  -->
-                <TabItem Header="{Tr 'VolumeControl.MainWindow.About.TabHeader', DefaultText='About'}">
-                    <DockPanel LastChildFill="True">
-                        <Border
-                            Margin="1"
-                            Padding="10"
-                            BorderBrush="{StaticResource SelectionBorderBrush}"
-                            BorderThickness="3">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
+                <!--<TabItem Header="{Tr 'VolumeControl.MainWindow.About.TabHeader', DefaultText='About'}">
+                    <Border
+                        Margin="1"
+                        Padding="10"
+                        BorderBrush="{StaticResource SelectionBorderBrush}"
+                        BorderThickness="3">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
 
-                                <Image
-                                    Grid.Column="0"
-                                    Height="{Binding Width, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
-                                    MaxWidth="128"
-                                    Source="{StaticResource VolumeControlIcon}"
-                                    Stretch="UniformToFill" />
-                                <StackPanel
-                                    Grid.Column="1"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Orientation="Vertical">
-                                    <TextBlock Style="{StaticResource TextBlockStyle}">
-                                        <Hyperlink extensions:HyperlinkExtensions.OpensInBrowser="True" NavigateUri="{StaticResource VolumeControlRepository}">
-                                            <TextBlock Text="{Tr 'VolumeControl.MainWindow.About.OpenWebsite.Content', DefaultText='Official Website'}" ToolTip="{Tr 'VolumeControl.MainWindow.About.OpenWebsite.Tooltip', DefaultText='Open the official Volume Control website in your default browser'}" />
-                                        </Hyperlink>
-                                    </TextBlock>
-                                    <TextBlock
-                                        Foreground="{StaticResource UpdateIconBrush}"
-                                        Style="{StaticResource TextBlockStyle}"
-                                        Text="  ⚠">
-                                        <Hyperlink extensions:HyperlinkExtensions.OpensInBrowser="True" NavigateUri="{StaticResource VolumeControlBugReport}">
-                                            <TextBlock Text="{Tr 'VolumeControl.MainWindow.About.ReportABug.Content', DefaultText='Report a Bug'}" ToolTip="{Tr 'VolumeControl.MainWindow.About.ReportABug.Tooltip', DefaultText='Let us know that something is not working correctly'}" />
-                                        </Hyperlink>
-                                    </TextBlock>
+                            <Image
+                                Grid.Column="0"
+                                Height="{Binding Width, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
+                                MaxWidth="128"
+                                Source="{StaticResource VolumeControlIcon}"
+                                Stretch="UniformToFill" />
+                            <StackPanel
+                                Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="Vertical">
+                                <TextBlock Style="{StaticResource TextBlockStyle}">
+                                    <Hyperlink extensions:HyperlinkExtensions.OpensInBrowser="True" NavigateUri="{StaticResource VolumeControlRepository}">
+                                        <TextBlock Text="{Tr 'VolumeControl.MainWindow.About.OpenWebsite.Content', DefaultText='Official Website'}" ToolTip="{Tr 'VolumeControl.MainWindow.About.OpenWebsite.Tooltip', DefaultText='Open the official Volume Control website in your default browser'}" />
+                                    </Hyperlink>
+                                </TextBlock>
+                                <TextBlock Foreground="{StaticResource UpdateIconBrush}" Style="{StaticResource TextBlockStyle}">
+                                    <Hyperlink extensions:HyperlinkExtensions.OpensInBrowser="True" NavigateUri="{StaticResource VolumeControlBugReport}">
+                                        <TextBlock Text="{Tr 'VolumeControl.MainWindow.About.ReportABug.Content', DefaultText='Report a Bug'}" ToolTip="{Tr 'VolumeControl.MainWindow.About.ReportABug.Tooltip', DefaultText='Let us know that something is not working correctly'}" />
+                                    </Hyperlink>
+                                </TextBlock>
 
-                                </StackPanel>
-                            </Grid>
-                        </Border>
-                    </DockPanel>
-                </TabItem>
+
+                            </StackPanel>
+
+                            <Expander
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                FlowDirection="RightToLeft"
+                                Header="Show Debug Info">
+                                <Border Background="{StaticResource TextBoxBackground}" FlowDirection="LeftToRight">
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Margin="5,3,3,3"
+                                            Style="{StaticResource TextBlockStyle}"
+                                            Text="{Tr 'VolumeControl.MainWindow.About.ShowDebugInfo.ConfigPath.Content',
+                                                      DefaultText='Config Location'}" />
+                                        <TextBlock
+                                            x:Name="cfgPath"
+                                            Grid.Column="1"
+                                            Margin="3,3,5,3"
+                                            Background="#0000"
+                                            Style="{StaticResource TextBlockStyle}"
+                                            Text="{Binding ConfigLocation, Source={StaticResource Settings}, Mode=OneWay}"
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Log.Path.Tooltip',
+                                                         DefaultText='Specifies the location and name of the log file. Relative paths are relative to the location of the executable.'}" />
+                                    </Grid>
+                                </Border>
+                            </Expander>
+                        </Grid>
+                    </Border>
+                </TabItem>-->
                 <!--  ▲ About Tab ▲  -->
             </ctrlz:TabControlEx>
         </VirtualizingStackPanel>
@@ -2479,6 +2502,10 @@
 
     <!--  ( Window Chrome )  -->
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="{Binding Height, ElementName=CaptionBar}" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+        <WindowChrome
+            CaptionHeight="{Binding Height, ElementName=CaptionBar}"
+            CornerRadius="{StaticResource RoundedWindowCorner}"
+            GlassFrameThickness="0"
+            ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
     </WindowChrome.WindowChrome>
 </Window>
