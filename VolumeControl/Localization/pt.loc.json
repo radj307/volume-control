@@ -39,7 +39,7 @@
           },
           "Select": {
             "Button": {
-              "Portuguese (Portugal)": "Seleccione"
+              "Portuguese (Portugal)": "Seleção"
             }
           }
         }
@@ -146,7 +146,7 @@
         },
         "Audio": {
           "Header": {
-            "Portuguese (Portugal)": "Áudio"
+            "Portuguese (Portugal)": "Audio"
           },
           "DeviceGrid": {
             "Enabled": {
@@ -182,7 +182,7 @@
               "Portuguese (Portugal)": "Ativar Padrão"
             },
             "Tooltip": {
-              "Portuguese (Portugal)": "Quando marcado, o dispositivo de áudio padrão está sempre ativado durante a fase de carregamento do aplicativo."
+              "Portuguese (Portugal)": "Quando marcado, o dispositivo de padrão do audio está sempre ativado durante a fase de carregamento do aplicativo."
             }
           },
           "ReloadDevices": {
@@ -190,7 +190,7 @@
               "Portuguese (Portugal)": "Recarregar Dispositivos"
             },
             "Tooltip": {
-              "Portuguese (Portugal)": "Recarregue à força todos os dispositivos."
+              "Portuguese (Portugal)": "Recarregue todos os dispositivos à força."
             }
           },
           "ReloadSessions": {
@@ -211,7 +211,7 @@
               "Portuguese (Portugal)": "Permitir"
             },
             "Tooltip": {
-              "Portuguese (Portugal)": "Alternar se as notificações aparecem ou não ao mudar a sessão alvo."
+              "Portuguese (Portugal)": "Alternar se as notificações aparecem ou não ao mudar o alvo da sessão."
             }
           },
           "OnVolumeChange": {
@@ -247,7 +247,7 @@
           },
           "Path": {
             "Tooltip": {
-              "Portuguese (Portugal)": "Especifica a localização e o nome do ficheiro de registo. Os caminhos relativos são relativos à localização do executável."
+              "Portuguese (Portugal)": "Especifíca a localização e o nome do ficheiro de registo. Os caminhos relativos são relativos à localização do executável."
             },
             "WatermarkText": {
               "Portuguese (Portugal)": "Caminho para o ficheiro de registo"
@@ -263,7 +263,7 @@
               "Portuguese (Portugal)": "Executar na Inicialização"
             },
             "Tooltip": {
-              "Portuguese (Portugal)": "Quando ativado, Volume Control será iniciado quando você fizer login."
+              "Portuguese (Portugal)": "Quando ativado, o Volume Control será iniciado quando fizer o login."
             }
           },
           "StartMinimized": {
@@ -279,7 +279,7 @@
               "Portuguese (Portugal)": "Multi-Instâncias"
             },
             "Tooltip": {
-              "Portuguese (Portugal)": "Permite que várias instâncias de Volume Control sejam executadas ao mesmo tempo, desde que utilizem um ficheiro config diferente."
+              "Portuguese (Portugal)": "Permite que várias instâncias do Volume Control sejam executadas ao mesmo tempo, desde que utilizem um ficheiro de configuração diferente."
             }
           },
           "ShowInTaskbar": {
@@ -299,7 +299,7 @@
               "Portuguese (Portugal)": "Mostrar Ícones"
             },
             "Tooltip": {
-              "Portuguese (Portugal)": "Quando ativado, o programa tentará exibir o ícone associado aos dispositivos e sessões de áudio. ( Alguns ícones podem estar faltando ao executar como usuário. )"
+              "Portuguese (Portugal)": "Quando ativado, o programa tentará exibir o ícone associado aos dispositivos e sessões de áudio. ( Alguns ícones podem estar ausente ao executar como usuário. )"
             }
           }
         },
@@ -309,10 +309,10 @@
           },
           "CheckNow": {
             "Content": {
-              "Portuguese (Portugal)": "Verifique Agora"
+              "Portuguese (Portugal)": "Verificar Agora"
             },
             "Tooltip": {
-              "Portuguese (Portugal)": "Verifique manualmente se há novas versões do Volume Control."
+              "Portuguese (Portugal)": "Verificar manualmente se há novas versões do Volume Control."
             }
           },
           "OnStartup": {
@@ -320,12 +320,12 @@
               "Portuguese (Portugal)": "Na Inicialização"
             },
             "Tooltip": {
-              "Portuguese (Portugal)": "Verifique se há novas versões do Volume Control na inicialização."
+              "Portuguese (Portugal)": "Verificar na inicialização se há novas versões do Volume Control."
             }
           },
           "ShowPrompt": {
             "Content": {
-              "Portuguese (Portugal)": "Monstra Anúncio"
+              "Portuguese (Portugal)": "Mostra Anúncio"
             },
             "Tooltip": {
               "Portuguese (Portugal)": "Quando estiver marcado, você será solicitado a atualizar na forma de uma caixa de mensagem; caso contrário, você verá um ícone no canto superior direito."
@@ -338,7 +338,7 @@
     "Dialogs": {
       "AnotherInstanceIsRunning": {
         "MultiInstance": {
-          "Portuguese (Portugal)": "Outra instância do Controlo de Volume está a usar o ficheiro config localizado no '${PATH}'!"
+          "Portuguese (Portugal)": "Há outra instância do Volume Control que está a usar o ficheiro config localizado no '${PATH}'!"
         },
         "SingleInstance": {
           "Portuguese (Portugal)": "Outra instância de Volume Control já está em execução!"
@@ -356,7 +356,7 @@
 
     "NotifyIcon": {
       "BringToFront": {
-        "Portuguese (Portugal)": "Traze Para a Frente"
+        "Portuguese (Portugal)": "Trazer para a Frente"
       },
       "Hide": {
         "Portuguese (Portugal)": "Esconde"
