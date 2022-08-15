@@ -1,0 +1,452 @@
+{
+  "LanguageName": {
+    "German (DE/DE)": "German"
+  },
+  "VolumeControl": {
+    "MainWindow": {
+      "Mixer": {
+        "TabHeader": {
+          "German (DE/DE)": "Mixer"
+        },
+        "TargetBox": {
+          "Watermark": {
+            "German (DE/DE)": "Prozess ID oder Name"
+          },
+          "LockTarget": {
+            "German (DE/DE)": "Sperren"
+          }
+        },
+        "MixerGrid": {
+          "PID": {
+            "Header": {
+              "German (DE/DE)": "PID"
+            }
+          },
+          "Name": {
+            "Header": {
+              "German (DE/DE)": "Name"
+            }
+          },
+          "Mute": {
+            "Header": {
+              "German (DE/DE)": "Stumm"
+            }
+          },
+          "Volume": {
+            "Header": {
+              "German (DE/DE)": "Lautstärke"
+            }
+          },
+          "Select": {
+            "Button": {
+              "German (DE/DE)": "Auswählen"
+            }
+          }
+        }
+      },
+      "Hotkeys": {
+        "TabHeader": {
+          "German (DE/DE)": "Hotkeys"
+        },
+        "ControlRow": {
+          "EditMode": {
+            "Content": {
+              "German (DE/DE)": "Bearbeitungsmodus"
+            },
+            "Tooltip": {
+              "German (DE/DE)": "Ermöglicht das Bearbeiten, Erstellen und Löschen von Hotkey-Zuordnungen."
+            }
+          },
+          "VolumeStep": {
+            "Content": {
+              "German (DE/DE)": "Stufengröße"
+            },
+            "Tooltip": {
+              "German (DE/DE)": "Gibt an um wie viel Prozent die Lautstärke geändert werden soll, wenn der lauter- oder leiser-Hotkey gedrückt wird."
+            }
+          },
+          "ResetToDefault": {
+            "Content": {
+              "German (DE/DE)": "Zurücksetzen"
+            },
+            "Tooltip": {
+              "German (DE/DE)": "Setzt alle Hotkeys auf die Voreinstellung zurück."
+            }
+          }
+        },
+        "HotkeyGrid": {
+          "Active": {
+            "Header": {
+              "Tooltip": {
+                "German (DE/DE)": "(De)aktiviert alle Hotkeys."
+              }
+            }
+          },
+          "Name": {
+            "Header": {
+              "German (DE/DE)": "Name"
+            }
+          },
+          "Key": {
+            "Header": {
+              "German (DE/DE)": "Taste"
+            }
+          },
+          "Alt": {
+            "Header": {
+              "German (DE/DE)": "Alt"
+            }
+          },
+          "Ctrl": {
+            "Header": {
+              "German (DE/DE)": "Strg"
+            }
+          },
+          "Shift": {
+            "Header": {
+              "German (DE/DE)": "Umschalt"
+            }
+          },
+          "Windows": {
+            "Header": {
+              "German (DE/DE)": "Win"
+            }
+          },
+          "Action": {
+            "Header": {
+              "German (DE/DE)": "Aktion"
+            }
+          }
+        },
+        "CreateNewHotkeyButton": {
+          "Content": {
+            "German (DE/DE)": "Neuen Hotkey erstellen"
+          },
+          "Tooltip": {
+            "German (DE/DE)": "Erstellt einen neuen leeren Hotkey-Eintrag."
+          }
+        }
+      },
+      "Settings": {
+        "TabHeader": {
+          "German (DE/DE)": "Einstellungen"
+        },
+        "Language": {
+          "Header": {
+            "German (DE/DE)": "Sprache"
+          },
+          "CustomLocations": {
+            "German (DE/DE)": "Custom Locations"
+          },
+          "Reload": {
+            "Content": {
+              "German (DE/DE)": "Neu laden"
+            },
+            "Tooltip": {
+              "German (DE/DE)": "Lädt alle Sprach-Konfigurationsdateien neu vom Datenträger."
+            }
+          }
+        },
+        "Audio": {
+          "Header": {
+            "German (DE/DE)": "Audio"
+          },
+          "AdditionalSettings": {
+            "Header": {
+              "Content": {
+                "German (DE/DE)": "Zusätzliche Einstellungen"
+              },
+              "Tooltip": {
+              }
+            },
+            "ShowPeakMeters": {
+              "Content": {
+                "German (DE/DE)": "Zeige Spitzenwertanzeigen"
+              },
+              "Tooltip": {
+                "German (DE/DE)": "Schalte die A-Spitzenwertanzeigen im Mixer um."
+              }
+            },
+            "UpdateInterval": {
+              "Content": {
+                "German (DE/DE)": "Update Intervall"
+              },
+              "Tooltip": {
+                "German (DE/DE)": "Die Zeitspanne in Millisekunden zwischen jeder Aktualisierung der Spitzenwertanzeigen im Mixer."
+              }
+            },
+            "EnableDeviceControl": {
+              "Content": {
+                "German (DE/DE)": "Zeige Gerätesteuerungen"
+              },
+              "Tooltip": {
+                "German (DE/DE)": "Schalte die Sichtbarkeit der Lautstärke- & Stumm-Steuerungen in der Audiogeräte-Sektion um."
+              }
+            }
+          },
+          "DeviceGrid": {
+            "Enabled": {
+              "Header": {
+                "Tooltip": {
+                  "German (DE/DE)": "selektiert/deselektiert alle Geräte der Liste."
+                }
+              },
+              "Tooltip": {
+                "German (DE/DE)": "Bestimmte Geräte können hier ein- oder ausgeschlossen werden."
+              }
+            },
+            "Name": {
+              "Header": {
+                "German (DE/DE)": "Gerätename"
+              }
+            },
+            "Interface": {
+              "Header": {
+                "German (DE/DE)": "Schnittellenname"
+              }
+            },
+            "Mute": {
+              "Header": {
+                "German (DE/DE)": "Stumm"
+              }
+            },
+            "Volume": {
+              "Header": {
+                "German (DE/DE)": "Lautstärke"
+              }
+            }
+          },
+          "EnableDefault": {
+            "Content": {
+              "German (DE/DE)": "Aktiviere Standard"
+            },
+            "Tooltip": {
+              "German (DE/DE)": "Wenn selektiert wird immer das Standard-Audiogerät aktiviert während der Ladephase."
+            }
+          },
+          "ReloadDevices": {
+            "Content": {
+              "German (DE/DE)": "Geräte neu laden"
+            },
+            "Tooltip": {
+              "German (DE/DE)": "Neu laden der Geräte erzwingen."
+            }
+          },
+          "ReloadSessions": {
+            "Content": {
+              "German (DE/DE)": "Sitzung neu laden"
+            },
+            "Tooltip": {
+              "German (DE/DE)": "Neu laden der Sitzung erzwingen."
+            }
+          }
+        },
+        "Notifications": {
+          "Header": {
+            "German (DE/DE)": "Benachrichtigungen"
+          },
+          "Enable": {
+            "Content": {
+              "German (DE/DE)": "Aktivieren"
+            },
+            "Tooltip": {
+              "German (DE/DE)": "Schalte um ob Benachrichtigungen beim Wechsel der Zielsitzung angezeigt oder nicht angezeigt werden sollen."
+            }
+          },
+          "OnVolumeChange": {
+            "Content": {
+              "German (DE/DE)": "Bei Lautstärkeänderung"
+            },
+            "Tooltip": {
+              "German (DE/DE)": "Wenn selektiert werden Benachrichtigungen auch angezeigt wenn sich die Lautstärke des Ziels geändert wird."
+            }
+          },
+          "Timeout": {
+            "Content": {
+              "German (DE/DE)": "Zeitüberschreitung"
+            },
+            "Tooltip": {
+              "German (DE/DE)": "Die Zeit in Millisekunden die Benachrichtigungen sichtbar bleiben nachdem sie ausgelöst wurden."
+            }
+          }
+        },
+        "Log": {
+          "Header": {
+            "German (DE/DE)": "Ereignisprotokollierung"
+          },
+          "Enable": {
+            "Content": {
+              "German (DE/DE)": "Aktivieren"
+            }
+          },
+          "Filter": {
+            "Text": {
+              "German (DE/DE)": "Filter"
+            }
+          },
+          "Path": {
+            "Tooltip": {
+              "German (DE/DE)": "Spezifiziert den Ort und Namen der Protokolldatei. Relative Pfade beziehen sich auf den Ort der ausführbaren Datei."
+            },
+            "WatermarkText": {
+              "German (DE/DE)": "Pfad zur Protokolldatei"
+            }
+          }
+        },
+        "Application": {
+          "Header": {
+            "German (DE/DE)": "Anwendung"
+          },
+          "RunAtStartup": {
+            "Content": {
+              "German (DE/DE)": "Beim Starten ausführen"
+            },
+            "Tooltip": {
+              "German (DE/DE)": "Wenn aktiv startet Volume Control beim Anmelden."
+            }
+          },
+          "StartMinimized": {
+            "Content": {
+              "German (DE/DE)": "Minimiert starten"
+            },
+            "Tooltip": {
+              "German (DE/DE)": "Wenn aktiv minimiert sich Volume Control beim Starten."
+            }
+          },
+          "MultiInstance": {
+            "Content": {
+              "German (DE/DE)": "Multi-Instanz"
+            },
+            "Tooltip": {
+              "German (DE/DE)": "Erlaubt mehreren Volume Control Instanzen gleichzeitig ausgeführt zu werden, sofern diese verschiedene Konfigurationsdateien verwenden."
+            }
+          },
+          "ShowInTaskbar": {
+            "Content": {
+              "German (DE/DE)": "In Taskleiste anzeigen"
+            },
+            "Tooltip": {
+              "German (DE/DE)": "Wenn aktiv wird Volume Control in der Taskleiste angezeigt."			
+			}
+          },
+          "AlwaysOnTop": {
+            "Content": {
+              "German (DE/DE)": "Immer im Vordergrund"
+            },
+            "Tooltip": {
+              "German (DE/DE)": "Wenn aktiv wird das Volume Control-Fenster immer über allen anderen Fenstern angezeigt."
+			}
+          },
+          "ShowIcons": {
+            "Content": {
+              "German (DE/DE)": "Symbole anzeigen"
+            },
+            "Tooltip": {
+              "German (DE/DE)": "Wenn aktiv wird das Programm versuchen das mit den Audiogeräten und Sitzungen verbundene Symbol anzuzeigen. (Einige Symbole können fehlen, wenn das Programm als Benutzer ausgeführt wird.)"
+            }
+          }
+        },
+        "Updates": {
+          "Header": {
+            "German (DE/DE)": "Aktualisierungen"
+          },
+          "CheckNow": {
+            "Content": {
+              "German (DE/DE)": "Jetzt prüfen"
+            },
+            "Tooltip": {
+              "German (DE/DE)": "Prüfe Volume Control manuell auf neue Versionen."
+            }
+          },
+          "OnStartup": {
+            "Content": {
+              "German (DE/DE)": "Beim starten"
+            },
+            "Tooltip": {
+              "German (DE/DE)": "Prüfe Volume Control beim starten auf neue Versionen."
+            }
+          },
+          "ShowPrompt": {
+            "Content": {
+              "German (DE/DE)": "Zeige Hinweis"
+            },
+            "Tooltip": {
+              "German (DE/DE)": "Wenn aktiv, wird ein Hinweis in Form eines Dialogfelds angezeigt; Anderenfalls wird nur ein Symbol in der oberen rechten Ecke angezeigt."
+            }
+          }
+        }
+      },
+      "About": {
+        "TabHeader": {
+          "German (DE/DE)": "About"
+        },
+        "ReportABug": {
+          "Content": {
+            "German (DE/DE)": "Report a Bug"
+          },
+          "Tooltip": {
+            "German (DE/DE)": "Let us know that something isn't working correctly."
+          }
+        },
+        "OpenWebsite": {
+          "Content": {
+            "German (DE/DE)": "Offizielle Webseite"
+          },
+          "Tooltip": {
+            "German (DE/DE)": "Öffnet die offizielle Volume Control Webseite im Standardbrowser."
+          }
+        },
+        "ShowDebugInfo": {
+          "Header": {
+            "Content": {
+              "German (DE/DE)": "Zeige Debug-Informationen"
+            },
+            "Tooltip": {}
+          },
+          "ConfigPath": {
+            "Content": {
+              "German (DE/DE)": ""
+            },
+            "Tooltip": {
+              "German (DE/DE)": ""
+            }
+          }
+        }
+      }
+    },
+
+    "Dialogs": {
+      "AnotherInstanceIsRunning": {
+        "MultiInstance": {
+          "German (DE/DE)": "Eine andere Volume Control Instanz nutzt bereits die Konfigurationsdatei die sich unter '${PATH}' befindet!"
+        },
+        "SingleInstance": {
+          "German (DE/DE)": "Eine andere Volume Control Instanz läuft bereits!"
+        }
+      },
+      "UpdatePrompt": {
+        "DontShowInFutureMsg": {
+          "German (DE/DE)": "Aktualisierungshinweise werden zukünftig nicht mehr angezeigt."
+        },
+        "NewVersionAvailableFormatMsg": {
+          "German (DE/DE)": "Eine neue Volume Control Version ist verfügbar!\nSoll die Seite mit den Veröffentlichungen geöffnet werden?\nDerzeitige Version:  ${CURRENT_VERSION}\nNeuste Version   ${LATEST_VERSION}\n\nDrücke 'Ja' um die Seite mit den Veröffentlichungen zu öffnen.\nDrücke 'Nein' falls du jetzt kein Update machen möchtest.\nDrücke 'Abbrechen' um diese Hinweise abzuschalten."
+        }
+      }
+    },
+
+    "NotifyIcon": {
+      "BringToFront": {
+        "German (DE/DE)": "In den Vordergrund"
+      },
+      "Hide": {
+        "German (DE/DE)": "Verstecken"
+      },
+      "Show": {
+        "German (DE/DE)": "Anzeigen"
+      },
+      "Close": {
+        "German (DE/DE)": "Schließen"
+      }
+    }
+  }
+}
