@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
-using VolumeControl.Core.Keyboard.Actions;
+using VolumeControl.Core.Input.Actions;
 
 namespace VolumeControl.Hotkeys.Attributes
 {

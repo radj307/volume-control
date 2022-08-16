@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows.Input;
 
-namespace VolumeControl.Core.Keyboard
+namespace VolumeControl.Core.Input
 {
     /// <summary>
     /// Represents a hotkey instance.

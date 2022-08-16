@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Windows.Input;
 
-namespace VolumeControl.Core.Keyboard
+namespace VolumeControl.Core.Input
 {
     /// <summary>
     /// Acts as a temporary wrapper for the <see cref="BindableHotkey"/> class so that the JSON parser can read and write it without attempting to register hotkeys before the API is initialized.

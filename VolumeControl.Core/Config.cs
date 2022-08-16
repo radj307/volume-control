@@ -3,7 +3,7 @@ using Semver;
 using System.ComponentModel;
 using System.Windows.Input;
 using VolumeControl.Core.Enum;
-using VolumeControl.Core.Keyboard;
+using VolumeControl.Core.Input;
 using VolumeControl.Log;
 using VolumeControl.WPF.Collections;
 

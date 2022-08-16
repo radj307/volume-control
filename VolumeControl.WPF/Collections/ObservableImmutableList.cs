@@ -11,9 +11,6 @@ using System.Runtime.CompilerServices;
 namespace VolumeControl.WPF.Collections
 {
 #   pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-#   pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-#   pragma warning disable CS8604 // Possible null reference argument.
-#   pragma warning disable CS8767 // Nullability of reference types in type of parameter doesn't match implicitly implemented member (possibly because of nullability attributes).
     [JsonArray]
     public class ObservableImmutableList<T> : ObservableCollectionObject, IList, ICollection, IEnumerable, IList<T>, IImmutableList<T>, ICollection<T>, IEnumerable<T>, IReadOnlyList<T>, IReadOnlyCollection<T>, INotifyCollectionChanged, INotifyPropertyChanged
     {
@@ -316,28 +313,48 @@ namespace VolumeControl.WPF.Collections
         /// <inheritdoc/>
         public int Add(object? value)
         {
+            if (value is null) throw new ArgumentNullException(nameof(value));
             var val = (T)value;
             _ = this.Add(val);
             return this.IndexOf(val);
         }
 
         /// <inheritdoc/>
-        public bool Contains(object value) => this.Contains((T)value);
+        public bool Contains(object? value)
+        {
+            if (value is null) throw new ArgumentNullException(nameof(value));
+            return this.Contains((T)value);
+        }
 
         /// <inheritdoc/>
-        public int IndexOf(object value) => this.IndexOf((T)value);
+        public int IndexOf(object? value)
+        {
+            if (value is null) throw new ArgumentNullException(nameof(value));
+            return this.IndexOf((T)value);
+        }
 
         /// <inheritdoc/>
-        public void Insert(int index, object value) => this.Insert(index, (T)value);
+        public void Insert(int index, object? value)
+        {
+            if (value is null) throw new ArgumentNullException(nameof(value));
+            this.Insert(index, (T)value);
+        }
 
         /// <inheritdoc/>
         public bool IsFixedSize => false;
 
         /// <inheritdoc/>
-        public void Remove(object value) => this.Remove((T)value);
+        public void Remove(object? value)
+        {
+            if (value is null) throw new ArgumentNullException(nameof(value));
+            this.Remove((T)value);
+        }
 
         /// <inheritdoc/>
-        void IList.RemoveAt(int index) => this.RemoveAt(index);
+        void IList.RemoveAt(int index)
+        {
+            this.RemoveAt(index);
+        }
 
         /// <inheritdoc/>
         object IList.this[int index]
@@ -441,7 +458,7 @@ namespace VolumeControl.WPF.Collections
         }
 
         /// <inheritdoc/>
-        public int IndexOf(T item, int index, int count, IEqualityComparer<T> equalityComparer) => _items.IndexOf(item, index, count, equalityComparer);
+        public int IndexOf(T item, int index, int count, IEqualityComparer<T>? equalityComparer) => _items.IndexOf(item, index, count, equalityComparer);
 
         /// <inheritdoc/>
         public IImmutableList<T> Insert(int index, T element)
@@ -460,10 +477,10 @@ namespace VolumeControl.WPF.Collections
         }
 
         /// <inheritdoc/>
-        public int LastIndexOf(T item, int index, int count, IEqualityComparer<T> equalityComparer) => _items.LastIndexOf(item, index, count, equalityComparer);
+        public int LastIndexOf(T item, int index, int count, IEqualityComparer<T>? equalityComparer) => _items.LastIndexOf(item, index, count, equalityComparer);
 
         /// <inheritdoc/>
-        public IImmutableList<T> Remove(T value, IEqualityComparer<T> equalityComparer)
+        public IImmutableList<T> Remove(T value, IEqualityComparer<T>? equalityComparer)
         {
             int index = _items.IndexOf(value, equalityComparer);
             _ = this.RemoveAt(index);
@@ -496,7 +513,7 @@ namespace VolumeControl.WPF.Collections
         }
 
         /// <inheritdoc/>
-        public IImmutableList<T> RemoveRange(IEnumerable<T> items, IEqualityComparer<T> equalityComparer)
+        public IImmutableList<T> RemoveRange(IEnumerable<T> items, IEqualityComparer<T>? equalityComparer)
         {
             _items = _items.RemoveRange(items, equalityComparer);
             this.RaiseNotifyCollectionChanged();
@@ -504,7 +521,7 @@ namespace VolumeControl.WPF.Collections
         }
 
         /// <inheritdoc/>
-        public IImmutableList<T> Replace(T oldValue, T newValue, IEqualityComparer<T> equalityComparer)
+        public IImmutableList<T> Replace(T oldValue, T newValue, IEqualityComparer<T>? equalityComparer)
         {
             int index = _items.IndexOf(oldValue, equalityComparer);
             _ = this.SetItem(index, newValue);
@@ -530,8 +547,5 @@ namespace VolumeControl.WPF.Collections
 
         #endregion Non Thead-Safe Methods
     }
-#   pragma warning restore CS8767 // Nullability of reference types in type of parameter doesn't match implicitly implemented member (possibly because of nullability attributes).
-#   pragma warning restore CS8604 // Possible null reference argument.
-#   pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 #   pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

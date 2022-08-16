@@ -4,7 +4,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using VolumeControl.Log;
 
-namespace VolumeControl.Core.Keyboard
+namespace VolumeControl.Core.Input
 {
     internal static class WindowsHotkeyAPI
     {

@@ -1,4 +1,4 @@
-﻿using VolumeControl.Core.Keyboard;
+﻿using VolumeControl.Core.Input;
 using VolumeControl.Hotkeys.Interfaces;
 
 namespace VolumeControl.Hotkeys

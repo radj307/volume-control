@@ -46,5 +46,25 @@ namespace VolumeControl.TypeExtensions
                 action(item);
             return list;
         }
+        /// <summary>
+        /// Adds <paramref name="obj"/> to the <paramref name="list"/> if it isn't a duplicate of any existing elements.
+        /// </summary>
+        /// <param name="list">List</param>
+        /// <param name="obj">Object to add to the list. The object is only added if it isn't a duplicate of an existing element, as determined by <see cref="object.Equals(object?)"/>.</param>
+        public static void AddIfUnique(this IList list, object obj)
+        {
+            if (!list.Contains(obj))
+                _ = list.Add(obj);
+        }
+        /// <summary>
+        /// Calls <see cref="AddIfUnique(IList, object)"/> on the given <paramref name="range"/> of objects.
+        /// </summary>
+        /// <param name="list">List</param>
+        /// <param name="range">A range of objects to add to the list. Each object is only added if it isn't a duplicate of an existing element, as determined by <see cref="object.Equals(object?)"/>.</param>
+        public static void AddRangeIfUnique(this IList list, IEnumerable range)
+        {
+            foreach (object? item in range)
+                list.AddIfUnique(item);
+        }
     }
 }
