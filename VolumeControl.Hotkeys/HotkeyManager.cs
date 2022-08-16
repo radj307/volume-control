@@ -2,7 +2,7 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using VolumeControl.Core;
-using VolumeControl.Core.Keyboard;
+using VolumeControl.Core.Input;
 using VolumeControl.Hotkeys.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;

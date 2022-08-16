@@ -20,7 +20,14 @@
 	</ItemGroup>
 	<!-- SETTINGS UPGRADE ATTRIBUTES -->
 	<ItemGroup>
+		<PackageReference Include="Fody" Version="6.6.3">
+		  <PrivateAssets>All</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="NAudio" Version="2.1.0" />
+		<PackageReference Include="PropertyChanged.Fody" Version="3.4.1">
+		  <PrivateAssets>All</PrivateAssets>
+		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />

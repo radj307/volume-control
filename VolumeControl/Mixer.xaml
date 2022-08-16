@@ -1165,6 +1165,11 @@
                         <Setter Property="VerticalAlignment" Value="Center" />
                         <Setter Property="HorizontalAlignment" Value="Right" />
                     </Style>
+                    <Style x:Key="CaptionHyperlinkStyle" TargetType="{x:Type Hyperlink}">
+                        <Setter Property="TextDecorations" Value="None" />
+                        <Setter Property="BaselineAlignment" Value="Center" />
+                        <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
+                    </Style>
                 </Grid.Resources>
                 <!--  COLUMN DEFINITIONS  -->
                 <Grid.ColumnDefinitions>
@@ -1214,6 +1219,7 @@
                     FontWeight="Black"
                     Foreground="LightGray"
                     Style="{StaticResource LabelStyle}">
+                    <!--  This hyperlink must NOT use the 'CaptionHyperlinkStyle' or it'll lose its dynamic-underlining  -->
                     <Hyperlink extensions:HyperlinkExtensions.OpensInBrowser="True" NavigateUri="{StaticResource VolumeControlRepository}">
                         <TextBlock
                             Foreground="LightGray"
@@ -1227,7 +1233,10 @@
                     FontSize="10"
                     FontWeight="Thin"
                     Style="{StaticResource CaptionButtonStyle}">
-                    <Hyperlink extensions:HyperlinkExtensions.OpensInBrowser="True" NavigateUri="{StaticResource VolumeControlBugReport}">
+                    <Hyperlink
+                        extensions:HyperlinkExtensions.OpensInBrowser="True"
+                        NavigateUri="{StaticResource VolumeControlBugReport}"
+                        Style="{StaticResource CaptionHyperlinkStyle}">
                         <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="🐞" />
                     </Hyperlink>
                 </Button>
@@ -2453,6 +2462,7 @@
                     </Border>
                 </TabItem>
                 <!--  ▲ Settings Tab ▲  -->
+
 
                 <!--  ▼ About Tab ▼  -->
                 <!--<TabItem Header="{Tr 'VolumeControl.MainWindow.About.TabHeader', DefaultText='About'}">

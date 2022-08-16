@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using VolumeControl.Log;
 
-namespace VolumeControl.Core.Keyboard
+namespace VolumeControl.Core.Input
 {
     /// <summary>
     /// A Hotkey that may be registered with the windows API.

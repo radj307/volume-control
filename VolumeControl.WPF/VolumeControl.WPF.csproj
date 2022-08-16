@@ -11,6 +11,15 @@
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
+	<ItemGroup>
+	  <PackageReference Include="Fody" Version="6.6.3">
+	    <PrivateAssets>All</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="PropertyChanged.Fody" Version="3.4.1">
+	    <PrivateAssets>All</PrivateAssets>
+	  </PackageReference>
+	</ItemGroup>
 	
 	<ItemGroup>
 		<FrameworkReference Update="Microsoft.WindowsDesktop.App;Microsoft.WindowsDesktop.App.WPF;Microsoft.WindowsDesktop.App.WindowsForms" TargetingPackVersion="6.0.0" />

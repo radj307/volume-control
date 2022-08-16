@@ -7,7 +7,7 @@ using System.Windows;
 using VolumeControl.Audio;
 using VolumeControl.Core;
 using VolumeControl.Core.Enum;
-using VolumeControl.Core.Keyboard.Actions;
+using VolumeControl.Core.Input.Actions;
 using VolumeControl.Helpers.Addon;
 using VolumeControl.Helpers.Update;
 using VolumeControl.Hotkeys;

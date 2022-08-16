@@ -365,7 +365,7 @@ namespace VolumeControl.Audio
                 return l;
             for (int i = 0; i < this.Sessions.Count - 1; ++i)
             {
-                AudioSession? session = this.Sessions[i];
+                AudioSession? session = Sessions[i];
                 if (format.HasFlag(SessionNameFormat.PID))
                     l.Add(session.PID.ToString());
                 if (format.HasFlag(SessionNameFormat.ProcessName))

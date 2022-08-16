@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Windows.Input;
-using VolumeControl.Core.Keyboard.Actions;
+using VolumeControl.Core.Input.Actions;
 
-namespace VolumeControl.Core.Keyboard
+namespace VolumeControl.Core.Input
 {
     /// <summary>
-    /// A hotkey view model instance.
+    /// Wraps a <see cref="Input.Hotkey"/> instance and exposes an action binding point. <i>(see <see cref="Action"/>)</i>
     /// </summary>
     public class BindableHotkey : IBindableHotkey, INotifyPropertyChanged
     {
@@ -71,6 +71,12 @@ namespace VolumeControl.Core.Keyboard
         {
             get => this.Modifier.HasFlag(Modifier.Super);
             set => this.Modifier = this.Modifier.Set(Modifier.Super, value);
+        }
+        /// <inheritdoc/>
+        public bool NoRepeat
+        {
+            get => this.Modifier.HasFlag(Modifier.NoRepeat);
+            set => this.Modifier = this.Modifier.Set(Modifier.NoRepeat, value);
         }
         /// <summary>
         /// Gets whether <see cref="Key"/> is set to <see cref="Key.None"/> or not.

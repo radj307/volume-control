@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using VolumeControl.Core;
-using VolumeControl.Core.Keyboard.Actions;
+using VolumeControl.Core.Input.Actions;
 using VolumeControl.Hotkeys;
 using VolumeControl.Hotkeys.Attributes;
 using VolumeControl.Hotkeys.Interfaces;

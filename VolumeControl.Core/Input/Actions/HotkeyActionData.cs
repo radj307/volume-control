@@ -1,6 +1,6 @@
 ﻿using System.Windows.Media;
 
-namespace VolumeControl.Core.Keyboard.Actions
+namespace VolumeControl.Core.Input.Actions
 {
     /// <summary>
     /// Runtime container for hotkey action metadata.<br/>
