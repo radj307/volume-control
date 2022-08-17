@@ -81,6 +81,9 @@ By enabling notifications, you will see a toast notification in the bottom right
 If you want to add or remove hotkeys, you can press the **Edit Mode** button in the Settings tab to enable the advanced features. Now the Hotkeys tab will have additional customisability so you can create new hotkeys, and change the action of each hotkey when it is pressed. You can reset all hotkeys to their default value by pressing the **Reset Hotkeys** button in the Settings tab. Note that this will also remove any additional hotkeys you have created.  
 ![View of the advanced hotkeys](https://i.imgur.com/JccOVnO.png)
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.  
 
 ## Addon Development
 
