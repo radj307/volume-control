@@ -51,6 +51,7 @@
   </ItemGroup>
   <!-- VERSIONING ATTRIBUTES -->
   <ItemGroup>
+    <None Remove="Localization\de.loc.json" />
     <None Remove="Localization\en.loc.json" />
     <None Remove="Localization\fr.loc.json" />
     <None Remove="Localization\it.loc.json" />
@@ -71,6 +72,7 @@
     <!--<None Remove="Resources\VCUpdateUtility.exe" />-->
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Localization\de.loc.json" />
     <EmbeddedResource Include="Localization\en.loc.json" />
     <EmbeddedResource Include="Localization\fr.loc.json" />
     <EmbeddedResource Include="Localization\it.loc.json" />
