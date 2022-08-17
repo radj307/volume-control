@@ -1,4 +1,4 @@
 <map id="VolumeControl.Audio.AudioAPI.GetSessionNames" name="VolumeControl.Audio.AudioAPI.GetSessionNames">
 <area shape="rect" id="node1" title="Gets a list of strings containing various properties from each element present in Sessions...." alt="" coords="5,5,205,47"/>
-<area shape="rect" id="node2" href="$class_observable_immutable_1_1_observable_immutable_list.html#ac3cff5e96ceebe4773425202920f6097" title=" " alt="" coords="253,5,499,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_collections_1_1_audio_session_collection.html#a958854997a2e526c592ec81db2ed0f74" title=" " alt="" coords="253,5,492,47"/>
 </map>

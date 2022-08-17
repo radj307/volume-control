@@ -1,7 +1,5 @@
 var class_volume_control_1_1_type_extensions_1_1_enumerable_extensions =
 [
-    [ "AddIfUnique", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#aaba543a0973472c8f2c13078266e491b", null ],
-    [ "AddRangeIfUnique", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#af15cf883af58131e182d1f6bdb897460", null ],
     [ "ConvertEach< TList, TOut, TIn >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#acfb4bc5513311c77e7319977419ae1e9", null ],
     [ "ConvertEach< TOut, TIn >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a0070c250cb3157bdaaa06ecbc0b3e5c3", null ],
     [ "ForEach", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#ab9516e17d92eb33bbc1960111f339fd3", null ],

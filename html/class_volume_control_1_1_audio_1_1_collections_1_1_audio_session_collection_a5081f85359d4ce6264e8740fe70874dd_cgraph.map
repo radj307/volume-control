@@ -1,4 +1,4 @@
 <map id="VolumeControl.Audio.Collections.AudioSessionCollection.Remove" name="VolumeControl.Audio.Collections.AudioSessionCollection.Remove">
-<area shape="rect" id="node1" title="Removes any sessions with the same process ID number as pid ." alt="" coords="5,13,244,54"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#acfa2fa42b139e9b7f19a7566b222218b" title=" " alt="" coords="292,5,521,61"/>
+<area shape="rect" id="node1" title="Removes any sessions with the same process ID number as pid ." alt="" coords="5,5,244,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_collections_1_1_audio_session_collection.html#a72a20901822e2105757aea912f0c7359" title=" " alt="" coords="292,5,539,47"/>
 </map>

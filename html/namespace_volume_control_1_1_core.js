@@ -1,7 +1,7 @@
 var namespace_volume_control_1_1_core =
 [
     [ "Attributes", "namespace_volume_control_1_1_core_1_1_attributes.html", "namespace_volume_control_1_1_core_1_1_attributes" ],
-    [ "Keyboard", "namespace_volume_control_1_1_core_1_1_keyboard.html", "namespace_volume_control_1_1_core_1_1_keyboard" ],
+    [ "Input", "namespace_volume_control_1_1_core_1_1_input.html", "namespace_volume_control_1_1_core_1_1_input" ],
     [ "BaseAddon", "class_volume_control_1_1_core_1_1_base_addon.html", "class_volume_control_1_1_core_1_1_base_addon" ],
     [ "BaseAddonAttribute", "class_volume_control_1_1_core_1_1_base_addon_attribute.html", "class_volume_control_1_1_core_1_1_base_addon_attribute" ],
     [ "Config", "class_volume_control_1_1_core_1_1_config.html", "class_volume_control_1_1_core_1_1_config" ],

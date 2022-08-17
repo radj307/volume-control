@@ -1,4 +1,49 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html" title=" " alt="" coords="5,5,235,61"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_collections_1_1_audio_session_collection.html" title="AudioSession management container type. &#160;This is implemented as a viewmodel in the AudioAPI class." alt="" coords="283,13,521,54"/>
+<area shape="rect" id="node1" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_audio_controllable.html" title="Base interface type for IDevice and IProcess/ISession." alt="" coords="5,1735,237,1777"/>
+<area shape="rect" id="node2" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html" title="Represents an audio device." alt="" coords="601,801,833,842"/>
+<area shape="rect" id="node4" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html" title="Represents read&#45;only information about a process running on the local system." alt="" coords="285,1794,517,1835"/>
+<area shape="rect" id="node6" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html" title="Represents an audio session." alt="" coords="601,1739,833,1781"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_audio_device.html" title="Represents an audio device endpoint. Note that this object cannot be constructed externally...." alt="" coords="935,547,1135,589"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system." alt="" coords="935,1710,1135,1751"/>
+<area shape="rect" id="node7" href="$interface_volume_control_1_1_core_1_1_i_base_addon.html" title="Represents any type of Volume Control addon definition object. &#160;This interface is implemented by the ..." alt="" coords="305,1859,497,1901"/>
+<area shape="rect" id="node8" href="$class_volume_control_1_1_core_1_1_base_addon.html" title="abstract base class for an object that manages an addon." alt="" coords="602,1988,831,2015"/>
+<area shape="rect" id="node9" href="$interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html" title="Represents a hotkey action manager object, which contains the list of IActionBindings used in the hot..." alt="" coords="593,1805,841,1846"/>
+<area shape="rect" id="node10" title=" " alt="" coords="671,496,762,523"/>
+<area shape="rect" id="node11" href="$class_volume_control_1_1_audio_1_1_collections_1_1_audio_session_collection.html" title="AudioSession management container type. &#160;This is implemented as a viewmodel in the AudioAPI class." alt="" coords="916,362,1155,403"/>
+<area shape="rect" id="node12" href="$class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html" title="Provides the source for a WPF list component&#39;s ItemsSource property to expose a readable and writable..." alt="" coords="921,482,1150,523"/>
+<area shape="rect" id="node14" href="$class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html" title=" " alt="" coords="921,243,1150,285"/>
+<area shape="rect" id="node13" href="$class_volume_control_1_1_w_p_f_1_1_collections_1_1_log_event_type_filter.html" title="This is an extension of the BindableEventType object that initializes the BindableEventType...." alt="" coords="1203,482,1432,523"/>
+<area shape="rect" id="node15" title=" " alt="" coords="352,1489,451,1516"/>
+<area shape="rect" id="node16" href="$class_volume_control_1_1_audio_1_1_audio_a_p_i.html" title="Contains methods related to audio devices, sessions, and the underlying selection mechanics responsib..." alt="" coords="606,1536,827,1563"/>
+<area shape="rect" id="node17" href="$class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html" title="Management container object for the AudioDevice class." alt="" coords="597,1369,836,1410"/>
+<area shape="rect" id="node18" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html" title="A Hotkey that may be registered with the windows API." alt="" coords="939,1266,1132,1307"/>
+<area shape="rect" id="node19" href="$interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html" title="Represents a hotkey instance." alt="" coords="620,1251,813,1293"/>
+<area shape="rect" id="node22" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html" title="This object is responsible for managing hotkeys at runtime." alt="" coords="604,931,829,973"/>
+<area shape="rect" id="node23" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html" title="A log endpoint that implements IEndpoint and uses a MemoryStream as an endpoint." alt="" coords="608,1922,825,1963"/>
+<area shape="rect" id="node24" href="$class_volume_control_1_1_log_1_1_log_writer.html" title="Basic log writer object." alt="" coords="611,1435,823,1461"/>
+<area shape="rect" id="node25" href="$class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html" title="Handles receiving windows event messages." alt="" coords="603,1587,830,1613"/>
+<area shape="rect" id="node20" href="$interface_volume_control_1_1_core_1_1_input_1_1_i_bindable_hotkey.html" title="Represents a BindableHotkey." alt="" coords="939,1201,1132,1242"/>
+<area shape="rect" id="node21" href="$class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html" title="Wraps a Input.Hotkey instance and exposes an action binding point. (see Action)" alt="" coords="1221,1171,1414,1213"/>
+<area shape="rect" id="node26" href="$interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html" title="Represents an endpoint output target for a log writer, and exposes helper methods for interacting wit..." alt="" coords="293,2090,510,2131"/>
+<area shape="rect" id="node27" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html" title="Allows using the Console as a logging endpoint." alt="" coords="608,2090,825,2131"/>
+<area shape="rect" id="node28" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk." alt="" coords="608,2155,825,2197"/>
+<area shape="rect" id="node29" title=" " alt="" coords="665,192,769,219"/>
+<area shape="rect" id="node30" href="$class_volume_control_1_1_log_1_1_message_wrapper_base.html" title="Base abstract class that implements IEnumerable&lt;T&gt; in order to introduce special handling for certain..." alt="" coords="932,178,1139,219"/>
+<area shape="rect" id="node31" href="$class_volume_control_1_1_log_1_1_exception_message.html" title="Simple wrapper class for pretty&#45;printing Exception messages with LogWriter." alt="" coords="1211,178,1424,219"/>
+<area shape="rect" id="node32" title=" " alt="" coords="76,1867,167,1893"/>
+<area shape="rect" id="node33" href="$struct_volume_control_1_1_core_1_1_version_range.html" title="Represents a range of program versions, which allows checking whether or not a specific SemVersion is..." alt="" coords="299,1925,503,1966"/>
+<area shape="rect" id="node34" title=" " alt="" coords="657,243,777,269"/>
+<area shape="rect" id="node35" title=" " alt="" coords="692,547,741,573"/>
+<area shape="rect" id="node36" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html" title="Represents a log writer object, which is responsible for exposing logging methods,..." alt="" coords="292,1423,511,1465"/>
+<area shape="rect" id="node37" title=" " alt="" coords="308,445,495,472"/>
+<area shape="rect" id="node38" href="$class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object.html" title=" " alt="" coords="602,75,831,117"/>
+<area shape="rect" id="node39" title=" " alt="" coords="313,1099,490,1125"/>
+<area shape="rect" id="node40" href="$class_app_config_1_1_configuration.html" title="The most basic abstract class in the AppConfig project." alt="" coords="627,1048,806,1075"/>
+<area shape="rect" id="node43" href="$class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type_1_1_bindable_event_type_flag.html" title="This represents a single flag value of the EventType enum." alt="" coords="565,866,868,907"/>
+<area shape="rect" id="node41" href="$class_app_config_1_1_configuration_file.html" title="Extends the Configuration class with a built&#45;in file Location, and adds methods that use this filepat..." alt="" coords="934,1048,1137,1075"/>
+<area shape="rect" id="node42" href="$class_volume_control_1_1_core_1_1_config.html" title="Contains the application configuration and logic to read from and write to JSON files." alt="" coords="1219,1048,1416,1075"/>
+<area shape="rect" id="node44" title=" " alt="" coords="311,1616,492,1643"/>
+<area shape="rect" id="node45" title=" " alt="" coords="639,395,794,421"/>
+<area shape="rect" id="node46" title=" " alt="" coords="661,445,773,472"/>
+<area shape="rect" id="node47" href="$class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html" title=" " alt="" coords="287,1343,516,1399"/>
 </map>

@@ -98,7 +98,8 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_type_extensio
 <div class="dynheader">
 Collaboration diagram for VolumeControl.TypeExtensions.EnumerableExtensions:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions__coll__graph.svg" width="238" height="279"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions__coll__graph.svg" width="238" height="250"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -109,12 +110,6 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a7186745ed4979c3a936a2e40ab47eafd"><td class="memItemLeft" align="right" valign="top">static IEnumerable&lt; TResult &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a7186745ed4979c3a936a2e40ab47eafd">SelectIfUnique&lt; TIn, TResult &gt;</a> (this IEnumerable&lt; TIn &gt; enumerable, Func&lt; TIn, TResult &gt; selector)</td></tr>
 <tr class="memdesc:a7186745ed4979c3a936a2e40ab47eafd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Similar to the regular Select Linq method except that it only includes selected values that are unique.  <a href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a7186745ed4979c3a936a2e40ab47eafd">More...</a><br /></td></tr>
 <tr class="separator:a7186745ed4979c3a936a2e40ab47eafd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaba543a0973472c8f2c13078266e491b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#aaba543a0973472c8f2c13078266e491b">AddIfUnique</a> (this IList list, object obj)</td></tr>
-<tr class="memdesc:aaba543a0973472c8f2c13078266e491b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds <em>obj</em>  to the <em>list</em>  if it isn't a duplicate of any existing elements.  <a href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#aaba543a0973472c8f2c13078266e491b">More...</a><br /></td></tr>
-<tr class="separator:aaba543a0973472c8f2c13078266e491b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af15cf883af58131e182d1f6bdb897460"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#af15cf883af58131e182d1f6bdb897460">AddRangeIfUnique</a> (this IList list, IEnumerable range)</td></tr>
-<tr class="memdesc:af15cf883af58131e182d1f6bdb897460"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls AddIfUnique(IList, object) on the given <em>range</em>  of objects.  <a href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#af15cf883af58131e182d1f6bdb897460">More...</a><br /></td></tr>
-<tr class="separator:af15cf883af58131e182d1f6bdb897460"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9516e17d92eb33bbc1960111f339fd3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#ab9516e17d92eb33bbc1960111f339fd3">ForEach</a> (this IEnumerable enumerable, Action&lt; object?&gt; action)</td></tr>
 <tr class="memdesc:ab9516e17d92eb33bbc1960111f339fd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the specified <em>action</em>  on each <em>enumerable</em>  element.  <a href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#ab9516e17d92eb33bbc1960111f339fd3">More...</a><br /></td></tr>
 <tr class="separator:ab9516e17d92eb33bbc1960111f339fd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -137,96 +132,6 @@ Static Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Extensions for the IEnumerable interface type. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aaba543a0973472c8f2c13078266e491b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaba543a0973472c8f2c13078266e491b">&#9670;&nbsp;</a></span>AddIfUnique()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void VolumeControl.TypeExtensions.EnumerableExtensions.AddIfUnique </td>
-          <td>(</td>
-          <td class="paramtype">this IList&#160;</td>
-          <td class="paramname"><em>list</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">object&#160;</td>
-          <td class="paramname"><em>obj</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Adds <em>obj</em>  to the <em>list</em>  if it isn't a duplicate of any existing elements. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">list</td><td>List</td></tr>
-    <tr><td class="paramname">obj</td><td>Object to add to the list. The object is only added if it isn't a duplicate of an existing element, as determined by object.Equals(object?).</td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="af15cf883af58131e182d1f6bdb897460"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af15cf883af58131e182d1f6bdb897460">&#9670;&nbsp;</a></span>AddRangeIfUnique()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void VolumeControl.TypeExtensions.EnumerableExtensions.AddRangeIfUnique </td>
-          <td>(</td>
-          <td class="paramtype">this IList&#160;</td>
-          <td class="paramname"><em>list</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">IEnumerable&#160;</td>
-          <td class="paramname"><em>range</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Calls AddIfUnique(IList, object) on the given <em>range</em>  of objects. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">list</td><td>List</td></tr>
-    <tr><td class="paramname">range</td><td>A range of objects to add to the list. Each object is only added if it isn't a duplicate of an existing element, as determined by object.Equals(object?).</td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="acfb4bc5513311c77e7319977419ae1e9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acfb4bc5513311c77e7319977419ae1e9">&#9670;&nbsp;</a></span>ConvertEach&lt; TList, TOut, TIn &gt;()</h2>
 
