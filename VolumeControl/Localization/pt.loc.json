@@ -13,7 +13,7 @@
             "Portuguese (Portugal)": "ID ou nome do processo"
           },
           "LockTarget": {
-            "Portuguese (Portugal)": "Trava"
+            "Portuguese (Portugal)": "Bloqueado"
           }
         },
         "MixerGrid": {
@@ -54,7 +54,7 @@
               "Portuguese (Portugal)": "Modo de Edição"
             },
             "Tooltip": {
-              "Portuguese (Portugal)": "Permite-lhe editar, criar, e apagar encadernações de teclas de atalho. "
+              "Portuguese (Portugal)": "Permite editar, criar, apagar e personalizar teclas de atalho. "
             }
           },
           "VolumeStep": {
@@ -123,7 +123,7 @@
             "Portuguese (Portugal)": "Criar nova tecla de atalho"
           },
           "Tooltip": {
-            "Portuguese (Portugal)": "Cria uma nova entrada de tecla de atalho em branco."
+            "Portuguese (Portugal)": "Cria uma nova entrada de tecla de atalho."
           }
         }
       },
@@ -190,7 +190,7 @@
               "Portuguese (Portugal)": "Recarregar Dispositivos"
             },
             "Tooltip": {
-              "Portuguese (Portugal)": "Recarregue todos os dispositivos à força."
+              "Portuguese (Portugal)": "Recarregar todos os dispositivos à forçosamente."
             }
           },
           "ReloadSessions": {
@@ -198,7 +198,7 @@
               "Portuguese (Portugal)": "Recarregar Sessões"
             },
             "Tooltip": {
-              "Portuguese (Portugal)": "Recarregue todas as sessões à força."
+              "Portuguese (Portugal)": "Recarregar todas as sessões à forçosamente."
             }
           }
         },
@@ -211,7 +211,7 @@
               "Portuguese (Portugal)": "Permitir"
             },
             "Tooltip": {
-              "Portuguese (Portugal)": "Alternar se as notificações aparecem ou não ao mudar o alvo da sessão."
+              "Portuguese (Portugal)": "Alternar se as notificações aparecem ou não ao mudar a sessão alvo."
             }
           },
           "OnVolumeChange": {
@@ -247,10 +247,10 @@
           },
           "Path": {
             "Tooltip": {
-              "Portuguese (Portugal)": "Especifíca a localização e o nome do ficheiro de registo. Os caminhos relativos são relativos à localização do executável."
+              "Portuguese (Portugal)": "Especifíca a localização e o nome do ficheiro de registo. Os caminhos relativos são referentes à localização do executável."
             },
             "WatermarkText": {
-              "Portuguese (Portugal)": "Caminho para o ficheiro de registo"
+              "Portuguese (Portugal)": "Caminho para o ficheiro de registo."
             }
           }
         },
@@ -260,10 +260,10 @@
           },
           "RunAtStartup": {
             "Content": {
-              "Portuguese (Portugal)": "Executar na Inicialização"
+              "Portuguese (Portugal)": "Executar em Startup"
             },
             "Tooltip": {
-              "Portuguese (Portugal)": "Quando ativado, o Volume Control será iniciado quando fizer o login."
+              "Portuguese (Portugal)": "Quando ativado, o Volume Control será iniciado assim que fizer o login."
             }
           },
           "StartMinimized": {
@@ -271,7 +271,7 @@
               "Portuguese (Portugal)": "Iniciar Minimizado"
             },
             "Tooltip": {
-              "Portuguese (Portugal)": "Quando activado, Volume Control irá minimizar-se a si próprio quando arrancar."
+              "Portuguese (Portugal)": "Quando ativado, o Volume Control irá minimizar ao arrancar."
             }
           },
           "MultiInstance": {
@@ -290,7 +290,7 @@
           },
           "AlwaysOnTop": {
             "Content": {
-              "Portuguese (Portugal)": "Sempre em Cima"
+              "Portuguese (Portugal)": "Sempre no Topo"
             },
             "Tooltip": {}
           },
@@ -299,7 +299,7 @@
               "Portuguese (Portugal)": "Mostrar Ícones"
             },
             "Tooltip": {
-              "Portuguese (Portugal)": "Quando ativado, o programa tentará exibir o ícone associado aos dispositivos e sessões de áudio. ( Alguns ícones podem estar ausente ao executar como usuário. )"
+              "Portuguese (Portugal)": "Quando ativado, o programa tentará exibir o ícone associado aos dispositivos e sessões de áudio. ( Alguns ícones podem estar ausentes ao executar como usuário. )"
             }
           }
         },
@@ -328,7 +328,7 @@
               "Portuguese (Portugal)": "Mostra Anúncio"
             },
             "Tooltip": {
-              "Portuguese (Portugal)": "Quando estiver marcado, você será solicitado a atualizar na forma de uma caixa de mensagem; caso contrário, você verá um ícone no canto superior direito."
+              "Portuguese (Portugal)": "Quando estiver selecionado,  será-lhe solicitado a atualização através de uma caixa de mensagem; caso contrário,  verá um ícone no canto superior direito."
             }
           }
         }
@@ -359,13 +359,13 @@
         "Portuguese (Portugal)": "Trazer para a Frente"
       },
       "Hide": {
-        "Portuguese (Portugal)": "Esconde"
+        "Portuguese (Portugal)": "Esconder"
       },
       "Show": {
-        "Portuguese (Portugal)": "Mostre"
+        "Portuguese (Portugal)": "Mostrar"
       },
       "Close": {
-        "Portuguese (Portugal)": "Fecha"
+        "Portuguese (Portugal)": "Fechar"
       }
     }
   }

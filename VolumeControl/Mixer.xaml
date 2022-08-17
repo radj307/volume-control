@@ -928,6 +928,11 @@
             </Style>
             <!--  Tooltip Style  -->
             <Style TargetType="{x:Type ToolTip}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Content, RelativeSource={RelativeSource Self}}" Value=" ">
+                        <Setter Property="Visibility" Value="Hidden"/>
+                    </DataTrigger>
+                </Style.Triggers>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ToolTip}">
@@ -1858,7 +1863,7 @@
                                                 Text="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.Header.Content',
                                                           DefaultText='Additional Settings'}"
                                                 ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.Header.Tooltip',
-                                                             DefaultText=''}" />
+                                                             DefaultText=' '}" />
                                         </Expander.Header>
 
                                         <Grid Grid.Column="1">
@@ -2378,7 +2383,7 @@
                                                                        UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource ApplicationSettingsCheckboxStyle}"
                                             ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.ShowInTaskbar.Tooltip',
-                                                         DefaultText=''}" />
+                                                         DefaultText=' '}" />
                                         <CheckBox
                                             Grid.Row="2"
                                             Grid.Column="2"
@@ -2390,7 +2395,7 @@
                                                                        UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource ApplicationSettingsCheckboxStyle}"
                                             ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.AlwaysOnTop.Tooltip',
-                                                         DefaultText=''}" />
+                                                         DefaultText=' '}" />
                                         <CheckBox
                                             Grid.Row="3"
                                             Grid.Column="2"
