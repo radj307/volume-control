@@ -18,14 +18,18 @@ namespace VolumeControl
             string version = $"v{assembly?.GetCustomAttribute<AssemblyAttribute.ExtendedVersion>()?.Version}";
 
             // Add a log handler to the dispatcher's unhandled exception event
-            DispatcherUnhandledException += (s, e) => Log.Error($"An unhandled exception occurred!", $"  Sender: '{s}' ({s.GetType()})", e.Exception);
+            DispatcherUnhandledException += (s, e) =>
+            {
+                Log.Error($"An unhandled exception occurred!", $"Sender: '{s}' ({s.GetType()})", e.Exception);
+                e.Handled = true;
+            };
 
-            // Tray icon
+            // setup the tray icon
             TrayIcon = new(() => this.MainWindow.Visibility == Visibility.Visible)
             {
                 Tooltip = $"Volume Control {version}"
             };
-            TrayIcon.Clicked += this.HandleTrayIconClick;
+            TrayIcon.DoubleClick += this.HandleTrayIconClick;
             TrayIcon.ShowClicked += this.HandleTrayIconClick;
             TrayIcon.HideClicked += (s, e) => this.HideMainWindow();
             TrayIcon.BringToFrontClicked += (s, e) => this.ActivateMainWindow();

@@ -26,7 +26,12 @@ namespace VolumeControl.Controls
                 ContextMenuStrip = _contextMenuStrip,
             };
 
-            _notifyIcon.MouseUp += this.HandleNotifyIconClicked;
+            _notifyIcon.MouseClick += this.ForwardClick;
+            _notifyIcon.MouseDoubleClick += this.ForwardDoubleClick;
+            _notifyIcon.BalloonTipShown += this.ForwardBalloonTipOpened;
+            _notifyIcon.BalloonTipClosed += this.ForwardBalloonTipClosed;
+
+            _notifyIcon.MouseClick += this.ForwardClick;
         }
         #endregion Constructor
 
@@ -44,12 +49,26 @@ namespace VolumeControl.Controls
         #endregion Fields
 
         #region Events
-        public event EventHandler? Clicked;
-        private void HandleNotifyIconClicked(object? sender, System.Windows.Forms.MouseEventArgs e)
+        /// <inheritdoc cref="System.Windows.Forms.NotifyIcon.DoubleClick"/>
+        public event EventHandler? DoubleClick;
+        private void ForwardDoubleClick(object? s, System.Windows.Forms.MouseEventArgs e)
         {
             if (e.Button.HasAnyFlag(this.MouseButtonsFireClickedEvent))
-                Clicked?.Invoke(this, EventArgs.Empty);
+                DoubleClick?.Invoke(s, e);
         }
+        /// <inheritdoc cref="System.Windows.Forms.NotifyIcon.Click"/>
+        public event EventHandler? Click;
+        private void ForwardClick(object? s, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button.HasAnyFlag(this.MouseButtonsFireClickedEvent))
+                Click?.Invoke(s, e);
+        }
+        /// <inheritdoc cref="System.Windows.Forms.NotifyIcon.BalloonTipShown"/>
+        public event EventHandler? BalloonTipOpened;
+        private void ForwardBalloonTipOpened(object? s, EventArgs e) => BalloonTipOpened?.Invoke(s, e);
+        /// <inheritdoc cref="System.Windows.Forms.NotifyIcon.BalloonTipClosed"/>
+        public event EventHandler? BalloonTipClosed;
+        private void ForwardBalloonTipClosed(object? s, EventArgs e) => BalloonTipClosed?.Invoke(s, e);
         #endregion Events
 
         #region Properties
