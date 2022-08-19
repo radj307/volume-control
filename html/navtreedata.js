@@ -29,7 +29,8 @@ var NAVTREE =
       [ "Installation", "index.html#autotoc_md31", null ],
       [ "Setup", "index.html#autotoc_md32", null ],
       [ "Usage", "index.html#autotoc_md33", null ],
-      [ "Addon Development", "index.html#autotoc_md34", null ]
+      [ "Contributing", "index.html#autotoc_md34", null ],
+      [ "Addon Development", "index.html#autotoc_md35", null ]
     ] ],
     [ "Contributing", "md__home_runner_work_volume-control_volume-control__c_o_n_t_r_i_b_u_t_i_n_g.html", [
       [ "Guidelines for Code Contributions", "md__home_runner_work_volume-control_volume-control__c_o_n_t_r_i_b_u_t_i_n_g.html#autotoc_md1", null ],
@@ -101,10 +102,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"class_volume_control_1_1_audio_1_1_audio_session.html#a2275e1b03112ef80ff3d6855b4e759cc",
-"class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a451d022073d12e1297b664d287a72ef3",
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html",
-"functions_func_t.html",
+"class_volume_control_1_1_audio_1_1_audio_session.html#a25f3050cb218e87324b288d8b437c64e",
+"class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a4c1092556d6a7c93638c37d256fb9edb",
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a234a5fc70abd4d6fc87bd093e1fea4e4",
+"functions_func_u.html",
 "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html#ab6b2d806bacd1b26702344affe9977f8"
 ];
 

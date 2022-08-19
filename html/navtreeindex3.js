@@ -1,6 +1,5 @@
 var NAVTREEINDEX3 =
 {
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html":[5,0,1,7,1,0],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a234a5fc70abd4d6fc87bd093e1fea4e4":[5,0,1,7,1,0,30],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a28eba112dd320ae13d7fce36ef14566c":[5,0,1,7,1,0,17],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a29c2075348d0fa82c6023c17ca28182f":[5,0,1,7,1,0,12],
@@ -222,8 +221,8 @@ var NAVTREEINDEX3 =
 "dir_f3fceef7ef2392cf921a36ff96ee570d.html":[6,0,10,0],
 "dir_f9538c984ad656b042c5452ce79bc4bb.html":[6,0,7,0],
 "files.html":[6,0],
-"functions.html":[5,3,0],
 "functions.html":[5,3,0,0],
+"functions.html":[5,3,0],
 "functions_a.html":[5,3,0,1],
 "functions_b.html":[5,3,0,2],
 "functions_c.html":[5,3,0,3],
@@ -249,5 +248,6 @@ var NAVTREEINDEX3 =
 "functions_func_o.html":[5,3,1,13],
 "functions_func_p.html":[5,3,1,14],
 "functions_func_r.html":[5,3,1,15],
-"functions_func_s.html":[5,3,1,16]
+"functions_func_s.html":[5,3,1,16],
+"functions_func_t.html":[5,3,1,17]
 };

@@ -1,6 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a451d022073d12e1297b664d287a72ef3":[5,0,1,3,6,15],
 "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a4c1092556d6a7c93638c37d256fb9edb":[5,0,1,3,6,9],
 "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a4cabd49ae18a82c524944cbea9e0ab01":[5,0,1,3,6,7],
 "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a6c58889fc41c90ab63cdb8db5549c99d":[5,0,1,3,6,14],
@@ -249,5 +248,6 @@ var NAVTREEINDEX2 =
 "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#acf615fb01e01431603bf9f765d953587":[5,0,1,7,0,0,6],
 "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#ad3bbdb8195bebc52d200e330a8ecc141":[5,0,1,7,0,0,7],
 "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#ad985c4623edd0203267455313f72ffed":[5,0,1,7,0,0,2],
-"class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#ada3cdd3ac7954aad7629162ff4282df7":[5,0,1,7,0,0,5]
+"class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#ada3cdd3ac7954aad7629162ff4282df7":[5,0,1,7,0,0,5],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html":[5,0,1,7,1,0]
 };

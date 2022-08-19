@@ -37,13 +37,12 @@ var NAVTREEINDEX0 =
 ".html":[6,0,9,12],
 ".html":[6,0,4,2,6],
 ".html":[6,0,4,2,7],
-".html":[6,0,4,2,8],
 ".html":[6,0,4,3],
 ".html":[6,0,4,4],
 ".html":[6,0,4,5],
 ".html":[6,0,4,6],
-".html":[6,0,9,4],
 ".html":[6,0,4,7],
+".html":[6,0,9,4],
 ".html":[6,0,4,8],
 ".html":[6,0,4,9],
 ".html":[6,0,5,0,0],
@@ -249,5 +248,6 @@ var NAVTREEINDEX0 =
 "class_volume_control_1_1_audio_1_1_audio_session.html#a13f918b85f4b1281f9e5ecb5fb7d5583":[5,0,1,0,6,0],
 "class_volume_control_1_1_audio_1_1_audio_session.html#a16f38ffc14983b03de1d8bd3cd88c66a":[5,0,1,0,6,28],
 "class_volume_control_1_1_audio_1_1_audio_session.html#a1c6d4d4ccf66a058b4f89a833c7e33c4":[5,0,1,0,6,33],
-"class_volume_control_1_1_audio_1_1_audio_session.html#a1cdcccdbeab9a8364824211253903328":[5,0,1,0,6,10]
+"class_volume_control_1_1_audio_1_1_audio_session.html#a1cdcccdbeab9a8364824211253903328":[5,0,1,0,6,10],
+"class_volume_control_1_1_audio_1_1_audio_session.html#a2275e1b03112ef80ff3d6855b4e759cc":[5,0,1,0,6,17]
 };
