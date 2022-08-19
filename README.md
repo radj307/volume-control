@@ -9,7 +9,7 @@ A universal, portable, and extensible hotkey framework that lets you control spe
 Designed for adjusting the volume of your music independently of other programs, such as games and VoIP.  
 
 > ### :new: Volume Control CLI
-> There is also a commandline version of Volume Control without the hotkeys.  
+> There is also a lightweight commandline version of Volume Control written in C++ that doesn't have hotkeys.  
 > It is intended for use in shell scripts, and allows you to control **both input and output** audio devices/sessions.  
 > You can find it here: https://github.com/radj307/volume-control-cli 
 
@@ -19,22 +19,20 @@ Designed for adjusting the volume of your music independently of other programs,
 - Makes your keyboard's volume slider useful
 - Provides you with an alternative to media keys if you don't have them
 - Adds a fully configurable hotkey framework that can be extended via [user-created addons](https://radj307.github.io/volume-control/html/md_docs__addon_development.html)
-- Provides a superior alternative to Windows' Volume Mixer
+- Has all of the same features as Windows' Volume Mixer
 - And more!
 
 
 ## How does it work?
 
-Volume Control maintains the concept of a "**selected**" audio session - also called a "**target**" - that is used to specify which audio session you want to perform an action on. Some actions only affect the current target; others, such as the media key actions, simulate context-sensitive key presses; and others, such as the next/previous target hotkeys, simply switch to the next or previous target regardless of context.  
-
 In Volume Control, a ***hotkey*** is just a combination of keys that can be made to execute an ***action***. Any number of hotkeys can trigger the same action.  
-
 A wide range of actions are provided by default, and you can add more via user-created addons.
 
+Volume Control maintains the concept of a ***selected*** - also called a ***target*** - audio session that is used to specify **which** audio session or device you want to perform an action on. Actions can be context-sensitive *(i.e. Toggle Media Playback)*, specific to the current ***target*** *(i.e. Session Volume Up/Down)*, or they can always do the same thing regardless of context *(i.e. Next/Previous Target)*.  
 
 # Getting Started
 
-Getting started is simple; download the [latest release](https://github.com/radj307/volume-control/releases/latest).  
+Getting started is simple; first, download the [latest release](https://github.com/radj307/volume-control/releases/latest).  
 
 
 ## Installation
@@ -58,6 +56,7 @@ This is necessary because Windows Defender requires a paying *&gt;$300* a year f
 
 
 ## Usage
+
 First, enable the **Volume Up** & **Volume Down** hotkeys from the **Hotkeys** tab by checking the box to the left of the hotkey name. If you don't have a volume slider, change the key from the dropdown. You can also set a modifier key with the checkboxes to the right of the dropdown. 
 
 **NOTE:** Hotkeys cannot be enabled if their associated key is set to `None`.
@@ -78,8 +77,12 @@ By enabling notifications, you will see a toast notification in the bottom right
 ![View of the toast notification](https://i.imgur.com/YWoXPxW.png)
 ![View of the toast notification when an audio session is locked](https://i.imgur.com/KOdYtGi.png)
 
-If you want to add or remove hotkeys, you can press the **Edit Mode** button in the Settings tab to enable the advanced features. Now the Hotkeys tab will have additional customisability so you can create new hotkeys, and change the action of each hotkey when it is pressed. You can reset all hotkeys to their default value by pressing the **Reset Hotkeys** button in the Settings tab. Note that this will also remove any additional hotkeys you have created.  
-![View of the advanced hotkeys](https://i.imgur.com/JccOVnO.png)
+If you want to add or remove hotkeys, you can press the **Edit Mode** button to enable editing. You can create new hotkeys, and change the action of each hotkey when it is pressed. You can reset all hotkeys to their default value by pressing the **Reset Hotkeys** button. Note that this will also remove any additional hotkeys you have created.  
+![View of the advanced hotkeys](https://i.imgur.com/A79qhcM.png)
+
+> ### :warning: Note
+> Some applications that use the DirectInput API *(dinput)* - usually games - may cause issues with Volume Control's hotkeys.  
+> In many cases you can resolve this by running Volume Control as an Administrator. *(See issue [#44](https://github.com/radj307/volume-control/issues/44))*  
 
 ## Contributing
 
