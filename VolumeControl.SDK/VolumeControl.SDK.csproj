@@ -23,9 +23,9 @@ https://github.com/radj307/volume-control</Description>
 			Full Changelog:
 			https://github.com/radj307/volume-control/commits/main
 		</PackageReleaseNotes>
-    <Version>5.2.4</Version>
-    <ExtendedVersion>5.2.4-2</ExtendedVersion>
-    <ReleaseType>REVISION</ReleaseType>
+    <Version>5.2.5</Version>
+    <ExtendedVersion>5.2.5</ExtendedVersion>
+    <ReleaseType>NORMAL</ReleaseType>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
   <ItemGroup>
