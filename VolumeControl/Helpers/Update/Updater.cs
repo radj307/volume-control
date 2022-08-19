@@ -37,11 +37,8 @@ namespace VolumeControl.Helpers.Update
                 {
                     this.ShowUpdatePrompt(latest);
                 }
-                else
-                {
-                    VCSettings.UpdateAvailable = true;
-                    VCSettings.UpdateVersion = latest.Version.ToString();
-                }
+                VCSettings.UpdateAvailable = true;
+                VCSettings.UpdateVersion = latest.Version.ToString();
             }
         }
         #region UpdatePrompt

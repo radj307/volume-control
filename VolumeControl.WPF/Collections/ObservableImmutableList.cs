@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.WPF.Collections
 {
@@ -420,11 +421,12 @@ namespace VolumeControl.WPF.Collections
         /// <inheritdoc/>
         public bool Remove(T item)
         {
-            if (!_items.Contains(item))
+            int index = _items.IndexOf(item);
+            if (index == -1)
                 return false;
 
             _items = _items.Remove(item);
-            this.RaiseNotifyCollectionChanged();
+            this.RaiseNotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
             return true;
         }
 
@@ -515,8 +517,7 @@ namespace VolumeControl.WPF.Collections
         /// <inheritdoc/>
         public IImmutableList<T> RemoveRange(IEnumerable<T> items, IEqualityComparer<T>? equalityComparer)
         {
-            _items = _items.RemoveRange(items, equalityComparer);
-            this.RaiseNotifyCollectionChanged();
+            items.ForEach(item => this.Remove(item));
             return this;
         }
 

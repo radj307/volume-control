@@ -1,4 +1,7 @@
 ﻿using NAudio.CoreAudioApi;
+using System.Collections;
+using System.Collections.Immutable;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using VolumeControl.Audio.Events;
@@ -12,13 +15,11 @@ namespace VolumeControl.Audio.Collections
     /// <summary>
     /// Management container object for the <see cref="AudioDevice"/> class.
     /// </summary>
-    public class AudioDeviceCollection : ObservableImmutableList<AudioDevice>, IDisposable, INotifyPropertyChanged
+    public class AudioDeviceCollection : IList, ICollection, IEnumerable, IList<AudioDevice>, IImmutableList<AudioDevice>, ICollection<AudioDevice>, IEnumerable<AudioDevice>, IReadOnlyList<AudioDevice>, IReadOnlyCollection<AudioDevice>, INotifyCollectionChanged, INotifyPropertyChanged, IDisposable
     {
         #region Constructor
         internal AudioDeviceCollection(AudioAPI api, DataFlow flow)
         {
-            base.PropertyChanged += this.ForwardPropertyChanged;
-
             _audioAPI = api;
 
             this.DataFlow = flow;
@@ -33,6 +34,12 @@ namespace VolumeControl.Audio.Collections
             _ = enumerator.RegisterEndpointNotificationCallback(this.DeviceNotificationClient);
             this.DeviceNotificationClient.GlobalDeviceAdded += this.HandleDeviceAdded;
             enumerator.Dispose();
+        }
+        /// <inheritdoc/>
+        public event NotifyCollectionChangedEventHandler? CollectionChanged
+        {
+            add => this.Items.CollectionChanged += value;
+            remove => this.Items.CollectionChanged -= value;
         }
         #endregion Constructor
 
@@ -62,12 +69,16 @@ namespace VolumeControl.Audio.Collections
         public event EventHandler<long>? DeviceSessionRemoved;
         private void ForwardSessionRemoved(object? sender, long pid) => DeviceSessionRemoved?.Invoke(sender, pid);
         /// <inheritdoc/>
-        public new event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
         private void ForwardPropertyChanged(object? sender, PropertyChangedEventArgs e) => PropertyChanged?.Invoke(sender, e);
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         #endregion Events
 
         #region Properties
+        /// <summary>
+        /// Container
+        /// </summary>
+        public ObservableImmutableList<AudioDevice> Items { get; } = new();
         private static LogWriter Log => FLog.Log;
         private static Config Settings => (Config.Default as Config)!;
         private DeviceNotificationClient DeviceNotificationClient { get; }
@@ -94,6 +105,34 @@ namespace VolumeControl.Audio.Collections
                 this.NotifyPropertyChanged();
             }
         }
+
+        /// <inheritdoc/>
+        public bool IsFixedSize => this.Items.IsFixedSize;
+        /// <inheritdoc/>
+        public bool IsReadOnly => this.Items.IsReadOnly;
+        /// <inheritdoc/>
+        public int Count => this.Items.Count;
+        /// <inheritdoc/>
+        public bool IsSynchronized => this.Items.IsSynchronized;
+        /// <inheritdoc/>
+        public object SyncRoot => this.Items.SyncRoot;
+        /// <inheritdoc/>
+        AudioDevice IReadOnlyList<AudioDevice>.this[int index] => this.Items[index];
+
+        /// <inheritdoc/>
+        public AudioDevice this[int index] { get => this.Items[index]; set => this.Items[index] = value; }
+        /// <inheritdoc/>
+        object? IList.this[int index]
+        {
+            get => this.Items[index];
+            set
+            {
+                if (value is not AudioDevice ad)
+                    throw new ArgumentException($"{nameof(value)} isn't an {nameof(AudioDevice)}!", nameof(value));
+                this.Items[index] = ad;
+            }
+        }
+
         private bool? _allSelected;
         #endregion Properties
 
@@ -238,13 +277,13 @@ namespace VolumeControl.Audio.Collections
             dev.SessionCreated += this.ForwardSessionCreated;
             dev.SessionRemoved += (s, e) => this.ForwardSessionRemoved(s, e.PID);
             dev.PropertyChanged += this.AudioDeviceOnPropertyChanged;
-            _ = this.Add(dev);
+            _ = this.Items.Add(dev);
             return dev;
         }
         /// <summary>Clears the list of devices &amp; reloads them from the Windows API.</summary>
         internal void Reload(MMDeviceEnumerator enumerator)
         {
-            _ = this.Clear();
+            _ = this.Items.Clear();
             foreach (MMDevice mmDevice in enumerator.EnumerateAudioEndPoints(this.DataFlow, DeviceState.Active))
                 _ = this.CreateDeviceFromMMDevice(mmDevice);
         }
@@ -271,6 +310,67 @@ namespace VolumeControl.Audio.Collections
             this.Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+
+        /// <inheritdoc/>
+        public int Add(object? value) => this.Items.Add(value);
+        /// <inheritdoc/>
+        public void Clear() => this.Items.Clear();
+        /// <inheritdoc/>
+        public bool Contains(object? value) => this.Items.Contains(value);
+        /// <inheritdoc/>
+        public int IndexOf(object? value) => this.Items.IndexOf(value);
+        /// <inheritdoc/>
+        public void Insert(int index, object? value) => this.Items.Insert(index, value);
+        /// <inheritdoc/>
+        public void Remove(object? value) => this.Items.Remove(value);
+        /// <inheritdoc/>
+        public void RemoveAt(int index) => this.Items.RemoveAt(index);
+        /// <inheritdoc/>
+        public void CopyTo(Array array, int index) => this.Items.CopyTo(array, index);
+        /// <inheritdoc/>
+        public IEnumerator GetEnumerator() => this.Items.GetEnumerator();
+        /// <inheritdoc/>
+        public int IndexOf(AudioDevice item) => this.Items.IndexOf(item);
+        /// <inheritdoc/>
+        public void Insert(int index, AudioDevice item) => this.Items.Insert(index, item);
+        /// <inheritdoc/>
+        public void Add(AudioDevice item) => this.Items.Add(item);
+        /// <inheritdoc/>
+        public bool Contains(AudioDevice item) => this.Items.Contains(item);
+        /// <inheritdoc/>
+        public void CopyTo(AudioDevice[] array, int arrayIndex) => this.Items.CopyTo(array, arrayIndex);
+        /// <inheritdoc/>
+        public bool Remove(AudioDevice item) => this.Items.Remove(item);
+        /// <inheritdoc/>
+        IEnumerator<AudioDevice> IEnumerable<AudioDevice>.GetEnumerator() => this.Items.GetEnumerator();
+        /// <inheritdoc/>
+        IImmutableList<AudioDevice> IImmutableList<AudioDevice>.Add(AudioDevice value) => this.Items.Add(value);
+        /// <inheritdoc/>
+        public IImmutableList<AudioDevice> AddRange(IEnumerable<AudioDevice> items) => this.Items.AddRange(items);
+        /// <inheritdoc/>
+        IImmutableList<AudioDevice> IImmutableList<AudioDevice>.Clear() => this.Items.Clear();
+        /// <inheritdoc/>
+        public int IndexOf(AudioDevice item, int index, int count, IEqualityComparer<AudioDevice>? equalityComparer) => this.Items.IndexOf(item, index, count, equalityComparer);
+        /// <inheritdoc/>
+        IImmutableList<AudioDevice> IImmutableList<AudioDevice>.Insert(int index, AudioDevice element) => this.Items.Insert(index, element);
+        /// <inheritdoc/>
+        public IImmutableList<AudioDevice> InsertRange(int index, IEnumerable<AudioDevice> items) => this.Items.InsertRange(index, items);
+        /// <inheritdoc/>
+        public int LastIndexOf(AudioDevice item, int index, int count, IEqualityComparer<AudioDevice>? equalityComparer) => this.Items.LastIndexOf(item, index, count, equalityComparer);
+        /// <inheritdoc/>
+        public IImmutableList<AudioDevice> Remove(AudioDevice value, IEqualityComparer<AudioDevice>? equalityComparer) => this.Items.Remove(value, equalityComparer);
+        /// <inheritdoc/>
+        public IImmutableList<AudioDevice> RemoveAll(Predicate<AudioDevice> match) => this.Items.RemoveAll(match);
+        /// <inheritdoc/>
+        IImmutableList<AudioDevice> IImmutableList<AudioDevice>.RemoveAt(int index) => this.Items.RemoveAt(index);
+        /// <inheritdoc/>
+        public IImmutableList<AudioDevice> RemoveRange(IEnumerable<AudioDevice> items, IEqualityComparer<AudioDevice>? equalityComparer) => this.Items.RemoveRange(items, equalityComparer);
+        /// <inheritdoc/>
+        public IImmutableList<AudioDevice> RemoveRange(int index, int count) => this.Items.RemoveRange(index, count);
+        /// <inheritdoc/>
+        public IImmutableList<AudioDevice> Replace(AudioDevice oldValue, AudioDevice newValue, IEqualityComparer<AudioDevice>? equalityComparer) => this.Items.Replace(oldValue, newValue, equalityComparer);
+        /// <inheritdoc/>
+        public IImmutableList<AudioDevice> SetItem(int index, AudioDevice value) => this.Items.SetItem(index, value);
         #endregion Methods
     }
 }

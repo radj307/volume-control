@@ -1937,6 +1937,7 @@
                                                 Background="{StaticResource TextBoxBackground}"
                                                 CornerRadius="{StaticResource RoundedControlCorner}" />
                                             <DataGrid
+                                                x:Name="deviceGrid"
                                                 Margin="0"
                                                 d:ItemsSource="{x:Null}"
                                                 AutoGenerateColumns="False"
