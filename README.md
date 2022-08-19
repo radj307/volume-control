@@ -32,7 +32,7 @@ Volume Control maintains the concept of a ***selected*** - also called a ***targ
 
 # Getting Started
 
-Getting started is simple; download the [latest release](https://github.com/radj307/volume-control/releases/latest).  
+Getting started is simple; first, download the [latest release](https://github.com/radj307/volume-control/releases/latest).  
 
 
 ## Installation
@@ -77,8 +77,8 @@ By enabling notifications, you will see a toast notification in the bottom right
 ![View of the toast notification](https://i.imgur.com/YWoXPxW.png)
 ![View of the toast notification when an audio session is locked](https://i.imgur.com/KOdYtGi.png)
 
-If you want to add or remove hotkeys, you can press the **Edit Mode** button in the Settings tab to enable the advanced features. Now the Hotkeys tab will have additional customisability so you can create new hotkeys, and change the action of each hotkey when it is pressed. You can reset all hotkeys to their default value by pressing the **Reset Hotkeys** button in the Settings tab. Note that this will also remove any additional hotkeys you have created.  
-![View of the advanced hotkeys](https://i.imgur.com/JccOVnO.png)
+If you want to add or remove hotkeys, you can press the **Edit Mode** button to enable editing. You can create new hotkeys, and change the action of each hotkey when it is pressed. You can reset all hotkeys to their default value by pressing the **Reset Hotkeys** button. Note that this will also remove any additional hotkeys you have created.  
+![View of the advanced hotkeys](https://i.imgur.com/A79qhcM.png)
 
 > ### :warning: Note
 > Some applications that use the DirectInput API *(dinput)* - usually games - may cause issues with Volume Control's hotkeys.  
