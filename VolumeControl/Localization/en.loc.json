@@ -4,6 +4,21 @@
   },
   "VolumeControl": {
     "MainWindow": {
+      "CaptionBar": {
+        "Title": {
+          "Content": {
+            "English (US/CA)": "Volume Control"
+          }
+        },
+        "BugReport": {
+          "Content": {
+            "English (US/CA)": "✏"
+          },
+          "Tooltip": {
+            "English (US/CA)": "Report a Bug"
+          }
+        }
+      },
       "Mixer": {
         "TabHeader": {
           "English (US/CA)": "Mixer"

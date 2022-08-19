@@ -1189,13 +1189,17 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <!--  LAYOUT  -->
+
+                <!--  Title  -->
                 <TextBlock
                     Grid.Column="1"
                     Margin="7,0"
                     VerticalAlignment="Center"
                     FontWeight="SemiBold"
                     Foreground="LightGray"
-                    Text="{Binding Title, ElementName=window, Mode=OneWay}" />
+                    Text="{Tr 'VolumeControl.MainWindow.CaptionBar.Title.Content',
+                              DefaultText='Volume Control'}" />
+                <!--  Update Icon  -->
                 <TextBlock
                     Grid.Column="3"
                     FlowDirection="RightToLeft"
@@ -1214,6 +1218,7 @@
                             Text="▲" />
                     </Hyperlink>
                 </TextBlock>
+                <!--  Version label  -->
                 <Label
                     x:Name="versionLabel"
                     Grid.Column="4"
@@ -1232,25 +1237,30 @@
                             Text="{Binding CurrentVersionString, Source={StaticResource Settings}}" />
                     </Hyperlink>
                 </Label>
+                <!--  Bug Report Icon  -->
                 <Button
                     Grid.Column="5"
                     Cursor="Hand"
                     FontSize="10"
                     FontWeight="Thin"
-                    Style="{StaticResource CaptionButtonStyle}">
+                    Style="{StaticResource CaptionButtonStyle}"
+                    ToolTip="{Tr 'VolumeControl.MainWindow.CaptionBar.BugReport.Tooltip',
+                                 DefaultText='Report a Bug'}">
                     <Hyperlink
                         extensions:HyperlinkExtensions.OpensInBrowser="True"
                         NavigateUri="{StaticResource VolumeControlBugReport}"
                         Style="{StaticResource CaptionHyperlinkStyle}">
-                        <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="🐞" />
+                        <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{Tr 'VolumeControl.MainWindow.CaptionBar.BugReport.Content', DefaultText='✏'}" />
                     </Hyperlink>
                 </Button>
+                <!--  Minimize Icon  -->
                 <Button
                     Grid.Column="6"
                     Click="Handle_MinimizeClick"
                     Content="―"
                     Cursor="Hand"
                     Style="{StaticResource CaptionButtonStyle}" />
+                <!--  Maximize Icon  -->
                 <Button
                     Grid.Column="7"
                     Click="Handle_MaximizeClick"
@@ -1258,6 +1268,7 @@
                     Cursor="Hand"
                     Style="{StaticResource CaptionButtonStyle}"
                     Visibility="Collapsed" />
+                <!--  Close Icon  -->
                 <Button
                     Grid.Column="8"
                     Click="Handle_CloseClick"
@@ -1458,7 +1469,7 @@
                                                                 Maximum="100"
                                                                 Minimum="0"
                                                                 SmallChange="1"
-                                                                Tag="{Binding PeakMeterValue}"
+                                                                Tag="{Binding PeakMeterValue, Mode=OneWay}"
                                                                 Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                                                 <i:Interaction.Behaviors>
                                                                     <behaviour:IntervalUpdateBinding
@@ -2059,7 +2070,7 @@
                                                                         Maximum="100"
                                                                         Minimum="0"
                                                                         SmallChange="1"
-                                                                        Tag="{Binding PeakMeterValue}"
+                                                                        Tag="{Binding PeakMeterValue, Mode=OneWay}"
                                                                         Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                                                         <i:Interaction.Behaviors>
                                                                             <behaviour:IntervalUpdateBinding
