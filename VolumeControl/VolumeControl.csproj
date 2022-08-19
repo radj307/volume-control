@@ -33,6 +33,7 @@
 		<PlatformTarget>AnyCPU</PlatformTarget>
 		<!-- SETTINGS UPGRADE -->
 		<PublishSingleFile>true</PublishSingleFile>
+		<ErrorReport>none</ErrorReport>
 	</PropertyGroup>
 	<!-- SETTINGS UPGRADE ATTRIBUTES -->
 	<ItemGroup>

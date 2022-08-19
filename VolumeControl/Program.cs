@@ -97,19 +97,27 @@ namespace VolumeControl
             catch (Exception ex)
             {
                 Log.Fatal("App exited because of an unhandled exception!", ex);
-                app.TrayIcon.Dispose();
-
-                using TextReader? sr = Log.Endpoint.GetReader();
-                if (sr is not null)
+                try
                 {
-                    string content = sr.ReadToEnd();
-                    sr.Dispose();
+                    // cleanup the notify icon if the program crashes (if it shuts down normally, it is correctly disposed of)
+                    app.TrayIcon.Dispose();
 
-                    WriteCrashDump(content);
+                    using TextReader? sr = Log.Endpoint.GetReader();
+                    if (sr is not null)
+                    {
+                        string content = sr.ReadToEnd();
+                        sr.Dispose();
+
+                        WriteCrashDump(content);
+                    }
+                    else
+                    {
+                        Log.Fatal($"Failed to create crash log dump!");
+                    }
                 }
-                else
+                catch (Exception inner_ex)
                 {
-                    Log.Fatal($"Failed to create crash log dump!");
+                    Log.Fatal("Another exception occurred while writing a crash dump!", inner_ex);
                 }
 
 #if DEBUG
@@ -165,14 +173,18 @@ namespace VolumeControl
             using var sw = new StreamWriter($"volumecontrol-crash-{++count}.log");
 
             string headerText = $"/// VOLUME CONTROL CRASH REPORT /// {Timestamp.Now(VolumeControl.Log.Enum.EventType.FATAL)} ///";
-            const int LEN = 120;
 
-            sw.WriteLine(new string('/', LEN));
+            int len = 120;
+            if (headerText.Length > 120)
+                len = headerText.Length;
+
+            sw.WriteLine(new string('/', len));
             sw.WriteLine();
-            sw.Write(new string(' ', (LEN / 2) - (headerText.Length / 2)));
+            int half = (len / 2) - (headerText.Length / 2);
+            if (half > 0) sw.Write(new string(' ', half));
             sw.WriteLine(headerText);
             sw.WriteLine();
-            sw.WriteLine(new string('/', LEN));
+            sw.WriteLine(new string('/', len));
             sw.WriteLine();
 
             sw.Write(content);
