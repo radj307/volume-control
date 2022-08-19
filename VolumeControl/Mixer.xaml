@@ -930,7 +930,7 @@
             <Style TargetType="{x:Type ToolTip}">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Content, RelativeSource={RelativeSource Self}}" Value=" ">
-                        <Setter Property="Visibility" Value="Hidden"/>
+                        <Setter Property="Visibility" Value="Hidden" />
                     </DataTrigger>
                 </Style.Triggers>
                 <Setter Property="Template">
@@ -1483,7 +1483,7 @@
                                             </DataGridTemplateColumn>
                                             <!--  Select  -->
                                             <DataGridTemplateColumn
-                                                Width="60"
+                                                Width="Auto"
                                                 Header=""
                                                 IsReadOnly="True">
                                                 <DataGridTemplateColumn.CellTemplate>

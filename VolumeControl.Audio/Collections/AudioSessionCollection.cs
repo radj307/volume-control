@@ -28,7 +28,6 @@ namespace VolumeControl.Audio.Collections
 
         #region Fields
         private readonly AudioDeviceCollection _devices;
-
         #endregion Fields
 
         #region Properties
