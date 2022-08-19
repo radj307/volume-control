@@ -1,5 +1,6 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.CoreAudioApi.Interfaces;
+using PropertyChanged;
 using System.Collections;
 using System.Collections.Immutable;
 using System.Collections.Specialized;
@@ -172,6 +173,7 @@ namespace VolumeControl.Audio
         /// <summary>
         /// The sessions that are playing on this device.
         /// </summary>
+        [SuppressPropertyChangedWarnings]
         public ObservableImmutableList<AudioSession> Sessions { get; } = new();
         #region InterfaceProperties
         /// <inheritdoc/>
@@ -185,11 +187,14 @@ namespace VolumeControl.Audio
         /// <inheritdoc/>
         public object SyncRoot => ((ICollection)this.Sessions).SyncRoot;
         /// <inheritdoc/>
+        [SuppressPropertyChangedWarnings]
         AudioSession IReadOnlyList<AudioSession>.this[int index] => ((IReadOnlyList<AudioSession>)this.Sessions)[index];
         /// <inheritdoc/>
-        AudioSession IList<AudioSession>.this[int index] { get => ((IList<AudioSession>)this.Sessions)[index]; set => ((IList<AudioSession>)this.Sessions)[index] = value; }
+        [SuppressPropertyChangedWarnings]
+        public AudioSession this[int index] { get => ((IList<AudioSession>)this.Sessions)[index]; set => ((IList<AudioSession>)this.Sessions)[index] = value; }
         /// <inheritdoc/>
-        public object? this[int index] { get => ((IList)this.Sessions)[index]; set => ((IList)this.Sessions)[index] = value; }
+        [SuppressPropertyChangedWarnings]
+        object? IList.this[int index] { get => ((IList)this.Sessions)[index]; set => ((IList)this.Sessions)[index] = value; }
         #endregion InterfaceProperties
         #endregion Properties
 

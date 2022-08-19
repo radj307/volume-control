@@ -214,7 +214,7 @@ namespace VolumeControl.Audio
         #region Device
         private void EnableDevices()
         {
-            foreach (AudioDevice? dev in this.Devices)
+            foreach (AudioDevice dev in this.Devices)
             {
                 dev.Enabled = dev.Equals(this.DefaultDevice) ? Settings.EnableDefaultDevice : Settings.EnabledDevices.Contains(dev.DeviceID);
             }
@@ -249,7 +249,7 @@ namespace VolumeControl.Audio
         /// <returns><see cref="IDevice"/> if successful, or <see langword="null"/> if no matching devices were found.</returns>
         public IDevice? FindDevice(Predicate<AudioDevice> predicate)
         {
-            foreach (AudioDevice? device in this.Devices)
+            foreach (AudioDevice device in this.Devices)
             {
                 if (predicate(device))
                     return device;
@@ -365,7 +365,7 @@ namespace VolumeControl.Audio
                 return l;
             for (int i = 0; i < this.Sessions.Count - 1; ++i)
             {
-                AudioSession? session = Sessions[i];
+                AudioSession? session = this.Sessions[i];
                 if (format.HasFlag(SessionNameFormat.PID))
                     l.Add(session.PID.ToString());
                 if (format.HasFlag(SessionNameFormat.ProcessName))

@@ -1,4 +1,5 @@
 ﻿using NAudio.CoreAudioApi;
+using PropertyChanged;
 using System.Collections;
 using System.Collections.Immutable;
 using System.Collections.Specialized;
@@ -34,6 +35,7 @@ namespace VolumeControl.Audio.Collections
         /// <summary>
         /// Container
         /// </summary>
+        [SuppressPropertyChangedWarnings]
         public ObservableImmutableList<AudioSession> Items { get; } = new();
         /// <inheritdoc/>
 
@@ -52,9 +54,12 @@ namespace VolumeControl.Audio.Collections
         public bool IsReadOnly => this.Items.IsReadOnly;
 
         /// <inheritdoc/>
+        [SuppressPropertyChangedWarnings]
         public AudioSession this[int index] => this.Items[index];
 
+        [SuppressPropertyChangedWarnings]
         AudioSession IList<AudioSession>.this[int index] { get => ((IList<AudioSession>)this.Items)[index]; set => ((IList<AudioSession>)this.Items)[index] = value; }
+        [SuppressPropertyChangedWarnings]
         object? IList.this[int index] { get => ((IList)this.Items)[index]; set => ((IList)this.Items)[index] = value; }
         #endregion Properties
 

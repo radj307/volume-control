@@ -1,4 +1,5 @@
 ﻿using NAudio.CoreAudioApi;
+using PropertyChanged;
 using System.Collections;
 using System.Collections.Immutable;
 using System.Collections.Specialized;
@@ -117,11 +118,14 @@ namespace VolumeControl.Audio.Collections
         /// <inheritdoc/>
         public object SyncRoot => this.Items.SyncRoot;
         /// <inheritdoc/>
+        [SuppressPropertyChangedWarnings]
         AudioDevice IReadOnlyList<AudioDevice>.this[int index] => this.Items[index];
 
         /// <inheritdoc/>
+        [SuppressPropertyChangedWarnings]
         public AudioDevice this[int index] { get => this.Items[index]; set => this.Items[index] = value; }
         /// <inheritdoc/>
+        [SuppressPropertyChangedWarnings]
         object? IList.this[int index]
         {
             get => this.Items[index];
@@ -150,11 +154,11 @@ namespace VolumeControl.Audio.Collections
 
                 if (this.AllDevicesEnabled == true)
                 {
-                    this.ForEach(dev => dev.Enabled = true);
+                    _ = this.ForEach(dev => dev.Enabled = true);
                 }
                 else if (this.AllDevicesEnabled == false)
                 {
-                    this.ForEach(dev => dev.Enabled = false);
+                    _ = this.ForEach(dev => dev.Enabled = false);
                 }
             }
             finally
@@ -300,7 +304,7 @@ namespace VolumeControl.Audio.Collections
             if (!_disposedValue)
             {
                 if (disposing)
-                    this.ForEach(d => d.Dispose());
+                    _ = this.ForEach(d => d.Dispose());
                 _disposedValue = true;
             }
         }
