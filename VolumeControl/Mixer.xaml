@@ -19,13 +19,15 @@
     xmlns:sys="clr-namespace:System;assembly=netstandard"
     x:Name="window"
     Title="Volume Control"
-    ctrlz:KeyboardNavigationEx.AlwaysShowFocusVisual="False"
+    ctrlz:KeyboardNavigationEx.AlwaysShowFocusVisual="True"
     AllowsTransparency="True"
     Closing="Window_Closing"
     DataContext="{RelativeSource Self}"
     FocusVisualStyle="{x:Null}"
     Icon="/Resources/icons/iconSilvered.ico"
     Initialized="Window_Initialized"
+    KeyboardNavigation.ControlTabNavigation="Cycle"
+    KeyboardNavigation.TabNavigation="Cycle"
     Loaded="Window_Loaded"
     WindowStyle="None"
     mc:Ignorable="d">
@@ -115,7 +117,31 @@
             <Thickness x:Key="SelectionBorderThickness">1</Thickness>
             <Thickness x:Key="TabItemSelectionBorderThickness">1,1,0,1</Thickness>
 
-
+            <!--  CustomFocusVisualStyle  -->
+            <Style x:Key="CustomFocusVisualStyle">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle
+                                Margin="-2"
+                                Stroke="{StaticResource SelectionBorderBrush}"
+                                StrokeThickness="1" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="CustomFocusVisualStyleInner">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle
+                                Margin="0"
+                                Stroke="{StaticResource SelectionBorderBrush}"
+                                StrokeThickness="1" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
             <!--  Scrollbars  -->
             <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
                 <Style.Triggers>
@@ -222,6 +248,7 @@
                 </Setter>
                 <Setter Property="Foreground" Value="WhiteSmoke" />
                 <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
             <!--  Button  -->
             <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
@@ -272,6 +299,7 @@
                 <Setter Property="FontWeight" Value="SemiBold" />
                 <Setter Property="FontSize" Value="{StaticResource GlobalFontSize}" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
             <Style
                 x:Key="{x:Type Button}"
@@ -308,6 +336,7 @@
                 <Setter Property="Foreground" Value="{StaticResource AccentForeground}" />
                 <Setter Property="FontWeight" Value="SemiBold" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
             <!--  ToggleButton  -->
             <Style x:Key="ToggleButtonStyle" TargetType="{x:Type ToggleButton}">
@@ -348,6 +377,7 @@
                 <Setter Property="Background" Value="#0000" />
                 <Setter Property="Foreground" Value="{StaticResource AccentGradient}" />
                 <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
             <Style
                 x:Key="{x:Type ToggleButton}"
@@ -371,6 +401,7 @@
                 <Setter Property="SelectionOpacity" Value="0.5" />
                 <Setter Property="Padding" Value="3,2" />
                 <Setter Property="FontSize" Value="{StaticResource GlobalFontSize}" />
+                <Setter Property="FocusVisualStyle" Value="{DynamicResource CustomFocusVisualStyle}" />
             </Style>
             <!--  Label  -->
             <Style x:Key="LabelStyle" TargetType="Label">
@@ -384,6 +415,7 @@
                 <Setter Property="Foreground" Value="WhiteSmoke" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
             <!--  Mixer Headers  -->
             <Style x:Key="MixerHeadersStyle" TargetType="DataGridColumnHeader">
@@ -394,6 +426,7 @@
                 <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Setter Property="Foreground" Value="WhiteSmoke" />
                 <Setter Property="Background" Value="{StaticResource HeaderBackgroundBrush}" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
             <!--  Border Style  -->
             <Style x:Key="BorderStyle" TargetType="Border">
@@ -612,12 +645,13 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
             <!--  ComboBox  -->
             <Style
                 x:Key="ComboBoxStyle"
                 BasedOn="{StaticResource ComboBoxCustomStyle}"
-                TargetType="ComboBox">
+                TargetType="{x:Type ComboBox}">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
                         <Setter Property="Foreground" Value="#404040" />
@@ -638,6 +672,8 @@
                 <Setter Property="IsTextSearchCaseSensitive" Value="False" />
                 <Setter Property="Margin" Value="0,1,0,1" />
                 <Setter Property="Padding" Value="0" />
+                <Setter Property="KeyboardNavigation.ControlTabNavigation" Value="Cycle" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
             <!--  TextBlock  -->
             <Style x:Key="TextBlockStyle" TargetType="TextBlock">
@@ -688,12 +724,14 @@
                 <Setter Property="FontSize" Value="13" />
                 <Setter Property="FontWeight" Value="Bold" />
                 <Setter Property="Foreground" Value="{StaticResource HeaderForegroundBrush}" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
             <!--  SectionSubGridStyle (Settings/Debug)  -->
             <Style x:Key="SectionSubGridStyle" TargetType="{x:Type Grid}">
                 <Setter Property="Margin" Value="5,3" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
             <!--  ApplicationSettingsCheckboxStyle (Settings/Debug)  -->
             <Style
@@ -702,8 +740,24 @@
                 TargetType="{x:Type CheckBox}">
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="Margin" Value="10,3" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
 
+            <!--  Custom Slider Thumb Style  -->
+            <Style x:Key="CustomSliderThumbStyle" TargetType="{x:Type Thumb}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
+                        <Setter Property="Background" Value="{StaticResource AccentGradientMouseOver}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsDragging, RelativeSource={RelativeSource Self}}" Value="True">
+                        <Setter Property="Background" Value="{StaticResource AccentGradientIsPressed}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="True">
+                        <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
+                        <Setter Property="BorderThickness" Value="{StaticResource SelectionBorderThickness}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
             <!--  CustomSliderTemplate  -->
             <ControlTemplate x:Key="CustomSliderTemplate" TargetType="{x:Type Slider}">
                 <ControlTemplate.Resources>
@@ -758,7 +812,8 @@
                                 Background="{TemplateBinding Foreground}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                SnapsToDevicePixels="True">
+                                SnapsToDevicePixels="True"
+                                Style="{StaticResource CustomSliderThumbStyle}">
                                 <Thumb.Template>
                                     <ControlTemplate TargetType="{x:Type Thumb}">
                                         <Ellipse
@@ -771,22 +826,6 @@
                                             StrokeThickness="{TemplateBinding BorderThickness}" />
                                     </ControlTemplate>
                                 </Thumb.Template>
-                                <Thumb.Style>
-                                    <Style TargetType="{x:Type Thumb}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
-                                                <Setter Property="Background" Value="{StaticResource AccentGradientMouseOver}" />
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding IsDragging, RelativeSource={RelativeSource Self}}" Value="True">
-                                                <Setter Property="Background" Value="{StaticResource AccentGradientIsPressed}" />
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="True">
-                                                <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
-                                                <Setter Property="BorderThickness" Value="{StaticResource SelectionBorderThickness}" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Thumb.Style>
                             </Thumb>
                         </Track.Thumb>
                         <Track.IncreaseRepeatButton>
@@ -809,9 +848,15 @@
                 <Setter Property="Background" Value="WhiteSmoke" />
                 <Setter Property="Foreground" Value="{StaticResource AccentGradient}" />
                 <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="FocusVisualStyle" Value="{DynamicResource CustomFocusVisualStyle}" />
             </Style>
             <!--  NumericUpDownStyle  -->
             <Style TargetType="{x:Type controls:NumericUpDown}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="True">
+                        <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
+                    </DataTrigger>
+                </Style.Triggers>
                 <!--  Use an even number for height so that the buttons are the same size  -->
                 <Setter Property="Height" Value="24" />
                 <Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
@@ -826,7 +871,8 @@
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Width" Value="Auto" />
                 <Setter Property="Height" Value="25" />
-                <Setter Property="Focusable" Value="False" />
+                <!--<Setter Property="Focusable" Value="False" />-->
+                <Setter Property="FocusVisualStyle" Value="{DynamicResource CustomFocusVisualStyle}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type controls:NumericUpDown}">
@@ -868,6 +914,7 @@
                                         VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                         Background="{TemplateBinding Background}"
                                         BorderThickness="0"
+                                        FocusVisualStyle="{TemplateBinding FocusVisualStyle}"
                                         Foreground="{TemplateBinding Foreground}">
                                         <TextBox.OpacityMask>
                                             <VisualBrush Visual="{Binding ElementName=nudTextBoxMask}" />
@@ -1011,6 +1058,7 @@
                         VerticalAlignment="Center"
                         Content="{TemplateBinding Header}"
                         DockPanel.Dock="Top"
+                        FocusVisualStyle="{TemplateBinding FocusVisualStyle}"
                         IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         OverridesDefaultStyle="True"
                         Template="{StaticResource ExpanderToggleButtonTemplate}">
@@ -1041,45 +1089,50 @@
                 <Setter Property="Focusable" Value="False" />
                 <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="Template" Value="{StaticResource ExpanderTemplate}" />
+                <Setter Property="FocusVisualStyle" Value="{DynamicResource CustomFocusVisualStyle}" />
             </Style>
-            <ControlTemplate x:Key="TabItemTemplate" TargetType="{x:Type TabItem}">
-                <Grid>
-                    <Border
-                        Name="Border"
-                        Margin="1,0"
-                        BorderThickness="0"
-                        CornerRadius="{Binding Source={StaticResource RoundedControlCorner}, Converter={StaticResource SquaredCornerRadiusConverter}, ConverterParameter={x:Static conv:Corner.Bottom}}">
-                        <ContentPresenter
-                            x:Name="ContentSite"
-                            Margin="10,2"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            ContentSource="Header"
-                            TextBlock.Foreground="{TemplateBinding Foreground}" />
-                    </Border>
-                </Grid>
-                <ControlTemplate.Triggers>
-                    <!--  SELECTED TAB APPEARANCE:  -->
-                    <Trigger Property="IsSelected" Value="True">
-                        <Setter TargetName="Border" Property="Background" Value="{StaticResource TabBackgroundBrush}" />
-                        <Setter TargetName="Border" Property="Margin" Value="1,-1" />
-                        <Setter TargetName="ContentSite" Property="TextBlock.FontWeight" Value="Bold" />
-                        <Setter TargetName="ContentSite" Property="TextBlock.FontSize" Value="13" />
-                    </Trigger>
-                    <!--  UNSELECTED TAB APPEARANCE:  -->
-                    <Trigger Property="IsSelected" Value="False">
-                        <Setter TargetName="Border" Property="Background" Value="#303030" />
-                        <Setter TargetName="ContentSite" Property="TextBlock.Foreground" Value="LightGray" />
-                        <Setter TargetName="ContentSite" Property="TextBlock.FontWeight" Value="Medium" />
-                        <Setter TargetName="ContentSite" Property="TextBlock.FontSize" Value="11" />
-                    </Trigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate>
             <!--  Tab Item Appearance  -->
             <Style TargetType="{x:Type TabItem}">
-                <Setter Property="Template" Value="{StaticResource TabItemTemplate}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TabItem}">
+                            <Grid>
+                                <Border
+                                    Name="Border"
+                                    Margin="1,0"
+                                    BorderThickness="0"
+                                    CornerRadius="{Binding Source={StaticResource RoundedControlCorner}, Converter={StaticResource SquaredCornerRadiusConverter}, ConverterParameter={x:Static conv:Corner.Bottom}}">
+                                    <ContentPresenter
+                                        x:Name="ContentSite"
+                                        Margin="10,2"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        ContentSource="Header"
+                                        TextBlock.Foreground="{TemplateBinding Foreground}" />
+                                </Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <!--  SELECTED TAB APPEARANCE:  -->
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="{StaticResource TabBackgroundBrush}" />
+                                    <Setter TargetName="Border" Property="Margin" Value="1,-1" />
+                                    <Setter TargetName="ContentSite" Property="TextBlock.FontWeight" Value="Bold" />
+                                    <Setter TargetName="ContentSite" Property="TextBlock.FontSize" Value="13" />
+                                </Trigger>
+                                <!--  UNSELECTED TAB APPEARANCE:  -->
+                                <Trigger Property="IsSelected" Value="False">
+                                    <Setter TargetName="Border" Property="Background" Value="#303030" />
+                                    <Setter TargetName="ContentSite" Property="TextBlock.Foreground" Value="LightGray" />
+                                    <Setter TargetName="ContentSite" Property="TextBlock.FontWeight" Value="Medium" />
+                                    <Setter TargetName="ContentSite" Property="TextBlock.FontSize" Value="11" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="Foreground" Value="WhiteSmoke" />
                 <Setter Property="Padding" Value="3" />
+                <Setter Property="FocusVisualStyle" Value="{DynamicResource CustomFocusVisualStyle}" />
             </Style>
 
             <!--  Hyperlink  -->
@@ -1091,8 +1144,9 @@
                     </DataTrigger>
                 </Style.Triggers>
                 <Setter Property="TextDecorations" Value="None" />
-                <Setter Property="BaselineAlignment" Value="Center" />
+                <Setter Property="BaselineAlignment" Value="Baseline" />
                 <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
 
             <!--  KeyOptions  -->
@@ -1120,7 +1174,10 @@
         BorderBrush="{StaticResource WindowBorderBrush}"
         BorderThickness="{StaticResource WindowBorderThickness}"
         CornerRadius="{StaticResource RoundedWindowCorner}">
-        <VirtualizingStackPanel FlowDirection="LeftToRight" Orientation="Vertical">
+        <VirtualizingStackPanel
+            FlowDirection="LeftToRight"
+            KeyboardNavigation.TabNavigation="Cycle"
+            Orientation="Vertical">
             <!--  v Caption Bar v  -->
             <Grid Name="CaptionBar" Height="{StaticResource CaptionHeight}">
                 <!--  RESOURCES  -->
@@ -1208,6 +1265,7 @@
                     Visibility="{Binding UpdateAvailable, Source={StaticResource Settings}, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Hyperlink
                         extensions:HyperlinkExtensions.OpensInBrowser="True"
+                        KeyboardNavigation.IsTabStop="False"
                         NavigateUri="{StaticResource VolumeControlLatestRelease}"
                         TextDecorations="None">
                         <TextBlock
@@ -1230,7 +1288,11 @@
                     Foreground="LightGray"
                     Style="{StaticResource LabelStyle}">
                     <!--  This hyperlink must NOT use the 'CaptionHyperlinkStyle' or it'll lose its dynamic-underlining  -->
-                    <Hyperlink extensions:HyperlinkExtensions.OpensInBrowser="True" NavigateUri="{StaticResource VolumeControlRepository}">
+                    <Hyperlink
+                        extensions:HyperlinkExtensions.OpensInBrowser="True"
+                        KeyboardNavigation.IsTabStop="False"
+                        KeyboardNavigation.TabNavigation="None"
+                        NavigateUri="{StaticResource VolumeControlRepository}">
                         <TextBlock
                             Foreground="LightGray"
                             Style="{StaticResource CaptionTextBlockStyle}"
@@ -1243,11 +1305,14 @@
                     Cursor="Hand"
                     FontSize="10"
                     FontWeight="Thin"
+                    IsTabStop="False"
                     Style="{StaticResource CaptionButtonStyle}"
                     ToolTip="{Tr 'VolumeControl.MainWindow.CaptionBar.BugReport.Tooltip',
                                  DefaultText='Report a Bug'}">
                     <Hyperlink
                         extensions:HyperlinkExtensions.OpensInBrowser="True"
+                        KeyboardNavigation.IsTabStop="False"
+                        KeyboardNavigation.TabNavigation="None"
                         NavigateUri="{StaticResource VolumeControlBugReport}"
                         Style="{StaticResource CaptionHyperlinkStyle}">
                         <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{Tr 'VolumeControl.MainWindow.CaptionBar.BugReport.Content', DefaultText='✏'}" />
@@ -1259,6 +1324,7 @@
                     Click="Handle_MinimizeClick"
                     Content="―"
                     Cursor="Hand"
+                    IsTabStop="False"
                     Style="{StaticResource CaptionButtonStyle}" />
                 <!--  Maximize Icon  -->
                 <Button
@@ -1266,6 +1332,7 @@
                     Click="Handle_MaximizeClick"
                     Content="□"
                     Cursor="Hand"
+                    IsTabStop="False"
                     Style="{StaticResource CaptionButtonStyle}"
                     Visibility="Collapsed" />
                 <!--  Close Icon  -->
@@ -1274,6 +1341,7 @@
                     Click="Handle_CloseClick"
                     Content="❌"
                     Cursor="Hand"
+                    IsTabStop="False"
                     Style="{StaticResource CaptionButtonStyle}" />
             </Grid>
             <!--  ^ Caption Bar ^  -->
@@ -1558,7 +1626,7 @@
                                     HorizontalAlignment="Center"
                                     DataContext="{StaticResource Settings}"
                                     MaxValue="100"
-                                    MinValue="0"
+                                    MinValue="1"
                                     ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.VolumeStep.Tooltip',
                                                  DefaultText='This is the number of volume ticks that change each time you press the volume up or down hotkeys.'}"
                                     Value="{Binding AudioAPI.VolumeStepSize, Mode=TwoWay, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}" />

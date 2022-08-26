@@ -43,8 +43,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppConfig", "AppConfig\AppC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.SDK", "VolumeControl.SDK\VolumeControl.SDK.csproj", "{01B6AD99-4247-461B-8163-B9867BAD076D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestLangLocalizationGenerator", "TestLangLocalizationGenerator\TestLangLocalizationGenerator.csproj", "{E9F7BE63-48B7-4EF4-9563-E6701D770141}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -240,22 +238,6 @@ Global
 		{01B6AD99-4247-461B-8163-B9867BAD076D}.TestLangLocalizationGenerator|x64.Build.0 = Release|Any CPU
 		{01B6AD99-4247-461B-8163-B9867BAD076D}.TestLangLocalizationGenerator|x86.ActiveCfg = Release|Any CPU
 		{01B6AD99-4247-461B-8163-B9867BAD076D}.TestLangLocalizationGenerator|x86.Build.0 = Release|Any CPU
-		{E9F7BE63-48B7-4EF4-9563-E6701D770141}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9F7BE63-48B7-4EF4-9563-E6701D770141}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{E9F7BE63-48B7-4EF4-9563-E6701D770141}.Debug|x64.Build.0 = Debug|Any CPU
-		{E9F7BE63-48B7-4EF4-9563-E6701D770141}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E9F7BE63-48B7-4EF4-9563-E6701D770141}.Debug|x86.Build.0 = Debug|Any CPU
-		{E9F7BE63-48B7-4EF4-9563-E6701D770141}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E9F7BE63-48B7-4EF4-9563-E6701D770141}.Release|x64.ActiveCfg = Release|Any CPU
-		{E9F7BE63-48B7-4EF4-9563-E6701D770141}.Release|x64.Build.0 = Release|Any CPU
-		{E9F7BE63-48B7-4EF4-9563-E6701D770141}.Release|x86.ActiveCfg = Release|Any CPU
-		{E9F7BE63-48B7-4EF4-9563-E6701D770141}.Release|x86.Build.0 = Release|Any CPU
-		{E9F7BE63-48B7-4EF4-9563-E6701D770141}.TestLangLocalizationGenerator|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9F7BE63-48B7-4EF4-9563-E6701D770141}.TestLangLocalizationGenerator|Any CPU.Build.0 = Debug|Any CPU
-		{E9F7BE63-48B7-4EF4-9563-E6701D770141}.TestLangLocalizationGenerator|x64.ActiveCfg = Release|Any CPU
-		{E9F7BE63-48B7-4EF4-9563-E6701D770141}.TestLangLocalizationGenerator|x64.Build.0 = Release|Any CPU
-		{E9F7BE63-48B7-4EF4-9563-E6701D770141}.TestLangLocalizationGenerator|x86.ActiveCfg = Release|Any CPU
-		{E9F7BE63-48B7-4EF4-9563-E6701D770141}.TestLangLocalizationGenerator|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -263,7 +245,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{FFC976AB-3F90-4DCD-B389-78DC9A459464} = {0FC57F73-5E25-404B-9E86-8EDA0E96F2BC}
 		{A5AE4864-D363-4B07-B11F-7D2E1B81889A} = {FDB479EE-7FDD-4A76-9BA0-E464DA42B94B}
-		{E9F7BE63-48B7-4EF4-9563-E6701D770141} = {FDB479EE-7FDD-4A76-9BA0-E464DA42B94B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CCCF30EB-5FD3-4483-A469-50F52081CFE1}

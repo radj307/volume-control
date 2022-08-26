@@ -150,6 +150,8 @@ namespace VolumeControl
         private void Handle_LogFilterBoxSelectionChanged(object sender, SelectionChangedEventArgs e) => logFilterBox.SelectedItem = null;
         private void Handle_KeySelectorKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
+            if (e.Key.Equals(System.Windows.Input.Key.Tab))
+                return; //< don't capture the tab key or it breaks keyboard navigation
             if (sender is ComboBox cmb)
             {
                 int i = cmb.Items.IndexOf(e.Key);
