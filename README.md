@@ -83,6 +83,9 @@ If you want to add or remove hotkeys, you can press the **Edit Mode** button to 
 > ### :warning: Note
 > Some applications that use the DirectInput API *(dinput)* - usually games - may cause issues with Volume Control's hotkeys.  
 > In many cases you can resolve this by running Volume Control as an Administrator. *(See issue [#44](https://github.com/radj307/volume-control/issues/44))*  
+### Troubleshooting
+The first step when troubleshooting is always to delete `volumecontrol.json` and re-launch; this fixes the vast majority of bugs.  
+If this does not fix your problem, post a [bug report](https://github.com/radj307/volume-control/issues/new?assignees=&labels=bug%2Ctriage&template=BugReport.yml&title=%5BBUG%5D+...) and we'll do our best to help.
 
 ## Contributing
 
