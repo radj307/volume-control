@@ -15,7 +15,6 @@ var hierarchy =
     ] ],
     [ "VolumeControl.Hotkeys.BindableHotkeyConverterExtensions", "class_volume_control_1_1_hotkeys_1_1_bindable_hotkey_converter_extensions.html", null ],
     [ "VolumeControl.Core.Input.BindableHotkeyJsonWrapper", "struct_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey_json_wrapper.html", null ],
-    [ "VolumeControl.Config.Class1", "class_volume_control_1_1_config_1_1_class1.html", null ],
     [ "VolumeControl.TypeExtensions.CollectionExtensions", "class_volume_control_1_1_type_extensions_1_1_collection_extensions.html", null ],
     [ "VolumeControl.Log.LogWriter.ConditionalMessage", "struct_volume_control_1_1_log_1_1_log_writer_1_1_conditional_message.html", null ],
     [ "VolumeControl.TypeExtensions.EnumerableExtensions", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html", null ],

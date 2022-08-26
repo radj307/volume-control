@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </blockquote>
 <h3><a class="anchor" id="autotoc_md27"></a>
 :new: Volume Control CLI</h3>
-<p>There is also a commandline version of Volume Control without the hotkeys. <br  />
+<p>There is also a lightweight commandline version of Volume Control written in C++ that doesn't have hotkeys. <br  />
  It is intended for use in shell scripts, and allows you to control <b>both input and output</b> audio devices/sessions. <br  />
  You can find it here: <a href="https://github.com/radj307/volume-control-cli">https://github.com/radj307/volume-control-cli</a> </p>
 <h2><a class="anchor" id="autotoc_md28"></a>
@@ -110,19 +110,18 @@ What It Does</h2>
 <li>Makes your keyboard's volume slider useful</li>
 <li>Provides you with an alternative to media keys if you don't have them</li>
 <li>Adds a fully configurable hotkey framework that can be extended via <a href="https://radj307.github.io/volume-control/html/md_docs__addon_development.html">user-created addons</a></li>
-<li>Provides a superior alternative to Windows' Volume Mixer</li>
+<li>Has all of the same features as Windows' Volume Mixer</li>
 <li>And more!</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md29"></a>
 How does it work?</h2>
-<p>Volume Control maintains the concept of a "**selected**" audio session - also called a "**target**" - that is used to specify which audio session you want to perform an action on. Some actions only affect the current target; others, such as the media key actions, simulate context-sensitive key presses; and others, such as the next/previous target hotkeys, simply switch to the next or previous target regardless of context. <br  />
-</p>
 <p>In Volume Control, a <em><b>hotkey</b></em> is just a combination of keys that can be made to execute an <em><b>action</b></em>. Any number of hotkeys can trigger the same action. <br  />
+ A wide range of actions are provided by default, and you can add more via user-created addons.</p>
+<p>Volume Control maintains the concept of a <em><b>selected</b></em> - also called a <em><b>target</b></em> - audio session that is used to specify <b>which</b> audio session or device you want to perform an action on. Actions can be context-sensitive *(i.e. Toggle Media Playback)*, specific to the current <em><b>target</b></em> *(i.e. Session Volume Up/Down)*, or they can always do the same thing regardless of context *(i.e. Next/Previous Target)*. <br  />
 </p>
-<p>A wide range of actions are provided by default, and you can add more via user-created addons.</p>
 <h1><a class="anchor" id="autotoc_md30"></a>
 Getting Started</h1>
-<p>Getting started is simple; download the <a href="https://github.com/radj307/volume-control/releases/latest">latest release</a>. <br  />
+<p>Getting started is simple; first, download the <a href="https://github.com/radj307/volume-control/releases/latest">latest release</a>. <br  />
 </p>
 <h2><a class="anchor" id="autotoc_md31"></a>
 Installation</h2>
@@ -157,13 +156,25 @@ Usage</h2>
 <p><img src="https://i.imgur.com/jx8j1bC.png" alt="View of the Settings Tab" class="inline"/></p>
 <p>By enabling notifications, you will see a toast notification in the bottom right of your screen when you switch target sessions. This tells you which session is currently selected. Using the <b>Un/Lock Session</b> hotkey, you can prevent changing the targeted audio device. The border of the toast notification will be red when the currently targeted session is locked. You can press the hotkey again to unlock the session.</p>
 <p><img src="https://i.imgur.com/YWoXPxW.png" alt="View of the toast notification" class="inline"/> <img src="https://i.imgur.com/KOdYtGi.png" alt="View of the toast notification when an audio session is locked" class="inline"/></p>
-<p>If you want to add or remove hotkeys, you can press the <b>Edit Mode</b> button in the Settings tab to enable the advanced features. Now the Hotkeys tab will have additional customisability so you can create new hotkeys, and change the action of each hotkey when it is pressed. You can reset all hotkeys to their default value by pressing the <b>Reset Hotkeys</b> button in the Settings tab. Note that this will also remove any additional hotkeys you have created. <br  />
- <img src="https://i.imgur.com/JccOVnO.png" alt="View of the advanced hotkeys" class="inline"/></p>
-<h2><a class="anchor" id="autotoc_md34"></a>
+<p>If you want to add or remove hotkeys, you can press the <b>Edit Mode</b> button to enable editing. You can create new hotkeys, and change the action of each hotkey when it is pressed. You can reset all hotkeys to their default value by pressing the <b>Reset Hotkeys</b> button. Note that this will also remove any additional hotkeys you have created. <br  />
+ <img src="https://i.imgur.com/A79qhcM.png" alt="View of the advanced hotkeys" class="inline"/></p>
+<blockquote class="doxtable">
+<p></p>
+</blockquote>
+<h3><a class="anchor" id="autotoc_md34"></a>
+:warning: Note</h3>
+<p>Some applications that use the DirectInput API *(dinput)* - usually games - may cause issues with Volume Control's hotkeys. <br  />
+ In many cases you can resolve this by running Volume Control as an Administrator. *(See issue <a href="https://github.com/radj307/volume-control/issues/44">#44</a>)* <br  />
+ </p>
+<h3><a class="anchor" id="autotoc_md35"></a>
+Troubleshooting</h3>
+<p>The first step when troubleshooting is always to delete <code>volumecontrol.json</code> and re-launch; this fixes the vast majority of bugs. <br  />
+ If this does not fix your problem, post a <a href="https://github.com/radj307/volume-control/issues/new?assignees=&amp;labels=bug%2Ctriage&amp;template=BugReport.yml&amp;title=%5BBUG%5D+...">bug report</a> and we'll do our best to help.</p>
+<h2><a class="anchor" id="autotoc_md36"></a>
 Contributing</h2>
 <p>See CONTRIBUTING.md for more information. <br  />
 </p>
-<h2><a class="anchor" id="autotoc_md35"></a>
+<h2><a class="anchor" id="autotoc_md37"></a>
 Addon Development</h2>
 <p>Want to develop an addon for Volume Control? <br  />
  Get started with the <a href="https://radj307.github.io/volume-control/html/md_docs__addon_development.html">tutorial</a>! <br  />

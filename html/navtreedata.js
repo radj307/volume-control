@@ -28,14 +28,17 @@ var NAVTREE =
       [ "How does it work?", "index.html#autotoc_md29", null ],
       [ "Installation", "index.html#autotoc_md31", null ],
       [ "Setup", "index.html#autotoc_md32", null ],
-      [ "Usage", "index.html#autotoc_md33", null ],
-      [ "Contributing", "index.html#autotoc_md34", null ],
-      [ "Addon Development", "index.html#autotoc_md35", null ]
+      [ "Usage", "index.html#autotoc_md33", [
+        [ ":new: Volume Control CLI", "index.html#autotoc_md27", null ],
+        [ ":warning: Note", "index.html#autotoc_md34", null ],
+        [ "Troubleshooting", "index.html#autotoc_md35", null ]
+      ] ],
+      [ "Contributing", "index.html#autotoc_md36", null ],
+      [ "Addon Development", "index.html#autotoc_md37", null ]
     ] ],
     [ "Contributing", "md__home_runner_work_volume-control_volume-control__c_o_n_t_r_i_b_u_t_i_n_g.html", [
       [ "Guidelines for Code Contributions", "md__home_runner_work_volume-control_volume-control__c_o_n_t_r_i_b_u_t_i_n_g.html#autotoc_md1", null ],
       [ "Guidelines for Translation Contributions", "md__home_runner_work_volume-control_volume-control__c_o_n_t_r_i_b_u_t_i_n_g.html#autotoc_md2", [
-        [ ":new: Volume Control CLI", "index.html#autotoc_md27", null ],
         [ "How to Embed Language Configs", "md__home_runner_work_volume-control_volume-control__c_o_n_t_r_i_b_u_t_i_n_g.html#autotoc_md3", null ],
         [ "⚠️ Note", "md__home_runner_work_volume-control_volume-control__c_o_n_t_r_i_b_u_t_i_n_g.html#autotoc_md4", null ]
       ] ]
@@ -102,11 +105,11 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"class_volume_control_1_1_audio_1_1_audio_session.html#a25f3050cb218e87324b288d8b437c64e",
-"class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_session_actions.html#abbb2636a5e0cc1e62851e5d719ff6ee5",
-"class_volume_control_1_1_type_extensions_1_1_process_extensions.html#a77b1a677cd94bc51b9b4d775ef67f30d",
-"dir_f14574ce9051054766170e271a7f865f.html",
-"struct_volume_control_1_1_core_1_1_version_range.html#a4d77dfc9820750ff5df9381a4d111abc"
+"class_volume_control_1_1_audio_1_1_audio_session.html#a356c261a4c345fc0c739c5e66e4e66ea",
+"class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_session_actions.html#aee10071cdfbc27957f515b599d304722",
+"class_volume_control_1_1_type_extensions_1_1_property_info_extensions.html#ac0fc78ed8b627a1a7a994b82f39daff6",
+"functions.html",
+"struct_volume_control_1_1_hotkeys_1_1_structs_1_1_action_binding.html#a60066d7800e19f136fb5db344b74871f"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
