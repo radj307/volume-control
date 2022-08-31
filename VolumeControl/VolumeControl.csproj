@@ -28,20 +28,9 @@
 		<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
 		<Deterministic>true</Deterministic>
 		<Configurations>Debug;Release</Configurations>
-		<!-- SETTINGS UPGRADE -->
-		<AllowUpgradeConfig>true</AllowUpgradeConfig>
-		<PlatformTarget>AnyCPU</PlatformTarget>
-		<!-- SETTINGS UPGRADE -->
 		<PublishSingleFile>true</PublishSingleFile>
 		<ErrorReport>none</ErrorReport>
 	</PropertyGroup>
-	<!-- SETTINGS UPGRADE ATTRIBUTES -->
-	<ItemGroup>
-		<AssemblyAttribute Include="VolumeControl.Core.Attributes.AllowUpgradeConfigAttribute">
-			<_Parameter1>$(AllowUpgradeConfig)</_Parameter1>
-		</AssemblyAttribute>
-	</ItemGroup>
-	<!-- SETTINGS UPGRADE ATTRIBUTES -->
 	<!-- VERSIONING ATTRIBUTES -->
 	<ItemGroup>
 		<AssemblyAttribute Include="AssemblyAttribute.ExtendedVersion">

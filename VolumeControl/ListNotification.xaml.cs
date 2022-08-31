@@ -22,26 +22,28 @@ namespace VolumeControl
         {
             this.InitializeComponent();
 
+            // set the window position
             if (Settings.NotificationSavePos && Settings.NotificationPosition.HasValue)
                 SetPos(Settings.NotificationPosition.Value);
             else // use the default location
                 SetPos(new(SystemParameters.WorkArea.Right - this.Width - 10, SystemParameters.WorkArea.Bottom - this.Height - 10));
 
-            Settings.PropertyChanged += Settings_PropertyChanged;
 
+            // create the timeout timer instance
             if (Settings.NotificationTimeoutMs <= 0)
             { // validate the timeout value before using it for the timer interval
-                const int resetToValue = 3000;
-                Log.Error($"{nameof(Settings.NotificationTimeoutMs)} cannot be less than or equal to zero; it was reset to '{resetToValue}' in order to avoid a fatal exception.",
+                var defaultValue = new Config().NotificationTimeoutMs;
+                Log.Error($"{nameof(Settings.NotificationTimeoutMs)} cannot be less than or equal to zero; it was reset to '{defaultValue}' in order to avoid a fatal exception.",
                     new ArgumentOutOfRangeException($"{nameof(Settings)}.{nameof(Settings.NotificationTimeoutMs)}", Settings.NotificationTimeoutMs, $"The value '{Settings.NotificationTimeoutMs}' isn't valid for property 'System.Timers.Timer.Interval'; Value is out-of-range! (Minimum: 1)"));
-                Settings.NotificationTimeoutMs = resetToValue;
+                Settings.NotificationTimeoutMs = defaultValue;
             }
-            _timer = new()
+            (_timer = new()
             {
                 Interval = Settings.NotificationTimeoutMs,
                 AutoReset = false,
-            };
-            _timer.Elapsed += Timer_Elapsed;
+            }).Elapsed += Timer_Elapsed;
+
+            Settings.PropertyChanged += Settings_PropertyChanged;
 
             VCSettings.ListNotificationVM.Show += ListNotificationVM_Show;
         }
@@ -51,12 +53,18 @@ namespace VolumeControl
         private readonly System.Timers.Timer _timer;
         #endregion Fields
 
+        #region Properties
         private static LogWriter Log => FLog.Log;
         private static Config Settings => (Config.Default as Config)!;
         private VolumeControlSettings? _vcSettings;
+        /// <summary>The <see cref="VolumeControlSettings"/> resource instance.</summary>
         private VolumeControlSettings VCSettings => _vcSettings ??= (FindResource("Settings") as VolumeControlSettings)!;
+        /// <summary>The currently-selected <see cref="ListDisplayTarget"/> instance.</summary>
         private ListDisplayTarget? CurrentDisplayTarget => VCSettings.ListNotificationVM.CurrentDisplayTarget;
+        #endregion Properties
 
+        #region Methods
+        #region Start/Stop-Timer
         /// <summary>
         /// Starts the timer if <see cref="Config.NotificationTimeoutEnabled"/> is <see langword="true"/>; otherwise does nothing.
         /// </summary>
@@ -65,28 +73,45 @@ namespace VolumeControl
             if (!Settings.NotificationTimeoutEnabled) return;
             _timer.Start();
         }
+        /// <summary>
+        /// Stops the <see cref="_timer"/>, preventing the <see cref="System.Timers.Timer.Elapsed"/> event from firing.
+        /// </summary>
         private void StopTimer() => _timer.Stop();
+        #endregion Start/Stop-Timer
 
+        #region Show/Hide
         public new void Show()
-        {
-            SVG svg = new();
+        { // override the show method to add timer controls
             if (_timer.Enabled) StopTimer();
             Dispatcher.Invoke(base.Show);
             StartTimer();
         }
         public new void Hide()
-        {
+        { // override the hide method to add timer controls
             StopTimer();
             Dispatcher.Invoke(base.Hide);
         }
+        #endregion Show/Hide
 
+        #region Get/Set-Pos
+        /// <summary>
+        /// Gets the position of this <see cref="ListNotification"/> window.
+        /// </summary>
+        /// <returns>The window's position as a <see cref="Point"/></returns>
         private Point GetPos() => new(this.Left, this.Top);
+        /// <summary>
+        /// Sets the position of this <see cref="ListNotification"/> window to the given <see cref="Point"/>, <paramref name="p"/>.
+        /// </summary>
+        /// <param name="p">A <see cref="Point"/> <see langword="struct"/> specifying a position in screen-space coordinates.</param>
         private void SetPos(Point p)
         {
             this.Left = p.X;
             this.Top = p.Y;
         }
+        #endregion Get/Set-Pos
+        #endregion Methods
 
+        #region EventHandlers
         private void ListNotificationVM_Show(object? sender, object e) => this.Show();
 
         private void Timer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
@@ -239,5 +264,6 @@ namespace VolumeControl
                 e.Handled = true;
             }
         }
+        #endregion EventHandlers
     }
 }

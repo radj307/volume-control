@@ -12,13 +12,6 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 	
-	<!-- SETTINGS UPGRADE ATTRIBUTES -->
-	<ItemGroup>
-		<AssemblyAttribute Include="VolumeControl.Core.Attributes.AllowUpgradeConfigAttribute">
-			<_Parameter1>$(AllowUpgradeConfig)</_Parameter1>
-		</AssemblyAttribute>
-	</ItemGroup>
-	<!-- SETTINGS UPGRADE ATTRIBUTES -->
 	<ItemGroup>
 		<PackageReference Include="Fody" Version="6.6.3">
 		  <PrivateAssets>All</PrivateAssets>

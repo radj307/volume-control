@@ -21,10 +21,10 @@
 		<PackageReference Include="PropertyChanged.Fody" Version="3.4.1">
 			<PrivateAssets>All</PrivateAssets>
 		</PackageReference>
+		<PackageReference Include="radj307.AppConfig" Version="1.0.1" />
 		<PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\AppConfig\AppConfig.csproj" />
 		<ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
 		<ProjectReference Include="..\VolumeControl.TypeExtensions\VolumeControl.TypeExtensions.csproj" />
 		<ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />

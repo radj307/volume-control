@@ -6,20 +6,12 @@
 		<Configurations>Debug;Release;SDK</Configurations>
 		<ProduceReferenceAssembly>True</ProduceReferenceAssembly>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<AllowUpgradeConfig>true</AllowUpgradeConfig>
 		<Copyright>GNU General Public License v3 </Copyright>
 		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
-	<!-- SETTINGS UPGRADE ATTRIBUTES -->
-	<ItemGroup>
-		<AssemblyAttribute Include="VolumeControl.Core.Attributes.AllowUpgradeConfigAttribute">
-			<_Parameter1>$(AllowUpgradeConfig)</_Parameter1>
-		</AssemblyAttribute>
-	</ItemGroup>
-	<!-- SETTINGS UPGRADE ATTRIBUTES -->
 	<ItemGroup>
 		<PackageReference Include="Fody" Version="6.6.3">
 			<PrivateAssets>All</PrivateAssets>
