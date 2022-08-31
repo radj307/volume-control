@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PropertyChanged;
+using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -150,7 +151,7 @@ namespace VolumeControl.WPF.Collections
         #region INotifyCollectionChanged
 
         public virtual event NotifyCollectionChangedEventHandler? CollectionChanged;
-
+        [SuppressPropertyChangedWarnings]
         protected virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
         {
             NotifyCollectionChangedEventHandler? notifyCollectionChangedEventHandler = CollectionChanged;

@@ -12,7 +12,7 @@ namespace VolumeControl.Core.Helpers
         /// Creates a new <see cref="ConditionalEventForward"/> instance with the given <paramref name="condition"/> &amp; any number of <paramref name="customEventHandlers"/>..
         /// </summary>
         /// <param name="condition">The condition <see langword="delegate"/> to use when evaluating whether or not to forward an event.</param>
-        /// <param name="customEventHandlers">Any number of custom event handlers to bind from within the constructor. <i>(See <see cref="EventHandler{object}[]"/>)</i></param>
+        /// <param name="customEventHandlers">Any number of custom event handlers to bind from within the constructor. <i>(See <see cref="EventHandler"/>)</i></param>
         public ConditionalEventForward(ConditionEvaluator condition, params EventHandler<object>[] customEventHandlers)
         {
             Condition = condition;
@@ -30,7 +30,7 @@ namespace VolumeControl.Core.Helpers
 
         #region Properties
         /// <summary>
-        /// A <see langword="delegate"/> of type <see cref="ConditionEvaluator"/> that, when it returns <see langword="true"/>, forwards the event sender & arguments to the <see cref="Event"/> event trigger.
+        /// A <see langword="delegate"/> of type <see cref="ConditionEvaluator"/> that, when it returns <see langword="true"/>, forwards the event sender &amp; arguments to the <see cref="Event"/> event trigger.
         /// </summary>
         public ConditionEvaluator Condition { get; set; }
         #endregion Properties

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PropertyChanged;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -96,8 +97,10 @@ namespace VolumeControl.WPF.Collections
 
         #region Indexers
         /// <inheritdoc/>
+        [SuppressPropertyChangedWarnings]
         public BindableEventTypeFlag this[int index] { get => ((IList<BindableEventTypeFlag>)this.Options)[index]; set => ((IList<BindableEventTypeFlag>)this.Options)[index] = value; }
         /// <inheritdoc/>
+        [SuppressPropertyChangedWarnings]
         object? IList.this[int index] { get => ((IList)this.Options)[index]; set => ((IList)this.Options)[index] = value; }
         #endregion Indexers
 

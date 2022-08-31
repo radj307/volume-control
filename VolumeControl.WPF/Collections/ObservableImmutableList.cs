@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PropertyChanged;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -362,6 +363,7 @@ namespace VolumeControl.WPF.Collections
         }
 
         /// <inheritdoc/>
+        [SuppressPropertyChangedWarnings]
         object IList.this[int index]
         {
 #           pragma warning disable CS8603 // Possible null reference return.
@@ -395,6 +397,7 @@ namespace VolumeControl.WPF.Collections
         void IList<T>.RemoveAt(int index) => this.RemoveAt(index);
 
         /// <inheritdoc/>
+        [SuppressPropertyChangedWarnings]
         public T this[int index]
         {
             get => _items[index];

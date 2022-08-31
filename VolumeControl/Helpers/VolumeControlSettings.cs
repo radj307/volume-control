@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodingSeb.Localization;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -31,7 +32,7 @@ namespace VolumeControl.Helpers
             if (Settings.CheckForUpdates) Updater.CheckNow();
 
             this.AudioAPI = new();
-
+            var i = Loc.Instance.AvailableLanguages[0];
             AddonManager = new(this);
 
             // Hotkey Action Addons:
