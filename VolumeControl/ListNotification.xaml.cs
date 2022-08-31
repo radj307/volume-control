@@ -21,8 +21,6 @@ namespace VolumeControl
         public ListNotification()
         {
             this.InitializeComponent();
-            // Do this after so we can enable AllowsTransparency (It cannot be changed once the window handle has been created.)
-            _hWnd = WindowHandleGetter.GetWindowHandle(this);
 
             if (Settings.NotificationSavePos && Settings.NotificationPosition.HasValue)
                 SetPos(Settings.NotificationPosition.Value);
@@ -51,7 +49,6 @@ namespace VolumeControl
 
         #region Fields
         private readonly System.Timers.Timer _timer;
-        private readonly IntPtr _hWnd;
         #endregion Fields
 
         private static LogWriter Log => FLog.Log;
