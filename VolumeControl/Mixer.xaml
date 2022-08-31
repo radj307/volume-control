@@ -27,8 +27,6 @@
     FocusVisualStyle="{x:Null}"
     Icon="/Resources/icons/iconSilvered.ico"
     Initialized="Window_Initialized"
-    KeyboardNavigation.ControlTabNavigation="Cycle"
-    KeyboardNavigation.TabNavigation="Cycle"
     Loaded="Window_Loaded"
     WindowStyle="None"
     mc:Ignorable="d">
@@ -241,6 +239,180 @@
                 </Setter>
             </Style>
 
+            <!--  ComboBox Templates  -->
+            <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
+                <Grid Name="cmbGrid">
+                    <Grid.Resources>
+                        <Style x:Key="{x:Type Path}" TargetType="{x:Type Path}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
+                                    <Setter Property="Fill" Value="{StaticResource AccentGradientDisabled}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
+                                    <Setter Property="Fill" Value="{StaticResource AccentGradientMouseOver}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsPressed, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+                                    <Setter Property="Fill" Value="{StaticResource AccentGradientIsPressed}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="20" />
+                    </Grid.ColumnDefinitions>
+                    <!--  Having this border here allows the dropdown to be triggered by clicking anywhere on the control  -->
+                    <Border
+                        Grid.ColumnSpan="2"
+                        Background="Transparent"
+                        BorderThickness="0" />
+                    <Path
+                        x:Name="Arrow"
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Data="M 0 0 L 4 5 L 8 0 Z"
+                        Fill="{StaticResource AccentGradient}"
+                        IsEnabled="{Binding IsMouseOver, ElementName=cmbGrid}" />
+                </Grid>
+            </ControlTemplate>
+            <ControlTemplate x:Key="ComboBoxTextBox" TargetType="TextBox">
+                <Border
+                    x:Name="PART_ContentHost"
+                    Background="{TemplateBinding Background}"
+                    BorderThickness="0"
+                    Focusable="False" />
+            </ControlTemplate>
+            <!--  ComboBox Style  -->
+            <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
+                        <Setter Property="Foreground" Value="#404040" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="True">
+                        <Setter Property="Foreground" Value="WhiteSmoke" />
+                    </DataTrigger>
+                    <!--  Focused  -->
+                    <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="True">
+                        <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
+                        <Setter Property="BorderThickness" Value="{StaticResource SelectionBorderThickness}" />
+                    </DataTrigger>
+                </Style.Triggers>
+                <Setter Property="SnapsToDevicePixels" Value="true" />
+                <Setter Property="OverridesDefaultStyle" Value="true" />
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+                <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+                <Setter Property="MinHeight" Value="20" />
+                <Setter Property="ItemsPanel">
+                    <Setter.Value>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ComboBox}">
+                            <Grid>
+                                <Border
+                                    Name="BackgroundBorder"
+                                    Background="{StaticResource TextBoxBackground}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="{StaticResource RoundedControlCorner}" />
+                                <Grid Margin="1">
+                                    <ToggleButton
+                                        Name="ToggleButton"
+                                        Grid.Column="2"
+                                        ClickMode="Press"
+                                        Focusable="false"
+                                        IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                        Template="{StaticResource ComboBoxToggleButton}" />
+                                    <ContentPresenter
+                                        Name="ContentSite"
+                                        Margin="3,3,23,3"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Content="{TemplateBinding SelectionBoxItem}"
+                                        ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                        ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                        IsHitTestVisible="False" />
+                                    <TextBox
+                                        x:Name="PART_EditableTextBox"
+                                        Margin="3,3,23,3"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Background="#0000"
+                                        Focusable="True"
+                                        IsReadOnly="{TemplateBinding IsReadOnly}"
+                                        Style="{x:Null}"
+                                        Template="{StaticResource ComboBoxTextBox}"
+                                        Visibility="Hidden" />
+                                    <Popup
+                                        Name="Popup"
+                                        AllowsTransparency="True"
+                                        Focusable="False"
+                                        IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                                        Placement="Bottom"
+                                        PopupAnimation="Slide">
+                                        <Grid
+                                            Name="DropDown"
+                                            MinWidth="{TemplateBinding ActualWidth}"
+                                            MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                            SnapsToDevicePixels="True">
+                                            <Border
+                                                x:Name="DropDownBorder"
+                                                Padding="5"
+                                                Background="{StaticResource TextBoxBackground}"
+                                                BorderBrush="{StaticResource BorderBrush}"
+                                                BorderThickness="0"
+                                                CornerRadius="10">
+                                                <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                                    <VirtualizingStackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                                </ScrollViewer>
+                                            </Border>
+                                        </Grid>
+                                    </Popup>
+                                </Grid>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="HasItems" Value="false">
+                                    <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95" />
+                                </Trigger>
+                                <Trigger Property="IsGrouping" Value="true">
+                                    <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+                                </Trigger>
+                                <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
+                                    <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0" />
+                                </Trigger>
+                                <Trigger Property="IsEditable" Value="true">
+                                    <Setter Property="IsTabStop" Value="false" />
+                                    <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible" />
+                                    <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="BackgroundBorder" Property="Background" Value="#282828" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="BackgroundBorder" Property="Background" Value="{StaticResource TextBoxBackgroundDisabled}" />
+                                    <Setter TargetName="BackgroundBorder" Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+                                    <Setter TargetName="BackgroundBorder" Property="BorderThickness" Value="1" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderThickness" Value="3" />
+                <Setter Property="BorderBrush" Value="Gainsboro" />
+                <Setter Property="AlternationCount" Value="1" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="IsTextSearchCaseSensitive" Value="False" />
+                <Setter Property="Margin" Value="0,1,0,1" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="IsEnabled" Value="True" />
+            </Style>
+
             <!--  KeyOptions  -->
             <helpers:KeyOptions x:Key="KeyOptions" />
 
@@ -266,10 +438,7 @@
         BorderBrush="{StaticResource WindowBorderBrush}"
         BorderThickness="{StaticResource WindowBorderThickness}"
         CornerRadius="{StaticResource RoundedWindowCorner}">
-        <VirtualizingStackPanel
-            FlowDirection="LeftToRight"
-            KeyboardNavigation.TabNavigation="Cycle"
-            Orientation="Vertical">
+        <VirtualizingStackPanel FlowDirection="LeftToRight" Orientation="Vertical">
             <!--  v Caption Bar v  -->
             <Grid Name="CaptionBar" Height="{StaticResource CaptionHeight}">
                 <!--  RESOURCES  -->
@@ -383,7 +552,6 @@
                     <Hyperlink
                         extensions:HyperlinkExtensions.OpensInBrowser="True"
                         KeyboardNavigation.IsTabStop="False"
-                        KeyboardNavigation.TabNavigation="None"
                         NavigateUri="{StaticResource VolumeControlRepository}">
                         <TextBlock
                             Foreground="LightGray"
@@ -404,7 +572,6 @@
                     <Hyperlink
                         extensions:HyperlinkExtensions.OpensInBrowser="True"
                         KeyboardNavigation.IsTabStop="False"
-                        KeyboardNavigation.TabNavigation="None"
                         NavigateUri="{StaticResource VolumeControlBugReport}"
                         Style="{StaticResource CaptionHyperlinkStyle}">
                         <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{Tr 'VolumeControl.MainWindow.CaptionBar.BugReport.Content', DefaultText='✏'}" />

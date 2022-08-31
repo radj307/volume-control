@@ -12,7 +12,6 @@
     xmlns:tempViewModels="clr-namespace:VolumeControl.ViewModels"
     x:Name="lnotifWindow"
     Title="ListNotification"
-    SizeChanged="lnotifWindow_SizeChanged"
     AllowsTransparency="True"
     Closing="lnotifWindow_Closing"
     DataContext="{RelativeSource Self}"
@@ -22,6 +21,7 @@
     ResizeMode="NoResize"
     ShowActivated="False"
     ShowInTaskbar="False"
+    SizeChanged="lnotifWindow_SizeChanged"
     SizeToContent="WidthAndHeight"
     Topmost="True"
     WindowStartupLocation="Manual"
@@ -54,14 +54,52 @@
         </Style>
     </Window.Style>
 
-    <StackPanel Margin="14" Orientation="Vertical">
+    <Grid x:Name="outerPanel">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Border
+            Grid.RowSpan="3"
+            BorderBrush="{StaticResource WindowBorderBrush}"
+            BorderThickness="2" />
+
+        <!--  Options Expander  -->
+        <Expander
+            x:Name="displayTargetExpander"
+            Grid.Row="0"
+            Margin="5,2"
+            Header="{Tr 'VolumeControl.ListNotification.Options.Header',
+                        DefaultText='Options'}">
+            <Grid Margin="0,2,0,0">
+                <Border
+                    Name="expanderPanelMask"
+                    Background="{StaticResource panelBrush}"
+                    Style="{StaticResource RoundBorderMaskStyle}" />
+                <WrapPanel MaxWidth="{Binding ActualWidth, ElementName=listView}" Background="{StaticResource panelBrush}">
+                    <WrapPanel.OpacityMask>
+                        <VisualBrush Visual="{Binding ElementName=expanderPanelMask}" />
+                    </WrapPanel.OpacityMask>
+                    <CheckBox
+                        Margin="5,3"
+                        Content="{Tr 'VolumeControl.ListNotification.Options.ShowControls.Content',
+                                     DefaultText='Show Controls'}"
+                        IsChecked="{Binding NotificationShowsCustomControls, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ToolTip="{Tr 'VolumeControl.ListNotification.Options.ShowControls.Tooltip',
+                                     DefaultText='Toggles the visibility of advanced controls next to list items.'}" />
+                    <CheckBox
+                        Margin="5,3"
+                        Content="{Tr 'VolumeControl.ListNotification.Options.DragRequiresAlt.Content',
+                                     DefaultText='Drag Requires Alt'}"
+                        IsChecked="{Binding NotificationDragRequiresAlt, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ToolTip="{Tr 'VolumeControl.ListNotification.Options.DragRequiresAlt.Tooltip',
+                                     DefaultText='When checked, the ALT key must be held down in order to drag the notification window around with the mouse.'}" />
+                </WrapPanel>
+            </Grid>
+        </Expander>
 
         <!--  Outer Layout Grid Control  -->
-        <Grid>
-            <Border
-                x:Name="listViewMask"
-                Background="{StaticResource panelBrush}"
-                Style="{StaticResource RoundBorderMaskStyle}" />
+        <Grid Grid.Row="1">
             <ListView
                 Name="listView"
                 Background="{StaticResource panelBrush}"
@@ -105,9 +143,6 @@
                         </Setter>
                     </Style>
                 </ListView.ItemContainerStyle>
-                <ListView.OpacityMask>
-                    <VisualBrush Visual="{Binding ElementName=listViewMask}" />
-                </ListView.OpacityMask>
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="{x:Type coreInterfaces:IListDisplayable}">
                         <Grid Margin="3,1">
@@ -149,43 +184,11 @@
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
-        <!--  Options Expander  -->
-        <Expander
-            x:Name="displayTargetExpander"
-            Grid.Row="1"
-            Header="{Tr 'VolumeControl.ListNotification.Options.Header',
-                        DefaultText='Options'}">
-            <Grid Margin="0,2,0,0">
-                <Border
-                    Name="expanderPanelMask"
-                    Background="{StaticResource panelBrush}"
-                    Style="{StaticResource RoundBorderMaskStyle}" />
-                <WrapPanel MaxWidth="{Binding ActualWidth, ElementName=listView}" Background="{StaticResource panelBrush}">
-                    <WrapPanel.OpacityMask>
-                        <VisualBrush Visual="{Binding ElementName=expanderPanelMask}" />
-                    </WrapPanel.OpacityMask>
-                    <CheckBox
-                        Margin="5,3"
-                        Content="{Tr 'VolumeControl.ListNotification.Options.ShowControls.Content',
-                                     DefaultText='Show Controls'}"
-                        IsChecked="{Binding NotificationShowsCustomControls, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        ToolTip="{Tr 'VolumeControl.ListNotification.Options.ShowControls.Tooltip',
-                                     DefaultText='Toggles the visibility of advanced controls next to list items.'}" />
-                    <CheckBox
-                        Margin="5,3"
-                        Content="{Tr 'VolumeControl.ListNotification.Options.DragRequiresAlt.Content',
-                                     DefaultText='Drag Requires Alt'}"
-                        IsChecked="{Binding NotificationDragRequiresAlt, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        ToolTip="{Tr 'VolumeControl.ListNotification.Options.DragRequiresAlt.Tooltip',
-                                     DefaultText='When checked, the ALT key must be held down in order to drag the notification window around with the mouse.'}" />
-                </WrapPanel>
-            </Grid>
-        </Expander>
-    </StackPanel>
+    </Grid>
 
     <WindowChrome.WindowChrome>
         <WindowChrome
-            CaptionHeight="0"
+            CaptionHeight="{Binding Height, ElementName=captionBorder}"
             CornerRadius="{StaticResource RoundedWindowCorner}"
             GlassFrameThickness="0" />
     </WindowChrome.WindowChrome>
