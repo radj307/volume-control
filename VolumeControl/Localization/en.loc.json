@@ -426,6 +426,30 @@
       }
     },
 
+    "ListNotification": {
+      "Options": {
+        "Header": {
+          "English (US/CA)": "Options"
+        },
+        "ShowControls": {
+          "Content": {
+            "English (US/CA)": "Show Controls"
+          },
+          "Tooltip": {
+            "English (US/CA)": "Toggles the visibility of advanced controls next to list items."
+          }
+        },
+        "DragRequiresAlt": {
+          "Content": {
+            "English (US/CA)": "Drag Requires Alt"
+          },
+          "Tooltip": {
+            "English (US/CA)": "When checked, the ALT key must be held down in order to drag the notification window around with the mouse."
+          }
+        }
+      }
+    },
+
     "Dialogs": {
       "AnotherInstanceIsRunning": {
         "MultiInstance": {

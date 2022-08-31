@@ -3,9 +3,11 @@ using NAudio.CoreAudioApi.Interfaces;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Windows.Controls;
 using System.Windows.Media;
 using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Interfaces;
+using VolumeControl.Core.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
 using VolumeControl.WPF;
@@ -14,7 +16,7 @@ namespace VolumeControl.Audio
 {
     /// <summary>Represents an audio session playing on the system.</summary>
     /// <remarks>Some properties in this object require the NAudio library.<br/>If you're writing an addon, install the 'NAudio' nuget package if you need to be able to use them.</remarks>
-    public sealed class AudioSession : IProcess, ISession, INotifyPropertyChanged, INotifyPropertyChanging, IDisposable, IEquatable<AudioSession>, IEquatable<ISession>
+    public sealed class AudioSession : IVolumeControl, IProcess, ISession, INotifyPropertyChanged, INotifyPropertyChanging, IDisposable, IEquatable<AudioSession>, IEquatable<ISession>, IListDisplayable
     {
         /// <inheritdoc cref="AudioSession"/>
         /// <param name="controller">The underlying session controller instance to create this audio session object for.<br/>This object is from NAudio.<br/>If you're writing an addon, install the 'NAudio' nuget package to be able to use this.</param>
@@ -225,6 +227,18 @@ namespace VolumeControl.Audio
             }
         }
         private string? _name;
+
+        /// <inheritdoc/>
+        public string DisplayText
+        {
+            get => Name;
+            set => Name = value;
+        }
+        private Control[]? _displayControls;
+        /// <inheritdoc/>
+        public Control[]? DisplayControls => _displayControls ??= IVolumeControl.MakeListDisplayableControlTemplate(this);
+        /// <inheritdoc/>
+        public ImageSource? DisplayIcon => Icon;
         #endregion Properties
 
         #region Events

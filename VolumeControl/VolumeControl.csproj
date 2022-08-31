@@ -116,6 +116,7 @@
 			<PrivateAssets>All</PrivateAssets>
 		</PackageReference>
 		<PackageReference Include="ControlzEx" Version="5.0.1" />
+		<PackageReference Include="DotNetProjects.SVGImage" Version="4.1.108" />
 		<PackageReference Include="Fody" Version="6.6.3">
 			<PrivateAssets>All</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Data;
 using VolumeControl.Audio;
 using VolumeControl.Core;
 using VolumeControl.Core.Enum;
@@ -15,6 +17,7 @@ using VolumeControl.Hotkeys.Addons;
 using VolumeControl.Log;
 using VolumeControl.SDK.Internal;
 using VolumeControl.TypeExtensions;
+using VolumeControl.ViewModels;
 
 namespace VolumeControl.Helpers
 {
@@ -65,6 +68,77 @@ namespace VolumeControl.Helpers
             // load saved hotkeys
             //  We need to have accessed the Settings property at least once by the time we reach this point
             this.HotkeyAPI.LoadHotkeys();
+
+            ListNotificationVM = new();
+
+            // devices
+            ListDisplayTarget ldtDevices = ListNotificationVM.AddDisplayTarget("Audio Devices",
+                (ListDisplayTarget.ItemsSourceProperty, new Binding()
+                {
+                    Source = AudioAPI,
+                    Path = new PropertyPath(nameof(AudioAPI.Devices))
+                }),
+                (ListDisplayTarget.SelectedItemProperty, new Binding()
+                {
+                    Path = new PropertyPath(typeof(AudioDeviceActions).GetProperty(nameof(AudioDeviceActions.SelectedDevice))),
+                    Mode = BindingMode.TwoWay,
+                    UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                }));
+            // device target show triggers
+            var cefSelectedDeviceSwitched = ldtDevices.AddConditionalEventForward(() => Settings.NotificationsEnabled);
+            AudioDeviceActions.SelectedDeviceSwitched += (s, e) =>
+            {
+                cefSelectedDeviceSwitched.Handler(s, e);
+                if (!ListNotificationVM.IsDisplayTarget(ldtDevices) || !cefSelectedDeviceSwitched.Condition()) return;
+                ListNotificationVM.RaisePropertyChanged(nameof(ListNotificationVM.PropertyChanged), new PropertyChangedEventArgs(nameof(ListNotificationVM.SelectedItem)));
+            };
+            AudioDeviceActions.SelectedDeviceVolumeChanged += ldtDevices.AddConditionalEventForward(() => Settings.NotificationsEnabled && Settings.NotificationsOnVolumeChange).Handler;
+
+
+            // sessions
+            ListDisplayTarget ldtSessions = ListNotificationVM.AddDisplayTarget("Audio Sessions",
+                (ListDisplayTarget.ItemsSourceProperty, new Binding()
+                {
+                    Source = AudioAPI,
+                    Path = new PropertyPath(nameof(AudioAPI.Sessions))
+                }),
+                (ListDisplayTarget.SelectedItemProperty, new Binding()
+                {
+                    Source = AudioAPI,
+                    Path = new PropertyPath(nameof(AudioAPI.SelectedSession)),
+                    Mode = BindingMode.TwoWay,
+                    UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                }),
+                (ListDisplayTarget.BackgroundProperty, new Binding()
+                {
+                    Source = AudioAPI,
+                    Path = new PropertyPath(nameof(AudioAPI.LockSelectedSession)),
+                    Mode = BindingMode.OneWay,
+                    Converter = new BoolToBrushConverter()
+                    {
+                        WhenTrue = Config.NotificationLockedBrush,
+                        WhenFalse = Config.NotificationUnlockedBrush
+                    }
+                }));
+            // session target show triggers
+            var cefSessionSwitched = ldtSessions.AddConditionalEventForward(() => Settings.NotificationsEnabled);
+            AudioAPI.SelectedSessionSwitched += (s, e) =>
+            {
+                cefSessionSwitched.Handler(s, e);
+                if (!ListNotificationVM.IsDisplayTarget(ldtSessions) || !cefSessionSwitched.Condition()) return;
+                ListNotificationVM.RaisePropertyChanged(nameof(ListNotificationVM.SelectedItem));
+            };
+            var cefLockSelectedSessionChanged = ldtSessions.AddConditionalEventForward(() => Settings.NotificationsEnabled);
+            AudioAPI.LockSelectedSessionChanged += (s, e) =>
+            {
+                cefLockSelectedSessionChanged.Handler(s, e);
+                if (!ListNotificationVM.IsDisplayTarget(ldtSessions) || !cefSessionSwitched.Condition()) return;
+                ListNotificationVM.RaisePropertyChanged(nameof(ListNotificationVM.Background));
+            };
+            AudioAPI.SelectedSessionVolumeChanged += ldtSessions.AddConditionalEventForward(() => Settings.NotificationsEnabled && Settings.NotificationsOnVolumeChange).Handler;
+
+            // Set the active display target
+            ListNotificationVM.SetDisplayTarget(ldtSessions);
 
             Log.Info($"Volume Control v{this.CurrentVersionString}");
         }
@@ -125,6 +199,7 @@ namespace VolumeControl.Helpers
         #region ParentObjects
         public AudioAPI AudioAPI { get; }
         public HotkeyManager HotkeyAPI { get; }
+        public ListNotificationVM ListNotificationVM { get; }
         #endregion ParentObjects
         #endregion Properties
 

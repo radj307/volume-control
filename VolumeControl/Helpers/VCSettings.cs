@@ -42,9 +42,6 @@ namespace VolumeControl.Helpers
 
             this.RunAtStartup = RunAtStartupHelper.ValueEquals(this.ExecutablePath);
 
-            // Set the notification mode
-            this.NotificationMode = DisplayTarget.Sessions;
-
             Log.Debug($"{nameof(VCSettings)} initialization completed.");
         }
         #endregion Constructors
@@ -123,16 +120,27 @@ namespace VolumeControl.Helpers
             set => Settings.NotificationTimeoutMs = value;
         }
         /// <inheritdoc/>
-        public DisplayTarget NotificationMode
+        public bool NotificationTimeoutEnabled
         {
-            get => Settings.NotificationMode;
-            set => Settings.NotificationMode = value;
+            get => Settings.NotificationTimeoutEnabled;
+            set => Settings.NotificationTimeoutEnabled = value;
+        }
+        /// <inheritdoc/>
+        public bool NotificationShowsCustomControls
+        {
+            get => Settings.NotificationShowsCustomControls;
+            set => Settings.NotificationShowsCustomControls = value;
         }
         /// <inheritdoc/>
         public bool NotificationShowsVolumeChange
         {
             get => Settings.NotificationsOnVolumeChange;
             set => Settings.NotificationsOnVolumeChange = value;
+        }
+        public bool NotificationDragRequiresAlt
+        {
+            get => Settings.NotificationMoveRequiresAlt;
+            set => Settings.NotificationMoveRequiresAlt = value;
         }
         public ObservableImmutableList<string> CustomLocalizationDirectories
         {

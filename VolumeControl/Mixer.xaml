@@ -17,6 +17,7 @@
     xmlns:loc="clr-namespace:CodingSeb.Localization;assembly=CodingSeb.Localization"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
+    xmlns:vm="clr-namespace:VolumeControl.ViewModels"
     x:Name="window"
     Title="Volume Control"
     ctrlz:KeyboardNavigationEx.AlwaysShowFocusVisual="True"
@@ -52,357 +53,6 @@
 
             <sys:Double x:Key="CaptionHeight">22</sys:Double>
 
-            <CornerRadius x:Key="RoundedControlCorner">4</CornerRadius>
-            <CornerRadius x:Key="RoundedWindowCorner">5</CornerRadius>
-
-            <!--  Window Colors  -->
-            <Color x:Key="WindowBackgroundColor">#D222</Color>
-            <SolidColorBrush x:Key="WindowBorderBrush">#D0252525</SolidColorBrush>
-            <Thickness x:Key="WindowBorderThickness">3</Thickness>
-            <SolidColorBrush x:Key="UpdateIconBrush">Yellow</SolidColorBrush>
-
-            <!--  Tabs  -->
-            <SolidColorBrush x:Key="TabBackgroundBrush">#D03d3d3d</SolidColorBrush>
-
-            <!--  Misc Colors  -->
-            <SolidColorBrush x:Key="HeaderForegroundBrush">LightGray</SolidColorBrush>
-            <SolidColorBrush x:Key="BorderBrush">#3d3d3d</SolidColorBrush>
-            <SolidColorBrush x:Key="CancelRed">#EA11</SolidColorBrush>
-
-            <!--  TextBox Colors  -->
-            <SolidColorBrush x:Key="TextBoxBackground">#1F1F1F</SolidColorBrush>
-            <SolidColorBrush x:Key="TextBoxForeground">WhiteSmoke</SolidColorBrush>
-            <SolidColorBrush x:Key="TextBoxBackgroundDisabled">#2F2F2F</SolidColorBrush>
-
-            <!--  Data Grid Colors  -->
-            <SolidColorBrush x:Key="HeaderBackgroundBrush">#222</SolidColorBrush>
-            <SolidColorBrush x:Key="GridRowBrush">#444</SolidColorBrush>
-            <SolidColorBrush x:Key="GridRowAltBrush">#555</SolidColorBrush>
-            <SolidColorBrush x:Key="GridHorizontalLineBrush">#222</SolidColorBrush>
-
-            <LinearGradientBrush x:Key="AccentGradient" StartPoint="0.05,0" EndPoint="0.95,1">
-                <GradientStop Offset="0" Color="#AFAFAF" />
-                <GradientStop Offset="1" Color="#9E9E9E" />
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="AccentGradientMouseOver" StartPoint="0.05,0" EndPoint="0.95,1">
-                <GradientStop Offset="0" Color="#CCC" />
-                <GradientStop Offset="1" Color="#DDD" />
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="AccentGradientIsPressed" StartPoint="0.05,0" EndPoint="0.95,1">
-                <GradientStop Offset="0" Color="#EEE" />
-                <GradientStop Offset="1" Color="#FFF" />
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="AccentGradientDisabled" StartPoint="0.05,0" EndPoint="0.95,1">
-                <GradientStop Offset="0" Color="#666" />
-                <GradientStop Offset="1" Color="#777" />
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="AccentGradientIsChecked" StartPoint="0.05,0" EndPoint="0.95,1">
-                <GradientStop Offset="0" Color="#EEE" />
-                <GradientStop Offset="1" Color="#FFF" />
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="AccentGradientActivatedDark" StartPoint="0.05,0" EndPoint="0.95,1">
-                <GradientStop Offset="0" Color="#CCC" />
-                <GradientStop Offset="1" Color="#EEE" />
-            </LinearGradientBrush>
-
-            <SolidColorBrush x:Key="AccentForeground" Color="#222" />
-
-            <Color x:Key="GrayForegroundColor">#B0B0B0</Color>
-            <Color x:Key="GrayForegroundFocusedColor">#909090</Color>
-
-            <LinearGradientBrush x:Key="SelectionBorderBrush" StartPoint="0.2,0" EndPoint="0.8,1">
-                <GradientStop Offset="0" Color="#49F" />
-                <GradientStop Offset="1" Color="#4CF" />
-            </LinearGradientBrush>
-            <Thickness x:Key="SelectionBorderThickness">1</Thickness>
-            <Thickness x:Key="TabItemSelectionBorderThickness">1,1,0,1</Thickness>
-
-            <!--  CustomFocusVisualStyle  -->
-            <Style x:Key="CustomFocusVisualStyle">
-                <Setter Property="Control.Template">
-                    <Setter.Value>
-                        <ControlTemplate>
-                            <Rectangle
-                                Margin="-2"
-                                Stroke="{StaticResource SelectionBorderBrush}"
-                                StrokeThickness="1" />
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <Style x:Key="CustomFocusVisualStyleInner">
-                <Setter Property="Control.Template">
-                    <Setter.Value>
-                        <ControlTemplate>
-                            <Rectangle
-                                Margin="0"
-                                Stroke="{StaticResource SelectionBorderBrush}"
-                                StrokeThickness="1" />
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <!--  Scrollbars  -->
-            <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="Foreground" Value="{StaticResource AccentGradientMouseOver}" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="BorderThickness" Value="{StaticResource SelectionBorderThickness}" />
-                        <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
-                    </DataTrigger>
-                </Style.Triggers>
-                <Setter Property="LargeChange" Value="4" />
-                <Setter Property="SmallChange" Value="1" />
-                <Setter Property="Background" Value="#0000" />
-                <Setter Property="Foreground" Value="{StaticResource AccentGradient}" />
-                <Setter Property="BorderThickness" Value="0" />
-            </Style>
-            <!--  CheckBox  -->
-            <Style x:Key="CheckBoxStyle" TargetType="CheckBox">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
-                        <Setter Property="Background" Value="{StaticResource AccentGradientDisabled}" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="Foreground" Value="White" />
-                        <Setter Property="Background" Value="{StaticResource AccentGradientMouseOver}" />
-                        <Setter Property="BorderBrush" Value="{StaticResource AccentGradientMouseOver}" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="Background" Value="{StaticResource AccentGradientIsPressed}" />
-                        <Setter Property="BorderBrush" Value="{StaticResource AccentGradientIsPressed}" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="BorderThickness" Value="{StaticResource SelectionBorderThickness}" />
-                        <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
-                    </DataTrigger>
-                </Style.Triggers>
-                <Style.Resources>
-                    <conv:BoolToThicknessConverter x:Key="ThreeStateConverter" />
-                    <conv:BoolToCheckVisibleConverter x:Key="ThreeStateVisibilityConverter" />
-                </Style.Resources>
-                <Setter Property="SnapsToDevicePixels" Value="True" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type CheckBox}">
-                            <BulletDecorator
-                                Name="BulletDecorator"
-                                Background="#00000000"
-                                SnapsToDevicePixels="True">
-                                <BulletDecorator.Bullet>
-                                    <Border
-                                        Name="Border"
-                                        Width="12"
-                                        Height="12"
-                                        Background="#00000000"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="1"
-                                        CornerRadius="3">
-                                        <Border
-                                            Name="Check"
-                                            Width="8"
-                                            Height="8"
-                                            Background="{TemplateBinding Background}"
-                                            BorderBrush="#00000000"
-                                            CornerRadius="1.5">
-                                            <Border.Style>
-                                                <Style TargetType="{x:Type Border}">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
-                                                            <Setter Property="Background" Value="{StaticResource AccentGradientMouseOver}" />
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}" Value="{x:Null}">
-                                                            <Setter Property="BorderThickness" Value="2" />
-                                                            <Setter Property="Visibility" Value="Visible" />
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
-                                                            <Setter Property="Visibility" Value="Hidden" />
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
-                                                            <Setter Property="BorderThickness" Value="0" />
-                                                            <Setter Property="Visibility" Value="Visible" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Border.Style>
-                                        </Border>
-                                    </Border>
-                                </BulletDecorator.Bullet>
-                                <ContentPresenter Margin="3,0,0,0" />
-                            </BulletDecorator>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="ClickMode" Value="Press" />
-                <Setter Property="HorizontalAlignment" Value="Center" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
-                <Setter Property="Background" Value="{StaticResource AccentGradient}" />
-                <Setter Property="BorderBrush">
-                    <Setter.Value>
-                        <SolidColorBrush Color="{StaticResource GrayForegroundFocusedColor}" />
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="Foreground" Value="WhiteSmoke" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            </Style>
-            <!--  Button  -->
-            <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
-                <Style.Triggers>
-                    <!--  Mouse Over  -->
-                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="Background" Value="{StaticResource AccentGradientMouseOver}" />
-                    </DataTrigger>
-                    <!--  Pressed  -->
-                    <DataTrigger Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="Background" Value="{StaticResource AccentGradientIsPressed}" />
-                    </DataTrigger>
-                    <!--  Disabled  -->
-                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
-                        <Setter Property="Background" Value="{StaticResource AccentGradientDisabled}" />
-                    </DataTrigger>
-                    <!--  Focused  -->
-                    <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
-                        <Setter Property="BorderThickness" Value="{StaticResource SelectionBorderThickness}" />
-                    </DataTrigger>
-                </Style.Triggers>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border
-                                x:Name="ButtonMouseOver"
-                                Padding="{TemplateBinding Padding}"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{StaticResource RoundedControlCorner}">
-                                <ContentPresenter
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="{TemplateBinding Content}" />
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="Background" Value="{StaticResource AccentGradient}" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
-                <Setter Property="Margin" Value="3,1,3,1" />
-                <Setter Property="Height" Value="22" />
-                <Setter Property="Width" Value="Auto" />
-                <Setter Property="Foreground" Value="{StaticResource AccentForeground}" />
-                <Setter Property="FontWeight" Value="SemiBold" />
-                <Setter Property="FontSize" Value="{StaticResource GlobalFontSize}" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
-                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            </Style>
-            <Style
-                x:Key="{x:Type Button}"
-                BasedOn="{StaticResource ButtonStyle}"
-                TargetType="{x:Type Button}" />
-            <Style x:Key="NumericUpDownRepeatButtonStyle" TargetType="{x:Type RepeatButton}">
-                <Style.Triggers>
-                    <!--  Mouse Over  -->
-                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="Background" Value="{StaticResource AccentGradientMouseOver}" />
-                    </DataTrigger>
-                    <!--  Pressed  -->
-                    <DataTrigger Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="Background" Value="{StaticResource AccentGradientIsPressed}" />
-                    </DataTrigger>
-                </Style.Triggers>
-
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type RepeatButton}">
-                            <Grid Background="{TemplateBinding Background}">
-                                <ContentPresenter
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="{TemplateBinding Content}" />
-                            </Grid>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="Background" Value="{StaticResource AccentGradient}" />
-                <Setter Property="Width" Value="20" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
-                <Setter Property="Foreground" Value="{StaticResource AccentForeground}" />
-                <Setter Property="FontWeight" Value="SemiBold" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
-                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            </Style>
-            <!--  ToggleButton  -->
-            <Style x:Key="ToggleButtonStyle" TargetType="{x:Type ToggleButton}">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true">
-                        <Setter Property="Foreground" Value="{StaticResource AccentGradientMouseOver}" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="true">
-                        <Setter Property="Foreground" Value="{StaticResource AccentGradientIsPressed}" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Value="true">
-                        <Setter Property="Foreground" Value="{StaticResource AccentGradientIsPressed}" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
-                        <Setter Property="Foreground" Value="{StaticResource AccentGradientDisabled}" />
-                    </DataTrigger>
-                </Style.Triggers>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ToggleButton}">
-                            <Border
-                                Padding="{TemplateBinding Padding}"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{StaticResource RoundedControlCorner}">
-                                <ContentPresenter
-                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                    Content="{TemplateBinding Content}"
-                                    ContentTemplate="{TemplateBinding ContentTemplate}" />
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="BorderBrush" Value="#0000" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="Background" Value="#0000" />
-                <Setter Property="Foreground" Value="{StaticResource AccentGradient}" />
-                <Setter Property="FontWeight" Value="Bold" />
-                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            </Style>
-            <Style
-                x:Key="{x:Type ToggleButton}"
-                BasedOn="{StaticResource ToggleButtonStyle}"
-                TargetType="{x:Type ToggleButton}">
-                <Style.Triggers>
-                    <!--  Focused  -->
-                    <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
-                        <Setter Property="BorderThickness" Value="{StaticResource SelectionBorderThickness}" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-            <!--  TextBox  -->
-            <Style x:Key="TextBoxStyle" TargetType="TextBox">
-                <Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
-                <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
-                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
-                <Setter Property="SelectionBrush" Value="#569DE5" />
-                <Setter Property="SelectionOpacity" Value="0.5" />
-                <Setter Property="Padding" Value="3,2" />
-                <Setter Property="FontSize" Value="{StaticResource GlobalFontSize}" />
-                <Setter Property="FocusVisualStyle" Value="{DynamicResource CustomFocusVisualStyle}" />
-            </Style>
             <!--  Label  -->
             <Style x:Key="LabelStyle" TargetType="Label">
                 <Style.Triggers>
@@ -432,12 +82,6 @@
             <Style x:Key="BorderStyle" TargetType="Border">
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="BorderBrush" Value="Gainsboro" />
-            </Style>
-            <!--  Rounded Mask Style  -->
-            <Style x:Key="RoundBorderMaskStyle" TargetType="{x:Type Border}">
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="Background" Value="{StaticResource TabBackgroundBrush}" />
-                <Setter Property="CornerRadius" Value="{StaticResource RoundedControlCorner}" />
             </Style>
             <!--  Mixer Cell  -->
             <Style TargetType="{x:Type DataGridCell}">
@@ -488,216 +132,6 @@
                 <Setter Property="Background" Value="{StaticResource TabBackgroundBrush}" />
                 <Setter Property="Foreground" Value="WhiteSmoke" />
             </Style>
-            <!--  ComboBox Templates  -->
-            <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
-                <Grid Name="cmbGrid">
-                    <Grid.Resources>
-                        <Style x:Key="{x:Type Path}" TargetType="{x:Type Path}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
-                                    <Setter Property="Fill" Value="{StaticResource AccentGradientDisabled}" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
-                                    <Setter Property="Fill" Value="{StaticResource AccentGradientMouseOver}" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding IsPressed, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
-                                    <Setter Property="Fill" Value="{StaticResource AccentGradientIsPressed}" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Grid.Resources>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="20" />
-                    </Grid.ColumnDefinitions>
-                    <!--  Having this border here allows the dropdown to be triggered by clicking anywhere on the control  -->
-                    <Border
-                        Grid.ColumnSpan="2"
-                        Background="Transparent"
-                        BorderThickness="0" />
-                    <Path
-                        x:Name="Arrow"
-                        Grid.Column="1"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Data="M 0 0 L 4 5 L 8 0 Z"
-                        Fill="{StaticResource AccentGradient}"
-                        IsEnabled="{Binding IsMouseOver, ElementName=cmbGrid}" />
-                </Grid>
-            </ControlTemplate>
-            <ControlTemplate x:Key="ComboBoxTextBox" TargetType="TextBox">
-                <Border
-                    x:Name="PART_ContentHost"
-                    Background="{TemplateBinding Background}"
-                    BorderThickness="0"
-                    Focusable="False" />
-            </ControlTemplate>
-            <Style x:Key="ComboBoxCustomStyle" TargetType="ComboBox">
-                <Style.Triggers>
-                    <!--  Focused  -->
-                    <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
-                        <Setter Property="BorderThickness" Value="{StaticResource SelectionBorderThickness}" />
-                    </DataTrigger>
-                </Style.Triggers>
-                <Setter Property="SnapsToDevicePixels" Value="true" />
-                <Setter Property="OverridesDefaultStyle" Value="true" />
-                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
-                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-                <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
-                <Setter Property="MinHeight" Value="20" />
-                <Setter Property="ItemsPanel">
-                    <Setter.Value>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel />
-                        </ItemsPanelTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ComboBox}">
-                            <Grid>
-                                <Border
-                                    Name="BackgroundBorder"
-                                    Background="{StaticResource TextBoxBackground}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="{StaticResource RoundedControlCorner}" />
-                                <Grid Margin="1">
-                                    <ToggleButton
-                                        Name="ToggleButton"
-                                        Grid.Column="2"
-                                        ClickMode="Press"
-                                        Focusable="false"
-                                        IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                        Template="{StaticResource ComboBoxToggleButton}" />
-                                    <ContentPresenter
-                                        Name="ContentSite"
-                                        Margin="3,3,23,3"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Content="{TemplateBinding SelectionBoxItem}"
-                                        ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                        ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                        IsHitTestVisible="False" />
-                                    <TextBox
-                                        x:Name="PART_EditableTextBox"
-                                        Margin="3,3,23,3"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Background="#0000"
-                                        Focusable="True"
-                                        IsReadOnly="{TemplateBinding IsReadOnly}"
-                                        Style="{x:Null}"
-                                        Template="{StaticResource ComboBoxTextBox}"
-                                        Visibility="Hidden" />
-                                    <Popup
-                                        Name="Popup"
-                                        AllowsTransparency="True"
-                                        Focusable="False"
-                                        IsOpen="{TemplateBinding IsDropDownOpen}"
-                                        Placement="Bottom"
-                                        PopupAnimation="Slide">
-                                        <Grid
-                                            Name="DropDown"
-                                            MinWidth="{TemplateBinding ActualWidth}"
-                                            MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                                            SnapsToDevicePixels="True">
-                                            <Border
-                                                x:Name="DropDownBorder"
-                                                Padding="5"
-                                                Background="{StaticResource TextBoxBackground}"
-                                                BorderBrush="{StaticResource BorderBrush}"
-                                                BorderThickness="0"
-                                                CornerRadius="10">
-                                                <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
-                                                    <VirtualizingStackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
-                                                </ScrollViewer>
-                                            </Border>
-                                        </Grid>
-                                    </Popup>
-                                </Grid>
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="HasItems" Value="false">
-                                    <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95" />
-                                </Trigger>
-                                <Trigger Property="IsGrouping" Value="true">
-                                    <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
-                                </Trigger>
-                                <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
-                                    <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0" />
-                                </Trigger>
-                                <Trigger Property="IsEditable" Value="true">
-                                    <Setter Property="IsTabStop" Value="false" />
-                                    <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible" />
-                                    <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden" />
-                                </Trigger>
-                                <Trigger Property="IsEnabled" Value="False">
-                                    <Setter TargetName="BackgroundBorder" Property="Background" Value="#282828" />
-                                </Trigger>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="BackgroundBorder" Property="Background" Value="{StaticResource TextBoxBackgroundDisabled}" />
-                                    <Setter TargetName="BackgroundBorder" Property="BorderBrush" Value="{StaticResource BorderBrush}" />
-                                    <Setter TargetName="BackgroundBorder" Property="BorderThickness" Value="1" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            </Style>
-            <!--  ComboBox  -->
-            <Style
-                x:Key="ComboBoxStyle"
-                BasedOn="{StaticResource ComboBoxCustomStyle}"
-                TargetType="{x:Type ComboBox}">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
-                        <Setter Property="Foreground" Value="#404040" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="Foreground" Value="WhiteSmoke" />
-                    </DataTrigger>
-                    <!--  Focused  -->
-                    <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
-                        <Setter Property="BorderThickness" Value="{StaticResource SelectionBorderThickness}" />
-                    </DataTrigger>
-                </Style.Triggers>
-                <Setter Property="BorderThickness" Value="3" />
-                <Setter Property="BorderBrush" Value="Gainsboro" />
-                <Setter Property="AlternationCount" Value="1" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="IsTextSearchCaseSensitive" Value="False" />
-                <Setter Property="Margin" Value="0,1,0,1" />
-                <Setter Property="Padding" Value="0" />
-                <Setter Property="KeyboardNavigation.ControlTabNavigation" Value="Cycle" />
-                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            </Style>
-            <!--  TextBlock  -->
-            <Style x:Key="TextBlockStyle" TargetType="TextBlock">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
-                        <Setter Property="Foreground" Value="LightGray" />
-                    </DataTrigger>
-                </Style.Triggers>
-                <Setter Property="Foreground" Value="WhiteSmoke" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-            </Style>
-            <!--  Watermark TextBlock  -->
-            <Style
-                x:Key="WatermarkTextBlockStyle"
-                BasedOn="{StaticResource TextBlockStyle}"
-                TargetType="TextBlock">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
-                        <Setter Property="Foreground" Value="LightGray" />
-                    </DataTrigger>
-                </Style.Triggers>
-                <Setter Property="Foreground" Value="#9A9A9A" />
-                <Setter Property="IsHitTestVisible" Value="False" />
-            </Style>
 
             <!--  EventTypeOptions (VolumeControl.Log.BindableEventTypeOptions)  -->
             <Collections:LogEventTypeFilter x:Key="EventTypeOptions" PropertyChanged="Handle_LogFilterChanged" />
@@ -733,364 +167,7 @@
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
-            <!--  ApplicationSettingsCheckboxStyle (Settings/Debug)  -->
-            <Style
-                x:Key="ApplicationSettingsCheckboxStyle"
-                BasedOn="{StaticResource CheckBoxStyle}"
-                TargetType="{x:Type CheckBox}">
-                <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="Margin" Value="10,3" />
-                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            </Style>
-
-            <!--  Custom Slider Thumb Style  -->
-            <Style x:Key="CustomSliderThumbStyle" TargetType="{x:Type Thumb}">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="Background" Value="{StaticResource AccentGradientMouseOver}" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding IsDragging, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="Background" Value="{StaticResource AccentGradientIsPressed}" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
-                        <Setter Property="BorderThickness" Value="{StaticResource SelectionBorderThickness}" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-            <!--  CustomSliderTemplate  -->
-            <ControlTemplate x:Key="CustomSliderTemplate" TargetType="{x:Type Slider}">
-                <ControlTemplate.Resources>
-                    <Style TargetType="{x:Type RepeatButton}">
-                        <Setter Property="OverridesDefaultStyle" Value="true" />
-                        <Setter Property="IsTabStop" Value="false" />
-                        <Setter Property="Focusable" Value="false" />
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type RepeatButton}">
-                                    <Border Background="{TemplateBinding Background}" />
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ControlTemplate.Resources>
-                <Grid Background="#0000">
-                    <Grid.Resources>
-                        <conv:ConverterChain x:Key="InvertedBooleanToVisibilityConverter">
-                            <conv:BooleanInverter />
-                            <BooleanToVisibilityConverter />
-                        </conv:ConverterChain>
-                    </Grid.Resources>
-                    <Border
-                        Height="4"
-                        Margin="1,0"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Center"
-                        Background="{TemplateBinding Background}"
-                        BorderThickness="0"
-                        Visibility="{Binding ShowPeakMeters, Source={StaticResource Settings}, Converter={StaticResource InvertedBooleanToVisibilityConverter}}" />
-                    <ProgressBar
-                        Height="4"
-                        Margin="1,0"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Center"
-                        Background="{TemplateBinding Background}"
-                        Maximum="1.0"
-                        Minimum="0.0"
-                        Visibility="{Binding ShowPeakMeters, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}"
-                        Value="{Binding Tag, RelativeSource={RelativeSource AncestorType={x:Type Slider}}, Converter={StaticResource TagDoubleConverter}}" />
-                    <Track Name="PART_Track" Value="{TemplateBinding Value}">
-                        <Track.DecreaseRepeatButton>
-                            <RepeatButton
-                                Background="#0000"
-                                Command="Slider.DecreaseLarge"
-                                SnapsToDevicePixels="True" />
-                        </Track.DecreaseRepeatButton>
-                        <Track.Thumb>
-                            <Thumb
-                                x:Name="Thumb"
-                                Background="{TemplateBinding Foreground}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                SnapsToDevicePixels="True"
-                                Style="{StaticResource CustomSliderThumbStyle}">
-                                <Thumb.Template>
-                                    <ControlTemplate TargetType="{x:Type Thumb}">
-                                        <Ellipse
-                                            x:Name="PART_ThumbEllipse"
-                                            Width="15"
-                                            Height="15"
-                                            VerticalAlignment="Center"
-                                            Fill="{TemplateBinding Background}"
-                                            Stroke="{TemplateBinding BorderBrush}"
-                                            StrokeThickness="{TemplateBinding BorderThickness}" />
-                                    </ControlTemplate>
-                                </Thumb.Template>
-                            </Thumb>
-                        </Track.Thumb>
-                        <Track.IncreaseRepeatButton>
-                            <RepeatButton
-                                Background="#0000"
-                                Command="Slider.IncreaseLarge"
-                                SnapsToDevicePixels="True" />
-                        </Track.IncreaseRepeatButton>
-                    </Track>
-                </Grid>
-            </ControlTemplate>
-            <!--  SliderCustomStyle  -->
-            <Style x:Key="{x:Type Slider}" TargetType="{x:Type Slider}">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="Foreground" Value="{StaticResource AccentGradientMouseOver}" />
-                    </DataTrigger>
-                </Style.Triggers>
-                <Setter Property="Template" Value="{StaticResource CustomSliderTemplate}" />
-                <Setter Property="Background" Value="WhiteSmoke" />
-                <Setter Property="Foreground" Value="{StaticResource AccentGradient}" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="FocusVisualStyle" Value="{DynamicResource CustomFocusVisualStyle}" />
-            </Style>
-            <!--  NumericUpDownStyle  -->
-            <Style TargetType="{x:Type controls:NumericUpDown}">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
-                    </DataTrigger>
-                </Style.Triggers>
-                <!--  Use an even number for height so that the buttons are the same size  -->
-                <Setter Property="Height" Value="24" />
-                <Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
-                <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
-                <Setter Property="HorizontalContentAlignment" Value="Right" />
-                <Setter Property="CornerRadius" Value="{StaticResource RoundedControlCorner}" />
-                <Setter Property="HorizontalAlignment" Value="Center" />
-                <Setter Property="HorizontalContentAlignment" Value="Right" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="BorderBrush" Value="#AAA" />
-                <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="Width" Value="Auto" />
-                <Setter Property="Height" Value="25" />
-                <!--<Setter Property="Focusable" Value="False" />-->
-                <Setter Property="FocusVisualStyle" Value="{DynamicResource CustomFocusVisualStyle}" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type controls:NumericUpDown}">
-                            <Border
-                                Name="nudBorder"
-                                Width="{TemplateBinding Width}"
-                                Height="{TemplateBinding Height}"
-                                MinWidth="{TemplateBinding MinWidth}"
-                                MinHeight="{TemplateBinding MinHeight}"
-                                MaxWidth="{TemplateBinding MaxWidth}"
-                                MaxHeight="{TemplateBinding MaxHeight}"
-                                Margin="0"
-                                Padding="{TemplateBinding Padding}"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{TemplateBinding CornerRadius}"
-                                Focusable="False">
-                                <Grid>
-                                    <Grid.Resources>
-                                        <conv:SquaredCornerRadiusConverter x:Key="nudTextBoxCornerRadiusConverter" Squared="Right" />
-                                        <conv:SquaredCornerRadiusConverter x:Key="nudButtonCornerRadiusConverter" Squared="Left" />
-                                    </Grid.Resources>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Border
-                                        Name="nudTextBoxMask"
-                                        Background="{TemplateBinding Background}"
-                                        BorderThickness="0"
-                                        CornerRadius="{Binding CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource nudTextBoxCornerRadiusConverter}}" />
-                                    <TextBox
-                                        x:Name="PART_TextBox"
-                                        Margin="3,0"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                        Background="{TemplateBinding Background}"
-                                        BorderThickness="0"
-                                        FocusVisualStyle="{TemplateBinding FocusVisualStyle}"
-                                        Foreground="{TemplateBinding Foreground}">
-                                        <TextBox.OpacityMask>
-                                            <VisualBrush Visual="{Binding ElementName=nudTextBoxMask}" />
-                                        </TextBox.OpacityMask>
-                                    </TextBox>
-
-
-                                    <Border
-                                        Name="nudButtonMask"
-                                        Grid.Column="1"
-                                        Background="{TemplateBinding Background}"
-                                        BorderThickness="0"
-                                        CornerRadius="{Binding CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource nudButtonCornerRadiusConverter}}" />
-                                    <Grid Grid.Column="1">
-                                        <Grid.OpacityMask>
-                                            <VisualBrush Visual="{Binding ElementName=nudButtonMask}" />
-                                        </Grid.OpacityMask>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*" />
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
-                                        <RepeatButton
-                                            x:Name="PART_IncreaseButton"
-                                            Grid.Row="0"
-                                            Margin="0,-1,-1,0"
-                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                            BorderThickness="1"
-                                            FontSize="{TemplateBinding FontSize}"
-                                            IsEnabled="{TemplateBinding IsEnabled}"
-                                            Style="{StaticResource NumericUpDownRepeatButtonStyle}">
-                                            <Path
-                                                Margin="3.3"
-                                                Data="M 0 20 L 35 -20 L 70 20 Z"
-                                                Fill="#FF202020"
-                                                Stretch="Uniform" />
-                                        </RepeatButton>
-                                        <RepeatButton
-                                            x:Name="PART_DecreaseButton"
-                                            Grid.Row="1"
-                                            Margin="0,0,-1,-1"
-                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                            BorderThickness="1"
-                                            FontSize="{TemplateBinding FontSize}"
-                                            IsEnabled="{TemplateBinding IsEnabled}"
-                                            Style="{StaticResource NumericUpDownRepeatButtonStyle}">
-                                            <Path
-                                                Margin="3.3"
-                                                Data="M 0 0 L 35 40 L 70 0 Z"
-                                                Fill="#FF202020"
-                                                Stretch="Uniform" />
-                                        </RepeatButton>
-                                    </Grid>
-                                </Grid>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <!--  Tooltip Style  -->
-            <Style TargetType="{x:Type ToolTip}">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding Content, RelativeSource={RelativeSource Self}}" Value=" ">
-                        <Setter Property="Visibility" Value="Hidden" />
-                    </DataTrigger>
-                </Style.Triggers>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ToolTip}">
-                            <Border
-                                Padding="5,3"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{StaticResource RoundedControlCorner}">
-                                <ContentPresenter
-                                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                                    VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                                    Content="{TemplateBinding Content}"
-                                    ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                    ContentTemplate="{TemplateBinding ContentTemplate}"
-                                    ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" />
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
-                <Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
-                <Setter Property="BorderThickness" Value="2" />
-                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
-            </Style>
-            <!--  ProgressBarPeakMeterStyle  -->
-            <Style x:Key="ProgressBarPeakMeterStyle" TargetType="{x:Type ProgressBar}">
-                <Setter Property="Minimum" Value="{x:Static core:Config.PeakMeterMinValue}" />
-                <Setter Property="Maximum" Value="{x:Static core:Config.PeakMeterMaxValue}" />
-                <Setter Property="HorizontalAlignment" Value="Stretch" />
-            </Style>
-            <!--  Expander Templates  -->
-            <ControlTemplate x:Key="ExpanderToggleButtonTemplate" TargetType="{x:Type ToggleButton}">
-                <Border
-                    x:Name="ExpanderButtonBorder"
-                    Padding="{TemplateBinding Padding}"
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <ContentPresenter
-                            Grid.Column="1"
-                            Margin="5,0,0,0"
-                            Content="{TemplateBinding Content}"
-                            TextBlock.FontWeight="Light" />
-                        <Path
-                            x:Name="ExpanderSymbol"
-                            Grid.Column="0"
-                            Width="10"
-                            Height="10"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Data="M 0,5 H 10 M 5,0 V 10 Z"
-                            RenderTransformOrigin="0.5,0.5"
-                            Stroke="{TemplateBinding Foreground}"
-                            StrokeThickness="2" />
-                    </Grid>
-                </Border>
-                <ControlTemplate.Triggers>
-                    <!--  Visual studio complains about this but it works so don't touch it:  -->
-                    <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter TargetName="ExpanderSymbol" Property="Data" Value="M 4,4 H 10 Z" />
-                    </DataTrigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate>
-            <ControlTemplate x:Key="ExpanderTemplate" TargetType="{x:Type Expander}">
-                <DockPanel HorizontalAlignment="Stretch" LastChildFill="True">
-                    <ToggleButton
-                        x:Name="ExpanderButton"
-                        Margin="1"
-                        Padding="1.5,0"
-                        VerticalAlignment="Center"
-                        Content="{TemplateBinding Header}"
-                        DockPanel.Dock="Top"
-                        FocusVisualStyle="{TemplateBinding FocusVisualStyle}"
-                        IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                        OverridesDefaultStyle="True"
-                        Template="{StaticResource ExpanderToggleButtonTemplate}">
-                        <ToggleButton.Style>
-                            <Style BasedOn="{StaticResource ToggleButtonStyle}" TargetType="{x:Type ToggleButton}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Value="True">
-                                        <Setter Property="Foreground" Value="{StaticResource AccentGradientActivatedDark}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ToggleButton.Style>
-                    </ToggleButton>
-                    <ContentPresenter
-                        x:Name="ExpanderContent"
-                        Margin="5,6,5,0"
-                        DockPanel.Dock="Bottom"
-                        Visibility="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                </DockPanel>
-                <ControlTemplate.Triggers>
-                    <DataTrigger Binding="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
-                        <Setter TargetName="ExpanderContent" Property="Visibility" Value="Visible" />
-                    </DataTrigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate>
-            <!--  Expander Style  -->
-            <Style TargetType="{x:Type Expander}">
-                <Setter Property="Focusable" Value="False" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="Template" Value="{StaticResource ExpanderTemplate}" />
-                <Setter Property="FocusVisualStyle" Value="{DynamicResource CustomFocusVisualStyle}" />
-            </Style>
+            <Style BasedOn="{StaticResource ExpanderStyle}" TargetType="{x:Type Expander}" />
             <!--  Tab Item Appearance  -->
             <Style TargetType="{x:Type TabItem}">
                 <Setter Property="Template">
@@ -1147,6 +224,21 @@
                 <Setter Property="BaselineAlignment" Value="Baseline" />
                 <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            </Style>
+            <!--  ListBox style  -->
+            <Style x:Key="ListBoxStyle" TargetType="{x:Type ListBox}">
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
+                <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
+                <Setter Property="FocusVisualStyle" Value="{StaticResource CustomFocusVisualStyle}" />
+                <Setter Property="ItemContainerStyle">
+                    <Setter.Value>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource CustomFocusVisualStyle}" />
+                        </Style>
+                    </Setter.Value>
+                </Setter>
             </Style>
 
             <!--  KeyOptions  -->
@@ -1945,7 +1037,7 @@
                                                              DefaultText=' '}" />
                                         </Expander.Header>
 
-                                        <Grid Grid.Column="1">
+                                        <Grid Grid.Column="1" Margin="5,5,5,0">
                                             <Border Name="AudioAdditionalSettingsMask" Style="{StaticResource RoundBorderMaskStyle}" />
                                             <UniformGrid
                                                 HorizontalAlignment="Stretch"
@@ -2215,6 +1307,11 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
                                         <!--  Enable Notifications Checkbox Control  -->
                                         <CheckBox
                                             x:Name="cbEnableNotifications"
@@ -2235,24 +1332,18 @@
                                             Style="{StaticResource CheckBoxStyle}"
                                             ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.OnVolumeChange.Tooltip',
                                                          DefaultText='When this is checked, notifications also appear when the volume level of the target is changed.'}" />
-                                        <ComboBox
-                                            Grid.Column="4"
-                                            Margin="3,0"
-                                            IsEnabled="{Binding IsChecked, ElementName=cbEnableNotifications}"
-                                            ItemsSource="{Binding NotificationModes, Source={StaticResource Settings}}"
-                                            SelectedItem="{Binding NotificationMode, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                                            Style="{StaticResource ComboBoxCustomStyle}"
-                                            Visibility="Collapsed" />
+
                                         <DockPanel
                                             Grid.Column="5"
                                             HorizontalAlignment="Stretch"
                                             VerticalAlignment="Center"
                                             IsEnabled="{Binding IsChecked, ElementName=cbEnableNotifications}"
                                             LastChildFill="True">
-                                            <Label
+                                            <CheckBox
                                                 Content="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Timeout.Content',
                                                              DefaultText='Timeout'}"
-                                                Style="{StaticResource LabelStyle}"
+                                                IsChecked="{Binding NotificationTimeoutEnabled, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Style="{StaticResource ApplicationSettingsCheckboxStyle}"
                                                 ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Timeout.Tooltip',
                                                              DefaultText='The amount of time in milliseconds that notifications will remain visible after being triggered.'}" />
                                             <controls:NumericUpDown
@@ -2264,6 +1355,52 @@
                                                              DefaultText='The amount of time in milliseconds that notifications will remain visible after being triggered.'}"
                                                 Value="{Binding NotificationTimeout, Mode=TwoWay, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}" />
                                         </DockPanel>
+
+                                        <Label
+                                            Grid.Row="1"
+                                            Content="Display Target:"
+                                            Style="{StaticResource LabelStyle}" />
+                                        <Grid
+                                            Grid.Row="1"
+                                            Grid.Column="2"
+                                            Grid.ColumnSpan="2"
+                                            Margin="5,8,5,3">
+                                            <Border Name="displayTargetListBoxMask" Style="{StaticResource RoundBorderMaskStyle}" />
+                                            <ListBox
+                                                Name="displayTargetListBox"
+                                                ItemsSource="{Binding ListNotificationVM.DisplayTargets, Source={StaticResource Settings}, Mode=OneWay}"
+                                                SelectedItem="{Binding ListNotificationVM.CurrentDisplayTarget, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Style="{StaticResource ListBoxStyle}">
+                                                <ListBox.OpacityMask>
+                                                    <VisualBrush Visual="{Binding ElementName=displayTargetListBoxMask}" />
+                                                </ListBox.OpacityMask>
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type vm:ListDisplayTarget}">
+                                                        <Grid Margin="3,1">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto" />
+                                                                <ColumnDefinition Width="*" />
+                                                                <ColumnDefinition Width="Auto" />
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <Image
+                                                                Grid.Column="0"
+                                                                Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                                                                Margin="2,1"
+                                                                HorizontalAlignment="Left"
+                                                                Source="{Binding Icon}"
+                                                                Visibility="{Binding ShowIcons, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                                                            <TextBlock
+                                                                Grid.Column="2"
+                                                                Style="{StaticResource TextBlockStyle}"
+                                                                Text="{Binding Name}" />
+
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
                             </Border>

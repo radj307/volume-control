@@ -186,11 +186,11 @@ namespace VolumeControl.Audio
 
         #region Events
         /// <summary>Triggered when the volume or mute state of the <see cref="SelectedSession"/> is changed.</summary>
-        public event EventHandler<(int volume, bool muted)>? SelectedSessionVolumeChanged;
-        private void NotifyVolumeChanged((int volume, bool muted) pr) => SelectedSessionVolumeChanged?.Invoke(this.SelectedSession, pr);
+        public event VolumeChangedEventHandler? SelectedSessionVolumeChanged;
+        private void NotifySelectedSessionVolumeChanged(VolumeChangedEventArgs e) => SelectedSessionVolumeChanged?.Invoke(this.SelectedSession, e);
         /// <summary>Triggered when the selected session is changed.</summary>
         public event EventHandler? SelectedSessionSwitched;
-        private void NotifySessionSwitch() => SelectedSessionSwitched?.Invoke(this, new());
+        private void NotifySelectedSessionSwitched() => SelectedSessionSwitched?.Invoke(this, new());
         /// <summary>Triggered when the value of the <see cref="LockSelectedSession"/> property is changed.</summary>
         public event EventHandler? LockSelectedSessionChanged;
         private void NotifyLockSelectedSessionChanged() => LockSelectedSessionChanged?.Invoke(this, new());
@@ -208,7 +208,6 @@ namespace VolumeControl.Audio
         public event PropertyChangingEventHandler? PropertyChanging;
         private void NotifyPropertyChanging([CallerMemberName] string propertyName = "") => PropertyChanging?.Invoke(this, new(propertyName));
         #endregion Events
-
 
         #region Methods
         #region Device
@@ -379,7 +378,6 @@ namespace VolumeControl.Audio
         /// Attempts to resolve the <see cref="SelectedSession"/> using the current <see cref="Target"/> string.<br/>
         /// This doesn't do anything unless SelectedSession is null and Target is not empty.
         /// </summary>
-        /// <remarks>It is recommended to call this function first inside of methods intended to be called using hotkeys.</remarks>
         private void ResolveTarget()
         {
             if (this.Target.Length > 0)
@@ -414,11 +412,10 @@ namespace VolumeControl.Audio
         /// <param name="volume">The desired session volume level in the range ( 0 - 100 )</param>
         public void SetSessionVolume(int volume)
         {
-            //this.ResolveTarget();
             if (this.SelectedSession is AudioSession session)
             {
                 session.Volume = volume;
-                this.NotifyVolumeChanged((session.Volume, session.Muted));
+                this.NotifySelectedSessionVolumeChanged(new(session.Volume, session.Muted));
             }
         }
         /// <summary>
@@ -427,11 +424,10 @@ namespace VolumeControl.Audio
         /// <param name="amount">The amount to change the session's volume by.<br/>Session volume can be any value from 0 to 100, and is <b>automatically</b> clamped if the final value exceeds this range.</param>
         public void IncrementSessionVolume(int amount)
         {
-            //this.ResolveTarget();
             if (this.SelectedSession is AudioSession session)
             {
                 session.Volume += amount;
-                this.NotifyVolumeChanged((session.Volume, session.Muted));
+                this.NotifySelectedSessionVolumeChanged(new(session.Volume, session.Muted));
             }
         }
         /// <summary>
@@ -444,11 +440,10 @@ namespace VolumeControl.Audio
         /// <param name="amount">The amount to change the session's volume by.<br/>Session volume can be any value from 0 to 100, and is <b>automatically</b> clamped if the final value exceeds this range.</param>
         public void DecrementSessionVolume(int amount)
         {
-            //this.ResolveTarget();
             if (this.SelectedSession is AudioSession session)
             {
                 session.Volume -= amount;
-                this.NotifyVolumeChanged((session.Volume, session.Muted));
+                this.NotifySelectedSessionVolumeChanged(new(session.Volume, session.Muted));
             }
         }
         /// <summary>
@@ -471,7 +466,7 @@ namespace VolumeControl.Audio
             if (this.SelectedSession is AudioSession session)
             {
                 session.Muted = state;
-                this.NotifyVolumeChanged((session.Volume, session.Muted));
+                this.NotifySelectedSessionVolumeChanged(new(session.Volume, session.Muted));
                 return session.Muted;
             }
             return null;
@@ -486,7 +481,7 @@ namespace VolumeControl.Audio
             if (this.SelectedSession is AudioSession session)
             {
                 session.Muted = !session.Muted;
-                this.NotifyVolumeChanged((session.Volume, session.Muted));
+                this.NotifySelectedSessionVolumeChanged(new(session.Volume, session.Muted));
                 return session.Muted;
             }
             return null;
@@ -521,7 +516,7 @@ namespace VolumeControl.Audio
                 this.SelectedSession = this.Sessions[0];
             }
 
-            this.NotifySessionSwitch(); //< SelectedSessionSwitched
+            this.NotifySelectedSessionSwitched(); //< SelectedSessionSwitched
         }
         /// <summary>
         /// Sets <see cref="SelectedSession"/> to the session occurring before this one in <see cref="Sessions"/>.
@@ -552,7 +547,7 @@ namespace VolumeControl.Audio
                 this.SelectedSession = this.Sessions[^1];
             }
 
-            this.NotifySessionSwitch(); //< SelectedSessionSwitched
+            this.NotifySelectedSessionSwitched(); //< SelectedSessionSwitched
         }
         /// <summary>
         /// Sets <see cref="SelectedSession"/> to <see langword="null"/>.<br/>
@@ -565,7 +560,7 @@ namespace VolumeControl.Audio
                 return false;
 
             this.SelectedSession = null;
-            this.NotifySessionSwitch(); //< SelectedSessionSwitched
+            this.NotifySelectedSessionSwitched(); //< SelectedSessionSwitched
             return true;
         }
         #endregion Selection

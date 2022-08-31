@@ -7,8 +7,10 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using System.Windows.Controls;
 using System.Windows.Media;
 using VolumeControl.Audio.Interfaces;
+using VolumeControl.Core.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
 using VolumeControl.WPF;
@@ -19,6 +21,8 @@ namespace VolumeControl.Audio
     /// <summary>Represents an audio device endpoint.<br/>Note that this object cannot be constructed externally.<br/>You can retrieve already-created audio devices through the <see cref="AudioAPI"/> class.</summary>
     /// <remarks>This object uses the MMDevice API from NAudio, and implements the following interfaces:
     /// <list type="bullet">
+    /// <item><description><see cref="IVolumeControl"/></description></item>
+    /// <item><description><see cref="IListDisplayable"/></description></item>
     /// <item><description><see cref="IDevice"/></description></item>
     /// <item><description><see cref="INotifyPropertyChanged"/></description></item>
     /// <item><description><see cref="IDisposable"/></description></item>
@@ -38,7 +42,7 @@ namespace VolumeControl.Audio
     /// </list>
     /// Note that audio devices implement interfaces so that they may act similarly to lists of audio sessions.<br/>Some properties in this object require the NAudio library.<br/>If you're writing an addon, install the 'NAudio' nuget package if you need to be able to use them.
     /// </remarks>
-    public sealed class AudioDevice : IDevice, IDisposable, IEquatable<AudioDevice>, IEquatable<IDevice>, IList, ICollection, IEnumerable, IList<AudioSession>, IImmutableList<AudioSession>, ICollection<AudioSession>, IEnumerable<AudioSession>, IReadOnlyList<AudioSession>, IReadOnlyCollection<AudioSession>, INotifyCollectionChanged, INotifyPropertyChanged
+    public sealed class AudioDevice : IVolumeControl, IListDisplayable, IDevice, IDisposable, IEquatable<AudioDevice>, IEquatable<IDevice>, IList, ICollection, IEnumerable, IList<AudioSession>, IImmutableList<AudioSession>, ICollection<AudioSession>, IEnumerable<AudioSession>, IReadOnlyList<AudioSession>, IReadOnlyCollection<AudioSession>, INotifyCollectionChanged, INotifyPropertyChanged
     {
         #region Constructors
         /// <inheritdoc cref="AudioDevice"/>
@@ -56,6 +60,10 @@ namespace VolumeControl.Audio
             }
         }
         #endregion Constructors
+
+        #region Fields
+        private readonly object endpointVolumeObjectLock = new();
+        #endregion Fields
 
         #region Properties
         /// <inheritdoc/>
@@ -139,7 +147,16 @@ namespace VolumeControl.Audio
         /// Gets the <see cref="AudioEndpointVolume"/> object from the underlying <see cref="MMDevice"/>.
         /// </summary>
         /// <remarks>This object is from NAudio.<br/>If you're writing an addon, install the 'NAudio' nuget package to be able to use this.</remarks>
-        public AudioEndpointVolume EndpointVolumeObject => this.MMDevice.AudioEndpointVolume;
+        public AudioEndpointVolume EndpointVolumeObject
+        {
+            get
+            {
+                lock (endpointVolumeObjectLock) //< this is needed because multiple simultaneous requests from different threads will throw an E_NOINTERFACE error. (This is uncommon but happened 3+ times during development where multiple sliders for the same device were present.) This is likely due to NAudio converting COM objects behind the scenes.
+                {
+                    return this.MMDevice.AudioEndpointVolume;
+                }
+            }
+        }
         /// <inheritdoc/>
         public float NativeVolume
         {
@@ -170,6 +187,18 @@ namespace VolumeControl.Audio
                 this.NotifyPropertyChanged();
             }
         }
+        /// <inheritdoc/>
+        public string DisplayText
+        {
+            get => DeviceFriendlyName;
+            set { }
+        }
+        private Control[]? _displayControls;
+        /// <inheritdoc/>
+        public Control[]? DisplayControls => _displayControls ??= IVolumeControl.MakeListDisplayableControlTemplate(this);
+        /// <inheritdoc/>
+        public ImageSource? DisplayIcon => Icon;
+
         /// <summary>
         /// The sessions that are playing on this device.
         /// </summary>

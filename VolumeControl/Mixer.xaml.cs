@@ -6,9 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using VolumeControl.Audio;
 using VolumeControl.Core;
-using VolumeControl.Core.Enum;
 using VolumeControl.Helpers;
-using VolumeControl.Helpers.Update;
 using VolumeControl.Hotkeys;
 using VolumeControl.Log;
 using VolumeControl.WPF.Collections;
@@ -124,11 +122,11 @@ namespace VolumeControl
             ListNotification? lnotif = this.ListNotification;
             lnotif.Owner = this;
 
-            this.AudioAPI.SelectedSessionSwitched += (s, e) => this.ListNotification.HandleShow(DisplayTarget.Sessions);
-            this.AudioAPI.LockSelectedSessionChanged += (s, e) => this.ListNotification.HandleShow(DisplayTarget.Sessions);
-            this.AudioAPI.SelectedSessionVolumeChanged += (s, e) => this.ListNotification.HandleShow(DisplayTarget.Sessions, false);
+            //this.AudioAPI.SelectedSessionSwitched += (s, e) => this.ListNotification.HandleShow(DisplayTarget.Sessions);
+            //this.AudioAPI.LockSelectedSessionChanged += (s, e) => this.ListNotification.HandleShow(DisplayTarget.Sessions);
+            //this.AudioAPI.SelectedSessionVolumeChanged += (s, e) => this.ListNotification.HandleShow(DisplayTarget.Sessions, false);
 
-            Log.Debug($"Finished binding event handler method '{nameof(ListNotification.HandleShow)}' to {this.AudioAPI} events.");
+            //Log.Debug($"Finished binding event handler method '{nameof(ListNotification.HandleShow)}' to {this.AudioAPI} events.");
         }
         private void Handle_TargetNameBoxDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {

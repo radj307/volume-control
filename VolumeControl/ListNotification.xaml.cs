@@ -1,10 +1,14 @@
-﻿using System;
+﻿using SVGImage.SVG;
+using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using VolumeControl.Core;
-using VolumeControl.Core.Enum;
 using VolumeControl.Helpers;
-using VolumeControl.TypeExtensions;
+using VolumeControl.Log;
+using VolumeControl.ViewModels;
+using VolumeControl.WPF;
 
 namespace VolumeControl
 {
@@ -17,175 +21,226 @@ namespace VolumeControl
         public ListNotification()
         {
             this.InitializeComponent();
+            // Do this after so we can enable AllowsTransparency (It cannot be changed once the window handle has been created.)
+            _hWnd = WindowHandleGetter.GetWindowHandle(this);
 
-            // Apply settings
-            TimeoutTimer.Interval = Settings.NotificationTimeoutMs;
-            this.VCSettings.PropertyChanged += (s, e) =>
+            if (Settings.NotificationSavePos && Settings.NotificationPosition.HasValue)
+                SetPos(Settings.NotificationPosition.Value);
+            else // use the default location
+                SetPos(new(SystemParameters.WorkArea.Right - this.Width - 10, SystemParameters.WorkArea.Bottom - this.Height - 10));
+
+            Settings.PropertyChanged += Settings_PropertyChanged;
+
+            if (Settings.NotificationTimeoutMs <= 0)
+            { // validate the timeout value before using it for the timer interval
+                const int resetToValue = 3000;
+                Log.Error($"{nameof(Settings.NotificationTimeoutMs)} cannot be less than or equal to zero; it was reset to '{resetToValue}' in order to avoid a fatal exception.",
+                    new ArgumentOutOfRangeException($"{nameof(Settings)}.{nameof(Settings.NotificationTimeoutMs)}", Settings.NotificationTimeoutMs, $"The value '{Settings.NotificationTimeoutMs}' isn't valid for property 'System.Timers.Timer.Interval'; Value is out-of-range! (Minimum: 1)"));
+                Settings.NotificationTimeoutMs = resetToValue;
+            }
+            _timer = new()
             {
-                if (e.PropertyName == null)
-                {
-                    return;
-                }
-
-                if (e.PropertyName.Equals("NotificationTimeout"))
-                {
-                    TimeoutTimer.Interval = this.VCSettings.NotificationTimeout;
-                }
-                else if (e.PropertyName.Equals("NotificationEnabled") && !this.VCSettings.NotificationEnabled)
-                {
-                    this.Hide();
-                }
+                Interval = Settings.NotificationTimeoutMs,
+                AutoReset = false,
             };
+            _timer.Elapsed += Timer_Elapsed;
 
-            // Add an event handler
-            TimeoutTimer.Tick += this.Handle_TimeoutTimerTick!;
-        }
-        /// <inheritdoc/>
-        public override void EndInit()
-        {
-            base.EndInit();
-            listView.Style = this.FindResource("ListViewStyle") as Style;
+            VCSettings.ListNotificationVM.Show += ListNotificationVM_Show;
         }
         #endregion Initializers
 
-        #region Finalizers
-        private void Window_Unloaded(object sender, RoutedEventArgs e) =>
-            // Apply settings
-            Settings.NotificationTimeoutMs = TimeoutTimer.Interval;
-        #endregion Finalizers
-
         #region Fields
-        public readonly System.Windows.Forms.Timer TimeoutTimer = new() { Enabled = false };
-        private bool _mouseOver = false;
+        private readonly System.Timers.Timer _timer;
+        private readonly IntPtr _hWnd;
         #endregion Fields
 
-        #region Properties
+        private static LogWriter Log => FLog.Log;
         private static Config Settings => (Config.Default as Config)!;
-        private VolumeControlSettings VCSettings => _vcSettings ??= (this.FindResource("Settings") as VolumeControlSettings)!;
-        private VolumeControlSettings? _vcSettings = null;
-        /// <summary>Controls the amount of time <i>(in milliseconds)</i> that the list notification is visible for before disappearing.</summary>
-        public decimal TimeoutInterval
-        {
-            get => TimeoutTimer.Interval;
-            set => TimeoutTimer.Interval = Convert.ToInt32(value);
-        }
-        public bool Enabled => this.VCSettings.NotificationEnabled;
-        #endregion Properties
+        private VolumeControlSettings? _vcSettings;
+        private VolumeControlSettings VCSettings => _vcSettings ??= (FindResource("Settings") as VolumeControlSettings)!;
+        private ListDisplayTarget? CurrentDisplayTarget => VCSettings.ListNotificationVM.CurrentDisplayTarget;
 
-        #region Methods
-        public void HandleShow(DisplayTarget type, bool isSwitchEventType = true)
+        /// <summary>
+        /// Starts the timer if <see cref="Config.NotificationTimeoutEnabled"/> is <see langword="true"/>; otherwise does nothing.
+        /// </summary>
+        private void StartTimer()
         {
-            if (this.VCSettings.NotificationMode.Equals(type) && (isSwitchEventType || this.VCSettings.NotificationShowsVolumeChange))
-                this.Show();
+            if (!Settings.NotificationTimeoutEnabled) return;
+            _timer.Start();
         }
+        private void StopTimer() => _timer.Stop();
+
         public new void Show()
         {
-            if (!this.Enabled)
-            {
-                return;
-            }
-
-            base.Show();
-            TimeoutTimer.StartOrReset();
+            SVG svg = new();
+            if (_timer.Enabled) StopTimer();
+            Dispatcher.Invoke(base.Show);
+            StartTimer();
         }
         public new void Hide()
         {
-            if (_mouseOver)
+            StopTimer();
+            Dispatcher.Invoke(base.Hide);
+        }
+
+        private Point GetPos() => new(this.Left, this.Top);
+        private void SetPos(Point p)
+        {
+            this.Left = p.X;
+            this.Top = p.Y;
+        }
+
+        private void ListNotificationVM_Show(object? sender, object e) => this.Show();
+
+        private void Timer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
+        {
+            Dispatcher.Invoke(() =>
             {
-                TimeoutTimer.StartOrReset();
-            }
-            else
+                if (this.IsMouseOver || this.HasEffectiveKeyboardFocus)
+                    StartTimer();
+                else
+                    this.Hide();
+            });
+        }
+
+        private void Settings_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            var name = e.PropertyName;
+            if (name is null) return;
+
+            if (name.Equals(nameof(Config.NotificationTimeoutMs)))
             {
-                TimeoutTimer.Stop();
-                base.Hide();
+                _timer.Interval = Settings.NotificationTimeoutMs;
+            }
+            else if (name.Equals(nameof(Config.NotificationTimeoutEnabled)))
+            {
+                if (_timer.Enabled)
+                    StopTimer();
+                else
+                    StartTimer();
             }
         }
-        #endregion Methods
 
-        #region EventHandlers
-        private void Handle_TimeoutTimerTick(object sender, EventArgs e) => this.Hide();
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) => e.Cancel = true;
-
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        /// <summary>Handler that allows dragging the notification window</summary>
+        private void lnotifWindow_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Rect rect = SystemParameters.WorkArea;
-            this.Left = rect.Right - this.ActualWidth - 10;
-            this.Top = rect.Bottom - this.ActualHeight - 10;
+            if (!e.ChangedButton.Equals(MouseButton.Left)) return;
+
+            if (!Settings.NotificationMoveRequiresAlt || Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
+            {
+                if (Mouse.LeftButton.Equals(MouseButtonState.Pressed))
+                {
+                    this.DragMove(); //< apparently this throws an exception if you release the mouse button really fast
+                }
+            }
         }
-        private void ControlGotFocus(object sender, RoutedEventArgs e) => TimeoutTimer.Stop();
-
-        private void ControlLostFocus(object sender, RoutedEventArgs e) => TimeoutTimer.Start();
-
-        private void ControlMouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        /// <summary>Saves the position of the notification window, if enabled by the config.</summary>
+        private void lnotifWindow_LocationChanged(object sender, EventArgs e)
         {
-            _mouseOver = true;
-            TimeoutTimer.Stop();
+            if (!Settings.NotificationSavePos) return;
+            Settings.NotificationPosition = GetPos();
         }
-        private void ControlMouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        private void lnotifWindow_Closing(object sender, CancelEventArgs e) => e.Cancel = true;
+        private void lnotifWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            _mouseOver = false;
-            TimeoutTimer.Start();
+            var corner = Settings.NotificationWindowOriginCorner;
+            if (Settings.NotificationWindowOriginCornerAuto)
+            { // automatic corner selection is enabled:
+                // get the centerpoint of this window
+                double
+                    x = this.Left + (e.PreviousSize.Width / 2),
+                    y = this.Top + (e.PreviousSize.Height / 2);
+                //                  floor via truncation   vvv     vvv
+                var scr = System.Windows.Forms.Screen.FromPoint(new((int)x, (int)y));
+
+                // get the centerpoint of this screen
+                var center = new Point(
+                    scr.WorkingArea.Left + scr.WorkingArea.Width / 2,
+                    scr.WorkingArea.Top + scr.WorkingArea.Height / 2
+                    );
+
+                // figure out which corner is the closest & use that
+                bool left = x < center.X, top = y < center.Y;
+
+                if (left && top)
+                    corner = Core.Helpers.ScreenCorner.TopLeft;
+                else if (!left && top)
+                    corner = Core.Helpers.ScreenCorner.TopRight;
+                else if (left && !top)
+                    corner = Core.Helpers.ScreenCorner.BottomLeft;
+                else if (!left && !top)
+                    corner = Core.Helpers.ScreenCorner.BottomRight;
+                // else we're directly in the center; fallback to the value of Settings.NotificationWindowOriginCorner
+            }
+            switch (corner)
+            {
+            case Core.Helpers.ScreenCorner.TopLeft:
+                break;
+            case Core.Helpers.ScreenCorner.TopRight:
+                if (!e.WidthChanged) return;
+
+                this.Left += e.PreviousSize.Width - e.NewSize.Width;
+                break;
+            case Core.Helpers.ScreenCorner.BottomLeft:
+                if (!e.HeightChanged) return;
+
+                this.Top += e.PreviousSize.Height - e.NewSize.Height;
+                break;
+            case Core.Helpers.ScreenCorner.BottomRight:
+                this.Left += e.PreviousSize.Width - e.NewSize.Width;
+                this.Top += e.PreviousSize.Height - e.NewSize.Height;
+                break;
+            default:
+                throw new InvalidEnumArgumentException(nameof(Settings.NotificationWindowOriginCorner), (byte)Settings.NotificationWindowOriginCorner, typeof(Core.Helpers.ScreenCorner));
+            }
         }
-        private void ControlDragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e) => TimeoutTimer.Stop();
 
-        private void ControlDragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e) => TimeoutTimer.Start();
-
-        private void ControlGotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e) => TimeoutTimer.Stop();
-
-        private void ControlLostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e) => TimeoutTimer.Start();
-        #endregion EventHandlers
-
-        #region DependencyProperties
-        #region SliderVisibility
-        public static readonly DependencyProperty SliderVisibilityProperty = DependencyProperty.Register("SliderVisibility", typeof(Visibility), typeof(ListNotification), new(Visibility.Visible, OnSliderVisibilityChanged));
-        public Visibility SliderVisibility
+        private static void AttachListDisplayTargetControlsToStack(StackPanel stack, Control[] controls)
         {
-            get => (Visibility)this.GetValue(SliderVisibilityProperty);
-            set => this.SetValue(SliderVisibilityProperty, value);
+            foreach (var control in controls)
+            {
+                try
+                {
+                    stack.Children.Add(control);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"Attaching templated {nameof(Control)} of type {control.GetType().FullName} caused an exception!", ex);
+                }
+            }
         }
-        private static void OnSliderVisibilityChanged(DependencyObject element, DependencyPropertyChangedEventArgs e) => ((ListNotification)element).SliderVisibility = (Visibility)e.NewValue;
-        #endregion SliderVisibility
-
-        #region SliderValue
-        public static readonly DependencyProperty SliderValueProperty = DependencyProperty.Register("SliderValue", typeof(double), typeof(ListNotification), new(0.0, OnSliderValueChanged));
-        public double SliderValue
+        /// <summary>Adds all custom controls to the calling stackpanel</summary>
+        private void displayableControlsTemplate_Loaded(object sender, RoutedEventArgs e)
         {
-            get => slider.Value = Convert.ToDouble(this.GetValue(SliderValueProperty));
-            set => this.SetValue(SliderValueProperty, slider.Value = value);
+            if (sender is StackPanel stack)
+            {
+                if (stack.Tag is Control[] arr)
+                {
+                    AttachListDisplayTargetControlsToStack(stack, arr);
+                }
+            }
         }
-        private static void OnSliderValueChanged(DependencyObject element, DependencyPropertyChangedEventArgs e) => ((ListNotification)element).SliderValue = (double)e.NewValue;
-        #endregion SliderValue
-
-        #region ValueText
-        public static readonly DependencyProperty ValueTextProperty = DependencyProperty.Register("ValueText", typeof(string), typeof(ListNotification), new(string.Empty, OnValueTextChanged));
-        public string? ValueText
+        /// <summary>Removes all custom controls from the calling stackpanel</summary>
+        private void displayableControlsTemplate_Unloaded(object sender, RoutedEventArgs e)
         {
-            get => Convert.ToString(this.GetValue(ValueTextProperty));
-            set => this.SetValue(ValueTextProperty, value);
-        }
-        private static void OnValueTextChanged(DependencyObject element, DependencyPropertyChangedEventArgs e) => ((ListNotification)element).ValueText = Convert.ToString(e.NewValue);
-        #endregion ValueText
+            if (sender is StackPanel stack)
+            {
+                stack.Children.Clear();
+                stack.UpdateLayout();
 
-        #region LockSelection
-        public static readonly DependencyProperty LockSelectionProperty = DependencyProperty.Register("LockSelection", typeof(bool), typeof(ListNotification), new(false, OnLockSelectionChanged));
-        public bool LockSelection
-        {
-            get => Convert.ToBoolean(this.GetValue(LockSelectionProperty));
-            set => this.SetValue(LockSelectionProperty, value);
+                if (stack.Tag is Control[] arr)
+                { // re-attach the controls:
+                    AttachListDisplayTargetControlsToStack(stack, arr);
+                }
+            }
         }
-        private static void OnLockSelectionChanged(DependencyObject element, DependencyPropertyChangedEventArgs e) => ((ListNotification)element).LockSelection = (bool)e.NewValue;
-        #endregion LockSelection
 
-        #region ShowIcons
-        public static readonly DependencyProperty ShowIconsProperty = DependencyProperty.Register("ShowIcons", typeof(bool), typeof(ListNotification), new(Settings.ShowIcons, OnShowIconsChanged));
-        public bool ShowIcons
+        private void listView_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            get => Convert.ToBoolean(this.GetValue(ShowIconsProperty));
-            set => this.SetValue(ShowIconsProperty, value);
+            if (Settings.LockTargetSession)
+            {
+                e.Handled = true;
+            }
         }
-        private static void OnShowIconsChanged(DependencyObject element, DependencyPropertyChangedEventArgs e) => ((ListNotification)element).ShowIcons = Convert.ToBoolean(e.NewValue);
-        #endregion ShowIcons
-        #endregion DependencyProperties
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
 using Semver;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
-using VolumeControl.Core.Enum;
+using System.Windows.Media;
+using VolumeControl.Core.Helpers;
 using VolumeControl.Core.Input;
 using VolumeControl.Log;
 using VolumeControl.WPF.Collections;
@@ -191,6 +193,29 @@ namespace VolumeControl.Core
 
         #region Notifications
         /// <summary>
+        /// The brush to use for the background of the list notification when locked.
+        /// </summary>
+        [JsonIgnore]
+        public static readonly Brush NotificationLockedBrush = new LinearGradientBrush(new GradientStopCollection()
+        {
+            new GradientStop(Color.FromRgb(0xA3, 0x28, 0x28), 0.2),
+            new GradientStop(Color.FromRgb(0xA8, 0x14, 0x14), 0.8)
+        }, new Point(0, 0), new Point(1, 1));
+        /// <summary>
+        /// The brush to use for the background of the list notification when unlocked.
+        /// </summary>
+        [JsonIgnore]
+        public static readonly Brush NotificationUnlockedBrush = new LinearGradientBrush(new GradientStopCollection()
+        {
+            new GradientStop(Color.FromRgb(0x49, 0x6D, 0x49), 0.2),
+            new GradientStop(Color.FromRgb(0x40, 0x70, 0x40), 0.8)
+        }, new Point(0, 0), new Point(1, 1));
+        /// <summary>
+        /// The default background brush used for the ListNotification
+        /// </summary>
+        [JsonIgnore]
+        public static readonly Brush NotificationDefaultBrush = new SolidColorBrush(Color.FromRgb(0x30, 0x30, 0x30));
+        /// <summary>
         /// Gets or sets whether notifications are enabled or not.
         /// </summary>
         public bool NotificationsEnabled { get; set; } = true;
@@ -203,9 +228,34 @@ namespace VolumeControl.Core
         /// </summary>
         public int NotificationTimeoutMs { get; set; } = 3000;
         /// <summary>
-        /// This partially controls what the notification window actually displays.
+        /// Gets or sets whether the list notification timeout is enabled, which causes the list notification to disappear after <see cref="NotificationTimeoutMs"/> milliseconds.
         /// </summary>
-        public DisplayTarget NotificationMode { get; set; }
+        public bool NotificationTimeoutEnabled { get; set; } = true;
+        /// <summary>
+        /// Gets or sets whether the notification can be dragged without holding down the ALT key.
+        /// </summary>
+        public bool NotificationMoveRequiresAlt { get; set; } = true;
+        /// <summary>
+        /// Gets or sets the location of the notification window
+        /// </summary>
+        public Point? NotificationPosition { get; set; }
+        /// <summary>
+        /// Gets or sets whether <see cref="NotificationPosition"/> is used or not.
+        /// </summary>
+        public bool NotificationSavePos { get; set; } = true;
+        /// <summary>
+        /// Gets or sets whether controls from <see cref="Interfaces.IListDisplayable.DisplayControls"/> are shown or not.
+        /// </summary>
+        public bool NotificationShowsCustomControls { get; set; } = true;
+        /// <summary>
+        /// Gets or sets the corner from which ListNotification size transform operations are rooted.
+        /// </summary>
+        public ScreenCorner NotificationWindowOriginCorner { get; set; } = ScreenCorner.BottomLeft;
+        /// <summary>
+        /// Gets or sets whether the <see cref="NotificationWindowOriginCorner"/> is automatically determined by figuring out which screen corner the centerpoint of the window is closest to.<br/>
+        /// If the centerpoint of the window is <b>exactly</b> in the center of the screen, the value of <see cref="NotificationWindowOriginCorner"/> is used instead.
+        /// </summary>
+        public bool NotificationWindowOriginCornerAuto { get; set; } = true;
         #endregion Notifications
 
         #region Updates

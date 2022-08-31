@@ -17,6 +17,7 @@
 			<PrivateAssets>All</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="PropertyChanged.Fody" Version="3.4.1">
 			<PrivateAssets>All</PrivateAssets>
 		</PackageReference>
@@ -27,6 +28,9 @@
 		<ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
 		<ProjectReference Include="..\VolumeControl.TypeExtensions\VolumeControl.TypeExtensions.csproj" />
 		<ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="ViewModel\" />
 	</ItemGroup>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).pdb&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).xml&quot; &quot;..\publish\SDK\&quot;" />
