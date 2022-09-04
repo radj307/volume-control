@@ -5,8 +5,6 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.Log", "VolumeControl.Log\VolumeControl.Log.csproj", "{56353392-A5F9-44C8-950D-886A1F284397}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API;Utils", "API;Utils", "{FDB479EE-7FDD-4A76-9BA0-E464DA42B94B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl", "VolumeControl\VolumeControl.csproj", "{EA71382B-1E9F-4E18-92A9-933DE01B1025}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.WPF", "VolumeControl.WPF\VolumeControl.WPF.csproj", "{69A59FC1-1378-45CB-B001-5781D3E8D8D6}"
