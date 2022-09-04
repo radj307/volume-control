@@ -20,29 +20,19 @@
     xmlns:vm="clr-namespace:VolumeControl.ViewModels"
     x:Name="window"
     Title="Volume Control"
-    ctrlz:KeyboardNavigationEx.AlwaysShowFocusVisual="True"
     AllowsTransparency="True"
     Closing="Window_Closing"
     DataContext="{RelativeSource Self}"
-    FocusVisualStyle="{x:Null}"
+    FontFamily="{StaticResource InterFont}"
+    FontSize="{StaticResource GlobalFontSize}"
     Icon="/Resources/icons/iconSilvered.ico"
     Initialized="Window_Initialized"
     Loaded="Window_Loaded"
+    ResizeMode="CanMinimize"
+    SizeToContent="WidthAndHeight"
+    UseLayoutRounding="True"
     WindowStyle="None"
     mc:Ignorable="d">
-    <Window.Style>
-        <!--  Set Window Style Properties  -->
-        <Style TargetType="Window">
-            <Setter Property="SizeToContent" Value="WidthAndHeight" />
-            <Setter Property="WindowStyle" Value="SingleBorderWindow" />
-            <Setter Property="Height" Value="Auto" />
-            <Setter Property="Width" Value="500" />
-            <Setter Property="UseLayoutRounding" Value="True" />
-            <Setter Property="ResizeMode" Value="CanMinimize" />
-            <Setter Property="FontSize" Value="{StaticResource GlobalFontSize}" />
-            <Setter Property="FontFamily" Value="{StaticResource InterFont}" />
-        </Style>
-    </Window.Style>
 
     <!--  ( Static Resources )  -->
     <Window.Resources>
@@ -423,7 +413,6 @@
             <sys:Uri x:Key="VolumeControlBugReport">https://github.com/radj307/volume-control/issues/new?assignees=radj307&amp;labels=bug%2Ctriage&amp;template=BugReport.yml&amp;title=%5BBUG%5D+</sys:Uri>
 
             <ImageSource x:Key="VolumeControlIcon">pack://application:,,,/Resources/images/icon.png</ImageSource>
-
 
         </ResourceDictionary>
     </Window.Resources>
