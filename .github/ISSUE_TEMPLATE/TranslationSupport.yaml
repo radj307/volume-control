@@ -1,4 +1,4 @@
-name: TranslationSupport
+name: Translation Issue
 description: Report a missing or incorrect translation.
 title: "[BUG] ..."
 labels: ["bug", "triage", "locale"]
