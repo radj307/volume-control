@@ -12,6 +12,7 @@ var namespace_volume_control_1_1_type_extensions =
     [ "ProcessExtensions", "class_volume_control_1_1_type_extensions_1_1_process_extensions.html", "class_volume_control_1_1_type_extensions_1_1_process_extensions" ],
     [ "PropertyInfoExtensions", "class_volume_control_1_1_type_extensions_1_1_property_info_extensions.html", "class_volume_control_1_1_type_extensions_1_1_property_info_extensions" ],
     [ "RealNumberExtensions", "class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html", "class_volume_control_1_1_type_extensions_1_1_real_number_extensions" ],
+    [ "ReflectionExtensions", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions" ],
     [ "StringExtensions", "class_volume_control_1_1_type_extensions_1_1_string_extensions.html", "class_volume_control_1_1_type_extensions_1_1_string_extensions" ],
     [ "TimerExtensions", "class_volume_control_1_1_type_extensions_1_1_timer_extensions.html", "class_volume_control_1_1_type_extensions_1_1_timer_extensions" ],
     [ "TypeExtensions", "class_volume_control_1_1_type_extensions_1_1_type_extensions.html", "class_volume_control_1_1_type_extensions_1_1_type_extensions" ]

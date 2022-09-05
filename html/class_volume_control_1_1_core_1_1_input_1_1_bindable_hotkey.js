@@ -3,6 +3,8 @@ var class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey =
     [ "BindableHotkey", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#a3885c9d619c3f6f167edd5e701f7aad5", null ],
     [ "BindableHotkey", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#ad5db4750ef6eadab1106213a9b03dc0a", null ],
     [ "Dispose", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#a79a1c2cc1e48932fd38afa4146a5927d", null ],
+    [ "ErrorMessage", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#ac6a518792e214348e9daaa50b6548482", null ],
+    [ "HasError", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#a5aa91d1d399bd6a4624fa7a79ed8b8b5", null ],
     [ "ID", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#a30c0446ad9e8b4652cfbbb7fe73f92c2", null ],
     [ "Valid", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#a9bbe3e0237e9605794f1fdc6a934624f", null ],
     [ "Action", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#af479a617b2047f22bebe746ecc86c486", null ],

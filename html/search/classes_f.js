@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['user32_824',['User32',['../class_volume_control_1_1_hotkeys_1_1_user32.html',1,'VolumeControl::Hotkeys']]]
+  ['user32_843',['User32',['../class_volume_control_1_1_hotkeys_1_1_user32.html',1,'VolumeControl::Hotkeys']]]
 ];

@@ -1,5 +1,5 @@
 var class_volume_control_1_1_type_extensions_1_1_collection_extensions =
 [
-    [ "AddIfUnique< T >", "class_volume_control_1_1_type_extensions_1_1_collection_extensions.html#a4e8b47dbb45123a7d6d339063bfaf068", null ],
-    [ "AddRangeIfUnique< T >", "class_volume_control_1_1_type_extensions_1_1_collection_extensions.html#aa291a25dc29aae2c8abb0521f633476c", null ]
+    [ "AddIfUnique< T >", "class_volume_control_1_1_type_extensions_1_1_collection_extensions.html#a585470bdb068dbe1ffdf10d32e041783", null ],
+    [ "AddRangeIfUnique< T >", "class_volume_control_1_1_type_extensions_1_1_collection_extensions.html#ab1f722d58491bbdd8c63aa0c4dae45f2", null ]
 ];

@@ -105,12 +105,18 @@ These events relate to <b>all</b> audio devices. <br /></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html">TargetChangingEventArgs</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event arguments for the <a class="el" href="namespace_volume_control_1_1_audio_1_1_events.html#a2378ad05ca4a7a6d53605bbdc2eb927e" title="Event handler used by AudioAPI when the AudioAPI.Target property is changed.">TargetChangingEventHandler</a> event handler type.  <a href="class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_events_1_1_volume_changed_event_args.html">VolumeChangedEventArgs</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event arguments for volume change events.  <a href="class_volume_control_1_1_audio_1_1_events_1_1_volume_changed_event_args.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a2378ad05ca4a7a6d53605bbdc2eb927e"><td class="memItemLeft" align="right" valign="top">delegate void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_volume_control_1_1_audio_1_1_events.html#a2378ad05ca4a7a6d53605bbdc2eb927e">TargetChangingEventHandler</a> (object sender, <a class="el" href="class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html">TargetChangingEventArgs</a> e)</td></tr>
 <tr class="memdesc:a2378ad05ca4a7a6d53605bbdc2eb927e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event handler used by <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html" title="Contains methods related to audio devices, sessions, and the underlying selection mechanics responsib...">AudioAPI</a> when the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a21ed306abfeeb7604246406081af76da" title="Refers to the text in the target text box on the mixer tab - that is, it is a potentially-unvalidated...">AudioAPI.Target</a> property is changed.  <a href="namespace_volume_control_1_1_audio_1_1_events.html#a2378ad05ca4a7a6d53605bbdc2eb927e">More...</a><br /></td></tr>
 <tr class="separator:a2378ad05ca4a7a6d53605bbdc2eb927e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43eecb61ad2ca05cb2b858dbe660e665"><td class="memItemLeft" align="right" valign="top">delegate void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_volume_control_1_1_audio_1_1_events.html#a43eecb61ad2ca05cb2b858dbe660e665">VolumeChangedEventHandler</a> (object? sender, <a class="el" href="class_volume_control_1_1_audio_1_1_events_1_1_volume_changed_event_args.html">VolumeChangedEventArgs</a> e)</td></tr>
+<tr class="memdesc:a43eecb61ad2ca05cb2b858dbe660e665"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event handler delegate that uses the <a class="el" href="class_volume_control_1_1_audio_1_1_events_1_1_volume_changed_event_args.html" title="Event arguments for volume change events.">VolumeChangedEventArgs</a> event args type.  <a href="namespace_volume_control_1_1_audio_1_1_events.html#a43eecb61ad2ca05cb2b858dbe660e665">More...</a><br /></td></tr>
+<tr class="separator:a43eecb61ad2ca05cb2b858dbe660e665"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a2378ad05ca4a7a6d53605bbdc2eb927e"></a>
@@ -145,6 +151,43 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">sender</td><td>The object who triggered this event. In most cases, this is <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html" title="Contains methods related to audio devices, sessions, and the underlying selection mechanics responsib...">AudioAPI</a>.</td></tr>
     <tr><td class="paramname">e</td><td>Event arguments.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a43eecb61ad2ca05cb2b858dbe660e665"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43eecb61ad2ca05cb2b858dbe660e665">&#9670;&nbsp;</a></span>VolumeChangedEventHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">delegate void VolumeControl.Audio.Events.VolumeChangedEventHandler </td>
+          <td>(</td>
+          <td class="paramtype">object?&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_volume_control_1_1_audio_1_1_events_1_1_volume_changed_event_args.html">VolumeChangedEventArgs</a>&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Event handler delegate that uses the <a class="el" href="class_volume_control_1_1_audio_1_1_events_1_1_volume_changed_event_args.html" title="Event arguments for volume change events.">VolumeChangedEventArgs</a> event args type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The object instance that triggered the event.</td></tr>
+    <tr><td class="paramname">e</td><td>An instance of <a class="el" href="class_volume_control_1_1_audio_1_1_events_1_1_volume_changed_event_args.html" title="Event arguments for volume change events.">VolumeChangedEventArgs</a> that contains the event data.</td></tr>
   </table>
   </dd>
 </dl>

@@ -103,18 +103,18 @@ Collaboration diagram for VolumeControl.TypeExtensions.CollectionExtensions:</di
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a4e8b47dbb45123a7d6d339063bfaf068"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_collection_extensions.html#a4e8b47dbb45123a7d6d339063bfaf068">AddIfUnique&lt; T &gt;</a> (this ICollection&lt; T &gt; collection, T obj)</td></tr>
-<tr class="memdesc:a4e8b47dbb45123a7d6d339063bfaf068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds <em>obj</em>  to the <em>collection</em>  if it isn't a duplicate of any existing elements.  <a href="class_volume_control_1_1_type_extensions_1_1_collection_extensions.html#a4e8b47dbb45123a7d6d339063bfaf068">More...</a><br /></td></tr>
-<tr class="separator:a4e8b47dbb45123a7d6d339063bfaf068"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa291a25dc29aae2c8abb0521f633476c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_collection_extensions.html#aa291a25dc29aae2c8abb0521f633476c">AddRangeIfUnique&lt; T &gt;</a> (this ICollection&lt; T &gt; collection, IEnumerable&lt; T &gt; range)</td></tr>
-<tr class="memdesc:aa291a25dc29aae2c8abb0521f633476c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls AddIfUnique&lt;T&gt;(ICollection&lt;T&gt;, T) on the given <em>range</em>  of objects.  <a href="class_volume_control_1_1_type_extensions_1_1_collection_extensions.html#aa291a25dc29aae2c8abb0521f633476c">More...</a><br /></td></tr>
-<tr class="separator:aa291a25dc29aae2c8abb0521f633476c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a585470bdb068dbe1ffdf10d32e041783"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_collection_extensions.html#a585470bdb068dbe1ffdf10d32e041783">AddIfUnique&lt; T &gt;</a> (this ICollection&lt; T &gt; collection, T obj)</td></tr>
+<tr class="memdesc:a585470bdb068dbe1ffdf10d32e041783"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds <em>obj</em>  to the <em>collection</em>  if it isn't a duplicate of any existing elements.  <a href="class_volume_control_1_1_type_extensions_1_1_collection_extensions.html#a585470bdb068dbe1ffdf10d32e041783">More...</a><br /></td></tr>
+<tr class="separator:a585470bdb068dbe1ffdf10d32e041783"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1f722d58491bbdd8c63aa0c4dae45f2"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_collection_extensions.html#ab1f722d58491bbdd8c63aa0c4dae45f2">AddRangeIfUnique&lt; T &gt;</a> (this ICollection&lt; T &gt; collection, IEnumerable&lt; T &gt; range)</td></tr>
+<tr class="memdesc:ab1f722d58491bbdd8c63aa0c4dae45f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls AddIfUnique&lt;T&gt;(ICollection&lt;T&gt;, T) on the given <em>range</em>  of objects.  <a href="class_volume_control_1_1_type_extensions_1_1_collection_extensions.html#ab1f722d58491bbdd8c63aa0c4dae45f2">More...</a><br /></td></tr>
+<tr class="separator:ab1f722d58491bbdd8c63aa0c4dae45f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Extension methods for ICollection&lt;T&gt; </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4e8b47dbb45123a7d6d339063bfaf068"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e8b47dbb45123a7d6d339063bfaf068">&#9670;&nbsp;</a></span>AddIfUnique&lt; T &gt;()</h2>
+<a id="a585470bdb068dbe1ffdf10d32e041783"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a585470bdb068dbe1ffdf10d32e041783">&#9670;&nbsp;</a></span>AddIfUnique&lt; T &gt;()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -123,7 +123,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void VolumeControl.TypeExtensions.CollectionExtensions.AddIfUnique&lt; T &gt; </td>
+          <td class="memname">static bool VolumeControl.TypeExtensions.CollectionExtensions.AddIfUnique&lt; T &gt; </td>
           <td>(</td>
           <td class="paramtype">this ICollection&lt; T &gt;&#160;</td>
           <td class="paramname"><em>collection</em>, </td>
@@ -161,11 +161,12 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> when <em>obj</em>  was added to <em>collection</em> ; otherwise <code>false</code>.</dd></dl>
 
 </div>
 </div>
-<a id="aa291a25dc29aae2c8abb0521f633476c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa291a25dc29aae2c8abb0521f633476c">&#9670;&nbsp;</a></span>AddRangeIfUnique&lt; T &gt;()</h2>
+<a id="ab1f722d58491bbdd8c63aa0c4dae45f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1f722d58491bbdd8c63aa0c4dae45f2">&#9670;&nbsp;</a></span>AddRangeIfUnique&lt; T &gt;()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -174,7 +175,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void VolumeControl.TypeExtensions.CollectionExtensions.AddRangeIfUnique&lt; T &gt; </td>
+          <td class="memname">static int VolumeControl.TypeExtensions.CollectionExtensions.AddRangeIfUnique&lt; T &gt; </td>
           <td>(</td>
           <td class="paramtype">this ICollection&lt; T &gt;&#160;</td>
           <td class="paramname"><em>collection</em>, </td>
@@ -212,6 +213,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of items from <em>range</em>  that were added to <em>collection</em> .</dd></dl>
 
 </div>
 </div>

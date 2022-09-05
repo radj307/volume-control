@@ -1,6 +1,4 @@
 <map id="VolumeControl.Core.Config" name="VolumeControl.Core.Config">
-<area shape="rect" id="node1" title="Contains the application configuration and logic to read from and write to JSON files." alt="" coords="5,469,244,767"/>
-<area shape="rect" id="node2" href="$class_app_config_1_1_configuration_file.html" title="Extends the Configuration class with a built&#45;in file Location, and adds methods that use this filepat..." alt="" coords="21,315,228,421"/>
-<area shape="rect" id="node3" href="$class_app_config_1_1_configuration.html" title="The most basic abstract class in the AppConfig project." alt="" coords="50,131,199,267"/>
-<area shape="rect" id="node4" title=" " alt="" coords="36,5,213,83"/>
+<area shape="rect" id="node1" title="Contains the application configuration and logic to read from and write to JSON files." alt="" coords="5,131,244,472"/>
+<area shape="rect" id="node2" title=" " alt="" coords="21,5,228,83"/>
 </map>

@@ -1,7 +1,5 @@
 <map id="VolumeControl.Core.Config" name="VolumeControl.Core.Config">
-<area shape="rect" id="node1" title="Contains the application configuration and logic to read from and write to JSON files." alt="" coords="111,531,349,813"/>
-<area shape="rect" id="node2" href="$class_app_config_1_1_configuration_file.html" title="Extends the Configuration class with a built&#45;in file Location, and adds methods that use this filepat..." alt="" coords="5,339,212,446"/>
-<area shape="rect" id="node3" href="$class_app_config_1_1_configuration.html" title="The most basic abstract class in the AppConfig project." alt="" coords="34,132,183,268"/>
-<area shape="rect" id="node4" title=" " alt="" coords="20,5,197,83"/>
-<area shape="rect" id="node5" href="$struct_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey_json_wrapper.html" title="Acts as a temporary wrapper for the BindableHotkey class so that the JSON parser can read and write i..." alt="" coords="237,317,469,468"/>
+<area shape="rect" id="node1" title="Contains the application configuration and logic to read from and write to JSON files." alt="" coords="111,219,349,545"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,42,212,119"/>
+<area shape="rect" id="node3" href="$struct_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey_json_wrapper.html" title="Acts as a temporary wrapper for the BindableHotkey class so that the JSON parser can read and write i..." alt="" coords="237,5,469,156"/>
 </map>

@@ -92,7 +92,7 @@ var NAVTREE =
         [ "Functions", "functions_func.html", "functions_func" ],
         [ "Variables", "functions_vars.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
-        [ "Properties", "functions_prop.html", null ],
+        [ "Properties", "functions_prop.html", "functions_prop" ],
         [ "Events", "functions_evnt.html", null ]
       ] ]
     ] ],
@@ -105,11 +105,11 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"class_volume_control_1_1_audio_1_1_audio_session.html#a356c261a4c345fc0c739c5e66e4e66ea",
-"class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_session_actions.html#aee10071cdfbc27957f515b599d304722",
-"class_volume_control_1_1_type_extensions_1_1_property_info_extensions.html#ac0fc78ed8b627a1a7a994b82f39daff6",
-"functions.html",
-"struct_volume_control_1_1_hotkeys_1_1_structs_1_1_action_binding.html#a60066d7800e19f136fb5db344b74871f"
+"class_volume_control_1_1_audio_1_1_audio_session.html#a6b2e52691965a8840591964da0bb8295",
+"class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#aa730b51b2623cc79d65c42e1d65e4cb3",
+"class_volume_control_1_1_type_extensions_1_1_math_ext.html#a181c1b274bcfb403a2ba37e8e125533c",
+"dir_664a3e44ef2f2a17c41aa8f100901d0a.html",
+"namespace_volume_control_1_1_log_1_1_interfaces.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

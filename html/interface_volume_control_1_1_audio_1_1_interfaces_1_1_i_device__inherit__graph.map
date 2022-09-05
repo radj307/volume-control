@@ -1,6 +1,8 @@
 <map id="VolumeControl.Audio.Interfaces.IDevice" name="VolumeControl.Audio.Interfaces.IDevice">
-<area shape="rect" id="node1" title="Represents an audio device." alt="" coords="86,189,318,296"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_audio_1_1_audio_device.html" title="Represents an audio device endpoint. Note that this object cannot be constructed externally...." alt="" coords="79,344,325,1008"/>
-<area shape="rect" id="node2" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_audio_controllable.html" title="Base interface type for IDevice and IProcess/ISession." alt="" coords="5,5,193,141"/>
-<area shape="rect" id="node3" title=" " alt="" coords="217,35,395,112"/>
+<area shape="rect" id="node1" title="Represents an audio device." alt="" coords="101,469,333,576"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_audio_1_1_audio_device.html" title="Represents an audio device endpoint. Note that this object cannot be constructed externally...." alt="" coords="95,624,340,1317"/>
+<area shape="rect" id="node2" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_audio_control.html" title="Base interface type for IDevice and IProcess/ISession." alt="" coords="21,344,209,421"/>
+<area shape="rect" id="node3" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_volume_control.html" title="Represents some kind of controllable audio playback instance." alt="" coords="5,160,224,296"/>
+<area shape="rect" id="node4" href="$interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html" title="Represents an object that, when it is a member of a list of similar items, can be displayed in the Li..." alt="" coords="45,5,185,112"/>
+<area shape="rect" id="node5" title=" " alt="" coords="233,344,410,421"/>
 </map>

@@ -44,7 +44,7 @@ var class_volume_control_1_1_audio_1_1_audio_a_p_i =
     [ "PropertyChanged", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ab74d94d0bcbcbb04c911ca90b07a4c65", null ],
     [ "PropertyChanging", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a8bd47020f22e6cab1bb34a51ca1d4621", null ],
     [ "SelectedSessionSwitched", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a4dcbe00763f4141a6ed630a01dba2265", null ],
-    [ "SelectedSessionVolumeChanged", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#aa36504cd01cc6275de73d3152b5f263b", null ],
+    [ "SelectedSessionVolumeChanged", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a2166b81f79916bdd55e5ed34b1c7da5e", null ],
     [ "TargetChanged", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a629bf396f71edf39c98b7b6d389b0af4", null ],
     [ "TargetChanging", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a17dc69fa9029c87f4d825c3041f7bbc3", null ]
 ];
