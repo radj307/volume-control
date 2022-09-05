@@ -20,6 +20,13 @@ namespace VolumeControl
         #region Initializers
         public ListNotification()
         {
+            Style s = new()
+            {
+                TargetType = typeof(Window)
+            };
+
+            Resources.Add(typeof(Window), s);
+
             this.InitializeComponent();
 
             // set the window position
@@ -265,5 +272,17 @@ namespace VolumeControl
             }
         }
         #endregion EventHandlers
+
+        private void lnotifWindow_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton.Equals(MouseButtonState.Pressed) && (!Settings.NotificationMoveRequiresAlt || Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)))
+            {
+                try
+                {
+                    this.DragMove(); //< throws an exception when the left mouse button isn't held down; this shouldn't ever happen, but you never know
+                }
+                catch (InvalidOperationException) {}
+            }
+        }
     }
 }

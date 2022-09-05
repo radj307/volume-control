@@ -18,6 +18,7 @@
     Focusable="False"
     LocationChanged="lnotifWindow_LocationChanged"
     MouseDown="lnotifWindow_MouseDown"
+    MouseMove="lnotifWindow_MouseMove"
     ResizeMode="NoResize"
     ShowActivated="False"
     ShowInTaskbar="False"

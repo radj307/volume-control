@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using VolumeControl.Core.Input.Actions;
 
@@ -14,18 +15,37 @@ namespace VolumeControl.Core.Input
         /// Creates a new <see cref="BindableHotkey"/> instance using <paramref name="hk"/>.
         /// </summary>
         /// <param name="hk">A <see cref="Hotkey"/> instance to use.</param>
-        public BindableHotkey(Hotkey hk) => this.Hotkey = hk;
+        public BindableHotkey(Hotkey hk)
+        {
+            _hotkey = hk;
+            _hotkey.PropertyChanged += HotkeyPropertyChanged;
+        }
         /// <summary>
         /// Creates a new <see cref="BindableHotkey"/> instance.
         /// </summary>
-        public BindableHotkey() => this.Hotkey = new();
+        public BindableHotkey()
+        {
+            _hotkey = new();
+            _hotkey.PropertyChanged += HotkeyPropertyChanged;
+        }
         #endregion Constructors
 
         #region Properties
         /// <summary>
         /// Gets or sets the <see cref="Hotkey"/> instance associated with this <see cref="BindableHotkey"/>.
         /// </summary>
-        public Hotkey Hotkey { get; set; }
+        public Hotkey Hotkey
+        {
+            get => _hotkey;
+            set
+            {
+                if (_hotkey is not null)
+                    _hotkey.PropertyChanged -= HotkeyPropertyChanged;
+                _hotkey = value;
+                _hotkey.PropertyChanged += HotkeyPropertyChanged;
+            }
+        }
+        private Hotkey _hotkey;
 
         /// <inheritdoc/>
         public int ID => this.Hotkey.ID;
@@ -101,6 +121,10 @@ namespace VolumeControl.Core.Input
         private IActionBinding? _actionBinding;
         /// <inheritdoc/>
         public string Name { get; set; } = string.Empty;
+        /// <inheritdoc cref="Hotkey.HasError"/>
+        public bool HasError => this.Hotkey.HasError;
+        /// <inheritdoc cref="Hotkey.ErrorMessage"/>
+        public string? ErrorMessage => this.Hotkey.ErrorMessage;
         #endregion Properties
 
         #region Events
@@ -111,11 +135,22 @@ namespace VolumeControl.Core.Input
             remove => this.Hotkey.Pressed -= value;
         }
 
-#       pragma warning disable CS0067 // The event 'BindableHotkey.PropertyChanged' is never used ; This is automatically used by Fody.
         /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
-#       pragma warning restore CS0067 // The event 'BindableHotkey.PropertyChanged' is never used ; This is automatically used by Fody.
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        private void HotkeyPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName is null) return;
 
+            if (e.PropertyName.Equals(nameof(Hotkey.HasError)))
+            {
+                NotifyPropertyChanged(nameof(HasError));
+            }
+            else if (e.PropertyName.Equals(nameof(Hotkey.ErrorMessage)))
+            {
+                NotifyPropertyChanged(nameof(ErrorMessage));
+            }
+        }
         /// <inheritdoc/>
         public void Dispose()
         {

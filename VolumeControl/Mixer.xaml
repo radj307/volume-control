@@ -931,10 +931,20 @@
                                             </DataGridTemplateColumn.Header>
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <CheckBox
-                                                        Margin="3,0,0,0"
-                                                        IsChecked="{Binding Registered, UpdateSourceTrigger=PropertyChanged}"
-                                                        Style="{StaticResource CheckBoxStyle}" />
+                                                    <CheckBox Margin="3,0,0,0" IsChecked="{Binding Registered, UpdateSourceTrigger=PropertyChanged}">
+                                                        <CheckBox.Style>
+                                                            <Style BasedOn="{StaticResource CheckBoxStyle}" TargetType="{x:Type CheckBox}">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding HasError, Mode=OneWay}" Value="True">
+                                                                        <Setter Property="BorderBrush" Value="Red" />
+                                                                        <Setter Property="ToolTip" Value="{Binding ErrorMessage, Mode=OneWay}" />
+                                                                        <Setter Property="ToolTipService.InitialShowDelay" Value="100" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding HasError, Mode=OneWay}" Value="False" />
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </CheckBox.Style>
+                                                    </CheckBox>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>

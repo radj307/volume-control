@@ -92,6 +92,11 @@
                 <GradientStop Offset="1" Color="#EEE" />
             </LinearGradientBrush>
 
+            <LinearGradientBrush x:Key="AccentGradientError" StartPoint="0.05,0" EndPoint="0.95,1">
+                <GradientStop Offset="0" Color="#866" />
+                <GradientStop Offset="1" Color="#977" />
+            </LinearGradientBrush>
+
             <SolidColorBrush x:Key="AccentForeground" Color="#222" />
 
             <Color x:Key="GrayForegroundColor">#B0B0B0</Color>

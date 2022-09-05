@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows.Forms;
 using System.Windows.Input;
 using VolumeControl.Log;
 
@@ -59,9 +61,42 @@ namespace VolumeControl.Core.Input
         }
         private bool _registered;
 
+        /// <summary>
+        /// Gets a boolean that indicates whether the last attempt to register this hotkey failed or not.
+        /// </summary>
+        public bool HasError { get; internal set; }
+        /// <summary>
+        /// When <see cref="HasError"/> is <see langword="true"/>, this retrieves the error message string associated with the error that occurred; when <see cref="HasError"/> is <see langword="false"/>, this is <see langword="null"/>.
+        /// </summary>
+        public string? ErrorMessage { get; internal set; }
+
+        internal void SetError(string message)
+        {
+            ErrorMessage = message;
+            NotifyPropertyChanged(nameof(ErrorMessage));
+
+            if (!HasError)
+            {
+                HasError = true;
+                NotifyPropertyChanged(nameof(HasError));
+            }
+        }
+        internal void UnsetError()
+        {
+            ErrorMessage = null;
+            NotifyPropertyChanged(nameof(ErrorMessage));
+
+            if (HasError)
+            {
+                HasError = false;
+                NotifyPropertyChanged(nameof(HasError));
+            }
+        }
+
 #       pragma warning disable CS0067
         /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
 #       pragma warning restore CS0067
         /// <summary>
         /// Triggered when the hotkey is pressed.
