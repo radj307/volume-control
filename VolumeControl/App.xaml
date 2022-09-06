@@ -564,7 +564,7 @@
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Width" Value="Auto" />
                 <Setter Property="Height" Value="25" />
-                <Setter Property="FocusVisualStyle" Value="{DynamicResource CustomFocusVisualStyle}" />
+                <Setter Property="FocusVisualStyle" Value="{DynamicResource CustomFocusVisualStyleInner}" />
                 <Setter Property="Focusable" Value="False" />
                 <Setter Property="Template">
                     <Setter.Value>

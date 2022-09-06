@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Windows;
 using VolumeControl.Controls;
@@ -34,6 +36,10 @@ namespace VolumeControl
             TrayIcon.ShowClicked += this.HandleTrayIconClick;
             TrayIcon.HideClicked += (s, e) => this.HideMainWindow();
             TrayIcon.BringToFrontClicked += (s, e) => this.ActivateMainWindow();
+            TrayIcon.OpenLocationClicked += (s, e) =>
+            {
+                Process.Start(new ProcessStartInfo("explorer", $" /select, \"{Path.GetFullPath(Assembly.GetEntryAssembly()?.Location ?? AppDomain.CurrentDomain.BaseDirectory).Replace("dll", "exe")}\""));
+            };
             TrayIcon.CloseClicked += (s, e) => this.Shutdown();
             TrayIcon.Visible = true;
 
