@@ -1,0 +1,47 @@
+name: Translation Issue
+description: Report a missing or incorrect translation.
+title: "[BUG] ..."
+labels: ["bug", "triage", "locale"]
+body:
+  - type: markdown
+    attributes:
+      value:  |
+              Thank you for taking the time to fill out a localization issue form!
+              
+              We usually prioritize localization-related issue reports, but 
+
+  - type: input
+    id: version
+    attributes:
+      label:        Version
+      description:  |
+                    This tells us what version of the program we need to fix, and can be found to the left of the minimize & close buttons on the top bar.
+                    If the program won't start, R+Click on the executable and select **Properties**, then navigate to the **Details** tab. Enter the version shown in the `Product version` field here.
+      placeholder: x.x.x
+    validations:
+      required: true
+
+  - type: input
+    id: language
+    attributes:
+      label:        Language
+      description:  |
+                    Which language is this issue related to?  
+                    This is the text displayed on the language selection dropdown.
+      placeholder:  English (US/CA)
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label:        Problem
+      description:  Describe the problem(s) using words, screenshots, videos, or any other media you can provide.
+    validations:
+      required: true
+      
+  - type: textarea
+    id: suggest
+    attributes:
+      label:        Expected
+      description:  If the issue is an incorrect translation, please provide the correct translation here so we can fix it.
