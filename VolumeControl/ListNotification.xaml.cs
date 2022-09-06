@@ -1,5 +1,4 @@
-﻿using SVGImage.SVG;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,7 +7,6 @@ using VolumeControl.Core;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
 using VolumeControl.ViewModels;
-using VolumeControl.WPF;
 
 namespace VolumeControl
 {
@@ -25,21 +23,21 @@ namespace VolumeControl
                 TargetType = typeof(Window)
             };
 
-            Resources.Add(typeof(Window), s);
+            this.Resources.Add(typeof(Window), s);
 
             this.InitializeComponent();
 
             // set the window position
             if (Settings.NotificationSavePos && Settings.NotificationPosition.HasValue)
-                SetPos(Settings.NotificationPosition.Value);
+                this.SetPos(Settings.NotificationPosition.Value);
             else // use the default location
-                SetPos(new(SystemParameters.WorkArea.Right - this.Width - 10, SystemParameters.WorkArea.Bottom - this.Height - 10));
+                this.SetPos(new(SystemParameters.WorkArea.Right - this.Width - 10, SystemParameters.WorkArea.Bottom - this.Height - 10));
 
 
             // create the timeout timer instance
             if (Settings.NotificationTimeoutMs <= 0)
             { // validate the timeout value before using it for the timer interval
-                var defaultValue = new Config().NotificationTimeoutMs;
+                int defaultValue = new Config().NotificationTimeoutMs;
                 Log.Error($"{nameof(Settings.NotificationTimeoutMs)} cannot be less than or equal to zero; it was reset to '{defaultValue}' in order to avoid a fatal exception.",
                     new ArgumentOutOfRangeException($"{nameof(Settings)}.{nameof(Settings.NotificationTimeoutMs)}", Settings.NotificationTimeoutMs, $"The value '{Settings.NotificationTimeoutMs}' isn't valid for property 'System.Timers.Timer.Interval'; Value is out-of-range! (Minimum: 1)"));
                 Settings.NotificationTimeoutMs = defaultValue;
@@ -48,26 +46,34 @@ namespace VolumeControl
             {
                 Interval = Settings.NotificationTimeoutMs,
                 AutoReset = false,
-            }).Elapsed += Timer_Elapsed;
+            }).Elapsed += this.Timer_Elapsed;
 
-            Settings.PropertyChanged += Settings_PropertyChanged;
+            Settings.PropertyChanged += this.Settings_PropertyChanged;
 
-            VCSettings.ListNotificationVM.Show += ListNotificationVM_Show;
+            this.VCSettings.ListNotificationVM.Show += this.ListNotificationVM_Show;
+
+            MainWindow.Closed += (s, e) =>
+            {
+                _allowClose = true;
+                this.Close();
+            };
         }
         #endregion Initializers
 
         #region Fields
         private readonly System.Timers.Timer _timer;
+        private bool _allowClose = false;
         #endregion Fields
 
         #region Properties
+        private static Window MainWindow => App.Current.MainWindow;
         private static LogWriter Log => FLog.Log;
         private static Config Settings => (Config.Default as Config)!;
         private VolumeControlSettings? _vcSettings;
         /// <summary>The <see cref="VolumeControlSettings"/> resource instance.</summary>
-        private VolumeControlSettings VCSettings => _vcSettings ??= (FindResource("Settings") as VolumeControlSettings)!;
+        private VolumeControlSettings VCSettings => _vcSettings ??= (this.FindResource("Settings") as VolumeControlSettings)!;
         /// <summary>The currently-selected <see cref="ListDisplayTarget"/> instance.</summary>
-        private ListDisplayTarget? CurrentDisplayTarget => VCSettings.ListNotificationVM.CurrentDisplayTarget;
+        private ListDisplayTarget? CurrentDisplayTarget => this.VCSettings.ListNotificationVM.CurrentDisplayTarget;
         #endregion Properties
 
         #region Methods
@@ -89,14 +95,14 @@ namespace VolumeControl
         #region Show/Hide
         public new void Show()
         { // override the show method to add timer controls
-            if (_timer.Enabled) StopTimer();
-            Dispatcher.Invoke(base.Show);
-            StartTimer();
+            if (_timer.Enabled) this.StopTimer();
+            this.Dispatcher.Invoke(base.Show);
+            this.StartTimer();
         }
         public new void Hide()
         { // override the hide method to add timer controls
-            StopTimer();
-            Dispatcher.Invoke(base.Hide);
+            this.StopTimer();
+            this.Dispatcher.Invoke(base.Hide);
         }
         #endregion Show/Hide
 
@@ -121,20 +127,17 @@ namespace VolumeControl
         #region EventHandlers
         private void ListNotificationVM_Show(object? sender, object e) => this.Show();
 
-        private void Timer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
-        {
-            Dispatcher.Invoke(() =>
-            {
-                if (this.IsMouseOver || this.HasEffectiveKeyboardFocus)
-                    StartTimer();
-                else
-                    this.Hide();
-            });
-        }
+        private void Timer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e) => this.Dispatcher.Invoke(() =>
+                                                                                                 {
+                                                                                                     if (this.IsMouseOver || this.HasEffectiveKeyboardFocus)
+                                                                                                         this.StartTimer();
+                                                                                                     else
+                                                                                                         this.Hide();
+                                                                                                 });
 
         private void Settings_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            var name = e.PropertyName;
+            string? name = e.PropertyName;
             if (name is null) return;
 
             if (name.Equals(nameof(Config.NotificationTimeoutMs)))
@@ -144,9 +147,9 @@ namespace VolumeControl
             else if (name.Equals(nameof(Config.NotificationTimeoutEnabled)))
             {
                 if (_timer.Enabled)
-                    StopTimer();
+                    this.StopTimer();
                 else
-                    StartTimer();
+                    this.StartTimer();
             }
         }
 
@@ -167,12 +170,15 @@ namespace VolumeControl
         private void lnotifWindow_LocationChanged(object sender, EventArgs e)
         {
             if (!Settings.NotificationSavePos) return;
-            Settings.NotificationPosition = GetPos();
+            Settings.NotificationPosition = this.GetPos();
         }
-        private void lnotifWindow_Closing(object sender, CancelEventArgs e) => e.Cancel = true;
+        private void lnotifWindow_Closing(object sender, CancelEventArgs e)
+        {
+            if (!_allowClose) e.Cancel = true;
+        }
         private void lnotifWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            var corner = Settings.NotificationWindowOriginCorner;
+            Core.Helpers.ScreenCorner corner = Settings.NotificationWindowOriginCorner;
             if (Settings.NotificationWindowOriginCornerAuto)
             { // automatic corner selection is enabled:
                 // get the centerpoint of this window
@@ -184,8 +190,8 @@ namespace VolumeControl
 
                 // get the centerpoint of this screen
                 var center = new Point(
-                    scr.WorkingArea.Left + scr.WorkingArea.Width / 2,
-                    scr.WorkingArea.Top + scr.WorkingArea.Height / 2
+                    scr.WorkingArea.Left + (scr.WorkingArea.Width / 2),
+                    scr.WorkingArea.Top + (scr.WorkingArea.Height / 2)
                     );
 
                 // figure out which corner is the closest & use that
@@ -226,11 +232,11 @@ namespace VolumeControl
 
         private static void AttachListDisplayTargetControlsToStack(StackPanel stack, Control[] controls)
         {
-            foreach (var control in controls)
+            foreach (Control? control in controls)
             {
                 try
                 {
-                    stack.Children.Add(control);
+                    _ = stack.Children.Add(control);
                 }
                 catch (Exception ex)
                 {
@@ -272,17 +278,5 @@ namespace VolumeControl
             }
         }
         #endregion EventHandlers
-
-        private void lnotifWindow_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.LeftButton.Equals(MouseButtonState.Pressed) && (!Settings.NotificationMoveRequiresAlt || Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)))
-            {
-                try
-                {
-                    this.DragMove(); //< throws an exception when the left mouse button isn't held down; this shouldn't ever happen, but you never know
-                }
-                catch (InvalidOperationException) {}
-            }
-        }
     }
 }

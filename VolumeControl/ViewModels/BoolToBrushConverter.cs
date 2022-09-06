@@ -44,25 +44,23 @@ namespace VolumeControl.ViewModels
         #endregion Events
 
         #region ValueConverter
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is bool b)
-            {
-                if (b) return WhenTrue;
-                else return WhenFalse;
-            }
-            else return WhenNull;
-        }
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value is bool b ? b ? this.WhenTrue : (object)this.WhenFalse : this.WhenNull;
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is Brush b)
             {
-                if (b.Equals(WhenTrue)) return true;
-                else if (b.Equals(WhenFalse)) return false;
-                else if (b.Equals(WhenNull)) return null!;
-                else throw new ArgumentOutOfRangeException(nameof(value), value, $"Unexpected value of type {value.GetType().FullName} cannot be converted back to type {typeof(bool).Name} because it is not equal to either brush instance!");
+                return b.Equals(this.WhenTrue)
+                    ? true
+                    : b.Equals(this.WhenFalse)
+                    ? false
+                    : b.Equals(this.WhenNull)
+                    ? null
+                    : throw new ArgumentOutOfRangeException(nameof(value), value, $"Unexpected value of type {value.GetType().FullName} cannot be converted back to type {typeof(bool).Name} because it is not equal to either brush instance!");
             }
-            else return null!;
+            else
+            {
+                return null!;
+            }
         }
         #endregion ValueConverter
     }

@@ -225,14 +225,7 @@ namespace VolumeControl.Audio
         {
             foreach (AudioDevice dev in this.Devices)
             {
-                if (dev.Enabled)
-                {
-                    Settings.EnabledDevices.AddIfUnique(dev.DeviceID);
-                }
-                else
-                {
-                    _ = Settings.EnabledDevices.Remove(dev.DeviceID);
-                }
+                _ = dev.Enabled ? Settings.EnabledDevices.AddIfUnique(dev.DeviceID) : Settings.EnabledDevices.Remove(dev.DeviceID);
             }
         }
         /// <summary>

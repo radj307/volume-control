@@ -322,27 +322,17 @@ namespace VolumeControl.WPF.Collections
         }
 
         /// <inheritdoc/>
-        public bool Contains(object? value)
-        {
-            if (value is null) throw new ArgumentNullException(nameof(value));
-            if (value is not T val) return false;
-            return this.Contains(val);
-        }
+        public bool Contains(object? value) => value is null ? throw new ArgumentNullException(nameof(value)) : value is T val && this.Contains(val);
 
         /// <inheritdoc/>
-        public int IndexOf(object? value)
-        {
-            if (value is null) throw new ArgumentNullException(nameof(value));
-            if (value is not T val) return -1;
-            return this.IndexOf(val);
-        }
+        public int IndexOf(object? value) => value is null ? throw new ArgumentNullException(nameof(value)) : value is not T val ? -1 : this.IndexOf(val);
 
         /// <inheritdoc/>
         public void Insert(int index, object? value)
         {
             if (value is null) throw new ArgumentNullException(nameof(value));
             if (value is not T val) throw new ArgumentException($"Unexpected value type {value.GetType().FullName}; expected {typeof(T).FullName}!", nameof(value));
-            this.Insert(index, val);
+            _ = this.Insert(index, val);
         }
 
         /// <inheritdoc/>
@@ -353,14 +343,11 @@ namespace VolumeControl.WPF.Collections
         {
             if (value is null) throw new ArgumentNullException(nameof(value));
             if (value is not T val) throw new ArgumentException($"Unexpected value type {value.GetType().FullName}; expected {typeof(T).FullName}!", nameof(value));
-            this.Remove(val);
+            _ = this.Remove(val);
         }
 
         /// <inheritdoc/>
-        void IList.RemoveAt(int index)
-        {
-            this.RemoveAt(index);
-        }
+        void IList.RemoveAt(int index) => this.RemoveAt(index);
 
         /// <inheritdoc/>
         [SuppressPropertyChangedWarnings]

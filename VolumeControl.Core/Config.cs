@@ -22,8 +22,19 @@ namespace VolumeControl.Core
         /// Creates a new <see cref="Config"/> instance.
         /// </summary>
         /// <remarks>The first time this is called, the <see cref="AppConfig.Configuration.Default"/> property is set to that instance; all subsequent calls do not update this property.</remarks>
-        public Config() : base(_filePath) => PropertyChanged += this.HandlePropertyChanged;
+        public Config() : base(_filePath) => this.ResumeAutoSave();
         #endregion Constructor
+
+        #region Methods
+        /// <summary>
+        /// Resumes automatic saving of the config to disk whenever a <see cref="PropertyChanged"/> event is triggered.
+        /// </summary>
+        public void ResumeAutoSave() => PropertyChanged += this.HandlePropertyChanged;
+        /// <summary>
+        /// Pauses automatic saving of the config to disk whenever a <see cref="PropertyChanged"/> event is triggered.
+        /// </summary>
+        public void PauseAutoSave() => PropertyChanged -= this.HandlePropertyChanged;
+        #endregion Methods
 
         #region EventHandlers
         private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -96,6 +107,10 @@ namespace VolumeControl.Core
         /// </list></remarks>
         /// <remarks><b>Default: <see langword="false"/></b></remarks>
         public bool AdvancedHotkeys { get; set; } = false;
+        /// <summary>
+        /// Gets or sets whether confirmation is required to delete a hotkey.
+        /// </summary>
+        public bool DeleteHotkeyConfirmation { get; set; } = true;
         /// <summary>
         /// Gets or sets whether or not device/session icons are shown in the UI.
         /// </summary>

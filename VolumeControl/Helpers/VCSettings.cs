@@ -83,6 +83,11 @@ namespace VolumeControl.Helpers
             get => Settings.AdvancedHotkeys;
             set => Settings.AdvancedHotkeys = value;
         }
+        public bool DeleteHotkeyConfirmation
+        {
+            get => Settings.DeleteHotkeyConfirmation;
+            set => Settings.DeleteHotkeyConfirmation = value;
+        }
         /// <inheritdoc cref="Config.RunAtStartup"/>
         public bool? RunAtStartup
         {
@@ -141,6 +146,11 @@ namespace VolumeControl.Helpers
         {
             get => Settings.NotificationMoveRequiresAlt;
             set => Settings.NotificationMoveRequiresAlt = value;
+        }
+        public bool NotificationSavesPosition
+        {
+            get => Settings.NotificationSavePos;
+            set => Settings.NotificationSavePos = value;
         }
         public ObservableImmutableList<string> CustomLocalizationDirectories
         {

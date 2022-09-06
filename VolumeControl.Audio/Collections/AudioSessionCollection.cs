@@ -82,7 +82,7 @@ namespace VolumeControl.Audio.Collections
             if (sender is AudioDevice device)
             {
                 if (device.Enabled)
-                    this.AddIfUnique(session);
+                    _ = this.AddIfUnique(session);
             }
             else
             {
@@ -92,24 +92,9 @@ namespace VolumeControl.Audio.Collections
         private void HandleDeviceSessionRemoved(object? sender, long pid) => _ = sender is AudioDevice device
                 ? this.Remove(pid)
                 : throw new InvalidOperationException($"{nameof(HandleDeviceSessionRemoved)} received a sender of type '{sender?.GetType().FullName}'; expected '{typeof(AudioDevice).FullName}'");
-        private void HandleDeviceEnabledChanged(object? sender, bool state)
-        {
-            if (sender is AudioDevice device)
-            {
-                if (state)
-                {
-                    this.AddRangeIfUnique(device.Sessions);
-                }
-                else
-                { // DEVICE WAS DISABLED
-                    _ = this.RemoveAll(s => !s.PID.Equals(0) && device.Sessions.Contains(s));
-                }
-            }
-            else
-            {
-                throw new InvalidOperationException($"{nameof(HandleDeviceEnabledChanged)} received a sender of type '{sender?.GetType().FullName}'; expected '{typeof(AudioDevice).FullName}'");
-            }
-        }
+        private void HandleDeviceEnabledChanged(object? sender, bool state) => _ = sender is AudioDevice device
+                ? state ? this.AddRangeIfUnique(device.Sessions) : this.RemoveAll(s => !s.PID.Equals(0) && device.Sessions.Contains(s))
+                : throw new InvalidOperationException($"{nameof(HandleDeviceEnabledChanged)} received a sender of type '{sender?.GetType().FullName}'; expected '{typeof(AudioDevice).FullName}'");
         #endregion EventHandlers
 
         #region Methods
@@ -121,11 +106,11 @@ namespace VolumeControl.Audio.Collections
             foreach (AudioDevice? device in devices)
             {
                 if (device.Enabled && device.State.Equals(DeviceState.Active))
-                    l.AddRangeIfUnique(device.Sessions);
+                    _ = l.AddRangeIfUnique(device.Sessions);
             }
 
             _ = this.RemoveAll(s => !l.Contains(s));
-            this.AddRangeIfUnique(l.AsEnumerable());
+            _ = this.AddRangeIfUnique(l.AsEnumerable());
         }
         /// <inheritdoc cref="RefreshFromDevices(AudioDevice[])"/>
         /// <remarks>This method uses the internal reference to <see cref="AudioDeviceCollection"/> instead of given devices.</remarks>

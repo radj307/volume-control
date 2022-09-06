@@ -163,7 +163,7 @@ namespace VolumeControl.Hotkeys
         /// <remarks><b>Make sure that the <see cref="Actions"/> property is set and initialized before calling this!</b></remarks>
         public void LoadHotkeys()
         {
-            this.Hotkeys.AddRangeIfUnique((Settings.Hotkeys ??= Config.Hotkeys_Default).ConvertEach(hkjw => hkjw.ToBindableHotkey(this.Actions)));
+            _ = this.Hotkeys.AddRangeIfUnique((Settings.Hotkeys ??= Config.Hotkeys_Default).ConvertEach(hkjw => hkjw.ToBindableHotkey(this.Actions)));
             this.RecheckAllSelected();
         }
         /// <summary>
@@ -214,10 +214,6 @@ namespace VolumeControl.Hotkeys
             // Only re-check if the IsChecked property changed
             if (args.PropertyName == nameof(Hotkey.Registered))
                 this.RecheckAllSelected();
-
-            // save changes to configuration
-            this.SaveHotkeys();
-            Log.Debug($"{nameof(HotkeyManager)}:  Saved Hotkey Configuration.");
         }
         private void AllSelectedChanged()
         {
@@ -227,6 +223,7 @@ namespace VolumeControl.Hotkeys
 
             try
             {
+                Settings.PauseAutoSave();
                 _allSelectedChanging = true;
 
                 // this can of course be simplified
@@ -243,6 +240,9 @@ namespace VolumeControl.Hotkeys
             }
             finally
             {
+                Log.Debug($"All hotkeys were {(this.AllSelected ?? false ? string.Empty : "un")}registered, saving config...");
+                Settings.Save();
+                Settings.ResumeAutoSave();
                 _allSelectedChanging = false;
             }
         }

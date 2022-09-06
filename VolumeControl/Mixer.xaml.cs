@@ -1,11 +1,14 @@
-﻿using Microsoft.Win32;
+﻿using CodingSeb.Localization;
+using Microsoft.Win32;
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using VolumeControl.Audio;
 using VolumeControl.Core;
+using VolumeControl.Core.Input;
 using VolumeControl.Helpers;
 using VolumeControl.Hotkeys;
 using VolumeControl.Log;
@@ -77,13 +80,45 @@ namespace VolumeControl
         private void Handle_CreateNewHotkeyClick(object sender, RoutedEventArgs e) => this.HotkeyAPI.AddHotkey();
 
         /// <summary>Handles the remove hotkey button's click event.</summary>
-        private void Handle_HotkeyGridRemoveClick(object sender, RoutedEventArgs e)
+        private void Handle_hotkeyGridRemoveClick(object sender, RoutedEventArgs e)
         {
-            if ((sender as Button)?.CommandParameter is int id)
+            if (sender is Button hotkeyGridRemove && hotkeyGridRemove.CommandParameter is int id)
             {
+                if (!this.HotkeyAPI.Hotkeys.Any(hk => hk.ID.Equals(id)))
+                    return;
+
+                if (Settings.DeleteHotkeyConfirmation)
+                {
+                    switch (MessageBox.Show(
+                        Loc.Tr("VolumeControl.Dialogs.RemoveHotkey.Message",
+                        $"Are you sure you want to delete hotkey {id}?\n" +
+                        $"\n" +
+                        $"- 'Yes'     Delete the hotkey.\n" +
+                        $"- 'No'      Do not delete the hotkey.\n" +
+                        $"- 'Cancel'  Disable these confirmation prompts in the future. (Does not delete the hotkey)\n"),
+                        Loc.Tr("VolumeControl.Dialogs.RemoveHotkey.Caption", "Confirm Remove"),
+                        MessageBoxButton.YesNoCancel,
+                        MessageBoxImage.Question,
+                        MessageBoxResult.No)
+                        )
+                    {
+                    case MessageBoxResult.Yes:
+                        break;// continue
+                    case MessageBoxResult.No:
+                        return;
+                    case MessageBoxResult.Cancel:
+                        Settings.DeleteHotkeyConfirmation = false;
+                        Log.Info($"User specified option '{MessageBoxResult.Cancel:G}' in the remove hotkey confirmation dialog, indicating they want to disable the confirmation dialog; the '{nameof(Settings.DeleteHotkeyConfirmation)}' setting has been set to false.");
+                        return;
+                    }
+                }
+
+                Log.Debug($"User is removing hotkey {id} ({(this.HotkeyAPI.GetHotkey(id) as Hotkey)?.GetStringRepresentation()})");
+
                 this.HotkeyAPI.DelHotkey(id);
             }
         }
+
         /// <inheritdoc cref="VolumeControlSettings.ResetHotkeySettings"/>
         private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e) => this.VCSettings.ResetHotkeySettings();
 
@@ -117,17 +152,6 @@ namespace VolumeControl
                 Settings.LogFilter = (this.FindResource("EventTypeOptions") as BindableEventType)!.Value;
             }
         }
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            ListNotification? lnotif = this.ListNotification;
-            lnotif.Owner = this;
-
-            //this.AudioAPI.SelectedSessionSwitched += (s, e) => this.ListNotification.HandleShow(DisplayTarget.Sessions);
-            //this.AudioAPI.LockSelectedSessionChanged += (s, e) => this.ListNotification.HandleShow(DisplayTarget.Sessions);
-            //this.AudioAPI.SelectedSessionVolumeChanged += (s, e) => this.ListNotification.HandleShow(DisplayTarget.Sessions, false);
-
-            //Log.Debug($"Finished binding event handler method '{nameof(ListNotification.HandleShow)}' to {this.AudioAPI} events.");
-        }
         private void Handle_TargetNameBoxDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             targetbox.SelectionStart = 0;
@@ -143,7 +167,7 @@ namespace VolumeControl
         }
         private void Handle_MinimizeClick(object sender, RoutedEventArgs e) => this.Hide();
         private void Handle_MaximizeClick(object sender, RoutedEventArgs e) => this.WindowState = WindowState.Maximized;
-        private void Handle_CloseClick(object sender, RoutedEventArgs e) => this.Close();
+        private void Handle_CloseClick(object sender, RoutedEventArgs e) => App.Current.Shutdown();
         private void Handle_CheckForUpdatesClick(object sender, RoutedEventArgs e) => this.VCSettings.Updater.CheckNow();
         private void Handle_LogFilterBoxSelectionChanged(object sender, SelectionChangedEventArgs e) => logFilterBox.SelectedItem = null;
         private void Handle_KeySelectorKeyDown(object sender, System.Windows.Input.KeyEventArgs e)

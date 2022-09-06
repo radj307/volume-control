@@ -38,23 +38,23 @@ namespace VolumeControl.ViewModels
             set
             {
                 if (value is null) return;
-                SetDisplayTarget(value);
+                this.SetDisplayTarget(value);
             }
         }
         /// <summary>
         /// The <see cref="CurrentDisplayTarget"/>'s <see cref="ListDisplayTarget.ItemsSource"/> property.
         /// </summary>
-        public IEnumerable<IListDisplayable>? ItemsSource => CurrentDisplayTarget?.ItemsSource;
+        public IEnumerable<IListDisplayable>? ItemsSource => this.CurrentDisplayTarget?.ItemsSource;
         /// <summary>
         /// The <see cref="CurrentDisplayTarget"/>'s <see cref="ListDisplayTarget.SelectedItem"/> property.
         /// </summary>
         public IListDisplayable? SelectedItem
         {
-            get => CurrentDisplayTarget?.SelectedItem;
+            get => this.CurrentDisplayTarget?.SelectedItem;
             set
             {
-                if (CurrentDisplayTarget is null) return;
-                CurrentDisplayTarget.SelectedItem = value;
+                if (this.CurrentDisplayTarget is null) return;
+                this.CurrentDisplayTarget.SelectedItem = value;
             }
         }
         /// <summary>
@@ -62,11 +62,11 @@ namespace VolumeControl.ViewModels
         /// </summary>
         public bool LockSelection
         {
-            get => CurrentDisplayTarget?.LockSelection ?? false;
+            get => this.CurrentDisplayTarget?.LockSelection ?? false;
             set
             {
-                if (CurrentDisplayTarget is null) return;
-                CurrentDisplayTarget.LockSelection = value;
+                if (this.CurrentDisplayTarget is null) return;
+                this.CurrentDisplayTarget.LockSelection = value;
             }
         }
         /// <summary>
@@ -74,11 +74,11 @@ namespace VolumeControl.ViewModels
         /// </summary>
         public Brush Background
         {
-            get => CurrentDisplayTarget?.Background ?? Config.NotificationDefaultBrush;
+            get => this.CurrentDisplayTarget?.Background ?? Config.NotificationDefaultBrush;
             set
             {
-                if (CurrentDisplayTarget is null) return;
-                CurrentDisplayTarget.Background = value;
+                if (this.CurrentDisplayTarget is null) return;
+                this.CurrentDisplayTarget.Background = value;
             }
         }
         #endregion Properties
@@ -101,8 +101,8 @@ namespace VolumeControl.ViewModels
         /// <param name="displayable">An enumerable list of objects that implement <see cref="IListDisplayable"/>.</param>
         public bool AddDisplayTarget(ListDisplayTarget displayable)
         {
-            bool result = DisplayTargets.AddIfUnique(displayable);
-            NotifyPropertyChanged(nameof(DisplayTargets));
+            bool result = this.DisplayTargets.AddIfUnique(displayable);
+            this.NotifyPropertyChanged(nameof(this.DisplayTargets));
             return result;
         }
         /// <summary>
@@ -118,7 +118,7 @@ namespace VolumeControl.ViewModels
             bindings.ForEach((dp, binding) => displayable.SetBinding(dp, binding));
 
             // add the new display target
-            this.AddDisplayTarget(displayable);
+            _ = this.AddDisplayTarget(displayable);
 
             // return the new display target
             return displayable;
@@ -138,32 +138,32 @@ namespace VolumeControl.ViewModels
         /// <param name="displayable">An enumerable list of objects that implement <see cref="IListDisplayable"/>. If this isn't present in <see cref="DisplayTargets"/>, it is added.</param>
         public void SetDisplayTarget(ListDisplayTarget displayable)
         {
-            if (!DisplayTargets.Contains(displayable)) AddDisplayTarget(displayable);
+            if (!this.DisplayTargets.Contains(displayable)) _ = this.AddDisplayTarget(displayable);
 
             if (_currentDisplayTarget is not null)
             {
                 // unhook event triggers from outgoing display target
-                _currentDisplayTarget.ShowEvent -= ListDisplayTarget_ShowEvent;
+                _currentDisplayTarget.ShowEvent -= this.ListDisplayTarget_ShowEvent;
 
                 // set the display target to null
                 _currentDisplayTarget = null;
-                NotifyPropertyChanged(nameof(CurrentDisplayTarget));
-                NotifyPropertyChanged(nameof(ItemsSource));
-                NotifyPropertyChanged(nameof(SelectedItem));
-                NotifyPropertyChanged(nameof(LockSelection));
-                NotifyPropertyChanged(nameof(Background));
+                this.NotifyPropertyChanged(nameof(this.CurrentDisplayTarget));
+                this.NotifyPropertyChanged(nameof(this.ItemsSource));
+                this.NotifyPropertyChanged(nameof(this.SelectedItem));
+                this.NotifyPropertyChanged(nameof(this.LockSelection));
+                this.NotifyPropertyChanged(nameof(this.Background));
             }
 
             // set the new display target
             _currentDisplayTarget = displayable;
-            NotifyPropertyChanged(nameof(CurrentDisplayTarget));
-            NotifyPropertyChanged(nameof(ItemsSource));
-            NotifyPropertyChanged(nameof(SelectedItem));
-            NotifyPropertyChanged(nameof(LockSelection));
-            NotifyPropertyChanged(nameof(Background));
+            this.NotifyPropertyChanged(nameof(this.CurrentDisplayTarget));
+            this.NotifyPropertyChanged(nameof(this.ItemsSource));
+            this.NotifyPropertyChanged(nameof(this.SelectedItem));
+            this.NotifyPropertyChanged(nameof(this.LockSelection));
+            this.NotifyPropertyChanged(nameof(this.Background));
 
             // hook up event triggers for incoming display target
-            _currentDisplayTarget.ShowEvent += ListDisplayTarget_ShowEvent;
+            _currentDisplayTarget.ShowEvent += this.ListDisplayTarget_ShowEvent;
         }
         /// <summary>
         /// Removes the specified <paramref name="displayable"/> from <see cref="DisplayTargets"/>.
@@ -171,8 +171,8 @@ namespace VolumeControl.ViewModels
         /// <param name="displayable">An enumerable list of objects that implement <see cref="IListDisplayable"/>.</param>
         public bool RemoveDisplayTarget(ListDisplayTarget displayable)
         {
-            bool result = DisplayTargets.Remove(displayable);
-            NotifyPropertyChanged(nameof(DisplayTargets));
+            bool result = this.DisplayTargets.Remove(displayable);
+            this.NotifyPropertyChanged(nameof(this.DisplayTargets));
             return result;
         }
         /// <summary>
@@ -180,7 +180,7 @@ namespace VolumeControl.ViewModels
         /// </summary>
         /// <param name="displayable"></param>
         /// <returns></returns>
-        public bool IsDisplayTarget(ListDisplayTarget displayable) => displayable.Equals(CurrentDisplayTarget);
+        public bool IsDisplayTarget(ListDisplayTarget displayable) => displayable.Equals(this.CurrentDisplayTarget);
         #endregion ...DisplayTargets
         #endregion Methods
 

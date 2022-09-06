@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using VolumeControl.Core;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.Hotkeys.Structs;
 

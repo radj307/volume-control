@@ -4,6 +4,7 @@ using System.Windows;
 using VolumeControl.Controls;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
+using VolumeControl.WPF;
 
 namespace VolumeControl
 {
@@ -35,6 +36,9 @@ namespace VolumeControl
             TrayIcon.BringToFrontClicked += (s, e) => this.ActivateMainWindow();
             TrayIcon.CloseClicked += (s, e) => this.Shutdown();
             TrayIcon.Visible = true;
+
+            // Initialize the list notification window so it can appear
+            _ = WindowHandleGetter.GetWindowHandle((this.FindResource("Notification") as ListNotification)!);
         }
         #endregion Constructors
 

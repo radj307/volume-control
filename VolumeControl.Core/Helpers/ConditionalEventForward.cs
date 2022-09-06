@@ -15,8 +15,8 @@ namespace VolumeControl.Core.Helpers
         /// <param name="customEventHandlers">Any number of custom event handlers to bind from within the constructor. <i>(See <see cref="EventHandler"/>)</i></param>
         public ConditionalEventForward(ConditionEvaluator condition, params EventHandler<object>[] customEventHandlers)
         {
-            Condition = condition;
-            customEventHandlers.ForEach(handler => Event += handler);
+            this.Condition = condition;
+            _ = customEventHandlers.ForEach(handler => Event += handler);
         }
         #endregion Constructor
 
@@ -55,7 +55,7 @@ namespace VolumeControl.Core.Helpers
         /// <param name="e">This is forwarded to the second parameter in any handlers attached to <see cref="Event"/>.</param>
         public void Handler(object? sender, object e)
         {
-            if (!Condition()) return;
+            if (!this.Condition()) return;
             Event?.Invoke(sender, e);
         }
         #endregion EventHandlers

@@ -283,6 +283,15 @@
             "Tooltip": {
               "English (US/CA)": "The amount of time in milliseconds that notifications will remain visible after being triggered."
             }
+          },
+          "DisplayTarget": {
+            "Content": {
+              "English (US/CA)": "Display Target:"
+            },
+            "Tooltip": {}
+          },
+          "DisplayTargetList": {
+            "Tooltip": {}
           }
         },
         "Log": {
@@ -465,6 +474,16 @@
         },
         "NewVersionAvailableFormatMsg": {
           "English (US/CA)": "A new version of Volume Control is available!\nDo you want to go to the releases page?\nCurrent Version:  ${CURRENT_VERSION}\nLatest Version:   ${LATEST_VERSION}\n\nClick 'Yes' to go to the releases page.\nClick 'No' if you don't want to update right now.\nClick 'Cancel' to disable these prompts."
+        }
+      },
+      "RemoveHotkey": {
+        "Message": {
+          "English (US/CA)": "Are you sure you want to delete hotkey ${ID}?\n\n- 'Yes'     Delete the hotkey.\n- 'No'      Do not delete the hotkey.\n- 'Cancel'  Disable these confirmation prompts in the future. (Does not delete the hotkey)\n"
+        },
+        "Caption": {
+          "ConfirmRemove": {
+            "English (US/CA)": "Confirm Remove"
+          }
         }
       }
     },

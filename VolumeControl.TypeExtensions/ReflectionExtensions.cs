@@ -95,7 +95,7 @@ namespace VolumeControl.TypeExtensions
             }
         }
         /// <summary>
-        /// Raises the event named <paramref name="eventName"/> on the object <paramref name="source"/> with the given <paramref name="sender"/> &amp; <paramref name="eventArgs"/> parameters.
+        /// Raises the event named <paramref name="eventName"/> on the object <paramref name="source"/> with the given <paramref name="eventArgs"/> parameters.
         /// <i>Src: <see href="https://stackoverflow.com/a/586156/8705305"/></i>
         /// </summary>
         /// <typeparam name="TEventArgs">Any type derived from <see cref="EventArgs"/></typeparam>
@@ -131,7 +131,7 @@ namespace VolumeControl.TypeExtensions
             }
         }
         /// <summary>
-        /// Raises the event named <paramref name="eventName"/> on the object <paramref name="source"/> with the given <paramref name="sender"/> &amp; <paramref name="eventArgs"/> parameters.
+        /// Raises the event named <paramref name="eventName"/> on the object <paramref name="source"/> with the given <paramref name="eventArgs"/> parameters.
         /// <i>Src: <see href="https://stackoverflow.com/a/586156/8705305"/></i>
         /// </summary>
         /// <param name="source">The object instance <i>(or <see cref="Type"/> for <see langword="static"/> events/objects)</i> on which to raise an event.</param>

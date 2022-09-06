@@ -58,6 +58,13 @@ namespace VolumeControl.Audio
                 this.SessionManager.OnSessionCreated += this.HandleSessionCreated;
                 this.ReloadSessions();
             }
+
+            this.EndpointVolumeObject.OnVolumeNotification += (e) =>
+            {
+                this.ForwardVolumeChanged(e);
+                this.NotifyPropertyChanged(nameof(this.Volume));
+                this.NotifyPropertyChanged(nameof(this.Muted));
+            };
         }
         #endregion Constructors
 
@@ -190,14 +197,14 @@ namespace VolumeControl.Audio
         /// <inheritdoc/>
         public string DisplayText
         {
-            get => DeviceFriendlyName;
+            get => this.DeviceFriendlyName;
             set { }
         }
         private Control[]? _displayControls;
         /// <inheritdoc/>
         public Control[]? DisplayControls => _displayControls ??= IVolumeControl.MakeListDisplayableControlTemplate(this);
         /// <inheritdoc/>
-        public ImageSource? DisplayIcon => Icon;
+        public ImageSource? DisplayIcon => this.Icon;
 
         /// <summary>
         /// The sessions that are playing on this device.
@@ -254,7 +261,7 @@ namespace VolumeControl.Audio
         /// Triggered when the endpoint volume changes from any source.
         /// </summary>
         public event EventHandler<(float, bool)>? VolumeChanged;
-        internal void ForwardVolumeChanged(AudioVolumeNotificationData data) => VolumeChanged?.Invoke(this, (data.MasterVolume, data.Muted));
+        private void ForwardVolumeChanged(AudioVolumeNotificationData data) => VolumeChanged?.Invoke(this, (data.MasterVolume, data.Muted));
         /// <summary>Triggered when the <see cref="Sessions"/> collection is modified.</summary>
         public event NotifyCollectionChangedEventHandler? CollectionChanged
         {

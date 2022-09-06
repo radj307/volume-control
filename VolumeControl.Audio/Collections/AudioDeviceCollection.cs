@@ -56,10 +56,7 @@ namespace VolumeControl.Audio.Collections
         {
             if (sender is AudioDevice device)
             {
-                if (state)
-                    Settings.EnabledDevices.AddIfUnique(device.DeviceID);
-                else
-                    _ = Settings.EnabledDevices.Remove(device.DeviceID);
+                _ = state ? Settings.EnabledDevices.AddIfUnique(device.DeviceID) : Settings.EnabledDevices.Remove(device.DeviceID);
             }
             DeviceEnabledChanged?.Invoke(sender, state);
         }
@@ -226,7 +223,7 @@ namespace VolumeControl.Audio.Collections
                 switch (state)
                 {
                 case DeviceState.Active:
-                    this.AddIfUnique(device);
+                    _ = this.AddIfUnique(device);
                     break;
                 default:
                     _ = this.Remove(device);

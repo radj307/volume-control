@@ -24,8 +24,8 @@ namespace VolumeControl.Helpers
 
             _initialized = true;
 
-            FileLoaders.AddIfUnique(new JsonFileLoader());
-            FileLoaders.AddIfUnique(new YamlFileLoader());
+            _ = FileLoaders.AddIfUnique(new JsonFileLoader());
+            _ = FileLoaders.AddIfUnique(new YamlFileLoader());
 
             if (Settings.CreateDefaultTranslationFiles) //< never create default files when this (and this alone) is false!
                 CreateDefaultFiles(overwriteDefaultLangConfigs);

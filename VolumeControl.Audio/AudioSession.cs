@@ -231,14 +231,14 @@ namespace VolumeControl.Audio
         /// <inheritdoc/>
         public string DisplayText
         {
-            get => Name;
-            set => Name = value;
+            get => this.Name;
+            set => this.Name = value;
         }
         private Control[]? _displayControls;
         /// <inheritdoc/>
         public Control[]? DisplayControls => _displayControls ??= IVolumeControl.MakeListDisplayableControlTemplate(this);
         /// <inheritdoc/>
-        public ImageSource? DisplayIcon => Icon;
+        public ImageSource? DisplayIcon => this.Icon;
         #endregion Properties
 
         #region Events

@@ -25,14 +25,14 @@ namespace VolumeControl.ViewModels
         public ListDisplayTarget(params ConditionalEventForward[] conditionalShowTriggers)
         {
             _conditionalShowTriggers = conditionalShowTriggers;
-            HookUpConditionalShowTriggers();
+            this.HookUpConditionalShowTriggers();
         }
         /// <summary>
         /// Creates a new <see cref="ListDisplayTarget"/> instance.
         /// </summary>
         /// <param name="name">A name to assign to this <see cref="ListDisplayTarget"/> instance. This is shown in the DisplayTarget selector.</param>
         /// <param name="conditionalShowTriggers">Any number of <see cref="ConditionalEventForward"/> instances that can cause the <see cref="ListNotification"/> window to become visible.</param>
-        public ListDisplayTarget(string name, params ConditionalEventForward[] conditionalShowTriggers) : this(conditionalShowTriggers) => Name = name;
+        public ListDisplayTarget(string name, params ConditionalEventForward[] conditionalShowTriggers) : this(conditionalShowTriggers) => this.Name = name;
         /// <summary>
         /// Creates a new <see cref="ListDisplayTarget"/> instance.
         /// </summary>
@@ -41,15 +41,10 @@ namespace VolumeControl.ViewModels
         #endregion Constructors
 
         #region Name
-        private string _name = nameof(ListDisplayTarget);
         /// <summary>
         /// The name of this display target.
         /// </summary>
-        public string Name
-        {
-            get => _name;
-            set => _name = value;
-        }
+        public string Name { get; set; } = nameof(ListDisplayTarget);
         #endregion Name
 
         #region BackgroundProperty
@@ -82,7 +77,7 @@ namespace VolumeControl.ViewModels
         #region ItemsSourceProperty
         public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable<IListDisplayable>), typeof(ListDisplayTarget), new PropertyMetadata(null, HandleItemsSourcePropertyChanged));
         private static void HandleItemsSourcePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as ListDisplayTarget)?.UnsetSelectedItem();
-        private void UnsetSelectedItem() => SelectedItem = null;
+        private void UnsetSelectedItem() => this.SelectedItem = null;
         public IEnumerable<IListDisplayable>? ItemsSource
         {
             get => this.GetValue(ItemsSourceProperty) as IEnumerable<IListDisplayable>;
@@ -112,13 +107,13 @@ namespace VolumeControl.ViewModels
             get => _conditionalShowTriggers;
             set
             {
-                UnHookConditionalShowTriggers();
+                this.UnHookConditionalShowTriggers();
                 _conditionalShowTriggers = value;
-                HookUpConditionalShowTriggers();
+                this.HookUpConditionalShowTriggers();
             }
         }
-        private void HookUpConditionalShowTriggers() => ConditionalShowTriggers.ForEach(t => t.Event += NotifyShowEvent);
-        private void UnHookConditionalShowTriggers() => ConditionalShowTriggers.ForEach(t => t.Event -= NotifyShowEvent);
+        private void HookUpConditionalShowTriggers() => this.ConditionalShowTriggers.ForEach(t => t.Event += this.NotifyShowEvent);
+        private void UnHookConditionalShowTriggers() => this.ConditionalShowTriggers.ForEach(t => t.Event -= this.NotifyShowEvent);
         #endregion ConditionalShowTriggers
 
         #region Events
@@ -128,7 +123,7 @@ namespace VolumeControl.ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
 #   pragma warning restore CS0067 // The event 'ListNotificationVM.PropertyChanged' is never used.
         public event EventHandler<IListDisplayable?>? SelectedItemChanged;
-        private void NotifySelectedItemChanged() => SelectedItemChanged?.Invoke(this, SelectedItem);
+        private void NotifySelectedItemChanged() => SelectedItemChanged?.Invoke(this, this.SelectedItem);
         internal event EventHandler<object>? ShowEvent;
         private void NotifyShowEvent(object? sender, object e) => ShowEvent?.Invoke(sender, e);
         /// <summary>
@@ -150,7 +145,7 @@ namespace VolumeControl.ViewModels
         public ConditionalEventForward AddConditionalEventForward(ConditionalEventForward.ConditionEvaluator evaluator)
         {
             var inst = new ConditionalEventForward(evaluator);
-            ConditionalShowTriggers = ConditionalShowTriggers.Append(inst).ToArray();
+            this.ConditionalShowTriggers = this.ConditionalShowTriggers.Append(inst).ToArray();
             return inst;
         }
         #endregion Methods

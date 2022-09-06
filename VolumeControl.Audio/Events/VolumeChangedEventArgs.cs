@@ -13,14 +13,14 @@
         /// <param name="muted">The new mute state of the target.<br/><i>(See <see cref="Muted"/>)</i></param>
         public VolumeChangedEventArgs(int volume, bool muted)
         {
-            Volume = volume;
-            Muted = muted;
+            this.Volume = volume;
+            this.Muted = muted;
         }
         #endregion Constructor
 
         #region Fields
         /// <inheritdoc/>
-        public new static readonly VolumeChangedEventArgs Empty = new(0, false);
+        public static new readonly VolumeChangedEventArgs Empty = new(0, false);
         #endregion Fields
 
         #region Properties

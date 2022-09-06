@@ -52,7 +52,7 @@ namespace VolumeControl.Audio.Interfaces
             {
                 Margin = new(3, 1, 3, 1)
             };
-            muteCheckbox.SetBinding(CheckBox.IsCheckedProperty, new Binding(nameof(CheckBox.IsCheckedProperty))
+            _ = muteCheckbox.SetBinding(CheckBox.IsCheckedProperty, new Binding(nameof(CheckBox.IsCheckedProperty))
             { // Bind IsChecked to the instance's 'Muted' property
                 Source = inst,
                 Path = new System.Windows.PropertyPath(nameof(IVolumeControl.Muted)),
@@ -69,14 +69,14 @@ namespace VolumeControl.Audio.Interfaces
                 Maximum = 100.0,
                 Margin = new(3, 1, 3, 1)
             };
-            volSlider.SetBinding(Slider.ValueProperty, new Binding(nameof(Slider.ValueProperty))
+            _ = volSlider.SetBinding(Slider.ValueProperty, new Binding(nameof(Slider.ValueProperty))
             {
                 Source = inst,
                 Path = new System.Windows.PropertyPath(nameof(IVolumeControl.Volume)),
                 Mode = BindingMode.TwoWay,
                 UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
             });
-            volSlider.SetBinding(Slider.TagProperty, new Binding(nameof(Slider.TagProperty))
+            _ = volSlider.SetBinding(Slider.TagProperty, new Binding(nameof(Slider.TagProperty))
             { // Bind the slider's tag property to the peak meter value
                 Source = inst,
                 Path = new System.Windows.PropertyPath(nameof(IVolumeControl.PeakMeterValue)),
@@ -87,13 +87,13 @@ namespace VolumeControl.Audio.Interfaces
             {
                 Property = Slider.TagProperty
             };
-            BindingOperations.SetBinding(volPeakMeterUpdater, IntervalUpdateBinding.EnableTimerProperty, new Binding(nameof(IntervalUpdateBinding.EnableTimerProperty))
+            _ = BindingOperations.SetBinding(volPeakMeterUpdater, IntervalUpdateBinding.EnableTimerProperty, new Binding(nameof(IntervalUpdateBinding.EnableTimerProperty))
             { // Bind the EnableTimerProperty to Config.ShowPeakMeters
                 Source = (Config.Default as Config)!,
                 Path = new System.Windows.PropertyPath(nameof(Config.ShowPeakMeters)),
                 Mode = BindingMode.OneWay,
             });
-            BindingOperations.SetBinding(volPeakMeterUpdater, IntervalUpdateBinding.IntervalProperty, new Binding(nameof(IntervalUpdateBinding.IntervalProperty))
+            _ = BindingOperations.SetBinding(volPeakMeterUpdater, IntervalUpdateBinding.IntervalProperty, new Binding(nameof(IntervalUpdateBinding.IntervalProperty))
             { // Bind the IntervalProperty to Config.PeakMeterUpdateIntervalMs
                 Source = (Config.Default as Config)!,
                 Path = new System.Windows.PropertyPath(nameof(Config.PeakMeterUpdateIntervalMs)),
@@ -111,7 +111,7 @@ namespace VolumeControl.Audio.Interfaces
                 Background = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0)),
                 BorderThickness = new(0, 0, 0, 0)
             };
-            volTextBox.SetBinding(TextBox.TextProperty, new Binding(nameof(TextBox.TextProperty))
+            _ = volTextBox.SetBinding(TextBox.TextProperty, new Binding(nameof(TextBox.TextProperty))
             {
                 Source = inst,
                 Path = new System.Windows.PropertyPath(nameof(IVolumeControl.Volume)),

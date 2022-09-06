@@ -149,7 +149,7 @@ namespace VolumeControl.Core.Input
             switch (rc)
             {
             case 0:
-                var (hr, msg) = GetLastWin32Error();
+                (int hr, string msg) = GetLastWin32Error();
                 Log.Error($"Hotkey {hk.ID} registration failed:  '{msg}' (HRESULT: {hr})");
                 hk.SetError(msg);
                 return false;
@@ -171,7 +171,7 @@ namespace VolumeControl.Core.Input
             switch (rc)
             {
             case 0:
-                var (hr, msg) = GetLastWin32Error();
+                (int hr, string msg) = GetLastWin32Error();
                 Log.Error($"Hotkey {hk.ID} unregistration failed:  '{msg}' (HRESULT: {hr})");
                 if (!hr.Equals(1419)) // "Hot key is not registered."
                     hk.SetError(msg);

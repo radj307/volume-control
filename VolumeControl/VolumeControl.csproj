@@ -111,13 +111,13 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
-		<PackageReference Include="PropertyChanged.Fody" Version="3.4.1">
+		<PackageReference Include="PropertyChanged.Fody" Version="4.0.1">
 			<PrivateAssets>All</PrivateAssets>
 		</PackageReference>
 		<PackageReference Include="WPFTextBoxAutoComplete" Version="1.0.5">
 			<NoWarn>NU1701</NoWarn>
 		</PackageReference>
-		<PackageReference Include="XamlTimers" Version="1.1.1" />
+		<PackageReference Include="XamlTimers" Version="1.2.1" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\VolumeControl.Audio\VolumeControl.Audio.csproj" />

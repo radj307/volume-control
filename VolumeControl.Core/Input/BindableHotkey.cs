@@ -18,7 +18,7 @@ namespace VolumeControl.Core.Input
         public BindableHotkey(Hotkey hk)
         {
             _hotkey = hk;
-            _hotkey.PropertyChanged += HotkeyPropertyChanged;
+            _hotkey.PropertyChanged += this.HotkeyPropertyChanged;
         }
         /// <summary>
         /// Creates a new <see cref="BindableHotkey"/> instance.
@@ -26,7 +26,7 @@ namespace VolumeControl.Core.Input
         public BindableHotkey()
         {
             _hotkey = new();
-            _hotkey.PropertyChanged += HotkeyPropertyChanged;
+            _hotkey.PropertyChanged += this.HotkeyPropertyChanged;
         }
         #endregion Constructors
 
@@ -40,9 +40,9 @@ namespace VolumeControl.Core.Input
             set
             {
                 if (_hotkey is not null)
-                    _hotkey.PropertyChanged -= HotkeyPropertyChanged;
+                    _hotkey.PropertyChanged -= this.HotkeyPropertyChanged;
                 _hotkey = value;
-                _hotkey.PropertyChanged += HotkeyPropertyChanged;
+                _hotkey.PropertyChanged += this.HotkeyPropertyChanged;
             }
         }
         private Hotkey _hotkey;
@@ -142,13 +142,13 @@ namespace VolumeControl.Core.Input
         {
             if (e.PropertyName is null) return;
 
-            if (e.PropertyName.Equals(nameof(Hotkey.HasError)))
+            if (e.PropertyName.Equals(nameof(this.Hotkey.HasError)))
             {
-                NotifyPropertyChanged(nameof(HasError));
+                this.NotifyPropertyChanged(nameof(this.HasError));
             }
-            else if (e.PropertyName.Equals(nameof(Hotkey.ErrorMessage)))
+            else if (e.PropertyName.Equals(nameof(this.Hotkey.ErrorMessage)))
             {
-                NotifyPropertyChanged(nameof(ErrorMessage));
+                this.NotifyPropertyChanged(nameof(this.ErrorMessage));
             }
         }
         /// <inheritdoc/>

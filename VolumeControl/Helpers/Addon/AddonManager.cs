@@ -188,7 +188,7 @@ namespace VolumeControl.Helpers.Addon
             // check default path:
             string defaultPath = Path.Combine(PathFinder.LocalAppData, "Addons");
             if (Directory.Exists(defaultPath))
-                l.AddIfUnique(defaultPath);
+                _ = l.AddIfUnique(defaultPath);
             // check custom directories:
             if (Settings.CustomAddonDirectories is not null)
             {
@@ -197,7 +197,7 @@ namespace VolumeControl.Helpers.Addon
                     if (path is null) continue;
                     if (Directory.Exists(path))
                     {
-                        l.AddIfUnique(path);
+                        _ = l.AddIfUnique(path);
                         Log.Debug($"Successfully added custom addon search directory '{path}'");
                     }
                     else
