@@ -1,6 +1,8 @@
 var class_volume_control_1_1_core_1_1_config =
 [
     [ "TargetInfo", "struct_volume_control_1_1_core_1_1_config_1_1_target_info.html", "struct_volume_control_1_1_core_1_1_config_1_1_target_info" ],
+    [ "PauseAutoSave", "class_volume_control_1_1_core_1_1_config.html#a6c890b9f23d737235d707b288ae0899f", null ],
+    [ "ResumeAutoSave", "class_volume_control_1_1_core_1_1_config.html#ae8442da4c2358be20ba944d474d72f5f", null ],
     [ "Hotkeys_Default", "class_volume_control_1_1_core_1_1_config.html#aabc2f606723e6010d5ee104e3c043186", null ],
     [ "KeyBlacklist", "class_volume_control_1_1_core_1_1_config.html#ad499121c4db6f525d7144e00bfc8df29", null ],
     [ "NotificationDefaultBrush", "class_volume_control_1_1_core_1_1_config.html#a487db62f9ac51c93ed87b59a3b9ceab9", null ],
@@ -17,6 +19,7 @@ var class_volume_control_1_1_core_1_1_config =
     [ "CreateDefaultTranslationFiles", "class_volume_control_1_1_core_1_1_config.html#a7570b2c31a3729bb259f34d19876d92a", null ],
     [ "CustomAddonDirectories", "class_volume_control_1_1_core_1_1_config.html#a5525b3a587477f3b9875658515f6a5f3", null ],
     [ "CustomLocalizationDirectories", "class_volume_control_1_1_core_1_1_config.html#a399b330200c44810e9030826dc163ff3", null ],
+    [ "DeleteHotkeyConfirmation", "class_volume_control_1_1_core_1_1_config.html#a428cb49fbfb51c50d323ae0518536798", null ],
     [ "EnabledDevices", "class_volume_control_1_1_core_1_1_config.html#a487ecc5c2238ae7529e01782712c91e3", null ],
     [ "EnableDefaultDevice", "class_volume_control_1_1_core_1_1_config.html#aea9fec6c4a43aae2c964dc6842dc5b4a", null ],
     [ "EnableDeviceControl", "class_volume_control_1_1_core_1_1_config.html#a1b52d493042197f26f914414bce1109f", null ],

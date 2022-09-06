@@ -1,5 +1,11 @@
 var NAVTREEINDEX2 =
 {
+"class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a6df8f6ab7f8dd2434dcc8d6005781f0d":[5,0,0,2,0,1,24],
+"class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a7b86bb55a7ae107db174cc934eebb518":[5,0,0,2,0,1,19],
+"class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a7e3744a1d3165f9ee70e6329a430cbe2":[5,0,0,2,0,1,9],
+"class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a7ee1c6307150918de6d3d7330ee446df":[5,0,0,2,0,1,2],
+"class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a858fe91599cac18a9fd998c11686ac82":[5,0,0,2,0,1,20],
+"class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a8cfc960b9530bf457c7864d6b526deb7":[5,0,0,2,0,1,3],
 "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#aa730b51b2623cc79d65c42e1d65e4cb3":[5,0,0,2,0,1,17],
 "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#ab429fe032c1eeaa1fd98332cd399b78f":[5,0,0,2,0,1,16],
 "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#ac2311bf7426a65b83d31a3988edd4a53":[5,0,0,2,0,1,7],
@@ -243,11 +249,5 @@ var NAVTREEINDEX2 =
 "class_volume_control_1_1_type_extensions_1_1_int32_extensions.html":[5,0,0,5,4],
 "class_volume_control_1_1_type_extensions_1_1_int32_extensions.html#a5cd8ff1fc1b65074f23a8abd0848f0e9":[5,0,0,5,4,1],
 "class_volume_control_1_1_type_extensions_1_1_int32_extensions.html#a83277434e3f4296dab8d4c9333b92794":[5,0,0,5,4,0],
-"class_volume_control_1_1_type_extensions_1_1_list_extensions.html":[5,0,0,5,5],
-"class_volume_control_1_1_type_extensions_1_1_list_extensions.html#a172e5c7a972f1501e0048f213d083130":[5,0,0,5,5,4],
-"class_volume_control_1_1_type_extensions_1_1_list_extensions.html#a4223d06a8d2ef81d37f805feb0db7e8a":[5,0,0,5,5,2],
-"class_volume_control_1_1_type_extensions_1_1_list_extensions.html#a5df1f9d82ef937c190f9559532ccec79":[5,0,0,5,5,0],
-"class_volume_control_1_1_type_extensions_1_1_list_extensions.html#a7c41a634cbd3f14c4436613353d8806c":[5,0,0,5,5,1],
-"class_volume_control_1_1_type_extensions_1_1_list_extensions.html#ab8078726a66eecb7feec849be34fb8af":[5,0,0,5,5,3],
-"class_volume_control_1_1_type_extensions_1_1_math_ext.html":[5,0,0,5,6]
+"class_volume_control_1_1_type_extensions_1_1_list_extensions.html":[5,0,0,5,5]
 };
