@@ -92,9 +92,16 @@ namespace VolumeControl.Audio.Collections
         private void HandleDeviceSessionRemoved(object? sender, long pid) => _ = sender is AudioDevice device
                 ? this.Remove(pid)
                 : throw new InvalidOperationException($"{nameof(HandleDeviceSessionRemoved)} received a sender of type '{sender?.GetType().FullName}'; expected '{typeof(AudioDevice).FullName}'");
-        private void HandleDeviceEnabledChanged(object? sender, bool state) => _ = sender is AudioDevice device
-                ? state ? this.AddRangeIfUnique(device.Sessions) : this.RemoveAll(s => !s.PID.Equals(0) && device.Sessions.Contains(s))
-                : throw new InvalidOperationException($"{nameof(HandleDeviceEnabledChanged)} received a sender of type '{sender?.GetType().FullName}'; expected '{typeof(AudioDevice).FullName}'");
+        private void HandleDeviceEnabledChanged(object? sender, bool state)
+        {
+            if (sender is AudioDevice device)
+            {
+                if (state) this.AddRangeIfUnique(device.Sessions);
+                else this.RemoveAll(session => !session.PID.Equals(0) && device.Sessions.Contains(session));
+                return;
+            }
+            throw new InvalidOperationException($"{nameof(HandleDeviceEnabledChanged)} received a sender of type '{sender?.GetType().FullName}'; expected '{typeof(AudioDevice).FullName}'");
+        }
         #endregion EventHandlers
 
         #region Methods

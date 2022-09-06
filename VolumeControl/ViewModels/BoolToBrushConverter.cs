@@ -49,13 +49,13 @@ namespace VolumeControl.ViewModels
         {
             if (value is Brush b)
             {
-                return b.Equals(this.WhenTrue)
+                return (b.Equals(this.WhenTrue)
                     ? true
                     : b.Equals(this.WhenFalse)
                     ? false
                     : b.Equals(this.WhenNull)
                     ? null
-                    : throw new ArgumentOutOfRangeException(nameof(value), value, $"Unexpected value of type {value.GetType().FullName} cannot be converted back to type {typeof(bool).Name} because it is not equal to either brush instance!");
+                    : throw new ArgumentOutOfRangeException(nameof(value), value, $"Unexpected value of type {value.GetType().FullName} cannot be converted back to type {typeof(bool).Name} because it is not equal to either brush instance!"))!;
             }
             else
             {
