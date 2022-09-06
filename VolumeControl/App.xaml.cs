@@ -42,9 +42,6 @@ namespace VolumeControl
             };
             TrayIcon.CloseClicked += (s, e) => this.Shutdown();
             TrayIcon.Visible = true;
-
-            // Initialize the list notification window so it can appear
-            _ = WindowHandleGetter.GetWindowHandle((this.FindResource("Notification") as ListNotification)!);
         }
         #endregion Constructors
 

@@ -12,6 +12,7 @@ using VolumeControl.Core.Input;
 using VolumeControl.Helpers;
 using VolumeControl.Hotkeys;
 using VolumeControl.Log;
+using VolumeControl.WPF;
 using VolumeControl.WPF.Collections;
 
 namespace VolumeControl
@@ -32,6 +33,8 @@ namespace VolumeControl
         private void Window_Initialized(object sender, EventArgs e)
         {
             if (Settings.StartMinimized) this.Hide();
+            // Initialize the list notification window so it can appear
+            _ = WindowHandleGetter.GetWindowHandle((this.FindResource("Notification") as ListNotification)!);
         }
         #endregion Setup
 
