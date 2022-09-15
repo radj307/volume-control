@@ -57,8 +57,10 @@ namespace VolumeControl.Audio.Collections
         [SuppressPropertyChangedWarnings]
         public AudioSession this[int index] => this.Items[index];
 
+        /// <inheritdoc/>
         [SuppressPropertyChangedWarnings]
         AudioSession IList<AudioSession>.this[int index] { get => ((IList<AudioSession>)this.Items)[index]; set => ((IList<AudioSession>)this.Items)[index] = value; }
+        /// <inheritdoc/>
         [SuppressPropertyChangedWarnings]
         object? IList.this[int index] { get => ((IList)this.Items)[index]; set => ((IList)this.Items)[index] = value; }
         #endregion Properties
@@ -169,13 +171,17 @@ namespace VolumeControl.Audio.Collections
         public void CopyTo(AudioSession[] array, int arrayIndex) => this.Items.CopyTo(array, arrayIndex);
         /// <inheritdoc/>
         public bool Remove(AudioSession item) => this.Items.Remove(item);
+        /// <inheritdoc/>
         IEnumerator<AudioSession> IEnumerable<AudioSession>.GetEnumerator() => this.Items.GetEnumerator();
+        /// <inheritdoc/>
         IImmutableList<AudioSession> IImmutableList<AudioSession>.Add(AudioSession value) => this.Items.Add(value);
         /// <inheritdoc/>
         public IImmutableList<AudioSession> AddRange(IEnumerable<AudioSession> items) => this.Items.AddRange(items);
+        /// <inheritdoc/>
         IImmutableList<AudioSession> IImmutableList<AudioSession>.Clear() => this.Items.Clear();
         /// <inheritdoc/>
         public int IndexOf(AudioSession item, int index, int count, IEqualityComparer<AudioSession>? equalityComparer) => this.Items.IndexOf(item, index, count, equalityComparer);
+        /// <inheritdoc/>
         IImmutableList<AudioSession> IImmutableList<AudioSession>.Insert(int index, AudioSession element) => this.Items.Insert(index, element);
         /// <inheritdoc/>
         public IImmutableList<AudioSession> InsertRange(int index, IEnumerable<AudioSession> items) => this.Items.InsertRange(index, items);
@@ -185,6 +191,7 @@ namespace VolumeControl.Audio.Collections
         public IImmutableList<AudioSession> Remove(AudioSession value, IEqualityComparer<AudioSession>? equalityComparer) => this.Items.Remove(value, equalityComparer);
         /// <inheritdoc/>
         public IImmutableList<AudioSession> RemoveAll(Predicate<AudioSession> match) => this.Items.RemoveAll(match);
+        /// <inheritdoc/>
         IImmutableList<AudioSession> IImmutableList<AudioSession>.RemoveAt(int index) => this.Items.RemoveAt(index);
         /// <inheritdoc/>
         public IImmutableList<AudioSession> RemoveRange(IEnumerable<AudioSession> items, IEqualityComparer<AudioSession>? equalityComparer) => this.Items.RemoveRange(items, equalityComparer);

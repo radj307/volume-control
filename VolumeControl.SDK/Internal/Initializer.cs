@@ -16,16 +16,16 @@ namespace VolumeControl.SDK.Internal
         /// <param name="mainWindowHWnd">The mixer window's handle</param>
         /// <param name="settings">The program settings container object.</param>
         /// <exception cref="InvalidOperationException">Initialize was already called previously.</exception>
-        public static void Initialize(AudioAPI audioAPI, HotkeyManager mgr, IntPtr mainWindowHWnd, Config settings)
+        public static VCAPI Initialize(AudioAPI audioAPI, HotkeyManager mgr, IntPtr mainWindowHWnd, Config settings)
         {
             if (_initialized)
             {
                 FLog.Log.Warning(new Exception($"{typeof(Initializer).FullName} was already initialized!"));
-                return;
+                return VCAPI.Default;
             }
             _initialized = true;
 
-            VCAPI.Default = new(audioAPI, mgr, mainWindowHWnd, settings);
+            return VCAPI.Default = new(audioAPI, mgr, mainWindowHWnd, settings);
         }
     }
 }

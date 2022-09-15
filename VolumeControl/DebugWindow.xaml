@@ -1,0 +1,55 @@
+﻿<Window
+    x:Class="VolumeControl.DebugWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:VolumeControl"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:VolumeControl.ViewModels"
+    Title="DebugWindow"
+    MinWidth="100"
+    MinHeight="100"
+    SizeToContent="WidthAndHeight"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <ResourceDictionary>
+            <vm:DebugWindowVM x:Key="VM" />
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid DataContext="{StaticResource VM}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="ListNotification:" />
+            <StackPanel
+                Grid.Row="1"
+                Margin="5,3"
+                Orientation="Horizontal">
+
+                <TextBlock Text="X:" />
+                <TextBox MinWidth="100" Text="{Binding ListNotification.Left}" />
+                <TextBox MinWidth="100" Text="{Binding NotifX, Mode=OneWayToSource}" />
+            </StackPanel>
+            <StackPanel
+                Grid.Row="2"
+                Margin="5,3"
+                Orientation="Horizontal">
+
+                <TextBlock Text="Y:" />
+                <TextBox MinWidth="100" Text="{Binding ListNotification.Top}" />
+                <TextBox MinWidth="100" Text="{Binding NotifY, Mode=OneWayToSource}" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

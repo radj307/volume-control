@@ -14,6 +14,7 @@
     StartupUri="Mixer.xaml">
     <Application.Resources>
         <ResourceDictionary>
+
             <FontFamily x:Key="InterFont">pack://application:,,,/Resources/fonts/#Inter</FontFamily>
             <sys:Double x:Key="GlobalFontSize">13</sys:Double>
 
@@ -37,6 +38,7 @@
 
             <!--  List Notification Definition  -->
             <local:ListNotification x:Key="Notification" />
+            <local:DebugWindow x:Key="DebugWindow" />
 
 
             <CornerRadius x:Key="RoundedControlCorner">4</CornerRadius>
@@ -784,6 +786,7 @@
                 <Setter Property="Template" Value="{StaticResource ExpanderTemplate}" />
                 <Setter Property="FocusVisualStyle" Value="{DynamicResource CustomFocusVisualStyle}" />
             </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

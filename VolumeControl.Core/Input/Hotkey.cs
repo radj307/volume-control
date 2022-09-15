@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using VolumeControl.Core.Enum;
 using VolumeControl.Log;
 
 namespace VolumeControl.Core.Input

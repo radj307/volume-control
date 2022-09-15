@@ -1,4 +1,6 @@
-﻿namespace VolumeControl.Audio.Events
+﻿using NAudio.CoreAudioApi;
+
+namespace VolumeControl.Audio.Events
 {
     /// <summary>
     /// Event arguments for volume change events.
@@ -15,6 +17,15 @@
         {
             this.Volume = volume;
             this.Muted = muted;
+        }
+        /// <summary>
+        /// Creates a new <see cref="VolumeChangedEventArgs"/> instance.
+        /// </summary>
+        /// <param name="data">An <see cref="AudioVolumeNotificationData"/> object.</param>
+        public VolumeChangedEventArgs(AudioVolumeNotificationData data)
+        {
+            this.Volume = (int)(data.MasterVolume * 100.0f);
+            this.Muted = data.Muted;
         }
         #endregion Constructor
 

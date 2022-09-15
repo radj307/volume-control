@@ -1,4 +1,4 @@
-$SCRIPTVERSION = "3" # The version number of this script file
+$SCRIPTVERSION = "4" # The version number of this script file
 
 #Set-Location -Path '..'
 
@@ -21,29 +21,6 @@ $global:GIT_TAG_RAW -cmatch '(?<MAJOR>\d+?)\.(?<MINOR>\d+?)\.(?<PATCH>\d+?)(?<EX
 
 $global:TAG = $Matches.MAJOR + '.' + $Matches.MINOR + '.' + $Matches.PATCH
 
-$EXTRA = $Matches.EXTRA
-if ($EXTRA)
-{
-    if ($EXTRA -like "*pre*" -or $EXTRA -like "*pr*")
-    {
-        "Is a prerelease."
-        $global:TYPE = 'PRERELEASE'
-    }
-    elseif ($EXTRA -like "*rc*")
-    {
-        "Is a release candidate."
-        $global:TYPE = 'CANDIDATE'
-    }
-    else
-    {
-        "Is a revision of a release."
-        $global:TYPE = 'REVISION'
-    }
-}
-else {
-    "Is a normal release."
-    $global:TYPE = 'NORMAL'
-}
 
 # @brief            Set the version number in the specified csproj file.
 # @param file       Target File Path.
@@ -58,7 +35,6 @@ function SetVersion
 
     $oldversion = $CONTENT.Project.PropertyGroup.Version
     $oldextversion = $CONTENT.Project.PropertyGroup.ExtendedVersion
-    $oldtype = $CONTENT.Project.PropertyGroup.ReleaseType
 
     if ($oldversion -eq $global:TAG -and $oldextversion -eq $global:GIT_TAG_RAW -and $oldtype -eq $global:TYPE)
     {
@@ -71,7 +47,6 @@ function SetVersion
 
     $CONTENT.Project.PropertyGroup.Version = "$global:TAG"
     $CONTENT.Project.PropertyGroup.ExtendedVersion = "$global:GIT_TAG_RAW"
-    $CONTENT.Project.PropertyGroup.ReleaseType = "$global:TYPE"
     $CONTENT.Save("$file")
 }
 

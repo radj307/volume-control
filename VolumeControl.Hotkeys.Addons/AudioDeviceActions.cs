@@ -9,7 +9,7 @@ namespace VolumeControl.Hotkeys.Addons
     /// <summary>
     /// Contains hotkey action handlers that interact with AudioDevices in the <see cref="Audio.AudioAPI"/> object.
     /// </summary>
-    [ActionAddon(nameof(AudioDeviceActions))]
+    [HotkeyActionGroup("Device", GroupColor = "#FF9999")]
     public sealed class AudioDeviceActions
     {
         #region Properties
@@ -188,26 +188,23 @@ namespace VolumeControl.Hotkeys.Addons
         #endregion DeviceSelection
 
         #region Actions
-        private const string GroupColor = "#FF9999";
-        private const string GroupName = "Device";
-
-        [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Selects the next device in the list.")]
+        [HotkeyAction(Description = "Selects the next device in the list.")]
         public void SelectNext(object? sender, HandledEventArgs e) => SelectNextDevice();
-        [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Selects the previous device in the list.")]
+        [HotkeyAction(Description = "Selects the previous device in the list.")]
         public void SelectPrevious(object? sender, HandledEventArgs e) => SelectPreviousDevice();
-        [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Deselects the selected device.")]
+        [HotkeyAction(Description = "Deselects the selected device.")]
         public void Deselect(object? sender, HandledEventArgs e) => DeselectDevice();
-        [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Selects the default output device in the list.")]
+        [HotkeyAction(Description = "Selects the default output device in the list.")]
         public void SelectDefault(object? sender, HandledEventArgs e) => SelectDefaultDevice();
-        [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Increases the device volume of the selected device.")]
+        [HotkeyAction(Description = "Increases the device volume of the selected device.")]
         public void VolumeUp(object? sender, HandledEventArgs e) => IncrementDeviceVolume();
-        [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Decreases the device volume of the selected device.")]
+        [HotkeyAction(Description = "Decreases the device volume of the selected device.")]
         public void VolumeDown(object? sender, HandledEventArgs e) => DecrementDeviceVolume();
-        [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Mutes the selected device.")]
+        [HotkeyAction(Description = "Mutes the selected device.")]
         public void Mute(object? sender, HandledEventArgs e) => SetDeviceMute(true);
-        [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Unmutes the selected device.")]
+        [HotkeyAction(Description = "Unmutes the selected device.")]
         public void Unmute(object? sender, HandledEventArgs e) => SetDeviceMute(false);
-        [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Toggles the selected device's mute state.")]
+        [HotkeyAction(Description = "Toggles the selected device's mute state.")]
         public void ToggleMute(object? sender, HandledEventArgs e) => ToggleDeviceMute();
         #endregion Actions
     }

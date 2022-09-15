@@ -4,11 +4,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using VolumeControl.Core;
 using VolumeControl.Core.Interfaces;
 using VolumeControl.Log;
+using VolumeControl.SDK;
 using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.ViewModels
@@ -26,6 +28,11 @@ namespace VolumeControl.ViewModels
         #region Properties
         public List<ListDisplayTarget> DisplayTargets { get; } = new();
         private ListDisplayTarget? _currentDisplayTarget;
+        private string _currentDisplayTargetName
+        {
+            get => Settings.NotificationDisplayTarget;
+            set => Settings.NotificationDisplayTarget = value;
+        }
         /// <summary>
         /// The currently-selected display target.
         /// </summary>
@@ -34,7 +41,7 @@ namespace VolumeControl.ViewModels
         /// </remarks>
         public ListDisplayTarget? CurrentDisplayTarget
         {
-            get => _currentDisplayTarget;
+            get => _currentDisplayTarget ??= FindDisplayTarget(_currentDisplayTargetName);
             set
             {
                 if (value is null) return;
@@ -55,6 +62,19 @@ namespace VolumeControl.ViewModels
             {
                 if (this.CurrentDisplayTarget is null) return;
                 this.CurrentDisplayTarget.SelectedItem = value;
+                NotifyPropertyChanged(nameof(SelectedItemControls)); //< update controls
+            }
+        }
+        /// <summary>
+        /// The <see cref="CurrentDisplayTarget"/>'s <see cref="ListDisplayTarget.SelectedItemControls"/> property.
+        /// </summary>
+        public Control[]? SelectedItemControls
+        {
+            get => this.CurrentDisplayTarget?.SelectedItemControls;
+            set
+            {
+                if (this.CurrentDisplayTarget is null) return;
+                this.CurrentDisplayTarget.SelectedItemControls = value;
             }
         }
         /// <summary>
@@ -81,6 +101,68 @@ namespace VolumeControl.ViewModels
                 this.CurrentDisplayTarget.Background = value;
             }
         }
+        #region Settings
+        public bool DoFadeIn
+        {
+            get => Settings.NotificationDoFadeIn;
+            set => Settings.NotificationDoFadeIn = value;
+        }
+        public Duration FadeInDuration
+        {
+            get => Settings.NotificationFadeInDuration;
+            set => Settings.NotificationFadeInDuration = value;
+        }
+        public bool DoFadeOut
+        {
+            get => Settings.NotificationDoFadeOut;
+            set => Settings.NotificationDoFadeOut = value;
+        }
+        public Duration FadeOutDuration
+        {
+            get => Settings.NotificationFadeOutDuration;
+            set => Settings.NotificationFadeOutDuration = value;
+        }
+        /// <inheritdoc/>
+        public bool Enabled
+        {
+            get => Settings.NotificationsEnabled;
+            set => Settings.NotificationsEnabled = value;
+        }
+        /// <inheritdoc/>
+        public int Timeout
+        {
+            get => Settings.NotificationTimeoutMs;
+            set => Settings.NotificationTimeoutMs = value;
+        }
+        /// <inheritdoc/>
+        public bool TimeoutEnabled
+        {
+            get => Settings.NotificationTimeoutEnabled;
+            set => Settings.NotificationTimeoutEnabled = value;
+        }
+        /// <inheritdoc/>
+        public bool ShowsCustomControls
+        {
+            get => Settings.NotificationShowsCustomControls;
+            set => Settings.NotificationShowsCustomControls = value;
+        }
+        /// <inheritdoc/>
+        public bool ShowsVolumeChange
+        {
+            get => Settings.NotificationsOnVolumeChange;
+            set => Settings.NotificationsOnVolumeChange = value;
+        }
+        public bool DragRequiresAlt
+        {
+            get => Settings.NotificationMoveRequiresAlt;
+            set => Settings.NotificationMoveRequiresAlt = value;
+        }
+        public bool SavesPosition
+        {
+            get => Settings.NotificationSavePos;
+            set => Settings.NotificationSavePos = value;
+        }
+        #endregion Settings
         #endregion Properties
 
         #region Events
@@ -145,22 +227,29 @@ namespace VolumeControl.ViewModels
                 // unhook event triggers from outgoing display target
                 _currentDisplayTarget.ShowEvent -= this.ListDisplayTarget_ShowEvent;
 
+                _currentDisplayTarget.RaiseEvent(nameof(ListDisplayTarget.Unselected), new object[] { this, EventArgs.Empty });
+
                 // set the display target to null
                 _currentDisplayTarget = null;
                 this.NotifyPropertyChanged(nameof(this.CurrentDisplayTarget));
                 this.NotifyPropertyChanged(nameof(this.ItemsSource));
                 this.NotifyPropertyChanged(nameof(this.SelectedItem));
+                this.NotifyPropertyChanged(nameof(this.SelectedItemControls));
                 this.NotifyPropertyChanged(nameof(this.LockSelection));
                 this.NotifyPropertyChanged(nameof(this.Background));
             }
 
             // set the new display target
             _currentDisplayTarget = displayable;
+            _currentDisplayTargetName = displayable.Name;
             this.NotifyPropertyChanged(nameof(this.CurrentDisplayTarget));
             this.NotifyPropertyChanged(nameof(this.ItemsSource));
             this.NotifyPropertyChanged(nameof(this.SelectedItem));
+            this.NotifyPropertyChanged(nameof(this.SelectedItemControls));
             this.NotifyPropertyChanged(nameof(this.LockSelection));
             this.NotifyPropertyChanged(nameof(this.Background));
+
+            _currentDisplayTarget.RaiseEvent(nameof(ListDisplayTarget.Selected), new object[] { this, EventArgs.Empty });
 
             // hook up event triggers for incoming display target
             _currentDisplayTarget.ShowEvent += this.ListDisplayTarget_ShowEvent;
@@ -181,6 +270,19 @@ namespace VolumeControl.ViewModels
         /// <param name="displayable"></param>
         /// <returns></returns>
         public bool IsDisplayTarget(ListDisplayTarget displayable) => displayable.Equals(this.CurrentDisplayTarget);
+        /// <summary>
+        /// Finds a display target using the given <paramref name="predicate"/>.
+        /// </summary>
+        /// <param name="predicate">A predicate method.</param>
+        /// <returns>The first matching display target; if none were found, <see langword="null"/>.</returns>
+        public ListDisplayTarget? FindDisplayTarget(Func<ListDisplayTarget?, bool> predicate) => DisplayTargets.FirstOrDefault(predicate, null);
+        /// <summary>
+        /// Finds the display target with the given <paramref name="name"/> using the <see cref="StringComparison"/> type specified by <paramref name="comparisonType"/>.
+        /// </summary>
+        /// <param name="name">The name of the target display target.</param>
+        /// <param name="comparisonType"><see cref="StringComparison.Ordinal"/> by default.</param>
+        /// <returns></returns>
+        public ListDisplayTarget? FindDisplayTarget(string name, StringComparison comparisonType = StringComparison.Ordinal) => DisplayTargets.FirstOrDefault(tgt => tgt?.Name.Equals(name, comparisonType) ?? false, null);
         #endregion ...DisplayTargets
         #endregion Methods
 

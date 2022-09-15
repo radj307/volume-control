@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using VolumeControl.Core.Enum;
 using VolumeControl.Core.Input.Actions;
+using VolumeControl.Core.Interfaces;
 
 namespace VolumeControl.Core.Input
 {
@@ -103,9 +105,9 @@ namespace VolumeControl.Core.Input
         /// </summary>
         public bool Valid => !this.Key.Equals(Key.None);
         /// <summary>
-        /// Gets or sets the <see cref="IActionBinding"/> associated with this hotkey instance.
+        /// Gets or sets the <see cref="IHotkeyAction"/> associated with this hotkey instance.
         /// </summary>
-        public IActionBinding? Action
+        public IHotkeyAction? Action
         {
             get => _actionBinding;
             set
@@ -118,7 +120,7 @@ namespace VolumeControl.Core.Input
             }
         }
         /// <inheritdoc/>
-        private IActionBinding? _actionBinding;
+        private IHotkeyAction? _actionBinding;
         /// <inheritdoc/>
         public string Name { get; set; } = string.Empty;
         /// <inheritdoc cref="Hotkey.HasError"/>

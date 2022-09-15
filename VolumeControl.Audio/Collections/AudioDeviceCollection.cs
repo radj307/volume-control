@@ -70,6 +70,11 @@ namespace VolumeControl.Audio.Collections
         public event PropertyChangedEventHandler? PropertyChanged;
         private void ForwardPropertyChanged(object? sender, PropertyChangedEventArgs e) => PropertyChanged?.Invoke(sender, e);
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        /// <summary>
+        /// Triggered when the volume or mute state of a device was changed.
+        /// </summary>
+        public event VolumeChangedEventHandler? DeviceVolumeChanged;
+        private void ForwardDeviceVolumeChanged(object? sender, VolumeChangedEventArgs e) => DeviceVolumeChanged?.Invoke(sender, e);
         #endregion Events
 
         #region Properties
@@ -84,9 +89,6 @@ namespace VolumeControl.Audio.Collections
         public DataFlow DataFlow { get; }
         /// <summary>This is the current default multimedia device.</summary>
         public AudioDevice? Default { get; internal set; }
-        #endregion Properties
-
-        #region Properties
         /// <summary>
         /// Enables or disables all devices.
         /// </summary>
@@ -103,6 +105,9 @@ namespace VolumeControl.Audio.Collections
                 this.NotifyPropertyChanged();
             }
         }
+        #endregion Properties
+
+        #region InterfaceProperties
 
         /// <inheritdoc/>
         public bool IsFixedSize => this.Items.IsFixedSize;
@@ -135,7 +140,7 @@ namespace VolumeControl.Audio.Collections
         }
 
         private bool? _allSelected;
-        #endregion Properties
+        #endregion InterfaceProperties
 
         #region AllDevicesEnabled
         private bool _allSelectedChanging;
@@ -278,6 +283,7 @@ namespace VolumeControl.Audio.Collections
             dev.SessionCreated += this.ForwardSessionCreated;
             dev.SessionRemoved += (s, e) => this.ForwardSessionRemoved(s, e.PID);
             dev.PropertyChanged += this.AudioDeviceOnPropertyChanged;
+            dev.VolumeChanged += this.ForwardDeviceVolumeChanged;
             _ = this.Items.Add(dev);
             return dev;
         }

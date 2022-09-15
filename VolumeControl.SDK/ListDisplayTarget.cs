@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
-using VolumeControl.Core.Helpers;
 using VolumeControl.Core.Interfaces;
 using VolumeControl.TypeExtensions;
 
-namespace VolumeControl.ViewModels
+namespace VolumeControl.SDK
 {
     /// <summary>
     /// Wrapper object for a ListNotification display target.<br/>
@@ -21,7 +18,7 @@ namespace VolumeControl.ViewModels
         /// <summary>
         /// Creates a new <see cref="ListDisplayTarget"/> instance.
         /// </summary>
-        /// <param name="conditionalShowTriggers">Any number of <see cref="ConditionalEventForward"/> instances that can cause the <see cref="ListNotification"/> window to become visible.</param>
+        /// <param name="conditionalShowTriggers">Any number of <see cref="ConditionalEventForward"/> instances that can cause the ListNotification window to become visible.</param>
         public ListDisplayTarget(params ConditionalEventForward[] conditionalShowTriggers)
         {
             _conditionalShowTriggers = conditionalShowTriggers;
@@ -31,7 +28,7 @@ namespace VolumeControl.ViewModels
         /// Creates a new <see cref="ListDisplayTarget"/> instance.
         /// </summary>
         /// <param name="name">A name to assign to this <see cref="ListDisplayTarget"/> instance. This is shown in the DisplayTarget selector.</param>
-        /// <param name="conditionalShowTriggers">Any number of <see cref="ConditionalEventForward"/> instances that can cause the <see cref="ListNotification"/> window to become visible.</param>
+        /// <param name="conditionalShowTriggers">Any number of <see cref="ConditionalEventForward"/> instances that can cause the ListNotification window to become visible.</param>
         public ListDisplayTarget(string name, params ConditionalEventForward[] conditionalShowTriggers) : this(conditionalShowTriggers) => this.Name = name;
         /// <summary>
         /// Creates a new <see cref="ListDisplayTarget"/> instance.
@@ -48,7 +45,13 @@ namespace VolumeControl.ViewModels
         #endregion Name
 
         #region BackgroundProperty
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for the <see cref="Background"/> brush.
+        /// </summary>
         public static readonly DependencyProperty BackgroundProperty = DependencyProperty.Register(nameof(Background), typeof(Brush), typeof(ListDisplayTarget), new PropertyMetadata(null));
+        /// <summary>
+        /// Gets or sets the background color of the notification window.
+        /// </summary>
         public Brush? Background
         {
             get => this.GetValue(BackgroundProperty) as Brush;
@@ -57,7 +60,16 @@ namespace VolumeControl.ViewModels
         #endregion BackgroundProperty
 
         #region LockSelectionProperty
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for the <see cref="LockSelection"/> state.
+        /// </summary>
         public static readonly DependencyProperty LockSelectionProperty = DependencyProperty.Register(nameof(LockSelection), typeof(bool), typeof(ListDisplayTarget), new PropertyMetadata(null));
+        /// <summary>
+        /// Gets or sets whether the user can change the SelectedItem property of the ListView control by clicking on an item in the list.
+        /// </summary>
+        /// <remarks>
+        /// While this <i>is</i> used by the Audio Sessions &amp; Audio Devices display targets, this property is <b>not the same thing</b>; this controls whether the actual ListView control allows the user to change the selection; it does not work the other way around!
+        /// </remarks>
         public bool LockSelection
         {
             get => (bool)this.GetValue(LockSelectionProperty);
@@ -66,7 +78,13 @@ namespace VolumeControl.ViewModels
         #endregion IconProperty
 
         #region IconProperty
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for the <see cref="Icon"/> icon.
+        /// </summary>
         public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(ImageSource), typeof(ListDisplayTarget), new PropertyMetadata(null));
+        /// <summary>
+        /// Gets or sets an optional icon to show in the display target list.
+        /// </summary>
         public ImageSource? Icon
         {
             get => this.GetValue(IconProperty) as ImageSource;
@@ -75,9 +93,15 @@ namespace VolumeControl.ViewModels
         #endregion IconProperty
 
         #region ItemsSourceProperty
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for the <see cref="ItemsSource"/> list source.
+        /// </summary>
         public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable<IListDisplayable>), typeof(ListDisplayTarget), new PropertyMetadata(null, HandleItemsSourcePropertyChanged));
         private static void HandleItemsSourcePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as ListDisplayTarget)?.UnsetSelectedItem();
         private void UnsetSelectedItem() => this.SelectedItem = null;
+        /// <summary>
+        /// Gets or sets the enumerable list of objects that implement <see cref="IListDisplayable"/> to show in the notification window.
+        /// </summary>
         public IEnumerable<IListDisplayable>? ItemsSource
         {
             get => this.GetValue(ItemsSourceProperty) as IEnumerable<IListDisplayable>;
@@ -86,8 +110,14 @@ namespace VolumeControl.ViewModels
         #endregion ItemsSourceProperty
 
         #region SelectedItemProperty
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for the <see cref="SelectedItem"/> item.
+        /// </summary>
         public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register(nameof(SelectedItem), typeof(IListDisplayable), typeof(ListDisplayTarget), new PropertyMetadata(null, HandleSelectedItemPropertyChanged));
         private static void HandleSelectedItemPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as ListDisplayTarget)?.NotifySelectedItemChanged();
+        /// <summary>
+        /// Gets or sets the currently-selected item in the ListView control.
+        /// </summary>
         public IListDisplayable? SelectedItem
         {
             get => this.GetValue(SelectedItemProperty) as IListDisplayable;
@@ -95,13 +125,31 @@ namespace VolumeControl.ViewModels
         }
         #endregion SelectedItemProperty
 
+        #region SelectedItemControlsProperty
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for the <see cref="SelectedItemControls"/> control array.
+        /// </summary>
+        public static readonly DependencyProperty SelectedItemControlsProperty = DependencyProperty.Register(nameof(SelectedItemControls), typeof(Control[]), typeof(ListDisplayTarget), new PropertyMetadata(null));
+        /// <summary>
+        /// Gets or sets an optional array of controls to display in the notification window when the individual controls are disabled.
+        /// </summary>
+        public Control[]? SelectedItemControls
+        {
+            get => this.GetValue(SelectedItemControlsProperty) as Control[];
+            set => this.SetValue(SelectedItemControlsProperty, value);
+        }
+        #endregion SelectedItemControlsProperty
+
         #region ConditionalShowTriggers
         /// <summary>
         /// A condition delegate that does not accept parameters &amp; returns <see cref="bool"/>.
         /// </summary>
-        /// <returns><see langword="true"/> causes the <see cref="ListNotification"/> window to be shown; <see langword="false"/> prevents the window from being shown.</returns>
+        /// <returns><see langword="true"/> causes the ListNotification window to be shown; <see langword="false"/> prevents the window from being shown.</returns>
         public delegate bool ListDisplayConditional();
         private ConditionalEventForward[] _conditionalShowTriggers;
+        /// <summary>
+        /// An array of <see cref="ConditionalEventForward"/> instances that are automatically attached to this object via this property's setter method.
+        /// </summary>
         public ConditionalEventForward[] ConditionalShowTriggers
         {
             get => _conditionalShowTriggers;
@@ -122,26 +170,34 @@ namespace VolumeControl.ViewModels
         /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
 #   pragma warning restore CS0067 // The event 'ListNotificationVM.PropertyChanged' is never used.
+        /// <summary>
+        /// Triggered when the <see cref="SelectedItem"/> is changed.
+        /// </summary>
         public event EventHandler<IListDisplayable?>? SelectedItemChanged;
         private void NotifySelectedItemChanged() => SelectedItemChanged?.Invoke(this, this.SelectedItem);
-        internal event EventHandler<object>? ShowEvent;
+        /// <summary>
+        /// Triggered when any one of this <see cref="ListDisplayTarget"/> instance's <see cref="ConditionalShowTriggers"/> fire.
+        /// </summary>
+        public event EventHandler<object>? ShowEvent;
         private void NotifyShowEvent(object? sender, object e) => ShowEvent?.Invoke(sender, e);
         /// <summary>
-        /// Triggered when this <see cref="ListDisplayTarget"/> instance is selected by the <see cref="ListNotificationVM"/>.
+        /// Triggered when this <see cref="ListDisplayTarget"/> instance becomes the active display target.
         /// </summary>
-        public event EventHandler? Selected;
-        internal void NotifySelected() => Selected?.Invoke(this, EventArgs.Empty);
+        public event EventHandler? Selected; //< triggered via reflection
         /// <summary>
-        /// Triggered when this <see cref="ListDisplayTarget"/> instance is unselected by the <see cref="ListNotificationVM"/>.
+        /// Triggered when this <see cref="ListDisplayTarget"/> instance is no longer the active display target.
         /// </summary>
-        public event EventHandler? Unselected;
-        internal void NotifyUnselected() => Unselected?.Invoke(this, EventArgs.Empty);
+        public event EventHandler? Unselected; //< triggered via reflection
         #endregion Events
 
         #region Methods
         /// <inheritdoc cref="BindingOperations.SetBinding(DependencyObject, DependencyProperty, BindingBase)"/>
         public BindingExpressionBase SetBinding(DependencyProperty dp, BindingBase binding) => BindingOperations.SetBinding(this, dp, binding);
-
+        /// <summary>
+        /// Creates a new <see cref="ConditionalEventForward"/> instance, attaches it to this <see cref="ListDisplayTarget"/> instance, then returns the instance so you can attach its handler to events.
+        /// </summary>
+        /// <param name="evaluator">An evaluator delegate method that determines whether an event will be forwarded or not.</param>
+        /// <returns>A new <see cref="ConditionalEventForward"/> instance bound to this <see cref="ListDisplayTarget"/>.</returns>
         public ConditionalEventForward AddConditionalEventForward(ConditionalEventForward.ConditionEvaluator evaluator)
         {
             var inst = new ConditionalEventForward(evaluator);

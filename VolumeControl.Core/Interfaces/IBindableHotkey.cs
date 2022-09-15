@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
+using VolumeControl.Core.Enum;
+using VolumeControl.Core.Input;
 using VolumeControl.Core.Input.Actions;
 
-namespace VolumeControl.Core.Input
+namespace VolumeControl.Core.Interfaces
 {
     /// <summary>
     /// Represents a <see cref="BindableHotkey"/>.
@@ -17,7 +19,7 @@ namespace VolumeControl.Core.Input
         /// Gets or sets the action associated with this hotkey.
         /// </summary>
         [JsonIgnore]
-        IActionBinding? Action { get; set; }
+        IHotkeyAction? Action { get; set; }
         /// <summary>
         /// Gets or sets the <see cref="Modifier.Alt"/> bit in the <see cref="IHotkey.Modifier"/> property.
         /// </summary>

@@ -8,7 +8,6 @@
     xmlns:coreInterfaces="clr-namespace:VolumeControl.Core.Interfaces;assembly=VolumeControl.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:svg="https://github.com/dotnetprojects/SVGImage"
     xmlns:sys="clr-namespace:System.Windows;assembly=PresentationFramework"
     x:Name="lnotifWindow"
     Title="ListNotification"
@@ -16,12 +15,13 @@
     Closing="lnotifWindow_Closing"
     DataContext="{RelativeSource Self}"
     Focusable="False"
+    Loaded="lnotifWindow_Loaded"
     LocationChanged="lnotifWindow_LocationChanged"
     MouseDown="lnotifWindow_MouseDown"
+    MouseEnter="lnotifWindow_MouseEnter"
     ResizeMode="NoResize"
     ShowActivated="False"
     ShowInTaskbar="False"
-    SizeChanged="lnotifWindow_SizeChanged"
     SizeToContent="WidthAndHeight"
     Topmost="True"
     WindowStartupLocation="Manual"
@@ -46,6 +46,29 @@
                 x:Key="panelBrush"
                 Opacity="0.75"
                 Color="{StaticResource WindowBackgroundColor}" />
+
+            <Storyboard x:Key="FadeInStoryboard" Completed="fadeInWindowStoryboard_Completed">
+                <DoubleAnimation
+                    FillBehavior="HoldEnd"
+                    Storyboard.TargetProperty="Opacity"
+                    From="0.0"
+                    To="1.0"
+                    Duration="{Binding ListNotificationVM.FadeInDuration, Source={StaticResource Settings}}" />
+            </Storyboard>
+            <Storyboard x:Key="FadeOutStoryboard" Completed="fadeOutWindowStoryboard_Completed">
+                <DoubleAnimation
+                    FillBehavior="Stop"
+                    Storyboard.TargetProperty="Opacity"
+                    From="1.0"
+                    To="0.0"
+                    Duration="{Binding ListNotificationVM.FadeOutDuration, Source={StaticResource Settings}}" />
+            </Storyboard>
+
+
+            <conv:ConverterChain x:Key="InvertedBooleanToVisibilityConverter">
+                <conv:BooleanInverter />
+                <BooleanToVisibilityConverter />
+            </conv:ConverterChain>
         </ResourceDictionary>
     </Window.Resources>
     <Window.Style>
@@ -80,7 +103,8 @@
                 <WrapPanel
                     MaxWidth="{Binding ActualWidth, ElementName=listView}"
                     Margin="5,3"
-                    Background="{StaticResource panelBrush}">
+                    Background="{StaticResource panelBrush}"
+                    DataContext="{Binding ListNotificationVM, Source={StaticResource Settings}}">
                     <WrapPanel.OpacityMask>
                         <VisualBrush Visual="{Binding ElementName=expanderPanelMask}" />
                     </WrapPanel.OpacityMask>
@@ -88,23 +112,69 @@
                         Margin="5,3"
                         Content="{Tr 'VolumeControl.ListNotification.Options.ShowControls.Content',
                                      DefaultText='Show Controls'}"
-                        IsChecked="{Binding NotificationShowsCustomControls, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IsChecked="{Binding ShowsCustomControls, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         ToolTip="{Tr 'VolumeControl.ListNotification.Options.ShowControls.Tooltip',
                                      DefaultText='Toggles the visibility of advanced controls next to list items.'}" />
                     <CheckBox
                         Margin="5,3"
                         Content="{Tr 'VolumeControl.ListNotification.Options.DragRequiresAlt.Content',
                                      DefaultText='Drag Requires Alt'}"
-                        IsChecked="{Binding NotificationDragRequiresAlt, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IsChecked="{Binding DragRequiresAlt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         ToolTip="{Tr 'VolumeControl.ListNotification.Options.DragRequiresAlt.Tooltip',
                                      DefaultText='When checked, the ALT key must be held down in order to drag the notification window around with the mouse.'}" />
                     <CheckBox
                         Margin="5,3"
                         Content="{Tr 'VolumeControl.ListNotification.Options.SavePosition.Tooltip',
                                      DefaultText='Save Position'}"
-                        IsChecked="{Binding NotificationSavesPosition, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IsChecked="{Binding SavesPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         ToolTip="{Tr 'VolumeControl.ListNotification.Options.SavePosition.Tooltip',
                                      DefaultText=' '}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" MinWidth="20" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <!--  Fade In:  -->
+                        <CheckBox
+                            x:Name="doFadeInCheckBox"
+                            Margin="5,3"
+                            HorizontalAlignment="Left"
+                            Content="{Tr 'VolumeControl.ListNotification.Options.DoFadeIn.Content',
+                                         DefaultText='Fade In'}"
+                            IsChecked="{Binding DoFadeIn}"
+                            ToolTip="{Tr 'VolumeControl.ListNotification.Options.DoFadeIn.Tooltip',
+                                         DefaultText='When checked, the notification window shows a fade-in animation instead of instantly appearing.'}" />
+                        <TextBox
+                            Grid.Column="1"
+                            Margin="5,1"
+                            IsEnabled="{Binding IsChecked, ElementName=doFadeInCheckBox}"
+                            Text="{Binding FadeInDuration, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                            ToolTip="{Tr 'VolumeControl.ListNotification.Options.FadeOut.Tooltip',
+                                         DefaultText='Specifies the duration of the fade-out animation in milliseconds.'}" />
+                        <!--  Fade Out:  -->
+                        <CheckBox
+                            x:Name="doFadeOutCheckBox"
+                            Grid.Row="1"
+                            Margin="5,3"
+                            HorizontalAlignment="Left"
+                            Content="{Tr 'VolumeControl.ListNotification.Options.DoFadeOut.Content',
+                                         DefaultText='Fade Out'}"
+                            IsChecked="{Binding DoFadeOut}"
+                            ToolTip="{Tr 'VolumeControl.ListNotification.Options.DoFadeOut.Tooltip',
+                                         DefaultText='When checked, the notification window shows a fade-out animation instead of instantly disappearing.'}" />
+                        <TextBox
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="5,1"
+                            IsEnabled="{Binding IsChecked, ElementName=doFadeOutCheckBox}"
+                            Text="{Binding FadeOutDuration, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                            ToolTip="{Tr 'VolumeControl.ListNotification.Options.FadeOut.Tooltip',
+                                         DefaultText='Specifies the duration of the fade-out animation in milliseconds.'}" />
+                    </Grid>
                 </WrapPanel>
             </Grid>
         </Expander>
@@ -118,6 +188,7 @@
 
             <ListView
                 Name="listView"
+                Margin="1"
                 Background="{StaticResource panelBrush}"
                 Focusable="{Binding ListNotificationVM.LockSelection, Source={StaticResource Settings}, Mode=OneWay, Converter={StaticResource InvertConverter}}"
                 ItemsSource="{Binding ListNotificationVM.ItemsSource, Source={StaticResource Settings}, Mode=OneWay}"
@@ -138,7 +209,7 @@
                         <EventSetter Event="MouseDown" Handler="lnotifWindow_MouseDown" />
                         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                         <Setter Property="Focusable" Value="{Binding ListNotificationVM.LockSelection, Source={StaticResource Settings}, Mode=OneWay, Converter={StaticResource InvertConverter}}" />
-                        <Setter Property="Padding" Value="3,1" />
+                        <Setter Property="Padding" Value="6,2" />
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
@@ -174,6 +245,7 @@
                                 Width="{Binding Height, RelativeSource={RelativeSource Self}}"
                                 Margin="2,1,5,2"
                                 HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
                                 Source="{Binding DisplayIcon}"
                                 Visibility="{Binding ShowIcons, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
@@ -182,6 +254,7 @@
                                 Grid.Column="1"
                                 Margin="5,3"
                                 HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center"
                                 Style="{StaticResource TextBlockStyle}"
                                 Text="{Binding DisplayText}" />
 
@@ -190,15 +263,31 @@
                                 Name="displayableControlsTemplate"
                                 Grid.Column="2"
                                 HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
                                 Loaded="displayableControlsTemplate_Loaded"
                                 Orientation="Horizontal"
                                 Tag="{Binding DisplayControls}"
                                 Unloaded="displayableControlsTemplate_Unloaded"
-                                Visibility="{Binding NotificationShowsCustomControls, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                Visibility="{Binding ListNotificationVM.ShowsCustomControls, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
+            <Grid
+                Grid.Row="1"
+                Margin="1"
+                DataContext="{Binding ListNotificationVM, Source={StaticResource Settings}}"
+                Visibility="{Binding ShowsCustomControls, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                <StackPanel
+                    x:Name="selectedItemControlsTemplate"
+                    Margin="5,3,0,3"
+                    HorizontalAlignment="Stretch"
+                    Loaded="displayableControlsTemplate_Loaded"
+                    Orientation="Horizontal"
+                    Tag="{Binding SelectedItemControls}"
+                    Unloaded="displayableControlsTemplate_Unloaded" />
+            </Grid>
         </Grid>
     </Grid>
 

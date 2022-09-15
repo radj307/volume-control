@@ -171,8 +171,7 @@
               "Content": {
                 "English (US/CA)": "Additional Settings"
               },
-              "Tooltip": {
-              }
+              "Tooltip": {}
             },
             "ShowPeakMeters": {
               "Content": {
@@ -260,6 +259,23 @@
           "Header": {
             "English (US/CA)": "Notifications"
           },
+          "AdditionalSettings": {
+            "Header": {
+              "Content": {
+                "English (US/CA)": "Additional Settings"
+              },
+              "Tooltip": {}
+            },
+            "DisplayTarget": {
+              "Content": {
+                "English (US/CA)": "Display Target:"
+              },
+              "Tooltip": {}
+            },
+            "DisplayTargetList": {
+              "Tooltip": {}
+            }
+          },
           "Enable": {
             "Content": {
               "English (US/CA)": "Enable"
@@ -283,15 +299,6 @@
             "Tooltip": {
               "English (US/CA)": "The amount of time in milliseconds that notifications will remain visible after being triggered."
             }
-          },
-          "DisplayTarget": {
-            "Content": {
-              "English (US/CA)": "Display Target:"
-            },
-            "Tooltip": {}
-          },
-          "DisplayTargetList": {
-            "Tooltip": {}
           }
         },
         "Log": {
@@ -455,6 +462,38 @@
           "Tooltip": {
             "English (US/CA)": "When checked, the ALT key must be held down in order to drag the notification window around with the mouse."
           }
+        },
+        "SavePosition": {
+          "Content": {
+            "English (US/CA)": "Save Position"
+          },
+          "Tooltip": {}
+        },
+        "DoFadeIn": {
+          "Content": {
+            "English (US/CA)": "Fade In"
+          },
+          "Tooltip": {
+            "English (US/CA)": "When checked, the notification window shows a fade-in animation instead of instantly appearing."
+          }
+        },
+        "FadeInDuration": {
+          "Tooltip": {
+            "English (US/CA)": "Specifies the duration of the fade-in animation in milliseconds."
+          }
+        },
+        "DoFadeOut": {
+          "Content": {
+            "English (US/CA)": "Fade Out"
+          },
+          "Tooltip": {
+            "English (US/CA)": "When checked, the notification window shows a fade-out animation instead of instantly disappearing."
+          }
+        },
+        "FadeOutDuration": {
+          "Tooltip": {
+            "English (US/CA)": "Specifies the duration of the fade-out animation in milliseconds."
+          }
         }
       }
     },
@@ -484,6 +523,14 @@
           "ConfirmRemove": {
             "English (US/CA)": "Confirm Remove"
           }
+        }
+      },
+      "DisplayTargetsHelp": {
+        "Message": {
+          "English (US/CA)": "A display target is a collection of triggers, controls, colors, & logic that determine the behaviour and appearance of the notification window.\nDisplay targets also change when the notification window appears. For example, the Audio Sessions display target shows the notification window when the selected session is changed or (un)locked, or when the session's volume or mute state changes."
+        },
+        "Caption": {
+          "English (US/CA)": "Display Targets Help"
         }
       }
     },

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows.Input;
+using VolumeControl.Core.Enum;
 
 namespace VolumeControl.Core.Input
 {

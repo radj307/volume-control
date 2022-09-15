@@ -4,9 +4,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
-using VolumeControl.Attributes;
 using VolumeControl.Core;
-using VolumeControl.Core.Enum;
 using VolumeControl.Helpers.Win32;
 using VolumeControl.Log;
 using VolumeControl.WPF;
@@ -36,9 +34,7 @@ namespace VolumeControl.Helpers
             // Get the current version number & release type
             this.CurrentVersion = Settings.__VERSION__;
             this.CurrentVersionString = this.CurrentVersion.ToString();
-            this.ReleaseType = asm.GetCustomAttribute<ReleaseType>()?.Type ?? ERelease.NONE;
             Log.Debug($"{nameof(VCSettings)}.{nameof(this.CurrentVersion)} = '{this.CurrentVersionString}'");
-            Log.Debug($"{nameof(VCSettings)}.{nameof(this.ReleaseType)} = '{this.ReleaseType}'");
 
             this.RunAtStartup = RunAtStartupHelper.ValueEquals(this.ExecutablePath);
 
@@ -62,8 +58,6 @@ namespace VolumeControl.Helpers
         public string CurrentVersionString { get; }
         /// <inheritdoc/>
         public SemVersion CurrentVersion { get; }
-        /// <inheritdoc/>
-        public ERelease ReleaseType { get; }
         #endregion ReadOnlyProperties
         /// <inheritdoc cref="Config.EnableDefaultDevice"/>
         public bool EnableDefaultDevice
@@ -111,46 +105,6 @@ namespace VolumeControl.Helpers
         {
             get => Settings.ShowUpdatePrompt;
             set => Settings.ShowUpdatePrompt = value;
-        }
-        /// <inheritdoc/>
-        public bool NotificationEnabled
-        {
-            get => Settings.NotificationsEnabled;
-            set => Settings.NotificationsEnabled = value;
-        }
-        /// <inheritdoc/>
-        public int NotificationTimeout
-        {
-            get => Settings.NotificationTimeoutMs;
-            set => Settings.NotificationTimeoutMs = value;
-        }
-        /// <inheritdoc/>
-        public bool NotificationTimeoutEnabled
-        {
-            get => Settings.NotificationTimeoutEnabled;
-            set => Settings.NotificationTimeoutEnabled = value;
-        }
-        /// <inheritdoc/>
-        public bool NotificationShowsCustomControls
-        {
-            get => Settings.NotificationShowsCustomControls;
-            set => Settings.NotificationShowsCustomControls = value;
-        }
-        /// <inheritdoc/>
-        public bool NotificationShowsVolumeChange
-        {
-            get => Settings.NotificationsOnVolumeChange;
-            set => Settings.NotificationsOnVolumeChange = value;
-        }
-        public bool NotificationDragRequiresAlt
-        {
-            get => Settings.NotificationMoveRequiresAlt;
-            set => Settings.NotificationMoveRequiresAlt = value;
-        }
-        public bool NotificationSavesPosition
-        {
-            get => Settings.NotificationSavePos;
-            set => Settings.NotificationSavePos = value;
         }
         public ObservableImmutableList<string> CustomLocalizationDirectories
         {

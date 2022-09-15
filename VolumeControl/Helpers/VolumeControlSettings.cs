@@ -11,14 +11,17 @@ using VolumeControl.Audio;
 using VolumeControl.Core;
 using VolumeControl.Core.Enum;
 using VolumeControl.Core.Input.Actions;
+using VolumeControl.Core.Interfaces;
 using VolumeControl.Helpers.Addon;
 using VolumeControl.Helpers.Update;
 using VolumeControl.Hotkeys;
 using VolumeControl.Hotkeys.Addons;
 using VolumeControl.Log;
+using VolumeControl.SDK;
 using VolumeControl.SDK.Internal;
 using VolumeControl.TypeExtensions;
 using VolumeControl.ViewModels;
+using VolumeControl.WPF.Converters;
 
 namespace VolumeControl.Helpers
 {
@@ -33,30 +36,35 @@ namespace VolumeControl.Helpers
 
             this.AudioAPI = new();
             string? i = Loc.Instance.AvailableLanguages[0];
-            AddonManager = new(this);
 
             // Hotkey Action Addons:
             HotkeyActionManager actionManager = new();
-            // Add built-in action container types
-            actionManager.Types.Add(typeof(AudioDeviceActions));
-            actionManager.Types.Add(typeof(AudioSessionActions));
-            actionManager.Types.Add(typeof(ApplicationActions));
-            actionManager.Types.Add(typeof(MediaActions));
 
             // Create the hotkey manager
             this.HotkeyAPI = new(actionManager);
 
             // Initialize the addon API
-            Initializer.Initialize(this.AudioAPI, this.HotkeyAPI, this.MainWindowHandle, (Config.Default as Config)!);
+            var api = Initializer.Initialize(this.AudioAPI, this.HotkeyAPI, this.MainWindowHandle, (Config.Default as Config)!);
 
-            // Create a list of all addon manager types
-            List<IBaseAddon> addonControllers = new()
+            VCHotkeyAddon vcHkAddon = new();
+
+            // Load default types
+            vcHkAddon.LoadTypes(typeof(AudioDeviceActions), typeof(AudioSessionActions), typeof(ApplicationActions), typeof(MediaActions));
+
+            AddonDirectories.ForEach(dir =>
             {
-                actionManager
-            };
-
-            // Load addon types into the addon list
-            AddonManager.LoadAddons(ref addonControllers);
+                if (Directory.Exists(dir))
+                {
+                    foreach (string dll in Directory.EnumerateFiles(dir, "*.dll", new EnumerationOptions()
+                    {
+                        MatchCasing = MatchCasing.CaseInsensitive,
+                        RecurseSubdirectories = false,
+                    }))
+                    {
+                        vcHkAddon.LoadAssemblyFrom(dll);
+                    }
+                }
+            });
 
             // Retrieve a list of all loaded action names
             const char sort_last = (char)('z' + 1);
@@ -86,13 +94,17 @@ namespace VolumeControl.Helpers
                     UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
                 }));
             // device target show triggers
-            Core.Helpers.ConditionalEventForward? cefSelectedDeviceSwitched = ldtDevices.AddConditionalEventForward(() => Settings.NotificationsEnabled);
+            ConditionalEventForward? cefSelectedDeviceSwitched = ldtDevices.AddConditionalEventForward(() => Settings.NotificationsEnabled);
             AudioDeviceActions.SelectedDeviceSwitched += (s, e) =>
             {
                 cefSelectedDeviceSwitched.Handler(s, e);
                 if (!this.ListNotificationVM.IsDisplayTarget(ldtDevices) || !cefSelectedDeviceSwitched.Condition()) return;
                 this.ListNotificationVM.RaisePropertyChanged(nameof(this.ListNotificationVM.PropertyChanged), new PropertyChangedEventArgs(nameof(this.ListNotificationVM.SelectedItem)));
             };
+            var cefEnableDeviceChanged = ldtDevices.AddConditionalEventForward(() => Settings.NotificationsEnabled );
+            AudioAPI.Devices.DeviceEnabledChanged += cefEnableDeviceChanged.Handler;
+            var cefDeviceVolumeChanged = ldtDevices.AddConditionalEventForward(() => Settings.NotificationsEnabled && Settings.NotificationsOnVolumeChange);
+            AudioAPI.Devices.DeviceVolumeChanged += cefDeviceVolumeChanged.Handler;
             AudioDeviceActions.SelectedDeviceVolumeChanged += ldtDevices.AddConditionalEventForward(() => Settings.NotificationsEnabled && Settings.NotificationsOnVolumeChange).Handler;
 
 
@@ -120,16 +132,22 @@ namespace VolumeControl.Helpers
                         WhenTrue = Config.NotificationLockedBrush,
                         WhenFalse = Config.NotificationUnlockedBrush
                     }
+                }),
+                (ListDisplayTarget.SelectedItemControlsProperty, new Binding()
+                {
+                    Source = ListNotificationVM,
+                    Path = new PropertyPath($"{nameof(ListDisplayTarget.SelectedItem)}.{nameof(IListDisplayable.DisplayControls)}"),
                 }));
             // session target show triggers
-            Core.Helpers.ConditionalEventForward? cefSessionSwitched = ldtSessions.AddConditionalEventForward(() => Settings.NotificationsEnabled);
+            var cefSessionSwitched = ldtSessions.AddConditionalEventForward(() => Settings.NotificationsEnabled);
             this.AudioAPI.SelectedSessionSwitched += (s, e) =>
             {
                 cefSessionSwitched.Handler(s, e);
-                if (!this.ListNotificationVM.IsDisplayTarget(ldtSessions) || !cefSessionSwitched.Condition()) return;
+                if (!this.ListNotificationVM.IsDisplayTarget(ldtSessions)) return;
                 this.ListNotificationVM.RaisePropertyChanged(nameof(this.ListNotificationVM.SelectedItem));
+                this.ListNotificationVM.RaisePropertyChanged(nameof(this.ListNotificationVM.SelectedItemControls));
             };
-            Core.Helpers.ConditionalEventForward? cefLockSelectedSessionChanged = ldtSessions.AddConditionalEventForward(() => Settings.NotificationsEnabled);
+            var cefLockSelectedSessionChanged = ldtSessions.AddConditionalEventForward(() => Settings.NotificationsEnabled);
             this.AudioAPI.LockSelectedSessionChanged += (s, e) =>
             {
                 cefLockSelectedSessionChanged.Handler(s, e);
@@ -139,7 +157,7 @@ namespace VolumeControl.Helpers
             this.AudioAPI.SelectedSessionVolumeChanged += ldtSessions.AddConditionalEventForward(() => Settings.NotificationsEnabled && Settings.NotificationsOnVolumeChange).Handler;
 
             // Set the active display target
-            this.ListNotificationVM.SetDisplayTarget(ldtSessions);
+            this.ListNotificationVM.SetDisplayTarget(this.ListNotificationVM.FindDisplayTarget(Settings.NotificationDisplayTarget) ?? ldtSessions);
 
             Log.Info($"Volume Control v{this.CurrentVersionString}");
         }
@@ -167,7 +185,7 @@ namespace VolumeControl.Helpers
         private bool disposedValue;
         private IEnumerable<string>? _targetAutoCompleteSource;
         #endregion PrivateFields
-        public readonly AddonManager AddonManager;
+        //public readonly AddonManager AddonManager;
         public readonly Updater Updater;
         #endregion Fields
 
@@ -177,8 +195,9 @@ namespace VolumeControl.Helpers
         /// This is used by the target box's autocomplete feature, and is automatically invalidated & refreshed each time the sessions list changes.
         /// </summary>
         public IEnumerable<string> TargetAutoCompleteSource => _targetAutoCompleteSource ??= this.AudioAPI.GetSessionNames(AudioAPI.SessionNameFormat.ProcessIdentifier | AudioAPI.SessionNameFormat.ProcessName);
-        public IEnumerable<IActionBinding> Actions { get; internal set; } = null!;
+        public IEnumerable<IHotkeyAction> Actions { get; internal set; } = null!;
         public IEnumerable<string> NotificationModes { get; set; } = Enum.GetNames(typeof(DisplayTarget));
+        public IEnumerable<string> AddonDirectories { get; set; } = GetAddonDirectories();
         #endregion Other
 
         #region Statics
@@ -243,6 +262,37 @@ namespace VolumeControl.Helpers
         ~VolumeControlSettings()
         {
             this.Dispose(disposing: true);
+        }
+        private static List<string> GetAddonDirectories()
+        {
+            List<string> l = new();
+            // check default path:
+            string defaultPath = Path.Combine(PathFinder.LocalAppData, "Addons");
+            if (Directory.Exists(defaultPath))
+                _ = l.AddIfUnique(defaultPath);
+            // check custom directories:
+            if (Settings.CustomAddonDirectories is not null)
+            {
+                foreach (string? path in Settings.CustomAddonDirectories)
+                {
+                    if (path is null) continue;
+                    if (Directory.Exists(path))
+                    {
+                        _ = l.AddIfUnique(path);
+                        Log.Debug($"Successfully added custom addon search directory '{path}'");
+                    }
+                    else
+                    {
+                        Log.Debug($"'{nameof(Settings.CustomAddonDirectories)}' contains an item that wasn't found: '{path}'!");
+                    }
+                }
+            }
+            else
+            {
+                Log.Debug($"{nameof(Settings.CustomAddonDirectories)} is null.");
+            }
+
+            return l;
         }
         #endregion Methods
     }

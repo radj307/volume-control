@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using VolumeControl.Core;
 using VolumeControl.Core.Input;
+using VolumeControl.Core.Interfaces;
 using VolumeControl.Hotkeys.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;

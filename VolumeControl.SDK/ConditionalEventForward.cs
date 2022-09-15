@@ -1,6 +1,6 @@
 ﻿using VolumeControl.TypeExtensions;
 
-namespace VolumeControl.Core.Helpers
+namespace VolumeControl.SDK
 {
     /// <summary>
     /// Forwards event triggers when the specified <see cref="Condition"/> is <see langword="true"/>.
@@ -54,6 +54,12 @@ namespace VolumeControl.Core.Helpers
         /// <param name="sender">This is forwarded to the first parameter in any handlers attached to <see cref="Event"/>.</param>
         /// <param name="e">This is forwarded to the second parameter in any handlers attached to <see cref="Event"/>.</param>
         public void Handler(object? sender, object e)
+        {
+            if (!this.Condition()) return;
+            Event?.Invoke(sender, e);
+        }
+        /// <inheritdoc cref="Handler(object?, object)"/>
+        public void Handler<T>(object? sender, T e) where T : struct
         {
             if (!this.Condition()) return;
             Event?.Invoke(sender, e);

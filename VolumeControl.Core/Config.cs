@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using VolumeControl.Core.Enum;
 using VolumeControl.Core.Helpers;
 using VolumeControl.Core.Input;
 using VolumeControl.Log;
@@ -265,12 +266,32 @@ namespace VolumeControl.Core
         /// <summary>
         /// Gets or sets the corner from which ListNotification size transform operations are rooted.
         /// </summary>
-        public ScreenCorner NotificationWindowOriginCorner { get; set; } = ScreenCorner.BottomLeft;
+        public ScreenCorner NotificationPositionOriginCorner { get; set; } = ScreenCorner.BottomLeft;
         /// <summary>
         /// Gets or sets whether the <see cref="NotificationWindowOriginCorner"/> is automatically determined by figuring out which screen corner the centerpoint of the window is closest to.<br/>
         /// If the centerpoint of the window is <b>exactly</b> in the center of the screen, the value of <see cref="NotificationWindowOriginCorner"/> is used instead.
         /// </summary>
-        public bool NotificationWindowOriginCornerAuto { get; set; } = true;
+        //public bool NotificationWindowOriginCornerAuto { get; set; } = true;
+        /// <summary>
+        /// Gets or sets whether the notification window slowly fades in instead of appearing instantly.
+        /// </summary>
+        public bool NotificationDoFadeIn { get; set; } = true;
+        /// <summary>
+        /// Gets or sets the duration of the notification fade-in animation.
+        /// </summary>
+        public Duration NotificationFadeInDuration { get; set; } = new(TimeSpan.FromMilliseconds(300));
+        /// <summary>
+        /// Gets or sets whether the notification window slowly fades out instead of disappearing instantly.
+        /// </summary>
+        public bool NotificationDoFadeOut { get; set; } = true;
+        /// <summary>
+        /// Gets or sets the duration of the notification fade-in animation.
+        /// </summary>
+        public Duration NotificationFadeOutDuration { get; set; } = new(TimeSpan.FromMilliseconds(500));
+        /// <summary>
+        /// Gets or sets the name of the currently-selected list notification display target.
+        /// </summary>
+        public string NotificationDisplayTarget { get; set; } = "Audio Sessions";
         #endregion Notifications
 
         #region Updates

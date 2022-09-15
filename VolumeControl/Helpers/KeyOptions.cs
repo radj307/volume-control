@@ -6,6 +6,9 @@ using System.Windows.Input;
 
 namespace VolumeControl.Helpers
 {
+    /// <summary>
+    /// Container for <see cref="Key"/> enum values that are shown in the UI.
+    /// </summary>
     public class KeyOptions : ICollection<Key>, IEnumerable<Key>, IEnumerable, IList<Key>, IReadOnlyCollection<Key>, IReadOnlyList<Key>, ICollection, IList
     {
         /// <summary>

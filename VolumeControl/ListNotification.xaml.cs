@@ -1,11 +1,17 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Threading;
 using VolumeControl.Core;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
+using VolumeControl.SDK;
+using VolumeControl.TypeExtensions;
 using VolumeControl.ViewModels;
 
 namespace VolumeControl
@@ -27,13 +33,6 @@ namespace VolumeControl
 
             this.InitializeComponent();
 
-            // set the window position
-            if (Settings.NotificationSavePos && Settings.NotificationPosition.HasValue)
-                this.SetPos(Settings.NotificationPosition.Value);
-            else // use the default location
-                this.SetPos(new(SystemParameters.WorkArea.Right - this.Width - 10, SystemParameters.WorkArea.Bottom - this.Height - 10));
-
-
             // create the timeout timer instance
             if (Settings.NotificationTimeoutMs <= 0)
             { // validate the timeout value before using it for the timer interval
@@ -51,6 +50,7 @@ namespace VolumeControl
             Settings.PropertyChanged += this.Settings_PropertyChanged;
 
             this.VCSettings.ListNotificationVM.Show += this.ListNotificationVM_Show;
+            this.VCSettings.ListNotificationVM.PropertyChanged += this.ListNotificationVM_PropertyChanged;
 
             MainWindow.Closed += (s, e) =>
             {
@@ -58,14 +58,35 @@ namespace VolumeControl
                 this.Close();
             };
         }
+        private void lnotifWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!_loaded)
+            {
+                _loaded = true;
+                if (Settings.NotificationSavePos && Settings.NotificationPosition is Point pos)
+                {
+                    SetPosAtCorner(Settings.NotificationPositionOriginCorner, pos);
+                }
+                else
+                {
+                    SetPos(new(SystemParameters.WorkArea.Right - this.ActualWidth - 10, SystemParameters.WorkArea.Bottom - this.ActualHeight - 10));
+                }
+            }
+        }
         #endregion Initializers
 
         #region Fields
         private readonly System.Timers.Timer _timer;
         private bool _allowClose = false;
+        private bool _loaded = false;
+        private bool _fading = false;
+        private bool _fadingIn = false;
         #endregion Fields
 
         #region Properties
+        private CompositionTarget? CompositionTarget => PresentationSource.FromVisual(this)?.CompositionTarget;
+        private Storyboard FadeInStoryboard => (FindResource(nameof(FadeInStoryboard)) as Storyboard)!;
+        private Storyboard FadeOutStoryboard => (FindResource(nameof(FadeOutStoryboard)) as Storyboard)!;
         private static Window MainWindow => App.Current.MainWindow;
         private static LogWriter Log => FLog.Log;
         private static Config Settings => (Config.Default as Config)!;
@@ -94,13 +115,55 @@ namespace VolumeControl
 
         #region Show/Hide
         public new void Show()
-        { // override the show method to add timer controls
+        {
+            if (_timer.Enabled) this.StopTimer();
+            if (!Settings.NotificationDoFadeIn)
+            { // fade-in disabled:
+                this.ForceShow();
+            }
+            else if (IsVisible && !_fadingIn)
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    FadeOutStoryboard.Stop(this);
+                    ForceShow();
+                    _fading = false;
+                    _fadingIn = false;
+                });
+            }
+            else if (!IsVisible)
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    Opacity = 0.0;
+                    ForceShow();
+                    _fading = true;
+                    _fadingIn = true;
+                    FadeInStoryboard.Begin(this, true);
+                });
+            }
+            this.StartTimer();
+        }
+        public void ForceShow()
+        {
             if (_timer.Enabled) this.StopTimer();
             this.Dispatcher.Invoke(base.Show);
             this.StartTimer();
         }
         public new void Hide()
-        { // override the hide method to add timer controls
+        {
+            if (!Settings.NotificationDoFadeOut)
+            { // fade-out disabled:
+                this.ForceHide();
+            }
+            else if (!_fading)
+            {
+                _fading = true;
+                this.Dispatcher.Invoke(() => FadeOutStoryboard.Begin(this, true));
+            }
+        }
+        public void ForceHide()
+        {
             this.StopTimer();
             this.Dispatcher.Invoke(base.Hide);
         }
@@ -125,7 +188,36 @@ namespace VolumeControl
         #endregion Methods
 
         #region EventHandlers
+        private void fadeOutWindowStoryboard_Completed(object sender, EventArgs e)
+        {
+            this.ForceHide();
+            _fading = false;
+        }
+        private void fadeInWindowStoryboard_Completed(object sender, EventArgs e)
+        {
+            _fading = false;
+            _fadingIn = false;
+        }
+        private void lnotifWindow_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (_fading)
+            {
+                FadeOutStoryboard.Stop(this);
+                this.Show();
+            }
+        }
         private void ListNotificationVM_Show(object? sender, object e) => this.Show();
+        private void ListNotificationVM_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName is not string name) return;
+
+            if (name.Equals(nameof(ListNotificationVM.SelectedItemControls)))
+            {
+                selectedItemControlsTemplate.Children.Clear();
+                if (VCSettings.ListNotificationVM.SelectedItemControls is Control[] controls)
+                    AttachListDisplayTargetControlsToStack(selectedItemControlsTemplate, controls);
+            }
+        }
 
         private void Timer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e) => this.Dispatcher.Invoke(() =>
                                                                                                  {
@@ -163,51 +255,94 @@ namespace VolumeControl
                 if (Mouse.LeftButton.Equals(MouseButtonState.Pressed))
                 {
                     this.DragMove(); //< apparently this throws an exception if you release the mouse button really fast
+                    e.Handled = true;
                 }
             }
         }
         /// <summary>Saves the position of the notification window, if enabled by the config.</summary>
         private void lnotifWindow_LocationChanged(object sender, EventArgs e)
         {
-            if (!Settings.NotificationSavePos) return;
-            Settings.NotificationPosition = this.GetPos();
+            if (!Settings.NotificationSavePos || !_loaded) return;
+            Settings.NotificationPositionOriginCorner = GetCurrentScreenCorner();
+            Settings.NotificationPosition = GetPosAtCorner(Settings.NotificationPositionOriginCorner);
         }
         private void lnotifWindow_Closing(object sender, CancelEventArgs e)
         {
             if (!_allowClose) e.Cancel = true;
-        }
-        private void lnotifWindow_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            Core.Helpers.ScreenCorner corner = Settings.NotificationWindowOriginCorner;
-            if (Settings.NotificationWindowOriginCornerAuto)
-            { // automatic corner selection is enabled:
-                // get the centerpoint of this window
-                double
-                    x = this.Left + (e.PreviousSize.Width / 2),
-                    y = this.Top + (e.PreviousSize.Height / 2);
-                //                  floor via truncation   vvv     vvv
-                var scr = System.Windows.Forms.Screen.FromPoint(new((int)x, (int)y));
-
-                // get the centerpoint of this screen
-                var center = new Point(
-                    scr.WorkingArea.Left + (scr.WorkingArea.Width / 2),
-                    scr.WorkingArea.Top + (scr.WorkingArea.Height / 2)
-                    );
-
-                // figure out which corner is the closest & use that
-                bool left = x < center.X, top = y < center.Y;
-
-                if (left && top)
-                    corner = Core.Helpers.ScreenCorner.TopLeft;
-                else if (!left && top)
-                    corner = Core.Helpers.ScreenCorner.TopRight;
-                else if (left && !top)
-                    corner = Core.Helpers.ScreenCorner.BottomLeft;
-                else if (!left && !top)
-                    corner = Core.Helpers.ScreenCorner.BottomRight;
-                // else we're directly in the center; fallback to the value of Settings.NotificationWindowOriginCorner
+            if (Settings.NotificationSavePos)
+            { // set the origin corner & position
+                Settings.NotificationPosition = GetPosAtCorner(Settings.NotificationPositionOriginCorner = GetCurrentScreenCorner());
             }
+        }
+
+        #region Positioning
+        internal Point GetCenterPoint() => new(this.Left + (this.Width / 2), this.Top + (this.Height / 2));
+        internal static System.Windows.Forms.Screen GetScreen(Point pos) => System.Windows.Forms.Screen.FromPoint(new((int)pos.X, (int)pos.Y));
+        internal System.Windows.Forms.Screen GetCurrentScreen() => GetScreen(GetCenterPoint());
+        internal static Point GetScreenCenterPoint(System.Windows.Forms.Screen screen) => new(screen.WorkingArea.Left + (screen.WorkingArea.Width / 2), screen.WorkingArea.Top + (screen.WorkingArea.Height / 2));
+        internal Point GetCurrentScreenCenterPoint() => GetScreenCenterPoint(GetCurrentScreen());
+        internal static Core.Helpers.ScreenCorner GetScreenCorner(System.Windows.Forms.Screen screen, Point pos)
+        {
+
+            // automatic corner selection is enabled:
+            // get the centerpoint of this window
+            (double cx, double cy) = GetScreenCenterPoint(screen);
+
+            // figure out which corner is the closest & use that
+            bool left = pos.X < cx, top = pos.Y < cy;
+
+            if (left && top)
+                return Core.Helpers.ScreenCorner.TopLeft;
+            else if (!left && top)
+                return Core.Helpers.ScreenCorner.TopRight;
+            else if (left && !top)
+                return Core.Helpers.ScreenCorner.BottomLeft;
+            else if (!left && !top)
+                return Core.Helpers.ScreenCorner.BottomRight;
+            // else we're directly in the center; fallback to the value of Settings.NotificationWindowOriginCorner
+
+            return 0;
+        }
+        internal static Core.Helpers.ScreenCorner GetScreenCorner(Point pos) => GetScreenCorner(GetScreen(pos), pos);
+        internal Core.Helpers.ScreenCorner GetCurrentScreenCorner() => GetScreenCorner(GetCenterPoint());
+        internal Point GetPosAtCorner(Core.Helpers.ScreenCorner corner) => corner switch
+        {
+            Core.Helpers.ScreenCorner.TopLeft => CompositionTarget?.TransformToDevice.Transform(new Point(this.Left, this.Top)) ?? new Point(this.Left, this.Top),
+            Core.Helpers.ScreenCorner.TopRight => CompositionTarget?.TransformToDevice.Transform(new Point(this.Left + this.ActualWidth, this.Top)) ?? new Point(this.Left + this.ActualWidth, this.Top),
+            Core.Helpers.ScreenCorner.BottomLeft => CompositionTarget?.TransformToDevice.Transform(new Point(this.Left, this.Top + this.ActualHeight)) ?? new Point(this.Left, this.Top + this.ActualHeight),
+            Core.Helpers.ScreenCorner.BottomRight => CompositionTarget?.TransformToDevice.Transform(new Point(this.Left + this.ActualWidth, this.Top + this.ActualHeight)) ?? new Point(this.Left + this.ActualWidth, this.Top + this.ActualHeight),
+            _ => throw new InvalidEnumArgumentException(nameof(corner), (int)corner, typeof(Core.Helpers.ScreenCorner)),
+        };
+        internal Point GetPosAtCurrentCorner() => GetPosAtCorner(GetCurrentScreenCorner());
+        internal void SetPosAtCorner(Core.Helpers.ScreenCorner corner, Point pos)
+        {
             switch (corner)
+            {
+            case Core.Helpers.ScreenCorner.TopLeft:
+                this.Left = pos.X;
+                this.Top = pos.Y;
+                break;
+            case Core.Helpers.ScreenCorner.TopRight:
+                this.Left = pos.X + this.ActualWidth;
+                this.Top = pos.Y;
+                break;
+            case Core.Helpers.ScreenCorner.BottomLeft:
+                this.Left = pos.X;
+                this.Top = pos.Y - this.ActualHeight;
+                break;
+            case Core.Helpers.ScreenCorner.BottomRight:
+                this.Left = pos.X + this.ActualWidth;
+                this.Top = pos.Y - this.ActualHeight;
+                break;
+            }
+        }
+        protected override void OnRenderSizeChanged(SizeChangedInfo e)
+        {
+            base.OnRenderSizeChanged(e);
+
+            if (!_loaded) return;
+
+            switch (GetCurrentScreenCorner())
             {
             case Core.Helpers.ScreenCorner.TopLeft:
                 break;
@@ -226,9 +361,10 @@ namespace VolumeControl
                 this.Top += e.PreviousSize.Height - e.NewSize.Height;
                 break;
             default:
-                throw new InvalidEnumArgumentException(nameof(Settings.NotificationWindowOriginCorner), (byte)Settings.NotificationWindowOriginCorner, typeof(Core.Helpers.ScreenCorner));
+                throw new InvalidEnumArgumentException(nameof(Settings.NotificationPositionOriginCorner), (byte)Settings.NotificationPositionOriginCorner, typeof(Core.Helpers.ScreenCorner));
             }
         }
+        #endregion Positioning
 
         private static void AttachListDisplayTargetControlsToStack(StackPanel stack, Control[] controls)
         {
@@ -249,6 +385,16 @@ namespace VolumeControl
         {
             if (sender is StackPanel stack)
             {
+                const string listControlName = "displayableControlsTemplate";
+                const string selectedControlName = "selectedItemControlsTemplate";
+                if (stack.Name.Equals(listControlName, StringComparison.Ordinal))
+                {
+                    if (!Settings.NotificationShowsCustomControls) return;
+                }
+                else if (stack.Name.Equals(selectedControlName, StringComparison.Ordinal))
+                {
+                    if (Settings.NotificationShowsCustomControls) return;
+                }
                 if (stack.Tag is Control[] arr)
                 {
                     AttachListDisplayTargetControlsToStack(stack, arr);

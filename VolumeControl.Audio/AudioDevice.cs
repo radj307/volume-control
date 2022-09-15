@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Media;
+using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Interfaces;
 using VolumeControl.Core.Interfaces;
 using VolumeControl.Log;
@@ -260,8 +261,8 @@ namespace VolumeControl.Audio
         /// <summary>
         /// Triggered when the endpoint volume changes from any source.
         /// </summary>
-        public event EventHandler<(float, bool)>? VolumeChanged;
-        private void ForwardVolumeChanged(AudioVolumeNotificationData data) => VolumeChanged?.Invoke(this, (data.MasterVolume, data.Muted));
+        public event VolumeChangedEventHandler? VolumeChanged;
+        private void ForwardVolumeChanged(AudioVolumeNotificationData data) => VolumeChanged?.Invoke(this, new(data));
         /// <summary>Triggered when the <see cref="Sessions"/> collection is modified.</summary>
         public event NotifyCollectionChangedEventHandler? CollectionChanged
         {

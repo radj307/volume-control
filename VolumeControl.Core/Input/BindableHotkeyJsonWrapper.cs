@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Windows.Input;
+using VolumeControl.Core.Enum;
 
 namespace VolumeControl.Core.Input
 {

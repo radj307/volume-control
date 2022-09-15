@@ -76,6 +76,26 @@ namespace VolumeControl.TypeExtensions
 
         #region RaiseEvent
         /// <summary>
+        /// Raises the event specified by <paramref name="eventName"/> on the given <paramref name="source"/> <see cref="object"/> by invoking all of its bound handler delegates.
+        /// </summary>
+        /// <param name="source">The object instance <i>(or <see cref="Type"/> for <see langword="static"/> events/objects)</i> on which to raise an event.</param>
+        /// <param name="eventName">The name of the <see langword="event"/> property in the <paramref name="source"/> type.</param>
+        /// <param name="args">The arguments to invoke the event handlers with.</param>
+        public static void RaiseEvent(this object source, string eventName, object[] args)
+        {
+            if (source.GetType().GetField(eventName, BindingFlags.Instance | BindingFlags.NonPublic) is FieldInfo fInfo)
+            {
+                if (fInfo?.GetValue(source) is MulticastDelegate multicastDelegate)
+                {
+                    foreach (Delegate handler in multicastDelegate.GetInvocationList())
+                    {
+                        handler.Method.Invoke(handler.Target, args);
+                    }
+                }
+            }            
+        }
+
+        /// <summary>
         /// Raises the event named <paramref name="eventName"/> on the object <paramref name="source"/> with the given <paramref name="sender"/> &amp; <paramref name="eventArgs"/> parameters.
         /// <i>Src: <see href="https://stackoverflow.com/a/586156/8705305"/></i>
         /// </summary>

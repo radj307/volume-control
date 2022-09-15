@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace VolumeControl.ViewModels
+namespace VolumeControl.WPF.Converters
 {
     [ValueConversion(typeof(bool), typeof(Brush))]
     public class BoolToBrushConverter : DependencyObject, IValueConverter, INotifyPropertyChanged
@@ -44,7 +44,9 @@ namespace VolumeControl.ViewModels
         #endregion Events
 
         #region ValueConverter
+        /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value is bool b ? b ? this.WhenTrue : (object)this.WhenFalse : this.WhenNull;
+        /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is Brush b)

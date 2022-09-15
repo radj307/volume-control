@@ -35,6 +35,9 @@ namespace VolumeControl
             if (Settings.StartMinimized) this.Hide();
             // Initialize the list notification window so it can appear
             _ = WindowHandleGetter.GetWindowHandle((this.FindResource("Notification") as ListNotification)!);
+#if DEBUG
+            //(FindResource("DebugWindow") as DebugWindow)!.Show();
+#endif
         }
         #endregion Setup
 
@@ -123,7 +126,14 @@ namespace VolumeControl
         }
 
         /// <inheritdoc cref="VolumeControlSettings.ResetHotkeySettings"/>
-        private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e) => this.VCSettings.ResetHotkeySettings();
+        private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e)
+        {
+            if (!Settings.AdvancedHotkeys)
+            {
+
+            }
+            this.VCSettings.ResetHotkeySettings();
+        }
 
         private void Handle_BrowseForLogFilePathClick(object sender, RoutedEventArgs e)
         {
@@ -195,5 +205,10 @@ namespace VolumeControl
         }
         private void Handle_ReloadLanguageConfigs(object sender, RoutedEventArgs e) => LocalizationHelper.ReloadLanguageConfigs();
         #endregion EventHandlers
+
+        private void DisplayTargetsHyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("A display target is a collection of triggers, controls, colors, & logic that determine the behaviour and appearance of the notification window.\nDisplay targets also change when the notification window appears. For example, the Audio Sessions display target shows the notification window when the selected session is changed or (un)locked, or when the session's volume or mute state changes.", "Help", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+        }
     }
 }

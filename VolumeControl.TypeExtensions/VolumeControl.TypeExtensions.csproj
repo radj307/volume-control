@@ -7,6 +7,7 @@
 		<Copyright>GNU General Public License v3 </Copyright>
 		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
 		<UseWindowsForms>true</UseWindowsForms>
+		<UseWPF>true</UseWPF>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
