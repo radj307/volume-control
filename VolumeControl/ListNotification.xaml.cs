@@ -1,12 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Threading;
 using VolumeControl.Core;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
@@ -126,6 +124,7 @@ namespace VolumeControl
                 this.Dispatcher.Invoke(() =>
                 {
                     FadeOutStoryboard.Stop(this);
+                    ClearValue(OpacityProperty);
                     ForceShow();
                     _fading = false;
                     _fadingIn = false;
