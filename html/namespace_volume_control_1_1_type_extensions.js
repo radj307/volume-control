@@ -9,6 +9,7 @@ var namespace_volume_control_1_1_type_extensions =
     [ "MathExt", "class_volume_control_1_1_type_extensions_1_1_math_ext.html", "class_volume_control_1_1_type_extensions_1_1_math_ext" ],
     [ "MemberInfoExtensions", "class_volume_control_1_1_type_extensions_1_1_member_info_extensions.html", "class_volume_control_1_1_type_extensions_1_1_member_info_extensions" ],
     [ "NullableBoolExtensions", "class_volume_control_1_1_type_extensions_1_1_nullable_bool_extensions.html", "class_volume_control_1_1_type_extensions_1_1_nullable_bool_extensions" ],
+    [ "PointExtensions", "class_volume_control_1_1_type_extensions_1_1_point_extensions.html", "class_volume_control_1_1_type_extensions_1_1_point_extensions" ],
     [ "ProcessExtensions", "class_volume_control_1_1_type_extensions_1_1_process_extensions.html", "class_volume_control_1_1_type_extensions_1_1_process_extensions" ],
     [ "PropertyInfoExtensions", "class_volume_control_1_1_type_extensions_1_1_property_info_extensions.html", "class_volume_control_1_1_type_extensions_1_1_property_info_extensions" ],
     [ "RealNumberExtensions", "class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html", "class_volume_control_1_1_type_extensions_1_1_real_number_extensions" ],

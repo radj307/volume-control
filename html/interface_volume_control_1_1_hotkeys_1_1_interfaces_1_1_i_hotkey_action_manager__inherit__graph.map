@@ -1,4 +1,4 @@
 <map id="VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager" name="VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager">
-<area shape="rect" id="node1" title="Represents a hotkey action manager object, which contains the list of IActionBindings used in the hot..." alt="" coords="5,131,253,267"/>
+<area shape="rect" id="node1" title="Represents a hotkey action manager object, which contains the list of IHotkeyActions used in the hotk..." alt="" coords="5,131,253,267"/>
 <area shape="rect" id="node2" title=" " alt="" coords="41,5,218,83"/>
 </map>

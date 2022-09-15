@@ -87,8 +87,7 @@ $(document).ready(function(){initNavTree('namespace_volume_control_1_1_core_1_1_
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
 <div class="title">VolumeControl.Core.Input Namespace Reference</div>  </div>
 </div><!--header-->
@@ -97,7 +96,7 @@ $(document).ready(function(){initNavTree('namespace_volume_control_1_1_core_1_1_
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html">BindableHotkey</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wraps a <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html" title="A Hotkey that may be registered with the windows API.">Input.Hotkey</a> instance and exposes an action binding point. <em>(see <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#af479a617b2047f22bebe746ecc86c486" title="Gets or sets the IActionBinding associated with this hotkey instance.">Action</a>)</em>  <a href="class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wraps a <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html" title="A Hotkey that may be registered with the windows API.">Input.Hotkey</a> instance and exposes an action binding point. <em>(see <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#a5058586d5cfb6438691e67eaa7651429" title="Gets or sets the IHotkeyAction associated with this hotkey instance.">Action</a>)</em>  <a href="class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey_json_wrapper.html">BindableHotkeyJsonWrapper</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acts as a temporary wrapper for the <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html" title="Wraps a Input.Hotkey instance and exposes an action binding point. (see Action)">BindableHotkey</a> class so that the JSON parser can read and write it without attempting to register hotkeys before the API is initialized.  <a href="struct_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey_json_wrapper.html#details">More...</a><br /></td></tr>
@@ -105,74 +104,12 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html">Hotkey</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html" title="A Hotkey that may be registered with the windows API.">Hotkey</a> that may be registered with the windows API.  <a href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_i_bindable_hotkey.html">IBindableHotkey</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html" title="Wraps a Input.Hotkey instance and exposes an action binding point. (see Action)">BindableHotkey</a>.  <a href="interface_volume_control_1_1_core_1_1_input_1_1_i_bindable_hotkey.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html">IHotkey</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a hotkey instance.  <a href="interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_modifier_extensions.html">ModifierExtensions</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extension methods for the <a class="el" href="namespace_volume_control_1_1_core_1_1_input.html#a364442fed00f6d2319301e7667676c9f" title="Represents modifier keys that must be held down when pressing a hotkey&#39;s primary key for the hotkey p...">Modifier</a> <code>enum</code>.  <a href="class_volume_control_1_1_core_1_1_input_1_1_modifier_extensions.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><b>WindowsHotkeyAPI</b></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:a364442fed00f6d2319301e7667676c9f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_volume_control_1_1_core_1_1_input.html#a364442fed00f6d2319301e7667676c9f">Modifier</a> : uint { <br />
-&#160;&#160;<a class="el" href="namespace_volume_control_1_1_core_1_1_input.html#a364442fed00f6d2319301e7667676c9fa6adf97f83acf6453d4a6a4b1070f3754">Modifier.None</a> = 0x0000, 
-<a class="el" href="namespace_volume_control_1_1_core_1_1_input.html#a364442fed00f6d2319301e7667676c9faa2e92861b757ab878312dd57993d60cf">Modifier.Alt</a> = 0x0001, 
-<a class="el" href="namespace_volume_control_1_1_core_1_1_input.html#a364442fed00f6d2319301e7667676c9fa2b61e0d5977f2e38f06e16281c802b47">Modifier.Ctrl</a> = 0x0002, 
-<a class="el" href="namespace_volume_control_1_1_core_1_1_input.html#a364442fed00f6d2319301e7667676c9fa825a3d98017bab11815ad2817201324c">Modifier.Shift</a> = 0x0004, 
-<br />
-&#160;&#160;<a class="el" href="namespace_volume_control_1_1_core_1_1_input.html#a364442fed00f6d2319301e7667676c9fa0ce3266d4eb71ad50f7a90aee6d21dcd">Modifier.Super</a> = 0x0008, 
-<a class="el" href="namespace_volume_control_1_1_core_1_1_input.html#a364442fed00f6d2319301e7667676c9fac7b16c118e7c74153dc492343183d298">Modifier.NoRepeat</a> = 0x4000
-<br />
- }</td></tr>
-<tr class="memdesc:a364442fed00f6d2319301e7667676c9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents modifier keys that must be held down when pressing a hotkey's primary key for the hotkey press to be registered.  <a href="namespace_volume_control_1_1_core_1_1_input.html#a364442fed00f6d2319301e7667676c9f">More...</a><br /></td></tr>
-<tr class="separator:a364442fed00f6d2319301e7667676c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="a364442fed00f6d2319301e7667676c9f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a364442fed00f6d2319301e7667676c9f">&#9670;&nbsp;</a></span>Modifier</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="namespace_volume_control_1_1_core_1_1_input.html#a364442fed00f6d2319301e7667676c9f">VolumeControl.Core.Input.Modifier</a> : uint</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Represents modifier keys that must be held down when pressing a hotkey's primary key for the hotkey press to be registered. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a364442fed00f6d2319301e7667676c9fa6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"><p>No modifier keys. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a364442fed00f6d2319301e7667676c9faa2e92861b757ab878312dd57993d60cf"></a>Alt&#160;</td><td class="fielddoc"><p>Left or right ALT key. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a364442fed00f6d2319301e7667676c9fa2b61e0d5977f2e38f06e16281c802b47"></a>Ctrl&#160;</td><td class="fielddoc"><p>Left or right CTRL key. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a364442fed00f6d2319301e7667676c9fa825a3d98017bab11815ad2817201324c"></a>Shift&#160;</td><td class="fielddoc"><p>Left or right SHIFT key. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a364442fed00f6d2319301e7667676c9fa0ce3266d4eb71ad50f7a90aee6d21dcd"></a>Super&#160;</td><td class="fielddoc"><p>Left or right SUPER key.<br  />
- <b>Super is commonly known as the <em>Windows key</em>.</b> </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a364442fed00f6d2319301e7667676c9fac7b16c118e7c74153dc492343183d298"></a>NoRepeat&#160;</td><td class="fielddoc"><p>Changes the hotkey behavior so that the keyboard auto-repeat does not yield multiple hotkey notifications.<br  />
- This flag is not supported on Windows Vista. </p>
-</td></tr>
-</table>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

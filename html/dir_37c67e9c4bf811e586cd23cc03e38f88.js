@@ -4,8 +4,6 @@ var dir_37c67e9c4bf811e586cd23cc03e38f88 =
     [ "BindableHotkey.cs", null, null ],
     [ "BindableHotkeyJsonWrapper.cs", null, null ],
     [ "Hotkey.cs", null, null ],
-    [ "IBindableHotkey.cs", null, null ],
     [ "IHotkey.cs", null, null ],
-    [ "Modifier.cs", null, null ],
     [ "WindowsHotkeyAPI.cs", null, null ]
 ];

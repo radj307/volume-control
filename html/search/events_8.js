@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['volumechanged_1578',['VolumeChanged',['../class_volume_control_1_1_audio_1_1_audio_device.html#a856509b7641dd78c7592838af7a56a55',1,'VolumeControl::Audio::AudioDevice']]]
+  ['unselected_1610',['Unselected',['../class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ad044eab96fde7d1a9d633c3aaccf9921',1,'VolumeControl::SDK::ListDisplayTarget']]]
 ];

@@ -1,15 +1,13 @@
 var searchData=
 [
-  ['actionaddonattribute_754',['ActionAddonAttribute',['../class_volume_control_1_1_hotkeys_1_1_attributes_1_1_action_addon_attribute.html',1,'VolumeControl::Hotkeys::Attributes']]],
-  ['actionbinding_755',['ActionBinding',['../struct_volume_control_1_1_hotkeys_1_1_structs_1_1_action_binding.html',1,'VolumeControl::Hotkeys::Structs']]],
-  ['allowupgradeconfigattribute_756',['AllowUpgradeConfigAttribute',['../class_volume_control_1_1_core_1_1_attributes_1_1_allow_upgrade_config_attribute.html',1,'VolumeControl::Core::Attributes']]],
-  ['applicationactions_757',['ApplicationActions',['../class_volume_control_1_1_hotkeys_1_1_addons_1_1_application_actions.html',1,'VolumeControl::Hotkeys::Addons']]],
-  ['arrayextensions_758',['ArrayExtensions',['../class_volume_control_1_1_type_extensions_1_1_array_extensions.html',1,'VolumeControl::TypeExtensions']]],
-  ['audioapi_759',['AudioAPI',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html',1,'VolumeControl::Audio']]],
-  ['audiodevice_760',['AudioDevice',['../class_volume_control_1_1_audio_1_1_audio_device.html',1,'VolumeControl::Audio']]],
-  ['audiodeviceactions_761',['AudioDeviceActions',['../class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html',1,'VolumeControl::Hotkeys::Addons']]],
-  ['audiodevicecollection_762',['AudioDeviceCollection',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html',1,'VolumeControl::Audio::Collections']]],
-  ['audiosession_763',['AudioSession',['../class_volume_control_1_1_audio_1_1_audio_session.html',1,'VolumeControl::Audio']]],
-  ['audiosessionactions_764',['AudioSessionActions',['../class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_session_actions.html',1,'VolumeControl::Hotkeys::Addons']]],
-  ['audiosessioncollection_765',['AudioSessionCollection',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_session_collection.html',1,'VolumeControl::Audio::Collections']]]
+  ['allowupgradeconfigattribute_770',['AllowUpgradeConfigAttribute',['../class_volume_control_1_1_core_1_1_attributes_1_1_allow_upgrade_config_attribute.html',1,'VolumeControl::Core::Attributes']]],
+  ['applicationactions_771',['ApplicationActions',['../class_volume_control_1_1_hotkeys_1_1_addons_1_1_application_actions.html',1,'VolumeControl::Hotkeys::Addons']]],
+  ['arrayextensions_772',['ArrayExtensions',['../class_volume_control_1_1_type_extensions_1_1_array_extensions.html',1,'VolumeControl::TypeExtensions']]],
+  ['audioapi_773',['AudioAPI',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html',1,'VolumeControl::Audio']]],
+  ['audiodevice_774',['AudioDevice',['../class_volume_control_1_1_audio_1_1_audio_device.html',1,'VolumeControl::Audio']]],
+  ['audiodeviceactions_775',['AudioDeviceActions',['../class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html',1,'VolumeControl::Hotkeys::Addons']]],
+  ['audiodevicecollection_776',['AudioDeviceCollection',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html',1,'VolumeControl::Audio::Collections']]],
+  ['audiosession_777',['AudioSession',['../class_volume_control_1_1_audio_1_1_audio_session.html',1,'VolumeControl::Audio']]],
+  ['audiosessionactions_778',['AudioSessionActions',['../class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_session_actions.html',1,'VolumeControl::Hotkeys::Addons']]],
+  ['audiosessioncollection_779',['AudioSessionCollection',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_session_collection.html',1,'VolumeControl::Audio::Collections']]]
 ];

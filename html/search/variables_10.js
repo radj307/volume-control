@@ -1,6 +1,9 @@
 var searchData=
 [
-  ['this_5bint_20index_5d_1164',['this[int index]',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_session_collection.html#a5abcf02fdda152f346ad74cecc606e42',1,'VolumeControl::Audio::Collections::AudioSessionCollection']]],
-  ['timepointsegmentlength_1165',['TimePointSegmentLength',['../class_volume_control_1_1_log_1_1_timestamp.html#a69c3508e1c1ebecec72da8ed052663b3',1,'VolumeControl::Log::Timestamp']]],
-  ['top_1166',['top',['../struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html#ade3aa5b888dca3e9752fdf0a9f8b5bc7',1,'VolumeControl::WPF::PInvoke::RECT']]]
+  ['selecteditemcontrolsproperty_1185',['SelectedItemControlsProperty',['../class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a3aeca4b2d9f20260a8429f1f653c4863',1,'VolumeControl::SDK::ListDisplayTarget']]],
+  ['selecteditemproperty_1186',['SelectedItemProperty',['../class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a57b45c8fb30dac4cb5e0379d8dbf68aa',1,'VolumeControl::SDK::ListDisplayTarget']]],
+  ['sessionmanager_1187',['SessionManager',['../class_volume_control_1_1_audio_1_1_audio_device.html#aa94b02b55b12ec9943be10f361806952',1,'VolumeControl::Audio::AudioDevice']]],
+  ['state_1188',['State',['../class_volume_control_1_1_audio_1_1_audio_device.html#abdf90179bb0479d6226ac11832a52460',1,'VolumeControl.Audio.AudioDevice.State()'],['../class_volume_control_1_1_audio_1_1_audio_session.html#a7d0a0803254aee7bce75cb6df2307c2b',1,'VolumeControl.Audio.AudioSession.State()']]],
+  ['string_1189',['string',['../class_volume_control_1_1_w_p_f_1_1_icon_getter.html#acca893e3f9d7b49fa4878063c4a08f2d',1,'VolumeControl::WPF::IconGetter']]],
+  ['syncroot_1190',['SyncRoot',['../class_volume_control_1_1_audio_1_1_audio_device.html#ad446adad21a3e7e6874f8b9cc99c3cfa',1,'VolumeControl.Audio.AudioDevice.SyncRoot()'],['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#adf18d4ad3fd4b3aafbbc19767c75a8f3',1,'VolumeControl.Audio.Collections.AudioDeviceCollection.SyncRoot()'],['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_session_collection.html#ababe495bd71480630be6a753df2917aa',1,'VolumeControl.Audio.Collections.AudioSessionCollection.SyncRoot()'],['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a6f8dc51b5050d0252333aa3647486f37',1,'VolumeControl.WPF.Collections.BindableEventType.SyncRoot()']]]
 ];

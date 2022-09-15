@@ -37,7 +37,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer.html#a5bbd5cb83b303a9f6df26fd4ebaa84fb" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer.html#a554bed73713974e7844b1fb940b0a63b" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="9,-49.5 9,-79.5 164,-79.5 164,-49.5 9,-49.5"/>
 <text text-anchor="start" x="17" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.SDK.Internal.</text>
 <text text-anchor="middle" x="86.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">Initializer.Initialize</text>

@@ -72,5 +72,5 @@ var class_volume_control_1_1_audio_1_1_audio_device =
     [ "SessionCreated", "class_volume_control_1_1_audio_1_1_audio_device.html#a143cb48021dfbf83e38234cb7b765a50", null ],
     [ "SessionRemoved", "class_volume_control_1_1_audio_1_1_audio_device.html#a76977035952e86b0ddb749e36264f80e", null ],
     [ "StateChanged", "class_volume_control_1_1_audio_1_1_audio_device.html#a597fbc4420e46a15a93bf6656434d60c", null ],
-    [ "VolumeChanged", "class_volume_control_1_1_audio_1_1_audio_device.html#a856509b7641dd78c7592838af7a56a55", null ]
+    [ "VolumeChanged", "class_volume_control_1_1_audio_1_1_audio_device.html#a4f987722a93e7b766f7d8f2ec669ba26", null ]
 ];

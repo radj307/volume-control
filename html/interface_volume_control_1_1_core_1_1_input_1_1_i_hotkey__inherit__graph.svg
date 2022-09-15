@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 326;
+var viewWidth = 350;
 var viewHeight = 722;
 var sectionId = 'dynsection-0';
 </script>
@@ -58,16 +58,16 @@ var sectionId = 'dynsection-0';
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title="Represents a hotkey instance.">
-<polygon fill="#bfbfbf" stroke="black" points="89,-518.5 89,-619.5 234,-619.5 234,-518.5 89,-518.5"/>
-<text text-anchor="start" x="97" y="-607.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
-<text text-anchor="middle" x="161.5" y="-596.5" font-family="Helvetica,sans-Serif" font-size="10.00">IHotkey</text>
-<polyline fill="none" stroke="black" points="89,-589.5 234,-589.5 "/>
-<text text-anchor="start" x="97" y="-577.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ID</text>
-<text text-anchor="start" x="97" y="-566.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Key</text>
-<text text-anchor="start" x="97" y="-555.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Modifier</text>
-<text text-anchor="start" x="97" y="-544.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Registered</text>
-<polyline fill="none" stroke="black" points="89,-537.5 234,-537.5 "/>
-<text text-anchor="middle" x="161.5" y="-525.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="#bfbfbf" stroke="black" points="95,-518.5 95,-619.5 240,-619.5 240,-518.5 95,-518.5"/>
+<text text-anchor="start" x="103" y="-607.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
+<text text-anchor="middle" x="167.5" y="-596.5" font-family="Helvetica,sans-Serif" font-size="10.00">IHotkey</text>
+<polyline fill="none" stroke="black" points="95,-589.5 240,-589.5 "/>
+<text text-anchor="start" x="103" y="-577.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ID</text>
+<text text-anchor="start" x="103" y="-566.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Key</text>
+<text text-anchor="start" x="103" y="-555.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Modifier</text>
+<text text-anchor="start" x="103" y="-544.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Registered</text>
+<polyline fill="none" stroke="black" points="95,-537.5 240,-537.5 "/>
+<text text-anchor="middle" x="167.5" y="-525.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
@@ -99,17 +99,17 @@ var sectionId = 'dynsection-0';
 <!-- Node1&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node1&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M133.97,-509C129.87,-500.22 125.56,-490.99 121.23,-481.7"/>
-<polygon fill="none" stroke="midnightblue" points="130.92,-510.76 138.32,-518.34 137.27,-507.8 130.92,-510.76"/>
+<path fill="none" stroke="midnightblue" d="M138.14,-509.28C133.71,-500.42 129.04,-491.09 124.35,-481.7"/>
+<polygon fill="none" stroke="midnightblue" points="135.07,-510.96 142.67,-518.34 141.33,-507.83 135.07,-510.96"/>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="interface_volume_control_1_1_core_1_1_input_1_1_i_bindable_hotkey.html" target="_top" xlink:title="Represents a BindableHotkey.">
-<polygon fill="none" stroke="black" points="173,-320 173,-454 318,-454 318,-320 173,-320"/>
-<text text-anchor="start" x="181" y="-442" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
-<text text-anchor="middle" x="245.5" y="-431" font-family="Helvetica,sans-Serif" font-size="10.00">IBindableHotkey</text>
-<polyline fill="none" stroke="black" points="173,-424 318,-424 "/>
+<g id="a_node5"><a xlink:href="interface_volume_control_1_1_core_1_1_interfaces_1_1_i_bindable_hotkey.html" target="_top" xlink:title="Represents a BindableHotkey.">
+<polygon fill="none" stroke="black" points="173,-320 173,-454 342,-454 342,-320 173,-320"/>
+<text text-anchor="start" x="181" y="-442" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Interfaces.</text>
+<text text-anchor="middle" x="257.5" y="-431" font-family="Helvetica,sans-Serif" font-size="10.00">IBindableHotkey</text>
+<polyline fill="none" stroke="black" points="173,-424 342,-424 "/>
 <text text-anchor="start" x="181" y="-412" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
 <text text-anchor="start" x="181" y="-401" font-family="Helvetica,sans-Serif" font-size="10.00">+ Action</text>
 <text text-anchor="start" x="181" y="-390" font-family="Helvetica,sans-Serif" font-size="10.00">+ Alt</text>
@@ -117,91 +117,91 @@ var sectionId = 'dynsection-0';
 <text text-anchor="start" x="181" y="-368" font-family="Helvetica,sans-Serif" font-size="10.00">+ Shift</text>
 <text text-anchor="start" x="181" y="-357" font-family="Helvetica,sans-Serif" font-size="10.00">+ Win</text>
 <text text-anchor="start" x="181" y="-346" font-family="Helvetica,sans-Serif" font-size="10.00">+ NoRepeat</text>
-<polyline fill="none" stroke="black" points="173,-339 318,-339 "/>
-<text text-anchor="middle" x="245.5" y="-327" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="173,-339 342,-339 "/>
+<text text-anchor="middle" x="257.5" y="-327" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node5 -->
 <g id="edge4" class="edge">
 <title>Node1&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M189.13,-508.8C197.31,-491.26 206.32,-471.96 214.69,-454.02"/>
-<polygon fill="none" stroke="midnightblue" points="185.73,-507.8 184.68,-518.34 192.08,-510.76 185.73,-507.8"/>
+<path fill="none" stroke="midnightblue" d="M196.86,-509.29C205.69,-491.62 215.44,-472.12 224.49,-454.02"/>
+<polygon fill="none" stroke="midnightblue" points="193.67,-507.83 192.33,-518.34 199.93,-510.96 193.67,-507.83"/>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:title=" ">
-<polygon fill="none" stroke="#bfbfbf" points="34,-656.5 34,-713.5 167,-713.5 167,-656.5 34,-656.5"/>
-<text text-anchor="middle" x="100.5" y="-701.5" font-family="Helvetica,sans-Serif" font-size="10.00">INotifyPropertyChanged</text>
-<polyline fill="none" stroke="#bfbfbf" points="34,-694.5 167,-694.5 "/>
-<text text-anchor="middle" x="100.5" y="-682.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="34,-675.5 167,-675.5 "/>
-<text text-anchor="middle" x="100.5" y="-663.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="none" stroke="#bfbfbf" points="40,-656.5 40,-713.5 173,-713.5 173,-656.5 40,-656.5"/>
+<text text-anchor="middle" x="106.5" y="-701.5" font-family="Helvetica,sans-Serif" font-size="10.00">INotifyPropertyChanged</text>
+<polyline fill="none" stroke="#bfbfbf" points="40,-694.5 173,-694.5 "/>
+<text text-anchor="middle" x="106.5" y="-682.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="40,-675.5 173,-675.5 "/>
+<text text-anchor="middle" x="106.5" y="-663.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node1 -->
 <g id="edge1" class="edge">
 <title>Node2&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M120.04,-647.48C124.79,-638.61 129.94,-628.97 134.96,-619.61"/>
-<polygon fill="none" stroke="midnightblue" points="116.9,-645.94 115.27,-656.4 123.07,-649.24 116.9,-645.94"/>
+<path fill="none" stroke="midnightblue" d="M126.04,-647.48C130.79,-638.61 135.94,-628.97 140.96,-619.61"/>
+<polygon fill="none" stroke="midnightblue" points="122.9,-645.94 121.27,-656.4 129.07,-649.24 122.9,-645.94"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
 <g id="a_node3"><a xlink:title=" ">
-<polygon fill="none" stroke="#bfbfbf" points="185.5,-656.5 185.5,-713.5 259.5,-713.5 259.5,-656.5 185.5,-656.5"/>
-<text text-anchor="middle" x="222.5" y="-701.5" font-family="Helvetica,sans-Serif" font-size="10.00">IDisposable</text>
-<polyline fill="none" stroke="#bfbfbf" points="185.5,-694.5 259.5,-694.5 "/>
-<text text-anchor="middle" x="222.5" y="-682.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="185.5,-675.5 259.5,-675.5 "/>
-<text text-anchor="middle" x="222.5" y="-663.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="none" stroke="#bfbfbf" points="191.5,-656.5 191.5,-713.5 265.5,-713.5 265.5,-656.5 191.5,-656.5"/>
+<text text-anchor="middle" x="228.5" y="-701.5" font-family="Helvetica,sans-Serif" font-size="10.00">IDisposable</text>
+<polyline fill="none" stroke="#bfbfbf" points="191.5,-694.5 265.5,-694.5 "/>
+<text text-anchor="middle" x="228.5" y="-682.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="191.5,-675.5 265.5,-675.5 "/>
+<text text-anchor="middle" x="228.5" y="-663.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
 <!-- Node3&#45;&gt;Node1 -->
 <g id="edge2" class="edge">
 <title>Node3&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M202.96,-647.48C198.21,-638.61 193.06,-628.97 188.04,-619.61"/>
-<polygon fill="none" stroke="midnightblue" points="199.93,-649.24 207.73,-656.4 206.1,-645.94 199.93,-649.24"/>
+<path fill="none" stroke="midnightblue" d="M208.96,-647.48C204.21,-638.61 199.06,-628.97 194.04,-619.61"/>
+<polygon fill="none" stroke="midnightblue" points="205.93,-649.24 213.73,-656.4 212.1,-645.94 205.93,-649.24"/>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
 <g id="a_node6"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html" target="_top" xlink:title="Wraps a Input.Hotkey instance and exposes an action binding point. (see Action)">
-<polygon fill="none" stroke="black" points="173,-0.5 173,-255.5 318,-255.5 318,-0.5 173,-0.5"/>
-<text text-anchor="start" x="181" y="-243.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
-<text text-anchor="middle" x="245.5" y="-232.5" font-family="Helvetica,sans-Serif" font-size="10.00">BindableHotkey</text>
-<polyline fill="none" stroke="black" points="173,-225.5 318,-225.5 "/>
-<text text-anchor="start" x="181" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ID</text>
-<text text-anchor="start" x="181" y="-202.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Valid</text>
-<text text-anchor="start" x="181" y="-191.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ HasError</text>
-<text text-anchor="start" x="181" y="-180.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ErrorMessage</text>
-<text text-anchor="start" x="181" y="-169.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Hotkey</text>
-<text text-anchor="start" x="181" y="-158.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Key</text>
-<text text-anchor="start" x="181" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Modifier</text>
-<text text-anchor="start" x="181" y="-136.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Registered</text>
-<text text-anchor="start" x="181" y="-125.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Alt</text>
-<text text-anchor="start" x="181" y="-114.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Ctrl</text>
-<text text-anchor="start" x="181" y="-103.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Shift</text>
-<text text-anchor="start" x="181" y="-92.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Win</text>
-<text text-anchor="start" x="181" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ NoRepeat</text>
-<text text-anchor="start" x="181" y="-70.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Action</text>
-<text text-anchor="start" x="181" y="-59.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
-<text text-anchor="start" x="181" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Pressed</text>
-<polyline fill="none" stroke="black" points="173,-41.5 318,-41.5 "/>
-<text text-anchor="start" x="181" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ BindableHotkey()</text>
-<text text-anchor="start" x="181" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ BindableHotkey()</text>
-<text text-anchor="start" x="181" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Dispose()</text>
+<polygon fill="none" stroke="black" points="185,-0.5 185,-255.5 330,-255.5 330,-0.5 185,-0.5"/>
+<text text-anchor="start" x="193" y="-243.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
+<text text-anchor="middle" x="257.5" y="-232.5" font-family="Helvetica,sans-Serif" font-size="10.00">BindableHotkey</text>
+<polyline fill="none" stroke="black" points="185,-225.5 330,-225.5 "/>
+<text text-anchor="start" x="193" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ID</text>
+<text text-anchor="start" x="193" y="-202.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Valid</text>
+<text text-anchor="start" x="193" y="-191.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ HasError</text>
+<text text-anchor="start" x="193" y="-180.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ErrorMessage</text>
+<text text-anchor="start" x="193" y="-169.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Hotkey</text>
+<text text-anchor="start" x="193" y="-158.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Key</text>
+<text text-anchor="start" x="193" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Modifier</text>
+<text text-anchor="start" x="193" y="-136.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Registered</text>
+<text text-anchor="start" x="193" y="-125.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Alt</text>
+<text text-anchor="start" x="193" y="-114.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Ctrl</text>
+<text text-anchor="start" x="193" y="-103.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Shift</text>
+<text text-anchor="start" x="193" y="-92.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Win</text>
+<text text-anchor="start" x="193" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ NoRepeat</text>
+<text text-anchor="start" x="193" y="-70.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Action</text>
+<text text-anchor="start" x="193" y="-59.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
+<text text-anchor="start" x="193" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Pressed</text>
+<polyline fill="none" stroke="black" points="185,-41.5 330,-41.5 "/>
+<text text-anchor="start" x="193" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ BindableHotkey()</text>
+<text text-anchor="start" x="193" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ BindableHotkey()</text>
+<text text-anchor="start" x="193" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Dispose()</text>
 </a>
 </g>
 </g>
 <!-- Node5&#45;&gt;Node6 -->
 <g id="edge5" class="edge">
 <title>Node5&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M245.5,-309.44C245.5,-292.45 245.5,-274.01 245.5,-255.61"/>
-<polygon fill="none" stroke="midnightblue" points="242,-309.82 245.5,-319.82 249,-309.82 242,-309.82"/>
+<path fill="none" stroke="midnightblue" d="M257.5,-309.44C257.5,-292.45 257.5,-274.01 257.5,-255.61"/>
+<polygon fill="none" stroke="midnightblue" points="254,-309.82 257.5,-319.82 261,-309.82 254,-309.82"/>
 </g>
 </g>
 </svg>

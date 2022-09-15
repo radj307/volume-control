@@ -11,27 +11,28 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="interface_volume_control_1_1_core_1_1_i_base_addon.html" target="_top" xlink:title="Represents any type of Volume Control addon definition object. &#160;This interface is implemented by the ...">
-<polygon fill="none" stroke="black" points="0,-0.5 0,-30.5 144,-30.5 144,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.IBase</text>
-<text text-anchor="middle" x="72" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Addon</text>
+<g id="a_node1"><a xlink:href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html" target="_top" xlink:title="Represents an invokable method that can be triggered via a hotkey.">
+<polygon fill="none" stroke="black" points="0,-0.5 0,-30.5 145,-30.5 145,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
+<text text-anchor="middle" x="72.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Actions.IHotkeyAction</text>
 </a>
 </g>
 </g>
 <!-- Node1 -->
 <g id="node2" class="node">
 <title>Node1</title>
-<g id="a_node2"><a xlink:href="class_volume_control_1_1_core_1_1_base_addon.html" target="_top" xlink:title="abstract base class for an object that manages an addon.">
-<polygon fill="none" stroke="black" points="180,-6 180,-25 352,-25 352,-6 180,-6"/>
-<text text-anchor="middle" x="266" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.BaseAddon</text>
+<g id="a_node2"><a xlink:href="class_volume_control_1_1_hotkeys_1_1_structs_1_1_hotkey_action.html" target="_top" xlink:title="Wrapper for a hotkey action method type.">
+<polygon fill="none" stroke="black" points="181,-0.5 181,-30.5 352,-30.5 352,-0.5 181,-0.5"/>
+<text text-anchor="start" x="189" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Hotkeys.Structs.</text>
+<text text-anchor="middle" x="266.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">HotkeyAction</text>
 </a>
 </g>
 </g>
 <!-- Node0&#45;&gt;Node1 -->
 <g id="edge1" class="edge">
 <title>Node0&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M154.42,-15.5C162.86,-15.5 171.45,-15.5 179.93,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="154.22,-12 144.22,-15.5 154.22,-19 154.22,-12"/>
+<path fill="none" stroke="midnightblue" d="M155.44,-15.5C163.86,-15.5 172.43,-15.5 180.87,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="155.27,-12 145.27,-15.5 155.27,-19 155.27,-12"/>
 </g>
 </g>
 </svg>

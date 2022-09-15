@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x_1170',['x',['../struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_p_o_i_n_t.html#a535720a8952e6fc1c066805778b56e03',1,'VolumeControl::WPF::PInvoke::POINT']]]
+  ['width_1196',['Width',['../struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html#ab455cf773c1712bf528f63a31a791fdc',1,'VolumeControl::WPF::PInvoke::RECT']]]
 ];

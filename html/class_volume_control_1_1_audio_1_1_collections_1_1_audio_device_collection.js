@@ -44,5 +44,6 @@ var class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection =
     [ "DeviceEnabledChanged", "class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a51f1c9f4cf4c7aa0debddd801a0cddb9", null ],
     [ "DeviceSessionCreated", "class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a0fa6cd759842e5fe546eb51a5914166a", null ],
     [ "DeviceSessionRemoved", "class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#ac9474afbb75bc76bb2860f45cbf85399", null ],
+    [ "DeviceVolumeChanged", "class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#ac311c4825d22ba43e1b791f5c5a848b7", null ],
     [ "PropertyChanged", "class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#ae1da48fc96f099f69e2e77cb83e2accb", null ]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['modifier_1179',['Modifier',['../namespace_volume_control_1_1_core_1_1_input.html#a364442fed00f6d2319301e7667676c9f',1,'VolumeControl::Core::Input']]]
+  ['modifier_1205',['Modifier',['../namespace_volume_control_1_1_core_1_1_enum.html#a02d4f8322be9d4e6c59ff0869322710d',1,'VolumeControl::Core::Enum']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['unsetflag_1081',['UnsetFlag',['../class_volume_control_1_1_core_1_1_input_1_1_modifier_extensions.html#af26cf27edcdb07ba394cf73fe99e6222',1,'VolumeControl::Core::Input::ModifierExtensions']]]
+  ['unsetflag_1101',['UnsetFlag',['../class_volume_control_1_1_core_1_1_enum_1_1_modifier_extensions.html#a2ce861c48542b7bc30bb4e08106f27ea',1,'VolumeControl::Core::Enum::ModifierExtensions']]]
 ];

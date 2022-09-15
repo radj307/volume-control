@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="Represents a hotkey action manager object, which contains the list of IActionBindings used in the hot...">
+<g id="a_node1"><a xlink:title="Represents a hotkey action manager object, which contains the list of IHotkeyActions used in the hotk...">
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-101.5 186,-101.5 186,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-89.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Hotkeys.Interfaces.</text>
 <text text-anchor="middle" x="93" y="-78.5" font-family="Helvetica,sans-Serif" font-size="10.00">IHotkeyActionManager</text>

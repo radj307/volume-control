@@ -2,6 +2,7 @@ var class_volume_control_1_1_type_extensions_1_1_reflection_extensions =
 [
     [ "RaiseEvent", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a1b9eb74a68f0505f59639632d80112c9", null ],
     [ "RaiseEvent", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a3e23e8c7c76f260b94da6ad4817eae28", null ],
+    [ "RaiseEvent", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a9d6a05d41dbc7c6c585212b49436af25", null ],
     [ "RaiseEvent< TEventArgs >", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#aca60efe3fe3da4cccd7560520a37f2f3", null ],
     [ "RaiseEvent< TEventArgs >", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a01e3f149d7f7dd59fd6159c85a3a1cd2", null ],
     [ "RaisePropertyChanged", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#ac6b3a4bdeb5ff20539c02ee258dd9ab8", null ],
