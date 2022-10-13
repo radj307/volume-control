@@ -8,11 +8,6 @@
 A universal, portable, and extensible hotkey framework that lets you control specific applications .  
 Designed for adjusting the volume of your music independently of other programs, such as games and VoIP.  
 
-> ### :new: Volume Control CLI
-> There is also a lightweight commandline version of Volume Control written in C++ that doesn't have hotkeys.  
-> It is intended for use in shell scripts, and allows you to control **both input and output** audio devices/sessions.  
-> You can find it here: https://github.com/radj307/volume-control-cli 
-
 
 ## What It Does
 
