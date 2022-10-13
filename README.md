@@ -5,7 +5,7 @@
 
 ***
 
-A universal, portable, and extensible hotkey framework that lets you control specific applications .  
+A universal, portable, and extensible hotkey framework that lets you control the volume of specific applications, and a whole lot more.  
 Designed for adjusting the volume of your music independently of other programs, such as games and VoIP.  
 
 
@@ -20,10 +20,9 @@ Designed for adjusting the volume of your music independently of other programs,
 
 ## How does it work?
 
-In Volume Control, a ***hotkey*** is just a combination of keys that can be made to execute an ***action***. Any number of hotkeys can trigger the same action.  
-A wide range of actions are provided by default, and you can add more via user-created addons.
+Volume Control uses the same method as the built-in windows volume mixer to modify the volume of specific applications, and the Win32 API to create hotkey combinations; resulting in little to no latency when pressing a hotkey.  
 
-Volume Control maintains the concept of a ***selected*** - also called a ***target*** - audio session that is used to specify **which** audio session or device you want to perform an action on. Actions can be context-sensitive *(i.e. Toggle Media Playback)*, specific to the current ***target*** *(i.e. Session Volume Up/Down)*, or they can always do the same thing regardless of context *(i.e. Next/Previous Target)*.  
+You can have an unlimited number of distinct hotkey combinations at the same time, and each hotkey can be assigned an action. These determine what happens when you press the associated key combination. Most common actions are provided by default, such as *Volume Up*, *Volume Down*, & *Toggle Mute*. You can also write your own actions in C# and use them in Volume Control.
 
 # Getting Started
 
