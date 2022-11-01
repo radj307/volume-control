@@ -14,7 +14,7 @@
     <NeutralLanguage>en-CA</NeutralLanguage>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/radj307/volume-control</RepositoryUrl>
-    <Copyright>Copyright (c) 2022 radj307</Copyright>
+    <Copyright>Copyright © 2022 by $(Authors)</Copyright>
     <ApplicationIcon>Resources\icons\iconSilvered.ico</ApplicationIcon>
     <Company>radj307</Company>
     <Product>Volume Control</Product>
