@@ -3,7 +3,8 @@
 	<PropertyGroup>
 		<TargetFramework>net6.0-windows</TargetFramework>
 		<Nullable>enable</Nullable>
-
+		<Authors>radj307</Authors>
+		<Copyright>Copyright © 2022 by $(Authors)</Copyright>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 

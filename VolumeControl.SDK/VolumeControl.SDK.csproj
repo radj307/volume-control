@@ -7,7 +7,6 @@
     <ErrorReport>none</ErrorReport>
     <Description>Official addon development SDK for the Volume Control application.  https://github.com/radj307/volume-control</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Copyright>GNU General Public License v3 </Copyright>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageTags>volume-control;VolumeControl;volume-control-sdk</PackageTags>
@@ -17,6 +16,7 @@
     <PackageIcon>iconSilvered.png</PackageIcon>
     <PackageProjectUrl>https://radj307.github.io/volume-control/html/index.html</PackageProjectUrl>
     <Authors>radj307</Authors>
+		<Copyright>Copyright © 2022 by $(Authors)</Copyright>
     <NeutralLanguage>en-CA</NeutralLanguage>
     <PackageReleaseNotes>Full Changelog: https://github.com/radj307/volume-control/commits/main</PackageReleaseNotes>
     <Version>5.2.6</Version>
