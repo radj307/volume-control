@@ -101,7 +101,8 @@ namespace VolumeControl
                         $"\n" +
                         $"- 'Yes'     Delete the hotkey.\n" +
                         $"- 'No'      Do not delete the hotkey.\n" +
-                        $"- 'Cancel'  Disable these confirmation prompts in the future. (Does not delete the hotkey)\n"),
+                        $"- 'Cancel'  Disable these confirmation prompts in the future. (Does not delete the hotkey)\n")
+                        .Replace("${ID}", id.ToString()),
                         Loc.Tr("VolumeControl.Dialogs.RemoveHotkey.Caption", "Confirm Remove"),
                         MessageBoxButton.YesNoCancel,
                         MessageBoxImage.Question,
