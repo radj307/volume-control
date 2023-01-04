@@ -102,7 +102,7 @@
                     Style="{StaticResource RoundBorderMaskStyle}" />
                 <WrapPanel
                     MaxWidth="{Binding ActualWidth, ElementName=listView}"
-                    Margin="5,3"
+                    Margin="3,3"
                     Background="{StaticResource panelBrush}"
                     DataContext="{Binding ListNotificationVM, Source={StaticResource Settings}}">
                     <WrapPanel.OpacityMask>
@@ -188,7 +188,6 @@
 
             <ListView
                 Name="listView"
-                Margin="1"
                 Background="{StaticResource panelBrush}"
                 Focusable="{Binding ListNotificationVM.LockSelection, Source={StaticResource Settings}, Mode=OneWay, Converter={StaticResource InvertConverter}}"
                 ItemsSource="{Binding ListNotificationVM.ItemsSource, Source={StaticResource Settings}, Mode=OneWay}"
