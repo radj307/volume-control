@@ -1,6 +1,9 @@
-﻿using System.ComponentModel;
+﻿using Newtonsoft.Json;
+using System.ComponentModel;
 using System.Windows.Input;
 using VolumeControl.Core.Enum;
+using VolumeControl.Core.Input.Actions;
+using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Core.Input
 {
@@ -25,10 +28,15 @@ namespace VolumeControl.Core.Input
         /// Gets or sets whether this hotkey is registered (active).
         /// </summary>
         bool Registered { get; set; }
+        /// <summary>
+        /// Contains any extra parameters required by the currently selected action.
+        /// </summary>
+        [JsonProperty]
+        public ObservableImmutableList<HotkeyActionSetting>? ActionSettings { get; set; }
 
         /// <summary>
         /// Triggered when the hotkey is pressed.
         /// </summary>
-        event HandledEventHandler? Pressed;
+        event HotkeyActionPressedEventHandler? Pressed;
     }
 }

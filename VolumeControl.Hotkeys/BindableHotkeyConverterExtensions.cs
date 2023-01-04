@@ -1,4 +1,5 @@
-﻿using VolumeControl.Core.Input;
+﻿using System.Net.NetworkInformation;
+using VolumeControl.Core.Input;
 using VolumeControl.Core.Interfaces;
 using VolumeControl.Hotkeys.Interfaces;
 
@@ -22,6 +23,7 @@ namespace VolumeControl.Hotkeys
             Key = jsonWrapper.Key,
             Modifier = jsonWrapper.Modifier,
             Action = jsonWrapper.ActionIdentifier is null ? null : actionManager[jsonWrapper.ActionIdentifier],
+            ActionSettings = jsonWrapper.ActionSettings is null ? new() : new(jsonWrapper.ActionSettings),
         };
         /// <summary>
         /// Converts from a <see cref="IBindableHotkey"/> to a <see cref="BindableHotkeyJsonWrapper"/> object for improved serialization.
@@ -35,6 +37,7 @@ namespace VolumeControl.Hotkeys
             Key = bindableHotkey.Key,
             Modifier = bindableHotkey.Modifier,
             ActionIdentifier = bindableHotkey.Action?.Identifier,
+            ActionSettings = bindableHotkey.ActionSettings?.ToList(),
         };
     }
 }

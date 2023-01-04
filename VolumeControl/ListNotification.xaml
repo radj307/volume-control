@@ -180,7 +180,7 @@
         </Expander>
 
         <!--  Outer Layout Grid Control  -->
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Margin="10,6,10,8">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />

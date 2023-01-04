@@ -19,14 +19,14 @@ namespace VolumeControl.Helpers.Addon
 
         protected readonly List<AttributeWrapper> _attributeTypes;
 
-        public (MemberInfo?, Attribute)[]? FindAttributesOnType(Type t)
+        public (MemberInfo?, Attribute)[]? FindMembersWithAttributesInType(Type t)
         {
             List<(MemberInfo?, Attribute)> l = new();
-            foreach (AttributeWrapper attrType in _attributeTypes)
+            foreach (AttributeWrapper attrType in _attributeTypes) //< enumerate through all known attribute types
             {
-                if (attrType.GetFromType(t) is (MemberInfo?, Attribute?)[] arr)
+                if (attrType.GetFromType(t) is (MemberInfo?, Attribute?)[] arr) //< find applicable members within type according to this attribute type
                 {
-                    foreach ((MemberInfo? mInfo, Attribute? attr) in arr)
+                    foreach ((MemberInfo? mInfo, Attribute? attr) in arr) //< validate found attributes
                     {
                         if (attr is not null)
                         {
@@ -79,7 +79,7 @@ namespace VolumeControl.Helpers.Addon
         #endregion Methods
     }
 
-    public class VCDisplayTargetAddon : VCAddonType
+    /*public class VCDisplayTargetAddon : VCAddonType
     {
         public VCDisplayTargetAddon() : base(new AttributeWrapper(typeof(DisplayTargetAttribute)))
         { }
@@ -90,5 +90,5 @@ namespace VolumeControl.Helpers.Addon
 
 
         }
-    }
+    }*/
 }

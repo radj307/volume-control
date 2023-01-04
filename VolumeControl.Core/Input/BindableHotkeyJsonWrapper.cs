@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Windows.Input;
 using VolumeControl.Core.Enum;
+using VolumeControl.Core.Input.Actions;
 
 namespace VolumeControl.Core.Input
 {
@@ -40,5 +41,10 @@ namespace VolumeControl.Core.Input
         /// </summary>
         [JsonProperty]
         public string? ActionIdentifier { get; set; } = null;
+        /// <summary>
+        /// Any extra parameter settings for the hotkey's bound action.
+        /// </summary>
+        [JsonProperty]
+        public List<HotkeyActionSetting>? ActionSettings { get; set; } = null;
     }
 }

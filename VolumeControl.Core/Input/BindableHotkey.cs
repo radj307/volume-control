@@ -4,6 +4,7 @@ using System.Windows.Input;
 using VolumeControl.Core.Enum;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.Core.Interfaces;
+using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Core.Input
 {
@@ -113,10 +114,16 @@ namespace VolumeControl.Core.Input
             set
             {
                 if (_actionBinding is not null)
+                {
                     Pressed -= _actionBinding.HandleKeyEvent;
+                    ActionSettings = null;
+                }
                 _actionBinding = value;
                 if (_actionBinding is not null)
+                {
                     Pressed += _actionBinding.HandleKeyEvent;
+                    ActionSettings = new(_actionBinding.GetDefaultActionSettings());
+                }
             }
         }
         /// <inheritdoc/>
@@ -127,11 +134,21 @@ namespace VolumeControl.Core.Input
         public bool HasError => this.Hotkey.HasError;
         /// <inheritdoc cref="Hotkey.ErrorMessage"/>
         public string? ErrorMessage => this.Hotkey.ErrorMessage;
+        /// <inheritdoc/>
+        public ObservableImmutableList<HotkeyActionSetting>? ActionSettings
+        {
+            get => this.Hotkey.ActionSettings;
+            set => this.Hotkey.ActionSettings = value;
+        }
+        /// <summary>
+        /// Returns <see langword="true"/> when <see cref="ActionSettings"/> is not <see langword="null"/> <b>and</b> has at least 1 item; otherwise <see langword="false"/>.
+        /// </summary>
+        public bool HasActionSettings => ActionSettings?.Count > 0;
         #endregion Properties
 
         #region Events
         /// <inheritdoc/>
-        public event HandledEventHandler? Pressed
+        public event HotkeyActionPressedEventHandler? Pressed
         {
             add => this.Hotkey.Pressed += value;
             remove => this.Hotkey.Pressed -= value;

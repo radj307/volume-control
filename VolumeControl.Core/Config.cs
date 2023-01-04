@@ -333,7 +333,7 @@ namespace VolumeControl.Core
             },
             new()
             {
-                Name = "Volume Up",
+                Name = "Toggle Mute",
                 Key = Key.VolumeMute,
                 Modifier = Modifier.None,
                 ActionIdentifier = "Session:Toggle Mute",

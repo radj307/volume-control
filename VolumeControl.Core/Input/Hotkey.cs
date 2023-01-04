@@ -2,7 +2,9 @@
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using VolumeControl.Core.Enum;
+using VolumeControl.Core.Input.Actions;
 using VolumeControl.Log;
+using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Core.Input
 {
@@ -71,6 +73,8 @@ namespace VolumeControl.Core.Input
         /// When <see cref="HasError"/> is <see langword="true"/>, this retrieves the error message string associated with the error that occurred; when <see cref="HasError"/> is <see langword="false"/>, this is <see langword="null"/>.
         /// </summary>
         public string? ErrorMessage { get; internal set; } = null;
+        /// <inheritdoc/>
+        public ObservableImmutableList<HotkeyActionSetting>? ActionSettings { get; set; }
         #endregion Properties
 
         #region Methods
@@ -104,7 +108,7 @@ namespace VolumeControl.Core.Input
         /// <summary>
         /// Triggered when the hotkey is pressed.
         /// </summary>
-        public event HandledEventHandler? Pressed;
+        public event HotkeyActionPressedEventHandler? Pressed;
 #       pragma warning disable IDE0060 // Remove unused parameter
         internal IntPtr MessageHook(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
@@ -116,7 +120,7 @@ namespace VolumeControl.Core.Input
                     handled = true;
                     try
                     {
-                        Pressed?.Invoke(this, new());
+                        Pressed?.Invoke(this, new(ActionSettings));
                     }
                     catch (Exception ex)
                     {

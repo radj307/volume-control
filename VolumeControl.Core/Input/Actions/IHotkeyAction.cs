@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections;
+using System.ComponentModel;
 using System.Reflection;
+using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Core.Input.Actions
 {
@@ -23,6 +25,10 @@ namespace VolumeControl.Core.Input.Actions
         object? Instance { get; }
         /// <inheritdoc cref="HotkeyActionData"/>
         HotkeyActionData Data { get; set; }
+        /// <summary>
+        /// <see langword="true"/> when the function pointed to by <see cref="MethodInfo"/> requires extra parameters.
+        /// </summary>
+        bool UsesExtraParameters { get; }
 
         /// <summary>
         /// The action's unique identifier.
@@ -37,7 +43,16 @@ namespace VolumeControl.Core.Input.Actions
         /// <inheritdoc cref="HotkeyActionData.ActionGroupBrush"/>
         System.Windows.Media.Brush? GroupBrush => Data.ActionGroupBrush;
 
-        /// <inheritdoc cref="HandledEventHandler"/>
-        void HandleKeyEvent(object? sender, HandledEventArgs e);
+        /// <summary>
+        /// Handles key press events, and executes the action that is associated with this hotkey instance.
+        /// </summary>
+        /// <param name="sender">The hotkey that was pressed.</param>
+        /// <param name="e">The <see cref="HotkeyActionPressedEventArgs"/> event arguments object.<br/>If the action method that you're calling uses extra non-default parameters, the <see cref="HotkeyActionPressedEventArgs.ActionSettings"/> list <b>MUST</b> be correctly filled in, otherwise the action method <b>cannot be called!</b></param>
+        void HandleKeyEvent(object? sender, HotkeyActionPressedEventArgs e);
+        /// <summary>
+        /// Gets the list of extra parameters required to call this action's associated method.
+        /// </summary>
+        /// <returns>A list of <see cref="HotkeyActionSetting"/> objects with their default <see cref="HotkeyActionSetting.Value"/> property values.</returns>
+        List<HotkeyActionSetting> GetDefaultActionSettings();
     }
 }

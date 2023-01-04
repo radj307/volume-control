@@ -580,4 +580,16 @@ namespace VolumeControl.Audio
         #endregion Other
         #endregion Methods
     }
+
+    public class AudioSessionSelector
+    {
+        public AudioSessionSelector(IEnumerable<AudioSession> sessions)
+        {
+            _sessions = sessions;
+        }
+
+        private readonly IEnumerable<AudioSession> _sessions;
+
+
+    }
 }

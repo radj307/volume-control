@@ -14,7 +14,6 @@
     StartupUri="Mixer.xaml">
     <Application.Resources>
         <ResourceDictionary>
-
             <FontFamily x:Key="InterFont">pack://application:,,,/Resources/fonts/#Inter</FontFamily>
             <sys:Double x:Key="GlobalFontSize">13</sys:Double>
 

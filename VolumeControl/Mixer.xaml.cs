@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using VolumeControl.Audio;
 using VolumeControl.Core;
 using VolumeControl.Core.Input;
+using VolumeControl.Core.Interfaces;
 using VolumeControl.Helpers;
 using VolumeControl.Hotkeys;
 using VolumeControl.Log;
@@ -205,6 +206,18 @@ namespace VolumeControl
             }
         }
         private void Handle_ReloadLanguageConfigs(object sender, RoutedEventArgs e) => LocalizationHelper.ReloadLanguageConfigs();
+
+        private void Handle_HotkeyActionSettingsClick(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button b && b.CommandParameter is int hkid && HotkeyAPI.Hotkeys.FirstOrDefault(hk => hk.ID.Equals(hkid)) is IBindableHotkey hk)
+            {
+                ActionSettingsWindow settingsWindow = new();
+                settingsWindow.VM.Hotkey = hk;
+                settingsWindow.VM.WindowTitle = hk.Name;
+                settingsWindow.Owner = this;
+                settingsWindow.ShowDialog();
+            }
+        }
         #endregion EventHandlers
 
         private void DisplayTargetsHyperlink_Click(object sender, RoutedEventArgs e)

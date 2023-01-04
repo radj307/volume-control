@@ -1097,6 +1097,22 @@
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
+                                        <!--  Action Settings  -->
+                                        <DataGridTemplateColumn
+                                            Width="Auto"
+                                            CanUserResize="False"
+                                            Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate DataType="{x:Type input:BindableHotkey}">
+                                                    <Button
+                                                        Width="{Binding Height, RelativeSource={RelativeSource Self}, UpdateSourceTrigger=PropertyChanged}"
+                                                        Click="Handle_HotkeyActionSettingsClick"
+                                                        CommandParameter="{Binding ID}"
+                                                        Content="🛠"
+                                                        IsEnabled="{Binding Action.UsesExtraParameters}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
                                         <!--  Remove  -->
                                         <DataGridTemplateColumn
                                             Width="Auto"
