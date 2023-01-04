@@ -16,11 +16,11 @@
     <PackageIcon>iconSilvered.png</PackageIcon>
     <PackageProjectUrl>https://radj307.github.io/volume-control/html/index.html</PackageProjectUrl>
     <Authors>radj307</Authors>
-		<Copyright>Copyright © 2022 by $(Authors)</Copyright>
+    <Copyright>Copyright © 2022 by $(Authors)</Copyright>
     <NeutralLanguage>en-CA</NeutralLanguage>
     <PackageReleaseNotes>Full Changelog: https://github.com/radj307/volume-control/commits/main</PackageReleaseNotes>
     <Version>5.2.6</Version>
-    <ExtendedVersion>5.2.6-rc7.1</ExtendedVersion>
+    <ExtendedVersion>5.2.6-pr1</ExtendedVersion>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
   <ItemGroup>
