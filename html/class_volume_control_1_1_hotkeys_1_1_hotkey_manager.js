@@ -15,5 +15,7 @@ var class_volume_control_1_1_hotkeys_1_1_hotkey_manager =
     [ "AllSelected", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a10665939fd7003ec08d0865fa97e07d4", null ],
     [ "CollectionChanged", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#aeae3b24e598a0653279fc93e0cd5644f", null ],
     [ "Hotkeys", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a6c58889fc41c90ab63cdb8db5549c99d", null ],
+    [ "Log", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a73370ecb2a0dfb9feac98515eca8c62b", null ],
+    [ "Settings", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#ac5b77c3900cc0efb4da7b5a45fcdbb46", null ],
     [ "PropertyChanged", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a451d022073d12e1297b664d287a72ef3", null ]
 ];

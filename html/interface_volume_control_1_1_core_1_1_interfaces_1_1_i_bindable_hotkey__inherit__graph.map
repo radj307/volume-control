@@ -1,7 +1,7 @@
 <map id="VolumeControl.Core.Interfaces.IBindableHotkey" name="VolumeControl.Core.Interfaces.IBindableHotkey">
-<area shape="rect" id="node1" title="Represents a BindableHotkey." alt="" coords="63,300,288,480"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html" title="Wraps a Input.Hotkey instance and exposes an action binding point. (see Action)" alt="" coords="79,528,272,869"/>
-<area shape="rect" id="node2" href="$interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html" title="Represents a hotkey instance." alt="" coords="122,131,229,252"/>
+<area shape="rect" id="node1" title="Represents a BindableHotkey." alt="" coords="63,315,288,495"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html" title="Wraps a Input.Hotkey instance and exposes an action binding point. (see Action)" alt="" coords="79,543,272,811"/>
+<area shape="rect" id="node2" href="$interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html" title="Represents a hotkey instance." alt="" coords="110,131,241,267"/>
 <area shape="rect" id="node3" title=" " alt="" coords="5,5,183,83"/>
 <area shape="rect" id="node4" title=" " alt="" coords="207,5,306,83"/>
 </map>

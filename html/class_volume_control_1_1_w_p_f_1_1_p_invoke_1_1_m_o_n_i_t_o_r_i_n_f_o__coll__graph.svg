@@ -53,8 +53,8 @@
 <title>Node2&#45;&gt;Node1</title>
 <path fill="none" stroke="#404040" d="M91,-138.46C91,-122.38 91,-106.22 91,-91.81"/>
 <polygon fill="none" stroke="#404040" points="91,-91.65 87,-85.65 91,-79.65 95,-85.65 91,-91.65"/>
-<text text-anchor="middle" x="118.5" y="-112" font-family="Helvetica,sans-Serif" font-size="10.00"> +rcWork</text>
-<text text-anchor="middle" x="118.5" y="-101" font-family="Helvetica,sans-Serif" font-size="10.00">+rcMonitor</text>
+<text text-anchor="middle" x="120" y="-112" font-family="Helvetica,sans-Serif" font-size="10.00"> +rcMonitor</text>
+<text text-anchor="middle" x="120" y="-101" font-family="Helvetica,sans-Serif" font-size="10.00">+rcWork</text>
 </g>
 <!-- Node2&#45;&gt;Node2 -->
 <g id="edge2" class="edge">

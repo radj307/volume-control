@@ -4,5 +4,6 @@ var class_volume_control_1_1_log_1_1_f_log =
     [ "EventFilter", "class_volume_control_1_1_log_1_1_f_log.html#a55949b2f2f9bf2a8bc05a33c95e42474", null ],
     [ "FilePath", "class_volume_control_1_1_log_1_1_f_log.html#a4b879fdd62ee0bcf4557f6270bd352d7", null ],
     [ "Initialized", "class_volume_control_1_1_log_1_1_f_log.html#aff75d36b9195776ec6391bc490b6abbb", null ],
-    [ "Log", "class_volume_control_1_1_log_1_1_f_log.html#affa9bfcea4468b27f8de4637eeb5a65f", null ]
+    [ "Log", "class_volume_control_1_1_log_1_1_f_log.html#affa9bfcea4468b27f8de4637eeb5a65f", null ],
+    [ "Settings", "class_volume_control_1_1_log_1_1_f_log.html#a64d131a2f84d9c11bdaaf2dd282a82c9", null ]
 ];

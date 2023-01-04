@@ -16,7 +16,7 @@
 <text text-anchor="start" x="10.5" y="-216.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.Message</text>
 <text text-anchor="middle" x="80" y="-205.5" font-family="Helvetica,sans-Serif" font-size="10.00">WrapperBase</text>
 <polyline fill="none" stroke="black" points="2.5,-198.5 157.5,-198.5 "/>
-<text text-anchor="start" x="10.5" y="-186.5" font-family="Helvetica,sans-Serif" font-size="10.00">~ Message</text>
+<text text-anchor="start" x="10.5" y="-186.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Message</text>
 <polyline fill="none" stroke="black" points="2.5,-179.5 157.5,-179.5 "/>
 <text text-anchor="start" x="10.5" y="-167.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GetEnumerator()</text>
 <text text-anchor="start" x="10.5" y="-156.5" font-family="Helvetica,sans-Serif" font-size="10.00"># MessageWrapperBase()</text>

@@ -75,7 +75,7 @@
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="class_volume_control_1_1_log_1_1_log_writer.html#a10efb093dfb522f97b14188ee6a3fa5f" target="_top" xlink:title="Writes a log message with a timestamp and log level header.">
+<g id="a_node5"><a xlink:href="class_volume_control_1_1_log_1_1_log_writer.html#af9f117f9eb6d41820bc271ac0f0d4f76" target="_top" xlink:title="Writes a log message with a timestamp and log level header.">
 <polygon fill="none" stroke="black" points="197,-0.5 197,-30.5 358,-30.5 358,-0.5 197,-0.5"/>
 <text text-anchor="start" x="205" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.LogWriter.</text>
 <text text-anchor="middle" x="277.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">WriteEvent</text>
@@ -87,6 +87,22 @@
 <title>Node4&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M383.88,-18.2C375.3,-17.98 366.64,-17.76 358.16,-17.54"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="383.82,-21.7 393.9,-18.46 384,-14.7 383.82,-21.7"/>
+</g>
+<!-- Node6 -->
+<g id="node6" class="node">
+<title>Node6</title>
+<g id="a_node6"><a xlink:href="class_volume_control_1_1_log_1_1_log_writer.html#a23589efc4aa886f386e9d8645338a395" target="_top" xlink:title="Conditional log message, allows you to write different messages depending on the current log filter l...">
+<polygon fill="none" stroke="black" points="0,-0.5 0,-30.5 161,-30.5 161,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.LogWriter.</text>
+<text text-anchor="middle" x="80.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Conditional</text>
+</a>
+</g>
+</g>
+<!-- Node5&#45;&gt;Node6 -->
+<g id="edge6" class="edge">
+<title>Node5&#45;&gt;Node6</title>
+<path fill="none" stroke="midnightblue" d="M186.88,-15.5C178.3,-15.5 169.64,-15.5 161.16,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="186.9,-19 196.9,-15.5 186.9,-12 186.9,-19"/>
 </g>
 </g>
 </svg>

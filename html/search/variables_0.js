@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['active_1113',['Active',['../class_volume_control_1_1_audio_1_1_audio_session.html#ae433e7646bace03ae4c63de18e4f026b',1,'VolumeControl::Audio::AudioSession']]],
-  ['allowupgrade_1114',['AllowUpgrade',['../class_volume_control_1_1_core_1_1_attributes_1_1_allow_upgrade_config_attribute.html#a968462fad3f49c777541d3c2f84be3cb',1,'VolumeControl::Core::Attributes::AllowUpgradeConfigAttribute']]],
-  ['audiometerinformation_1115',['AudioMeterInformation',['../class_volume_control_1_1_audio_1_1_audio_device.html#aabae459aeefb7acb0374423e83030bbc',1,'VolumeControl.Audio.AudioDevice.AudioMeterInformation()'],['../class_volume_control_1_1_audio_1_1_audio_session.html#af588f9e302db7230d391a592e4232ada',1,'VolumeControl.Audio.AudioSession.AudioMeterInformation()']]]
+  ['backgroundproperty_1139',['BackgroundProperty',['../class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a9cb3b386d78bfe537fc1315f0f23bb19',1,'VolumeControl::SDK::ListDisplayTarget']]],
+  ['bottom_1140',['bottom',['../struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html#aa5aae94690b671ffcdd9c8be75e6e81c',1,'VolumeControl::WPF::PInvoke::RECT']]]
 ];

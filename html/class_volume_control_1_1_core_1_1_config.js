@@ -27,6 +27,7 @@ var class_volume_control_1_1_core_1_1_config =
     [ "Hotkeys", "class_volume_control_1_1_core_1_1_config.html#a075d5081c56f2dec4a285691f41cad3d", null ],
     [ "LanguageName", "class_volume_control_1_1_core_1_1_config.html#a3264ec7458bee9443d2f05192ced3e66", null ],
     [ "LockTargetSession", "class_volume_control_1_1_core_1_1_config.html#acc145bdcd9e96bb185cd648973619261", null ],
+    [ "Log", "class_volume_control_1_1_core_1_1_config.html#aca7c2dbd7fed0098f6d9240e308c428c", null ],
     [ "LogClearOnInitialize", "class_volume_control_1_1_core_1_1_config.html#a1356c62149dc8fa8a99453c4034628eb", null ],
     [ "LogEnableStackTrace", "class_volume_control_1_1_core_1_1_config.html#a58e4e90453a4ceb86150c89f81705c06", null ],
     [ "LogEnableStackTraceLineCount", "class_volume_control_1_1_core_1_1_config.html#a180697f9c32ad9a14cd231e7b34d59c8", null ],

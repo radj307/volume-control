@@ -1,0 +1,4 @@
+<map id="VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute.InsertSpacesIn" name="VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute.InsertSpacesIn">
+<area shape="rect" id="node1" title="Returns the result of replacing all occurrences of the regular expression &quot;&lt;see langword=&quot;\B([A&#45;Z])&quot;/..." alt="" coords="332,5,597,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_structs_1_1_hotkey_action.html#aad7b9cd2032da6cd4d807fb390cb675e" title="Gets the list of extra parameters required to call this action&#39;s associated method." alt="" coords="5,5,284,47"/>
+</map>

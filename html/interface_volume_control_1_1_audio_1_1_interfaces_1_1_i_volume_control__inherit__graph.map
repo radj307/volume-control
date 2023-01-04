@@ -1,10 +1,10 @@
 <map id="VolumeControl.Audio.Interfaces.IVolumeControl" name="VolumeControl.Audio.Interfaces.IVolumeControl">
 <area shape="rect" id="node1" title="Represents some kind of controllable audio playback instance." alt="" coords="519,160,751,311"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_audio_device.html" title="Represents an audio device endpoint. Note that this object cannot be constructed externally...." alt="" coords="381,683,627,1361"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system." alt="" coords="175,1409,375,2000"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_audio_device.html" title="Represents an audio device endpoint. Note that this object cannot be constructed externally...." alt="" coords="381,683,627,1156"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system." alt="" coords="175,1204,375,1575"/>
 <area shape="rect" id="node5" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_audio_control.html" title="Base interface type for IDevice and IProcess/ISession." alt="" coords="237,359,469,451"/>
 <area shape="rect" id="node2" href="$interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html" title="Represents an object that, when it is a member of a list of similar items, can be displayed in the Li..." alt="" coords="565,5,705,112"/>
 <area shape="rect" id="node6" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html" title="Represents an audio device." alt="" coords="365,513,597,620"/>
 <area shape="rect" id="node7" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html" title="Represents read&#45;only information about a process running on the local system." alt="" coords="109,499,341,635"/>
-<area shape="rect" id="node8" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html" title="Represents an audio session." alt="" coords="5,961,237,1083"/>
+<area shape="rect" id="node8" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html" title="Represents an audio session." alt="" coords="5,859,237,980"/>
 </map>

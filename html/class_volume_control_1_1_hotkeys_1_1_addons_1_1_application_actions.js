@@ -11,5 +11,6 @@ var class_volume_control_1_1_hotkeys_1_1_addons_1_1_application_actions =
     [ "ToggleNotification", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_application_actions.html#acb951f42e8f80f6d94a935ab59a7d253", null ],
     [ "ToggleNotificationOnVolume", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_application_actions.html#a86808be42239515c58ee50b4191fb731", null ],
     [ "Unminimize", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_application_actions.html#a4ef08f1496b96105a0d41d769d0de409", null ],
-    [ "MainHWnd", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_application_actions.html#a9cc2e598029d32d97249a4d25f1281fd", null ]
+    [ "MainHWnd", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_application_actions.html#a9cc2e598029d32d97249a4d25f1281fd", null ],
+    [ "Settings", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_application_actions.html#ae5e84d1ddfb75f243ff078b7bd9a38a4", null ]
 ];

@@ -1,4 +1,4 @@
 <map id="VolumeControl.Audio.AudioAPI.SelectNextSession" name="VolumeControl.Audio.AudioAPI.SelectNextSession">
 <area shape="rect" id="node1" title="Sets SelectedSession to the session occurring after this one in Sessions. &#160;Automatically loops back a..." alt="" coords="5,5,205,47"/>
-<area shape="rect" id="node2" href="$class_observable_immutable_1_1_observable_immutable_list.html#a58ba26f2cc2c86cc81904eb9c83bee8e" title=" " alt="" coords="253,5,499,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_collections_1_1_audio_session_collection.html#a4b12d53eaa2612071cfbe880e03e75f9" title=" " alt="" coords="253,5,492,47"/>
 </map>

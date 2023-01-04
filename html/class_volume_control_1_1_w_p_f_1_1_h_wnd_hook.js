@@ -7,5 +7,6 @@ var class_volume_control_1_1_w_p_f_1_1_h_wnd_hook =
     [ "RemoveHook", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#af0585367ed6c7c839158d03f4fd73830", null ],
     [ "SetSource", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#a868775e4b7d5ddf507899f279feb7231", null ],
     [ "Handle", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#a6eead053f85e8a938d3631cde4919d56", null ],
-    [ "Hooks", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#a11026fa8097d50d650d179598b6a1128", null ]
+    [ "Hooks", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#a11026fa8097d50d650d179598b6a1128", null ],
+    [ "Log", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#a35984faee6ad7b7059f44ecd2adc6945", null ]
 ];

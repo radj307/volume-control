@@ -16,16 +16,16 @@
 <text text-anchor="start" x="726.5" y="-392.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.WPF.Collections.</text>
 <text text-anchor="middle" x="804.5" y="-381.5" font-family="Helvetica,sans-Serif" font-size="10.00">BindableEventType</text>
 <polyline fill="none" stroke="black" points="718.5,-374.5 890.5,-374.5 "/>
-<text text-anchor="start" x="726.5" y="-362.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
-<text text-anchor="start" x="726.5" y="-351.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Count</text>
-<text text-anchor="start" x="726.5" y="-340.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IsReadOnly</text>
-<text text-anchor="start" x="726.5" y="-329.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IsSynchronized</text>
-<text text-anchor="start" x="726.5" y="-318.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SyncRoot</text>
-<text text-anchor="start" x="726.5" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IsFixedSize</text>
-<text text-anchor="start" x="726.5" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ this[int index]</text>
-<text text-anchor="start" x="726.5" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ this[int index]</text>
-<text text-anchor="start" x="726.5" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Value</text>
-<text text-anchor="start" x="726.5" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Options</text>
+<text text-anchor="start" x="726.5" y="-362.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ this[int index]</text>
+<text text-anchor="start" x="726.5" y="-351.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ this[int index]</text>
+<text text-anchor="start" x="726.5" y="-340.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
+<text text-anchor="start" x="726.5" y="-329.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Value</text>
+<text text-anchor="start" x="726.5" y="-318.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Options</text>
+<text text-anchor="start" x="726.5" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Count</text>
+<text text-anchor="start" x="726.5" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IsReadOnly</text>
+<text text-anchor="start" x="726.5" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IsSynchronized</text>
+<text text-anchor="start" x="726.5" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SyncRoot</text>
+<text text-anchor="start" x="726.5" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IsFixedSize</text>
 <polyline fill="none" stroke="black" points="718.5,-256.5 890.5,-256.5 "/>
 <text text-anchor="start" x="726.5" y="-244.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ BindableEventType()</text>
 <text text-anchor="start" x="726.5" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ BindableEventType()</text>

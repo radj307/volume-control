@@ -1,0 +1,4 @@
+<map id="VolumeControl.Hotkeys.User32.ShowWindow" name="VolumeControl.Hotkeys.User32.ShowWindow">
+<area shape="rect" id="node1" title="Sets the specified window&#39;s show state." alt="" coords="317,13,547,54"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_addons_1_1_application_actions.html#a86808be42239515c58ee50b4191fb731" title="Toggles notifications for volume change events." alt="" coords="5,5,269,61"/>
+</map>

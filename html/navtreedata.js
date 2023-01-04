@@ -1,78 +1,71 @@
 /*
-@licstart  The following is the entire license notice for the
-JavaScript code in this file.
+ @licstart  The following is the entire license notice for the JavaScript code in this file.
 
-Copyright (C) 1997-2019 by Dimitri van Heesch
+ The MIT License (MIT)
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of version 2 of the GNU General Public License as published by
-the Free Software Foundation
+ Copyright (C) 1997-2020 by Dimitri van Heesch
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ and associated documentation files (the "Software"), to deal in the Software without restriction,
+ including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-You should have received a copy of the GNU General Public License along
-with this program; if not, write to the Free Software Foundation, Inc.,
-51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ The above copyright notice and this permission notice shall be included in all copies or
+ substantial portions of the Software.
 
-@licend  The above is the entire license notice
-for the JavaScript code in this file
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+ @licend  The above is the entire license notice for the JavaScript code in this file
 */
 var NAVTREE =
 [
   [ "Volume Control", "index.html", [
-    [ "Getting Started", "index.html#autotoc_md30", [
-      [ "What It Does", "index.html#autotoc_md28", null ],
-      [ "How does it work?", "index.html#autotoc_md29", null ],
-      [ "Installation", "index.html#autotoc_md31", null ],
-      [ "Setup", "index.html#autotoc_md32", null ],
-      [ "Usage", "index.html#autotoc_md33", [
-        [ ":new: Volume Control CLI", "index.html#autotoc_md27", null ],
-        [ ":warning: Note", "index.html#autotoc_md34", null ],
-        [ "Troubleshooting", "index.html#autotoc_md35", null ]
-      ] ],
-      [ "Contributing", "index.html#autotoc_md36", null ],
-      [ "Addon Development", "index.html#autotoc_md37", null ]
+    [ "Getting Started", "index.html#autotoc_md27", [
+      [ "What It Does", "index.html#autotoc_md25", null ],
+      [ "How does it work?", "index.html#autotoc_md26", null ],
+      [ "Installation", "index.html#autotoc_md28", null ],
+      [ "Setup", "index.html#autotoc_md29", null ],
+      [ "Usage", "index.html#autotoc_md30", null ],
+      [ "Contributing", "index.html#autotoc_md31", null ],
+      [ "Addon Development", "index.html#autotoc_md32", null ]
     ] ],
-    [ "Contributing", "md__home_runner_work_volume-control_volume-control__c_o_n_t_r_i_b_u_t_i_n_g.html", [
-      [ "Guidelines for Code Contributions", "md__home_runner_work_volume-control_volume-control__c_o_n_t_r_i_b_u_t_i_n_g.html#autotoc_md1", null ],
-      [ "Guidelines for Translation Contributions", "md__home_runner_work_volume-control_volume-control__c_o_n_t_r_i_b_u_t_i_n_g.html#autotoc_md2", [
-        [ "How to Embed Language Configs", "md__home_runner_work_volume-control_volume-control__c_o_n_t_r_i_b_u_t_i_n_g.html#autotoc_md3", null ],
-        [ "⚠️ Note", "md__home_runner_work_volume-control_volume-control__c_o_n_t_r_i_b_u_t_i_n_g.html#autotoc_md4", null ]
+    [ "Contributing", "md__home_runner_work_volume_control_volume_control__c_o_n_t_r_i_b_u_t_i_n_g.html", [
+      [ "Guidelines for Code Contributions", "md__home_runner_work_volume_control_volume_control__c_o_n_t_r_i_b_u_t_i_n_g.html#autotoc_md1", null ],
+      [ "Guidelines for Translation Contributions", "md__home_runner_work_volume_control_volume_control__c_o_n_t_r_i_b_u_t_i_n_g.html#autotoc_md2", [
+        [ "How to Embed Language Configs", "md__home_runner_work_volume_control_volume_control__c_o_n_t_r_i_b_u_t_i_n_g.html#autotoc_md3", null ]
       ] ]
     ] ],
     [ "Addon Development", "md_docs__addon_development.html", [
-      [ "Volume Control SDK", "md_docs__addon_development.html#autotoc_md6", [
-        [ "Other Dependencies", "md_docs__addon_development.html#autotoc_md7", null ]
+      [ "Volume Control SDK", "md_docs__addon_development.html#autotoc_md5", [
+        [ "Other Dependencies", "md_docs__addon_development.html#autotoc_md6", null ]
       ] ],
-      [ "What's in the SDK", "md_docs__addon_development.html#autotoc_md8", [
-        [ "Environment Setup", "md_docs__addon_development.html#autotoc_md9", [
-          [ "Using NuGet", "md_docs__addon_development.html#autotoc_md10", null ],
-          [ "Manual Installation", "md_docs__addon_development.html#autotoc_md11", null ]
+      [ "What's in the SDK", "md_docs__addon_development.html#autotoc_md7", [
+        [ "Environment Setup", "md_docs__addon_development.html#autotoc_md8", [
+          [ "Using NuGet", "md_docs__addon_development.html#autotoc_md9", null ],
+          [ "Manual Installation", "md_docs__addon_development.html#autotoc_md10", null ]
         ] ],
-        [ "Writing an Addon", "md_docs__addon_development.html#autotoc_md12", null ],
-        [ "Building Your Addon", "md_docs__addon_development.html#autotoc_md13", null ],
-        [ "Loading Your Addon", "md_docs__addon_development.html#autotoc_md14", [
-          [ "Where to Put Addons", "md_docs__addon_development.html#autotoc_md15", null ]
+        [ "Writing an Addon", "md_docs__addon_development.html#autotoc_md11", null ],
+        [ "Building Your Addon", "md_docs__addon_development.html#autotoc_md12", null ],
+        [ "Loading Your Addon", "md_docs__addon_development.html#autotoc_md13", [
+          [ "Where to Put Addons", "md_docs__addon_development.html#autotoc_md14", null ]
         ] ],
-        [ "Using Your Addon", "md_docs__addon_development.html#autotoc_md16", null ],
-        [ "Redistributing Addons", "md_docs__addon_development.html#autotoc_md17", [
-          [ "Legal", "md_docs__addon_development.html#autotoc_md18", [
-            [ "Summary:", "md_docs__addon_development.html#autotoc_md19", null ]
-          ] ]
-        ] ]
+        [ "Using Your Addon", "md_docs__addon_development.html#autotoc_md15", null ],
+        [ "Redistributing Addons", "md_docs__addon_development.html#autotoc_md16", null ]
       ] ]
     ] ],
     [ "Building From Source", "md_docs__building_from_source.html", [
-      [ "From the Commandline", "md_docs__building_from_source.html#autotoc_md21", [
-        [ "Requirements", "md_docs__building_from_source.html#autotoc_md22", null ],
-        [ "Process", "md_docs__building_from_source.html#autotoc_md23", null ]
+      [ "From the Commandline", "md_docs__building_from_source.html#autotoc_md19", [
+        [ "Requirements", "md_docs__building_from_source.html#autotoc_md20", null ],
+        [ "Process", "md_docs__building_from_source.html#autotoc_md21", null ]
       ] ],
-      [ "Using an IDE", "md_docs__building_from_source.html#autotoc_md24", [
-        [ "Requirements", "md_docs__building_from_source.html#autotoc_md25", null ],
-        [ "Process", "md_docs__building_from_source.html#autotoc_md26", null ]
+      [ "Using an IDE", "md_docs__building_from_source.html#autotoc_md22", [
+        [ "Requirements", "md_docs__building_from_source.html#autotoc_md23", null ],
+        [ "Process", "md_docs__building_from_source.html#autotoc_md24", null ]
       ] ]
     ] ],
     [ "Packages", "namespaces.html", [
@@ -104,12 +97,13 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-".html",
-"class_volume_control_1_1_audio_1_1_audio_session.html#a897fd1a0a527e0d479debf0e24fdc09c",
-"class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#af661a59cc9f59b481f1a42b487bb5233",
-"class_volume_control_1_1_s_d_k_1_1_list_display_target.html#aead3e99c61c62e2e021ee7234e279e4f",
-"class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter.html",
-"md_docs__addon_development.html#autotoc_md15"
+"annotated.html",
+"class_volume_control_1_1_audio_1_1_collections_1_1_audio_session_collection.html#ababe495bd71480630be6a753df2917aa",
+"class_volume_control_1_1_hotkeys_1_1_user32.html#a0a1957e95f16d2fa6f3027f52d044066",
+"class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a3e23e8c7c76f260b94da6ad4817eae28",
+"dir_d59dfe70f545b77dcbed25df5f26833f.html",
+"namespace_volume_control_1_1_hotkeys_1_1_enum.html#a0de441b725b64d29bc33999cd3705ff2a21c2e59531c8710156d34a3c30ac81d5",
+""
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

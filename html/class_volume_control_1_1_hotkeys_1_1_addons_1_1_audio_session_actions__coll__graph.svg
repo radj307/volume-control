@@ -16,7 +16,7 @@
 <text text-anchor="start" x="8" y="-166.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Hotkeys.Addons.</text>
 <text text-anchor="middle" x="86.5" y="-155.5" font-family="Helvetica,sans-Serif" font-size="10.00">AudioSessionActions</text>
 <polyline fill="none" stroke="black" points="0,-148.5 173,-148.5 "/>
-<text text-anchor="middle" x="86.5" y="-136.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="8" y="-136.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AudioAPI</text>
 <polyline fill="none" stroke="black" points="0,-129.5 173,-129.5 "/>
 <text text-anchor="start" x="8" y="-117.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ VolumeUp()</text>
 <text text-anchor="start" x="8" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ VolumeDown()</text>

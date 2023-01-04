@@ -1,0 +1,5 @@
+<map id="VolumeControl.WPF.IconGetter.GetIcons" name="VolumeControl.WPF.IconGetter.GetIcons">
+<area shape="rect" id="node1" title="Gets the large and small variants of the specified icon from the specified DLL." alt="" coords="253,39,477,80"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_audio_device.html#ab0260c210a99e81c0f78deef4abeeb7e" title=" " alt="" coords="5,5,205,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_audio_session.html#ac0154b840ada9e66ac201e3660ec714c" title=" " alt="" coords="5,71,205,112"/>
+</map>

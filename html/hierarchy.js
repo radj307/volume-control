@@ -8,6 +8,7 @@ var hierarchy =
     ] ],
     [ "VolumeControl.Hotkeys.Addons.AudioDeviceActions", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html", null ],
     [ "VolumeControl.Hotkeys.Addons.AudioSessionActions", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_session_actions.html", null ],
+    [ "VolumeControl.Audio.AudioSessionSelector", "class_volume_control_1_1_audio_1_1_audio_session_selector.html", null ],
     [ "BaseAssemblyAttribute", null, [
       [ "VolumeControl.Core.Attributes.AllowUpgradeConfigAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_allow_upgrade_config_attribute.html", null ]
     ] ],
@@ -16,7 +17,7 @@ var hierarchy =
     [ "VolumeControl.TypeExtensions.CollectionExtensions", "class_volume_control_1_1_type_extensions_1_1_collection_extensions.html", null ],
     [ "VolumeControl.SDK.ConditionalEventForward", "class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html", null ],
     [ "VolumeControl.Log.LogWriter.ConditionalMessage", "struct_volume_control_1_1_log_1_1_log_writer_1_1_conditional_message.html", null ],
-    [ "ConfigurationFile", null, [
+    [ "AppConfig.ConfigurationFile", null, [
       [ "VolumeControl.Core.Config", "class_volume_control_1_1_core_1_1_config.html", null ]
     ] ],
     [ "DependencyObject", null, [
@@ -31,7 +32,11 @@ var hierarchy =
     ] ],
     [ "VolumeControl.Hotkeys.Enum.EVirtualKeyCodeExtensions", "class_volume_control_1_1_hotkeys_1_1_enum_1_1_e_virtual_key_code_extensions.html", null ],
     [ "VolumeControl.Log.FLog", "class_volume_control_1_1_log_1_1_f_log.html", null ],
+    [ "HandledEventArgs", null, [
+      [ "VolumeControl.Core.Input.Actions.HotkeyActionPressedEventArgs", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_pressed_event_args.html", null ]
+    ] ],
     [ "VolumeControl.Core.Input.Actions.HotkeyActionData", "struct_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_data.html", null ],
+    [ "VolumeControl.Core.Input.Actions.HotkeyActionSetting", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting.html", null ],
     [ "VolumeControl.WPF.HWndHookWPFMaximizeBugFix", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix.html", null ],
     [ "VolumeControl.WPF.Extensions.HyperlinkExtensions", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_hyperlink_extensions.html", null ],
     [ "ICollection", null, [
@@ -199,10 +204,10 @@ var hierarchy =
       [ "VolumeControl.Log.Timestamp", "class_volume_control_1_1_log_1_1_timestamp.html", null ]
     ] ],
     [ "IValueConverter", null, [
-      [ "VolumeControl.WPF.Converters.BooleanInverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_boolean_inverter.html", null ],
       [ "VolumeControl.WPF.Converters.BoolToBrushConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_brush_converter.html", null ],
       [ "VolumeControl.WPF.Converters.BoolToCheckVisibleConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_check_visible_converter.html", null ],
       [ "VolumeControl.WPF.Converters.BoolToThicknessConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter.html", null ],
+      [ "VolumeControl.WPF.Converters.BooleanInverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_boolean_inverter.html", null ],
       [ "VolumeControl.WPF.Converters.ConverterChain", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain.html", null ],
       [ "VolumeControl.WPF.Converters.NullToBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html", null ],
       [ "VolumeControl.WPF.Converters.SquaredCornerRadiusConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter.html", null ],
@@ -218,7 +223,7 @@ var hierarchy =
     [ "VolumeControl.WPF.PInvoke.MINMAXINFO", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_i_n_m_a_x_i_n_f_o.html", null ],
     [ "VolumeControl.Core.Enum.ModifierExtensions", "class_volume_control_1_1_core_1_1_enum_1_1_modifier_extensions.html", null ],
     [ "VolumeControl.WPF.PInvoke.MONITORINFO", "class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html", null ],
-    [ "MultiBinding", null, [
+    [ "System.Windows.Data.MultiBinding", null, [
       [ "VolumeControl.WPF.Bindings.MultiBinding", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html", null ]
     ] ],
     [ "VolumeControl.TypeExtensions.NullableBoolExtensions", "class_volume_control_1_1_type_extensions_1_1_nullable_bool_extensions.html", null ],

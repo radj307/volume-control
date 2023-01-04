@@ -15,10 +15,10 @@
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-178.5 169,-178.5 169,-0.5 0,-0.5"/>
 <text text-anchor="middle" x="84.5" y="-166.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.WPF.IconPair</text>
 <polyline fill="none" stroke="black" points="0,-159.5 169,-159.5 "/>
-<text text-anchor="start" x="8" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IsNull</text>
-<text text-anchor="start" x="8" y="-136.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DefaultSizeOptions</text>
-<text text-anchor="start" x="8" y="-125.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SmallIcon</text>
-<text text-anchor="start" x="8" y="-114.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LargeIcon</text>
+<text text-anchor="start" x="8" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DefaultSizeOptions</text>
+<text text-anchor="start" x="8" y="-136.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SmallIcon</text>
+<text text-anchor="start" x="8" y="-125.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LargeIcon</text>
+<text text-anchor="start" x="8" y="-114.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IsNull</text>
 <polyline fill="none" stroke="black" points="0,-107.5 169,-107.5 "/>
 <text text-anchor="start" x="8" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IconPair()</text>
 <text text-anchor="start" x="8" y="-84.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IconPair()</text>

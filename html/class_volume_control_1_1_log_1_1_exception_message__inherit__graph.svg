@@ -31,7 +31,7 @@
 <polygon fill="none" stroke="black" points="8,-127.5 8,-217.5 152,-217.5 152,-127.5 8,-127.5"/>
 <text text-anchor="middle" x="80" y="-205.5" font-family="Helvetica,sans-Serif" font-size="10.00">MessageWrapperBase</text>
 <polyline fill="none" stroke="black" points="8,-198.5 152,-198.5 "/>
-<text text-anchor="start" x="16" y="-186.5" font-family="Helvetica,sans-Serif" font-size="10.00">~ Message</text>
+<text text-anchor="start" x="16" y="-186.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Message</text>
 <polyline fill="none" stroke="black" points="8,-179.5 152,-179.5 "/>
 <text text-anchor="start" x="16" y="-167.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GetEnumerator()</text>
 <text text-anchor="start" x="16" y="-156.5" font-family="Helvetica,sans-Serif" font-size="10.00"># MessageWrapperBase()</text>

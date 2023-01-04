@@ -63,12 +63,12 @@ var sectionId = 'dynsection-0';
 <text text-anchor="middle" x="522" y="-221.5" font-family="Helvetica,sans-Serif" font-size="10.00">ObservableImmutableList&lt; T &gt;</text>
 <polyline fill="none" stroke="black" points="436,-214.5 608,-214.5 "/>
 <text text-anchor="start" x="444" y="-202.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IsFixedSize</text>
-<text text-anchor="start" x="444" y="-191.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IsSynchronized</text>
-<text text-anchor="start" x="444" y="-180.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Count</text>
-<text text-anchor="start" x="444" y="-169.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IsReadOnly</text>
+<text text-anchor="start" x="444" y="-191.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ this[int index]</text>
+<text text-anchor="start" x="444" y="-180.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IsSynchronized</text>
+<text text-anchor="start" x="444" y="-169.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SyncRoot</text>
 <text text-anchor="start" x="444" y="-158.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ this[int index]</text>
-<text text-anchor="start" x="444" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SyncRoot</text>
-<text text-anchor="start" x="444" y="-136.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ this[int index]</text>
+<text text-anchor="start" x="444" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Count</text>
+<text text-anchor="start" x="444" y="-136.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IsReadOnly</text>
 <polyline fill="none" stroke="black" points="436,-129.5 608,-129.5 "/>
 <text text-anchor="start" x="444" y="-117.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ObservableImmutableList()</text>
 <text text-anchor="start" x="444" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ObservableImmutableList()</text>

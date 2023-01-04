@@ -10,5 +10,6 @@ var class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_session_actions =
     [ "Unlock", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_session_actions.html#acf08f626c15de80f31f624b7d5d57522", null ],
     [ "Unmute", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_session_actions.html#a85b2418a6947cfdd46a851edf8bc22a9", null ],
     [ "VolumeDown", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_session_actions.html#a7c2383cb9c32e021b87d33109c6e6bf0", null ],
-    [ "VolumeUp", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_session_actions.html#aed726bd372a870a37bbc99cf755a7ca0", null ]
+    [ "VolumeUp", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_session_actions.html#aed726bd372a870a37bbc99cf755a7ca0", null ],
+    [ "AudioAPI", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_session_actions.html#a4c839789192c1a4c3aa2ecd1502877cc", null ]
 ];
