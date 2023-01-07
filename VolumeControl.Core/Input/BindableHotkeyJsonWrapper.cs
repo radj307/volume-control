@@ -45,6 +45,6 @@ namespace VolumeControl.Core.Input
         /// Any extra parameter settings for the hotkey's bound action.
         /// </summary>
         [JsonProperty]
-        public List<HotkeyActionSetting>? ActionSettings { get; set; } = null;
+        public List<object?>? ActionSettings { get; set; } = null;
     }
 }

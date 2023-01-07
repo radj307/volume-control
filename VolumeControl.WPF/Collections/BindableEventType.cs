@@ -151,6 +151,8 @@ namespace VolumeControl.WPF.Collections
         {
             foreach (EventType e in (EventType[])Enum.GetValues(typeof(EventType)))
             {
+                if (e.Equals(EventType.CRITICAL)) continue; //< don't include CRITICAL level in visible event types
+
                 int eval = (int)e;
                 if (eval == 1 || (eval != 0 && eval % 2 == 0))
                 {

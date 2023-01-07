@@ -50,10 +50,6 @@
       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
       <IncludeAssets>VolumeControl.Core.dll</IncludeAssets>
     </ProjectReference>
-    <ProjectReference Include="..\VolumeControl.Hotkeys\VolumeControl.Hotkeys.csproj">
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-      <IncludeAssets>VolumeControl.Hotkeys.dll</IncludeAssets>
-    </ProjectReference>
     <ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj">
       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
       <IncludeAssets>VolumeControl.Log.dll</IncludeAssets>

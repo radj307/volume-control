@@ -1,6 +1,5 @@
 ﻿using VolumeControl.Audio;
 using VolumeControl.Core;
-using VolumeControl.Hotkeys;
 using VolumeControl.Log;
 
 namespace VolumeControl.SDK
@@ -39,7 +38,7 @@ namespace VolumeControl.SDK
         /// </summary>
         public AudioAPI AudioAPI { get; }
         /// <summary>
-        /// This is the global <see cref="Hotkeys.HotkeyManager"/>.
+        /// This is the global <see cref="Core.HotkeyManager"/>.
         /// </summary>
         public HotkeyManager HotkeyManager { get; }
         /// <summary>

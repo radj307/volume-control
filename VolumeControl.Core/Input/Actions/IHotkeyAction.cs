@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.ComponentModel;
-using System.Reflection;
-using VolumeControl.WPF.Collections;
+﻿using System.Reflection;
 
 namespace VolumeControl.Core.Input.Actions
 {
@@ -53,6 +50,6 @@ namespace VolumeControl.Core.Input.Actions
         /// Gets the list of extra parameters required to call this action's associated method.
         /// </summary>
         /// <returns>A list of <see cref="HotkeyActionSetting"/> objects with their default <see cref="HotkeyActionSetting.Value"/> property values.</returns>
-        List<HotkeyActionSetting> GetDefaultActionSettings();
+        HotkeyActionSetting[] GetDefaultActionSettings();
     }
 }

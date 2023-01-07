@@ -2,7 +2,7 @@
 using VolumeControl.Core;
 using VolumeControl.TypeExtensions;
 
-namespace VolumeControl.Hotkeys.Attributes
+namespace VolumeControl.Core.Attributes
 {
     /// <summary>
     /// <b>(Optional)</b> Marks the attached class type as a Hotkey Actions addon type.

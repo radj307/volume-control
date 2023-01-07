@@ -1,15 +1,14 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using VolumeControl.Core;
+using System.Linq;
 using VolumeControl.Core.Input;
 using VolumeControl.Core.Interfaces;
-using VolumeControl.Hotkeys.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
 using VolumeControl.WPF.Collections;
 
-namespace VolumeControl.Hotkeys
+namespace VolumeControl.Core
 {
     /// <summary>This object is responsible for managing hotkeys at runtime.</summary>
     public class HotkeyManager : INotifyCollectionChanged, INotifyPropertyChanged, IDisposable
@@ -62,7 +61,7 @@ namespace VolumeControl.Hotkeys
         #endregion Events
 
         #region Properties
-        private static Config Settings => (Config.Default as Config)!;
+        private static Config Settings => (AppConfig.Configuration.Default as Config)!;
         private static LogWriter Log => FLog.Log;
         /// <summary>
         /// Action manager object
@@ -128,9 +127,7 @@ namespace VolumeControl.Hotkeys
             for (int i = this.Hotkeys.Count - 1; i >= 0; --i)
             {
                 if (this.Hotkeys[i].ID.Equals(id))
-                {
                     this.Hotkeys.RemoveAt(i);
-                }
             }
             this.RecheckAllSelected();
         }
@@ -284,6 +281,24 @@ namespace VolumeControl.Hotkeys
             }
         }
         #endregion AllSelected
+
+        /// <summary>
+        /// Checks if the given <paramref name="id"/> does <b>not</b> match any existing hotkeys.
+        /// </summary>
+        /// <param name="id">The hotkey ID to check.</param>
+        /// <returns><see langword="true"/> when <paramref name="id"/> is unique; otherwise <see langword="false"/> if an existing hotkey is already using it.</returns>
+        public bool IsUniqueID(int id) => !this.Hotkeys.Any(hk => hk.ID.Equals(id));
+        /// <summary>
+        /// Gets the next unique hotkey ID by repeatedly calling <see cref="WindowsHotkeyAPI.NextID"/> until a unique ID is found.
+        /// </summary>
+        /// <returns></returns>
+        public int GetNextUniqueID()
+        {
+            int i;
+            
+            while (!IsUniqueID(i = WindowsHotkeyAPI.NextID)) {}
+            return i;
+        }
         #endregion Methods
     }
 }

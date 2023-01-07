@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
-using VolumeControl.Hotkeys.Enum;
+using VolumeControl.Core.Enum;
 
-namespace VolumeControl.Hotkeys
+namespace VolumeControl.Core
 {
     /// <summary>
     /// Contains various functions from user32.dll

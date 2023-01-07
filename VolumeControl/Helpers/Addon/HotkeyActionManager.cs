@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Input.Actions;
+using VolumeControl.Core.Interfaces;
 using VolumeControl.Hotkeys;
-using VolumeControl.Hotkeys.Attributes;
-using VolumeControl.Hotkeys.Interfaces;
 
 namespace VolumeControl.Helpers.Addon
 {

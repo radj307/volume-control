@@ -1,12 +1,16 @@
-﻿using System.ComponentModel;
+﻿using Newtonsoft.Json;
+using System.ComponentModel;
 using VolumeControl.Audio;
-using VolumeControl.Hotkeys.Attributes;
+using VolumeControl.Core.Attributes;
+using VolumeControl.Core.Generics;
 using VolumeControl.SDK;
+using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Hotkeys.Addons
 {
     /// <summary>
     /// Contains hotkey action handlers that interact with AudioSessions in the AudioAPI object.
+    /// <see cref="HandledEventHandler"/>
     /// </summary>
     [HotkeyActionGroup("Session", GroupColor = "#99FF99")]
     public sealed class AudioSessionActions
@@ -35,5 +39,10 @@ namespace VolumeControl.Hotkeys.Addons
         public void ToggleLock(object? sender, HandledEventArgs e) => AudioAPI.LockSelectedSession = !AudioAPI.LockSelectedSession;
         [HotkeyAction(Description = "Changes the selected session to null.")]
         public void Deselect(object? sender, HandledEventArgs e) => AudioAPI.DeselectSession();
+        [HotkeyAction(Description = "TESTING")]
+        public void ActionSettingTestFunction(object? sender, HandledEventArgs e, [HotkeyActionSetting("Setting")] string param, [HotkeyActionSetting("Toggle Switch")] bool toggleSwitch)
+        {
+            Log.FLog.Log.Info($"{nameof(ActionSettingTestFunction)} was called with setting: '{param}' ({toggleSwitch})");
+        }
     }
 }

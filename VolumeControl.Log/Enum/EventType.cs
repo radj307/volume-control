@@ -49,5 +49,10 @@
         /// If used anyway, it produces this header:  "[????]"
         /// </summary>
         ALL = ALL_EXCEPT_DEBUG | DEBUG,
+        /// <summary>
+        /// A critical message that does not necessarily indicate failure, but cannot be prevented from appearing in the log by user settings.
+        /// Produces header:  "[CRITICAL]"
+        /// </summary>
+        CRITICAL = 32,
     }
 }

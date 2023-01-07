@@ -1,12 +1,14 @@
-﻿using System.ComponentModel;
+﻿using Newtonsoft.Json.Linq;
+using System.ComponentModel;
 using System.Reflection;
 using System.Windows.Media;
+using VolumeControl.Core.Attributes;
+using VolumeControl.Core.Generics;
 using VolumeControl.Core.Input.Actions;
-using VolumeControl.Hotkeys.Attributes;
 using VolumeControl.TypeExtensions;
 using VolumeControl.WPF.Collections;
 
-namespace VolumeControl.Hotkeys.Structs
+namespace VolumeControl.Core.Structs
 {
 
     /// <summary>
@@ -82,7 +84,7 @@ namespace VolumeControl.Hotkeys.Structs
         /// <inheritdoc/>
         public void HandleKeyEvent(object? sender, HotkeyActionPressedEventArgs e)
         {
-            List<object?> parameters = new() { sender, (HandledEventArgs)e };
+            List<object?> parameters = new() { sender, e };
 
             if (UsesExtraParameters)
             {
@@ -94,34 +96,44 @@ namespace VolumeControl.Hotkeys.Structs
 
                 var extraParams = MethodInfo.GetParameters()[2..];
 
-                if (extraParams.Length != e.ActionSettings.Count)
-                    throw new InvalidOperationException($"Method parameters and available action settings do not match! (Try re-selecting this hotkey's associated action to fix this.)");
-
-                int i = 0;
-                foreach (var p in extraParams)
+                for (int i = 0; i < extraParams.Length; ++i)
                 {
-                    parameters.Add(e.ActionSettings[i++].Value);
+                    var actionSetting = e.ActionSettings[i];
+                    var actionSettingType = actionSetting.Value?.GetType();
+                    var paramType = extraParams[i].ParameterType;
+                    if (paramType.Equals(actionSettingType))
+                    {
+                        parameters.Add(actionSetting.Value);
+                    }
+                    else
+                    {
+                        Log.FLog.Log.Error($"Action setting '{actionSetting.Label}' is unexpected type '{actionSettingType?.FullName ?? "null"}'; expected type '{paramType.FullName}'.");
+                        parameters.Add(paramType.Equals(typeof(string)) ? string.Empty : Activator.CreateInstance(paramType));
+                    }
                 }
-            }
 
-            MethodInfo.Invoke(Instance, parameters.ToArray());
+                MethodInfo.Invoke(Instance, parameters.ToArray());
+            }
         }
 
         /// <inheritdoc/>
-        public List<HotkeyActionSetting> GetDefaultActionSettings()
+        public HotkeyActionSetting[] GetDefaultActionSettings()
         {
             List<HotkeyActionSetting> l = new();
 
             if (UsesExtraParameters)
             {
-                MethodInfo.GetParameters()[2..].ForEach(p => l.Add(new HotkeyActionSetting()
+                foreach (var p in MethodInfo.GetParameters()[2..])
                 {
-                    Name = p.Name is null ? string.Empty : HotkeyActionAttribute.InsertSpacesIn(p.Name),
-                    Value = p.ParameterType.Equals(typeof(string)) ? string.Empty : Activator.CreateInstance(p.ParameterType)
-                }));
+                    var attr = p.GetCustomAttribute<HotkeyActionSettingAttribute>();
+                    l.Add(new(
+                        label: attr?.SettingLabel ?? p.Name ?? string.Empty,
+                        valueType: attr?.SettingType ?? p.ParameterType
+                        ));
+                }
             }
 
-            return l;
+            return l.ToArray();
         }
     }
 }

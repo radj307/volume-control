@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Interop;
 using VolumeControl.Core;
-using VolumeControl.Hotkeys.Attributes;
+using VolumeControl.Core.Attributes;
 using VolumeControl.SDK;
 
 namespace VolumeControl.Hotkeys.Addons

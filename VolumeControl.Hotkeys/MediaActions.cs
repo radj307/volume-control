@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
-using VolumeControl.Hotkeys.Attributes;
-using VolumeControl.Hotkeys.Enum;
+using VolumeControl.Core;
+using VolumeControl.Core.Attributes;
+using VolumeControl.Core.Enum;
 
 namespace VolumeControl.Hotkeys.Addons
 {

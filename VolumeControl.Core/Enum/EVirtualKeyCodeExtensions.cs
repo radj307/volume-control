@@ -1,6 +1,6 @@
 ﻿using InputSimulatorEx.Native;
 
-namespace VolumeControl.Hotkeys.Enum
+namespace VolumeControl.Core.Enum
 {
     /// <summary>
     /// Extends the <see cref="EVirtualKeyCode"/> enumeration.

@@ -171,7 +171,7 @@ namespace VolumeControl.Audio
                 this.NotifyPropertyChanging();
                 _controller.DisplayName = value;
                 this.NotifyPropertyChanged();
-                _name = null; //< set the _name field to null, causing 'Name' to be refreshed.
+                _name = null; //< set the _name field to null, causing 'Label' to be refreshed.
             }
         }
         /// <inheritdoc/>

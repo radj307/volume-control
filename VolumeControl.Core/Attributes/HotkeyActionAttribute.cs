@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Media;
 using VolumeControl.Core.Input.Actions;
 
-namespace VolumeControl.Hotkeys.Attributes
+namespace VolumeControl.Core.Attributes
 {
     /// <summary>Indicates that a method is a valid hotkey action.<br/>If you don't specify a name parameter, it is parsed from the name of the method it is attached to.</summary>
     /// <remarks>To create a hotkey action, attach this attribute to the owning method.</remarks>

@@ -11,7 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VolumeControl.Core.Generics;
 using VolumeControl.ViewModels;
+using VolumeControl.WPF.Collections;
 
 namespace VolumeControl
 {
@@ -26,5 +28,15 @@ namespace VolumeControl
         }
 
         public ActionSettingsWindowVM VM => (this.DataContext as ActionSettingsWindowVM)!;
+
+        private void ListBoxAddButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button b)
+            {
+                var listBox = (b.CommandParameter as ListBox)!;
+                var list = listBox.DataContext as List<Item<string>>;
+                list?.Add(new(string.Empty));
+            }
+        }
     }
 }

@@ -12,10 +12,9 @@ namespace VolumeControl.Log
     /// <summary>
     /// Basic log writer object.
     /// </summary>
-    /// <remarks>This does all of the heavy-lifting (string manipulation) for the <see cref="Log"/> namespace.</remarks>
+    /// <remarks>This does all of the heavy-lifting string manipulation for the <see cref="Log"/> namespace.</remarks>
     public class LogWriter : INotifyPropertyChanged, ILogWriter, IDisposable
     {
-        private bool disposedValue;
         #region Constructors
         /// <inheritdoc cref="LogWriter"/>
         /// <param name="endpoint">An endpoint to use.</param>
@@ -29,6 +28,7 @@ namespace VolumeControl.Log
         #endregion Constructors
 
         #region InterfaceImplementation
+        private bool disposedValue;
 #       pragma warning disable CS0067
         /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -46,7 +46,7 @@ namespace VolumeControl.Log
         /// </summary>
         public EventType LastEventType { get; private set; }
         /// <inheritdoc/>
-        public bool FilterEventType(EventType eventType) => this.EventTypeFilter.HasFlag(eventType);
+        public bool FilterEventType(EventType eventType) => eventType.HasFlag(EventType.CRITICAL) || this.EventTypeFilter.HasFlag(eventType);
         /// <inheritdoc/>
         public ITimestamp MakeTimestamp(EventType eventType) => Timestamp.Now(eventType);
         /// <summary>Gets a blank timestamp to use as indentation.</summary>
@@ -293,28 +293,33 @@ namespace VolumeControl.Log
         /// <summary>
         /// Write a formatted <see cref="EventType.DEBUG"/> message to the log endpoint.
         /// </summary>
-        /// <param name="lines">Any number of objects, each written on a new line.</param>
+        /// <param name="lines">Any number of objects. Each object will be written on a new line.</param>
         public void Debug(params object?[] lines) => this.WriteEvent(EventType.DEBUG, lines);
         /// <summary>
         /// Write a formatted <see cref="EventType.INFO"/> message to the log endpoint.
         /// </summary>
-        /// <param name="lines">Any number of objects, each written on a new line.</param>
+        /// <param name="lines">Any number of objects. Each object will be written on a new line.</param>
         public void Info(params object?[] lines) => this.WriteEvent(EventType.INFO, lines);
         /// <summary>
         /// Write a formatted <see cref="EventType.WARN"/> message to the log endpoint.
         /// </summary>
-        /// <param name="lines">Any number of objects, each written on a new line.</param>
+        /// <param name="lines">Any number of objects. Each object will be written on a new line.</param>
         public void Warning(params object?[] lines) => this.WriteEvent(EventType.WARN, lines);
         /// <summary>
         /// Write a formatted <see cref="EventType.ERROR"/> message to the log endpoint.
         /// </summary>
-        /// <param name="lines">Any number of objects, each written on a new line.</param>
+        /// <param name="lines">Any number of objects. Each object will be written on a new line.</param>
         public void Error(params object?[] lines) => this.WriteEvent(EventType.ERROR, lines);
         /// <summary>
         /// Write a formatted <see cref="EventType.FATAL"/> message to the log endpoint.
         /// </summary>
-        /// <param name="lines">Any number of objects, each written on a new line.</param>
+        /// <param name="lines">Any number of objects. Each object will be written on a new line.</param>
         public void Fatal(params object?[] lines) => this.WriteEvent(EventType.FATAL, lines);
+        /// <summary>
+        /// Write a formatted <see cref="EventType.CRITICAL"/> message to the log endpoint.
+        /// </summary>
+        /// <param name="lines">Any number of objects. Each object will be written on a new line.</param>
+        public void Critical(params object?[] lines) => this.WriteEvent(EventType.CRITICAL, lines);
         #endregion WriteEvent
 
         #region WriteException

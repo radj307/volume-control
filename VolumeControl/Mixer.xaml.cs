@@ -11,7 +11,6 @@ using VolumeControl.Core;
 using VolumeControl.Core.Input;
 using VolumeControl.Core.Interfaces;
 using VolumeControl.Helpers;
-using VolumeControl.Hotkeys;
 using VolumeControl.Log;
 using VolumeControl.WPF;
 using VolumeControl.WPF.Collections;

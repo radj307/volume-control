@@ -4,10 +4,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
+using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Input.Actions;
-using VolumeControl.Hotkeys.Attributes;
-using VolumeControl.Hotkeys.Structs;
+using VolumeControl.Core.Structs;
 using VolumeControl.SDK;
+using VolumeControl.SDK.Delegates;
 using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Helpers.Addon
@@ -45,28 +46,32 @@ namespace VolumeControl.Helpers.Addon
                             // validate parameters & return type:
                             if (!methodInfo.ReturnType.Equals(typeof(void)))
                             {
-                                Log.Warning($"Addon method has non-void return type: '{methodInfo.Name}'; it is recommended that you fix this because addon method returns are always discarded!");
+                                Log.Debug($"Addon method return value is discarded");
                             }
 
                             var parameters = methodInfo.GetParameters();
                             if (parameters.Length < 2)
                             {
-                                Log.Error($"Addon method is invalid: '{methodInfo.Name}'; hotkey action methods require an `{typeof(object).FullName}? sender` parameter followed by a `{typeof(System.ComponentModel.HandledEventArgs).FullName} e` parameter!");
+                                Log.Debug(
+                                    $"Addon method is invalid: '{methodInfo.Name}' (Invalid Function Declaration; Missing Parameters)",
+                                    $"Hotkey action methods must accept a first parameter of type `{typeof(object).FullName}`, and a second parameter of type `{typeof(System.ComponentModel.HandledEventArgs).FullName}`!",
+                                    $"For an example of valid syntax, see \"{typeof(HotkeyActionDelegate).FullName}\".");
                                 continue;
                             }
-                            else if (!parameters[0].ParameterType.Equals(typeof(object)))
+                            else if (!parameters[0].ParameterType.Equals(typeof(object)) || !parameters[1].ParameterType.Equals(typeof(System.ComponentModel.HandledEventArgs)))
                             {
-                                Log.Error($"Addon method is invalid: '{methodInfo.Name}'; expected first parameter of (nullable) type '{typeof(object).FullName}'!");
-                                continue;
-                            }
-                            else if (!parameters[1].ParameterType.Equals(typeof(System.ComponentModel.HandledEventArgs)))
-                            {
-                                Log.Error($"Addon method is invalid: '{methodInfo.Name}'; expected second parameter of type '{typeof(System.ComponentModel.HandledEventArgs).FullName}'!");
+                                Log.Debug(
+                                    $"Addon method is invalid: '{methodInfo.Name}' (Invalid Function Declaration; First Parameter)",
+                                    $"Hotkey action methods must accept a first parameter of type `{typeof(object).FullName}`, and a second parameter of type `{typeof(System.ComponentModel.HandledEventArgs).FullName}`!",
+                                    $"For an example of valid syntax, see \"{typeof(HotkeyActionDelegate).FullName}\".");
                                 continue;
                             }
                             else if (parameters[2..].Any(p => p.ParameterType.IsInterface))
                             {
-                                Log.Error($"Addon method is invalid: '{methodInfo.Name}'; Extra parameters cannot use interface types!");
+                                Log.Debug(
+                                    $"Addon method is invalid: '{methodInfo.Name}' (Invalid Function Declaration; First Parameter)",
+                                    $"Hotkey action methods must accept a first parameter of type `{typeof(object).FullName}`, and a second parameter of type `{typeof(System.ComponentModel.HandledEventArgs).FullName}`!",
+                                    $"For an example of valid syntax, see \"{typeof(HotkeyActionDelegate).FullName}\".");
                                 continue;
                             }
 

@@ -1,6 +1,5 @@
 ﻿using VolumeControl.Audio;
 using VolumeControl.Core;
-using VolumeControl.Hotkeys;
 using VolumeControl.Log;
 
 namespace VolumeControl.SDK.Internal

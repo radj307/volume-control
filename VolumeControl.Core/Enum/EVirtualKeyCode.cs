@@ -1,4 +1,4 @@
-﻿namespace VolumeControl.Hotkeys.Enum
+﻿namespace VolumeControl.Core.Enum
 {
 #   pragma warning disable CA1069 // Enums values should not be duplicated
     /// <summary>

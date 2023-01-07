@@ -84,7 +84,7 @@ namespace VolumeControl.Helpers.Addon
         public VCDisplayTargetAddon() : base(new AttributeWrapper(typeof(DisplayTargetAttribute)))
         { }
 
-        protected override void HandleAddonTypes(VCAPI api, IEnumerable<Type> types)
+        protected override void HandleAddonTypes(VCAPI api, IEnumerable<ValueType> types)
         {
             List<ListDisplayTarget> displayTargets = new();
 

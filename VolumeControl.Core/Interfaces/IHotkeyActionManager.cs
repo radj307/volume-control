@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using VolumeControl.Core.Input.Actions;
-using VolumeControl.Hotkeys.Structs;
+using VolumeControl.Core.Structs;
 
-namespace VolumeControl.Hotkeys.Interfaces
+namespace VolumeControl.Core.Interfaces
 {
     /// <summary>
     /// Represents a hotkey action manager object, which contains the list of <see cref="IHotkeyAction"/>s used in the hotkey system.

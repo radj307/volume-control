@@ -138,7 +138,11 @@ namespace VolumeControl.Core.Input
         /// Gets the string representation of this hotkey's key combination.
         /// </summary>
         /// <returns>A string representing the key combination of this hotkey.</returns>
-        public string GetStringRepresentation() => $"{this.Modifier.GetStringRepresentation()}-{this.Key:G}";
+        public string GetStringRepresentation()
+        {
+            var modStr = this.Modifier.GetStringRepresentation();
+            return $"{modStr}{(modStr.Length.Equals(0) ? "" : "-")}{this.Key:G}";
+        }
         /// <summary>
         /// Finalizer
         /// </summary>

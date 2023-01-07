@@ -39,13 +39,19 @@ namespace VolumeControl.Log.Interfaces
         }
         private string GetEventType()
         {
-            string head = this.EventType switch
+            var eventType = this.EventType;
+            
+            if (eventType.HasFlag(EventType.CRITICAL) && !eventType.Equals(EventType.CRITICAL))
+                eventType &= ~EventType.CRITICAL; //< remove the critical flag if present
+
+            string head = eventType switch
             {
                 EventType.DEBUG => "[DEBUG]",
                 EventType.INFO => "[INFO]",
                 EventType.WARN => "[WARN]",
                 EventType.ERROR => "[ERROR]",
                 EventType.FATAL => "[FATAL]",
+                EventType.CRITICAL => "[CRITICAL]",
                 _ => "[????]",
             };
             return $"{head}{new string(' ', this.EventTypeSegmentLength - head.Length)}";

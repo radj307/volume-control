@@ -1,9 +1,9 @@
 ﻿using InputSimulatorEx;
 using InputSimulatorEx.Native;
-using VolumeControl.Hotkeys.Enum;
+using VolumeControl.Core.Enum;
 using VolumeControl.TypeExtensions;
 
-namespace VolumeControl.Hotkeys
+namespace VolumeControl.Core
 {
     /// <summary>
     /// Provides a convenient way to synthesize keystrokes and other input.<br/>

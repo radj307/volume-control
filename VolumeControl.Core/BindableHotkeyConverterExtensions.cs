@@ -1,9 +1,8 @@
 ﻿using System.Net.NetworkInformation;
 using VolumeControl.Core.Input;
 using VolumeControl.Core.Interfaces;
-using VolumeControl.Hotkeys.Interfaces;
 
-namespace VolumeControl.Hotkeys
+namespace VolumeControl.Core
 {
     /// <summary>
     /// Extends the <see cref="BindableHotkey"/> and <see cref="BindableHotkeyJsonWrapper"/> objects with methods for converting between them.
@@ -16,15 +15,36 @@ namespace VolumeControl.Hotkeys
         /// <param name="jsonWrapper">The bindable hotkey JSON wrapper object to convert.</param>
         /// <param name="actionManager">The hotkey actions manager to use when parsing the action identifier.</param>
         /// <returns><see cref="BindableHotkey"/></returns>
-        public static BindableHotkey ToBindableHotkey(this BindableHotkeyJsonWrapper jsonWrapper, IHotkeyActionManager actionManager) => new()
+        public static BindableHotkey ToBindableHotkey(this BindableHotkeyJsonWrapper jsonWrapper, IHotkeyActionManager actionManager)
         {
-            Name = jsonWrapper.Name,
-            Registered = jsonWrapper.Registered,
-            Key = jsonWrapper.Key,
-            Modifier = jsonWrapper.Modifier,
-            Action = jsonWrapper.ActionIdentifier is null ? null : actionManager[jsonWrapper.ActionIdentifier],
-            ActionSettings = jsonWrapper.ActionSettings is null ? new() : new(jsonWrapper.ActionSettings),
-        };
+            var action = jsonWrapper.ActionIdentifier is null ? null : actionManager[jsonWrapper.ActionIdentifier];
+            var settings = action?.GetDefaultActionSettings();
+            if (settings is not null && jsonWrapper.ActionSettings is not null)
+            {
+                // resolve action setting labels:
+                for (int i = 0; i < settings.Length; ++i)
+                {
+                    if (i < jsonWrapper.ActionSettings.Count)
+                    {
+                        var jsonValue = jsonWrapper.ActionSettings[i];
+
+                        if (jsonValue is null) continue;
+
+                        settings[i].Value = jsonValue;
+                    }
+                    else break;
+                }
+            }
+            return new()
+            {
+                Name = jsonWrapper.Name,
+                Registered = jsonWrapper.Registered,
+                Key = jsonWrapper.Key,
+                Modifier = jsonWrapper.Modifier,
+                Action = action,
+                ActionSettings = settings is null ? new() : new(settings),
+            };
+        }
         /// <summary>
         /// Converts from a <see cref="IBindableHotkey"/> to a <see cref="BindableHotkeyJsonWrapper"/> object for improved serialization.
         /// </summary>
@@ -37,7 +57,7 @@ namespace VolumeControl.Hotkeys
             Key = bindableHotkey.Key,
             Modifier = bindableHotkey.Modifier,
             ActionIdentifier = bindableHotkey.Action?.Identifier,
-            ActionSettings = bindableHotkey.ActionSettings?.ToList(),
+            ActionSettings = bindableHotkey.ActionSettings?.Select(setting => setting.Value).ToList(),
         };
     }
 }

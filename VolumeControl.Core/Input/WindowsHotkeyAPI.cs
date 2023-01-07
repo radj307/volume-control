@@ -13,6 +13,7 @@ namespace VolumeControl.Core.Input
         #region ID
         public const int MinID = 0x0000;
         public const int MaxID = 0xBFFF;
+        public const int TotalUniqueIDs = MaxID - MinID;
 
         /// <summary>
         /// Gets the next available hotkey ID number.
@@ -22,13 +23,25 @@ namespace VolumeControl.Core.Input
             get
             {
                 int id = Interlocked.Increment(ref _id);
-                if (id >= MaxID) // if we exceed the max ID, loop back to the min id
+                if (id >= MaxID)
+                {  // if we exceed the max ID, loop back to the min id
                     _ = Interlocked.Exchange(ref _id, MinID);
+                    ++OverflowCounter;
+                    Log.Error(new OverflowException($"The Hotkey ID sequencer has exceeded 0x{MaxID:X4}, and was reset to 0x{MinID:X4}. ({OverflowCounter} time{(OverflowCounter.Equals(1) ? "" : "s")})"));
+                }
                 return id;
             }
         }
         private static int _id = MinID;
         #endregion ID
+
+        #region HasOverflown
+        /// <summary>
+        /// Gets the number of times that <see cref="NextID"/> has exceeded <see cref="MaxID"/> and was reset to <see cref="MinID"/>.
+        /// </summary>
+        public static uint OverflowCounter { get; private set; } = 0u;
+        public static bool HasOverflown => OverflowCounter > 0u;
+        #endregion HasOverflown
 
         #region WindowsAPI
         #region User32
