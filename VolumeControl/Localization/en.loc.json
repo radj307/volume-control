@@ -274,6 +274,14 @@
             },
             "DisplayTargetList": {
               "Tooltip": {}
+            },
+            "ResetPosition": {
+              "Content": {
+                "English (US/CA)": "Reset Position"
+              },
+              "Tooltip": {
+                "English (US/CA)": "Resets the position of the list notification in case it goes missing from the viewport."
+              }
             }
           },
           "Enable": {

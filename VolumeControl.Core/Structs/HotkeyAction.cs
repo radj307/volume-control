@@ -99,10 +99,10 @@ namespace VolumeControl.Core.Structs
                 for (int i = 0; i < extraParams.Length; ++i)
                 {
                     var actionSetting = e.ActionSettings[i];
-                    var actionSettingType = actionSetting.Value?.GetType();
+                    var actionSettingType = actionSetting.ValueType ?? actionSetting.Value?.GetType();
                     var paramType = extraParams[i].ParameterType;
                     if (paramType.Equals(actionSettingType))
-                    {
+                    { // parameter is the correct type, use it
                         parameters.Add(actionSetting.Value);
                     }
                     else
@@ -111,8 +111,8 @@ namespace VolumeControl.Core.Structs
                         parameters.Add(paramType.Equals(typeof(string)) ? string.Empty : Activator.CreateInstance(paramType));
                     }
                 }
-
             }
+
             MethodInfo.Invoke(Instance, parameters.ToArray());
         }
 

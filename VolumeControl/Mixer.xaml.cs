@@ -223,5 +223,12 @@ namespace VolumeControl
         {
             MessageBox.Show("A display target is a collection of triggers, controls, colors, & logic that determine the behaviour and appearance of the notification window.\nDisplay targets also change when the notification window appears. For example, the Audio Sessions display target shows the notification window when the selected session is changed or (un)locked, or when the session's volume or mute state changes.", "Help", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
         }
+
+        private void Handle_ResetNotificationPositionClick(object sender, RoutedEventArgs e)
+        {
+            ListNotification.Left = this.Left;
+            ListNotification.Top = this.Top;
+            ListNotification.Show();
+        }
     }
 }

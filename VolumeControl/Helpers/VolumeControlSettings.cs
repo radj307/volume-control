@@ -14,7 +14,7 @@ using VolumeControl.Core.Input.Actions;
 using VolumeControl.Core.Interfaces;
 using VolumeControl.Helpers.Addon;
 using VolumeControl.Helpers.Update;
-using VolumeControl.Hotkeys.Addons;
+using VolumeControl.Hotkeys;
 using VolumeControl.Log;
 using VolumeControl.SDK;
 using VolumeControl.SDK.Internal;

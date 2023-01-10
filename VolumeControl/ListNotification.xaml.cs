@@ -61,6 +61,11 @@ namespace VolumeControl
             if (!_loaded)
             {
                 _loaded = true;
+
+                double width = this.Width, height = this.Height;
+                this.Width = Settings.NotificationSize?.Width ?? this.Width;
+                this.Height = Settings.NotificationSize?.Height ?? this.Height;
+
                 if (Settings.NotificationSavePos && Settings.NotificationPosition is Point pos)
                 {
                     SetPosAtCorner(Settings.NotificationPositionOriginCorner, pos);
@@ -69,6 +74,9 @@ namespace VolumeControl
                 {
                     SetPos(new(SystemParameters.WorkArea.Right - this.ActualWidth - 10, SystemParameters.WorkArea.Bottom - this.ActualHeight - 10));
                 }
+
+                this.Width = width;
+                this.Height = height;
             }
         }
         #endregion Initializers
@@ -259,18 +267,21 @@ namespace VolumeControl
             }
         }
         /// <summary>Saves the position of the notification window, if enabled by the config.</summary>
-        private void lnotifWindow_LocationChanged(object sender, EventArgs e)
-        {
-            if (!Settings.NotificationSavePos || !_loaded) return;
-            Settings.NotificationPositionOriginCorner = GetCurrentScreenCorner();
-            Settings.NotificationPosition = GetPosAtCorner(Settings.NotificationPositionOriginCorner);
-        }
+        //private void lnotifWindow_LocationChanged(object sender, EventArgs e)
+        //{
+        //    if (!Settings.NotificationSavePos || !_loaded) return;
+        //    Settings.NotificationPositionOriginCorner = GetCurrentScreenCorner();
+        //    Settings.NotificationPosition = GetPosAtCorner(Settings.NotificationPositionOriginCorner);
+        //    Settings.NotificationSize = new(this.Width, this.Height);
+        //}
         private void lnotifWindow_Closing(object sender, CancelEventArgs e)
         {
             if (!_allowClose) e.Cancel = true;
             if (Settings.NotificationSavePos)
             { // set the origin corner & position
+                Settings.NotificationPositionOriginCorner = GetCurrentScreenCorner();
                 Settings.NotificationPosition = GetPosAtCorner(Settings.NotificationPositionOriginCorner = GetCurrentScreenCorner());
+                Settings.NotificationSize = new(this.Width, this.Height);
             }
         }
 

@@ -259,6 +259,8 @@ namespace VolumeControl.Core
         /// Gets or sets whether <see cref="NotificationPosition"/> is used or not.
         /// </summary>
         public bool NotificationSavePos { get; set; } = true;
+
+        public Size? NotificationSize { get; set; }
         /// <summary>
         /// Gets or sets whether controls from <see cref="Interfaces.IListDisplayable.DisplayControls"/> are shown or not.
         /// </summary>

@@ -97,6 +97,7 @@
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                 <Setter Property="Padding" Value="1" />
                 <Setter Property="FontSize" Value="{StaticResource GlobalFontSize}" />
+                <Setter Property="FocusVisualStyle" Value="{StaticResource CustomFocusVisualStyle}" />
             </Style>
             <Style TargetType="{x:Type DataGridRow}">
                 <Setter Property="BorderThickness" Value="0" />
@@ -1503,9 +1504,14 @@
                                                 <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Style="{StaticResource TextBlockStyle}" ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.DisplayTarget.Tooltip', DefaultText=' '}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+
+                                            <TextBlock Style="{StaticResource TextBlockStyle}" ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.AdditionalSettings.DisplayTarget.Tooltip', DefaultText=' '}">
                                                 <Hyperlink x:Name="DisplayTargetsHyperlink" Click="DisplayTargetsHyperlink_Click">
-                                                    <TextBlock Text="{Tr 'VolumeControl.MainWindow.Settings.Notifications.DisplayTarget.Content', DefaultText='Display Target:'}" />
+                                                    <TextBlock Text="{Tr 'VolumeControl.MainWindow.Settings.Notifications.AdditionalSettings.DisplayTarget.Content', DefaultText='Display Target:'}" />
                                                 </Hyperlink>
                                             </TextBlock>
                                             <Grid Grid.Column="2" Margin="5,8,5,3">
@@ -1515,7 +1521,7 @@
                                                     ItemsSource="{Binding ListNotificationVM.DisplayTargets, Source={StaticResource Settings}, Mode=OneWay}"
                                                     SelectedItem="{Binding ListNotificationVM.CurrentDisplayTarget, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     Style="{StaticResource ListBoxStyle}"
-                                                    ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.DisplayTargetList.Tooltip',
+                                                    ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.AdditionalSettings.DisplayTargetList.Tooltip',
                                                                  DefaultText=' '}">
                                                     <ListBox.OpacityMask>
                                                         <VisualBrush Visual="{Binding ElementName=displayTargetListBoxMask}" />
@@ -1588,6 +1594,13 @@
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
+                                            </Grid>
+
+                                            <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                                                <Button
+                                                    Click="Handle_ResetNotificationPositionClick"
+                                                    Content="{Tr 'VolumeControl.MainWindow.Settings.Notifications.AdditionalSettings.ResetPosition.Content'}"
+                                                    ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.AdditionalSettings.ResetPosition.Tooltip'}" />
                                             </Grid>
                                         </Grid>
                                     </Expander>

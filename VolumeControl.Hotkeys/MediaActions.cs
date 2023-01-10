@@ -3,7 +3,7 @@ using VolumeControl.Core;
 using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Enum;
 
-namespace VolumeControl.Hotkeys.Addons
+namespace VolumeControl.Hotkeys
 {
     [HotkeyActionGroup("Media", GroupColor = "#FFA54C")]
     public class MediaActions

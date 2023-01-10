@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Windows.Media;
 using VolumeControl.Core.Attributes;
-using VolumeControl.Core.Input.Actions;
 using VolumeControl.Core.Structs;
 using VolumeControl.SDK;
 using VolumeControl.SDK.Delegates;
@@ -59,14 +57,6 @@ namespace VolumeControl.Helpers.Addon
                                 continue;
                             }
                             else if (!parameters[0].ParameterType.Equals(typeof(object)) || !parameters[1].ParameterType.Equals(typeof(System.ComponentModel.HandledEventArgs)))
-                            {
-                                Log.Debug(
-                                    $"Addon method is invalid: '{methodInfo.Name}' (Invalid Function Declaration; First Parameter)",
-                                    $"Hotkey action methods must accept a first parameter of type `{typeof(object).FullName}`, and a second parameter of type `{typeof(System.ComponentModel.HandledEventArgs).FullName}`!",
-                                    $"For an example of valid syntax, see \"{typeof(HotkeyActionDelegate).FullName}\".");
-                                continue;
-                            }
-                            else if (parameters[2..].Any(p => p.ParameterType.IsInterface))
                             {
                                 Log.Debug(
                                     $"Addon method is invalid: '{methodInfo.Name}' (Invalid Function Declaration; First Parameter)",

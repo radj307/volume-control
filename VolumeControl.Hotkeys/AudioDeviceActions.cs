@@ -4,7 +4,7 @@ using VolumeControl.Audio.Events;
 using VolumeControl.Core.Attributes;
 using VolumeControl.SDK;
 
-namespace VolumeControl.Hotkeys.Addons
+namespace VolumeControl.Hotkeys
 {
     /// <summary>
     /// Contains hotkey action handlers that interact with AudioDevices in the <see cref="Audio.AudioAPI"/> object.

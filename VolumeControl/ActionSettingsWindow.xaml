@@ -16,6 +16,7 @@
     ShowActivated="True"
     SizeToContent="WidthAndHeight"
     WindowStartupLocation="CenterOwner"
+    WindowStyle="ToolWindow"
     mc:Ignorable="d">
     <Window.DataContext>
         <vm:ActionSettingsWindowVM />

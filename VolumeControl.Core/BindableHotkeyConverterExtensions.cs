@@ -1,5 +1,4 @@
-﻿using System.Net.NetworkInformation;
-using VolumeControl.Core.Input;
+﻿using VolumeControl.Core.Input;
 using VolumeControl.Core.Interfaces;
 
 namespace VolumeControl.Core

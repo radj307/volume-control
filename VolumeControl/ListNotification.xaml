@@ -16,7 +16,6 @@
     DataContext="{RelativeSource Self}"
     Focusable="False"
     Loaded="lnotifWindow_Loaded"
-    LocationChanged="lnotifWindow_LocationChanged"
     MouseDown="lnotifWindow_MouseDown"
     MouseEnter="lnotifWindow_MouseEnter"
     ResizeMode="NoResize"
