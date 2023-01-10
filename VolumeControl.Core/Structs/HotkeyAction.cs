@@ -112,8 +112,8 @@ namespace VolumeControl.Core.Structs
                     }
                 }
 
-                MethodInfo.Invoke(Instance, parameters.ToArray());
             }
+            MethodInfo.Invoke(Instance, parameters.ToArray());
         }
 
         /// <inheritdoc/>
