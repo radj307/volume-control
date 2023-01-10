@@ -266,14 +266,6 @@ namespace VolumeControl
                 }
             }
         }
-        /// <summary>Saves the position of the notification window, if enabled by the config.</summary>
-        //private void lnotifWindow_LocationChanged(object sender, EventArgs e)
-        //{
-        //    if (!Settings.NotificationSavePos || !_loaded) return;
-        //    Settings.NotificationPositionOriginCorner = GetCurrentScreenCorner();
-        //    Settings.NotificationPosition = GetPosAtCorner(Settings.NotificationPositionOriginCorner);
-        //    Settings.NotificationSize = new(this.Width, this.Height);
-        //}
         private void lnotifWindow_Closing(object sender, CancelEventArgs e)
         {
             if (!_allowClose) e.Cancel = true;

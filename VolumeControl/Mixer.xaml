@@ -1510,7 +1510,7 @@
                                             </Grid.RowDefinitions>
 
                                             <TextBlock Style="{StaticResource TextBlockStyle}" ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.AdditionalSettings.DisplayTarget.Tooltip', DefaultText=' '}">
-                                                <Hyperlink x:Name="DisplayTargetsHyperlink" Click="DisplayTargetsHyperlink_Click">
+                                                <Hyperlink x:Name="DisplayTargetsHyperlink" Click="Handle_DisplayTargetsHyperlinkClick">
                                                     <TextBlock Text="{Tr 'VolumeControl.MainWindow.Settings.Notifications.AdditionalSettings.DisplayTarget.Content', DefaultText='Display Target:'}" />
                                                 </Hyperlink>
                                             </TextBlock>
