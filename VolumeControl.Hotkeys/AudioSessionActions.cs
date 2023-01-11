@@ -25,17 +25,14 @@ namespace VolumeControl.Hotkeys
         [HotkeyActionSetting(ActionTargetSpecifierName, typeof(ActionTargetSpecifier))]
         public void VolumeUp(object? sender, HotkeyActionPressedEventArgs e)
         {
-            if (e.FindActionSetting(ActionTargetSpecifierName) is HotkeyActionSetting setting
-                && (setting.ValueType?.Equals(typeof(ActionTargetSpecifier)) ?? false))
+            if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier targets)
             {
-                var targets = (setting.Value as ActionTargetSpecifier)!;
                 foreach (var t in targets)
                 {
                     if (AudioAPI.FindSessionWithName(t.ProcessName) is ISession session)
                     {
                         session.IncreaseVolume(AudioAPI.VolumeStepSize);
                     }
-                    else Log.Warning($"Couldn't find any processes named '{t.ProcessName}'!");
                 }
             }
             else AudioAPI.IncrementSessionVolume();
@@ -44,17 +41,14 @@ namespace VolumeControl.Hotkeys
         [HotkeyActionSetting(ActionTargetSpecifierName, typeof(ActionTargetSpecifier))]
         public void VolumeDown(object? sender, HotkeyActionPressedEventArgs e)
         {
-            if (e.FindActionSetting(ActionTargetSpecifierName) is HotkeyActionSetting setting
-                && (setting.ValueType?.Equals(typeof(ActionTargetSpecifier)) ?? false))
+            if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier targets)
             {
-                var targets = (setting.Value as ActionTargetSpecifier)!;
                 foreach (var t in targets)
                 {
                     if (AudioAPI.FindSessionWithName(t.ProcessName) is ISession session)
                     {
                         session.DecreaseVolume(AudioAPI.VolumeStepSize);
                     }
-                    else Log.Warning($"Couldn't find any processes named '{t.ProcessName}'!");
                 }
             }
             else AudioAPI.DecrementSessionVolume();

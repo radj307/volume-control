@@ -39,7 +39,12 @@ namespace VolumeControl.Core.Input.Actions
         /// <param name="name">The name to search for.</param>
         /// <param name="stringComparison">The <see cref="StringComparison"/> type to use for string comparisons.</param>
         /// <returns>The matching <see cref="HotkeyActionSetting"/> if found; otherwise <see langword="null"/>.</returns>
-        public HotkeyActionSetting? FindActionSetting(string name, StringComparison stringComparison = StringComparison.Ordinal) => ActionSettings?.FirstOrDefault(item => item.Label.Equals(name, stringComparison));
+        public HotkeyActionSetting? FindActionSetting(string name, StringComparison stringComparison = StringComparison.Ordinal)
+            => ActionSettings?.FirstOrDefault(item => item.Label.Equals(name, stringComparison));
+        /// <inheritdoc cref="FindActionSetting(string, StringComparison)"/>
+        /// <typeparam name="T">Optional typename that the <see cref="HotkeyActionSetting.ValueType"/> must match in order for it to be returned.</typeparam>
+        public T? GetActionSettingValue<T>(string name, StringComparison stringComparison = StringComparison.Ordinal)
+            => (T?)ActionSettings?.FirstOrDefault(item => item.Label.Equals(name, stringComparison) && (item.ValueType?.Equals(typeof(T)) ?? false))?.Value;
         #endregion Methods
     }
     /// <inheritdoc cref="IHotkeyAction.HandleKeyEvent(object?, HotkeyActionPressedEventArgs)"/>

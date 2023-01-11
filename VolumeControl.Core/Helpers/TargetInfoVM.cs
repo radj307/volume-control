@@ -11,22 +11,27 @@ namespace VolumeControl.Core.Helpers
         /// <summary>
         /// Creates a new <see cref="TargetInfoVM"/> instance with an empty <see cref="ProcessName"/>.
         /// </summary>
-        public TargetInfoVM() => ProcessName = string.Empty;
+        public TargetInfoVM() => _processName = string.Empty;
         /// <summary>
         /// Creates a new <see cref="TargetInfoVM"/> instance with the given <paramref name="processName"/>.
         /// </summary>
         /// <param name="processName">The name of the target process.</param>
-        public TargetInfoVM(string processName) => ProcessName = processName;
+        public TargetInfoVM(string processName) => _processName = processName;
         /// <summary>
         /// Creates a new <see cref="TargetInfoVM"/> instance from the given <paramref name="target"/>.
         /// </summary>
         /// <param name="target">A <see cref="TargetInfo"/> struct.</param>
-        public TargetInfoVM(TargetInfo target) => ProcessName = target.GetProcessName();
+        public TargetInfoVM(TargetInfo target) => _processName = target.GetProcessName();
 
         /// <summary>
         /// Target process name.
         /// </summary>
-        public string ProcessName { get; set; }
+        public string ProcessName
+        {
+            get => _processName;
+            set => _processName = value.Trim();
+        }
+        private string _processName;
     }
     public class JsonTargetInfoVMConverter : JsonConverter
     {
