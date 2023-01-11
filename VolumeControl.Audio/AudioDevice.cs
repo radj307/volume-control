@@ -19,29 +19,11 @@ using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Audio
 {
-    /// <summary>Represents an audio device endpoint.<br/>Note that this object cannot be constructed externally.<br/>You can retrieve already-created audio devices through the <see cref="AudioAPI"/> class.</summary>
-    /// <remarks>This object uses the MMDevice API from NAudio, and implements the following interfaces:
-    /// <list type="bullet">
-    /// <item><description><see cref="IVolumeControl"/></description></item>
-    /// <item><description><see cref="IListDisplayable"/></description></item>
-    /// <item><description><see cref="IDevice"/></description></item>
-    /// <item><description><see cref="INotifyPropertyChanged"/></description></item>
-    /// <item><description><see cref="IDisposable"/></description></item>
-    /// <item><description><see cref="IEquatable{AudioDevice}"/></description></item>
-    /// <item><description><see cref="IEquatable{IDevice}"/></description></item>
-    /// <item><description><see cref="IList"/></description></item>
-    /// <item><description><see cref="ICollection"/></description></item>
-    /// <item><description><see cref="IEnumerable"/></description></item>
-    /// <item><description><see cref="IList{AudioSession}"/></description></item>
-    /// <item><description><see cref="IImmutableList{AudioSession}"/></description></item>
-    /// <item><description><see cref="ICollection{AudioSession}"/></description></item>
-    /// <item><description><see cref="IEnumerable{AudioSession}"/></description></item>
-    /// <item><description><see cref="IReadOnlyList{AudioSession}"/></description></item>
-    /// <item><description><see cref="IReadOnlyCollection{AudioSession}"/></description></item>
-    /// <item><description><see cref="INotifyCollectionChanged"/></description></item>
-    /// <item><description><see cref="INotifyPropertyChanged"/></description></item>
-    /// </list>
-    /// Note that audio devices implement interfaces so that they may act similarly to lists of audio sessions.<br/>Some properties in this object require the NAudio library.<br/>If you're writing an addon, install the 'NAudio' nuget package if you need to be able to use them.
+    /// <summary>
+    /// An audio device.
+    /// </summary>
+    /// <remarks>
+    /// <b>This object cannot be constructed outside of the <see cref="VolumeControl"/>.<see cref="VolumeControl.Audio"/> assembly!</b><br/>
     /// </remarks>
     public sealed class AudioDevice : IVolumeControl, IListDisplayable, IDevice, IDisposable, IEquatable<AudioDevice>, IEquatable<IDevice>, IList, ICollection, IEnumerable, IList<AudioSession>, IImmutableList<AudioSession>, ICollection<AudioSession>, IEnumerable<AudioSession>, IReadOnlyList<AudioSession>, IReadOnlyCollection<AudioSession>, INotifyCollectionChanged, INotifyPropertyChanged
     {
@@ -203,7 +185,7 @@ namespace VolumeControl.Audio
         }
         private Control[]? _displayControls;
         /// <inheritdoc/>
-        public Control[]? DisplayControls => _displayControls ??= IVolumeControl.MakeListDisplayableControlTemplate(this);
+        public Control[]? DisplayControls => _displayControls ??= IMeteredVolumeControl.MakeListDisplayableControlTemplate(this);
         /// <inheritdoc/>
         public ImageSource? DisplayIcon => this.Icon;
 
@@ -472,6 +454,14 @@ namespace VolumeControl.Audio
         public IImmutableList<AudioSession> Replace(AudioSession oldValue, AudioSession newValue, IEqualityComparer<AudioSession>? equalityComparer) => ((IImmutableList<AudioSession>)this.Sessions).Replace(oldValue, newValue, equalityComparer);
         /// <inheritdoc/>
         public IImmutableList<AudioSession> SetItem(int index, AudioSession value) => ((IImmutableList<AudioSession>)this.Sessions).SetItem(index, value);
+        /// <inheritdoc/>
+        public float IncreaseVolume(float amount) => NativeVolume += amount;
+        /// <inheritdoc/>
+        public int IncreaseVolume(int amount) => Volume += amount;
+        /// <inheritdoc/>
+        public float DecreaseVolume(float amount) => NativeVolume -= amount;
+        /// <inheritdoc/>
+        public int DecreaseVolume(int amount) => Volume -= amount;
         #endregion InterfaceMethods
         #endregion Methods
     }

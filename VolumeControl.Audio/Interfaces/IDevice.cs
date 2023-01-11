@@ -5,7 +5,7 @@ namespace VolumeControl.Audio.Interfaces
     /// <summary>
     /// Represents an audio device.
     /// </summary>
-    public interface IDevice : IAudioControl, INotifyPropertyChanged
+    public interface IDevice : IMeteredVolumeControl, INotifyPropertyChanged
     {
         /// <summary>
         /// Gets the device name.

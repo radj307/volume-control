@@ -31,6 +31,16 @@ namespace VolumeControl.Core.Input.Actions
         /// </summary>
         public IList<HotkeyActionSetting>? ActionSettings { get; }
         #endregion Properties
+
+        #region Methods
+        /// <summary>
+        /// Gets the action setting specified by <paramref name="name"/> from <see cref="ActionSettings"/>.
+        /// </summary>
+        /// <param name="name">The name to search for.</param>
+        /// <param name="stringComparison">The <see cref="StringComparison"/> type to use for string comparisons.</param>
+        /// <returns>The matching <see cref="HotkeyActionSetting"/> if found; otherwise <see langword="null"/>.</returns>
+        public HotkeyActionSetting? FindActionSetting(string name, StringComparison stringComparison = StringComparison.Ordinal) => ActionSettings?.FirstOrDefault(item => item.Label.Equals(name, stringComparison));
+        #endregion Methods
     }
     /// <inheritdoc cref="IHotkeyAction.HandleKeyEvent(object?, HotkeyActionPressedEventArgs)"/>
     public delegate void HotkeyActionPressedEventHandler(object? sender, HotkeyActionPressedEventArgs e);

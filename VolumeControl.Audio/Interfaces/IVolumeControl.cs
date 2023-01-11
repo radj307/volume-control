@@ -1,41 +1,64 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
-using VolumeControl.Core;
 using VolumeControl.Core.Interfaces;
-using XamlTimers;
 
 namespace VolumeControl.Audio.Interfaces
 {
     /// <summary>
     /// Represents some kind of controllable audio playback instance.
     /// </summary>
-    /// <remarks>
-    /// This interface 'derives' from <see cref="IListDisplayable"/>.
-    /// </remarks>
     public interface IVolumeControl : IListDisplayable
     {
         /// <summary>
-        /// Gets the current peak meter level.
-        /// </summary>
-        float PeakMeterValue { get; }
-        /// <summary>
-        /// Gets or sets the volume of this <see cref="IAudioControl"/> instance as a <see cref="float"/> in the range <b>( 0.0 <i>(0%)</i> - 1.0 <i>(100%)</i> )</b><br/>
+        /// Gets or sets the volume of this <see cref="IMeteredVolumeControl"/> instance as a <see cref="float"/> in the range <b>( 0.0 <i>(0%)</i> - 1.0 <i>(100%)</i> )</b><br/>
         /// This is the native volume range of this instance, into which the <see cref="Volume"/> property's value is scaled.
         /// </summary>
         /// <remarks>Input values are clamped <b>before</b> being applied, so out-of-bounds values are allowed.</remarks>
         float NativeVolume { get; set; }
         /// <summary>
-        /// Gets or sets the volume of this <see cref="IAudioControl"/> instance as an <see cref="int"/> in the range <b>( 0 - 100 )</b>
+        /// Gets or sets the volume of this <see cref="IMeteredVolumeControl"/> instance as an <see cref="int"/> in the range <b>( 0 - 100 )</b>
         /// </summary>
         /// <remarks>Input values are clamped <b>before</b> being applied, so out-of-bounds values are allowed.</remarks>
         int Volume { get; set; }
         /// <summary>
-        /// Gets or sets this <see cref="IAudioControl"/> instance's current mute-state.
+        /// Gets or sets this <see cref="IMeteredVolumeControl"/> instance's current mute-state.
         /// </summary>
         /// <returns><see langword="true"/> when this instance is muted; otherwise <see langword="false"/>.</returns>
         bool Muted { get; set; }
 
+        #region Methods
+        /// <summary>
+        /// Increases <see cref="NativeVolume"/> by <paramref name="amount"/>.
+        /// </summary>
+        /// <param name="amount">The amount to increase the volume by.<br/>
+        /// If the resulting volume exceeds the maximum boundary, it is automatically clamped.</param>
+        /// <returns>The new value of the <see cref="NativeVolume"/> property.</returns>
+        float IncreaseVolume(float amount);
+        /// <summary>
+        /// Increases <see cref="Volume"/> by <paramref name="amount"/>.
+        /// </summary>
+        /// <param name="amount">The amount to increase the volume by.<br/>
+        /// If the resulting volume exceeds the maximum boundary, it is automatically clamped.</param>
+        /// <returns>The new value of the <see cref="Volume"/> property.</returns>
+        int IncreaseVolume(int amount);
+        /// <summary>
+        /// Decreases <see cref="NativeVolume"/> by <paramref name="amount"/>.
+        /// </summary>
+        /// <param name="amount">The amount to decrease the volume by.<br/>
+        /// If the resulting volume exceeds the minimum boundary, it is automatically clamped.</param>
+        /// <returns>The new value of the <see cref="NativeVolume"/> property.</returns>
+        float DecreaseVolume(float amount);
+        /// <summary>
+        /// Decreases <see cref="Volume"/> by <paramref name="amount"/>.
+        /// </summary>
+        /// <param name="amount">The amount to decrease the volume by.<br/>
+        /// If the resulting volume exceeds the minimum boundary, it is automatically clamped.</param>
+        /// <returns>The new value of the <see cref="Volume"/> property.</returns>
+        int DecreaseVolume(int amount);
+        #endregion Methods
+
+        #region Functions
         /// <summary>
         /// Creates a new array of controls with a mute checkbox, a volume slider, and a volume text box, all data-bound to the given <paramref name="inst"/>.
         /// </summary>
@@ -76,31 +99,6 @@ namespace VolumeControl.Audio.Interfaces
                 Mode = BindingMode.TwoWay,
                 UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
             });
-            _ = volSlider.SetBinding(Slider.TagProperty, new Binding(nameof(Slider.TagProperty))
-            { // Bind the slider's tag property to the peak meter value
-                Source = inst,
-                Path = new System.Windows.PropertyPath(nameof(IVolumeControl.PeakMeterValue)),
-                Mode = BindingMode.OneWay
-            });
-            // Create a XamlTimer for the volSlider's peak meter
-            IntervalUpdateBinding volPeakMeterUpdater = new()
-            {
-                Property = Slider.TagProperty
-            };
-            _ = BindingOperations.SetBinding(volPeakMeterUpdater, IntervalUpdateBinding.EnableTimerProperty, new Binding(nameof(IntervalUpdateBinding.EnableTimerProperty))
-            { // Bind the EnableTimerProperty to Config.ShowPeakMeters
-                Source = (Config.Default as Config)!,
-                Path = new System.Windows.PropertyPath(nameof(Config.ShowPeakMeters)),
-                Mode = BindingMode.OneWay,
-            });
-            _ = BindingOperations.SetBinding(volPeakMeterUpdater, IntervalUpdateBinding.IntervalProperty, new Binding(nameof(IntervalUpdateBinding.IntervalProperty))
-            { // Bind the IntervalProperty to Config.PeakMeterUpdateIntervalMs
-                Source = (Config.Default as Config)!,
-                Path = new System.Windows.PropertyPath(nameof(Config.PeakMeterUpdateIntervalMs)),
-                Mode = BindingMode.OneWay
-            });
-            // Add the XamlTimer behavior to the volSlider
-            Microsoft.Xaml.Behaviors.Interaction.GetBehaviors(volSlider).Add(volPeakMeterUpdater);
             l.Add(volSlider); //< add the volume slider
 
             // Create the volume textbox
@@ -122,5 +120,6 @@ namespace VolumeControl.Audio.Interfaces
 
             return l.ToArray();
         }
+        #endregion Functions
     }
 }

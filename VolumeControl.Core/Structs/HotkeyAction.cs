@@ -29,7 +29,10 @@ namespace VolumeControl.Core.Structs
             Type = objectType;
             Instance = inst;
             MethodInfo = methodInfo;
-            UsesExtraParameters = MethodInfo.GetParameters().Length > 2;
+            var methodParameters = MethodInfo.GetParameters();
+            RequiresExtraParameters = methodParameters.Length > 2;
+            AcceptsExtraActionSettings = methodParameters[1].ParameterType.Equals(typeof(HotkeyActionPressedEventArgs));
+            ExtraActionSettings = GetExtraActionSettings();
         }
         /// <summary>
         /// Creates a new <see cref="HotkeyAction"/> instance.
@@ -43,7 +46,10 @@ namespace VolumeControl.Core.Structs
             Type = inst.GetType();
             Instance = inst;
             MethodInfo = methodInfo;
-            UsesExtraParameters = MethodInfo.GetParameters().Length > 2;
+            var methodParameters = MethodInfo.GetParameters();
+            RequiresExtraParameters = methodParameters.Length > 2;
+            AcceptsExtraActionSettings = methodParameters[1].ParameterType.Equals(typeof(HotkeyActionPressedEventArgs));
+            ExtraActionSettings = GetExtraActionSettings();
         }
         /// <summary>
         /// Creates a new <see cref="HotkeyAction"/> instance.
@@ -57,7 +63,10 @@ namespace VolumeControl.Core.Structs
             Type = objectType;
             Instance = null;
             MethodInfo = methodInfo;
-            UsesExtraParameters = MethodInfo.GetParameters().Length > 2;
+            var methodParameters = MethodInfo.GetParameters();
+            RequiresExtraParameters = methodParameters.Length > 2;
+            AcceptsExtraActionSettings = methodParameters[1].ParameterType.Equals(typeof(HotkeyActionPressedEventArgs));
+            ExtraActionSettings = GetExtraActionSettings();
         }
 
         /// <inheritdoc/>
@@ -79,14 +88,21 @@ namespace VolumeControl.Core.Structs
         /// <inheritdoc cref="HotkeyActionData.ActionGroupBrush"/>
         public Brush? GroupBrush => Data.ActionGroupBrush;
         /// <inheritdoc/>
-        public bool UsesExtraParameters { get; }
+        public bool RequiresExtraParameters { get; }
+        /// <inheritdoc/>
+        public bool AcceptsExtraActionSettings { get; }
+        /// <inheritdoc/>
+        public HotkeyActionSetting[]? ExtraActionSettings { get; }
+        /// <inheritdoc/>
+        public bool UsesActionSettings => _usesActionSettings ??= RequiresExtraParameters || (AcceptsExtraActionSettings && ExtraActionSettings?.Length > 0);
+        private bool? _usesActionSettings = null;
 
         /// <inheritdoc/>
         public void HandleKeyEvent(object? sender, HotkeyActionPressedEventArgs e)
         {
             List<object?> parameters = new() { sender, e };
 
-            if (UsesExtraParameters)
+            if (RequiresExtraParameters)
             {
                 if (e.ActionSettings is null)
                 {
@@ -121,7 +137,7 @@ namespace VolumeControl.Core.Structs
         {
             List<HotkeyActionSetting> l = new();
 
-            if (UsesExtraParameters)
+            if (RequiresExtraParameters)
             {
                 foreach (var p in MethodInfo.GetParameters()[2..])
                 {
@@ -132,7 +148,16 @@ namespace VolumeControl.Core.Structs
                         ));
                 }
             }
+            if (ExtraActionSettings is not null)
+                l.AddRange(ExtraActionSettings);
 
+            return l.ToArray();
+        }
+
+        private HotkeyActionSetting[] GetExtraActionSettings()
+        {
+            List<HotkeyActionSetting> l = new();
+            MethodInfo.GetCustomAttributes<HotkeyActionSettingAttribute>().ForEach(a => l.Add(a.ToHotkeyActionSetting()));
             return l.ToArray();
         }
     }

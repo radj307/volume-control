@@ -1,5 +1,5 @@
 ﻿using VolumeControl.Audio.Interfaces;
-using VolumeControl.Core;
+using VolumeControl.Core.Helpers;
 
 namespace VolumeControl.Audio.Extensions
 {
@@ -9,8 +9,8 @@ namespace VolumeControl.Audio.Extensions
     public static class ISessionExtensions
     {
         /// <summary>
-        /// Extension method that gets a <see cref="Config.TargetInfo"/> struct with this session's data.
+        /// Extension method that gets a <see cref="TargetInfo"/> struct with this session's data.
         /// </summary>
-        public static Config.TargetInfo GetTargetInfo(this ISession session) => new() { ProcessIdentifier = session.ProcessIdentifier, SessionInstanceIdentifier = session.SessionInstanceIdentifier };
+        public static TargetInfo GetTargetInfo(this ISession session) => new() { ProcessIdentifier = session.ProcessIdentifier, SessionInstanceIdentifier = session.SessionInstanceIdentifier };
     }
 }

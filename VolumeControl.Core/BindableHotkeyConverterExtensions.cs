@@ -1,5 +1,9 @@
-﻿using VolumeControl.Core.Input;
+﻿using Newtonsoft.Json.Linq;
+using System.Collections;
+using VolumeControl.Core.Helpers;
+using VolumeControl.Core.Input;
 using VolumeControl.Core.Interfaces;
+using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Core
 {
@@ -29,7 +33,17 @@ namespace VolumeControl.Core
 
                         if (jsonValue is null) continue;
 
-                        settings[i].Value = jsonValue;
+                        if ((settings[i].ValueType?.Equals(typeof(ObservableImmutableList<TargetInfoVM>)) ?? false) && jsonValue is JArray jsonArray)
+                        {
+                            settings[i].Value = Activator.CreateInstance(settings[i].ValueType!);
+                            var list = (settings[i].Value as ObservableImmutableList<TargetInfoVM>)!;
+
+                            foreach (var item in jsonArray)
+                            {
+                                list.Add(new(item.Value<string>()!));
+                            }
+                        }
+                        else settings[i].Value = jsonValue;
                     }
                     else break;
                 }

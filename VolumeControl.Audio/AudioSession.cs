@@ -236,7 +236,7 @@ namespace VolumeControl.Audio
         }
         private Control[]? _displayControls;
         /// <inheritdoc/>
-        public Control[]? DisplayControls => _displayControls ??= IVolumeControl.MakeListDisplayableControlTemplate(this);
+        public Control[]? DisplayControls => _displayControls ??= IMeteredVolumeControl.MakeListDisplayableControlTemplate(this);
         /// <inheritdoc/>
         public ImageSource? DisplayIcon => this.Icon;
         #endregion Properties
@@ -345,6 +345,14 @@ namespace VolumeControl.Audio
         public override bool Equals(object? obj) => this.Equals(obj as AudioSession);
         /// <inheritdoc/>
         public override int GetHashCode() => this.ProcessIdentifier.GetHashCode();
+        /// <inheritdoc/>
+        public float IncreaseVolume(float amount) => NativeVolume += amount;
+        /// <inheritdoc/>
+        public int IncreaseVolume(int amount) => Volume += amount;
+        /// <inheritdoc/>
+        public float DecreaseVolume(float amount) => NativeVolume -= amount;
+        /// <inheritdoc/>
+        public int DecreaseVolume(int amount) => Volume -= amount;
         #endregion Methods
     }
 }

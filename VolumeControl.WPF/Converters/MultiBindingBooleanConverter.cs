@@ -12,7 +12,13 @@ namespace VolumeControl.WPF.Converters
     public class MultiBindingBooleanConverter : IMultiValueConverter
     {
         /// <inheritdoc/>
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) => values.All(i => System.Convert.ToBoolean(i));
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (parameter is null || System.Convert.ToBoolean(parameter))
+                return values.All(i => System.Convert.ToBoolean(i));
+            else
+                return values.Any(i => System.Convert.ToBoolean(i));
+        }
         /// <inheritdoc/>
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {

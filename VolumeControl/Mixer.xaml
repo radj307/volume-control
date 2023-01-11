@@ -1110,7 +1110,7 @@
                                                         Click="Handle_HotkeyActionSettingsClick"
                                                         CommandParameter="{Binding ID}"
                                                         Content="🛠"
-                                                        IsEnabled="{Binding Action.UsesExtraParameters}" />
+                                                        IsEnabled="{Binding Action.UsesActionSettings}" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>

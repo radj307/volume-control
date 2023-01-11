@@ -259,7 +259,9 @@ namespace VolumeControl.Core
         /// Gets or sets whether <see cref="NotificationPosition"/> is used or not.
         /// </summary>
         public bool NotificationSavePos { get; set; } = true;
-
+        /// <summary>
+        /// The last known size of the notification window.
+        /// </summary>
         public Size? NotificationSize { get; set; }
         /// <summary>
         /// Gets or sets whether controls from <see cref="Interfaces.IListDisplayable.DisplayControls"/> are shown or not.
@@ -365,30 +367,6 @@ namespace VolumeControl.Core
         #endregion Hotkeys
 
         #region Audio
-        /// <summary>
-        /// Contains metadata for saving audio sessions to and from the config
-        /// </summary>
-        [JsonObject]
-        public struct TargetInfo
-        {
-            /// <summary>
-            /// Process identifier in the form "PID:PNAME"
-            /// </summary>
-            public string ProcessIdentifier { get; set; }
-            /// <summary>
-            /// Session instance identifier
-            /// </summary>
-            public string SessionInstanceIdentifier { get; set; }
-            /// <summary>
-            /// Blank <see cref="TargetInfo"/> object.
-            /// </summary>
-            public static readonly TargetInfo Empty = new() { ProcessIdentifier = string.Empty, SessionInstanceIdentifier = string.Empty };
-            /// <summary>
-            /// Conversion operator from string
-            /// </summary>
-            public static explicit operator TargetInfo(string s) => new() { ProcessIdentifier = s, SessionInstanceIdentifier = string.Empty };
-        }
-
         /// <summary>
         /// Gets or sets the last target session.
         /// </summary>

@@ -11,9 +11,7 @@ namespace VolumeControl.Core.Input.Actions
     [AddINotifyPropertyChangedInterface]
     public class HotkeyActionSetting
     {
-        public HotkeyActionSetting()
-        {
-        }
+        public HotkeyActionSetting() {}
         public HotkeyActionSetting(string label, Type? valueType)
         {
             Label = label;
@@ -44,8 +42,12 @@ namespace VolumeControl.Core.Input.Actions
         public object? Value { get; set; }
     }
 
+    /// <summary>
+    /// <see cref="DataTemplateSelector"/> implementation for <see cref="HotkeyActionSetting"/>.
+    /// </summary>
     public class HotkeyActionSettingValueTemplateSelector : DataTemplateSelector
     {
+        /// <inheritdoc/>
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             if (item is not HotkeyActionSetting setting)

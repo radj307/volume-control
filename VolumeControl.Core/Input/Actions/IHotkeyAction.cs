@@ -25,7 +25,20 @@ namespace VolumeControl.Core.Input.Actions
         /// <summary>
         /// <see langword="true"/> when the function pointed to by <see cref="MethodInfo"/> requires extra parameters.
         /// </summary>
-        bool UsesExtraParameters { get; }
+        bool RequiresExtraParameters { get; }
+        /// <summary>
+        /// <see langword="true"/> when the function pointed to by <see cref="MethodInfo"/> supports receiving extra action settings via <see cref="HotkeyActionPressedEventArgs"/>; otherwise <see langword="false"/>.
+        /// </summary>
+        bool AcceptsExtraActionSettings { get; }
+        /// <summary>
+        /// Defines additional action settings that are not received via parameters, but should be considered valid nonetheless.<br/>
+        /// In practice, this defines the action settings that were specified via method attributes.
+        /// </summary>
+        HotkeyActionSetting[]? ExtraActionSettings { get; }
+        /// <summary>
+        /// <see langword="true"/> when this action uses action settings from any source; otherwise <see langword="false"/>.
+        /// </summary>
+        public bool UsesActionSettings { get; }
 
         /// <summary>
         /// The action's unique identifier.

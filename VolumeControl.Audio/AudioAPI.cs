@@ -6,6 +6,7 @@ using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Extensions;
 using VolumeControl.Audio.Interfaces;
 using VolumeControl.Core;
+using VolumeControl.Core.Helpers;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
 
@@ -99,7 +100,7 @@ namespace VolumeControl.Audio
 
                 Settings.Target = this.FindSessionWithIdentifier(eventArgs.Incoming) is ISession session
                     ? session.GetTargetInfo()
-                    : new Config.TargetInfo() { ProcessIdentifier = eventArgs.Incoming, SessionInstanceIdentifier = string.Empty };
+                    : new TargetInfo() { ProcessIdentifier = eventArgs.Incoming, SessionInstanceIdentifier = string.Empty };
 
                 this.NotifyPropertyChanged();
                 this.NotifyPropertyChanged(nameof(this.SelectedSession));
@@ -124,7 +125,7 @@ namespace VolumeControl.Audio
 
                 Settings.Target = !value.Equals(Guid.Empty) && this.FindSessionWithSessionInstanceIdentifier(value) is ISession session
                     ? session.GetTargetInfo()
-                    : Config.TargetInfo.Empty;
+                    : TargetInfo.Empty;
 
                 this.NotifyPropertyChanged();
                 this.NotifyPropertyChanged(nameof(this.Target));
@@ -261,7 +262,47 @@ namespace VolumeControl.Audio
         /// <remarks><b>Note that this invalidates and disposes of all <see cref="AudioSession"/> objects!<br/>This means any audio session objects you had previously saved a reference to will be deleted.</b></remarks>
         public void ForceReloadSessionList() => this.Sessions.RefreshFromDevices();
         #endregion ReloadSessions
-        #region Session        
+        #region Session
+        /// <summary>
+        /// Finds the session matching the given <paramref name="target"/>.
+        /// </summary>
+        /// <param name="target">A <see cref="TargetInfo"/> struct.</param>
+        /// <param name="allowPotentialMatches">When <see langword="true"/>, sessions can be returned even if only the process names match the given <paramref name="target"/> as long as no exact match is found anywhere in the list; otherwise when <see langword="false"/>, only exact matches are returned, and process names are not checked.</param>
+        /// <returns>The matching <see cref="ISession"/> if found; otherwise <see langword="null"/>.</returns>
+        public ISession? FindSession(TargetInfo target, bool allowPotentialMatches)
+        {
+            if (allowPotentialMatches)
+            {
+                string targetProcessName = target.ProcessIdentifier[(target.ProcessIdentifier.IndexOf(':') + 1)..];
+                List<AudioSession> potentialMatches = new();
+
+                foreach (AudioSession session in this.Sessions)
+                {
+                    if (session.SessionInstanceIdentifier.Equals(target.SessionInstanceIdentifier) || session.ProcessIdentifier.Equals(target.ProcessIdentifier))
+                        return session;
+                    else if (session.ProcessName.Equals(targetProcessName))
+                        potentialMatches.Add(session);
+                }
+
+                return potentialMatches.FirstOrDefault();
+            }
+            else return FindSession(target);
+        }
+        /// <summary>
+        /// Finds the session matching the given <paramref name="target"/>.
+        /// </summary>
+        /// <param name="target">A <see cref="TargetInfo"/> struct.</param>
+        /// <returns>The matching <see cref="ISession"/> if found; otherwise <see langword="null"/>.</returns>
+        public ISession? FindSession(TargetInfo target)
+        {
+            foreach (AudioSession session in this.Sessions)
+            {
+                if (session.SessionInstanceIdentifier.Equals(target.SessionInstanceIdentifier) || session.ProcessIdentifier.Equals(target.ProcessIdentifier))
+                    return session;
+            }
+
+            return null;
+        }
         /// <summary>Gets a session from <see cref="Sessions"/> by applying <paramref name="predicate"/> to each element and returning the first occurrence.</summary>
         /// <param name="predicate">A predicate function to apply to each element of <see cref="Sessions"/> that can accept <see cref="AudioSession"/> types.</param>
         /// <returns><see cref="ISession"/> if a session was found, or null if <paramref name="predicate"/> didn't return true for any elements.</returns>
@@ -579,17 +620,5 @@ namespace VolumeControl.Audio
         }
         #endregion Other
         #endregion Methods
-    }
-
-    public class AudioSessionSelector
-    {
-        public AudioSessionSelector(IEnumerable<AudioSession> sessions)
-        {
-            _sessions = sessions;
-        }
-
-        private readonly IEnumerable<AudioSession> _sessions;
-
-
     }
 }

@@ -5,7 +5,7 @@ namespace VolumeControl.Audio.Interfaces
     /// <summary>
     /// Represents an audio session.
     /// </summary>
-    public interface ISession : IProcess, IAudioControl, INotifyPropertyChanged
+    public interface ISession : IProcess, IMeteredVolumeControl, INotifyPropertyChanged
     {
         /// <summary>
         /// Gets the session's name.

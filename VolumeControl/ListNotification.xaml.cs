@@ -283,15 +283,21 @@ namespace VolumeControl
         internal System.Windows.Forms.Screen GetCurrentScreen() => GetScreen(GetCenterPoint());
         internal static Point GetScreenCenterPoint(System.Windows.Forms.Screen screen) => new(screen.WorkingArea.Left + (screen.WorkingArea.Width / 2), screen.WorkingArea.Top + (screen.WorkingArea.Height / 2));
         internal Point GetCurrentScreenCenterPoint() => GetScreenCenterPoint(GetCurrentScreen());
+        /// <summary>
+        /// Gets the <see cref="Core.Helpers.ScreenCorner"/> that is closest to the given <paramref name="pos"/>, relative to <paramref name="screen"/>.
+        /// </summary>
+        /// <param name="screen">The screen to use. See <see cref="GetScreen(Point)"/>.</param>
+        /// <param name="pos">A position on the <paramref name="screen"/>. This should be the centerpoint of the window, see <see cref="GetCenterPoint"/>.</param>
+        /// <returns>The <see cref="Core.Helpers.ScreenCorner"/> that represents the corner of <paramref name="screen"/> that is closest to <paramref name="pos"/>.</returns>
         internal static Core.Helpers.ScreenCorner GetScreenCorner(System.Windows.Forms.Screen screen, Point pos)
         {
-
             // automatic corner selection is enabled:
             // get the centerpoint of this window
             (double cx, double cy) = GetScreenCenterPoint(screen);
 
             // figure out which corner is the closest & use that
-            bool left = pos.X < cx, top = pos.Y < cy;
+            bool left = pos.X < cx;
+            bool top = pos.Y < cy;
 
             if (left && top)
                 return Core.Helpers.ScreenCorner.TopLeft;
@@ -305,8 +311,22 @@ namespace VolumeControl
 
             return 0;
         }
+        /// <inheritdoc cref="GetScreenCorner(System.Windows.Forms.Screen, Point)"/>
+        /// <remarks>
+        /// This calls <see cref="GetScreenCorner(System.Windows.Forms.Screen, Point)"/> internally by automatically determining the screen to use based on the given <paramref name="pos"/>.
+        /// </remarks>
         internal static Core.Helpers.ScreenCorner GetScreenCorner(Point pos) => GetScreenCorner(GetScreen(pos), pos);
+        /// <summary>
+        /// Gets the closest <see cref="Core.Helpers.ScreenCorner"/> to the window's centerpoint.
+        /// </summary>
+        /// <returns>The closest <see cref="Core.Helpers.ScreenCorner"/> to the window's centerpoint.</returns>
         internal Core.Helpers.ScreenCorner GetCurrentScreenCorner() => GetScreenCorner(GetCenterPoint());
+        /// <summary>
+        /// Gets the position of the window at the specified <paramref name="corner"/>.
+        /// </summary>
+        /// <param name="corner">The corner to check</param>
+        /// <returns>The position of the window at the specified <paramref name="corner"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Invalid <see cref="Core.Helpers.ScreenCorner"/> enumeration.</exception>
         internal Point GetPosAtCorner(Core.Helpers.ScreenCorner corner) => corner switch
         {
             Core.Helpers.ScreenCorner.TopLeft => CompositionTarget?.TransformToDevice.Transform(new Point(this.Left, this.Top)) ?? new Point(this.Left, this.Top),
