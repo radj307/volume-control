@@ -4,6 +4,7 @@ var class_volume_control_1_1_log_1_1_log_writer =
     [ "LogWriter", "class_volume_control_1_1_log_1_1_log_writer.html#aecfc7d86fb35f9bb5e0803755f0040c8", null ],
     [ "Append", "class_volume_control_1_1_log_1_1_log_writer.html#a84f2a4a818ded391050345b3962adc90", null ],
     [ "Conditional", "class_volume_control_1_1_log_1_1_log_writer.html#a23589efc4aa886f386e9d8645338a395", null ],
+    [ "Critical", "class_volume_control_1_1_log_1_1_log_writer.html#a377eec8a50e0e7bf3dd55ac5bd011605", null ],
     [ "Debug", "class_volume_control_1_1_log_1_1_log_writer.html#a09e652d1c8049b4b137d45dd2a6466a4", null ],
     [ "DebugException", "class_volume_control_1_1_log_1_1_log_writer.html#afc5a989c76d93c1ed2ab93a0e51116bc", null ],
     [ "Dispose", "class_volume_control_1_1_log_1_1_log_writer.html#ae5e6a321324c6111fc851f15a82e45dc", null ],

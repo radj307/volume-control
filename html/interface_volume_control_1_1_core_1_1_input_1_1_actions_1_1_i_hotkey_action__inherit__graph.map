@@ -1,4 +1,4 @@
 <map id="VolumeControl.Core.Input.Actions.IHotkeyAction" name="VolumeControl.Core.Input.Actions.IHotkeyAction">
-<area shape="rect" id="node1" title="Represents an invokable method that can be triggered via a hotkey." alt="" coords="13,5,225,244"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_structs_1_1_hotkey_action.html" title="Wrapper for a hotkey action method type." alt="" coords="5,292,233,575"/>
+<area shape="rect" id="node1" title="Represents an invokable method that can be triggered via a hotkey." alt="" coords="5,5,221,288"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_structs_1_1_hotkey_action.html" title="Wrapper for a hotkey action method type." alt="" coords="5,336,221,663"/>
 </map>

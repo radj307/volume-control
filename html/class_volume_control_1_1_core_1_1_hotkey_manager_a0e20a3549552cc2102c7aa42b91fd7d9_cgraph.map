@@ -1,0 +1,4 @@
+<map id="VolumeControl.Core.HotkeyManager.AddHotkey" name="VolumeControl.Core.HotkeyManager.AddHotkey">
+<area shape="rect" id="node1" title="Create a new hotkey and add it to Hotkeys." alt="" coords="5,5,208,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#adf2532f0598cac3dfe9a3660f4fb7362" title="Write a formatted EventType.INFO message to the log endpoint." alt="" coords="256,13,496,39"/>
+</map>

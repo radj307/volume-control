@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['vcapi_887',['VCAPI',['../class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html',1,'VolumeControl::SDK']]],
-  ['volumechangedeventargs_888',['VolumeChangedEventArgs',['../class_volume_control_1_1_audio_1_1_events_1_1_volume_changed_event_args.html',1,'VolumeControl::Audio::Events']]]
+  ['user32_913',['User32',['../class_volume_control_1_1_core_1_1_user32.html',1,'VolumeControl::Core']]]
 ];

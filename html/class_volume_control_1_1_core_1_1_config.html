@@ -86,7 +86,6 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_core_1_1_conf
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#properties">Properties</a> &#124;
@@ -111,12 +110,6 @@ Collaboration diagram for VolumeControl.Core.Config:</div>
 </div>
 </div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_volume_control_1_1_core_1_1_config_1_1_target_info.html">TargetInfo</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains metadata for saving audio sessions to and from the config  <a href="struct_volume_control_1_1_core_1_1_config_1_1_target_info.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae8442da4c2358be20ba944d474d72f5f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_volume_control_1_1_core_1_1_config.html">Config</a>() void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#ae8442da4c2358be20ba944d474d72f5f">ResumeAutoSave</a> ()</td></tr>
@@ -227,6 +220,9 @@ only controls <em>within</em> the window may use transparent background effects.
 <tr class="memitem:a4b5fa17af0f6ee1cd28a53c0d2874ed1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#a4b5fa17af0f6ee1cd28a53c0d2874ed1">NotificationSavePos</a> = true<code> [get, set]</code></td></tr>
 <tr class="memdesc:a4b5fa17af0f6ee1cd28a53c0d2874ed1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets whether <a class="el" href="class_volume_control_1_1_core_1_1_config.html#a54c3a4cc99406924177c6fb4979a9011" title="Gets or sets the location of the notification window">NotificationPosition</a> is used or not.  <a href="class_volume_control_1_1_core_1_1_config.html#a4b5fa17af0f6ee1cd28a53c0d2874ed1">More...</a><br /></td></tr>
 <tr class="separator:a4b5fa17af0f6ee1cd28a53c0d2874ed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2c8bd1e7bd98bc72f2f4571db796299"><td class="memItemLeft" align="right" valign="top">Size?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#aa2c8bd1e7bd98bc72f2f4571db796299">NotificationSize</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:aa2c8bd1e7bd98bc72f2f4571db796299"><td class="mdescLeft">&#160;</td><td class="mdescRight">The last known size of the notification window.  <a href="class_volume_control_1_1_core_1_1_config.html#aa2c8bd1e7bd98bc72f2f4571db796299">More...</a><br /></td></tr>
+<tr class="separator:aa2c8bd1e7bd98bc72f2f4571db796299"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2eb2b31b5e7158d9901c31c6b61eb928"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#a2eb2b31b5e7158d9901c31c6b61eb928">NotificationShowsCustomControls</a> = true<code> [get, set]</code></td></tr>
 <tr class="memdesc:a2eb2b31b5e7158d9901c31c6b61eb928"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets whether controls from <a class="el" href="interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html#ac87ec36c627dc0cc63d6a5dd34c63b0e" title="Optional list of controls to display on this list item.">Interfaces.IListDisplayable.DisplayControls</a> are shown or not.  <a href="class_volume_control_1_1_core_1_1_config.html#a2eb2b31b5e7158d9901c31c6b61eb928">More...</a><br /></td></tr>
 <tr class="separator:a2eb2b31b5e7158d9901c31c6b61eb928"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -258,7 +254,7 @@ only controls <em>within</em> the window may use transparent background effects.
 <tr class="memitem:a075d5081c56f2dec4a285691f41cad3d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey_json_wrapper.html">BindableHotkeyJsonWrapper</a>[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#a075d5081c56f2dec4a285691f41cad3d">Hotkeys</a> = null!<code> [get, set]</code></td></tr>
 <tr class="memdesc:a075d5081c56f2dec4a285691f41cad3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current hotkey configuration, or <code>null</code> if the default configuration should be used instead.  <a href="class_volume_control_1_1_core_1_1_config.html#a075d5081c56f2dec4a285691f41cad3d">More...</a><br /></td></tr>
 <tr class="separator:a075d5081c56f2dec4a285691f41cad3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66f4933cdda46995e4e52df97e42e4d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_volume_control_1_1_core_1_1_config_1_1_target_info.html">TargetInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#a66f4933cdda46995e4e52df97e42e4d7">Target</a> = new() { ProcessIdentifier = string.Empty, SessionInstanceIdentifier = string.Empty }<code> [get, set]</code></td></tr>
+<tr class="memitem:a66f4933cdda46995e4e52df97e42e4d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_volume_control_1_1_core_1_1_helpers_1_1_target_info.html">TargetInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#a66f4933cdda46995e4e52df97e42e4d7">Target</a> = new() { ProcessIdentifier = string.Empty, SessionInstanceIdentifier = string.Empty }<code> [get, set]</code></td></tr>
 <tr class="memdesc:a66f4933cdda46995e4e52df97e42e4d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the last target session.  <a href="class_volume_control_1_1_core_1_1_config.html#a66f4933cdda46995e4e52df97e42e4d7">More...</a><br /></td></tr>
 <tr class="separator:a66f4933cdda46995e4e52df97e42e4d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc145bdcd9e96bb185cd648973619261"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#acc145bdcd9e96bb185cd648973619261">LockTargetSession</a> = false<code> [get, set]</code></td></tr>
@@ -334,8 +330,7 @@ only controls <em>within</em> the window may use transparent background effects.
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_config_a6c890b9f23d737235d707b288ae0899f_cgraph.svg" width="475" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_config_a6c890b9f23d737235d707b288ae0899f_cgraph.svg" width="475" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -384,7 +379,7 @@ Here is the call graph for this function:</div>
 
 <p>Default hotkey configuration. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00165">VolumeControl.Hotkeys.HotkeyManager.LoadHotkeys()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00162">VolumeControl.Core.HotkeyManager.LoadHotkeys()</a>.</p>
 
 </div>
 </div>
@@ -836,7 +831,7 @@ only controls <em>within</em> the window may use transparent background effects.
 
 <p>List of enabled audio device IDs. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00224">VolumeControl.Audio.AudioAPI.SaveEnabledDevices()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00225">VolumeControl.Audio.AudioAPI.SaveEnabledDevices()</a>.</p>
 
 </div>
 </div>
@@ -937,7 +932,7 @@ only controls <em>within</em> the window may use transparent background effects.
 
 <p>The current hotkey configuration, or <code>null</code> if the default configuration should be used instead. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00165">VolumeControl.Hotkeys.HotkeyManager.LoadHotkeys()</a>, <a class="el" href="#l00179">VolumeControl.Hotkeys.HotkeyManager.ResetHotkeys()</a>, and <a class="el" href="#l00173">VolumeControl.Hotkeys.HotkeyManager.SaveHotkeys()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00162">VolumeControl.Core.HotkeyManager.LoadHotkeys()</a>, <a class="el" href="#l00176">VolumeControl.Core.HotkeyManager.ResetHotkeys()</a>, and <a class="el" href="#l00170">VolumeControl.Core.HotkeyManager.SaveHotkeys()</a>.</p>
 
 </div>
 </div>
@@ -1412,6 +1407,30 @@ only controls <em>within</em> the window may use transparent background effects.
 
 </div>
 </div>
+<a id="aa2c8bd1e7bd98bc72f2f4571db796299"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2c8bd1e7bd98bc72f2f4571db796299">&#9670;&nbsp;</a></span>NotificationSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Size? VolumeControl.Core.Config.NotificationSize</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The last known size of the notification window. </p>
+
+</div>
+</div>
 <a id="a855c764ef2361b06725d3e8d437024d7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a855c764ef2361b06725d3e8d437024d7">&#9670;&nbsp;</a></span>NotificationsOnVolumeChange</h2>
 
@@ -1671,7 +1690,7 @@ only controls <em>within</em> the window may use transparent background effects.
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_volume_control_1_1_core_1_1_config_1_1_target_info.html">TargetInfo</a> VolumeControl.Core.Config.Target = new() { ProcessIdentifier = string.Empty, SessionInstanceIdentifier = string.Empty }</td>
+          <td class="memname"><a class="el" href="struct_volume_control_1_1_core_1_1_helpers_1_1_target_info.html">TargetInfo</a> VolumeControl.Core.Config.Target = new() { ProcessIdentifier = string.Empty, SessionInstanceIdentifier = string.Empty }</td>
         </tr>
       </table>
   </td>
@@ -1683,7 +1702,7 @@ only controls <em>within</em> the window may use transparent background effects.
 
 <p>Gets or sets the last target session. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00022">VolumeControl.Audio.AudioAPI.AudioAPI()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00023">VolumeControl.Audio.AudioAPI.AudioAPI()</a>.</p>
 
 </div>
 </div>

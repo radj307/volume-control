@@ -1,0 +1,5 @@
+<map id="VolumeControl.Core.Interfaces.IHotkeyActionManager" name="VolumeControl.Core.Interfaces.IHotkeyActionManager">
+<area shape="rect" id="node1" title="Represents a hotkey action manager object, which contains the list of IHotkeyActions used in the hotk..." alt="" coords="92,351,317,472"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,108,183,185"/>
+<area shape="rect" id="node3" href="$interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html" title="Represents an invokable method that can be triggered via a hotkey." alt="" coords="207,5,423,288"/>
+</map>

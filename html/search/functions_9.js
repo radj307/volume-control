@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['keyboardevent_1047',['KeyboardEvent',['../class_volume_control_1_1_hotkeys_1_1_user32.html#aa5642a8ab987ee91afc1869de7f12ce8',1,'VolumeControl::Hotkeys::User32']]]
+  ['keyboardevent_1084',['KeyboardEvent',['../class_volume_control_1_1_core_1_1_user32.html#a49fa767d58e2888e57a2bda9d1d1d036',1,'VolumeControl::Core::User32']]]
 ];

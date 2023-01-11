@@ -14,29 +14,41 @@ var annotated_dup =
           [ "ISessionExtensions", "class_volume_control_1_1_audio_1_1_extensions_1_1_i_session_extensions.html", "class_volume_control_1_1_audio_1_1_extensions_1_1_i_session_extensions" ]
         ] ],
         [ "Interfaces", "namespace_volume_control_1_1_audio_1_1_interfaces.html", [
-          [ "IAudioControl", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_audio_control.html", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_audio_control" ],
           [ "IDevice", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device" ],
+          [ "IMeteredVolumeControl", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_metered_volume_control.html", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_metered_volume_control" ],
           [ "IProcess", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process" ],
           [ "ISession", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session" ],
           [ "IVolumeControl", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_volume_control.html", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_volume_control" ]
         ] ],
         [ "AudioAPI", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html", "class_volume_control_1_1_audio_1_1_audio_a_p_i" ],
-        [ "AudioSessionSelector", "class_volume_control_1_1_audio_1_1_audio_session_selector.html", "class_volume_control_1_1_audio_1_1_audio_session_selector" ],
         [ "AudioDevice", "class_volume_control_1_1_audio_1_1_audio_device.html", "class_volume_control_1_1_audio_1_1_audio_device" ],
         [ "AudioSession", "class_volume_control_1_1_audio_1_1_audio_session.html", "class_volume_control_1_1_audio_1_1_audio_session" ]
       ] ],
       [ "Core", "namespace_volume_control_1_1_core.html", [
         [ "Attributes", "namespace_volume_control_1_1_core_1_1_attributes.html", [
-          [ "AllowUpgradeConfigAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_allow_upgrade_config_attribute.html", "class_volume_control_1_1_core_1_1_attributes_1_1_allow_upgrade_config_attribute" ]
+          [ "AllowUpgradeConfigAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_allow_upgrade_config_attribute.html", "class_volume_control_1_1_core_1_1_attributes_1_1_allow_upgrade_config_attribute" ],
+          [ "HotkeyActionAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_attribute.html", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_attribute" ],
+          [ "HotkeyActionGroupAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_group_attribute.html", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_group_attribute" ],
+          [ "HotkeyActionSettingAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_setting_attribute.html", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_setting_attribute" ]
         ] ],
         [ "Enum", "namespace_volume_control_1_1_core_1_1_enum.html", [
+          [ "EVirtualKeyCodeExtensions", "class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions.html", "class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions" ],
           [ "ModifierExtensions", "class_volume_control_1_1_core_1_1_enum_1_1_modifier_extensions.html", "class_volume_control_1_1_core_1_1_enum_1_1_modifier_extensions" ]
+        ] ],
+        [ "Generics", "namespace_volume_control_1_1_core_1_1_generics.html", [
+          [ "Item", "class_volume_control_1_1_core_1_1_generics_1_1_item.html", "class_volume_control_1_1_core_1_1_generics_1_1_item" ]
+        ] ],
+        [ "Helpers", "namespace_volume_control_1_1_core_1_1_helpers.html", [
+          [ "TargetInfo", "struct_volume_control_1_1_core_1_1_helpers_1_1_target_info.html", "struct_volume_control_1_1_core_1_1_helpers_1_1_target_info" ],
+          [ "TargetInfoVM", "class_volume_control_1_1_core_1_1_helpers_1_1_target_info_v_m.html", "class_volume_control_1_1_core_1_1_helpers_1_1_target_info_v_m" ],
+          [ "JsonTargetInfoVMConverter", "class_volume_control_1_1_core_1_1_helpers_1_1_json_target_info_v_m_converter.html", "class_volume_control_1_1_core_1_1_helpers_1_1_json_target_info_v_m_converter" ]
         ] ],
         [ "Input", "namespace_volume_control_1_1_core_1_1_input.html", [
           [ "Actions", "namespace_volume_control_1_1_core_1_1_input_1_1_actions.html", [
             [ "HotkeyActionData", "struct_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_data.html", "struct_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_data" ],
             [ "HotkeyActionPressedEventArgs", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_pressed_event_args.html", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_pressed_event_args" ],
             [ "HotkeyActionSetting", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting.html", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting" ],
+            [ "HotkeyActionSettingValueTemplateSelector", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting_value_template_selector.html", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting_value_template_selector" ],
             [ "IHotkeyAction", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action" ]
           ] ],
           [ "BindableHotkey", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey" ],
@@ -46,34 +58,23 @@ var annotated_dup =
         ] ],
         [ "Interfaces", "namespace_volume_control_1_1_core_1_1_interfaces.html", [
           [ "IBindableHotkey", "interface_volume_control_1_1_core_1_1_interfaces_1_1_i_bindable_hotkey.html", "interface_volume_control_1_1_core_1_1_interfaces_1_1_i_bindable_hotkey" ],
+          [ "IHotkeyActionManager", "interface_volume_control_1_1_core_1_1_interfaces_1_1_i_hotkey_action_manager.html", "interface_volume_control_1_1_core_1_1_interfaces_1_1_i_hotkey_action_manager" ],
           [ "IListDisplayable", "interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html", "interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable" ]
         ] ],
-        [ "Config", "class_volume_control_1_1_core_1_1_config.html", "class_volume_control_1_1_core_1_1_config" ]
+        [ "Structs", "namespace_volume_control_1_1_core_1_1_structs.html", [
+          [ "HotkeyAction", "class_volume_control_1_1_core_1_1_structs_1_1_hotkey_action.html", "class_volume_control_1_1_core_1_1_structs_1_1_hotkey_action" ]
+        ] ],
+        [ "BindableHotkeyConverterExtensions", "class_volume_control_1_1_core_1_1_bindable_hotkey_converter_extensions.html", "class_volume_control_1_1_core_1_1_bindable_hotkey_converter_extensions" ],
+        [ "Config", "class_volume_control_1_1_core_1_1_config.html", "class_volume_control_1_1_core_1_1_config" ],
+        [ "HotkeyManager", "class_volume_control_1_1_core_1_1_hotkey_manager.html", "class_volume_control_1_1_core_1_1_hotkey_manager" ],
+        [ "InputSimulator", "class_volume_control_1_1_core_1_1_input_simulator.html", "class_volume_control_1_1_core_1_1_input_simulator" ],
+        [ "User32", "class_volume_control_1_1_core_1_1_user32.html", "class_volume_control_1_1_core_1_1_user32" ]
       ] ],
       [ "Hotkeys", "namespace_volume_control_1_1_hotkeys.html", [
-        [ "Addons", "namespace_volume_control_1_1_hotkeys_1_1_addons.html", [
-          [ "ApplicationActions", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_application_actions.html", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_application_actions" ],
-          [ "AudioDeviceActions", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions" ],
-          [ "AudioSessionActions", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_session_actions.html", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_session_actions" ],
-          [ "MediaActions", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_media_actions.html", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_media_actions" ]
-        ] ],
-        [ "Attributes", "namespace_volume_control_1_1_hotkeys_1_1_attributes.html", [
-          [ "HotkeyActionAttribute", "class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute.html", "class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute" ],
-          [ "HotkeyActionGroupAttribute", "class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_group_attribute.html", "class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_group_attribute" ]
-        ] ],
-        [ "Enum", "namespace_volume_control_1_1_hotkeys_1_1_enum.html", [
-          [ "EVirtualKeyCodeExtensions", "class_volume_control_1_1_hotkeys_1_1_enum_1_1_e_virtual_key_code_extensions.html", "class_volume_control_1_1_hotkeys_1_1_enum_1_1_e_virtual_key_code_extensions" ]
-        ] ],
-        [ "Interfaces", "namespace_volume_control_1_1_hotkeys_1_1_interfaces.html", [
-          [ "IHotkeyActionManager", "interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html", "interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager" ]
-        ] ],
-        [ "Structs", "namespace_volume_control_1_1_hotkeys_1_1_structs.html", [
-          [ "HotkeyAction", "class_volume_control_1_1_hotkeys_1_1_structs_1_1_hotkey_action.html", "class_volume_control_1_1_hotkeys_1_1_structs_1_1_hotkey_action" ]
-        ] ],
-        [ "BindableHotkeyConverterExtensions", "class_volume_control_1_1_hotkeys_1_1_bindable_hotkey_converter_extensions.html", "class_volume_control_1_1_hotkeys_1_1_bindable_hotkey_converter_extensions" ],
-        [ "HotkeyManager", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager" ],
-        [ "InputSimulator", "class_volume_control_1_1_hotkeys_1_1_input_simulator.html", "class_volume_control_1_1_hotkeys_1_1_input_simulator" ],
-        [ "User32", "class_volume_control_1_1_hotkeys_1_1_user32.html", "class_volume_control_1_1_hotkeys_1_1_user32" ]
+        [ "ApplicationActions", "class_volume_control_1_1_hotkeys_1_1_application_actions.html", "class_volume_control_1_1_hotkeys_1_1_application_actions" ],
+        [ "AudioDeviceActions", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions" ],
+        [ "AudioSessionActions", "class_volume_control_1_1_hotkeys_1_1_audio_session_actions.html", "class_volume_control_1_1_hotkeys_1_1_audio_session_actions" ],
+        [ "MediaActions", "class_volume_control_1_1_hotkeys_1_1_media_actions.html", "class_volume_control_1_1_hotkeys_1_1_media_actions" ]
       ] ],
       [ "Log", "namespace_volume_control_1_1_log.html", [
         [ "Endpoints", "namespace_volume_control_1_1_log_1_1_endpoints.html", [
@@ -86,10 +87,8 @@ var annotated_dup =
           [ "ILogWriter", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer" ],
           [ "ITimestamp", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp.html", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp" ]
         ] ],
-        [ "ExceptionMessage", "class_volume_control_1_1_log_1_1_exception_message.html", "class_volume_control_1_1_log_1_1_exception_message" ],
         [ "FLog", "class_volume_control_1_1_log_1_1_f_log.html", "class_volume_control_1_1_log_1_1_f_log" ],
         [ "LogWriter", "class_volume_control_1_1_log_1_1_log_writer.html", "class_volume_control_1_1_log_1_1_log_writer" ],
-        [ "MessageWrapperBase", "class_volume_control_1_1_log_1_1_message_wrapper_base.html", "class_volume_control_1_1_log_1_1_message_wrapper_base" ],
         [ "Timestamp", "class_volume_control_1_1_log_1_1_timestamp.html", "class_volume_control_1_1_log_1_1_timestamp" ]
       ] ],
       [ "SDK", "namespace_volume_control_1_1_s_d_k.html", [
@@ -136,6 +135,7 @@ var annotated_dup =
           [ "BoolToThicknessConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter" ],
           [ "BoolToCheckVisibleConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_check_visible_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_check_visible_converter" ],
           [ "ConverterChain", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain" ],
+          [ "ListHasItemsBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_list_has_items_boolean_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_list_has_items_boolean_converter" ],
           [ "MultiBindingBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_multi_binding_boolean_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_multi_binding_boolean_converter" ],
           [ "NullToBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter" ],
           [ "SquaredCornerRadiusConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter" ],

@@ -1,6 +1,5 @@
 var class_volume_control_1_1_core_1_1_config =
 [
-    [ "TargetInfo", "struct_volume_control_1_1_core_1_1_config_1_1_target_info.html", "struct_volume_control_1_1_core_1_1_config_1_1_target_info" ],
     [ "PauseAutoSave", "class_volume_control_1_1_core_1_1_config.html#a6c890b9f23d737235d707b288ae0899f", null ],
     [ "ResumeAutoSave", "class_volume_control_1_1_core_1_1_config.html#ae8442da4c2358be20ba944d474d72f5f", null ],
     [ "Hotkeys_Default", "class_volume_control_1_1_core_1_1_config.html#aabc2f606723e6010d5ee104e3c043186", null ],
@@ -45,6 +44,7 @@ var class_volume_control_1_1_core_1_1_config =
     [ "NotificationSavePos", "class_volume_control_1_1_core_1_1_config.html#a4b5fa17af0f6ee1cd28a53c0d2874ed1", null ],
     [ "NotificationsEnabled", "class_volume_control_1_1_core_1_1_config.html#a8a854febe451eb223b9b066fc679faa9", null ],
     [ "NotificationShowsCustomControls", "class_volume_control_1_1_core_1_1_config.html#a2eb2b31b5e7158d9901c31c6b61eb928", null ],
+    [ "NotificationSize", "class_volume_control_1_1_core_1_1_config.html#aa2c8bd1e7bd98bc72f2f4571db796299", null ],
     [ "NotificationsOnVolumeChange", "class_volume_control_1_1_core_1_1_config.html#a855c764ef2361b06725d3e8d437024d7", null ],
     [ "NotificationTimeoutEnabled", "class_volume_control_1_1_core_1_1_config.html#adb7f71aaa2731df868de28394df51ed5", null ],
     [ "NotificationTimeoutMs", "class_volume_control_1_1_core_1_1_config.html#a9d906f3d789e765c6f9d3148fd056150", null ],

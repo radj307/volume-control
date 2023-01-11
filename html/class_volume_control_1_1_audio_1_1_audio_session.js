@@ -1,5 +1,7 @@
 var class_volume_control_1_1_audio_1_1_audio_session =
 [
+    [ "DecreaseVolume", "class_volume_control_1_1_audio_1_1_audio_session.html#a1086e4ff0afb419523437d0b6d310923", null ],
+    [ "DecreaseVolume", "class_volume_control_1_1_audio_1_1_audio_session.html#a2cdf28c995e2bf4b67471cf81da36ef4", null ],
     [ "Dispose", "class_volume_control_1_1_audio_1_1_audio_session.html#a13f918b85f4b1281f9e5ecb5fb7d5583", null ],
     [ "Equals", "class_volume_control_1_1_audio_1_1_audio_session.html#a2650acfa51c348cc1aa21a44e5862bdd", null ],
     [ "Equals", "class_volume_control_1_1_audio_1_1_audio_session.html#a02a63ff3ce76759238b2c19740ff65a5", null ],
@@ -7,6 +9,8 @@ var class_volume_control_1_1_audio_1_1_audio_session =
     [ "GetHashCode", "class_volume_control_1_1_audio_1_1_audio_session.html#af1e5db16625db15a2bf9e089ea586db3", null ],
     [ "GetIcons", "class_volume_control_1_1_audio_1_1_audio_session.html#ac0154b840ada9e66ac201e3660ec714c", null ],
     [ "GetProcess", "class_volume_control_1_1_audio_1_1_audio_session.html#a59a3626b8a1cde96c65a68b65d5182da", null ],
+    [ "IncreaseVolume", "class_volume_control_1_1_audio_1_1_audio_session.html#a62cbe39d9d61ccf1666a7a87685750e8", null ],
+    [ "IncreaseVolume", "class_volume_control_1_1_audio_1_1_audio_session.html#a76c4cc37121b5a47fb4b0f8e123d4ff7", null ],
     [ "int", "class_volume_control_1_1_audio_1_1_audio_session.html#a6b2e52691965a8840591964da0bb8295", null ],
     [ "Active", "class_volume_control_1_1_audio_1_1_audio_session.html#ae433e7646bace03ae4c63de18e4f026b", null ],
     [ "AudioMeterInformation", "class_volume_control_1_1_audio_1_1_audio_session.html#af588f9e302db7230d391a592e4232ada", null ],

@@ -1,0 +1,4 @@
+var class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting_value_template_selector =
+[
+    [ "SelectTemplate", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting_value_template_selector.html#a711ed6380aa54db7440330ec9bc0ccb0", null ]
+];

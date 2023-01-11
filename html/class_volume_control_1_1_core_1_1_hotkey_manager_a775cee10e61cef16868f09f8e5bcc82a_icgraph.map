@@ -1,0 +1,4 @@
+<map id="VolumeControl.Core.HotkeyManager.IsUniqueID" name="VolumeControl.Core.HotkeyManager.IsUniqueID">
+<area shape="rect" id="node1" title="Checks if the given id &#160;does not match any existing hotkeys." alt="" coords="256,5,459,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_hotkey_manager.html#a5dd04ba46c6bbb5bfd0df281cd9371d3" title="Gets the next unique hotkey ID by repeatedly calling WindowsHotkeyAPI.NextID until a unique ID is fou..." alt="" coords="5,5,208,47"/>
+</map>

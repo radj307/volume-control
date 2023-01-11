@@ -103,12 +103,14 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_log_1_1_log_w
 <div class="dynheader">
 Inheritance diagram for VolumeControl.Log.LogWriter:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer__inherit__graph.svg" width="492" height="463"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer__inherit__graph.svg" width="492" height="463"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Log.LogWriter:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer__coll__graph.svg" width="492" height="463"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer__coll__graph.svg" width="492" height="463"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -167,6 +169,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:ad9e85777693f64428ffb3997aaa82571"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#ad9e85777693f64428ffb3997aaa82571">Fatal</a> (params object?[] lines)</td></tr>
 <tr class="memdesc:ad9e85777693f64428ffb3997aaa82571"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a formatted EventType.FATAL message to the log endpoint.  <a href="class_volume_control_1_1_log_1_1_log_writer.html#ad9e85777693f64428ffb3997aaa82571">More...</a><br /></td></tr>
 <tr class="separator:ad9e85777693f64428ffb3997aaa82571"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a377eec8a50e0e7bf3dd55ac5bd011605"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#a377eec8a50e0e7bf3dd55ac5bd011605">Critical</a> (params object?[] lines)</td></tr>
+<tr class="memdesc:a377eec8a50e0e7bf3dd55ac5bd011605"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a formatted EventType.CRITICAL message to the log endpoint.  <a href="class_volume_control_1_1_log_1_1_log_writer.html#a377eec8a50e0e7bf3dd55ac5bd011605">More...</a><br /></td></tr>
+<tr class="separator:a377eec8a50e0e7bf3dd55ac5bd011605"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa45f631b6e36cd5dee9759993c36e862"><td class="memItemLeft" align="right" valign="top"><a id="aa45f631b6e36cd5dee9759993c36e862"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>WriteException</b> (<a class="el" href="namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327">EventType</a> ev, Exception exception, object? message=null)</td></tr>
 <tr class="separator:aa45f631b6e36cd5dee9759993c36e862"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -243,7 +248,7 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Basic log writer object. </p>
-<p>This does all of the heavy-lifting (string manipulation) for the <a class="el" href="namespace_volume_control_1_1_log.html">Log</a> namespace.</p>
+<p>This does all of the heavy-lifting string manipulation for the <a class="el" href="namespace_volume_control_1_1_log.html">Log</a> namespace.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aecfc7d86fb35f9bb5e0803755f0040c8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aecfc7d86fb35f9bb5e0803755f0040c8">&#9670;&nbsp;</a></span>LogWriter()</h2>
@@ -311,7 +316,7 @@ This function is unpredictable in multi-threaded environments.</p>
 
 <p class="reference">References <a class="el" href="#l00011">VolumeControl.Log.Endpoints.IEndpoint.Enabled</a>, <a class="el" href="#l00039">VolumeControl.Log.LogWriter.Endpoint</a>, <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#a41f1ff6d9d62eec9077a3c608ca36b5e">VolumeControl.Log.LogWriter.MakeBlankTimestamp()</a>, and <a class="el" href="#l00148">VolumeControl.Log.LogWriter.WriteWithTimestamp()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="#l00387">VolumeControl.Log.LogWriter.FollowupIf()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00392">VolumeControl.Log.LogWriter.FollowupIf()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -354,9 +359,34 @@ If none of the given event types are allowed, nothing happens.</td></tr>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_a23589efc4aa886f386e9d8645338a395_cgraph.svg" width="100%" height="436"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_a23589efc4aa886f386e9d8645338a395_cgraph.svg" width="100%" height="436"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
 </div>
 </div>
+<a id="a377eec8a50e0e7bf3dd55ac5bd011605"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a377eec8a50e0e7bf3dd55ac5bd011605">&#9670;&nbsp;</a></span>Critical()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void VolumeControl.Log.LogWriter.Critical </td>
+          <td>(</td>
+          <td class="paramtype">params object?[]&#160;</td>
+          <td class="paramname"><em>lines</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write a formatted EventType.CRITICAL message to the log endpoint. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lines</td><td>Any number of objects. Each object will be written on a new line.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -379,7 +409,7 @@ Here is the call graph for this function:</div>
 <p>Write a formatted EventType.DEBUG message to the log endpoint. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lines</td><td>Any number of objects, each written on a new line.</td></tr>
+    <tr><td class="paramname">lines</td><td>Any number of objects. Each object will be written on a new line.</td></tr>
   </table>
   </dd>
 </dl>
@@ -388,8 +418,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_a09e652d1c8049b4b137d45dd2a6466a4_icgraph.svg" width="100%" height="535"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_a09e652d1c8049b4b137d45dd2a6466a4_icgraph.svg" width="100%" height="535"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -450,7 +479,7 @@ Here is the caller graph for this function:</div>
 <p>Write a formatted EventType.ERROR message to the log endpoint. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lines</td><td>Any number of objects, each written on a new line.</td></tr>
+    <tr><td class="paramname">lines</td><td>Any number of objects. Each object will be written on a new line.</td></tr>
   </table>
   </dd>
 </dl>
@@ -459,8 +488,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_ae7780f22869e53ce4a1aad3fc6fa0bf7_icgraph.svg" width="100%" height="361"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_ae7780f22869e53ce4a1aad3fc6fa0bf7_icgraph.svg" width="100%" height="361"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -521,7 +549,7 @@ Here is the caller graph for this function:</div>
 <p>Write a formatted EventType.FATAL message to the log endpoint. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lines</td><td>Any number of objects, each written on a new line.</td></tr>
+    <tr><td class="paramname">lines</td><td>Any number of objects. Each object will be written on a new line.</td></tr>
   </table>
   </dd>
 </dl>
@@ -630,7 +658,7 @@ This function is unpredictable in multi-threaded environments.</p>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00369">VolumeControl.Log.LogWriter.Append()</a>.</p>
+<p class="reference">References <a class="el" href="#l00374">VolumeControl.Log.LogWriter.Append()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -676,7 +704,7 @@ This function is unpredictable in multi-threaded environments.</p>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00369">VolumeControl.Log.LogWriter.Append()</a>, and <a class="el" href="#l00047">VolumeControl.Log.LogWriter.LastEventType</a>.</p>
+<p class="reference">References <a class="el" href="#l00374">VolumeControl.Log.LogWriter.Append()</a>, and <a class="el" href="#l00047">VolumeControl.Log.LogWriter.LastEventType</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -810,16 +838,16 @@ Here is the call graph for this function:</div>
 <p>Write a formatted EventType.INFO message to the log endpoint. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lines</td><td>Any number of objects, each written on a new line.</td></tr>
+    <tr><td class="paramname">lines</td><td>Any number of objects. Each object will be written on a new line.</td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="#l00097">VolumeControl.Hotkeys.HotkeyManager.AddHotkey()</a>, and <a class="el" href="#l00114">VolumeControl.Hotkeys.HotkeyManager.DelHotkey()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00096">VolumeControl.Core.HotkeyManager.AddHotkey()</a>, and <a class="el" href="#l00113">VolumeControl.Core.HotkeyManager.DelHotkey()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_adf2532f0598cac3dfe9a3660f4fb7362_icgraph.svg" width="524" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_adf2532f0598cac3dfe9a3660f4fb7362_icgraph.svg" width="502" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -888,12 +916,11 @@ Here is the caller graph for this function:</div>
 <p>Gets a blank timestamp to use as indentation. </p>
 <dl class="section return"><dt>Returns</dt><dd>A string of the same length as a timestamp, filled entirely with space characters.</dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="#l00369">VolumeControl.Log.LogWriter.Append()</a>, and <a class="el" href="#l00148">VolumeControl.Log.LogWriter.WriteWithTimestamp()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00374">VolumeControl.Log.LogWriter.Append()</a>, and <a class="el" href="#l00148">VolumeControl.Log.LogWriter.WriteWithTimestamp()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_a41f1ff6d9d62eec9077a3c608ca36b5e_icgraph.svg" width="100%" height="388"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_a41f1ff6d9d62eec9077a3c608ca36b5e_icgraph.svg" width="100%" height="388"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -917,17 +944,16 @@ Here is the caller graph for this function:</div>
 <p>Write a formatted EventType.WARN message to the log endpoint. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lines</td><td>Any number of objects, each written on a new line.</td></tr>
+    <tr><td class="paramname">lines</td><td>Any number of objects. Each object will be written on a new line.</td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="#l00386">VolumeControl.Audio.AudioDevice.GetIcons()</a>, <a class="el" href="#l00092">VolumeControl.WPF.IconGetter.GetIcons()</a>, <a class="el" href="#l00019">VolumeControl.SDK.Internal.Initializer.Initialize()</a>, and <a class="el" href="#l00067">VolumeControl.WPF.HWndHook.RemoveHook()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00368">VolumeControl.Audio.AudioDevice.GetIcons()</a>, <a class="el" href="#l00092">VolumeControl.WPF.IconGetter.GetIcons()</a>, <a class="el" href="#l00018">VolumeControl.SDK.Internal.Initializer.Initialize()</a>, and <a class="el" href="#l00067">VolumeControl.WPF.HWndHook.RemoveHook()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_a5caf611b6e4d2cf97b6521b9b2e3f9ef_icgraph.svg" width="100%" height="481"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_a5caf611b6e4d2cf97b6521b9b2e3f9ef_icgraph.svg" width="100%" height="481"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1063,8 +1089,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_af9f117f9eb6d41820bc271ac0f0d4f76_cgraph.svg" width="100%" height="412"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_af9f117f9eb6d41820bc271ac0f0d4f76_cgraph.svg" width="100%" height="412"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -1217,7 +1242,7 @@ Here is the call graph for this function:</div>
 
 <p class="reference">References <a class="el" href="#l00011">VolumeControl.Log.Endpoints.IEndpoint.Enabled</a>, <a class="el" href="#l00039">VolumeControl.Log.LogWriter.Endpoint</a>, <a class="el" href="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#aff4d1758c814322b5474fa95c9863ce8">VolumeControl.Log.Endpoints.IEndpoint.GetWriter()</a>, and <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#a41f1ff6d9d62eec9077a3c608ca36b5e">VolumeControl.Log.LogWriter.MakeBlankTimestamp()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="#l00369">VolumeControl.Log.LogWriter.Append()</a>, and <a class="el" href="#l00275">VolumeControl.Log.LogWriter.WriteEvent()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00374">VolumeControl.Log.LogWriter.Append()</a>, and <a class="el" href="#l00275">VolumeControl.Log.LogWriter.WriteEvent()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1226,8 +1251,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_a2358be752465f43b8ac7b0d7c2aa55bf_icgraph.svg" width="100%" height="388"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_a2358be752465f43b8ac7b0d7c2aa55bf_icgraph.svg" width="100%" height="388"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1255,7 +1279,7 @@ Here is the caller graph for this function:</div>
 
 <p>Gets or sets the log endpoint object used for output. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00369">VolumeControl.Log.LogWriter.Append()</a>, <a class="el" href="#l00405">VolumeControl.Log.LogWriter.Dispose()</a>, <a class="el" href="#l00023">VolumeControl.Log.LogWriter.LogWriter()</a>, <a class="el" href="#l00275">VolumeControl.Log.LogWriter.WriteEvent()</a>, and <a class="el" href="#l00148">VolumeControl.Log.LogWriter.WriteWithTimestamp()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00374">VolumeControl.Log.LogWriter.Append()</a>, <a class="el" href="#l00410">VolumeControl.Log.LogWriter.Dispose()</a>, <a class="el" href="#l00022">VolumeControl.Log.LogWriter.LogWriter()</a>, <a class="el" href="#l00275">VolumeControl.Log.LogWriter.WriteEvent()</a>, and <a class="el" href="#l00148">VolumeControl.Log.LogWriter.WriteWithTimestamp()</a>.</p>
 
 </div>
 </div>
@@ -1281,7 +1305,7 @@ Here is the caller graph for this function:</div>
 
 <p>Gets or sets the bitfield filter for event types. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00023">VolumeControl.Log.LogWriter.LogWriter()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00022">VolumeControl.Log.LogWriter.LogWriter()</a>.</p>
 
 </div>
 </div>
@@ -1307,7 +1331,7 @@ Here is the caller graph for this function:</div>
 
 <p>Gets the last type of event to be printed to the log. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00398">VolumeControl.Log.LogWriter.FollowupIf()</a>, <a class="el" href="#l00023">VolumeControl.Log.LogWriter.LogWriter()</a>, and <a class="el" href="#l00275">VolumeControl.Log.LogWriter.WriteEvent()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00403">VolumeControl.Log.LogWriter.FollowupIf()</a>, <a class="el" href="#l00022">VolumeControl.Log.LogWriter.LogWriter()</a>, and <a class="el" href="#l00275">VolumeControl.Log.LogWriter.WriteEvent()</a>.</p>
 
 </div>
 </div>

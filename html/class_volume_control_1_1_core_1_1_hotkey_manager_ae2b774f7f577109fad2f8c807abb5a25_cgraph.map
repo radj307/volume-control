@@ -1,0 +1,5 @@
+<map id="VolumeControl.Core.HotkeyManager.ResetHotkeys" name="VolumeControl.Core.HotkeyManager.ResetHotkeys">
+<area shape="rect" id="node1" title="Resets the current hotkey list by replacing it with Config.Hotkeys_Default." alt="" coords="5,39,208,80"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_hotkey_manager.html#ac0f8381badf66ffc5893616212ae5445" title="Deletes all hotkeys in the list by first disposing them, then removing them from the list." alt="" coords="256,5,459,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_hotkey_manager.html#a3213be3e4c9842b037e3a1b27e712b5a" title="Loads hotkeys from the settings file and binds them to the associated actions." alt="" coords="256,71,459,112"/>
+</map>

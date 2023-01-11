@@ -12,32 +12,32 @@
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title="Contains methods related to audio devices, sessions, and the underlying selection mechanics responsib...">
-<polygon fill="#bfbfbf" stroke="black" points="118.5,-0.5 118.5,-277.5 320.5,-277.5 320.5,-0.5 118.5,-0.5"/>
+<polygon fill="#bfbfbf" stroke="black" points="126,-0.5 126,-277.5 313,-277.5 313,-0.5 126,-0.5"/>
 <text text-anchor="middle" x="219.5" y="-265.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Audio.AudioAPI</text>
-<polyline fill="none" stroke="black" points="118.5,-258.5 320.5,-258.5 "/>
-<text text-anchor="start" x="126.5" y="-246.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Settings</text>
-<text text-anchor="start" x="126.5" y="-235.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Log</text>
-<text text-anchor="start" x="126.5" y="-224.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Devices</text>
-<text text-anchor="start" x="126.5" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DefaultDevice</text>
-<text text-anchor="start" x="126.5" y="-202.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LockSelectedSession</text>
-<text text-anchor="start" x="126.5" y="-191.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Target</text>
-<text text-anchor="start" x="126.5" y="-180.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TargetGuid</text>
-<text text-anchor="start" x="126.5" y="-169.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ VolumeStepSize</text>
-<text text-anchor="start" x="126.5" y="-158.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SelectedSession</text>
-<text text-anchor="start" x="126.5" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Sessions</text>
-<polyline fill="none" stroke="black" points="118.5,-140.5 320.5,-140.5 "/>
-<text text-anchor="start" x="126.5" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AudioAPI()</text>
-<text text-anchor="start" x="126.5" y="-117.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SaveEnabledDevices()</text>
-<text text-anchor="start" x="126.5" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ForceReloadAudioDevices()</text>
-<text text-anchor="start" x="126.5" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FindDevice()</text>
-<text text-anchor="start" x="126.5" y="-84.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FindDeviceWithID()</text>
-<text text-anchor="start" x="126.5" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ForceReloadSessionList()</text>
-<text text-anchor="start" x="126.5" y="-62.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FindSession()</text>
-<text text-anchor="start" x="126.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FindSessionWithSessionInstance</text>
-<text text-anchor="start" x="126.5" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">Identifier()</text>
-<text text-anchor="start" x="126.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FindSessionsWithSessionIdentifier()</text>
-<text text-anchor="start" x="126.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FindSessionWithID()</text>
-<text text-anchor="start" x="126.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">and 16 more...</text>
+<polyline fill="none" stroke="black" points="126,-258.5 313,-258.5 "/>
+<text text-anchor="start" x="134" y="-246.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Settings</text>
+<text text-anchor="start" x="134" y="-235.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Log</text>
+<text text-anchor="start" x="134" y="-224.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Devices</text>
+<text text-anchor="start" x="134" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DefaultDevice</text>
+<text text-anchor="start" x="134" y="-202.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LockSelectedSession</text>
+<text text-anchor="start" x="134" y="-191.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Target</text>
+<text text-anchor="start" x="134" y="-180.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TargetGuid</text>
+<text text-anchor="start" x="134" y="-169.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ VolumeStepSize</text>
+<text text-anchor="start" x="134" y="-158.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SelectedSession</text>
+<text text-anchor="start" x="134" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Sessions</text>
+<polyline fill="none" stroke="black" points="126,-140.5 313,-140.5 "/>
+<text text-anchor="start" x="134" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AudioAPI()</text>
+<text text-anchor="start" x="134" y="-117.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SaveEnabledDevices()</text>
+<text text-anchor="start" x="134" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ForceReloadAudioDevices()</text>
+<text text-anchor="start" x="134" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FindDevice()</text>
+<text text-anchor="start" x="134" y="-84.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FindDeviceWithID()</text>
+<text text-anchor="start" x="134" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ForceReloadSessionList()</text>
+<text text-anchor="start" x="134" y="-62.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FindSession()</text>
+<text text-anchor="start" x="134" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FindSession()</text>
+<text text-anchor="start" x="134" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FindSession()</text>
+<text text-anchor="start" x="134" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FindSessionWithSessionInstance</text>
+<text text-anchor="start" x="134" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Identifier()</text>
+<text text-anchor="start" x="134" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">and 18 more...</text>
 </a>
 </g>
 </g>
@@ -57,7 +57,7 @@
 <!-- Node2&#45;&gt;Node1 -->
 <g id="edge1" class="edge">
 <title>Node2&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M93.65,-306.15C101.04,-296.4 109.5,-285.23 118.45,-273.41"/>
+<path fill="none" stroke="midnightblue" d="M93.65,-306.16C103.02,-293.79 114.11,-279.14 125.76,-263.76"/>
 <polygon fill="none" stroke="midnightblue" points="90.7,-304.25 87.45,-314.34 96.28,-308.48 90.7,-304.25"/>
 </g>
 <!-- Node3 -->

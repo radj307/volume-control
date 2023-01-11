@@ -1,0 +1,5 @@
+<map id="VolumeControl.Audio.Interfaces.IMeteredVolumeControl" name="VolumeControl.Audio.Interfaces.IMeteredVolumeControl">
+<area shape="rect" id="node1" title="Extends the IMeteredVolumeControl interface with the AudioMeterInformation property." alt="" coords="5,388,237,509"/>
+<area shape="rect" id="node2" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_volume_control.html" title="Represents some kind of controllable audio playback instance." alt="" coords="85,160,304,340"/>
+<area shape="rect" id="node3" href="$interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html" title="Represents an object that, when it is a member of a list of similar items, can be displayed in the Li..." alt="" coords="51,5,191,112"/>
+</map>

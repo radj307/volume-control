@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['u_1268',['U',['../namespace_volume_control_1_1_hotkeys_1_1_enum.html#a0de441b725b64d29bc33999cd3705ff2a4c614360da93c0a041b22e537de151eb',1,'VolumeControl::Hotkeys::Enum']]]
+  ['u_1308',['U',['../namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a4c614360da93c0a041b22e537de151eb',1,'VolumeControl::Core::Enum']]]
 ];

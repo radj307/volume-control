@@ -1,0 +1,4 @@
+<map id="VolumeControl.Core.Attributes.HotkeyActionAttribute" name="VolumeControl.Core.Attributes.HotkeyActionAttribute">
+<area shape="rect" id="node1" title="Indicates that a method is a valid hotkey action. If you don&#39;t specify a name parameter,..." alt="" coords="5,131,229,311"/>
+<area shape="rect" id="node2" title=" " alt="" coords="78,5,157,83"/>
+</map>

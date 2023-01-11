@@ -10,13 +10,12 @@ var namespace_volume_control_1_1_log =
         [ "ERROR", "namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327abb1ca97ec761fc37101737ba0aa2e7c5", null ],
         [ "FATAL", "namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327a19da7170bea36556dde582519795f3fc", null ],
         [ "ALL_EXCEPT_DEBUG", "namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327ae1fb627727d36bcbebdd8ad25dd1575a", null ],
-        [ "ALL", "namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327a5fb1f955b45e38e31789286a1790398d", null ]
+        [ "ALL", "namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327a5fb1f955b45e38e31789286a1790398d", null ],
+        [ "CRITICAL", "namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327a99cd1c61610c76a57cb8d10d6df6b870", null ]
       ] ]
     ] ],
     [ "Interfaces", "namespace_volume_control_1_1_log_1_1_interfaces.html", "namespace_volume_control_1_1_log_1_1_interfaces" ],
-    [ "ExceptionMessage", "class_volume_control_1_1_log_1_1_exception_message.html", "class_volume_control_1_1_log_1_1_exception_message" ],
     [ "FLog", "class_volume_control_1_1_log_1_1_f_log.html", "class_volume_control_1_1_log_1_1_f_log" ],
     [ "LogWriter", "class_volume_control_1_1_log_1_1_log_writer.html", "class_volume_control_1_1_log_1_1_log_writer" ],
-    [ "MessageWrapperBase", "class_volume_control_1_1_log_1_1_message_wrapper_base.html", "class_volume_control_1_1_log_1_1_message_wrapper_base" ],
     [ "Timestamp", "class_volume_control_1_1_log_1_1_timestamp.html", "class_volume_control_1_1_log_1_1_timestamp" ]
 ];
