@@ -25,14 +25,12 @@ namespace VolumeControl.Hotkeys
         [HotkeyActionSetting(ActionTargetSpecifierName, typeof(ActionTargetSpecifier))]
         public void VolumeUp(object? sender, HotkeyActionPressedEventArgs e)
         {
-            if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier targets)
+            if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier targets && targets.Count > 0)
             {
-                foreach (var t in targets)
+                for (int i = 0; i < targets.Count; ++i)
                 {
-                    if (AudioAPI.FindSessionWithName(t.ProcessName) is ISession session)
-                    {
+                    if (AudioAPI.FindSessionWithName(targets[i].ProcessName) is ISession session)
                         session.IncreaseVolume(AudioAPI.VolumeStepSize);
-                    }
                 }
             }
             else AudioAPI.IncrementSessionVolume();
@@ -41,14 +39,12 @@ namespace VolumeControl.Hotkeys
         [HotkeyActionSetting(ActionTargetSpecifierName, typeof(ActionTargetSpecifier))]
         public void VolumeDown(object? sender, HotkeyActionPressedEventArgs e)
         {
-            if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier targets)
+            if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier targets && targets.Count > 0)
             {
-                foreach (var t in targets)
+                for (int i = 0; i < targets.Count; ++i)
                 {
-                    if (AudioAPI.FindSessionWithName(t.ProcessName) is ISession session)
-                    {
+                    if (AudioAPI.FindSessionWithName(targets[i].ProcessName) is ISession session)
                         session.DecreaseVolume(AudioAPI.VolumeStepSize);
-                    }
                 }
             }
             else AudioAPI.DecrementSessionVolume();

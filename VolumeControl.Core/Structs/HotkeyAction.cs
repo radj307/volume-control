@@ -149,7 +149,7 @@ namespace VolumeControl.Core.Structs
                 }
             }
             if (ExtraActionSettings is not null)
-                l.AddRange(ExtraActionSettings);
+                ExtraActionSettings.ForEach(item => l.Add(new(item.Label, item.ValueType, item.Value)));
 
             return l.ToArray();
         }
