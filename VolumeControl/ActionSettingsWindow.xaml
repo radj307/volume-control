@@ -23,6 +23,12 @@
     <Window.DataContext>
         <vm:ActionSettingsWindowVM />
     </Window.DataContext>
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="ApplicationCommands.Close" />
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Close" Executed="ApplicationCommands_Close_Executed" />
+    </Window.CommandBindings>
     <Window.Resources>
         <ResourceDictionary>
             <Style TargetType="{x:Type ListBoxItem}">

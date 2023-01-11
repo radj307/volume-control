@@ -63,5 +63,7 @@ namespace VolumeControl
                 list.Remove(b.Tag);
             }
         }
+
+        private void ApplicationCommands_Close_Executed(object sender, ExecutedRoutedEventArgs e) => Close();
     }
 }
