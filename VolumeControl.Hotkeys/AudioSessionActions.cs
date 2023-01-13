@@ -50,11 +50,47 @@ namespace VolumeControl.Hotkeys
             else AudioAPI.DecrementSessionVolume();
         }
         [HotkeyAction(Description = "Mutes the selected session.")]
-        public void Mute(object? sender, HotkeyActionPressedEventArgs e) => AudioAPI.SetSessionMute(true);
+        [HotkeyActionSetting(ActionTargetSpecifierName, typeof(ActionTargetSpecifier))]
+        public void Mute(object? sender, HotkeyActionPressedEventArgs e)
+        {
+            if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier targets && targets.Count > 0)
+            {
+                for (int i = 0; i < targets.Count; ++i)
+                {
+                    if (AudioAPI.FindSessionWithName(targets[i].ProcessName) is ISession session)
+                        session.Muted = true;
+                }
+            }
+            else AudioAPI.SetSessionMute(true);
+        }
         [HotkeyAction(Description = "Unmutes the selected session.")]
-        public void Unmute(object? sender, HotkeyActionPressedEventArgs e) => AudioAPI.SetSessionMute(false);
+        [HotkeyActionSetting(ActionTargetSpecifierName, typeof(ActionTargetSpecifier))]
+        public void Unmute(object? sender, HotkeyActionPressedEventArgs e)
+        {
+            if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier targets && targets.Count > 0)
+            {
+                for (int i = 0; i < targets.Count; ++i)
+                {
+                    if (AudioAPI.FindSessionWithName(targets[i].ProcessName) is ISession session)
+                        session.Muted = false;
+                }
+            }
+            else AudioAPI.SetSessionMute(false);
+        }
         [HotkeyAction(Description = "Toggles the selected session's mute state.")]
-        public void ToggleMute(object? sender, HotkeyActionPressedEventArgs e) => AudioAPI.ToggleSessionMute();
+        [HotkeyActionSetting(ActionTargetSpecifierName, typeof(ActionTargetSpecifier))]
+        public void ToggleMute(object? sender, HotkeyActionPressedEventArgs e)
+        {
+            if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier targets && targets.Count > 0)
+            {
+                for (int i = 0; i < targets.Count; ++i)
+                {
+                    if (AudioAPI.FindSessionWithName(targets[i].ProcessName) is ISession session)
+                        session.Muted = !session.Muted;
+                }
+            }
+            else AudioAPI.ToggleSessionMute();
+        }
         [HotkeyAction(Description = "Selects the next session in the list.")]
         public void SelectNext(object? sender, HotkeyActionPressedEventArgs e) => AudioAPI.SelectNextSession();
         [HotkeyAction(Description = "Selects the previous session in the list.")]
@@ -67,10 +103,5 @@ namespace VolumeControl.Hotkeys
         public void ToggleLock(object? sender, HotkeyActionPressedEventArgs e) => AudioAPI.LockSelectedSession = !AudioAPI.LockSelectedSession;
         [HotkeyAction(Description = "Changes the selected session to null.")]
         public void Deselect(object? sender, HotkeyActionPressedEventArgs e) => AudioAPI.DeselectSession();
-        [HotkeyAction(Description = "TESTING")]
-        public void ActionSettingTestFunction(object? sender, HotkeyActionPressedEventArgs e, [HotkeyActionSetting("Setting", typeof(string))] string param, [HotkeyActionSetting("Toggle Switch", typeof(bool))] bool toggleSwitch)
-        {
-            Log.Info($"{nameof(ActionSettingTestFunction)} was called with setting: '{param}' ({toggleSwitch})");
-        }
     }
 }

@@ -62,10 +62,6 @@ namespace VolumeControl
             {
                 _loaded = true;
 
-                double width = this.Width, height = this.Height;
-                this.Width = Settings.NotificationSize?.Width ?? this.Width;
-                this.Height = Settings.NotificationSize?.Height ?? this.Height;
-
                 if (Settings.NotificationSavePos && Settings.NotificationPosition is Point pos)
                 {
                     SetPosAtCorner(Settings.NotificationPositionOriginCorner, pos);
@@ -74,9 +70,6 @@ namespace VolumeControl
                 {
                     SetPos(new(SystemParameters.WorkArea.Right - this.ActualWidth - 10, SystemParameters.WorkArea.Bottom - this.ActualHeight - 10));
                 }
-
-                this.Width = width;
-                this.Height = height;
             }
         }
         #endregion Initializers
@@ -269,11 +262,10 @@ namespace VolumeControl
         private void lnotifWindow_Closing(object sender, CancelEventArgs e)
         {
             if (!_allowClose) e.Cancel = true;
-            if (Settings.NotificationSavePos)
-            { // set the origin corner & position
+            if (Settings.NotificationSavePos && _loaded)
+            { // set the origin corner & position ; only when successfully loaded, otherwise we'll write garbage data
                 Settings.NotificationPositionOriginCorner = GetCurrentScreenCorner();
                 Settings.NotificationPosition = GetPosAtCorner(Settings.NotificationPositionOriginCorner = GetCurrentScreenCorner());
-                Settings.NotificationSize = new(this.Width, this.Height);
             }
         }
 
@@ -345,16 +337,16 @@ namespace VolumeControl
                 this.Top = pos.Y;
                 break;
             case Core.Helpers.ScreenCorner.TopRight:
-                this.Left = pos.X + this.ActualWidth;
+                this.Left = pos.X + this.Width;
                 this.Top = pos.Y;
                 break;
             case Core.Helpers.ScreenCorner.BottomLeft:
                 this.Left = pos.X;
-                this.Top = pos.Y - this.ActualHeight;
+                this.Top = pos.Y - this.Height;
                 break;
             case Core.Helpers.ScreenCorner.BottomRight:
-                this.Left = pos.X + this.ActualWidth;
-                this.Top = pos.Y - this.ActualHeight;
+                this.Left = pos.X + this.Width;
+                this.Top = pos.Y - this.Height;
                 break;
             }
         }

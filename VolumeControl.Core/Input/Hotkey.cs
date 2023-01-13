@@ -62,7 +62,16 @@ namespace VolumeControl.Core.Input
         public bool Registered
         {
             get => _registered;
-            set => _ = (_registered = value) ? WindowsHotkeyAPI.Register(this) : WindowsHotkeyAPI.Unregister(this);
+            set
+            {
+                if (_registered.Equals(value)) return;
+                UnsetError();
+                _registered = value;
+                if (_registered)
+                    WindowsHotkeyAPI.Register(this);
+                else 
+                    WindowsHotkeyAPI.Unregister(this);
+            }
         }
         private bool _registered = false;
         /// <summary>

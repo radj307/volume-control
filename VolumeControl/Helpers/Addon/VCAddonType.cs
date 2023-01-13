@@ -47,48 +47,4 @@ namespace VolumeControl.Helpers.Addon
         public void LoadAssembly(Assembly asm) => LoadTypes(asm.GetExportedTypes());
         public void LoadAssemblyFrom(string assemblyPath) => LoadTypes(Assembly.LoadFrom(assemblyPath).GetExportedTypes());
     }
-
-    [AttributeUsage(AttributeTargets.Property)]
-    public class DisplayTargetAttribute : ValidationAttribute
-    {
-        public DisplayTargetAttribute([CallerMemberName] string displayTargetName = "")
-        {
-            Name = displayTargetName;
-        }
-
-        protected override ValidationResult? IsValid(object? value, ValidationContext context) =>
-                (value is not ListDisplayTarget)
-                ? new ValidationResult($"{nameof(DisplayTargetAttribute)} can only be applied to properties of type \"{typeof(ListDisplayTarget).FullName}\"!")
-                : ValidationResult.Success;
-
-
-        /// <summary>
-        /// Gets or sets the name of the display target.
-        /// </summary>
-        public string Name { get; set; }
-        public bool InsertSpacesInName { get; set; }
-
-        #region Methods
-        /// <summary>
-        /// Returns the result of replacing all occurrences of the regular expression "<see langword="\B([A-Z])"/>" with the replacement expression "<see langword=" $1"/>", effectively inserting a space between all capitalized words in the string.
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static string InsertSpacesIn(string str) => Regex.Replace(str, "\\B([A-Z])", " $1");
-        public string GetNameString() => InsertSpacesInName ? InsertSpacesIn(Name) : Name;
-        #endregion Methods
-    }
-
-    /*public class VCDisplayTargetAddon : VCAddonType
-    {
-        public VCDisplayTargetAddon() : base(new AttributeWrapper(typeof(DisplayTargetAttribute)))
-        { }
-
-        protected override void HandleAddonTypes(VCAPI api, IEnumerable<ValueType> types)
-        {
-            List<ListDisplayTarget> displayTargets = new();
-
-
-        }
-    }*/
 }

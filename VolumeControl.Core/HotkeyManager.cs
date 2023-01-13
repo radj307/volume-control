@@ -127,7 +127,10 @@ namespace VolumeControl.Core
             for (int i = this.Hotkeys.Count - 1; i >= 0; --i)
             {
                 if (this.Hotkeys[i].ID.Equals(id))
+                {
+                    this.Hotkeys[i].Registered = false;
                     this.Hotkeys.RemoveAt(i);
+                }
             }
             this.RecheckAllSelected();
         }
@@ -138,6 +141,7 @@ namespace VolumeControl.Core
         {
             for (int i = this.Hotkeys.Count - 1; i >= 0; --i)
             {
+                this.Hotkeys[i].Registered = false;
                 this.Hotkeys[i].Dispose();
                 this.Hotkeys.RemoveAt(i);
             }
@@ -295,8 +299,8 @@ namespace VolumeControl.Core
         public int GetNextUniqueID()
         {
             int i;
-            
-            while (!IsUniqueID(i = WindowsHotkeyAPI.NextID)) {}
+
+            while (!IsUniqueID(i = WindowsHotkeyAPI.NextID)) { }
             return i;
         }
         #endregion Methods

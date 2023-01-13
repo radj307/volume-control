@@ -262,7 +262,7 @@ namespace VolumeControl.Core
         /// <summary>
         /// The last known size of the notification window.
         /// </summary>
-        public Size? NotificationSize { get; set; }
+        //public Size? NotificationSize { get; set; }
         /// <summary>
         /// Gets or sets whether controls from <see cref="Interfaces.IListDisplayable.DisplayControls"/> are shown or not.
         /// </summary>
