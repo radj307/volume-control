@@ -20,7 +20,7 @@ namespace VolumeControl.Helpers
             string path = string.Empty;
             if (Path.GetDirectoryName(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath) is string dir)
             {
-                const string searchString = "VolumeControl";
+                const string searchString = "radj307";
 
                 int pos = dir.IndexOf(searchString);
                 if (pos != -1)
