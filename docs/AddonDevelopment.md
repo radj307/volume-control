@@ -130,7 +130,7 @@ In order to see log messages related to the loading of addons, you need to enabl
 ### Where to Put Addons
 
 Volume Control will attempt to load addons from a few locations, depending on the version.  
-All versions of Volume Control will *(recursively)* load addons from `C:\Users\<USERNAME>\AppData\Local\radj307\Addons` first, if it exists.  
+All versions of Volume Control will *(recursively)* load addons from `C:\Users\<USERNAME>\AppData\Local\VolumeControl\Addons` first, if it exists.  
 **Do not place Volume Control SDK dlls in addon directories, and do not include them when redistributing your addon.**  
 
 Since [v5.1.0](https://github.com/radj307/volume-control/release/5.1.0), addons may also be located in any directories specified by the `CustomAddonDirectories` setting, which can be found in the configuration file:  
