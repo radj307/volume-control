@@ -1,7 +1,5 @@
 var NAVTREEINDEX6 =
 {
-"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168ac1d9f50f86825a1a2302ec2449c17196":[4,0,0,1,1,3,157],
-"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168ac24584220175d55f68ef72c3f3b14ef8":[4,0,0,1,1,3,4],
 "namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168ac258c5df19a65b8a6427bb010bfcf7d0":[4,0,0,1,1,3,112],
 "namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168ac4d62b6dcca08e5caf06c01889282859":[4,0,0,1,1,3,142],
 "namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168acc5b6d53ef948f46e2885b1ec619dd82":[4,0,0,1,1,3,50],

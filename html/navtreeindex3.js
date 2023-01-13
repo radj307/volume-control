@@ -1,7 +1,5 @@
 var NAVTREEINDEX3 =
 {
-"class_volume_control_1_1_log_1_1_log_writer.html#a71b504690e2d8f2d5a73755ff8b3ce50":[5,0,0,3,3,14],
-"class_volume_control_1_1_log_1_1_log_writer.html#a75e77a8720b36ca2c89eed22cf41cfdb":[5,0,0,3,3,10],
 "class_volume_control_1_1_log_1_1_log_writer.html#a7a8311bdb049a796df8c60540a979ae6":[5,0,0,3,3,35],
 "class_volume_control_1_1_log_1_1_log_writer.html#a817b4d25c9fcc86fa0b5afe28ec054b1":[5,0,0,3,3,31],
 "class_volume_control_1_1_log_1_1_log_writer.html#a84f2a4a818ded391050345b3962adc90":[5,0,0,3,3,2],
@@ -249,5 +247,7 @@ var NAVTREEINDEX3 =
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a22d929061965acad08b6f4bdf58252da":[5,0,0,6,1,3,33],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a28bef7dbccdce1cc16a79c18865c3800":[5,0,0,6,1,3,8],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a29ade5ba7b0b03d9fa8d605b9e79f57e":[5,0,0,6,1,3,17],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a2f0ecb84286f40e40988536e9881fafe":[5,0,0,6,1,3,48]
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a2f0ecb84286f40e40988536e9881fafe":[5,0,0,6,1,3,48],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a31aa5bb3fe3fd551da4a3ee9ccaf90e6":[5,0,0,6,1,3,0],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a4ac212a326da581a5fa3f39a3ebab575":[5,0,0,6,1,3,29]
 };

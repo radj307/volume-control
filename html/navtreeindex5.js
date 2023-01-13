@@ -1,7 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#a0fcac680a4ca9ec0c2a9e1281249be15":[5,0,0,0,3,3,2],
-"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#a3c6334a38d6268e652d4bfde4e15271e":[5,0,0,0,3,3,1],
 "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#a90d00bda69b19d33741475dcf59fb622":[5,0,0,0,3,3,0],
 "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_volume_control.html":[5,0,0,0,3,4],
 "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_volume_control.html#a12addd7e57339558c65961287f8dfe48":[5,0,0,0,3,4,3],
@@ -249,5 +247,7 @@ var NAVTREEINDEX5 =
 "namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168ab9ece18c950afbfa6b0fdbfa4ff731d3":[4,0,0,1,1,3,169],
 "namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168abb0bad6b5c3b71bf2efbff06c7e56f46":[4,0,0,1,1,3,108],
 "namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168abec048724f0d8d67fb56144836b94e1c":[4,0,0,1,1,3,135],
-"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168ac131862144aee0989dbc0c53afe40a0f":[4,0,0,1,1,3,3]
+"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168ac131862144aee0989dbc0c53afe40a0f":[4,0,0,1,1,3,3],
+"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168ac1d9f50f86825a1a2302ec2449c17196":[4,0,0,1,1,3,157],
+"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168ac24584220175d55f68ef72c3f3b14ef8":[4,0,0,1,1,3,4]
 };

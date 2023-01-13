@@ -10,7 +10,7 @@ var class_volume_control_1_1_core_1_1_input_1_1_hotkey =
     [ "ID", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a90f93567ca697a1c45504c2bc3314e78", null ],
     [ "Key", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a8df698397f730c5067081404a5cf8471", null ],
     [ "Modifier", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a9e22ac044b6b132c50d5f5ccf1aa7ac6", null ],
-    [ "Registered", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a915bcf2dcb7d08e9f6ecb0844e4cfc4c", null ],
+    [ "Registered", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a77e45026a4171fc8a86c145369c16379", null ],
     [ "Pressed", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a83f8e25c2ba9e7907c1f2b357ca15774", null ],
     [ "PropertyChanged", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a41b7bbd11cf64e87786cfa7c45a7ceeb", null ]
 ];
