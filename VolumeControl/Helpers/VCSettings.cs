@@ -71,12 +71,6 @@ namespace VolumeControl.Helpers
             get => Settings.ShowIcons;
             set => Settings.ShowIcons = value;
         }
-        /// <inheritdoc cref="Config.AdvancedHotkeys"/>
-        public bool AdvancedHotkeyMode
-        {
-            get => Settings.AdvancedHotkeys;
-            set => Settings.AdvancedHotkeys = value;
-        }
         public bool DeleteHotkeyConfirmation
         {
             get => Settings.DeleteHotkeyConfirmation;

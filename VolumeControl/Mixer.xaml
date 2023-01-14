@@ -851,15 +851,6 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <CheckBox
-                                Grid.Column="1"
-                                Margin="4,0"
-                                Content="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.EditMode.Content',
-                                             DefaultText='Edit Mode'}"
-                                IsChecked="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}}"
-                                Style="{StaticResource CheckBoxStyle}"
-                                ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.EditMode.Tooltip',
-                                             DefaultText='Allows you to edit, create, and delete hotkey bindings.'}" />
                             <StackPanel
                                 Grid.Column="3"
                                 Margin="3,0"
@@ -882,15 +873,6 @@
                                                  DefaultText='This is the number of volume ticks that change each time you press the volume up or down hotkeys.'}"
                                     Value="{Binding AudioAPI.VolumeStepSize, Mode=TwoWay, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
-                            <Button
-                                Grid.Column="4"
-                                Height="{Binding Height, ElementName=nudVolumeStepSize}"
-                                Padding="6,0"
-                                Click="Handle_ResetHotkeysClick"
-                                Content="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.ResetToDefault.Content',
-                                             DefaultText='Reset To Default'}"
-                                ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.ResetToDefault.Tooltip',
-                                             DefaultText='Resets all hotkeys to the default preset.'}" />
                         </Grid>
 
                         <Border
@@ -956,15 +938,13 @@
                                             Width="Auto"
                                             MinWidth="130"
                                             Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Name.Header',
-                                                        DefaultText='Name'}"
-                                            IsReadOnly="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource InvertConverter}}">
+                                                        DefaultText='Name'}">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate DataType="{x:Type input:BindableHotkey}">
                                                     <TextBox
                                                         VerticalAlignment="Center"
                                                         Background="#00000000"
                                                         BorderThickness="0"
-                                                        IsReadOnly="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource InvertConverter}}"
                                                         Style="{StaticResource TextBoxStyle}"
                                                         Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
                                                 </DataTemplate>
@@ -1043,8 +1023,7 @@
                                             Width="Auto"
                                             MinWidth="24"
                                             Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Action.Header',
-                                                        DefaultText='Action'}"
-                                            Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                        DefaultText='Action'}">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate DataType="{x:Type input:BindableHotkey}">
                                                     <ComboBox
@@ -1099,10 +1078,7 @@
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
                                         <!--  Action Settings  -->
-                                        <DataGridTemplateColumn
-                                            Width="Auto"
-                                            CanUserResize="False"
-                                            Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <DataGridTemplateColumn Width="Auto" CanUserResize="False">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate DataType="{x:Type input:BindableHotkey}">
                                                     <Button
@@ -1115,10 +1091,7 @@
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
                                         <!--  Remove  -->
-                                        <DataGridTemplateColumn
-                                            Width="Auto"
-                                            CanUserResize="False"
-                                            Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <DataGridTemplateColumn Width="Auto" CanUserResize="False">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate DataType="{x:Type input:BindableHotkey}">
                                                     <Button
@@ -1136,14 +1109,28 @@
                             </Grid>
                         </Border>
 
-                        <Button
-                            Margin="5,0,5,5"
-                            Click="Handle_CreateNewHotkeyClick"
-                            Content="{Tr 'VolumeControl.MainWindow.Hotkeys.CreateNewHotkeyButton.Content',
-                                         DefaultText='Create New Hotkey'}"
-                            ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.CreateNewHotkeyButton.Tooltip',
-                                         DefaultText='Creates a new blank hotkey entry.'}"
-                            Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <Grid Margin="3,0,3,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Button
+                                Grid.Column="0"
+                                Click="Handle_CreateNewHotkeyClick"
+                                Content="{Tr 'VolumeControl.MainWindow.Hotkeys.CreateNewHotkeyButton.Content',
+                                             DefaultText='Create New Hotkey'}"
+                                ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.CreateNewHotkeyButton.Tooltip',
+                                             DefaultText='Creates a new blank hotkey entry.'}" />
+                            <Button
+                                Grid.Column="1"
+                                Padding="6,0"
+                                Click="Handle_ResetHotkeysClick"
+                                Content="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.ResetToDefault.Content',
+                                             DefaultText='Reset To Default'}"
+                                ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.ResetToDefault.Tooltip',
+                                             DefaultText='Resets all hotkeys to the default preset.'}" />
+                        </Grid>
                     </VirtualizingStackPanel>
                 </TabItem>
                 <!--  ▲ Hotkeys Tab ▲  -->

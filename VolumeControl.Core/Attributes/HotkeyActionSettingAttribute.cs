@@ -5,8 +5,8 @@ namespace VolumeControl.Core.Attributes
     /// <summary>
     /// Attribute that specifies a hotkey action setting. This can be applied to methods, or directly to parameters to override automatic label/type deduction.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.GenericParameter | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
-    public sealed class HotkeyActionSettingAttribute : Attribute
+    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method, AllowMultiple = true, Inherited = false)]
+    public class HotkeyActionSettingAttribute : Attribute
     {
         #region Constructor
         /// <summary>
@@ -16,8 +16,20 @@ namespace VolumeControl.Core.Attributes
         /// <param name="valueType">The <see cref="Type"/> of value used by this setting.</param>
         public HotkeyActionSettingAttribute(string label, Type? valueType = null)
         {
-            SettingLabel = label;
-            SettingType = valueType;
+            Label = label;
+            ValueType = valueType;
+        }
+        /// <summary>
+        /// Creates a new <see cref="HotkeyActionSettingAttribute"/> instance with an explicit type.
+        /// </summary>
+        /// <param name="label">The label to show next to the setting. Defaults to the name of the parameter.</param>
+        /// <param name="valueType">The <see cref="Type"/> of value used by this setting.</param>
+        /// <param name="description">A brief description of this setting to show in a tooltip.</param>
+        public HotkeyActionSettingAttribute(string label, Type? valueType, string description)
+        {
+            Label = label;
+            ValueType = valueType;
+            Description = description;
         }
         #endregion Constructor
 
@@ -25,11 +37,15 @@ namespace VolumeControl.Core.Attributes
         /// <summary>
         /// Gets or sets the label shown in the action settings menu.
         /// </summary>
-        public string SettingLabel { get; set; }
+        public string Label { get; set; }
         /// <summary>
         /// Gets or sets the <see cref="Type"/> of value that this setting holds.
         /// </summary>
-        public Type? SettingType { get; set; }
+        public Type? ValueType { get; set; }
+        /// <summary>
+        /// Gets or sets the description that is shown in a tooltip in the action settings menu.
+        /// </summary>
+        public string? Description { get; set; }
         #endregion Properties
 
         #region Methods
@@ -37,19 +53,7 @@ namespace VolumeControl.Core.Attributes
         /// Creates a new <see cref="HotkeyActionSetting"/> using this <see cref="HotkeyActionSettingAttribute"/>'s properties.
         /// </summary>
         /// <returns>A new <see cref="HotkeyActionSetting"/> instance.</returns>
-        public HotkeyActionSetting ToHotkeyActionSetting() => new(SettingLabel, SettingType);
+        public HotkeyActionSetting ToHotkeyActionSetting() => new(this);
         #endregion Methods
-
-        #region Operators
-        /// <summary>
-        /// Creates a new <see cref="HotkeyActionSetting"/> using this <see cref="HotkeyActionSettingAttribute"/>'s properties.
-        /// </summary>
-        /// <param name="attribute">A <see cref="HotkeyActionSettingAttribute"/> instance.</param>
-        public static explicit operator HotkeyActionSetting(HotkeyActionSettingAttribute attribute) =>
-            new(
-                label: attribute.SettingLabel,
-                valueType: attribute.SettingType
-            );
-        #endregion Operators
     }
 }

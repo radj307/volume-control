@@ -32,7 +32,7 @@ namespace VolumeControl.Core.Input
         /// Contains any extra parameters required by the currently selected action.
         /// </summary>
         [JsonProperty]
-        public ObservableImmutableList<HotkeyActionSetting>? ActionSettings { get; set; }
+        public ObservableImmutableList<IHotkeyActionSetting>? ActionSettings { get; set; }
 
         /// <summary>
         /// Triggered when the hotkey is pressed.

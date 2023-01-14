@@ -35,7 +35,7 @@ namespace VolumeControl.Core.Input.Actions
         /// Defines additional action settings that are not received via parameters, but should be considered valid nonetheless.<br/>
         /// In practice, this defines the action settings that were specified via method attributes.
         /// </summary>
-        HotkeyActionSetting[]? ExtraActionSettings { get; }
+        IHotkeyActionSetting[]? ExtraActionSettings { get; }
         /// <summary>
         /// <see langword="true"/> when this action uses action settings from any source; otherwise <see langword="false"/>.
         /// </summary>
@@ -64,6 +64,6 @@ namespace VolumeControl.Core.Input.Actions
         /// Gets the list of extra parameters required to call this action's associated method.
         /// </summary>
         /// <returns>A list of <see cref="HotkeyActionSetting"/> objects with their default <see cref="HotkeyActionSetting.Value"/> property values.</returns>
-        HotkeyActionSetting[] GetDefaultActionSettings();
+        IHotkeyActionSetting[] GetDefaultActionSettings();
     }
 }

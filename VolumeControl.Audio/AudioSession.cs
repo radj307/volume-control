@@ -309,11 +309,11 @@ namespace VolumeControl.Audio
         }
 
         /// <summary>
-        /// Parses the given process identifier string into a PID and ProcessName.
+        /// Parses the given process identifier string into a PID and Value.
         /// </summary>
-        /// <param name="identifier">A process identifier, PID, or ProcessName to split.</param>
+        /// <param name="identifier">A process identifier, PID, or Value to split.</param>
         /// <returns>
-        /// Returns a tuple where the first item is the PID and the second is the ProcessName.
+        /// Returns a tuple where the first item is the PID and the second is the Value.
         /// </returns>
         /// <exception cref="FormatException">Thrown when there is a colon in the string, but the characters before it are invalid as an integral.</exception>
         public static (int, string) ParseProcessIdentifier(string identifier)

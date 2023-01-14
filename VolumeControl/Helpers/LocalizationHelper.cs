@@ -55,7 +55,7 @@ namespace VolumeControl.Helpers
         private static Config Settings => (Config.Default as Config)!;
         private static LocalizationLoader Loader => LocalizationLoader.Instance;
         private static List<ILocalizationFileLoader> FileLoaders => Loader.FileLanguageLoaders;
-        private static string DefaultPath { get; } = Path.Combine(PathFinder.LocalAppData, "Localization");
+        private static string DefaultPath { get; } = Path.Combine(PathFinder.ApplicationAppDataPath, "Localization");
         private static Loc Loc => Loc.Instance;
         #endregion Properties
 

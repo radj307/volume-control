@@ -2,6 +2,7 @@
     x:Class="VolumeControl.ActionSettingsWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="clr-namespace:VolumeControl.WPF.Bindings;assembly=VolumeControl.WPF"
     xmlns:controls="clr-namespace:VolumeControl.Controls"
     xmlns:conv="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -48,6 +49,8 @@
                 <BooleanToVisibilityConverter />
             </conv:ConverterChain>
 
+            <conv:BooleanInverter x:Key="BooleanInverter" />
+
             <inputActions:HotkeyActionSettingValueTemplateSelector x:Key="DataTemplateSelector" />
             <!--  These key names are important; don't change them! (See HotkeyActionSettingValueTemplateSelector):  -->
             <DataTemplate x:Key="StringDataTemplate" DataType="{x:Type inputActions:HotkeyActionSetting}">
@@ -56,7 +59,7 @@
             <DataTemplate x:Key="BoolDataTemplate" DataType="{x:Type inputActions:HotkeyActionSetting}">
                 <CheckBox IsChecked="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
             </DataTemplate>
-            <DataTemplate x:Key="ListDataTemplate" DataType="{x:Type inputActions:HotkeyActionSetting}">
+            <DataTemplate x:Key="TargetSpecifierDataTemplate" DataType="{x:Type inputActions:HotkeyActionSetting}">
                 <Border>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -68,7 +71,7 @@
                             Name="listBox"
                             Grid.Row="0"
                             BorderThickness="0"
-                            ItemsSource="{Binding Value, Mode=TwoWay}">
+                            ItemsSource="{Binding Value.Targets}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate DataType="{x:Type helpers:TargetInfoVM}">
                                     <Grid Margin="5,1">
@@ -82,7 +85,7 @@
                                             Padding="3,1"
                                             VerticalAlignment="Center"
                                             VerticalContentAlignment="Center"
-                                            Text="{Binding ProcessName, UpdateSourceTrigger=LostFocus}" />
+                                            Text="{Binding Value, UpdateSourceTrigger=LostFocus}" />
                                         <Button
                                             Grid.Column="1"
                                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
@@ -119,7 +122,7 @@
                 <DataTemplate DataType="{x:Type inputActions:HotkeyActionSetting}">
                     <Grid HorizontalAlignment="Stretch">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" MinWidth="50" />
+                            <ColumnDefinition Width="Auto" MinWidth="80" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
@@ -127,7 +130,9 @@
                             Grid.Column="0"
                             Margin="5,3"
                             HorizontalAlignment="Right"
-                            Text="{Binding Label}" />
+                            Text="{Binding Label}"
+                            ToolTip="{Binding Description}"
+                            ToolTipService.InitialShowDelay="500" />
                         <ContentControl
                             Grid.Column="1"
                             Margin="5,3"

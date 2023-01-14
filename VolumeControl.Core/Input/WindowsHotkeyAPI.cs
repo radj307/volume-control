@@ -33,6 +33,16 @@ namespace VolumeControl.Core.Input
             }
         }
         private static int _id = MinID;
+
+        /// <summary>
+        /// Resets the <see cref="NextID"/> counter and the <see cref="OverflowCounter"/>.
+        /// This should be called whenever all hotkeys are guaranteed to have been deleted.
+        /// </summary>
+        public static void ResetIDs()
+        {
+            Interlocked.Exchange(ref _id, MinID);
+            OverflowCounter = 0;
+        }
         #endregion ID
 
         #region HasOverflown
@@ -179,8 +189,8 @@ namespace VolumeControl.Core.Input
         /// <returns><see langword="true"/> when successful; otherwise <see langword="false"/></returns>
         public static bool Unregister(Hotkey hk)
         {
-            int rc = UnregisterHotKey(messageOnlyWindow.Handle, hk.ID);
             messageOnlyWindow.RemoveHook(hk.MessageHook);
+            int rc = UnregisterHotKey(messageOnlyWindow.Handle, hk.ID);
             switch (rc)
             {
             case 0:

@@ -1,47 +1,108 @@
-﻿using PropertyChanged;
+﻿using Newtonsoft.Json;
+using PropertyChanged;
 using System.Collections;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using VolumeControl.Core.Attributes;
+using VolumeControl.Core.Helpers;
+using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Core.Input.Actions
 {
+    public interface IHotkeyActionSetting
+    {
+        /// <summary>
+        /// Gets or sets the name of this setting
+        /// </summary>
+        [JsonIgnore]
+        string Label { get; set; }
+        /// <summary>
+        /// Gets or sets the <see cref="ValueType"/> of <see cref="Value"/> accepted by this setting.<br/>
+        /// Setting this to <see langword="null"/> will allow <see cref="Value"/> to be set to any type.
+        /// </summary>
+        [JsonIgnore]
+        Type? ValueType { get; set; }
+        /// <summary>
+        /// Gets or sets the value of this setting
+        /// </summary>
+        object? Value { get; set; }
+        /// <summary>
+        /// Gets or sets the description of this setting, which is shown in a tooltip in the action settings window.
+        /// </summary>
+        [JsonIgnore]
+        string? Description { get; set; }
+    }
     /// <summary>
     /// Small container for hotkey action setting data
     /// </summary>
     [AddINotifyPropertyChangedInterface]
-    public class HotkeyActionSetting
+    [JsonObject]
+    public class HotkeyActionSetting : IHotkeyActionSetting
     {
-        public HotkeyActionSetting() {}
-        public HotkeyActionSetting(string label, Type? valueType)
+        /// <summary>
+        /// Creates a new empty <see cref="HotkeyActionSetting"/> instance.
+        /// </summary>
+        public HotkeyActionSetting() { }
+        /// <summary>
+        /// Creates a new <see cref="HotkeyActionSetting"/> instance by copying a <see cref="HotkeyActionSettingAttribute"/> instance.
+        /// </summary>
+        /// <param name="attr">A <see cref="HotkeyActionSettingAttribute"/> instance.</param>
+        public HotkeyActionSetting(HotkeyActionSettingAttribute attr)
         {
-            Label = label;
-            ValueType = valueType;
-            Value = valueType is null
+            Label = attr.Label;
+            ValueType = attr.ValueType;
+            Value = ValueType is null
                 ? null
-                : (valueType.Equals(typeof(string)) ? string.Empty : Activator.CreateInstance(valueType));
+                : (ValueType.Equals(typeof(string)) ? string.Empty : Activator.CreateInstance(ValueType));
+            Description = attr.Description;
         }
-        public HotkeyActionSetting(string label, Type? valueType, object? value)
+        /// <summary>
+        /// Creates a new <see cref="HotkeyActionSetting"/> instance by copying another <see cref="HotkeyActionSetting"/> instance.
+        /// </summary>
+        /// <param name="copyInstance">An already-created instance of <see cref="HotkeyActionSetting"/> to copy.</param>
+        public HotkeyActionSetting(HotkeyActionSetting copyInstance)
         {
-            Label = label;
-            ValueType = valueType;
-            Value = value;
+            Label = copyInstance.Label;
+            ValueType = copyInstance.ValueType;
+            Value = copyInstance.Value;
+            Description = copyInstance.Description;
         }
 
         /// <summary>
         /// Gets or sets the name of this setting
         /// </summary>
+        [JsonIgnore]
         public string Label { get; set; } = string.Empty;
         /// <summary>
         /// Gets or sets the <see cref="ValueType"/> of <see cref="Value"/> accepted by this setting.<br/>
         /// Setting this to <see langword="null"/> will allow <see cref="Value"/> to be set to any type.
         /// </summary>
+        [JsonIgnore]
         public Type? ValueType { get; set; }
         /// <summary>
         /// Gets or sets the value of this setting
         /// </summary>
         public object? Value { get; set; }
+        /// <summary>
+        /// Gets or sets the description of this setting, which is shown in a tooltip in the action settings window.
+        /// </summary>
+        [JsonIgnore]
+        public string? Description { get; set; }
     }
 
+    public abstract class ActionTargetSpecifier
+    {
+        /// <summary>
+        /// List of targets.
+        /// </summary>
+        public ObservableImmutableList<TargetInfoVM> Targets { get; } = new();
+
+        /// <summary>
+        /// Creates a new target entry.
+        /// </summary>
+        public abstract void AddNewTarget();
+    }
     /// <summary>
     /// <see cref="DataTemplateSelector"/> implementation for <see cref="HotkeyActionSetting"/>.
     /// </summary>
@@ -50,25 +111,25 @@ namespace VolumeControl.Core.Input.Actions
         /// <inheritdoc/>
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            if (item is not HotkeyActionSetting setting)
-                throw new InvalidOperationException($"{nameof(HotkeyActionSettingValueTemplateSelector)} received an item of type '{item.GetType().FullName}'; expected type '{typeof(HotkeyActionSettingValueTemplateSelector).FullName}'");
-
             if (container is FrameworkElement elem)
             {
-                var type = setting.Value?.GetType();
-                if (type is not null)
+                if (item is HotkeyActionSetting setting)
                 {
-                    if (type.Equals(typeof(string)))
+                    var type = setting.Value?.GetType();
+                    if (type is not null)
                     {
-                        return (elem.FindResource("StringDataTemplate") as DataTemplate)!;
-                    }
-                    else if (type.Equals(typeof(bool)))
-                    {
-                        return (elem.FindResource("BoolDataTemplate") as DataTemplate)!;
-                    }
-                    else if (type.GetInterface(nameof(IList)) is not null)
-                    {
-                        return (elem.FindResource("ListDataTemplate") as DataTemplate)!;
+                        if (type.Equals(typeof(string)))
+                        {
+                            return (elem.FindResource("StringDataTemplate") as DataTemplate)!;
+                        }
+                        else if (type.Equals(typeof(bool)))
+                        {
+                            return (elem.FindResource("BoolDataTemplate") as DataTemplate)!;
+                        }
+                        else if (type.IsSubclassOf(typeof(ActionTargetSpecifier)) || type.Equals(typeof(ActionTargetSpecifier)))
+                        {
+                            return (elem.FindResource("TargetSpecifierDataTemplate") as DataTemplate)!;
+                        }
                     }
                 }
             }

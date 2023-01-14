@@ -16,6 +16,7 @@ using VolumeControl.Core;
 using VolumeControl.Core.Generics;
 using VolumeControl.Core.Helpers;
 using VolumeControl.Core.Input.Actions;
+using VolumeControl.Hotkeys;
 using VolumeControl.SDK;
 using VolumeControl.ViewModels;
 using VolumeControl.WPF.Collections;
@@ -41,13 +42,9 @@ namespace VolumeControl
                 var listBox = (b.CommandParameter as ListBox)!;
                 var setting = listBox.DataContext as HotkeyActionSetting;
 
-                if (setting?.Value is not ObservableImmutableList<TargetInfoVM> list) return;
+                if (setting?.Value is not ActionTargetSpecifier list) return;
 
-                string currentSelection = VCAPI.Default.Settings.Target.GetProcessName();
-                if (!list.Any(i => i.ProcessName.Equals(currentSelection)))
-                    list.Add(new(currentSelection));
-                else
-                    list.Add(new()); //< add a blank entry
+                list.AddNewTarget();
             }
         }
 
@@ -58,9 +55,9 @@ namespace VolumeControl
                 var listBox = (b.CommandParameter as ListBox)!;
                 var setting = listBox.DataContext as HotkeyActionSetting;
 
-                if (setting?.Value is not ObservableImmutableList<TargetInfoVM> list) return;
+                if (setting?.Value is not ActionTargetSpecifier list) return;
 
-                list.Remove(b.Tag);
+                list.Targets.Remove(b.Tag);
             }
         }
 

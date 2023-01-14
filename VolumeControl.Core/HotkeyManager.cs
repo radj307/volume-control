@@ -181,7 +181,7 @@ namespace VolumeControl.Core
         {
             this.DelAllHotkeys();
             Settings.Hotkeys = null!;
-            Settings.Save();
+            WindowsHotkeyAPI.ResetIDs();
             this.LoadHotkeys();
         }
         #endregion HotkeysListSaveLoad

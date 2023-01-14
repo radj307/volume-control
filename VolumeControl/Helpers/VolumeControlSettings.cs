@@ -266,7 +266,7 @@ namespace VolumeControl.Helpers
         {
             List<string> l = new();
             // check default path:
-            string defaultPath = Path.Combine(PathFinder.LocalAppData, "Addons");
+            string defaultPath = Path.Combine(PathFinder.ApplicationAppDataPath, "Addons");
             if (Directory.Exists(defaultPath))
                 _ = l.AddIfUnique(defaultPath);
             // check custom directories:

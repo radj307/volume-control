@@ -2,10 +2,25 @@
 using VolumeControl.Audio;
 using VolumeControl.Audio.Events;
 using VolumeControl.Core.Attributes;
+using VolumeControl.Core.Input.Actions;
 using VolumeControl.SDK;
 
 namespace VolumeControl.Hotkeys
 {
+    public class DeviceSpecifier : ActionTargetSpecifier
+    {
+        public override void AddNewTarget()
+        {
+            if (VCAPI.Default.AudioAPI.DefaultDevice?.DeviceID is string deviceID && !Targets.Any(t => t.Value.Equals(deviceID, StringComparison.OrdinalIgnoreCase)))
+            {
+                Targets.Add(new()
+                {
+                    Value = deviceID
+                });
+            }
+            else Targets.Add(new());
+        }
+    }
     /// <summary>
     /// Contains hotkey action handlers that interact with AudioDevices in the <see cref="Audio.AudioAPI"/> object.
     /// </summary>
@@ -188,14 +203,6 @@ namespace VolumeControl.Hotkeys
         #endregion DeviceSelection
 
         #region Actions
-        [HotkeyAction(Description = "Selects the next device in the list.")]
-        public void SelectNext(object? sender, HandledEventArgs e) => SelectNextDevice();
-        [HotkeyAction(Description = "Selects the previous device in the list.")]
-        public void SelectPrevious(object? sender, HandledEventArgs e) => SelectPreviousDevice();
-        [HotkeyAction(Description = "Deselects the selected device.")]
-        public void Deselect(object? sender, HandledEventArgs e) => DeselectDevice();
-        [HotkeyAction(Description = "Selects the default output device in the list.")]
-        public void SelectDefault(object? sender, HandledEventArgs e) => SelectDefaultDevice();
         [HotkeyAction(Description = "Increases the device volume of the selected device.")]
         public void VolumeUp(object? sender, HandledEventArgs e) => IncrementDeviceVolume();
         [HotkeyAction(Description = "Decreases the device volume of the selected device.")]
@@ -206,6 +213,14 @@ namespace VolumeControl.Hotkeys
         public void Unmute(object? sender, HandledEventArgs e) => SetDeviceMute(false);
         [HotkeyAction(Description = "Toggles the selected device's mute state.")]
         public void ToggleMute(object? sender, HandledEventArgs e) => ToggleDeviceMute();
+        [HotkeyAction(Description = "Selects the next device in the list.")]
+        public void SelectNext(object? sender, HandledEventArgs e) => SelectNextDevice();
+        [HotkeyAction(Description = "Selects the previous device in the list.")]
+        public void SelectPrevious(object? sender, HandledEventArgs e) => SelectPreviousDevice();
+        [HotkeyAction(Description = "Deselects the selected device.")]
+        public void Deselect(object? sender, HandledEventArgs e) => DeselectDevice();
+        [HotkeyAction(Description = "Selects the default output device in the list.")]
+        public void SelectDefault(object? sender, HandledEventArgs e) => SelectDefaultDevice();
         #endregion Actions
     }
 }

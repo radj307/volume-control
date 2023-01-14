@@ -129,10 +129,6 @@ namespace VolumeControl
         /// <inheritdoc cref="VolumeControlSettings.ResetHotkeySettings"/>
         private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e)
         {
-            if (!Settings.AdvancedHotkeys)
-            {
-
-            }
             this.VCSettings.ResetHotkeySettings();
         }
 

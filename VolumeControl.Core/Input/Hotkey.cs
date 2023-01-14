@@ -83,7 +83,7 @@ namespace VolumeControl.Core.Input
         /// </summary>
         public string? ErrorMessage { get; internal set; } = null;
         /// <inheritdoc/>
-        public ObservableImmutableList<HotkeyActionSetting>? ActionSettings { get; set; }
+        public ObservableImmutableList<IHotkeyActionSetting>? ActionSettings { get; set; }
         #endregion Properties
 
         #region Methods
@@ -126,6 +126,7 @@ namespace VolumeControl.Core.Input
             case WindowsHotkeyAPI.WM_HOTKEY:
                 if (wParam.ToInt32().Equals(this.ID))
                 {
+                    if (!Registered) break;
                     handled = true;
                     try
                     {
@@ -159,7 +160,7 @@ namespace VolumeControl.Core.Input
         /// <inheritdoc/>
         public void Dispose()
         {
-            _ = WindowsHotkeyAPI.Unregister(this);
+            if (Registered) Registered = false;
             GC.SuppressFinalize(this);
         }
         #endregion Methods

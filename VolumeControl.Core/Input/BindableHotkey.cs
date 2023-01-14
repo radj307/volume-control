@@ -135,7 +135,7 @@ namespace VolumeControl.Core.Input
         /// <inheritdoc cref="Hotkey.ErrorMessage"/>
         public string? ErrorMessage => this.Hotkey.ErrorMessage;
         /// <inheritdoc/>
-        public ObservableImmutableList<HotkeyActionSetting>? ActionSettings
+        public ObservableImmutableList<IHotkeyActionSetting>? ActionSettings
         {
             get => this.Hotkey.ActionSettings;
             set => this.Hotkey.ActionSettings = value;

@@ -24,7 +24,7 @@ namespace VolumeControl.ViewModels
         /// Gets or sets the hotkey that this window is currently editing
         /// </summary>
         public IBindableHotkey? Hotkey { get; set; }
-        public ObservableImmutableList<HotkeyActionSetting>? ActionSettings => Hotkey?.ActionSettings;
+        public ObservableImmutableList<IHotkeyActionSetting>? ActionSettings => Hotkey?.ActionSettings;
         #endregion Properties
     }
 }

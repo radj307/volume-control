@@ -98,17 +98,6 @@ namespace VolumeControl.Core
         /// <remarks><b>Default: <see langword="false"/></b></remarks>
         public bool AlwaysOnTop { get; set; } = false;
         /// <summary>
-        /// Gets or sets the hotkey editor mode, which can be either false (basic mode) or true (advanced mode).
-        /// </summary>
-        /// <remarks>Advanced mode allows the user to perform additional actions in the hotkey editor:
-        /// <list type="bullet">
-        /// <item><description>Create and delete hotkeys.</description></item>
-        /// <item><description>Rename hotkeys.</description></item>
-        /// <item><description>View and modify the action bindings of hotkeys.</description></item>
-        /// </list></remarks>
-        /// <remarks><b>Default: <see langword="false"/></b></remarks>
-        public bool AdvancedHotkeys { get; set; } = false;
-        /// <summary>
         /// Gets or sets whether confirmation is required to delete a hotkey.
         /// </summary>
         public bool DeleteHotkeyConfirmation { get; set; } = true;

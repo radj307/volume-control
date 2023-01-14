@@ -16,20 +16,20 @@ namespace VolumeControl.Core.Input.Actions
         /// Creates a new <see cref="HotkeyActionPressedEventArgs"/> instance.
         /// </summary>
         /// <param name="actionSettings">Any action settings required to call the action method.</param>
-        public HotkeyActionPressedEventArgs(IList<HotkeyActionSetting>? actionSettings) => ActionSettings = actionSettings;
+        public HotkeyActionPressedEventArgs(IList<IHotkeyActionSetting>? actionSettings) => ActionSettings = actionSettings;
         /// <summary>
         /// Creates a new <see cref="HotkeyActionPressedEventArgs"/> instance.
         /// </summary>
         /// <param name="actionSettings">Any action settings required to call the action method.</param>
         /// <param name="defaultHandledValue">Default value for the <see cref="HandledEventArgs.Handled"/> property.</param>
-        public HotkeyActionPressedEventArgs(IList<HotkeyActionSetting>? actionSettings, bool defaultHandledValue) : base(defaultHandledValue) => ActionSettings = actionSettings;
+        public HotkeyActionPressedEventArgs(IList<IHotkeyActionSetting>? actionSettings, bool defaultHandledValue) : base(defaultHandledValue) => ActionSettings = actionSettings;
         #endregion Constructor
 
         #region Properties
         /// <summary>
         /// Contains any action settings that are required to call the action method that this object is passed to.
         /// </summary>
-        public IList<HotkeyActionSetting>? ActionSettings { get; }
+        public IList<IHotkeyActionSetting>? ActionSettings { get; }
         #endregion Properties
 
         #region Methods
@@ -38,8 +38,8 @@ namespace VolumeControl.Core.Input.Actions
         /// </summary>
         /// <param name="name">The name to search for.</param>
         /// <param name="stringComparison">The <see cref="StringComparison"/> type to use for string comparisons.</param>
-        /// <returns>The matching <see cref="HotkeyActionSetting"/> if found; otherwise <see langword="null"/>.</returns>
-        public HotkeyActionSetting? FindActionSetting(string name, StringComparison stringComparison = StringComparison.Ordinal)
+        /// <returns>The matching <see cref="IHotkeyActionSetting"/> if found; otherwise <see langword="null"/>.</returns>
+        public IHotkeyActionSetting? FindActionSetting(string name, StringComparison stringComparison = StringComparison.Ordinal)
             => ActionSettings?.FirstOrDefault(item => item.Label.Equals(name, stringComparison));
         /// <inheritdoc cref="FindActionSetting(string, StringComparison)"/>
         /// <typeparam name="T">Optional typename that the <see cref="HotkeyActionSetting.ValueType"/> must match in order for it to be returned.</typeparam>

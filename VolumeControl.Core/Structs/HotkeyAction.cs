@@ -92,7 +92,7 @@ namespace VolumeControl.Core.Structs
         /// <inheritdoc/>
         public bool AcceptsExtraActionSettings { get; }
         /// <inheritdoc/>
-        public HotkeyActionSetting[]? ExtraActionSettings { get; }
+        public IHotkeyActionSetting[]? ExtraActionSettings { get; }
         /// <inheritdoc/>
         public bool UsesActionSettings => _usesActionSettings ??= RequiresExtraParameters || (AcceptsExtraActionSettings && ExtraActionSettings?.Length > 0);
         private bool? _usesActionSettings = null;
@@ -133,31 +133,40 @@ namespace VolumeControl.Core.Structs
         }
 
         /// <inheritdoc/>
-        public HotkeyActionSetting[] GetDefaultActionSettings()
+        public IHotkeyActionSetting[] GetDefaultActionSettings()
         {
-            List<HotkeyActionSetting> l = new();
+            List<IHotkeyActionSetting> l = new();
 
-            if (RequiresExtraParameters)
+            if (RequiresExtraParameters) //< Add parameters before extra action settings
             {
                 foreach (var p in MethodInfo.GetParameters()[2..])
                 {
-                    var attr = p.GetCustomAttribute<HotkeyActionSettingAttribute>();
-                    l.Add(new(
-                        label: attr?.SettingLabel ?? p.Name ?? string.Empty,
-                        valueType: attr?.SettingType ?? p.ParameterType
-                        ));
+                    if (p.GetCustomAttribute<HotkeyActionSettingAttribute>() is HotkeyActionSettingAttribute attr)
+                    {
+                        l.Add(new HotkeyActionSetting(attr));
+                    }
                 }
             }
             if (ExtraActionSettings is not null)
-                ExtraActionSettings.ForEach(item => l.Add(new(item.Label, item.ValueType, item.Value)));
+                ExtraActionSettings.ForEach(item =>
+                {
+                    if (item is not null)
+                        l.Add((Activator.CreateInstance(item.GetType(), item) as IHotkeyActionSetting)!);
+                });
 
             return l.ToArray();
         }
 
-        private HotkeyActionSetting[] GetExtraActionSettings()
+        private IHotkeyActionSetting[] GetExtraActionSettings()
         {
-            List<HotkeyActionSetting> l = new();
-            MethodInfo.GetCustomAttributes<HotkeyActionSettingAttribute>().ForEach(a => l.Add(a.ToHotkeyActionSetting()));
+            List<IHotkeyActionSetting> l = new();
+            var attributes = MethodInfo.GetCustomAttributes<HotkeyActionSettingAttribute>();
+
+            foreach (var attr in attributes)
+            {
+                l.Add(new HotkeyActionSetting(attr));
+            }
+
             return l.ToArray();
         }
     }

@@ -16,7 +16,7 @@
         /// <summary>
         /// Gets the process identifier of this process.
         /// </summary>
-        /// <remarks>Uses this format:<br/><b>&lt;PID&gt;:&lt;ProcessName&gt;</b></remarks>
+        /// <remarks>Uses this format:<br/><b>&lt;PID&gt;:&lt;Value&gt;</b></remarks>
         string ProcessIdentifier { get; }
         /// <summary>
         /// The process' hashcode, which is used for matching.

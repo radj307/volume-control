@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections;
 using VolumeControl.Core.Helpers;
 using VolumeControl.Core.Input;
+using VolumeControl.Core.Input.Actions;
 using VolumeControl.Core.Interfaces;
 using VolumeControl.WPF.Collections;
 
@@ -29,21 +31,14 @@ namespace VolumeControl.Core
                 {
                     if (i < jsonWrapper.ActionSettings.Count)
                     {
-                        var jsonValue = jsonWrapper.ActionSettings[i];
+                        var jsonValue = jsonWrapper.ActionSettings[i]?.ToString();
 
                         if (jsonValue is null) continue;
 
-                        if ((settings[i].ValueType?.Equals(typeof(ObservableImmutableList<TargetInfoVM>)) ?? false) && jsonValue is JArray jsonArray)
-                        {
-                            settings[i].Value = Activator.CreateInstance(settings[i].ValueType!);
-                            var list = (settings[i].Value as ObservableImmutableList<TargetInfoVM>)!;
-
-                            foreach (var item in jsonArray)
-                            {
-                                list.Add(new(item.Value<string>()!));
-                            }
-                        }
-                        else settings[i].Value = jsonValue;
+                        if (settings[i].ValueType is null)
+                            settings[i].Value = JsonConvert.DeserializeAnonymousType(jsonValue, settings[i].Value);
+                        else
+                            settings[i].Value = JsonConvert.DeserializeObject(jsonValue, settings[i].ValueType!);
                     }
                     else break;
                 }
