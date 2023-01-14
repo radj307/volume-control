@@ -112,9 +112,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a613d1b027b8a2f437c752aee86fbcf73"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#a613d1b027b8a2f437c752aee86fbcf73">HandleKeyEvent</a> (object? sender, <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_pressed_event_args.html">HotkeyActionPressedEventArgs</a> e)</td></tr>
 <tr class="memdesc:a613d1b027b8a2f437c752aee86fbcf73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles key press events, and executes the action that is associated with this hotkey instance.  <a href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#a613d1b027b8a2f437c752aee86fbcf73">More...</a><br /></td></tr>
 <tr class="separator:a613d1b027b8a2f437c752aee86fbcf73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a804336ded140c3a24a9bc4a17f30cb7a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting.html">HotkeyActionSetting</a>[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#a804336ded140c3a24a9bc4a17f30cb7a">GetDefaultActionSettings</a> ()</td></tr>
-<tr class="memdesc:a804336ded140c3a24a9bc4a17f30cb7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the list of extra parameters required to call this action's associated method.  <a href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#a804336ded140c3a24a9bc4a17f30cb7a">More...</a><br /></td></tr>
-<tr class="separator:a804336ded140c3a24a9bc4a17f30cb7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9a7f145ee2c0a66168442adc7071368"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting.html">IHotkeyActionSetting</a>[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#ab9a7f145ee2c0a66168442adc7071368">GetDefaultActionSettings</a> ()</td></tr>
+<tr class="memdesc:ab9a7f145ee2c0a66168442adc7071368"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the list of extra parameters required to call this action's associated method.  <a href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#ab9a7f145ee2c0a66168442adc7071368">More...</a><br /></td></tr>
+<tr class="separator:ab9a7f145ee2c0a66168442adc7071368"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
@@ -137,10 +137,10 @@ Properties</h2></td></tr>
 <tr class="memitem:abca6e482f8196e2196b62069ab2f69d4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#abca6e482f8196e2196b62069ab2f69d4">AcceptsExtraActionSettings</a><code> [get]</code></td></tr>
 <tr class="memdesc:abca6e482f8196e2196b62069ab2f69d4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>true</code> when the function pointed to by <a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#a9793041d2b56d6cc9f7ee1b1ebaf3e87" title="Gets the System.Reflection.MethodInfo object for the handler method to be invoked when this action is...">MethodInfo</a> supports receiving extra action settings via <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_pressed_event_args.html" title="Event arguments for the IHotkeyAction.HandleKeyEvent(object?, HotkeyActionPressedEventArgs) handler m...">HotkeyActionPressedEventArgs</a>; otherwise <code>false</code>.  <a href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#abca6e482f8196e2196b62069ab2f69d4">More...</a><br /></td></tr>
 <tr class="separator:abca6e482f8196e2196b62069ab2f69d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2dcb07a266b1b390ed1534c09ef559a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting.html">HotkeyActionSetting</a>?[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#a2dcb07a266b1b390ed1534c09ef559a5">ExtraActionSettings</a><code> [get]</code></td></tr>
-<tr class="memdesc:a2dcb07a266b1b390ed1534c09ef559a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines additional action settings that are not received via parameters, but should be considered valid nonetheless.<br  />
- In practice, this defines the action settings that were specified via method attributes.  <a href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#a2dcb07a266b1b390ed1534c09ef559a5">More...</a><br /></td></tr>
-<tr class="separator:a2dcb07a266b1b390ed1534c09ef559a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a964d3790b085fc12c49a6458ed4052f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting.html">IHotkeyActionSetting</a>?[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#a964d3790b085fc12c49a6458ed4052f7">ExtraActionSettings</a><code> [get]</code></td></tr>
+<tr class="memdesc:a964d3790b085fc12c49a6458ed4052f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines additional action settings that are not received via parameters, but should be considered valid nonetheless.<br  />
+ In practice, this defines the action settings that were specified via method attributes.  <a href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#a964d3790b085fc12c49a6458ed4052f7">More...</a><br /></td></tr>
+<tr class="separator:a964d3790b085fc12c49a6458ed4052f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8f426bba775fd7dc25c6f41ec407673"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#af8f426bba775fd7dc25c6f41ec407673">UsesActionSettings</a><code> [get]</code></td></tr>
 <tr class="memdesc:af8f426bba775fd7dc25c6f41ec407673"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>true</code> when this action uses action settings from any source; otherwise <code>false</code>.  <a href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#af8f426bba775fd7dc25c6f41ec407673">More...</a><br /></td></tr>
 <tr class="separator:af8f426bba775fd7dc25c6f41ec407673"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -163,14 +163,14 @@ System.Windows.Media.? Brush&#160;</td><td class="memItemRight" valign="bottom">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents an invokable method that can be triggered via a hotkey. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a804336ded140c3a24a9bc4a17f30cb7a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a804336ded140c3a24a9bc4a17f30cb7a">&#9670;&nbsp;</a></span>GetDefaultActionSettings()</h2>
+<a id="ab9a7f145ee2c0a66168442adc7071368"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9a7f145ee2c0a66168442adc7071368">&#9670;&nbsp;</a></span>GetDefaultActionSettings()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting.html">HotkeyActionSetting</a> [] VolumeControl.Core.Input.Actions.IHotkeyAction.GetDefaultActionSettings </td>
+          <td class="memname"><a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting.html">IHotkeyActionSetting</a> [] VolumeControl.Core.Input.Actions.IHotkeyAction.GetDefaultActionSettings </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -181,7 +181,7 @@ System.Windows.Media.? Brush&#160;</td><td class="memItemRight" valign="bottom">
 <p>Gets the list of extra parameters required to call this action's associated method. </p>
 <dl class="section return"><dt>Returns</dt><dd>A list of <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting.html" title="Small container for hotkey action setting data">HotkeyActionSetting</a> objects with their default <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting.html#a38c6bce8044b487460e259ad858a412f" title="Gets or sets the value of this setting">HotkeyActionSetting.Value</a> property values.</dd></dl>
 
-<p>Implemented in <a class="el" href="class_volume_control_1_1_core_1_1_structs_1_1_hotkey_action.html#a1752aecc4be3bebe1418b6078c3eef54">VolumeControl.Core.Structs.HotkeyAction</a>.</p>
+<p>Implemented in <a class="el" href="class_volume_control_1_1_core_1_1_structs_1_1_hotkey_action.html#a14025be9561d15a08ea8fc13bbedf8a5">VolumeControl.Core.Structs.HotkeyAction</a>.</p>
 
 </div>
 </div>
@@ -216,7 +216,7 @@ System.Windows.Media.? Brush&#160;</td><td class="memItemRight" valign="bottom">
   <table class="params">
     <tr><td class="paramname">sender</td><td>The hotkey that was pressed.</td></tr>
     <tr><td class="paramname">e</td><td>The <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_pressed_event_args.html" title="Event arguments for the IHotkeyAction.HandleKeyEvent(object?, HotkeyActionPressedEventArgs) handler m...">HotkeyActionPressedEventArgs</a> event arguments object.<br  />
-If the action method that you're calling uses extra non-default parameters, the <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_pressed_event_args.html#aa19f1d69ef542a0c6e6008161be1a221" title="Creates a new HotkeyActionPressedEventArgs instance.">HotkeyActionPressedEventArgs.ActionSettings</a> list <b>MUST</b> be correctly filled in, otherwise the action method <b>cannot be called!</b></td></tr>
+If the action method that you're calling uses extra non-default parameters, the <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_pressed_event_args.html#a898147faad97d0d74fbe57122c9f5726" title="Creates a new HotkeyActionPressedEventArgs instance.">HotkeyActionPressedEventArgs.ActionSettings</a> list <b>MUST</b> be correctly filled in, otherwise the action method <b>cannot be called!</b></td></tr>
   </table>
   </dd>
 </dl>
@@ -250,8 +250,8 @@ If the action method that you're calling uses extra non-default parameters, the 
 
 </div>
 </div>
-<a id="a2dcb07a266b1b390ed1534c09ef559a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2dcb07a266b1b390ed1534c09ef559a5">&#9670;&nbsp;</a></span>ExtraActionSettings</h2>
+<a id="a964d3790b085fc12c49a6458ed4052f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a964d3790b085fc12c49a6458ed4052f7">&#9670;&nbsp;</a></span>ExtraActionSettings</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -260,7 +260,7 @@ If the action method that you're calling uses extra non-default parameters, the 
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting.html">HotkeyActionSetting</a>? [] VolumeControl.Core.Input.Actions.IHotkeyAction.ExtraActionSettings</td>
+          <td class="memname"><a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting.html">IHotkeyActionSetting</a>? [] VolumeControl.Core.Input.Actions.IHotkeyAction.ExtraActionSettings</td>
         </tr>
       </table>
   </td>

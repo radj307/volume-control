@@ -4,7 +4,7 @@ var class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey =
     [ "BindableHotkey", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#ad5db4750ef6eadab1106213a9b03dc0a", null ],
     [ "Dispose", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#a79a1c2cc1e48932fd38afa4146a5927d", null ],
     [ "Action", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#a5058586d5cfb6438691e67eaa7651429", null ],
-    [ "ActionSettings", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#a043f47c21d0bfe6b261371a8c13189d8", null ],
+    [ "ActionSettings", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#acde29f609753d8479f4b68e0941e6a98", null ],
     [ "Alt", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#aa9529f2e63bd7312e566130ac46d32cf", null ],
     [ "Ctrl", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#a49b2380eeaf62d876503921e34c35ef0", null ],
     [ "ErrorMessage", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#ac6a518792e214348e9daaa50b6548482", null ],

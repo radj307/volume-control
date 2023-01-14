@@ -1,5 +1,9 @@
 var hierarchy =
 [
+    [ "VolumeControl.Core.Input.Actions.ActionTargetSpecifier", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_action_target_specifier.html", [
+      [ "VolumeControl.Hotkeys.DeviceSpecifier", "class_volume_control_1_1_hotkeys_1_1_device_specifier.html", null ],
+      [ "VolumeControl.Hotkeys.SessionSpecifier", "class_volume_control_1_1_hotkeys_1_1_session_specifier.html", null ]
+    ] ],
     [ "VolumeControl.Hotkeys.ApplicationActions", "class_volume_control_1_1_hotkeys_1_1_application_actions.html", null ],
     [ "VolumeControl.TypeExtensions.ArrayExtensions", "class_volume_control_1_1_type_extensions_1_1_array_extensions.html", null ],
     [ "Attribute", null, [
@@ -39,7 +43,6 @@ var hierarchy =
       [ "VolumeControl.Core.Input.Actions.HotkeyActionPressedEventArgs", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_pressed_event_args.html", null ]
     ] ],
     [ "VolumeControl.Core.Input.Actions.HotkeyActionData", "struct_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_data.html", null ],
-    [ "VolumeControl.Core.Input.Actions.HotkeyActionSetting", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting.html", null ],
     [ "VolumeControl.WPF.HWndHookWPFMaximizeBugFix", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix.html", null ],
     [ "VolumeControl.WPF.Extensions.HyperlinkExtensions", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_hyperlink_extensions.html", null ],
     [ "ICollection", null, [
@@ -106,6 +109,9 @@ var hierarchy =
     ] ],
     [ "VolumeControl.Core.Input.Actions.IHotkeyAction", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html", [
       [ "VolumeControl.Core.Structs.HotkeyAction", "class_volume_control_1_1_core_1_1_structs_1_1_hotkey_action.html", null ]
+    ] ],
+    [ "VolumeControl.Core.Input.Actions.IHotkeyActionSetting", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting.html", [
+      [ "VolumeControl.Core.Input.Actions.HotkeyActionSetting", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting.html", null ]
     ] ],
     [ "IImmutableList", null, [
       [ "VolumeControl.Audio.AudioDevice", "class_volume_control_1_1_audio_1_1_audio_device.html", null ],

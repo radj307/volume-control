@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$struct_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey_json_wrapper.html" title="Acts as a temporary wrapper for the BindableHotkey class so that the JSON parser can read and write i..." alt="" coords="5,5,212,47"/>
+<area shape="rect" id="node1" href="$interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting.html" title=" " alt="" coords="5,5,216,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting.html" title="Small container for hotkey action setting data" alt="" coords="264,5,471,47"/>
 </map>

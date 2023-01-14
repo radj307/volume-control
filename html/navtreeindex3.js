@@ -1,5 +1,12 @@
 var NAVTREEINDEX3 =
 {
+"class_volume_control_1_1_log_1_1_log_writer.html#a358d95abb387b01732c5657a3da421d3":[5,0,0,3,3,16],
+"class_volume_control_1_1_log_1_1_log_writer.html#a377eec8a50e0e7bf3dd55ac5bd011605":[5,0,0,3,3,4],
+"class_volume_control_1_1_log_1_1_log_writer.html#a41f1ff6d9d62eec9077a3c608ca36b5e":[5,0,0,3,3,21],
+"class_volume_control_1_1_log_1_1_log_writer.html#a5caf611b6e4d2cf97b6521b9b2e3f9ef":[5,0,0,3,3,23],
+"class_volume_control_1_1_log_1_1_log_writer.html#a5ef26b1bf948c848e951921e8c2a5363":[5,0,0,3,3,33],
+"class_volume_control_1_1_log_1_1_log_writer.html#a71b504690e2d8f2d5a73755ff8b3ce50":[5,0,0,3,3,14],
+"class_volume_control_1_1_log_1_1_log_writer.html#a75e77a8720b36ca2c89eed22cf41cfdb":[5,0,0,3,3,10],
 "class_volume_control_1_1_log_1_1_log_writer.html#a7a8311bdb049a796df8c60540a979ae6":[5,0,0,3,3,35],
 "class_volume_control_1_1_log_1_1_log_writer.html#a817b4d25c9fcc86fa0b5afe28ec054b1":[5,0,0,3,3,31],
 "class_volume_control_1_1_log_1_1_log_writer.html#a84f2a4a818ded391050345b3962adc90":[5,0,0,3,3,2],
@@ -160,9 +167,11 @@ var NAVTREEINDEX3 =
 "class_volume_control_1_1_type_extensions_1_1_timer_extensions.html#a9bcb6478008ff5007cc5bc50343cd953":[5,0,0,5,15,1],
 "class_volume_control_1_1_type_extensions_1_1_timer_extensions.html#afd88dc1da8c31e49fbab4a447ba22e56":[5,0,0,5,15,0],
 "class_volume_control_1_1_type_extensions_1_1_type_extensions.html":[5,0,0,5,16],
-"class_volume_control_1_1_type_extensions_1_1_type_extensions.html#a06c232666ee89f9207c2f2e8a9110673":[5,0,0,5,16,0],
-"class_volume_control_1_1_type_extensions_1_1_type_extensions.html#a23ff0a07a57f4a9d051c2bf6de3d819f":[5,0,0,5,16,2],
-"class_volume_control_1_1_type_extensions_1_1_type_extensions.html#a37156a334fae7b53efb000fc7d72285a":[5,0,0,5,16,1],
+"class_volume_control_1_1_type_extensions_1_1_type_extensions.html#a06c232666ee89f9207c2f2e8a9110673":[5,0,0,5,16,2],
+"class_volume_control_1_1_type_extensions_1_1_type_extensions.html#a23ff0a07a57f4a9d051c2bf6de3d819f":[5,0,0,5,16,4],
+"class_volume_control_1_1_type_extensions_1_1_type_extensions.html#a37156a334fae7b53efb000fc7d72285a":[5,0,0,5,16,3],
+"class_volume_control_1_1_type_extensions_1_1_type_extensions.html#a6c9845f1d38aaf4bc0fdaea2f0e90fe5":[5,0,0,5,16,0],
+"class_volume_control_1_1_type_extensions_1_1_type_extensions.html#ab3091bd6ae6b0cc078c2688f52307410":[5,0,0,5,16,1],
 "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html":[5,0,0,6,0,0],
 "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#a3eaa4d99cebde18661999df90a1e3615":[5,0,0,6,0,0,3],
 "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#a5c382a0c526d2e4c6b1ec5e2a5ad600a":[5,0,0,6,0,0,10],
@@ -240,14 +249,5 @@ var NAVTREEINDEX3 =
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a0f5846d6859de35ac0fde916e9b60329":[5,0,0,6,1,3,46],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a109d4c4d265a85b2b925ed5c026469fc":[5,0,0,6,1,3,6],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1176cf817a80dec21aeb4a0a5bcebc86":[5,0,0,6,1,3,19],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1474b2e4fa19f5f6ac07a63614d5d0cb":[5,0,0,6,1,3,28],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1484872e73cecd1317883d8941d9cea5":[5,0,0,6,1,3,10],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1a52250c6658d7a2d3c1af52abd3f914":[5,0,0,6,1,3,42],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a213d0ca0f82de6cb5029c7cc237dfa6c":[5,0,0,6,1,3,37],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a22d929061965acad08b6f4bdf58252da":[5,0,0,6,1,3,33],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a28bef7dbccdce1cc16a79c18865c3800":[5,0,0,6,1,3,8],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a29ade5ba7b0b03d9fa8d605b9e79f57e":[5,0,0,6,1,3,17],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a2f0ecb84286f40e40988536e9881fafe":[5,0,0,6,1,3,48],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a31aa5bb3fe3fd551da4a3ee9ccaf90e6":[5,0,0,6,1,3,0],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a4ac212a326da581a5fa3f39a3ebab575":[5,0,0,6,1,3,29]
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1474b2e4fa19f5f6ac07a63614d5d0cb":[5,0,0,6,1,3,28]
 };

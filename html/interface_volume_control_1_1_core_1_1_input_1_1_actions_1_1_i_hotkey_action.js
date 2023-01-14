@@ -1,11 +1,11 @@
 var interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action =
 [
-    [ "GetDefaultActionSettings", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#a804336ded140c3a24a9bc4a17f30cb7a", null ],
+    [ "GetDefaultActionSettings", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#ab9a7f145ee2c0a66168442adc7071368", null ],
     [ "HandleKeyEvent", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#a613d1b027b8a2f437c752aee86fbcf73", null ],
     [ "AcceptsExtraActionSettings", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#abca6e482f8196e2196b62069ab2f69d4", null ],
     [ "Data", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#af774b291abf1a6f1debb5d93aae9120e", null ],
     [ "Description", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#a6ac7b0623bbb81154935dcbab5eed705", null ],
-    [ "ExtraActionSettings", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#a2dcb07a266b1b390ed1534c09ef559a5", null ],
+    [ "ExtraActionSettings", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#a964d3790b085fc12c49a6458ed4052f7", null ],
     [ "GroupBrush", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#a846ee7a1447ac73349017c067f61e397", null ],
     [ "GroupName", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#a83c944c3d217644d72cdcc5a7dd601d2", null ],
     [ "Identifier", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#af6e709b1305a47825c0cba98650d1d2a", null ],

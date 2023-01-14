@@ -10,7 +10,6 @@ var class_volume_control_1_1_core_1_1_config =
     [ "PeakMeterMaxValue", "class_volume_control_1_1_core_1_1_config.html#a7034788612c2c6724aa3926032fd84d8", null ],
     [ "PeakMeterMinValue", "class_volume_control_1_1_core_1_1_config.html#a8d2d3c338d9cdf8df38ec327facc0ff1", null ],
     [ "__VERSION__", "class_volume_control_1_1_core_1_1_config.html#a99c05311457d9ccb3799aa8b3b8edbe0", null ],
-    [ "AdvancedHotkeys", "class_volume_control_1_1_core_1_1_config.html#a412a5f1efc488666a81b89967bfca53a", null ],
     [ "AllowMultipleDistinctInstances", "class_volume_control_1_1_core_1_1_config.html#a8e001a5ff69f0c5861ac366e0db26813", null ],
     [ "AllowTransparency", "class_volume_control_1_1_core_1_1_config.html#ac1eb1eb7d6c5775b7bcbaafaf7c0087f", null ],
     [ "AlwaysOnTop", "class_volume_control_1_1_core_1_1_config.html#accfab3b3f36626270ba9c50b681f421d", null ],

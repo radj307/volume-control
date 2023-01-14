@@ -1,0 +1,5 @@
+<map id="VolumeControl.Core.Input.Actions.ActionTargetSpecifier" name="VolumeControl.Core.Input.Actions.ActionTargetSpecifier">
+<area shape="rect" id="node1" title=" " alt="" coords="137,5,348,97"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_device_specifier.html" title=" " alt="" coords="5,145,229,237"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_hotkeys_1_1_session_specifier.html" title=" " alt="" coords="253,145,483,237"/>
+</map>

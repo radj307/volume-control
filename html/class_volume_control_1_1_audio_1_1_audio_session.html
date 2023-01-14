@@ -152,7 +152,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a6b2e52691965a8840591964da0bb8295"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a6b2e52691965a8840591964da0bb8295">int</a></td></tr>
-<tr class="memdesc:a6b2e52691965a8840591964da0bb8295"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the given process identifier string into a PID and ProcessName.  <a href="class_volume_control_1_1_audio_1_1_audio_session.html#a6b2e52691965a8840591964da0bb8295">More...</a><br /></td></tr>
+<tr class="memdesc:a6b2e52691965a8840591964da0bb8295"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the given process identifier string into a PID and Value.  <a href="class_volume_control_1_1_audio_1_1_audio_session.html#a6b2e52691965a8840591964da0bb8295">More...</a><br /></td></tr>
 <tr class="separator:a6b2e52691965a8840591964da0bb8295"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
@@ -359,14 +359,14 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Parses the given process identifier string into a PID and ProcessName. </p>
+<p>Parses the given process identifier string into a PID and Value. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">identifier</td><td>A process identifier, PID, or ProcessName to split.</td></tr>
+    <tr><td class="paramname">identifier</td><td>A process identifier, PID, or Value to split.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns a tuple where the first item is the PID and the second is the ProcessName. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns a tuple where the first item is the PID and the second is the Value. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">FormatException</td><td>Thrown when there is a colon in the string, but the characters before it are invalid as an integral.</td></tr>

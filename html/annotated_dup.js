@@ -47,7 +47,9 @@ var annotated_dup =
           [ "Actions", "namespace_volume_control_1_1_core_1_1_input_1_1_actions.html", [
             [ "HotkeyActionData", "struct_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_data.html", "struct_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_data" ],
             [ "HotkeyActionPressedEventArgs", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_pressed_event_args.html", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_pressed_event_args" ],
+            [ "IHotkeyActionSetting", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting.html", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting" ],
             [ "HotkeyActionSetting", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting.html", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting" ],
+            [ "ActionTargetSpecifier", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_action_target_specifier.html", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_action_target_specifier" ],
             [ "HotkeyActionSettingValueTemplateSelector", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting_value_template_selector.html", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting_value_template_selector" ],
             [ "IHotkeyAction", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action" ]
           ] ],
@@ -72,7 +74,9 @@ var annotated_dup =
       ] ],
       [ "Hotkeys", "namespace_volume_control_1_1_hotkeys.html", [
         [ "ApplicationActions", "class_volume_control_1_1_hotkeys_1_1_application_actions.html", "class_volume_control_1_1_hotkeys_1_1_application_actions" ],
+        [ "DeviceSpecifier", "class_volume_control_1_1_hotkeys_1_1_device_specifier.html", "class_volume_control_1_1_hotkeys_1_1_device_specifier" ],
         [ "AudioDeviceActions", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions" ],
+        [ "SessionSpecifier", "class_volume_control_1_1_hotkeys_1_1_session_specifier.html", "class_volume_control_1_1_hotkeys_1_1_session_specifier" ],
         [ "AudioSessionActions", "class_volume_control_1_1_hotkeys_1_1_audio_session_actions.html", "class_volume_control_1_1_hotkeys_1_1_audio_session_actions" ],
         [ "MediaActions", "class_volume_control_1_1_hotkeys_1_1_media_actions.html", "class_volume_control_1_1_hotkeys_1_1_media_actions" ]
       ] ],
