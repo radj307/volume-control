@@ -22,6 +22,7 @@
     ShowActivated="False"
     ShowInTaskbar="False"
     SizeToContent="WidthAndHeight"
+    SnapsToDevicePixels="True"
     Topmost="True"
     WindowStartupLocation="Manual"
     WindowStyle="None"

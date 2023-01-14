@@ -5,7 +5,6 @@ using PropertyChanged;
 namespace VolumeControl.Core.Helpers
 {
     [AddINotifyPropertyChangedInterface]
-    //[JsonConverter(typeof(JsonTargetInfoVMConverter))]
     public class TargetInfoVM
     {
         /// <summary>
@@ -27,31 +26,5 @@ namespace VolumeControl.Core.Helpers
             set => _value = value.Trim();
         }
         private string _value;
-    }
-    /// <summary>
-    /// <see cref="JsonConverter"/> for the <see cref="TargetInfoVM"/> class.
-    /// </summary>
-    /// <remarks>
-    /// This exists to allow target lists to be saved as a list of strings
-    /// </remarks>
-    public class JsonTargetInfoVMConverter : JsonConverter
-    {
-        /// <inheritdoc/>
-        public override bool CanConvert(Type objectType) => objectType.Equals(typeof(TargetInfoVM));
-        /// <inheritdoc/>
-        public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
-        {
-            return new TargetInfoVM(JToken.ReadFrom(reader).Value<string>() ?? string.Empty);
-        }
-        /// <inheritdoc/>
-        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
-        {
-            if (value is TargetInfoVM obj)
-            {
-                JToken t = JToken.FromObject(obj.Value);
-                t.WriteTo(writer);
-            }
-            else throw new InvalidOperationException($"{value?.GetType().FullName} is unsupported");
-        }
     }
 }

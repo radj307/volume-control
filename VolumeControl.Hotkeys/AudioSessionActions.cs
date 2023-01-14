@@ -4,7 +4,6 @@ using VolumeControl.Audio.Interfaces;
 using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Helpers;
 using VolumeControl.Core.Input.Actions;
-using VolumeControl.Log;
 using VolumeControl.SDK;
 
 namespace VolumeControl.Hotkeys
@@ -31,7 +30,6 @@ namespace VolumeControl.Hotkeys
     public sealed class AudioSessionActions
     {
         private static AudioAPI AudioAPI => VCAPI.Default.AudioAPI;
-        private static LogWriter Log => FLog.Log;
         private const string ActionTargetSpecifierName = "Target Override";
 
         [HotkeyAction(Description = "Increases the volume of the selected session by the value of VolumeStep.")]

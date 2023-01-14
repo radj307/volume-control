@@ -1,12 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
-using System.ComponentModel;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Windows.Media;
 using VolumeControl.Core.Attributes;
-using VolumeControl.Core.Generics;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.TypeExtensions;
-using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Core.Structs
 {
