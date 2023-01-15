@@ -1,10 +1,5 @@
 var NAVTREEINDEX4 =
 {
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1484872e73cecd1317883d8941d9cea5":[5,0,0,6,1,3,10],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1a52250c6658d7a2d3c1af52abd3f914":[5,0,0,6,1,3,42],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a213d0ca0f82de6cb5029c7cc237dfa6c":[5,0,0,6,1,3,37],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a22d929061965acad08b6f4bdf58252da":[5,0,0,6,1,3,33],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a28bef7dbccdce1cc16a79c18865c3800":[5,0,0,6,1,3,8],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a29ade5ba7b0b03d9fa8d605b9e79f57e":[5,0,0,6,1,3,17],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a2f0ecb84286f40e40988536e9881fafe":[5,0,0,6,1,3,48],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a31aa5bb3fe3fd551da4a3ee9ccaf90e6":[5,0,0,6,1,3,0],
@@ -162,8 +157,8 @@ var NAVTREEINDEX4 =
 "dir_f3fceef7ef2392cf921a36ff96ee570d.html":[6,0,6,0],
 "dir_f9538c984ad656b042c5452ce79bc4bb.html":[6,0,3,0],
 "files.html":[6,0],
-"functions.html":[5,3,0,0],
 "functions.html":[5,3,0],
+"functions.html":[5,3,0,0],
 "functions_a.html":[5,3,0,1],
 "functions_b.html":[5,3,0,2],
 "functions_c.html":[5,3,0,3],
@@ -249,5 +244,10 @@ var NAVTREEINDEX4 =
 "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html#a25bca1de84fc91adb09d1de657485c91":[5,0,0,0,3,0,1],
 "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html#acbbc8099d0445322646c44e8cd6974e8":[5,0,0,0,3,0,0],
 "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_metered_volume_control.html":[5,0,0,0,3,1],
-"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_metered_volume_control.html#a681de112f7f0b2c358aeb9422ad00ee5":[5,0,0,0,3,1,0]
+"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_metered_volume_control.html#a681de112f7f0b2c358aeb9422ad00ee5":[5,0,0,0,3,1,0],
+"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_metered_volume_control.html#a98ce16566eaee3f511ce9bafa3d711c2":[5,0,0,0,3,1,1],
+"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html":[5,0,0,0,3,2],
+"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html#a0a9dfc7fcf79b174718023d850314825":[5,0,0,0,3,2,3],
+"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html#a5a7c0aced604730be3ff5156a59e6472":[5,0,0,0,3,2,0],
+"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html#a91dbdafc9d79e361e177c684ff1fb6e1":[5,0,0,0,3,2,1]
 };

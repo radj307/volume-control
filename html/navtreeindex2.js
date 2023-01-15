@@ -1,9 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"class_volume_control_1_1_core_1_1_hotkey_manager.html#a775cee10e61cef16868f09f8e5bcc82a":[5,0,0,1,9,9],
-"class_volume_control_1_1_core_1_1_hotkey_manager.html#a894a71e030f3ab2e6632f22557394428":[5,0,0,1,9,4],
-"class_volume_control_1_1_core_1_1_hotkey_manager.html#a8d5f76dc7fb8b2cafaf032ae6674ef6d":[5,0,0,1,9,14],
-"class_volume_control_1_1_core_1_1_hotkey_manager.html#a9370478d3347c16db6f72c3324e1cc12":[5,0,0,1,9,1],
 "class_volume_control_1_1_core_1_1_hotkey_manager.html#aae3cae6f9505c83394354ffb749c3c10":[5,0,0,1,9,17],
 "class_volume_control_1_1_core_1_1_hotkey_manager.html#ac0f8381badf66ffc5893616212ae5445":[5,0,0,1,9,3],
 "class_volume_control_1_1_core_1_1_hotkey_manager.html#acd25fcc31dd53609fbd3b86cbcdce526":[5,0,0,1,9,15],
@@ -186,7 +182,6 @@ var NAVTREEINDEX2 =
 "class_volume_control_1_1_hotkeys_1_1_audio_session_actions.html#ab6805872e7ec67fbdc4e19831a100a88":[5,0,0,2,4,5],
 "class_volume_control_1_1_hotkeys_1_1_audio_session_actions.html#abb1fce72c5cc62f8cc3389e6a41e922d":[5,0,0,2,4,9],
 "class_volume_control_1_1_hotkeys_1_1_audio_session_actions.html#acc339c8f51de7601e817dd260bd5b280":[5,0,0,2,4,3],
-"class_volume_control_1_1_hotkeys_1_1_audio_session_actions.html#af125ef2d1dfdd2f0b04a5d58c76d0a36":[5,0,0,2,4,12],
 "class_volume_control_1_1_hotkeys_1_1_audio_session_actions.html#af570cb8bd17d8e31903e2396c3988444":[5,0,0,2,4,10],
 "class_volume_control_1_1_hotkeys_1_1_device_specifier.html":[5,0,0,2,1],
 "class_volume_control_1_1_hotkeys_1_1_device_specifier.html#a56746f113e5bdea7ce9c50a7d2dcc9c0":[5,0,0,2,1,0],
@@ -249,5 +244,10 @@ var NAVTREEINDEX2 =
 "class_volume_control_1_1_log_1_1_log_writer.html#a1a923e4492f98675dcedebc61ef0055a":[5,0,0,3,3,18],
 "class_volume_control_1_1_log_1_1_log_writer.html#a21c94de59ea2f83f2c8ad36f6e6b1280":[5,0,0,3,3,15],
 "class_volume_control_1_1_log_1_1_log_writer.html#a23589efc4aa886f386e9d8645338a395":[5,0,0,3,3,3],
-"class_volume_control_1_1_log_1_1_log_writer.html#a2358be752465f43b8ac7b0d7c2aa55bf":[5,0,0,3,3,32]
+"class_volume_control_1_1_log_1_1_log_writer.html#a2358be752465f43b8ac7b0d7c2aa55bf":[5,0,0,3,3,32],
+"class_volume_control_1_1_log_1_1_log_writer.html#a358d95abb387b01732c5657a3da421d3":[5,0,0,3,3,16],
+"class_volume_control_1_1_log_1_1_log_writer.html#a377eec8a50e0e7bf3dd55ac5bd011605":[5,0,0,3,3,4],
+"class_volume_control_1_1_log_1_1_log_writer.html#a41f1ff6d9d62eec9077a3c608ca36b5e":[5,0,0,3,3,21],
+"class_volume_control_1_1_log_1_1_log_writer.html#a5caf611b6e4d2cf97b6521b9b2e3f9ef":[5,0,0,3,3,23],
+"class_volume_control_1_1_log_1_1_log_writer.html#a5ef26b1bf948c848e951921e8c2a5363":[5,0,0,3,3,33]
 };

@@ -40,8 +40,7 @@ var annotated_dup =
         ] ],
         [ "Helpers", "namespace_volume_control_1_1_core_1_1_helpers.html", [
           [ "TargetInfo", "struct_volume_control_1_1_core_1_1_helpers_1_1_target_info.html", "struct_volume_control_1_1_core_1_1_helpers_1_1_target_info" ],
-          [ "TargetInfoVM", "class_volume_control_1_1_core_1_1_helpers_1_1_target_info_v_m.html", "class_volume_control_1_1_core_1_1_helpers_1_1_target_info_v_m" ],
-          [ "JsonTargetInfoVMConverter", "class_volume_control_1_1_core_1_1_helpers_1_1_json_target_info_v_m_converter.html", "class_volume_control_1_1_core_1_1_helpers_1_1_json_target_info_v_m_converter" ]
+          [ "TargetInfoVM", "class_volume_control_1_1_core_1_1_helpers_1_1_target_info_v_m.html", "class_volume_control_1_1_core_1_1_helpers_1_1_target_info_v_m" ]
         ] ],
         [ "Input", "namespace_volume_control_1_1_core_1_1_input.html", [
           [ "Actions", "namespace_volume_control_1_1_core_1_1_input_1_1_actions.html", [

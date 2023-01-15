@@ -1,10 +1,5 @@
 var NAVTREEINDEX3 =
 {
-"class_volume_control_1_1_log_1_1_log_writer.html#a358d95abb387b01732c5657a3da421d3":[5,0,0,3,3,16],
-"class_volume_control_1_1_log_1_1_log_writer.html#a377eec8a50e0e7bf3dd55ac5bd011605":[5,0,0,3,3,4],
-"class_volume_control_1_1_log_1_1_log_writer.html#a41f1ff6d9d62eec9077a3c608ca36b5e":[5,0,0,3,3,21],
-"class_volume_control_1_1_log_1_1_log_writer.html#a5caf611b6e4d2cf97b6521b9b2e3f9ef":[5,0,0,3,3,23],
-"class_volume_control_1_1_log_1_1_log_writer.html#a5ef26b1bf948c848e951921e8c2a5363":[5,0,0,3,3,33],
 "class_volume_control_1_1_log_1_1_log_writer.html#a71b504690e2d8f2d5a73755ff8b3ce50":[5,0,0,3,3,14],
 "class_volume_control_1_1_log_1_1_log_writer.html#a75e77a8720b36ca2c89eed22cf41cfdb":[5,0,0,3,3,10],
 "class_volume_control_1_1_log_1_1_log_writer.html#a7a8311bdb049a796df8c60540a979ae6":[5,0,0,3,3,35],
@@ -249,5 +244,10 @@ var NAVTREEINDEX3 =
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a0f5846d6859de35ac0fde916e9b60329":[5,0,0,6,1,3,46],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a109d4c4d265a85b2b925ed5c026469fc":[5,0,0,6,1,3,6],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1176cf817a80dec21aeb4a0a5bcebc86":[5,0,0,6,1,3,19],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1474b2e4fa19f5f6ac07a63614d5d0cb":[5,0,0,6,1,3,28]
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1474b2e4fa19f5f6ac07a63614d5d0cb":[5,0,0,6,1,3,28],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1484872e73cecd1317883d8941d9cea5":[5,0,0,6,1,3,10],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1a52250c6658d7a2d3c1af52abd3f914":[5,0,0,6,1,3,42],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a213d0ca0f82de6cb5029c7cc237dfa6c":[5,0,0,6,1,3,37],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a22d929061965acad08b6f4bdf58252da":[5,0,0,6,1,3,33],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a28bef7dbccdce1cc16a79c18865c3800":[5,0,0,6,1,3,8]
 };

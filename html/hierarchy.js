@@ -222,9 +222,6 @@ var hierarchy =
       [ "VolumeControl.WPF.Converters.SquaredCornerRadiusConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter.html", null ],
       [ "VolumeControl.WPF.Converters.TagDoubleConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_tag_double_converter.html", null ]
     ] ],
-    [ "JsonConverter", null, [
-      [ "VolumeControl.Core.Helpers.JsonTargetInfoVMConverter", "class_volume_control_1_1_core_1_1_helpers_1_1_json_target_info_v_m_converter.html", null ]
-    ] ],
     [ "List", null, [
       [ "VolumeControl.WPF.Converters.ConverterChain", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain.html", null ]
     ] ],

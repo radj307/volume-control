@@ -1,10 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_metered_volume_control.html#a98ce16566eaee3f511ce9bafa3d711c2":[5,0,0,0,3,1,1],
-"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html":[5,0,0,0,3,2],
-"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html#a0a9dfc7fcf79b174718023d850314825":[5,0,0,0,3,2,3],
-"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html#a5a7c0aced604730be3ff5156a59e6472":[5,0,0,0,3,2,0],
-"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html#a91dbdafc9d79e361e177c684ff1fb6e1":[5,0,0,0,3,2,1],
 "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html#afb40cfc9b042c8ad56c089a24ff7acc0":[5,0,0,0,3,2,2],
 "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html":[5,0,0,0,3,3],
 "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#a0fcac680a4ca9ec0c2a9e1281249be15":[5,0,0,0,3,3,2],
@@ -249,5 +244,10 @@ var NAVTREEINDEX5 =
 "namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168aadeee1d544980cc1a7b2c9be2701f0e5":[4,0,0,1,1,3,32],
 "namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168ab09d1112d9abdcd1c7cb3cfe317951cc":[4,0,0,1,1,3,35],
 "namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168ab1522194d726a396729c3148c2b3a0bd":[4,0,0,1,1,3,148],
-"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168ab21086160f7582d5ccbfc8b2ed68e00f":[4,0,0,1,1,3,69]
+"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168ab21086160f7582d5ccbfc8b2ed68e00f":[4,0,0,1,1,3,69],
+"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168ab273a611ad696522efd382e972681355":[4,0,0,1,1,3,21],
+"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168ab4f56363ef38c3e623e945050aaf6ca4":[4,0,0,1,1,3,81],
+"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168ab51266ce4cd7272199755ebc2d078b75":[4,0,0,1,1,3,11],
+"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168ab530329b012214fb5800a6a506ee2606":[4,0,0,1,1,3,85],
+"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168ab5f5ce8d272dd2d95ef5ad9452e35b77":[4,0,0,1,1,3,55]
 };

@@ -231,10 +231,6 @@ var NAVTREEINDEX1 =
 "class_volume_control_1_1_core_1_1_generics_1_1_item.html#a02bde902cf3a631f6ec7f0f804e8de03":[5,0,0,1,2,0,1],
 "class_volume_control_1_1_core_1_1_generics_1_1_item.html#a3c83dd2d4fc1c1c830dcc7e6acea0b62":[5,0,0,1,2,0,2],
 "class_volume_control_1_1_core_1_1_generics_1_1_item.html#a430807b96ddda7a6e383a09165f78e1d":[5,0,0,1,2,0,0],
-"class_volume_control_1_1_core_1_1_helpers_1_1_json_target_info_v_m_converter.html":[5,0,0,1,3,2],
-"class_volume_control_1_1_core_1_1_helpers_1_1_json_target_info_v_m_converter.html#a1eea4d710a8856af7bc418337d6cd322":[5,0,0,1,3,2,2],
-"class_volume_control_1_1_core_1_1_helpers_1_1_json_target_info_v_m_converter.html#a76d4c3e86fe588e93bc61033c4eaece8":[5,0,0,1,3,2,1],
-"class_volume_control_1_1_core_1_1_helpers_1_1_json_target_info_v_m_converter.html#abbc869f3af5915a566f5dea196afbd70":[5,0,0,1,3,2,0],
 "class_volume_control_1_1_core_1_1_helpers_1_1_target_info_v_m.html":[5,0,0,1,3,1],
 "class_volume_control_1_1_core_1_1_helpers_1_1_target_info_v_m.html#a6fe7f425f5134b60a5ee302044e23eeb":[5,0,0,1,3,1,1],
 "class_volume_control_1_1_core_1_1_helpers_1_1_target_info_v_m.html#aa56fddaf32f43bc7a7f811d3658916cd":[5,0,0,1,3,1,2],
@@ -249,5 +245,9 @@ var NAVTREEINDEX1 =
 "class_volume_control_1_1_core_1_1_hotkey_manager.html#a4cb967f04dad9732e7f9a1fdd3f0b194":[5,0,0,1,9,0],
 "class_volume_control_1_1_core_1_1_hotkey_manager.html#a4fbde2bf839d77c0ce174c0645791fee":[5,0,0,1,9,13],
 "class_volume_control_1_1_core_1_1_hotkey_manager.html#a55b01e61360792919027d2399975cb8a":[5,0,0,1,9,7],
-"class_volume_control_1_1_core_1_1_hotkey_manager.html#a5dd04ba46c6bbb5bfd0df281cd9371d3":[5,0,0,1,9,8]
+"class_volume_control_1_1_core_1_1_hotkey_manager.html#a5dd04ba46c6bbb5bfd0df281cd9371d3":[5,0,0,1,9,8],
+"class_volume_control_1_1_core_1_1_hotkey_manager.html#a775cee10e61cef16868f09f8e5bcc82a":[5,0,0,1,9,9],
+"class_volume_control_1_1_core_1_1_hotkey_manager.html#a894a71e030f3ab2e6632f22557394428":[5,0,0,1,9,4],
+"class_volume_control_1_1_core_1_1_hotkey_manager.html#a8d5f76dc7fb8b2cafaf032ae6674ef6d":[5,0,0,1,9,14],
+"class_volume_control_1_1_core_1_1_hotkey_manager.html#a9370478d3347c16db6f72c3324e1cc12":[5,0,0,1,9,1]
 };
