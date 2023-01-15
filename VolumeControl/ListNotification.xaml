@@ -15,6 +15,7 @@
     Closing="lnotifWindow_Closing"
     DataContext="{RelativeSource Self}"
     Focusable="False"
+    FontFamily="{StaticResource InterFont}"
     Loaded="lnotifWindow_Loaded"
     MouseDown="lnotifWindow_MouseDown"
     MouseEnter="lnotifWindow_MouseEnter"

@@ -841,40 +841,6 @@
                 <TabItem Name="HotkeysTab" Header="{Tr 'VolumeControl.MainWindow.Hotkeys.TabHeader', DefaultText='Hotkeys'}">
                     <!--  HotkeyGrid  -->
                     <VirtualizingStackPanel FlowDirection="LeftToRight" Orientation="Vertical">
-
-                        <Grid Margin="5,5,5,0" VerticalAlignment="Center">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel
-                                Grid.Column="3"
-                                Margin="3,0"
-                                Orientation="Horizontal">
-                                <Label
-                                    HorizontalAlignment="Center"
-                                    Content="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.VolumeStep.Content',
-                                                 DefaultText='Volume Step'}"
-                                    Style="{StaticResource LabelStyle}"
-                                    ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.VolumeStep.Tooltip',
-                                                 DefaultText='This is the number of volume ticks that change each time you press the volume up or down hotkeys.'}" />
-                                <controls:NumericUpDown
-                                    x:Name="nudVolumeStepSize"
-                                    MinWidth="55"
-                                    HorizontalAlignment="Center"
-                                    DataContext="{StaticResource Settings}"
-                                    MaxValue="100"
-                                    MinValue="1"
-                                    ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.VolumeStep.Tooltip',
-                                                 DefaultText='This is the number of volume ticks that change each time you press the volume up or down hotkeys.'}"
-                                    Value="{Binding AudioAPI.VolumeStepSize, Mode=TwoWay, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}" />
-                            </StackPanel>
-                        </Grid>
-
                         <Border
                             Padding="0"
                             BorderBrush="LightGray"
@@ -1092,6 +1058,16 @@
                                         </DataGridTemplateColumn>
                                         <!--  Remove  -->
                                         <DataGridTemplateColumn Width="Auto" CanUserResize="False">
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                                        Click="Handle_ResetHotkeysClick"
+                                                        Content="↺"
+                                                        ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.ResetToDefault.Tooltip',
+                                                                     DefaultText='Resets all hotkeys to the default preset.'}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate DataType="{x:Type input:BindableHotkey}">
                                                     <Button
@@ -1111,25 +1087,39 @@
 
                         <Grid Margin="3,0,3,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <Button
+                            <StackPanel
                                 Grid.Column="0"
+                                Margin="0,0,3,0"
+                                Orientation="Horizontal">
+                                <Label
+                                    HorizontalAlignment="Center"
+                                    Content="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.VolumeStep.Content',
+                                                 DefaultText='Volume Step'}"
+                                    Style="{StaticResource LabelStyle}"
+                                    ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.VolumeStep.Tooltip',
+                                                 DefaultText='This is the number of volume ticks that change each time you press the volume up or down hotkeys.'}" />
+                                <controls:NumericUpDown
+                                    x:Name="nudVolumeStepSize"
+                                    MinWidth="55"
+                                    HorizontalAlignment="Center"
+                                    DataContext="{StaticResource Settings}"
+                                    MaxValue="100"
+                                    MinValue="1"
+                                    ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.VolumeStep.Tooltip',
+                                                 DefaultText='This is the number of volume ticks that change each time you press the volume up or down hotkeys.'}"
+                                    Value="{Binding AudioAPI.VolumeStepSize, Mode=TwoWay, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                            <Button
+                                Grid.Column="1"
                                 Click="Handle_CreateNewHotkeyClick"
                                 Content="{Tr 'VolumeControl.MainWindow.Hotkeys.CreateNewHotkeyButton.Content',
                                              DefaultText='Create New Hotkey'}"
                                 ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.CreateNewHotkeyButton.Tooltip',
                                              DefaultText='Creates a new blank hotkey entry.'}" />
-                            <Button
-                                Grid.Column="1"
-                                Padding="6,0"
-                                Click="Handle_ResetHotkeysClick"
-                                Content="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.ResetToDefault.Content',
-                                             DefaultText='Reset To Default'}"
-                                ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.ResetToDefault.Tooltip',
-                                             DefaultText='Resets all hotkeys to the default preset.'}" />
                         </Grid>
                     </VirtualizingStackPanel>
                 </TabItem>

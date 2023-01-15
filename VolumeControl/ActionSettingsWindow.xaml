@@ -16,6 +16,7 @@
     Title="{Binding WindowTitle}"
     MinWidth="70"
     d:MinHeight="100"
+    FontFamily="{StaticResource InterFont}"
     ShowActivated="True"
     SizeToContent="WidthAndHeight"
     WindowStartupLocation="CenterOwner"

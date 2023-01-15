@@ -31,9 +31,10 @@ namespace VolumeControl.Hotkeys
     {
         private static AudioAPI AudioAPI => VCAPI.Default.AudioAPI;
         private const string ActionTargetSpecifierName = "Target Override";
+        private const string ActionTargetSpecifierDescription = "Overrides the target audio session so that this action only affects the specified audio session(s).";
 
         [HotkeyAction(Description = "Increases the volume of the selected session by the value of VolumeStep.")]
-        [HotkeyActionSetting(ActionTargetSpecifierName, typeof(SessionSpecifier), "Overrides the target audio session so that this action only affects the specified audio session(s).")]
+        [HotkeyActionSetting(ActionTargetSpecifierName, typeof(SessionSpecifier), ActionTargetSpecifierDescription)]
         public void VolumeUp(object? sender, HotkeyActionPressedEventArgs e)
         {
             if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
@@ -47,7 +48,7 @@ namespace VolumeControl.Hotkeys
             else AudioAPI.IncrementSessionVolume();
         }
         [HotkeyAction(Description = "Decreases the volume of the selected session by the value of VolumeStep.")]
-        [HotkeyActionSetting(ActionTargetSpecifierName, typeof(SessionSpecifier), Description = "Overrides the target audio session for this action only.")]
+        [HotkeyActionSetting(ActionTargetSpecifierName, typeof(SessionSpecifier), ActionTargetSpecifierDescription)]
         public void VolumeDown(object? sender, HotkeyActionPressedEventArgs e)
         {
             if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
@@ -61,7 +62,7 @@ namespace VolumeControl.Hotkeys
             else AudioAPI.DecrementSessionVolume();
         }
         [HotkeyAction(Description = "Mutes the selected session.")]
-        [HotkeyActionSetting(ActionTargetSpecifierName, typeof(SessionSpecifier))]
+        [HotkeyActionSetting(ActionTargetSpecifierName, typeof(SessionSpecifier), ActionTargetSpecifierDescription)]
         public void Mute(object? sender, HotkeyActionPressedEventArgs e)
         {
             if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
@@ -75,7 +76,7 @@ namespace VolumeControl.Hotkeys
             else AudioAPI.SetSessionMute(true);
         }
         [HotkeyAction(Description = "Unmutes the selected session.")]
-        [HotkeyActionSetting(ActionTargetSpecifierName, typeof(SessionSpecifier))]
+        [HotkeyActionSetting(ActionTargetSpecifierName, typeof(SessionSpecifier), ActionTargetSpecifierDescription)]
         public void Unmute(object? sender, HotkeyActionPressedEventArgs e)
         {
             if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
@@ -89,7 +90,7 @@ namespace VolumeControl.Hotkeys
             else AudioAPI.SetSessionMute(false);
         }
         [HotkeyAction(Description = "Toggles the selected session's mute state.")]
-        [HotkeyActionSetting(ActionTargetSpecifierName, typeof(SessionSpecifier))]
+        [HotkeyActionSetting(ActionTargetSpecifierName, typeof(SessionSpecifier), ActionTargetSpecifierDescription)]
         public void ToggleMute(object? sender, HotkeyActionPressedEventArgs e)
         {
             if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
