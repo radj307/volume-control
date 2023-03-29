@@ -29,7 +29,7 @@ namespace VolumeControl.Hotkeys
             if (hwnd == IntPtr.Zero)
                 return null;
 
-            GetWindowThreadProcessId((int)hwnd, out int pid);
+            _ = GetWindowThreadProcessId((int)hwnd, out int pid);
 
             if (pid == 0)
                 return null;
