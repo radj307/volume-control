@@ -47,8 +47,14 @@ namespace VolumeControl.Helpers
 
             VCHotkeyAddon vcHkAddon = new();
 
-            // Load default types
-            vcHkAddon.LoadTypes(typeof(AudioDeviceActions), typeof(AudioSessionActions), typeof(ApplicationActions), typeof(MediaActions));
+            // Load default types ; types (action groups) are loaded in order of appearance.
+            vcHkAddon.LoadTypes(
+                typeof(AudioDeviceActions),
+                typeof(AudioSessionActions),
+                typeof(ActiveApplicationActions),
+                typeof(ApplicationActions),
+                typeof(MediaActions)
+            );
 
             AddonDirectories.ForEach(dir =>
             {
