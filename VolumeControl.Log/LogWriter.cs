@@ -320,51 +320,12 @@ namespace VolumeControl.Log
         /// </summary>
         /// <param name="lines">Any number of objects. Each object will be written on a new line.</param>
         public void Critical(params object?[] lines) => this.WriteEvent(EventType.CRITICAL, lines);
+        /// <summary>
+        /// Write a formatted <see cref="EventType.TRACE"/> message to the log endpoint.
+        /// </summary>
+        /// <param name="lines">Any number of objects. Each object will be written on a new line.</param>
+        public void Trace(params object?[] lines) => this.WriteEvent(EventType.TRACE, lines);
         #endregion WriteEvent
-
-        #region WriteException
-        ///
-        [Obsolete($"Use {nameof(WriteEvent)} instead, it supports exceptions.")]
-        public void WriteException(EventType ev, Exception exception, object? message = null)
-        {
-            if (!this.Endpoint.Enabled)
-                return;
-            if (message == null)
-                this.WriteEvent(ev, new[] { exception });
-            else
-                this.WriteEvent(ev, new[] { message, exception });
-        }
-        /// <summary>
-        /// Write a formatted <see cref="EventType.DEBUG"/> exception message to the log endpoint.
-        /// </summary>
-        /// <param name="exception">The exception that was thrown.</param>
-        /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
-        [Obsolete($"Use {nameof(Debug)} instead.")] public void DebugException(Exception exception, object? message = null) => this.WriteException(EventType.DEBUG, exception, message);
-        /// <summary>
-        /// Write a formatted <see cref="EventType.INFO"/> exception message to the log endpoint.
-        /// </summary>
-        /// <param name="exception">The exception that was thrown.</param>
-        /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
-        [Obsolete($"Use {nameof(Info)} instead.")] public void InfoException(Exception exception, object? message = null) => this.WriteException(EventType.INFO, exception, message);
-        /// <summary>
-        /// Write a formatted <see cref="EventType.WARN"/> exception message to the log endpoint.
-        /// </summary>
-        /// <param name="exception">The exception that was thrown.</param>
-        /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
-        [Obsolete($"Use {nameof(Warning)} instead.")] public void WarningException(Exception exception, object? message = null) => this.WriteException(EventType.WARN, exception, message);
-        /// <summary>
-        /// Write a formatted <see cref="EventType.ERROR"/> exception message to the log endpoint.
-        /// </summary>
-        /// <param name="exception">The exception that was thrown.</param>
-        /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
-        [Obsolete($"Use {nameof(Error)} instead.")] public void ErrorException(Exception exception, object? message = null) => this.WriteException(EventType.ERROR, exception, message);
-        /// <summary>
-        /// Write a formatted <see cref="EventType.FATAL"/> exception message to the log endpoint.
-        /// </summary>
-        /// <param name="exception">The exception that was thrown.</param>
-        /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
-        [Obsolete($"Use {nameof(Fatal)} instead.")] public void FatalException(Exception exception, object? message = null) => this.WriteException(EventType.FATAL, exception, message);
-        #endregion WriteException
 
         /// <summary>
         /// Appends the given lines to the log with a blank timestamp.

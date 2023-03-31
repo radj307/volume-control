@@ -46,6 +46,7 @@ namespace VolumeControl.Log.Interfaces
 
             string head = eventType switch
             {
+                EventType.TRACE => "[TRACE]",
                 EventType.DEBUG => "[DEBUG]",
                 EventType.INFO => "[INFO]",
                 EventType.WARN => "[WARN]",

@@ -54,5 +54,10 @@
         /// Produces header:  "[CRITICAL]"
         /// </summary>
         CRITICAL = 32,
+        /// <summary>
+        /// Extremely situational debug information.
+        /// Produces header:  "[TRACE]"
+        /// </summary>
+        TRACE = 64,
     }
 }
