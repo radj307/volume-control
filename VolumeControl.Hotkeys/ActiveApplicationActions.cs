@@ -22,10 +22,12 @@ namespace VolumeControl.Hotkeys
         private static extern IntPtr GetForegroundWindow();
         [DllImport("user32.dll")]
         private static extern UInt32 GetWindowThreadProcessId(Int32 hWnd, out Int32 lpdwProcessId);
+        [DllImport("user32.dll")]
+        private static extern bool IsWindowEnabled(IntPtr hWnd);
         private static ISession? GetActiveSession()
         {
             var hwnd = GetForegroundWindow();
-
+            
             if (hwnd == IntPtr.Zero)
                 return null;
 
@@ -34,7 +36,10 @@ namespace VolumeControl.Hotkeys
             if (pid == 0)
                 return null;
 
-            return AudioAPI.FindSessionWithID(pid);
+            if (AudioAPI.FindSessionWithID(pid) is ISession session)
+                return session; //< found with process ID
+            
+            return AudioAPI.FindSessionWithName(System.Diagnostics.Process.GetProcessById(pid).ProcessName);
         }
         #endregion Functions
 
