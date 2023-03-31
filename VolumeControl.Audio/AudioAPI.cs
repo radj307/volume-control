@@ -316,6 +316,19 @@ namespace VolumeControl.Audio
 
             return null;
         }
+        /// <summary>Gets an array of all of the audio sessions that match a given <paramref name="predicate"/>.</summary>
+        /// <param name="predicate">A predicate function to apply to each element of <see cref="Sessions"/> that can accept <see cref="AudioSession"/> types.</param>
+        /// <returns>An array of all of the sessions that matched the given <paramref name="predicate"/>.</returns>
+        public ISession[] FindSessions(Predicate<AudioSession> predicate)
+        {
+            List<ISession> sessions = new();
+            foreach (AudioSession session in this.Sessions)
+            {
+                if (predicate(session))
+                    sessions.Add(session);
+            }
+            return sessions.ToArray();
+        }
         /// <summary>Gets a session from <see cref="Sessions"/> with a matching <see cref="ISession.SessionInstanceIdentifier"/> <see cref="Guid"/>.</summary> 
         /// <param name="sessionInstanceIdentifier"><see cref="ISession.SessionInstanceIdentifier"/></param>
         /// <returns><see cref="ISession"/> if a session was found, or null if no sessions were found with <paramref name="sessionInstanceIdentifier"/>.</returns>
@@ -333,6 +346,13 @@ namespace VolumeControl.Audio
         /// <param name="sCompareType">A <see cref="StringComparison"/> enum value to use when matching process names.</param>
         /// <returns><see cref="ISession"/> if a session was found, or null if no sessions were found named <paramref name="name"/> using <paramref name="sCompareType"/> string comparison.</returns>
         public ISession? FindSessionWithName(string name, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase) => this.FindSession(s => s.ProcessName.Equals(name, sCompareType));
+        /// <summary>
+        /// Gets all sessions with the given <paramref name="name"/>.
+        /// </summary>
+        /// <param name="name"><see cref="AudioSession.ProcessName"/></param>
+        /// <param name="sCompareType">A <see cref="StringComparison"/> enum value to use when matching process names.</param>
+        /// <returns>An array of all sessions with the given <paramref name="name"/>.</returns>
+        public ISession[] FindSessionsWithName(string name, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase) => this.FindSessions(s => s.ProcessName.Equals(name, sCompareType));
         /// <summary>Gets a session from <see cref="Sessions"/> by parsing <paramref name="identifier"/> to determine whether to pass it to <see cref="FindSessionWithID(int)"/>, <see cref="FindSessionWithName(string, StringComparison)"/>, or directly comparing it to the <see cref="AudioSession.ProcessIdentifier"/> property.</summary>
         /// <param name="identifier">
         /// This can match any of the following properties:<br/>
