@@ -1,11 +1,11 @@
 ﻿using NAudio.CoreAudioApi;
-using PropertyChanged;
 using System.Collections;
 using System.Collections.Immutable;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using VolumeControl.Audio.Events;
+using VolumeControl.Audio.Interfaces;
 using VolumeControl.Core;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
@@ -16,38 +16,48 @@ namespace VolumeControl.Audio.Collections
     /// <summary>
     /// Management container object for the <see cref="AudioDevice"/> class.
     /// </summary>
-    public class AudioDeviceCollection : IList, ICollection, IEnumerable, IList<AudioDevice>, IImmutableList<AudioDevice>, ICollection<AudioDevice>, IEnumerable<AudioDevice>, IReadOnlyList<AudioDevice>, IReadOnlyCollection<AudioDevice>, INotifyCollectionChanged, INotifyPropertyChanged, IDisposable
+    public class AudioDeviceCollection : IList, ICollection, IEnumerable, IList<AudioDevice>, IImmutableList<AudioDevice>, ICollection<AudioDevice>, IEnumerable<AudioDevice>, IReadOnlyList<AudioDevice>, IReadOnlyCollection<AudioDevice>, INotifyCollectionChanged, INotifyPropertyChanged, IDisposable, IDeviceNotificationClient
     {
-        #region Constructor
-        internal AudioDeviceCollection(AudioAPI api, DataFlow flow)
+        #region Constructors
+        /// <summary>
+        /// Creates a new <see cref="AudioDeviceCollection"/> instance with the given <see cref="NAudio.CoreAudioApi.DataFlow"/>.
+        /// </summary>
+        /// <param name="flow">Specifies the (I/O) type of <see cref="AudioDevice"/> objects that this instance manages.</param>
+        public AudioDeviceCollection(DataFlow flow)
         {
-            _audioAPI = api;
-
             this.DataFlow = flow;
-            using var enumerator = new MMDeviceEnumerator();
+            this.Devices = new();
 
-            this.Reload(enumerator);
-            if (enumerator.HasDefaultAudioEndpoint(this.DataFlow, Role.Multimedia))
-                this.Default = this.CreateDeviceFromMMDevice(enumerator.GetDefaultAudioEndpoint(this.DataFlow, Role.Multimedia));
+            MMDeviceEnumerator = new MMDeviceEnumerator();
 
-            // set up notification client; this includes default device handling
-            this.DeviceNotificationClient = new(this);
-            _ = enumerator.RegisterEndpointNotificationCallback(this.DeviceNotificationClient);
-            this.DeviceNotificationClient.GlobalDeviceAdded += this.HandleDeviceAdded;
-            enumerator.Dispose();
+            ReloadDevices();
+
+            EndpointNotificationClient = new(this);
+            MMDeviceEnumerator.RegisterEndpointNotificationCallback(EndpointNotificationClient);
+            EndpointNotificationClient.DefaultDeviceChanged += this.HandleDefaultDeviceChanged;
+            EndpointNotificationClient.DeviceAdded += this.HandleDeviceAdded;
+            EndpointNotificationClient.DeviceStateChanged += this.HandleDeviceStateChanged;
         }
-        /// <inheritdoc/>
-        public event NotifyCollectionChangedEventHandler? CollectionChanged
-        {
-            add => this.Items.CollectionChanged += value;
-            remove => this.Items.CollectionChanged -= value;
-        }
-        #endregion Constructor
+        #endregion Constructors
 
-        #region Fields
-        private bool _disposedValue;
-        private readonly AudioAPI _audioAPI;
-        #endregion Fields
+        #region Properties
+        private static Config Settings => (Config.Default as Config)!;
+        private static LogWriter Log => FLog.Log;
+        internal MMDeviceEnumerator MMDeviceEnumerator { get; }
+        internal DeviceNotificationClient EndpointNotificationClient { get; }
+        /// <summary>
+        /// Gets the list of <see cref="AudioDevice"/> instances that are currently being tracked.
+        /// </summary>
+        public ObservableImmutableList<AudioDevice> Devices { get; }
+        /// <summary>
+        /// Gets the default <see cref="DataFlow.Render"/> <see cref="Role.Multimedia"/> <see cref="AudioDevice"/>.
+        /// </summary>
+        public AudioDevice? DefaultDevice { get; internal set; }
+        /// <summary>
+        /// Specifies the (I/O) type of <see cref="AudioDevice"/> objects that this instance manages.
+        /// </summary>
+        public DataFlow DataFlow { get; }
+        #endregion Properties
 
         #region Events
         /// <summary>Triggered when a managed device's Enabled property was changed.</summary>
@@ -75,74 +85,85 @@ namespace VolumeControl.Audio.Collections
         /// </summary>
         public event VolumeChangedEventHandler? DeviceVolumeChanged;
         private void ForwardDeviceVolumeChanged(object? sender, VolumeChangedEventArgs e) => DeviceVolumeChanged?.Invoke(sender, e);
+        #region IDeviceNotificationClient Events
+        /// <inheritdoc/>
+        public event NotifyCollectionChangedEventHandler? CollectionChanged
+        {
+            add => ((INotifyCollectionChanged)this.Devices).CollectionChanged += value;
+            remove => ((INotifyCollectionChanged)this.Devices).CollectionChanged -= value;
+        }
+        /// <inheritdoc/>
+        public event EventHandler<(MMDevice, Role)>? DefaultDeviceChanged
+        {
+            add => this.EndpointNotificationClient.DefaultDeviceChanged += value;
+            remove => this.EndpointNotificationClient.DefaultDeviceChanged -= value;
+        }
+        /// <inheritdoc/>
+        public event EventHandler<MMDevice>? DeviceAdded
+        {
+            add => this.EndpointNotificationClient.DeviceAdded += value;
+            remove => this.EndpointNotificationClient.DeviceAdded -= value;
+        }
+        /// <inheritdoc/>
+        public event EventHandler<string>? DeviceRemoved
+        {
+            add => this.EndpointNotificationClient.DeviceRemoved += value;
+            remove => this.EndpointNotificationClient.DeviceRemoved -= value;
+        }
+        /// <inheritdoc/>
+        public event EventHandler<MMDevice>? DeviceStateChanged
+        {
+            add => this.EndpointNotificationClient.DeviceStateChanged += value;
+            remove => this.EndpointNotificationClient.DeviceStateChanged -= value;
+        }
+        /// <inheritdoc/>
+        public event EventHandler<(string, PropertyKey)>? PropertyValueChanged
+        {
+            add => this.EndpointNotificationClient.PropertyValueChanged += value;
+            remove => this.EndpointNotificationClient.PropertyValueChanged -= value;
+        }
+        #endregion IDeviceNotificationClient Events
         #endregion Events
 
-        #region Properties
-        /// <summary>
-        /// Container
-        /// </summary>
-        public ObservableImmutableList<AudioDevice> Items { get; } = new();
-        private static LogWriter Log => FLog.Log;
-        private static Config Settings => (Config.Default as Config)!;
-        private DeviceNotificationClient DeviceNotificationClient { get; }
-        /// <summary>Whether the devices in this list are input or output devices. (or both)</summary>
-        public DataFlow DataFlow { get; }
-        /// <summary>This is the current default multimedia device.</summary>
-        public AudioDevice? Default { get; internal set; }
+        #region Methods
+        #region Internal/Private Methods
+        #region AllDevicesEnabled
         /// <summary>
         /// Enables or disables all devices.
         /// </summary>
+        /// <returns>
+        /// <see langword="true"/> when all devices are enabled, <see langword="false"/> when all devices are disabled; otherwise <see langword="null"/>.
+        /// </returns>
         public bool? AllDevicesEnabled
         {
             get => _allSelected;
             set
             {
                 if (value == _allSelected) return;
+
                 _allSelected = value;
 
-                // Set all other CheckBoxes
-                this.AllDevicesEnabledChanged();
-                this.NotifyPropertyChanged();
+                AllDevicesEnabledChanged();
+                NotifyPropertyChanged();
             }
         }
-        #endregion Properties
 
-        #region InterfaceProperties
+        public int Count => ((IReadOnlyCollection<AudioDevice>)this.Devices).Count;
 
-        /// <inheritdoc/>
-        public bool IsFixedSize => this.Items.IsFixedSize;
-        /// <inheritdoc/>
-        public bool IsReadOnly => this.Items.IsReadOnly;
-        /// <inheritdoc/>
-        public int Count => this.Items.Count;
-        /// <inheritdoc/>
-        public bool IsSynchronized => this.Items.IsSynchronized;
-        /// <inheritdoc/>
-        public object SyncRoot => this.Items.SyncRoot;
-        /// <inheritdoc/>
-        [SuppressPropertyChangedWarnings]
-        AudioDevice IReadOnlyList<AudioDevice>.this[int index] => this.Items[index];
+        public bool IsReadOnly => ((ICollection<AudioDevice>)this.Devices).IsReadOnly;
 
-        /// <inheritdoc/>
-        [SuppressPropertyChangedWarnings]
-        public AudioDevice this[int index] { get => this.Items[index]; set => this.Items[index] = value; }
-        /// <inheritdoc/>
-        [SuppressPropertyChangedWarnings]
-        object? IList.this[int index]
-        {
-            get => this.Items[index];
-            set
-            {
-                if (value is not AudioDevice ad)
-                    throw new ArgumentException($"{nameof(value)} isn't an {nameof(AudioDevice)}!", nameof(value));
-                this.Items[index] = ad;
-            }
-        }
+        public bool IsSynchronized => ((ICollection)this.Devices).IsSynchronized;
+
+        public object SyncRoot => ((ICollection)this.Devices).SyncRoot;
+
+        public bool IsFixedSize => ((IList)this.Devices).IsFixedSize;
+
+        object? IList.this[int index] { get => ((IList)this.Devices)[index]; set => ((IList)this.Devices)[index] = value; }
+        AudioDevice IList<AudioDevice>.this[int index] { get => ((IList<AudioDevice>)this.Devices)[index]; set => ((IList<AudioDevice>)this.Devices)[index] = value; }
+
+        public AudioDevice this[int index] => ((IReadOnlyList<AudioDevice>)this.Devices)[index];
 
         private bool? _allSelected;
-        #endregion InterfaceProperties
-
-        #region AllDevicesEnabled
         private bool _allSelectedChanging;
         private void AllDevicesEnabledChanged()
         {
@@ -156,11 +177,11 @@ namespace VolumeControl.Audio.Collections
 
                 if (this.AllDevicesEnabled == true)
                 {
-                    _ = this.ForEach(dev => dev.Enabled = true);
+                    Devices.ForEach(dev => dev.Enabled = true);
                 }
                 else if (this.AllDevicesEnabled == false)
                 {
-                    _ = this.ForEach(dev => dev.Enabled = false);
+                    Devices.ForEach(dev => dev.Enabled = false);
                 }
             }
             finally
@@ -178,13 +199,13 @@ namespace VolumeControl.Audio.Collections
             {
                 _allSelectedChanging = true;
 
-                if (this.Count > 0)
+                if (Devices.Count > 0)
                 {
-                    bool prev = this.First().Enabled;
+                    bool prev = Devices.First().Enabled;
                     bool fullLoop = true;
-                    for (int i = 1; i < this.Count; ++i)
+                    for (int i = 1; i < Devices.Count; ++i)
                     {
-                        if (this[i].Enabled != prev)
+                        if (Devices[i].Enabled != prev)
                         {
                             fullLoop = false;
                             this.AllDevicesEnabled = null;
@@ -205,179 +226,239 @@ namespace VolumeControl.Audio.Collections
             }
         }
         #endregion AllDevicesEnabled
-        #region HandleDeviceEvents
-        private void AudioDeviceOnPropertyChanged(object? sender, PropertyChangedEventArgs args)
+        internal void ConnectAudioDeviceEvents(AudioDevice device)
         {
-            // Only re-check if the IsChecked property changed
-            if (args.PropertyName == nameof(AudioDevice.Enabled))
-                this.RecheckAllDevicesEnabled();
+            DisconnectAudioDeviceEvents(device); //< disconnect events first to ensure we don't add duplicate handlers
 
-            // save changes to configuration
-            _audioAPI.SaveEnabledDevices();
+            device.StateChanged += this.HandleAudioDeviceStateChanged;
+            device.Removed += this.HandleAudioDeviceRemoved;
+            device.EnabledChanged += this.HandleAudioDeviceEnabledChanged;
+            device.SessionCreated += this.HandleAudioDeviceSessionCreated;
+            device.SessionRemoved += this.HandleAudioDeviceSessionRemoved;
+            device.VolumeChanged += this.HandleAudioDeviceVolumeChanged;
         }
-        private void HandleDeviceAdded(object? sender, AudioDevice device)
+        internal void DisconnectAudioDeviceEvents(AudioDevice device)
         {
-            if (Settings.EnabledDevices.Contains(device.DeviceID))
-                device.Enabled = true;
+            device.StateChanged -= this.HandleAudioDeviceStateChanged;
+            device.Removed -= this.HandleAudioDeviceRemoved;
+            device.EnabledChanged -= this.HandleAudioDeviceEnabledChanged;
+            device.SessionCreated -= this.HandleAudioDeviceSessionCreated;
+            device.SessionRemoved -= this.HandleAudioDeviceSessionRemoved;
+            device.VolumeChanged -= this.HandleAudioDeviceVolumeChanged;
         }
-        private void HandleDeviceStateChanged(object? sender, DeviceState state)
+        internal void RemoveDevice(AudioDevice device)
         {
-            if (sender is AudioDevice device)
+            DisconnectAudioDeviceEvents(device);
+            Devices.Remove(device);
+            Log.Debug($"Removed audio device '{device.Name}'.");
+            device.Dispose();
+        }
+        #endregion Internal/Private Methods
+
+        #region Public Methods
+        /// <summary>
+        /// Gets the <see cref="AudioDevice"/> associated with the given <paramref name="mmDevice"/>.
+        /// </summary>
+        /// <param name="mmDevice">An NAudio <see cref="MMDevice"/> instance.</param>
+        /// <returns>The <see cref="AudioDevice"/> associated with <paramref name="mmDevice"/> if it was found in <see cref="Devices"/>; otherwise <see langword="null"/>.</returns>
+        public AudioDevice? FindDeviceWithMMDevice(MMDevice mmDevice) => Devices.FirstOrDefault(device => device != null && device.DeviceID.Equals(mmDevice.ID, StringComparison.Ordinal), null);
+        /// <summary>
+        /// Gets the <see cref="AudioDevice"/> associated with the given <paramref name="deviceID"/>.
+        /// </summary>
+        /// <param name="deviceID">The <see cref="AudioDevice.DeviceID"/> to search for.</param>
+        /// <param name="sCompareType">The <see cref="StringComparison"/> type to use.</param>
+        /// <returns>The <see cref="AudioDevice"/> associated with <paramref name="deviceID"/> if it was found in <see cref="Devices"/>; otherwise <see langword="null"/>.</returns>
+        public AudioDevice? FindDeviceWithDeviceID(string deviceID, StringComparison sCompareType = StringComparison.Ordinal) => Devices.FirstOrDefault(device => device != null && device.DeviceID.Equals(deviceID, sCompareType), null);
+        /// <summary>
+        /// Reloads all AudioDevices using the default <see cref="MMDeviceEnumerator"/>.
+        /// </summary>
+        public void ReloadDevices()
+        {
+            Devices.Clear();
+            foreach (MMDevice mmDevice in MMDeviceEnumerator.EnumerateAudioEndPoints(this.DataFlow, DeviceState.Active))
             {
-                Log.Debug($"Device '{device.Name}' state changed to {state:G}");
-                switch (state)
+                var device = new AudioDevice(mmDevice);
+                ConnectAudioDeviceEvents(device);
+                Devices.Add(device);
+            }
+            // Set the DefaultDevice:
+            if (MMDeviceEnumerator.HasDefaultAudioEndpoint(this.DataFlow, Role.Multimedia))
+            {
+                DefaultDevice = FindDeviceWithMMDevice(MMDeviceEnumerator.GetDefaultAudioEndpoint(this.DataFlow, Role.Multimedia));
+            }
+        }
+        #endregion Public Methods
+        #endregion Methods
+
+        #region EventHandlers
+        /// <summary>
+        /// Adds/Removes audio devices from <see cref="Devices"/> when their state changes to or from <see cref="DeviceState.Active"/>.
+        /// </summary>
+        private void HandleAudioDeviceStateChanged(object? sender, DeviceState state)
+        {
+            var device = (sender as AudioDevice)!;
+
+            Log.Debug($"Device '{device.Name}' state changed to {state:G}.");
+
+            switch (state)
+            {
+            case DeviceState.Active:
+                Devices.AddIfUnique(device);
+                break;
+            default:
+                Devices.Remove(device);
+                device.Dispose();
+                break;
+            }
+        }
+        /// <summary>
+        /// Removes audio devices from <see cref="Devices"/> when they were removed from the system.
+        /// </summary>
+        private void HandleAudioDeviceRemoved(object? sender, EventArgs e)
+        {
+            RemoveDevice((sender as AudioDevice)!);
+        }
+        /// <summary>
+        /// Updates the <see cref="Settings"/> configuration by adding/removing audio devices when they are enabled/disabled, respectively.
+        /// </summary>
+        private void HandleAudioDeviceEnabledChanged(object? sender, bool state)
+        {
+            var device = (sender as AudioDevice)!;
+
+            if (state) // Device was enabled:
+            {
+                Settings.EnabledDevices.AddIfUnique(device.DeviceID);
+                Log.Debug($"Audio device '{device.Name}' was enabled.");
+            }
+            else // Device was disabled:
+            {
+                Settings.EnabledDevices.Remove(device.DeviceID);
+                Log.Debug($"Audio device '{device.Name}' was disabled.");
+            }
+            RecheckAllDevicesEnabled();
+            DeviceEnabledChanged?.Invoke(sender, state);
+        }
+        /// <summary>
+        /// Invokes <see cref="DeviceSessionCreated"/>.
+        /// </summary>
+        private void HandleAudioDeviceSessionCreated(object? sender, AudioSession session)
+        {
+            var device = (sender as AudioDevice)!;
+            Log.Debug($"Audio session '{session.ProcessIdentifier}' created on device '{device.Name}'");
+            DeviceSessionCreated?.Invoke(sender, session);
+        }
+        /// <summary>
+        /// Invokes <see cref="DeviceSessionRemoved"/>.
+        /// </summary>
+        private void HandleAudioDeviceSessionRemoved(object? sender, AudioSession session)
+        {
+            var device = (sender as AudioDevice)!;
+            Log.Debug($"Audio session '{session.ProcessIdentifier}' removed from device '{device.Name}'");
+            DeviceSessionRemoved?.Invoke(sender, session.PID);
+        }
+        /// <summary>
+        /// Invokes <see cref="DeviceVolumeChanged"/>.
+        /// </summary>
+        private void HandleAudioDeviceVolumeChanged(object? sender, VolumeChangedEventArgs e)
+            => DeviceVolumeChanged?.Invoke(sender, e);
+        private void HandleDefaultDeviceChanged(object? sender, (MMDevice mmDevice, Role role) e)
+        {
+            if (!e.role.Equals(Role.Multimedia) || !this.DataFlow.HasFlag(e.mmDevice.DataFlow))
+            {
+                Log.Debug($"Default {e.role:G} audio device was changed.");
+                return;
+            }
+
+            if (FindDeviceWithMMDevice(e.mmDevice) is AudioDevice device)
+            {
+                DefaultDevice = device;
+            }
+            else
+            {
+                Log.Error($"Default multimedia output device was changed to an unknown {nameof(MMDevice)} instance; this likely indicates a problem! (See method {typeof(AudioDeviceCollection).FullName}.{nameof(HandleDefaultDeviceChanged)})");
+            }
+        }
+        private void HandleDeviceAdded(object? sender, MMDevice mmDevice)
+        {
+            if (!this.DataFlow.HasFlag(mmDevice.DataFlow))
+            {
+                Log.Debug($"Ignoring new audio device '{AudioDevice.GetDeviceNameFromDeviceFriendlyName(mmDevice.DeviceFriendlyName)}' with {nameof(NAudio.CoreAudioApi.DataFlow)} '{mmDevice.DataFlow:G}'");
+                return;
+            }
+
+            AudioDevice device = new(mmDevice);
+            ConnectAudioDeviceEvents(device);
+            Devices.Add(device);
+
+            Log.Debug($"Added new audio device '{device.Name}' with {nameof(NAudio.CoreAudioApi.DataFlow)} '{device.MMDevice.DataFlow:G}'");
+        }
+        private void HandleDeviceRemoved(object? sender, string deviceId)
+        {
+            if (FindDeviceWithDeviceID(deviceId) is AudioDevice device)
+            {
+                RemoveDevice(device);
+            }
+        }
+        private void HandleDeviceStateChanged(object? sender, MMDevice mmDevice)
+        {
+            if (FindDeviceWithMMDevice(mmDevice) is AudioDevice device)
+            { // device already exists:
+                if (!mmDevice.State.Equals(DeviceState.Active))
                 {
-                case DeviceState.Active:
-                    _ = this.AddIfUnique(device);
-                    break;
-                default:
-                    _ = this.Remove(device);
-                    device.Dispose();
-                    device = null!;
-                    break;
+                    RemoveDevice(device);
                 }
             }
-            else
-            {
-                Log.Error($"{nameof(HandleDeviceStateChanged)} received invalid type {sender?.GetType().FullName}; expected {typeof(AudioDevice).FullName}");
-                this.Reload();
+            else if (mmDevice.State.Equals(DeviceState.Active))
+            { // device doesn't exist & is now active:
+                var dev = new AudioDevice(mmDevice);
+                ConnectAudioDeviceEvents(dev);
+                Devices.Add(dev);
             }
         }
-        private void HandleDeviceRemoved(object? sender, EventArgs e)
-        {
-            if (sender is AudioDevice device)
-            {
-                _ = this.Remove(device);
-                device.Dispose();
-                device = null!;
-            }
-            else
-            {
-                Log.Error($"{nameof(HandleDeviceRemoved)} received invalid type {sender?.GetType().FullName}; expected {typeof(AudioDevice).FullName}");
-                this.Reload();
-            }
-        }
-        #endregion HandleDeviceEvents
 
-        #region Methods
-        /// <summary>
-        /// Finds a device using the <paramref name="predicate"/> function.
-        /// </summary>
-        /// <param name="predicate">A predicate function that accepts <see cref="AudioDevice"/> class types.</param>
-        /// <returns>Devices that <paramref name="predicate"/> returned <see langword="true"/> for.</returns>
-        public AudioDevice[] FindDevice(Predicate<AudioDevice> predicate) => this.Where(dev => predicate(dev)).ToArray();
-        /// <summary>Finds the <see cref="AudioDevice"/> using the given <paramref name="mmDevice"/> object.</summary>
-        /// <param name="mmDevice">A <see cref="MMDevice"/> object to find.</param>
-        /// <returns>The audio device using <paramref name="mmDevice"/>.</returns>
-        internal AudioDevice? FindDeviceWithMMDevice(MMDevice mmDevice) => this.FirstOrDefault(dev => dev != null && dev.DeviceID.Equals(mmDevice.ID, StringComparison.Ordinal), null);
-        /// <summary>Creates a new audio device instance and connects its events to this object's handlers.</summary>
-        /// <param name="mmDevice">The MMDevice instance to use when creating the device.</param>
-        internal AudioDevice CreateDeviceFromMMDevice(MMDevice mmDevice)
-        {
-            if (this.FindDeviceWithMMDevice(mmDevice) is AudioDevice existing)
-                return existing;
-            AudioDevice dev = new(mmDevice);
-            dev.StateChanged += this.HandleDeviceStateChanged;
-            dev.Removed += this.HandleDeviceRemoved;
-            dev.EnabledChanged += this.ForwardDeviceEnabledChanged;
-            dev.SessionCreated += this.ForwardSessionCreated;
-            dev.SessionRemoved += (s, e) => this.ForwardSessionRemoved(s, e.PID);
-            dev.PropertyChanged += this.AudioDeviceOnPropertyChanged;
-            dev.VolumeChanged += this.ForwardDeviceVolumeChanged;
-            _ = this.Items.Add(dev);
-            return dev;
-        }
-        /// <summary>Clears the list of devices &amp; reloads them from the Windows API.</summary>
-        internal void Reload(MMDeviceEnumerator enumerator)
-        {
-            _ = this.Items.Clear();
-            foreach (MMDevice mmDevice in enumerator.EnumerateAudioEndPoints(this.DataFlow, DeviceState.Active))
-                _ = this.CreateDeviceFromMMDevice(mmDevice);
-        }
-        /// <summary>Clears the list of devices &amp; reloads them from the Windows API.</summary>
-        internal void Reload()
-        {
-            using var enumerator = new MMDeviceEnumerator();
-            this.Reload(enumerator);
-            enumerator.Dispose();
-        }
-        /// <inheritdoc/>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposedValue)
-            {
-                if (disposing)
-                    _ = this.ForEach(d => d.Dispose());
-                _disposedValue = true;
-            }
-        }
+        #endregion EventHandlers
+
+        #region InterfaceMethods
         /// <inheritdoc/>
         public void Dispose()
         {
-            this.Dispose(disposing: true);
-            GC.SuppressFinalize(this);
+            MMDeviceEnumerator.UnregisterEndpointNotificationCallback(EndpointNotificationClient);
+            MMDeviceEnumerator.Dispose();
+            Devices.ForEach(d => d.Dispose());
+            Devices.Clear();
         }
 
-        /// <inheritdoc/>
-        public int Add(object? value) => this.Items.Add(value);
-        /// <inheritdoc/>
-        public void Clear() => this.Items.Clear();
-        /// <inheritdoc/>
-        public bool Contains(object? value) => this.Items.Contains(value);
-        /// <inheritdoc/>
-        public int IndexOf(object? value) => this.Items.IndexOf(value);
-        /// <inheritdoc/>
-        public void Insert(int index, object? value) => this.Items.Insert(index, value);
-        /// <inheritdoc/>
-        public void Remove(object? value) => this.Items.Remove(value);
-        /// <inheritdoc/>
-        public void RemoveAt(int index) => this.Items.RemoveAt(index);
-        /// <inheritdoc/>
-        public void CopyTo(Array array, int index) => this.Items.CopyTo(array, index);
-        /// <inheritdoc/>
-        public IEnumerator GetEnumerator() => this.Items.GetEnumerator();
-        /// <inheritdoc/>
-        public int IndexOf(AudioDevice item) => this.Items.IndexOf(item);
-        /// <inheritdoc/>
-        public void Insert(int index, AudioDevice item) => this.Items.Insert(index, item);
-        /// <inheritdoc/>
-        public void Add(AudioDevice item) => this.Items.Add(item);
-        /// <inheritdoc/>
-        public bool Contains(AudioDevice item) => this.Items.Contains(item);
-        /// <inheritdoc/>
-        public void CopyTo(AudioDevice[] array, int arrayIndex) => this.Items.CopyTo(array, arrayIndex);
-        /// <inheritdoc/>
-        public bool Remove(AudioDevice item) => this.Items.Remove(item);
-        /// <inheritdoc/>
-        IEnumerator<AudioDevice> IEnumerable<AudioDevice>.GetEnumerator() => this.Items.GetEnumerator();
-        /// <inheritdoc/>
-        IImmutableList<AudioDevice> IImmutableList<AudioDevice>.Add(AudioDevice value) => this.Items.Add(value);
-        /// <inheritdoc/>
-        public IImmutableList<AudioDevice> AddRange(IEnumerable<AudioDevice> items) => this.Items.AddRange(items);
-        /// <inheritdoc/>
-        IImmutableList<AudioDevice> IImmutableList<AudioDevice>.Clear() => this.Items.Clear();
-        /// <inheritdoc/>
-        public int IndexOf(AudioDevice item, int index, int count, IEqualityComparer<AudioDevice>? equalityComparer) => this.Items.IndexOf(item, index, count, equalityComparer);
-        /// <inheritdoc/>
-        IImmutableList<AudioDevice> IImmutableList<AudioDevice>.Insert(int index, AudioDevice element) => this.Items.Insert(index, element);
-        /// <inheritdoc/>
-        public IImmutableList<AudioDevice> InsertRange(int index, IEnumerable<AudioDevice> items) => this.Items.InsertRange(index, items);
-        /// <inheritdoc/>
-        public int LastIndexOf(AudioDevice item, int index, int count, IEqualityComparer<AudioDevice>? equalityComparer) => this.Items.LastIndexOf(item, index, count, equalityComparer);
-        /// <inheritdoc/>
-        public IImmutableList<AudioDevice> Remove(AudioDevice value, IEqualityComparer<AudioDevice>? equalityComparer) => this.Items.Remove(value, equalityComparer);
-        /// <inheritdoc/>
-        public IImmutableList<AudioDevice> RemoveAll(Predicate<AudioDevice> match) => this.Items.RemoveAll(match);
-        /// <inheritdoc/>
-        IImmutableList<AudioDevice> IImmutableList<AudioDevice>.RemoveAt(int index) => this.Items.RemoveAt(index);
-        /// <inheritdoc/>
-        public IImmutableList<AudioDevice> RemoveRange(IEnumerable<AudioDevice> items, IEqualityComparer<AudioDevice>? equalityComparer) => this.Items.RemoveRange(items, equalityComparer);
-        /// <inheritdoc/>
-        public IImmutableList<AudioDevice> RemoveRange(int index, int count) => this.Items.RemoveRange(index, count);
-        /// <inheritdoc/>
-        public IImmutableList<AudioDevice> Replace(AudioDevice oldValue, AudioDevice newValue, IEqualityComparer<AudioDevice>? equalityComparer) => this.Items.Replace(oldValue, newValue, equalityComparer);
-        /// <inheritdoc/>
-        public IImmutableList<AudioDevice> SetItem(int index, AudioDevice value) => this.Items.SetItem(index, value);
-        #endregion Methods
+        public IEnumerator<AudioDevice> GetEnumerator() => ((IEnumerable<AudioDevice>)this.Devices).GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)this.Devices).GetEnumerator();
+        public void Add(AudioDevice item) => ((ICollection<AudioDevice>)this.Devices).Add(item);
+        public void Clear() => ((ICollection<AudioDevice>)this.Devices).Clear();
+        public bool Contains(AudioDevice item) => ((ICollection<AudioDevice>)this.Devices).Contains(item);
+        public void CopyTo(AudioDevice[] array, int arrayIndex) => ((ICollection<AudioDevice>)this.Devices).CopyTo(array, arrayIndex);
+        public bool Remove(AudioDevice item) => ((ICollection<AudioDevice>)this.Devices).Remove(item);
+        IImmutableList<AudioDevice> IImmutableList<AudioDevice>.Add(AudioDevice value) => ((IImmutableList<AudioDevice>)this.Devices).Add(value);
+        public IImmutableList<AudioDevice> AddRange(IEnumerable<AudioDevice> items) => ((IImmutableList<AudioDevice>)this.Devices).AddRange(items);
+        IImmutableList<AudioDevice> IImmutableList<AudioDevice>.Clear() => ((IImmutableList<AudioDevice>)this.Devices).Clear();
+        public int IndexOf(AudioDevice item, int index, int count, IEqualityComparer<AudioDevice>? equalityComparer) => ((IImmutableList<AudioDevice>)this.Devices).IndexOf(item, index, count, equalityComparer);
+        public IImmutableList<AudioDevice> Insert(int index, AudioDevice element) => ((IImmutableList<AudioDevice>)this.Devices).Insert(index, element);
+        public IImmutableList<AudioDevice> InsertRange(int index, IEnumerable<AudioDevice> items) => ((IImmutableList<AudioDevice>)this.Devices).InsertRange(index, items);
+        public int LastIndexOf(AudioDevice item, int index, int count, IEqualityComparer<AudioDevice>? equalityComparer) => ((IImmutableList<AudioDevice>)this.Devices).LastIndexOf(item, index, count, equalityComparer);
+        public IImmutableList<AudioDevice> Remove(AudioDevice value, IEqualityComparer<AudioDevice>? equalityComparer) => ((IImmutableList<AudioDevice>)this.Devices).Remove(value, equalityComparer);
+        public IImmutableList<AudioDevice> RemoveAll(Predicate<AudioDevice> match) => ((IImmutableList<AudioDevice>)this.Devices).RemoveAll(match);
+        public IImmutableList<AudioDevice> RemoveAt(int index) => ((IImmutableList<AudioDevice>)this.Devices).RemoveAt(index);
+        public IImmutableList<AudioDevice> RemoveRange(IEnumerable<AudioDevice> items, IEqualityComparer<AudioDevice>? equalityComparer) => ((IImmutableList<AudioDevice>)this.Devices).RemoveRange(items, equalityComparer);
+        public IImmutableList<AudioDevice> RemoveRange(int index, int count) => ((IImmutableList<AudioDevice>)this.Devices).RemoveRange(index, count);
+        public IImmutableList<AudioDevice> Replace(AudioDevice oldValue, AudioDevice newValue, IEqualityComparer<AudioDevice>? equalityComparer) => ((IImmutableList<AudioDevice>)this.Devices).Replace(oldValue, newValue, equalityComparer);
+        public IImmutableList<AudioDevice> SetItem(int index, AudioDevice value) => ((IImmutableList<AudioDevice>)this.Devices).SetItem(index, value);
+        public int IndexOf(AudioDevice item) => ((IList<AudioDevice>)this.Devices).IndexOf(item);
+        void IList<AudioDevice>.Insert(int index, AudioDevice item) => ((IList<AudioDevice>)this.Devices).Insert(index, item);
+        void IList<AudioDevice>.RemoveAt(int index) => ((IList<AudioDevice>)this.Devices).RemoveAt(index);
+        public void CopyTo(Array array, int index) => ((ICollection)this.Devices).CopyTo(array, index);
+        public int Add(object? value) => ((IList)this.Devices).Add(value);
+        public bool Contains(object? value) => ((IList)this.Devices).Contains(value);
+        public int IndexOf(object? value) => ((IList)this.Devices).IndexOf(value);
+        public void Insert(int index, object? value) => ((IList)this.Devices).Insert(index, value);
+        public void Remove(object? value) => ((IList)this.Devices).Remove(value);
+        void IList.RemoveAt(int index) => ((IList)this.Devices).RemoveAt(index);
+        #endregion InterfaceMethods
     }
 }

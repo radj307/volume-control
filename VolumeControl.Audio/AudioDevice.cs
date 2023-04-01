@@ -306,9 +306,15 @@ namespace VolumeControl.Audio
         #endregion SessionEventHandlers
 
         #region Methods
+        /// <summary>
+        /// Gets the actual device name from the given <paramref name="deviceFriendlyName"/> by using regex.
+        /// </summary>
+        /// <param name="deviceFriendlyName"><see cref="MMDevice.DeviceFriendlyName"/></param>
+        /// <returns>The name of the device.</returns>
+        public static string GetDeviceNameFromDeviceFriendlyName(string deviceFriendlyName) => Regex.Replace(deviceFriendlyName, $"\\(\\s*?{deviceFriendlyName}\\s*?\\)", "", RegexOptions.Compiled).Trim();
         /// <summary>Gets the device name without the interface name.</summary>
         /// <returns><see cref="string"/></returns>
-        public string GetDeviceName() => Regex.Replace(this.FriendlyName, $"\\(\\s*?{this.DeviceFriendlyName}\\s*?\\)", "", RegexOptions.Compiled).Trim();
+        public string GetDeviceName() => GetDeviceNameFromDeviceFriendlyName(this.DeviceFriendlyName);
         #region Sessions
         /// <summary>Clears the <see cref="Sessions"/> list, disposing of all items, and reloads all sessions from the <see cref="SessionManager"/>.</summary>
         /// <remarks>This should only be used when initializing a new device, or if an error occurs.<br/>If this method is called when the <see cref="State"/> property isn't set to <see cref="DeviceState.Active"/>, the session list is cleared without reloading.<br/>This is because inactive devices do not have a valid <see cref="SessionManager"/> object.</remarks>

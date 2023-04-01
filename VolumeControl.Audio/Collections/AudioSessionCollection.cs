@@ -123,7 +123,7 @@ namespace VolumeControl.Audio.Collections
         }
         /// <inheritdoc cref="RefreshFromDevices(AudioDevice[])"/>
         /// <remarks>This method uses the internal reference to <see cref="AudioDeviceCollection"/> instead of given devices.</remarks>
-        internal void RefreshFromDevices() => this.RefreshFromDevices(_devices.ToArray());
+        internal void RefreshFromDevices() => this.RefreshFromDevices(_devices.Devices.ToArray());
         /// <summary>
         /// Removes any sessions with the same process ID number as <paramref name="pid"/>.
         /// </summary>

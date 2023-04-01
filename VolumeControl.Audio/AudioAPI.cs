@@ -22,7 +22,7 @@ namespace VolumeControl.Audio
         /// <inheritdoc cref="AudioAPI"/>
         public AudioAPI()
         {
-            this.Devices = new(this, DataFlow.Render);
+            this.Devices = new(DataFlow.Render);
             this.Sessions = new(this.Devices);
 
             this.EnableDevices();
@@ -59,7 +59,7 @@ namespace VolumeControl.Audio
         /// </summary>
         public AudioDeviceCollection Devices { get; }
         /// <inheritdoc cref="AudioDeviceCollection.Default"/>
-        public AudioDevice? DefaultDevice => this.Devices.Default;
+        public AudioDevice? DefaultDevice => this.Devices.DefaultDevice;
         /// <summary>
         /// Prevents <see cref="SelectedSession"/> from being modified.
         /// </summary>
@@ -234,7 +234,7 @@ namespace VolumeControl.Audio
         /// </summary>
         public void ForceReloadAudioDevices()
         {
-            this.Devices.Reload();
+            this.Devices.ReloadDevices();
             this.EnableDevices();
         }
         /// <summary>Gets a device from <see cref="Devices"/> using the given <paramref name="predicate"/> function.</summary>
@@ -445,7 +445,6 @@ namespace VolumeControl.Audio
                     AudioSession? s = this.Sessions[i];
                     if (pid.Equals(s.PID) || pname.Equals(s.ProcessName))
                     {
-
                         Settings.Target = s.GetTargetInfo();
                         this.NotifyPropertyChanged(nameof(this.Target));
                         this.NotifyPropertyChanged(nameof(this.TargetGuid));
