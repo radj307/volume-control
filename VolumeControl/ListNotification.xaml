@@ -279,8 +279,8 @@
             <Grid
                 Grid.Row="1"
                 Margin="1"
-                DataContext="{Binding ListNotificationVM, Source={StaticResource Settings}}"
-                Visibility="{Binding ShowsCustomControls, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                DataContext="{Binding ListNotificationVM, Source={StaticResource Settings}}">
+                <!--  Visibility="{Binding ShowsCustomControls, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"  -->
                 <StackPanel
                     x:Name="selectedItemControlsTemplate"
                     Margin="5,3,0,3"
