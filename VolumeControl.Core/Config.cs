@@ -249,22 +249,13 @@ namespace VolumeControl.Core
         /// </summary>
         public bool NotificationSavePos { get; set; } = true;
         /// <summary>
-        /// The last known size of the notification window.
-        /// </summary>
-        //public Size? NotificationSize { get; set; }
-        /// <summary>
         /// Gets or sets whether controls from <see cref="Interfaces.IListDisplayable.DisplayControls"/> are shown or not.
         /// </summary>
-        public bool NotificationShowsCustomControls { get; set; } = true;
+        //public bool NotificationShowsCustomControls { get; set; } = true;
         /// <summary>
         /// Gets or sets the corner from which ListNotification size transform operations are rooted.
         /// </summary>
         public ScreenCorner NotificationPositionOriginCorner { get; set; } = ScreenCorner.BottomLeft;
-        /// <summary>
-        /// Gets or sets whether the <see cref="NotificationWindowOriginCorner"/> is automatically determined by figuring out which screen corner the centerpoint of the window is closest to.<br/>
-        /// If the centerpoint of the window is <b>exactly</b> in the center of the screen, the value of <see cref="NotificationWindowOriginCorner"/> is used instead.
-        /// </summary>
-        //public bool NotificationWindowOriginCornerAuto { get; set; } = true;
         /// <summary>
         /// Gets or sets whether the notification window slowly fades in instead of appearing instantly.
         /// </summary>

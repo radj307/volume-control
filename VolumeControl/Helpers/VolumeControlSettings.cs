@@ -112,7 +112,6 @@ namespace VolumeControl.Helpers
             AudioAPI.Devices.DeviceVolumeChanged += cefDeviceVolumeChanged.Handler;
             AudioDeviceActions.SelectedDeviceVolumeChanged += ldtDevices.AddConditionalEventForward(() => Settings.NotificationsEnabled && Settings.NotificationsOnVolumeChange).Handler;
 
-
             // sessions
             ListDisplayTarget ldtSessions = this.ListNotificationVM.AddDisplayTarget("Audio Sessions",
                 (ListDisplayTarget.ItemsSourceProperty, new Binding()

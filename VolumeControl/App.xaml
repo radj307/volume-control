@@ -97,6 +97,10 @@
                 <GradientStop Offset="0" Color="#866" />
                 <GradientStop Offset="1" Color="#977" />
             </LinearGradientBrush>
+            <LinearGradientBrush x:Key="AccentGradientRed" StartPoint="0.05,0" EndPoint="0.95,1">
+                <GradientStop Offset="0" Color="#AA2222" />
+                <GradientStop Offset="1" Color="#AF2222" />
+            </LinearGradientBrush>
 
             <SolidColorBrush x:Key="AccentForeground" Color="#222" />
 
@@ -328,6 +332,14 @@
                 x:Key="{x:Type Button}"
                 BasedOn="{StaticResource ButtonStyle}"
                 TargetType="{x:Type Button}" />
+            <Style
+                x:Key="RedButtonStyle"
+                BasedOn="{StaticResource ButtonStyle}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="{StaticResource AccentGradientRed}" />
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="FontWeight" Value="DemiBold" />
+            </Style>
             <Style x:Key="NumericUpDownRepeatButtonStyle" TargetType="{x:Type RepeatButton}">
                 <Style.Triggers>
                     <!--  Mouse Over  -->

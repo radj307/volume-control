@@ -201,7 +201,6 @@ namespace VolumeControl.Controls
                 {
                     decimalPlaces = control.MaxDecimalPlaces;
                 }
-
             }
             return decimalPlaces;
         }
@@ -532,7 +531,6 @@ namespace VolumeControl.Controls
             _ = this.CommandBindings.Add(new CommandBinding(_majorDecreaseValueCommand, (a, b) => this.DecreaseValue(false)));
             _ = this.CommandBindings.Add(new CommandBinding(_updateValueStringCommand, (a, b) => this.UpdateValue()));
             _ = this.CommandBindings.Add(new CommandBinding(_cancelChangesCommand, (a, b) => this.CancelChanges()));
-
 
             _ = TextBox.InputBindings.Add(new KeyBinding(_minorIncreaseValueCommand, new KeyGesture(Key.Up)));
             _ = TextBox.InputBindings.Add(new KeyBinding(_minorDecreaseValueCommand, new KeyGesture(Key.Down)));

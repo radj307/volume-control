@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 using PropertyChanged;
-using System.Collections;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using VolumeControl.Core.Attributes;
@@ -10,6 +8,9 @@ using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Core.Input.Actions
 {
+    /// <summary>
+    /// Represents a setting for a hotkey action.
+    /// </summary>
     public interface IHotkeyActionSetting
     {
         /// <summary>
@@ -90,7 +91,9 @@ namespace VolumeControl.Core.Input.Actions
         [JsonIgnore]
         public string? Description { get; set; }
     }
-
+    /// <summary>
+    /// Specifies a target of a hotkey action.
+    /// </summary>
     public abstract class ActionTargetSpecifier
     {
         /// <summary>

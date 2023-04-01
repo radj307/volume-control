@@ -322,7 +322,7 @@ namespace VolumeControl.WPF.Collections
         }
 
         /// <inheritdoc/>
-        public bool Contains(object? value) => value is null ? throw new ArgumentNullException(nameof(value)) : value is T val && this.Contains(val);
+        public bool Contains(object? value) => value is null ? false : value is T val && this.Contains(val);
 
         /// <inheritdoc/>
         public int IndexOf(object? value) => value is null ? throw new ArgumentNullException(nameof(value)) : value is not T val ? -1 : this.IndexOf(val);

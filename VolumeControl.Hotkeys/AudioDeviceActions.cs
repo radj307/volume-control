@@ -2,25 +2,10 @@
 using VolumeControl.Audio;
 using VolumeControl.Audio.Events;
 using VolumeControl.Core.Attributes;
-using VolumeControl.Core.Input.Actions;
 using VolumeControl.SDK;
 
 namespace VolumeControl.Hotkeys
 {
-    public class DeviceSpecifier : ActionTargetSpecifier
-    {
-        public override void AddNewTarget()
-        {
-            if (VCAPI.Default.AudioAPI.DefaultDevice?.DeviceID is string deviceID && !Targets.Any(t => t.Value.Equals(deviceID, StringComparison.OrdinalIgnoreCase)))
-            {
-                Targets.Add(new()
-                {
-                    Value = deviceID
-                });
-            }
-            else Targets.Add(new());
-        }
-    }
     /// <summary>
     /// Contains hotkey action handlers that interact with AudioDevices in the <see cref="Audio.AudioAPI"/> object.
     /// </summary>

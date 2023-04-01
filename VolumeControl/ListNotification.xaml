@@ -109,13 +109,14 @@
                     <WrapPanel.OpacityMask>
                         <VisualBrush Visual="{Binding ElementName=expanderPanelMask}" />
                     </WrapPanel.OpacityMask>
-                    <CheckBox
+                    <!--<CheckBox
                         Margin="5,3"
                         Content="{Tr 'VolumeControl.ListNotification.Options.ShowControls.Content',
                                      DefaultText='Show Controls'}"
                         IsChecked="{Binding ShowsCustomControls, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         ToolTip="{Tr 'VolumeControl.ListNotification.Options.ShowControls.Tooltip',
                                      DefaultText='Toggles the visibility of advanced controls next to list items.'}" />
+                    -->
                     <CheckBox
                         Margin="5,3"
                         Content="{Tr 'VolumeControl.ListNotification.Options.DragRequiresAlt.Content',
@@ -259,7 +260,7 @@
                                 Text="{Binding DisplayText}" />
 
                             <!--  DisplayControls  -->
-                            <StackPanel
+                            <!--<StackPanel
                                 Name="displayableControlsTemplate"
                                 Grid.Column="2"
                                 HorizontalAlignment="Right"
@@ -269,6 +270,7 @@
                                 Tag="{Binding DisplayControls}"
                                 Unloaded="displayableControlsTemplate_Unloaded"
                                 Visibility="{Binding ListNotificationVM.ShowsCustomControls, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            -->
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>

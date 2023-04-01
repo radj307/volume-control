@@ -2,26 +2,12 @@
 using VolumeControl.Audio;
 using VolumeControl.Audio.Interfaces;
 using VolumeControl.Core.Attributes;
-using VolumeControl.Core.Helpers;
 using VolumeControl.Core.Input.Actions;
+using VolumeControl.Hotkeys.Helpers;
 using VolumeControl.SDK;
 
 namespace VolumeControl.Hotkeys
 {
-    public class SessionSpecifier : ActionTargetSpecifier
-    {
-        public override void AddNewTarget()
-        {
-            if (VCAPI.Default.AudioAPI.SelectedSession?.ProcessName is string processName && !Targets.Any(t => t.Value.Equals(processName, StringComparison.OrdinalIgnoreCase)))
-            {
-                Targets.Add(new TargetInfoVM()
-                {
-                    Value = processName
-                });
-            }
-            else Targets.Add(new());
-        }
-    }
     /// <summary>
     /// Contains hotkey action handlers that interact with AudioSessions in the AudioAPI object.
     /// <see cref="HandledEventHandler"/>

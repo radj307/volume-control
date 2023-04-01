@@ -1206,7 +1206,6 @@
                                                 HorizontalAlignment="Stretch"
                                                 FlowDirection="LeftToRight">
 
-
                                                 <CheckBox
                                                     VerticalAlignment="Center"
                                                     Content="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.ShowPeakMeters.Content',
@@ -1577,6 +1576,7 @@
                                                 <Button
                                                     Click="Handle_ResetNotificationPositionClick"
                                                     Content="{Tr 'VolumeControl.MainWindow.Settings.Notifications.AdditionalSettings.ResetPosition.Content'}"
+                                                    Style="{StaticResource RedButtonStyle}"
                                                     ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.AdditionalSettings.ResetPosition.Tooltip'}" />
                                             </Grid>
                                         </Grid>

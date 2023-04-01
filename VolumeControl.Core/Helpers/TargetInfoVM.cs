@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using PropertyChanged;
+﻿using PropertyChanged;
 
 namespace VolumeControl.Core.Helpers
 {

@@ -215,7 +215,7 @@ namespace VolumeControl
             {
                 selectedItemControlsTemplate.Children.Clear();
                 if (VCSettings.ListNotificationVM.SelectedItemControls is Control[] controls)
-                    AttachListDisplayTargetControlsToStack(selectedItemControlsTemplate, controls);
+                    AttachListDisplayTargetControls(selectedItemControlsTemplate, controls);
             }
         }
 
@@ -263,7 +263,7 @@ namespace VolumeControl
         {
             if (!_allowClose) e.Cancel = true;
             if (Settings.NotificationSavePos && _loaded)
-            { // set the origin corner & position ; only when successfully loaded, otherwise we'll write garbage data
+            { // set the origin corner & position ; only when successfully loaded, otherwise we'll overwrite the notification position with garbage
                 Settings.NotificationPositionOriginCorner = GetCurrentScreenCorner();
                 Settings.NotificationPosition = GetPosAtCorner(Settings.NotificationPositionOriginCorner = GetCurrentScreenCorner());
             }
@@ -380,10 +380,15 @@ namespace VolumeControl
         }
         #endregion Positioning
 
-        private static void AttachListDisplayTargetControlsToStack(StackPanel stack, Control[] controls)
+        private static void AttachListDisplayTargetControls(StackPanel stack, Control[] controls)
         {
             foreach (Control? control in controls)
             {
+                // disconnect the control from its parent before trying to attach it
+                //if (control.Parent is Panel parentPanel)
+                //{
+                //    parentPanel.Children.Remove(control);
+                //}
                 try
                 {
                     _ = stack.Children.Add(control);
@@ -393,25 +398,26 @@ namespace VolumeControl
                     Log.Error($"Attaching templated {nameof(Control)} of type {control.GetType().FullName} caused an exception!", ex);
                 }
             }
+            stack.UpdateLayout();
         }
         /// <summary>Adds all custom controls to the calling stackpanel</summary>
         private void displayableControlsTemplate_Loaded(object sender, RoutedEventArgs e)
         {
             if (sender is StackPanel stack)
             {
-                const string listControlName = "displayableControlsTemplate";
-                const string selectedControlName = "selectedItemControlsTemplate";
-                if (stack.Name.Equals(listControlName, StringComparison.Ordinal))
-                {
-                    if (!Settings.NotificationShowsCustomControls) return;
-                }
-                else if (stack.Name.Equals(selectedControlName, StringComparison.Ordinal))
-                {
-                    if (Settings.NotificationShowsCustomControls) return;
-                }
+                //const string listControlName = "displayableControlsTemplate";
+                //const string selectedControlName = "selectedItemControlsTemplate";
+                //if (stack.Name.Equals(listControlName, StringComparison.Ordinal))
+                //{
+                //    if (!Settings.NotificationShowsCustomControls) return;
+                //}
+                //else if (stack.Name.Equals(selectedControlName, StringComparison.Ordinal))
+                //{
+                //    if (Settings.NotificationShowsCustomControls) return;
+                //}
                 if (stack.Tag is Control[] arr)
                 {
-                    AttachListDisplayTargetControlsToStack(stack, arr);
+                    AttachListDisplayTargetControls(stack, arr);
                 }
             }
         }
@@ -422,10 +428,9 @@ namespace VolumeControl
             {
                 stack.Children.Clear();
                 stack.UpdateLayout();
-
                 if (stack.Tag is Control[] arr)
                 { // re-attach the controls:
-                    AttachListDisplayTargetControlsToStack(stack, arr);
+                    AttachListDisplayTargetControls(stack, arr);
                 }
             }
         }

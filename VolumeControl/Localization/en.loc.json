@@ -277,7 +277,7 @@
             },
             "ResetPosition": {
               "Content": {
-                "English (US/CA)": "Reset Position"
+                "English (US/CA)": "Reset Notification Position"
               },
               "Tooltip": {
                 "English (US/CA)": "Resets the position of the list notification in case it goes missing from the viewport."

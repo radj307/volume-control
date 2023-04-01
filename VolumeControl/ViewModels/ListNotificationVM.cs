@@ -141,11 +141,11 @@ namespace VolumeControl.ViewModels
             set => Settings.NotificationTimeoutEnabled = value;
         }
         /// <inheritdoc/>
-        public bool ShowsCustomControls
-        {
-            get => Settings.NotificationShowsCustomControls;
-            set => Settings.NotificationShowsCustomControls = value;
-        }
+        //public bool ShowsCustomControls
+        //{
+        //    get => Settings.NotificationShowsCustomControls;
+        //    set => Settings.NotificationShowsCustomControls = value;
+        //}
         /// <inheritdoc/>
         public bool ShowsVolumeChange
         {

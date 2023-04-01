@@ -33,7 +33,13 @@ namespace VolumeControl.Helpers
 
             // Get the current version number & release type
             this.CurrentVersion = Settings.__VERSION__;
+
+#       if DEBUG // Show 'DEBUG' in the version string when in Debug configuration
+            this.CurrentVersionString = $"DEBUG | {this.CurrentVersion}";
+#       else // Use the normal version string in Release configuration
             this.CurrentVersionString = this.CurrentVersion.ToString();
+#       endif
+
             Log.Debug($"{nameof(VCSettings)}.{nameof(this.CurrentVersion)} = '{this.CurrentVersionString}'");
 
             this.RunAtStartup = RunAtStartupHelper.ValueEquals(this.ExecutablePath);

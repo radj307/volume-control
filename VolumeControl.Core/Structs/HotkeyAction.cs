@@ -125,7 +125,15 @@ namespace VolumeControl.Core.Structs
                 }
             }
 
-            MethodInfo.Invoke(Instance, parameters.ToArray());
+            try
+            {
+                MethodInfo.Invoke(Instance, parameters.ToArray());
+                Log.FLog.Log.Trace($"Action '{Name}' executed successfully.");
+            }
+            catch (Exception ex)
+            {
+                Log.FLog.Log.Error($"Action '{Name}' threw an exception!", ex);
+            }
         }
 
         /// <inheritdoc/>

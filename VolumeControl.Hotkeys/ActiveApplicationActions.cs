@@ -21,24 +21,26 @@ namespace VolumeControl.Hotkeys
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
         [DllImport("user32.dll")]
-        private static extern UInt32 GetWindowThreadProcessId(Int32 hWnd, out Int32 lpdwProcessId);
+        private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
         [DllImport("user32.dll")]
         private static extern bool IsWindowEnabled(IntPtr hWnd);
+        /// <summary>
+        /// Gets the associated <see cref="ISession"/> of the current foreground window.
+        /// </summary>
+        /// <returns>The <see cref="ISession"/> associated with the current foreground application, if one was found; otherwise <see langword="null"/>.</returns>
         private static ISession? GetActiveSession()
         {
             var hwnd = GetForegroundWindow();
-            
+
             if (hwnd == IntPtr.Zero)
                 return null;
 
-            _ = GetWindowThreadProcessId((int)hwnd, out int pid);
-
-            if (pid == 0)
+            if (GetWindowThreadProcessId(hwnd, out int pid) == 0)
                 return null;
 
             if (AudioAPI.FindSessionWithID(pid) is ISession session)
                 return session; //< found with process ID
-            
+
             return AudioAPI.FindSessionWithName(System.Diagnostics.Process.GetProcessById(pid).ProcessName);
         }
         #endregion Functions
