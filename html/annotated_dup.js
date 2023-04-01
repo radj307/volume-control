@@ -15,6 +15,7 @@ var annotated_dup =
         ] ],
         [ "Interfaces", "namespace_volume_control_1_1_audio_1_1_interfaces.html", [
           [ "IDevice", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device" ],
+          [ "IDeviceNotificationClient", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device_notification_client.html", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device_notification_client" ],
           [ "IMeteredVolumeControl", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_metered_volume_control.html", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_metered_volume_control" ],
           [ "IProcess", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process" ],
           [ "ISession", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session" ],
@@ -72,10 +73,13 @@ var annotated_dup =
         [ "User32", "class_volume_control_1_1_core_1_1_user32.html", "class_volume_control_1_1_core_1_1_user32" ]
       ] ],
       [ "Hotkeys", "namespace_volume_control_1_1_hotkeys.html", [
+        [ "Helpers", "namespace_volume_control_1_1_hotkeys_1_1_helpers.html", [
+          [ "DeviceSpecifier", "class_volume_control_1_1_hotkeys_1_1_helpers_1_1_device_specifier.html", "class_volume_control_1_1_hotkeys_1_1_helpers_1_1_device_specifier" ],
+          [ "SessionSpecifier", "class_volume_control_1_1_hotkeys_1_1_helpers_1_1_session_specifier.html", "class_volume_control_1_1_hotkeys_1_1_helpers_1_1_session_specifier" ]
+        ] ],
+        [ "ActiveApplicationActions", "class_volume_control_1_1_hotkeys_1_1_active_application_actions.html", "class_volume_control_1_1_hotkeys_1_1_active_application_actions" ],
         [ "ApplicationActions", "class_volume_control_1_1_hotkeys_1_1_application_actions.html", "class_volume_control_1_1_hotkeys_1_1_application_actions" ],
-        [ "DeviceSpecifier", "class_volume_control_1_1_hotkeys_1_1_device_specifier.html", "class_volume_control_1_1_hotkeys_1_1_device_specifier" ],
         [ "AudioDeviceActions", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions" ],
-        [ "SessionSpecifier", "class_volume_control_1_1_hotkeys_1_1_session_specifier.html", "class_volume_control_1_1_hotkeys_1_1_session_specifier" ],
         [ "AudioSessionActions", "class_volume_control_1_1_hotkeys_1_1_audio_session_actions.html", "class_volume_control_1_1_hotkeys_1_1_audio_session_actions" ],
         [ "MediaActions", "class_volume_control_1_1_hotkeys_1_1_media_actions.html", "class_volume_control_1_1_hotkeys_1_1_media_actions" ]
       ] ],

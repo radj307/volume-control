@@ -30,7 +30,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting.html" target="_top" xlink:title="Represents a setting for a hotkey action.">
 <polygon fill="none" stroke="black" points="18,-160.5 18,-250.5 137,-250.5 137,-160.5 18,-160.5"/>
 <text text-anchor="middle" x="77.5" y="-238.5" font-family="Helvetica,sans-Serif" font-size="10.00">IHotkeyActionSetting</text>
 <polyline fill="none" stroke="black" points="18,-231.5 137,-231.5 "/>

@@ -1,9 +1,10 @@
 var hierarchy =
 [
     [ "VolumeControl.Core.Input.Actions.ActionTargetSpecifier", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_action_target_specifier.html", [
-      [ "VolumeControl.Hotkeys.DeviceSpecifier", "class_volume_control_1_1_hotkeys_1_1_device_specifier.html", null ],
-      [ "VolumeControl.Hotkeys.SessionSpecifier", "class_volume_control_1_1_hotkeys_1_1_session_specifier.html", null ]
+      [ "VolumeControl.Hotkeys.Helpers.DeviceSpecifier", "class_volume_control_1_1_hotkeys_1_1_helpers_1_1_device_specifier.html", null ],
+      [ "VolumeControl.Hotkeys.Helpers.SessionSpecifier", "class_volume_control_1_1_hotkeys_1_1_helpers_1_1_session_specifier.html", null ]
     ] ],
+    [ "VolumeControl.Hotkeys.ActiveApplicationActions", "class_volume_control_1_1_hotkeys_1_1_active_application_actions.html", null ],
     [ "VolumeControl.Hotkeys.ApplicationActions", "class_volume_control_1_1_hotkeys_1_1_application_actions.html", null ],
     [ "VolumeControl.TypeExtensions.ArrayExtensions", "class_volume_control_1_1_type_extensions_1_1_array_extensions.html", null ],
     [ "Attribute", null, [
@@ -61,6 +62,9 @@ var hierarchy =
     ] ],
     [ "VolumeControl.WPF.IconGetter", "class_volume_control_1_1_w_p_f_1_1_icon_getter.html", null ],
     [ "VolumeControl.WPF.IconPair", "class_volume_control_1_1_w_p_f_1_1_icon_pair.html", null ],
+    [ "VolumeControl.Audio.Interfaces.IDeviceNotificationClient", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device_notification_client.html", [
+      [ "VolumeControl.Audio.Collections.AudioDeviceCollection", "class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html", null ]
+    ] ],
     [ "IDisposable", null, [
       [ "VolumeControl.Audio.AudioAPI", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html", null ],
       [ "VolumeControl.Audio.AudioDevice", "class_volume_control_1_1_audio_1_1_audio_device.html", null ],

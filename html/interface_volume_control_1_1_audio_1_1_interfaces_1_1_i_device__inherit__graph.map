@@ -1,6 +1,6 @@
 <map id="VolumeControl.Audio.Interfaces.IDevice" name="VolumeControl.Audio.Interfaces.IDevice">
 <area shape="rect" id="node1" title="Represents an audio device." alt="" coords="109,543,341,649"/>
-<area shape="rect" id="node6" href="$class_volume_control_1_1_audio_1_1_audio_device.html" title="An audio device." alt="" coords="103,697,348,1171"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_audio_1_1_audio_device.html" title="An audio device." alt="" coords="88,697,363,1200"/>
 <area shape="rect" id="node2" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_metered_volume_control.html" title="Extends the IMeteredVolumeControl interface with the AudioMeterInformation property." alt="" coords="5,388,224,495"/>
 <area shape="rect" id="node3" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_volume_control.html" title="Represents some kind of controllable audio playback instance." alt="" coords="79,160,297,340"/>
 <area shape="rect" id="node4" href="$interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html" title="Represents an object that, when it is a member of a list of similar items, can be displayed in the Li..." alt="" coords="45,5,185,112"/>

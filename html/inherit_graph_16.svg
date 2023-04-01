@@ -11,7 +11,7 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting.html" target="_top" xlink:title=" ">
+<g id="a_node1"><a xlink:href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting.html" target="_top" xlink:title="Represents a setting for a hotkey action.">
 <polygon fill="none" stroke="black" points="0,-0.5 0,-30.5 158,-30.5 158,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
 <text text-anchor="middle" x="79" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Actions.IHotkeyActionSetting</text>

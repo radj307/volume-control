@@ -87,6 +87,7 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_audio_1_1_aud
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#properties">Properties</a> &#124;
 <a href="#events">Events</a> &#124;
 <a href="class_volume_control_1_1_audio_1_1_audio_device-members.html">List of all members</a>  </div>
@@ -100,12 +101,14 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_audio_1_1_aud
 <div class="dynheader">
 Inheritance diagram for VolumeControl.Audio.AudioDevice:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_device__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_device__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Audio.AudioDevice:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_device__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_device__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -225,6 +228,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#a04f51132a89bae5d458442b685bf5592">DecreaseVolume</a> (int amount)</td></tr>
 <tr class="memdesc:a04f51132a89bae5d458442b685bf5592"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decreases <a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_volume_control.html#af6e743c537bc90f30387f0e3ea476a2a" title="Gets or sets the volume of this IMeteredVolumeControl instance as an int in the range ( 0 - 100 )">Volume</a> by <em>amount</em> . <br /></td></tr>
 <tr class="separator:a04f51132a89bae5d458442b685bf5592"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a96acba501e72b501f2aa95f65468c2dd"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#a96acba501e72b501f2aa95f65468c2dd">GetDeviceNameFromDeviceFriendlyName</a> (string deviceFriendlyName)</td></tr>
+<tr class="memdesc:a96acba501e72b501f2aa95f65468c2dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the actual device name from the given <em>deviceFriendlyName</em>  by using regex.  <a href="class_volume_control_1_1_audio_1_1_audio_device.html#a96acba501e72b501f2aa95f65468c2dd">More...</a><br /></td></tr>
+<tr class="separator:a96acba501e72b501f2aa95f65468c2dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
@@ -434,7 +443,40 @@ Events</h2></td></tr>
 <p>Gets the device name without the interface name. </p>
 <dl class="section return"><dt>Returns</dt><dd>string</dd></dl>
 
-<p class="reference">References <a class="el" href="#l00196">VolumeControl.Audio.AudioDevice.Sessions</a>.</p>
+</div>
+</div>
+<a id="a96acba501e72b501f2aa95f65468c2dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96acba501e72b501f2aa95f65468c2dd">&#9670;&nbsp;</a></span>GetDeviceNameFromDeviceFriendlyName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static string VolumeControl.Audio.AudioDevice.GetDeviceNameFromDeviceFriendlyName </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>deviceFriendlyName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the actual device name from the given <em>deviceFriendlyName</em>  by using regex. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">deviceFriendlyName</td><td>MMDevice.DeviceFriendlyName</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The name of the device.</dd></dl>
 
 </div>
 </div>
@@ -763,7 +805,7 @@ If you're writing an addon, install the 'NAudio' nuget package to be able to use
 
 <p>The sessions that are playing on this device. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00354">VolumeControl.Audio.AudioDevice.FindAll()</a>, and <a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#a66085b80360222c3bf09cd04ecdcf68a">VolumeControl.Audio.AudioDevice.GetDeviceName()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00360">VolumeControl.Audio.AudioDevice.FindAll()</a>.</p>
 
 </div>
 </div>

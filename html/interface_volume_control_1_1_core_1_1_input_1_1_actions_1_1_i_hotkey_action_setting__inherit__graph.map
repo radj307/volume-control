@@ -1,4 +1,4 @@
 <map id="VolumeControl.Core.Input.Actions.IHotkeyActionSetting" name="VolumeControl.Core.Input.Actions.IHotkeyActionSetting">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,216,141"/>
+<area shape="rect" id="node1" title="Represents a setting for a hotkey action." alt="" coords="5,5,216,141"/>
 <area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting.html" title="Small container for hotkey action setting data" alt="" coords="7,189,214,355"/>
 </map>

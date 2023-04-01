@@ -11,7 +11,8 @@ var namespace_volume_control_1_1_log =
         [ "FATAL", "namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327a19da7170bea36556dde582519795f3fc", null ],
         [ "ALL_EXCEPT_DEBUG", "namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327ae1fb627727d36bcbebdd8ad25dd1575a", null ],
         [ "ALL", "namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327a5fb1f955b45e38e31789286a1790398d", null ],
-        [ "CRITICAL", "namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327a99cd1c61610c76a57cb8d10d6df6b870", null ]
+        [ "CRITICAL", "namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327a99cd1c61610c76a57cb8d10d6df6b870", null ],
+        [ "TRACE", "namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327a2d3e4144aa384b18849ab9a8abad74d6", null ]
       ] ]
     ] ],
     [ "Interfaces", "namespace_volume_control_1_1_log_1_1_interfaces.html", "namespace_volume_control_1_1_log_1_1_interfaces" ],

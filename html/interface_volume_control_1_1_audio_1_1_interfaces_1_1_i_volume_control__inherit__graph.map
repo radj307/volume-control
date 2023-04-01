@@ -1,10 +1,10 @@
 <map id="VolumeControl.Audio.Interfaces.IVolumeControl" name="VolumeControl.Audio.Interfaces.IVolumeControl">
-<area shape="rect" id="node1" title="Represents some kind of controllable audio playback instance." alt="" coords="519,160,751,355"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_audio_device.html" title="An audio device." alt="" coords="381,756,627,1229"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system." alt="" coords="175,1277,375,1707"/>
-<area shape="rect" id="node5" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_metered_volume_control.html" title="Extends the IMeteredVolumeControl interface with the AudioMeterInformation property." alt="" coords="237,403,469,524"/>
-<area shape="rect" id="node2" href="$interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html" title="Represents an object that, when it is a member of a list of similar items, can be displayed in the Li..." alt="" coords="565,5,705,112"/>
-<area shape="rect" id="node6" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html" title="Represents an audio device." alt="" coords="365,587,597,693"/>
-<area shape="rect" id="node7" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html" title="Represents read&#45;only information about a process running on the local system." alt="" coords="109,572,341,708"/>
-<area shape="rect" id="node8" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html" title="Represents an audio session." alt="" coords="5,932,237,1053"/>
+<area shape="rect" id="node1" title="Represents some kind of controllable audio playback instance." alt="" coords="527,160,759,355"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_audio_device.html" title="An audio device." alt="" coords="367,756,641,1259"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system." alt="" coords="175,1307,375,1736"/>
+<area shape="rect" id="node5" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_metered_volume_control.html" title="Extends the IMeteredVolumeControl interface with the AudioMeterInformation property." alt="" coords="245,403,477,524"/>
+<area shape="rect" id="node2" href="$interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html" title="Represents an object that, when it is a member of a list of similar items, can be displayed in the Li..." alt="" coords="573,5,713,112"/>
+<area shape="rect" id="node6" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html" title="Represents an audio device." alt="" coords="373,587,605,693"/>
+<area shape="rect" id="node7" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html" title="Represents read&#45;only information about a process running on the local system." alt="" coords="117,572,349,708"/>
+<area shape="rect" id="node8" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html" title="Represents an audio session." alt="" coords="5,947,237,1068"/>
 </map>

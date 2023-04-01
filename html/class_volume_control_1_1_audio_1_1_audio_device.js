@@ -16,6 +16,7 @@ var class_volume_control_1_1_audio_1_1_audio_device =
     [ "Equals", "class_volume_control_1_1_audio_1_1_audio_device.html#a96e83abc7a813428e0725b84b4e227a8", null ],
     [ "FindAll", "class_volume_control_1_1_audio_1_1_audio_device.html#a9c7748e17069e1daffa943e2c6cd41df", null ],
     [ "GetDeviceName", "class_volume_control_1_1_audio_1_1_audio_device.html#a66085b80360222c3bf09cd04ecdcf68a", null ],
+    [ "GetDeviceNameFromDeviceFriendlyName", "class_volume_control_1_1_audio_1_1_audio_device.html#a96acba501e72b501f2aa95f65468c2dd", null ],
     [ "GetEnumerator", "class_volume_control_1_1_audio_1_1_audio_device.html#a00776702032497a1643b4b9947cc7fa4", null ],
     [ "GetHashCode", "class_volume_control_1_1_audio_1_1_audio_device.html#a78805bd3c20a305fd3c72122513ac8bb", null ],
     [ "GetIcons", "class_volume_control_1_1_audio_1_1_audio_device.html#ab0260c210a99e81c0f78deef4abeeb7e", null ],

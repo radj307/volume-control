@@ -42,7 +42,6 @@ var class_volume_control_1_1_core_1_1_config =
     [ "NotificationPositionOriginCorner", "class_volume_control_1_1_core_1_1_config.html#a22c8ed7721dc51121c13c80aa7c4af48", null ],
     [ "NotificationSavePos", "class_volume_control_1_1_core_1_1_config.html#a4b5fa17af0f6ee1cd28a53c0d2874ed1", null ],
     [ "NotificationsEnabled", "class_volume_control_1_1_core_1_1_config.html#a8a854febe451eb223b9b066fc679faa9", null ],
-    [ "NotificationShowsCustomControls", "class_volume_control_1_1_core_1_1_config.html#a2eb2b31b5e7158d9901c31c6b61eb928", null ],
     [ "NotificationsOnVolumeChange", "class_volume_control_1_1_core_1_1_config.html#a855c764ef2361b06725d3e8d437024d7", null ],
     [ "NotificationTimeoutEnabled", "class_volume_control_1_1_core_1_1_config.html#adb7f71aaa2731df868de28394df51ed5", null ],
     [ "NotificationTimeoutMs", "class_volume_control_1_1_core_1_1_config.html#a9d906f3d789e765c6f9d3148fd056150", null ],

@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['point_899',['POINT',['../struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_p_o_i_n_t.html',1,'VolumeControl::WPF::PInvoke']]],
-  ['pointextensions_900',['PointExtensions',['../class_volume_control_1_1_type_extensions_1_1_point_extensions.html',1,'VolumeControl::TypeExtensions']]],
-  ['processextensions_901',['ProcessExtensions',['../class_volume_control_1_1_type_extensions_1_1_process_extensions.html',1,'VolumeControl::TypeExtensions']]],
-  ['propertyinfoextensions_902',['PropertyInfoExtensions',['../class_volume_control_1_1_type_extensions_1_1_property_info_extensions.html',1,'VolumeControl::TypeExtensions']]]
+  ['point_911',['POINT',['../struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_p_o_i_n_t.html',1,'VolumeControl::WPF::PInvoke']]],
+  ['pointextensions_912',['PointExtensions',['../class_volume_control_1_1_type_extensions_1_1_point_extensions.html',1,'VolumeControl::TypeExtensions']]],
+  ['processextensions_913',['ProcessExtensions',['../class_volume_control_1_1_type_extensions_1_1_process_extensions.html',1,'VolumeControl::TypeExtensions']]],
+  ['propertyinfoextensions_914',['PropertyInfoExtensions',['../class_volume_control_1_1_type_extensions_1_1_property_info_extensions.html',1,'VolumeControl::TypeExtensions']]]
 ];

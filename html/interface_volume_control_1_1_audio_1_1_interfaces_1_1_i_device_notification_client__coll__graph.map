@@ -1,0 +1,3 @@
+<map id="VolumeControl.Audio.Interfaces.IDeviceNotificationClient" name="VolumeControl.Audio.Interfaces.IDeviceNotificationClient">
+<area shape="rect" id="node1" title="Represents an accessible IMMNotificationClient wrapper that exposes events." alt="" coords="5,5,237,97"/>
+</map>

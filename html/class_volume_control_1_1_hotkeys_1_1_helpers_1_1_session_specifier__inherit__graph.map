@@ -1,0 +1,4 @@
+<map id="VolumeControl.Hotkeys.Helpers.SessionSpecifier" name="VolumeControl.Hotkeys.Helpers.SessionSpecifier">
+<area shape="rect" id="node1" title="Used to specify AudioSession targets for hotkey actions." alt="" coords="5,131,239,223"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_action_target_specifier.html" title="Specifies a target of a hotkey action." alt="" coords="43,5,201,83"/>
+</map>

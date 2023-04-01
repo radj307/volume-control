@@ -1,0 +1,5 @@
+<map id="VolumeControl.Audio.AudioAPI.ForceReloadAudioDevices" name="VolumeControl.Audio.AudioAPI.ForceReloadAudioDevices">
+<area shape="rect" id="node1" title="Clears and reloads all audio devices." alt="" coords="5,13,221,54"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#acd7d7cf31e128ba32f3c98397e0c1f52" title="Reloads all AudioDevices using the default MMDeviceEnumerator." alt="" coords="269,13,540,54"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a060de539a039ed4bf8d0fd4f8602fd78" title="Gets the AudioDevice associated with the given mmDevice ." alt="" coords="588,5,863,61"/>
+</map>

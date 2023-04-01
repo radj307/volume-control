@@ -25,14 +25,14 @@
 var NAVTREE =
 [
   [ "Volume Control", "index.html", [
-    [ "Getting Started", "index.html#autotoc_md27", [
-      [ "What It Does", "index.html#autotoc_md25", null ],
-      [ "How does it work?", "index.html#autotoc_md26", null ],
-      [ "Installation", "index.html#autotoc_md28", null ],
-      [ "Setup", "index.html#autotoc_md29", null ],
-      [ "Usage", "index.html#autotoc_md30", null ],
-      [ "Contributing", "index.html#autotoc_md31", null ],
-      [ "Addon Development", "index.html#autotoc_md32", null ]
+    [ "Getting Started", "index.html#autotoc_md32", [
+      [ "What It Does", "index.html#autotoc_md30", null ],
+      [ "How does it work?", "index.html#autotoc_md31", null ],
+      [ "Installation", "index.html#autotoc_md33", null ],
+      [ "Setup", "index.html#autotoc_md34", null ],
+      [ "Usage", "index.html#autotoc_md35", null ],
+      [ "Contributing", "index.html#autotoc_md36", null ],
+      [ "Addon Development", "index.html#autotoc_md37", null ]
     ] ],
     [ "Contributing", "md__home_runner_work_volume_control_volume_control__c_o_n_t_r_i_b_u_t_i_n_g.html", [
       [ "Guidelines for Code Contributions", "md__home_runner_work_volume_control_volume_control__c_o_n_t_r_i_b_u_t_i_n_g.html#autotoc_md1", null ],
@@ -58,14 +58,23 @@ var NAVTREE =
         [ "Redistributing Addons", "md_docs__addon_development.html#autotoc_md16", null ]
       ] ]
     ] ],
+    [ "Installation for Users", "_addon.html", [
+      [ "Installing Addons", "_addon.html#autotoc_md18", [
+        [ "Default Location", "_addon.html#autotoc_md19", [
+          [ "Since v6.0.0", "_addon.html#autotoc_md20", null ],
+          [ "Until v5.2.5", "_addon.html#autotoc_md21", null ]
+        ] ],
+        [ "<tt>CustomAddonDirectories</tt> (Since v5.1.0)", "_addon.html#autotoc_md22", null ]
+      ] ]
+    ] ],
     [ "Building From Source", "md_docs__building_from_source.html", [
-      [ "From the Commandline", "md_docs__building_from_source.html#autotoc_md19", [
-        [ "Requirements", "md_docs__building_from_source.html#autotoc_md20", null ],
-        [ "Process", "md_docs__building_from_source.html#autotoc_md21", null ]
+      [ "From the Commandline", "md_docs__building_from_source.html#autotoc_md24", [
+        [ "Requirements", "md_docs__building_from_source.html#autotoc_md25", null ],
+        [ "Process", "md_docs__building_from_source.html#autotoc_md26", null ]
       ] ],
-      [ "Using an IDE", "md_docs__building_from_source.html#autotoc_md22", [
-        [ "Requirements", "md_docs__building_from_source.html#autotoc_md23", null ],
-        [ "Process", "md_docs__building_from_source.html#autotoc_md24", null ]
+      [ "Using an IDE", "md_docs__building_from_source.html#autotoc_md27", [
+        [ "Requirements", "md_docs__building_from_source.html#autotoc_md28", null ],
+        [ "Process", "md_docs__building_from_source.html#autotoc_md29", null ]
       ] ]
     ] ],
     [ "Packages", "namespaces.html", [
@@ -98,12 +107,12 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "",
-"class_volume_control_1_1_audio_1_1_audio_session.html#a1d3a1aca2db2a3fc16cb0744afa4880e",
-"class_volume_control_1_1_core_1_1_hotkey_manager.html#aae3cae6f9505c83394354ffb749c3c10",
-"class_volume_control_1_1_log_1_1_log_writer.html#a71b504690e2d8f2d5a73755ff8b3ce50",
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a29ade5ba7b0b03d9fa8d605b9e79f57e",
-"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html#afb40cfc9b042c8ad56c089a24ff7acc0",
-"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168ab6bd7b781835498e2f547364cedb3607"
+"class_volume_control_1_1_audio_1_1_audio_device.html#af0b02e42c71f13cb8bf75c669b345b94",
+"class_volume_control_1_1_core_1_1_generics_1_1_item.html#a430807b96ddda7a6e383a09165f78e1d",
+"class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#a6b9ae3daea499586fefb89c4bd08eaf6",
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object.html#a5c729b74635577ad9096a8b751694c09",
+"functions_w.html",
+"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a8eb32adc0bf8a0aae893b05025ed7cb0"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

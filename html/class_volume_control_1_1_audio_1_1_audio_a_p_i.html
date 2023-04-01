@@ -102,12 +102,14 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_audio_1_1_aud
 <div class="dynheader">
 Inheritance diagram for VolumeControl.Audio.AudioAPI:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_a_p_i__inherit__graph.svg" width="518" height="507"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_a_p_i__inherit__graph.svg" width="518" height="492"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Audio.AudioAPI:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_a_p_i__coll__graph.svg" width="518" height="507"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_a_p_i__coll__graph.svg" width="518" height="492"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
@@ -149,6 +151,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a17cef05813c029d46140602a25754125"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html">ISession</a>?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a17cef05813c029d46140602a25754125">FindSession</a> (Predicate&lt; <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html">AudioSession</a> &gt; predicate)</td></tr>
 <tr class="memdesc:a17cef05813c029d46140602a25754125"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a session from <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a998f0116a22c9bf386e1aba0de784c77" title="The list of sessions shown in the mixer.">Sessions</a> by applying <em>predicate</em>  to each element and returning the first occurrence.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a17cef05813c029d46140602a25754125">More...</a><br /></td></tr>
 <tr class="separator:a17cef05813c029d46140602a25754125"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b8391d8d1284257627d3257e0c46c3e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html">ISession</a>[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a3b8391d8d1284257627d3257e0c46c3e">FindSessions</a> (Predicate&lt; <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html">AudioSession</a> &gt; predicate)</td></tr>
+<tr class="memdesc:a3b8391d8d1284257627d3257e0c46c3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets an array of all of the audio sessions that match a given <em>predicate</em> .  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a3b8391d8d1284257627d3257e0c46c3e">More...</a><br /></td></tr>
+<tr class="separator:a3b8391d8d1284257627d3257e0c46c3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a587bf1b27789148c87305df57749dc2d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html">ISession</a>?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a587bf1b27789148c87305df57749dc2d">FindSessionWithSessionInstanceIdentifier</a> (string sessionInstanceIdentifier)</td></tr>
 <tr class="memdesc:a587bf1b27789148c87305df57749dc2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a session from <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a998f0116a22c9bf386e1aba0de784c77" title="The list of sessions shown in the mixer.">Sessions</a> with a matching ISession.SessionInstanceIdentifier Guid.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a587bf1b27789148c87305df57749dc2d">More...</a><br /></td></tr>
 <tr class="separator:a587bf1b27789148c87305df57749dc2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,6 +166,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6ef7eaa80d123dde506b2735fc3de419"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html">ISession</a>?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a6ef7eaa80d123dde506b2735fc3de419">FindSessionWithName</a> (string name, StringComparison sCompareType=StringComparison.OrdinalIgnoreCase)</td></tr>
 <tr class="memdesc:a6ef7eaa80d123dde506b2735fc3de419"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a session from <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a998f0116a22c9bf386e1aba0de784c77" title="The list of sessions shown in the mixer.">Sessions</a> by searching for a session with the process name <em>name</em>   <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a6ef7eaa80d123dde506b2735fc3de419">More...</a><br /></td></tr>
 <tr class="separator:a6ef7eaa80d123dde506b2735fc3de419"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa65970a79ce44570387660c0a65b7dee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html">ISession</a>[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#aa65970a79ce44570387660c0a65b7dee">FindSessionsWithName</a> (string name, StringComparison sCompareType=StringComparison.OrdinalIgnoreCase)</td></tr>
+<tr class="memdesc:aa65970a79ce44570387660c0a65b7dee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all sessions with the given <em>name</em> .  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#aa65970a79ce44570387660c0a65b7dee">More...</a><br /></td></tr>
+<tr class="separator:aa65970a79ce44570387660c0a65b7dee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeee9a0f3279ce95981ccb50923d9255d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html">ISession</a>?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#aeee9a0f3279ce95981ccb50923d9255d">FindSessionWithIdentifier</a> (string identifier, bool prioritizePID=true, StringComparison sCompareType=StringComparison.OrdinalIgnoreCase)</td></tr>
 <tr class="memdesc:aeee9a0f3279ce95981ccb50923d9255d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a session from <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a998f0116a22c9bf386e1aba0de784c77" title="The list of sessions shown in the mixer.">Sessions</a> by parsing <em>identifier</em>  to determine whether to pass it to <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a4338b7302c7203f79a22d23286438205" title="Gets a session from Sessions by searching for a session with the process id pid">FindSessionWithID(int)</a>, <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a6ef7eaa80d123dde506b2735fc3de419" title="Gets a session from Sessions by searching for a session with the process name name">FindSessionWithName(string, StringComparison)</a>, or directly comparing it to the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a356c261a4c345fc0c739c5e66e4e66ea">AudioSession.ProcessIdentifier</a> property.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#aeee9a0f3279ce95981ccb50923d9255d">More...</a><br /></td></tr>
 <tr class="separator:aeee9a0f3279ce95981ccb50923d9255d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -537,6 +545,73 @@ Session volume can be any value from 0 to 100, and is <b>automatically</b> clamp
 
 </div>
 </div>
+<a id="a3b8391d8d1284257627d3257e0c46c3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b8391d8d1284257627d3257e0c46c3e">&#9670;&nbsp;</a></span>FindSessions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html">ISession</a> [] VolumeControl.Audio.AudioAPI.FindSessions </td>
+          <td>(</td>
+          <td class="paramtype">Predicate&lt; <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html">AudioSession</a> &gt;&#160;</td>
+          <td class="paramname"><em>predicate</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets an array of all of the audio sessions that match a given <em>predicate</em> . </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">predicate</td><td>A predicate function to apply to each element of <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a998f0116a22c9bf386e1aba0de784c77" title="The list of sessions shown in the mixer.">Sessions</a> that can accept <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system.">AudioSession</a> types.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An array of all of the sessions that matched the given <em>predicate</em> .</dd></dl>
+
+<p class="reference">References <a class="el" href="#l00185">VolumeControl.Audio.AudioAPI.Sessions</a>.</p>
+
+</div>
+</div>
+<a id="aa65970a79ce44570387660c0a65b7dee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa65970a79ce44570387660c0a65b7dee">&#9670;&nbsp;</a></span>FindSessionsWithName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html">ISession</a> [] VolumeControl.Audio.AudioAPI.FindSessionsWithName </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">StringComparison&#160;</td>
+          <td class="paramname"><em>sCompareType</em> = <code>StringComparison.OrdinalIgnoreCase</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets all sessions with the given <em>name</em> . </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a30cfd4a7b3a77615294787e6c3cb2c35">AudioSession.ProcessName</a></td></tr>
+    <tr><td class="paramname">sCompareType</td><td>A StringComparison enum value to use when matching process names.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An array of all sessions with the given <em>name</em> .</dd></dl>
+
+</div>
+</div>
 <a id="a756bda103ed028f1b7221fe18624dbd4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a756bda103ed028f1b7221fe18624dbd4">&#9670;&nbsp;</a></span>FindSessionsWithSessionIdentifier()</h2>
 
@@ -745,7 +820,13 @@ Here is the caller graph for this function:</div>
 
 <p>Clears and reloads all audio devices. </p>
 
-<p class="reference">References <a class="el" href="#l00060">VolumeControl.Audio.AudioAPI.Devices</a>.</p>
+<p class="reference">References <a class="el" href="#l00060">VolumeControl.Audio.AudioAPI.Devices</a>, and <a class="el" href="#l00275">VolumeControl.Audio.Collections.AudioDeviceCollection.ReloadDevices()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_a_p_i_aacaf1126bb40b289448d4172a6aae268_cgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
 
 </div>
 </div>
@@ -910,7 +991,7 @@ Session volume can be any value from 0 to 100, and is <b>automatically</b> clamp
 
 <p>Updates the Config.EnabledDevices property with the device IDs of all currently-enabled <a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html" title="An audio device.">AudioDevice</a> instances. </p>
 
-<p class="reference">References <a class="el" href="#l00091">VolumeControl.Audio.AudioDevice.DeviceID</a>, <a class="el" href="#l00060">VolumeControl.Audio.AudioAPI.Devices</a>, <a class="el" href="#l00067">VolumeControl.Audio.AudioDevice.Enabled</a>, and <a class="el" href="#l00374">VolumeControl.Core.Config.EnabledDevices</a>.</p>
+<p class="reference">References <a class="el" href="#l00091">VolumeControl.Audio.AudioDevice.DeviceID</a>, <a class="el" href="#l00060">VolumeControl.Audio.AudioAPI.Devices</a>, <a class="el" href="#l00067">VolumeControl.Audio.AudioDevice.Enabled</a>, and <a class="el" href="#l00365">VolumeControl.Core.Config.EnabledDevices</a>.</p>
 
 </div>
 </div>
@@ -1073,7 +1154,7 @@ Returns <code>null</code> when there is no selected session.</dd></dl>
 
 <p>An observable list of all known audio devices. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00023">VolumeControl.Audio.AudioAPI.AudioAPI()</a>, <a class="el" href="#l00604">VolumeControl.Audio.AudioAPI.Dispose()</a>, <a class="el" href="#l00243">VolumeControl.Audio.AudioAPI.FindDevice()</a>, <a class="el" href="#l00235">VolumeControl.Audio.AudioAPI.ForceReloadAudioDevices()</a>, <a class="el" href="#l00225">VolumeControl.Audio.AudioAPI.SaveEnabledDevices()</a>, <a class="el" href="#l00131">VolumeControl.Hotkeys.AudioDeviceActions.SelectNextDevice()</a>, and <a class="el" href="#l00156">VolumeControl.Hotkeys.AudioDeviceActions.SelectPreviousDevice()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00023">VolumeControl.Audio.AudioAPI.AudioAPI()</a>, <a class="el" href="#l00623">VolumeControl.Audio.AudioAPI.Dispose()</a>, <a class="el" href="#l00243">VolumeControl.Audio.AudioAPI.FindDevice()</a>, <a class="el" href="#l00235">VolumeControl.Audio.AudioAPI.ForceReloadAudioDevices()</a>, <a class="el" href="#l00225">VolumeControl.Audio.AudioAPI.SaveEnabledDevices()</a>, <a class="el" href="#l00116">VolumeControl.Hotkeys.AudioDeviceActions.SelectNextDevice()</a>, and <a class="el" href="#l00141">VolumeControl.Hotkeys.AudioDeviceActions.SelectPreviousDevice()</a>.</p>
 
 </div>
 </div>
@@ -1099,7 +1180,7 @@ Returns <code>null</code> when there is no selected session.</dd></dl>
 
 <p>Prevents <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a60c57eb078421ef96cd60193f9374b0c" title="The currently selected AudioSession, or null if nothing is selected.">SelectedSession</a> from being modified. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00023">VolumeControl.Audio.AudioAPI.AudioAPI()</a>, <a class="el" href="#l00591">VolumeControl.Audio.AudioAPI.DeselectSession()</a>, <a class="el" href="#l00529">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, and <a class="el" href="#l00560">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00023">VolumeControl.Audio.AudioAPI.AudioAPI()</a>, <a class="el" href="#l00610">VolumeControl.Audio.AudioAPI.DeselectSession()</a>, <a class="el" href="#l00548">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, and <a class="el" href="#l00579">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>.</p>
 
 </div>
 </div>
@@ -1126,7 +1207,7 @@ Returns <code>null</code> when there is no selected session.</dd></dl>
 <p>The currently selected <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system.">AudioSession</a>, or null if nothing is selected. </p>
 <p><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a80a6b6c040d2fb453aa62b128a00265a" title="Prevents SelectedSession from being modified.">LockSelectedSession</a> must be false in order to change this.</p>
 
-<p class="reference">Referenced by <a class="el" href="#l00013">VolumeControl.Hotkeys.SessionSpecifier.AddNewTarget()</a>, <a class="el" href="#l00023">VolumeControl.Audio.AudioAPI.AudioAPI()</a>, <a class="el" href="#l00475">VolumeControl.Audio.AudioAPI.DecrementSessionVolume()</a>, <a class="el" href="#l00591">VolumeControl.Audio.AudioAPI.DeselectSession()</a>, <a class="el" href="#l00459">VolumeControl.Audio.AudioAPI.IncrementSessionVolume()</a>, <a class="el" href="#l00529">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, <a class="el" href="#l00560">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>, <a class="el" href="#l00497">VolumeControl.Audio.AudioAPI.SetSessionMute()</a>, <a class="el" href="#l00447">VolumeControl.Audio.AudioAPI.SetSessionVolume()</a>, and <a class="el" href="#l00512">VolumeControl.Audio.AudioAPI.ToggleSessionMute()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00023">VolumeControl.Audio.AudioAPI.AudioAPI()</a>, <a class="el" href="#l00494">VolumeControl.Audio.AudioAPI.DecrementSessionVolume()</a>, <a class="el" href="#l00610">VolumeControl.Audio.AudioAPI.DeselectSession()</a>, <a class="el" href="#l00478">VolumeControl.Audio.AudioAPI.IncrementSessionVolume()</a>, <a class="el" href="#l00548">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, <a class="el" href="#l00579">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>, <a class="el" href="#l00516">VolumeControl.Audio.AudioAPI.SetSessionMute()</a>, <a class="el" href="#l00466">VolumeControl.Audio.AudioAPI.SetSessionVolume()</a>, and <a class="el" href="#l00531">VolumeControl.Audio.AudioAPI.ToggleSessionMute()</a>.</p>
 
 </div>
 </div>
@@ -1152,7 +1233,7 @@ Returns <code>null</code> when there is no selected session.</dd></dl>
 
 <p>The list of sessions shown in the mixer. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00023">VolumeControl.Audio.AudioAPI.AudioAPI()</a>, <a class="el" href="#l00604">VolumeControl.Audio.AudioAPI.Dispose()</a>, <a class="el" href="#l00272">VolumeControl.Audio.AudioAPI.FindSession()</a>, <a class="el" href="#l00348">VolumeControl.Audio.AudioAPI.FindSessionWithIdentifier()</a>, <a class="el" href="#l00394">VolumeControl.Audio.AudioAPI.GetSessionNames()</a>, <a class="el" href="#l00529">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, and <a class="el" href="#l00560">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00023">VolumeControl.Audio.AudioAPI.AudioAPI()</a>, <a class="el" href="#l00623">VolumeControl.Audio.AudioAPI.Dispose()</a>, <a class="el" href="#l00272">VolumeControl.Audio.AudioAPI.FindSession()</a>, <a class="el" href="#l00322">VolumeControl.Audio.AudioAPI.FindSessions()</a>, <a class="el" href="#l00368">VolumeControl.Audio.AudioAPI.FindSessionWithIdentifier()</a>, <a class="el" href="#l00414">VolumeControl.Audio.AudioAPI.GetSessionNames()</a>, <a class="el" href="#l00548">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, and <a class="el" href="#l00579">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>.</p>
 
 </div>
 </div>

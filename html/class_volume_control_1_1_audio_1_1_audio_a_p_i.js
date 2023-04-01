@@ -16,6 +16,8 @@ var class_volume_control_1_1_audio_1_1_audio_a_p_i =
     [ "FindSession", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a17cef05813c029d46140602a25754125", null ],
     [ "FindSession", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ab49a4cd020e453518d9e66d2a330a6a2", null ],
     [ "FindSession", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#adcf4a8669e444102e6ae174e19c658d3", null ],
+    [ "FindSessions", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a3b8391d8d1284257627d3257e0c46c3e", null ],
+    [ "FindSessionsWithName", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#aa65970a79ce44570387660c0a65b7dee", null ],
     [ "FindSessionsWithSessionIdentifier", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a756bda103ed028f1b7221fe18624dbd4", null ],
     [ "FindSessionWithID", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a4338b7302c7203f79a22d23286438205", null ],
     [ "FindSessionWithIdentifier", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#aeee9a0f3279ce95981ccb50923d9255d", null ],
