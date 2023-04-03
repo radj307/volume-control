@@ -67,6 +67,7 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
+                    <!--  TODO: Change this to use a ComboBox somehow  -->
                     <ListBox
                         Name="listBox"
                         Grid.Row="0"
@@ -129,6 +130,7 @@
                             Grid.Column="0"
                             Margin="5,3"
                             HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
                             Text="{Binding Label}"
                             ToolTip="{Binding Description}"
                             ToolTipService.InitialShowDelay="500" />
