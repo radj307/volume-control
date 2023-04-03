@@ -84,105 +84,106 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
         <Border
             Grid.RowSpan="3"
             BorderBrush="{StaticResource WindowBorderBrush}"
             BorderThickness="4" />
 
         <!--  Options Expander  -->
-        <Expander
-            x:Name="displayTargetExpander"
+        <Grid
             Grid.Row="0"
-            Margin="10,8,10,2"
-            Header="{Tr 'VolumeControl.ListNotification.Options.Header',
-                        DefaultText='Options'}">
-            <Grid Margin="0,2,0,0">
-                <Border
-                    Name="expanderPanelMask"
-                    Background="{StaticResource panelBrush}"
-                    Style="{StaticResource RoundBorderMaskStyle}" />
-                <WrapPanel
-                    MaxWidth="{Binding ActualWidth, ElementName=listView}"
-                    Margin="3,3"
-                    Background="{StaticResource panelBrush}"
-                    DataContext="{Binding ListNotificationVM, Source={StaticResource Settings}}">
-                    <WrapPanel.OpacityMask>
-                        <VisualBrush Visual="{Binding ElementName=expanderPanelMask}" />
-                    </WrapPanel.OpacityMask>
-                    <!--<CheckBox
+            Margin="10,8,10,0"
+            Visibility="{Binding IsMouseOver, ElementName=lnotifWindow, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Expander x:Name="displayTargetExpander" Header="{Tr 'VolumeControl.ListNotification.Options.Header', DefaultText='Options'}">
+                <Grid Margin="0,2,0,0">
+                    <Border
+                        Name="expanderPanelMask"
+                        Background="{StaticResource panelBrush}"
+                        Style="{StaticResource RoundBorderMaskStyle}" />
+                    <WrapPanel
+                        MaxWidth="{Binding ActualWidth, ElementName=listView}"
+                        Margin="3,3"
+                        Background="{StaticResource panelBrush}"
+                        DataContext="{Binding ListNotificationVM, Source={StaticResource Settings}}">
+                        <WrapPanel.OpacityMask>
+                            <VisualBrush Visual="{Binding ElementName=expanderPanelMask}" />
+                        </WrapPanel.OpacityMask>
+                        <!--<CheckBox
                         Margin="5,3"
                         Content="{Tr 'VolumeControl.ListNotification.Options.ShowControls.Content',
                                      DefaultText='Show Controls'}"
                         IsChecked="{Binding ShowsCustomControls, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         ToolTip="{Tr 'VolumeControl.ListNotification.Options.ShowControls.Tooltip',
                                      DefaultText='Toggles the visibility of advanced controls next to list items.'}" />
-                    -->
-                    <CheckBox
-                        Margin="5,3"
-                        Content="{Tr 'VolumeControl.ListNotification.Options.DragRequiresAlt.Content',
-                                     DefaultText='Drag Requires Alt'}"
-                        IsChecked="{Binding DragRequiresAlt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        ToolTip="{Tr 'VolumeControl.ListNotification.Options.DragRequiresAlt.Tooltip',
-                                     DefaultText='When checked, the ALT key must be held down in order to drag the notification window around with the mouse.'}" />
-                    <CheckBox
-                        Margin="5,3"
-                        Content="{Tr 'VolumeControl.ListNotification.Options.SavePosition.Tooltip',
-                                     DefaultText='Save Position'}"
-                        IsChecked="{Binding SavesPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        ToolTip="{Tr 'VolumeControl.ListNotification.Options.SavePosition.Tooltip',
-                                     DefaultText=' '}" />
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" MinWidth="20" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <!--  Fade In:  -->
+                        -->
                         <CheckBox
-                            x:Name="doFadeInCheckBox"
                             Margin="5,3"
-                            HorizontalAlignment="Left"
-                            Content="{Tr 'VolumeControl.ListNotification.Options.DoFadeIn.Content',
-                                         DefaultText='Fade In'}"
-                            IsChecked="{Binding DoFadeIn}"
-                            ToolTip="{Tr 'VolumeControl.ListNotification.Options.DoFadeIn.Tooltip',
-                                         DefaultText='When checked, the notification window shows a fade-in animation instead of instantly appearing.'}" />
-                        <TextBox
-                            Grid.Column="1"
-                            Margin="5,1"
-                            IsEnabled="{Binding IsChecked, ElementName=doFadeInCheckBox}"
-                            Text="{Binding FadeInDuration, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                            ToolTip="{Tr 'VolumeControl.ListNotification.Options.FadeOut.Tooltip',
-                                         DefaultText='Specifies the duration of the fade-out animation in milliseconds.'}" />
-                        <!--  Fade Out:  -->
+                            Content="{Tr 'VolumeControl.ListNotification.Options.DragRequiresAlt.Content',
+                                         DefaultText='Drag Requires Alt'}"
+                            IsChecked="{Binding DragRequiresAlt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            ToolTip="{Tr 'VolumeControl.ListNotification.Options.DragRequiresAlt.Tooltip',
+                                         DefaultText='When checked, the ALT key must be held down in order to drag the notification window around with the mouse.'}" />
                         <CheckBox
-                            x:Name="doFadeOutCheckBox"
-                            Grid.Row="1"
                             Margin="5,3"
-                            HorizontalAlignment="Left"
-                            Content="{Tr 'VolumeControl.ListNotification.Options.DoFadeOut.Content',
-                                         DefaultText='Fade Out'}"
-                            IsChecked="{Binding DoFadeOut}"
-                            ToolTip="{Tr 'VolumeControl.ListNotification.Options.DoFadeOut.Tooltip',
-                                         DefaultText='When checked, the notification window shows a fade-out animation instead of instantly disappearing.'}" />
-                        <TextBox
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Margin="5,1"
-                            IsEnabled="{Binding IsChecked, ElementName=doFadeOutCheckBox}"
-                            Text="{Binding FadeOutDuration, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                            ToolTip="{Tr 'VolumeControl.ListNotification.Options.FadeOut.Tooltip',
-                                         DefaultText='Specifies the duration of the fade-out animation in milliseconds.'}" />
-                    </Grid>
-                </WrapPanel>
-            </Grid>
-        </Expander>
+                            Content="{Tr 'VolumeControl.ListNotification.Options.SavePosition.Tooltip',
+                                         DefaultText='Save Position'}"
+                            IsChecked="{Binding SavesPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            ToolTip="{Tr 'VolumeControl.ListNotification.Options.SavePosition.Tooltip',
+                                         DefaultText=' '}" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" MinWidth="20" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <!--  Fade In:  -->
+                            <CheckBox
+                                x:Name="doFadeInCheckBox"
+                                Margin="5,3"
+                                HorizontalAlignment="Left"
+                                Content="{Tr 'VolumeControl.ListNotification.Options.DoFadeIn.Content',
+                                             DefaultText='Fade In'}"
+                                IsChecked="{Binding DoFadeIn}"
+                                ToolTip="{Tr 'VolumeControl.ListNotification.Options.DoFadeIn.Tooltip',
+                                             DefaultText='When checked, the notification window shows a fade-in animation instead of instantly appearing.'}" />
+                            <TextBox
+                                Grid.Column="1"
+                                Margin="5,1"
+                                IsEnabled="{Binding IsChecked, ElementName=doFadeInCheckBox}"
+                                Text="{Binding FadeInDuration, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                ToolTip="{Tr 'VolumeControl.ListNotification.Options.FadeOut.Tooltip',
+                                             DefaultText='Specifies the duration of the fade-out animation in milliseconds.'}" />
+                            <!--  Fade Out:  -->
+                            <CheckBox
+                                x:Name="doFadeOutCheckBox"
+                                Grid.Row="1"
+                                Margin="5,3"
+                                HorizontalAlignment="Left"
+                                Content="{Tr 'VolumeControl.ListNotification.Options.DoFadeOut.Content',
+                                             DefaultText='Fade Out'}"
+                                IsChecked="{Binding DoFadeOut}"
+                                ToolTip="{Tr 'VolumeControl.ListNotification.Options.DoFadeOut.Tooltip',
+                                             DefaultText='When checked, the notification window shows a fade-out animation instead of instantly disappearing.'}" />
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="5,1"
+                                IsEnabled="{Binding IsChecked, ElementName=doFadeOutCheckBox}"
+                                Text="{Binding FadeOutDuration, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                ToolTip="{Tr 'VolumeControl.ListNotification.Options.FadeOut.Tooltip',
+                                             DefaultText='Specifies the duration of the fade-out animation in milliseconds.'}" />
+                        </Grid>
+                    </WrapPanel>
+                </Grid>
+            </Expander>
+        </Grid>
 
         <!--  Outer Layout Grid Control  -->
-        <Grid Grid.Row="1" Margin="10,2,10,8">
+        <Grid Grid.Row="1" Margin="10,8">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
