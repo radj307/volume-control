@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Media;
 using VolumeControl.Core.Attributes;
-using VolumeControl.Core.Input.Actions;
 using VolumeControl.Core.Structs;
 using VolumeControl.SDK;
 using VolumeControl.SDK.Delegates;
@@ -12,7 +11,7 @@ using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Helpers.Addon
 {
-    public class VCHotkeyAddon : VCAddonType
+    public class VCHotkeyAddon : VCAddon
     {
         public VCHotkeyAddon() : base(new AttributeWrapper(typeof(HotkeyActionAttribute)), new AttributeWrapper(typeof(HotkeyActionGroupAttribute)))
         { }
@@ -23,7 +22,10 @@ namespace VolumeControl.Helpers.Addon
             foreach (Type t in types) //< enumerate through all of the received types
             {
                 actions = new(); // start collecting action methods
-                if (FindMembersWithAttributesInType(t) is (MemberInfo?, Attribute)[] attributes && attributes.Length > 0)
+
+                // search for recognized attributes in given type:
+                var attributes = FindMembersWithAttributesInType(t);
+                if (attributes.Length > 0)
                 {
                     var actionGroupAttr = attributes.FirstOrDefault(pr => pr.Item2 is HotkeyActionGroupAttribute).Item2 as HotkeyActionGroupAttribute;
 
@@ -81,7 +83,9 @@ namespace VolumeControl.Helpers.Addon
                     api.HotkeyManager.Actions.Bindings.AddRangeIfUnique(actions);
                 }
                 else
+                {
                     Log.Debug($"No addon methods found in type \"{t.FullName}\".");
+                }
             }
         }
     }
