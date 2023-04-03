@@ -28,12 +28,12 @@ namespace VolumeControl.Audio.Collections
             this.DataFlow = flow;
             this.Devices = new();
 
-            MMDeviceEnumerator = new MMDeviceEnumerator();
+            var deviceEnumerator = new MMDeviceEnumerator();
 
-            ReloadDevices();
+            ReloadDevices(deviceEnumerator);
 
             EndpointNotificationClient = new(this);
-            MMDeviceEnumerator.RegisterEndpointNotificationCallback(EndpointNotificationClient);
+            deviceEnumerator.RegisterEndpointNotificationCallback(EndpointNotificationClient);
             EndpointNotificationClient.DefaultDeviceChanged += this.HandleDefaultDeviceChanged;
             EndpointNotificationClient.DeviceAdded += this.HandleDeviceAdded;
             EndpointNotificationClient.DeviceStateChanged += this.HandleDeviceStateChanged;
@@ -43,7 +43,6 @@ namespace VolumeControl.Audio.Collections
         #region Properties
         private static Config Settings => (Config.Default as Config)!;
         private static LogWriter Log => FLog.Log;
-        internal MMDeviceEnumerator MMDeviceEnumerator { get; }
         internal DeviceNotificationClient EndpointNotificationClient { get; }
         /// <summary>
         /// Gets the list of <see cref="AudioDevice"/> instances that are currently being tracked.
@@ -57,6 +56,23 @@ namespace VolumeControl.Audio.Collections
         /// Specifies the (I/O) type of <see cref="AudioDevice"/> objects that this instance manages.
         /// </summary>
         public DataFlow DataFlow { get; }
+        #region Interface Properties
+        public int Count => ((IReadOnlyCollection<AudioDevice>)this.Devices).Count;
+
+        public bool IsReadOnly => ((ICollection<AudioDevice>)this.Devices).IsReadOnly;
+
+        public bool IsSynchronized => ((ICollection)this.Devices).IsSynchronized;
+
+        public object SyncRoot => ((ICollection)this.Devices).SyncRoot;
+
+        public bool IsFixedSize => ((IList)this.Devices).IsFixedSize;
+
+        object? IList.this[int index] { get => ((IList)this.Devices)[index]; set => ((IList)this.Devices)[index] = value; }
+        AudioDevice IList<AudioDevice>.this[int index] { get => ((IList<AudioDevice>)this.Devices)[index]; set => ((IList<AudioDevice>)this.Devices)[index] = value; }
+
+        public AudioDevice this[int index] => ((IReadOnlyList<AudioDevice>)this.Devices)[index];
+
+        #endregion Interface Properties
         #endregion Properties
 
         #region Events
@@ -72,10 +88,10 @@ namespace VolumeControl.Audio.Collections
         }
         /// <summary>Triggered when a managed device has a session added to it.</summary>
         public event EventHandler<AudioSession>? DeviceSessionCreated;
-        private void ForwardSessionCreated(object? sender, AudioSession session) => DeviceSessionCreated?.Invoke(sender, session);
+        private void ForwardDeviceSessionCreated(object? sender, AudioSession session) => DeviceSessionCreated?.Invoke(sender, session);
         /// <summary>Triggered when a managed device has a session removed from it.</summary>
         public event EventHandler<long>? DeviceSessionRemoved;
-        private void ForwardSessionRemoved(object? sender, long pid) => DeviceSessionRemoved?.Invoke(sender, pid);
+        private void ForwardDeviceSessionRemoved(object? sender, long pid) => DeviceSessionRemoved?.Invoke(sender, pid);
         /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
         private void ForwardPropertyChanged(object? sender, PropertyChangedEventArgs e) => PropertyChanged?.Invoke(sender, e);
@@ -147,22 +163,6 @@ namespace VolumeControl.Audio.Collections
                 NotifyPropertyChanged();
             }
         }
-
-        public int Count => ((IReadOnlyCollection<AudioDevice>)this.Devices).Count;
-
-        public bool IsReadOnly => ((ICollection<AudioDevice>)this.Devices).IsReadOnly;
-
-        public bool IsSynchronized => ((ICollection)this.Devices).IsSynchronized;
-
-        public object SyncRoot => ((ICollection)this.Devices).SyncRoot;
-
-        public bool IsFixedSize => ((IList)this.Devices).IsFixedSize;
-
-        object? IList.this[int index] { get => ((IList)this.Devices)[index]; set => ((IList)this.Devices)[index] = value; }
-        AudioDevice IList<AudioDevice>.this[int index] { get => ((IList<AudioDevice>)this.Devices)[index]; set => ((IList<AudioDevice>)this.Devices)[index] = value; }
-
-        public AudioDevice this[int index] => ((IReadOnlyList<AudioDevice>)this.Devices)[index];
-
         private bool? _allSelected;
         private bool _allSelectedChanging;
         private void AllDevicesEnabledChanged()
@@ -270,22 +270,31 @@ namespace VolumeControl.Audio.Collections
         /// <returns>The <see cref="AudioDevice"/> associated with <paramref name="deviceID"/> if it was found in <see cref="Devices"/>; otherwise <see langword="null"/>.</returns>
         public AudioDevice? FindDeviceWithDeviceID(string deviceID, StringComparison sCompareType = StringComparison.Ordinal) => Devices.FirstOrDefault(device => device != null && device.DeviceID.Equals(deviceID, sCompareType), null);
         /// <summary>
-        /// Reloads all AudioDevices using the default <see cref="MMDeviceEnumerator"/>.
+        /// Reloads all AudioDevices using <paramref name="deviceEnumerator"/>.
         /// </summary>
-        public void ReloadDevices()
+        /// <param name="deviceEnumerator">An <see cref="MMDeviceEnumerator"/> instance to use.</param>
+        public void ReloadDevices(MMDeviceEnumerator deviceEnumerator)
         {
             Devices.Clear();
-            foreach (MMDevice mmDevice in MMDeviceEnumerator.EnumerateAudioEndPoints(this.DataFlow, DeviceState.Active))
+            foreach (MMDevice mmDevice in deviceEnumerator.EnumerateAudioEndPoints(this.DataFlow, DeviceState.Active))
             {
                 var device = new AudioDevice(mmDevice);
                 ConnectAudioDeviceEvents(device);
                 Devices.Add(device);
             }
             // Set the DefaultDevice:
-            if (MMDeviceEnumerator.HasDefaultAudioEndpoint(this.DataFlow, Role.Multimedia))
+            if (deviceEnumerator.HasDefaultAudioEndpoint(this.DataFlow, Role.Multimedia))
             {
-                DefaultDevice = FindDeviceWithMMDevice(MMDeviceEnumerator.GetDefaultAudioEndpoint(this.DataFlow, Role.Multimedia));
+                DefaultDevice = FindDeviceWithMMDevice(deviceEnumerator.GetDefaultAudioEndpoint(this.DataFlow, Role.Multimedia));
             }
+        }
+        /// <summary>
+        /// Reloads all AudioDevices using the default <see cref="MMDeviceEnumerator"/>.
+        /// </summary>
+        public void ReloadDevices()
+        {
+            using var deviceEnumerator = new MMDeviceEnumerator();
+            ReloadDevices(deviceEnumerator);
         }
         #endregion Public Methods
         #endregion Methods
@@ -345,7 +354,7 @@ namespace VolumeControl.Audio.Collections
         {
             var device = (sender as AudioDevice)!;
             Log.Debug($"Audio session '{session.ProcessIdentifier}' created on device '{device.Name}'");
-            DeviceSessionCreated?.Invoke(sender, session);
+            ForwardDeviceSessionCreated(sender, session);
         }
         /// <summary>
         /// Invokes <see cref="DeviceSessionRemoved"/>.
@@ -422,8 +431,6 @@ namespace VolumeControl.Audio.Collections
         /// <inheritdoc/>
         public void Dispose()
         {
-            MMDeviceEnumerator.UnregisterEndpointNotificationCallback(EndpointNotificationClient);
-            MMDeviceEnumerator.Dispose();
             Devices.ForEach(d => d.Dispose());
             Devices.Clear();
         }

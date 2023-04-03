@@ -13,12 +13,10 @@ namespace VolumeControl.Audio.Events
         public DeviceNotificationClient(AudioDeviceCollection deviceManager)
         {
             this.DataFlow = deviceManager.DataFlow;
-            this.MMDeviceEnumerator = deviceManager.MMDeviceEnumerator;
         }
         #endregion Constructors
 
         #region Properties
-        private readonly MMDeviceEnumerator MMDeviceEnumerator;
         public DataFlow DataFlow { get; }
         #endregion Properties
 
@@ -33,18 +31,21 @@ namespace VolumeControl.Audio.Events
         #region Interface Methods
         public void OnDefaultDeviceChanged(DataFlow flow, Role role, string defaultDeviceId)
         {
-            var mmDevice = MMDeviceEnumerator.GetDevice(defaultDeviceId);
+            using var deviceEnumerator = new MMDeviceEnumerator();
+            var mmDevice = deviceEnumerator.GetDevice(defaultDeviceId);
             DefaultDeviceChanged?.Invoke(this, (mmDevice, role));
         }
         public void OnDeviceAdded(string pwstrDeviceId)
         {
-            var mmDevice = MMDeviceEnumerator.GetDevice(pwstrDeviceId);
+            using var deviceEnumerator = new MMDeviceEnumerator();
+            var mmDevice = deviceEnumerator.GetDevice(pwstrDeviceId);
             DeviceAdded?.Invoke(this, mmDevice);
         }
         public void OnDeviceRemoved(string deviceId) => DeviceRemoved?.Invoke(this, deviceId);
         public void OnDeviceStateChanged(string deviceId, DeviceState newState)
         {
-            var mmDevice = MMDeviceEnumerator.GetDevice(deviceId);
+            using var deviceEnumerator = new MMDeviceEnumerator();
+            var mmDevice = deviceEnumerator.GetDevice(deviceId);
             DeviceStateChanged?.Invoke(this, mmDevice);
         }
         public void OnPropertyValueChanged(string pwstrDeviceId, PropertyKey key)
