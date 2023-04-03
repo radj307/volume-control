@@ -87,6 +87,9 @@ namespace VolumeControl.Hotkeys
         /// </summary>
         private static AudioAPI AudioAPI => _audioAPI ??= VCAPI.Default.AudioAPI;
         private static AudioAPI? _audioAPI = null;
+        /// <summary>
+        /// The name of the display target associated with this class.
+        /// </summary>
         public const string DisplayTargetName = "Audio Devices";
 
         private static AudioDevice? _selectedDevice;

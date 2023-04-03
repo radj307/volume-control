@@ -5,7 +5,7 @@ using VolumeControl.SDK;
 namespace VolumeControl.Hotkeys.Helpers
 {
     /// <summary>
-    /// Used to specify AudioSession targets for hotkey actions.
+    /// Used to specify <see cref="Audio.AudioSession"/> targets for hotkey actions.
     /// </summary>
     public class SessionSpecifier : ActionTargetSpecifier
     {

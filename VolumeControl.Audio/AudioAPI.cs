@@ -58,7 +58,7 @@ namespace VolumeControl.Audio
         /// An observable list of all known audio devices.
         /// </summary>
         public AudioDeviceCollection Devices { get; }
-        /// <inheritdoc cref="AudioDeviceCollection.Default"/>
+        /// <inheritdoc cref="AudioDeviceCollection.DefaultDevice"/>
         public AudioDevice? DefaultDevice => this.Devices.DefaultDevice;
         /// <summary>
         /// Prevents <see cref="SelectedSession"/> from being modified.

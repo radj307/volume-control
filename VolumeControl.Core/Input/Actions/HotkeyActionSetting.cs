@@ -1,39 +1,9 @@
 ﻿using Newtonsoft.Json;
 using PropertyChanged;
-using System.Windows;
-using System.Windows.Controls;
 using VolumeControl.Core.Attributes;
-using VolumeControl.Core.Helpers;
-using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Core.Input.Actions
 {
-    /// <summary>
-    /// Represents a setting for a hotkey action.
-    /// </summary>
-    public interface IHotkeyActionSetting
-    {
-        /// <summary>
-        /// Gets or sets the name of this setting
-        /// </summary>
-        [JsonIgnore]
-        string Label { get; set; }
-        /// <summary>
-        /// Gets or sets the <see cref="ValueType"/> of <see cref="Value"/> accepted by this setting.<br/>
-        /// Setting this to <see langword="null"/> will allow <see cref="Value"/> to be set to any type.
-        /// </summary>
-        [JsonIgnore]
-        Type? ValueType { get; set; }
-        /// <summary>
-        /// Gets or sets the value of this setting
-        /// </summary>
-        object? Value { get; set; }
-        /// <summary>
-        /// Gets or sets the description of this setting, which is shown in a tooltip in the action settings window.
-        /// </summary>
-        [JsonIgnore]
-        string? Description { get; set; }
-    }
     /// <summary>
     /// Small container for hotkey action setting data
     /// </summary>
@@ -41,6 +11,7 @@ namespace VolumeControl.Core.Input.Actions
     [JsonObject]
     public class HotkeyActionSetting : IHotkeyActionSetting
     {
+        #region Constructors
         /// <summary>
         /// Creates a new empty <see cref="HotkeyActionSetting"/> instance.
         /// </summary>
@@ -69,7 +40,9 @@ namespace VolumeControl.Core.Input.Actions
             Value = copyInstance.Value;
             Description = copyInstance.Description;
         }
+        #endregion Constructors
 
+        #region Properties
         /// <summary>
         /// Gets or sets the name of this setting
         /// </summary>
@@ -90,53 +63,6 @@ namespace VolumeControl.Core.Input.Actions
         /// </summary>
         [JsonIgnore]
         public string? Description { get; set; }
-    }
-    /// <summary>
-    /// Specifies a target of a hotkey action.
-    /// </summary>
-    public abstract class ActionTargetSpecifier
-    {
-        /// <summary>
-        /// List of targets.
-        /// </summary>
-        public ObservableImmutableList<TargetInfoVM> Targets { get; } = new();
-
-        /// <summary>
-        /// Creates a new target entry.
-        /// </summary>
-        public abstract void AddNewTarget();
-    }
-    /// <summary>
-    /// <see cref="DataTemplateSelector"/> implementation for <see cref="HotkeyActionSetting"/>.
-    /// </summary>
-    public class HotkeyActionSettingValueTemplateSelector : DataTemplateSelector
-    {
-        /// <inheritdoc/>
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
-        {
-            if (container is FrameworkElement elem)
-            {
-                if (item is HotkeyActionSetting setting)
-                {
-                    var type = setting.Value?.GetType();
-                    if (type is not null)
-                    {
-                        if (type.Equals(typeof(string)))
-                        {
-                            return (elem.FindResource("StringDataTemplate") as DataTemplate)!;
-                        }
-                        else if (type.Equals(typeof(bool)))
-                        {
-                            return (elem.FindResource("BoolDataTemplate") as DataTemplate)!;
-                        }
-                        else if (type.IsSubclassOf(typeof(ActionTargetSpecifier)) || type.Equals(typeof(ActionTargetSpecifier)))
-                        {
-                            return (elem.FindResource("TargetSpecifierDataTemplate") as DataTemplate)!;
-                        }
-                    }
-                }
-            }
-            return base.SelectTemplate(item, container);
-        }
+        #endregion Properties
     }
 }

@@ -4,7 +4,7 @@ using VolumeControl.SDK;
 namespace VolumeControl.Hotkeys.Helpers
 {
     /// <summary>
-    /// Used to specify AudioDevice targets for hotkey actions.
+    /// Used to specify <see cref="Audio.AudioDevice"/> targets for hotkey actions.
     /// </summary>
     public class DeviceSpecifier : ActionTargetSpecifier
     {

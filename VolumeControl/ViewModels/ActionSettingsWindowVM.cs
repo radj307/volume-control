@@ -1,11 +1,4 @@
 ﻿using PropertyChanged;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VolumeControl.Core.Input;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.Core.Interfaces;
 using VolumeControl.WPF.Collections;
