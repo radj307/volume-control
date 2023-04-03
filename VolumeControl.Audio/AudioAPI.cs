@@ -443,7 +443,7 @@ namespace VolumeControl.Audio
                 for (int i = 0; i < this.Sessions.Count; ++i)
                 {
                     AudioSession? s = this.Sessions[i];
-                    if (pid.Equals(s.PID) || pname.Equals(s.ProcessName))
+                    if (pid.Equals(s.PID) || pname.Equals(s.ProcessName, StringComparison.OrdinalIgnoreCase))
                     {
                         Settings.Target = s.GetTargetInfo();
                         this.NotifyPropertyChanged(nameof(this.Target));
