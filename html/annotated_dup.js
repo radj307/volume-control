@@ -103,6 +103,7 @@ var annotated_dup =
           [ "Initializer", "class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer.html", "class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer" ]
         ] ],
         [ "ConditionalEventForward", "class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html", "class_volume_control_1_1_s_d_k_1_1_conditional_event_forward" ],
+        [ "IListDisplayTarget", "interface_volume_control_1_1_s_d_k_1_1_i_list_display_target.html", "interface_volume_control_1_1_s_d_k_1_1_i_list_display_target" ],
         [ "ListDisplayTarget", "class_volume_control_1_1_s_d_k_1_1_list_display_target.html", "class_volume_control_1_1_s_d_k_1_1_list_display_target" ],
         [ "VCAPI", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i" ]
       ] ],

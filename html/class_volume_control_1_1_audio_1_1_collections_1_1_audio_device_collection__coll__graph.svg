@@ -64,27 +64,27 @@ var sectionId = 'dynsection-1';
 <polyline fill="none" stroke="black" points="728.5,-291.5 912.5,-291.5 "/>
 <text text-anchor="start" x="736.5" y="-279.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Settings</text>
 <text text-anchor="start" x="736.5" y="-268.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Log</text>
-<text text-anchor="start" x="736.5" y="-257.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ MMDeviceEnumerator</text>
-<text text-anchor="start" x="736.5" y="-246.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ EndpointNotificationClient</text>
-<text text-anchor="start" x="736.5" y="-235.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Devices</text>
-<text text-anchor="start" x="736.5" y="-224.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DefaultDevice</text>
-<text text-anchor="start" x="736.5" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DataFlow</text>
-<text text-anchor="start" x="736.5" y="-202.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ CollectionChanged</text>
-<text text-anchor="start" x="736.5" y="-191.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DefaultDeviceChanged</text>
-<text text-anchor="start" x="736.5" y="-180.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DeviceAdded</text>
-<text text-anchor="start" x="736.5" y="-169.5" font-family="Helvetica,sans-Serif" font-size="10.00">and 12 more...</text>
+<text text-anchor="start" x="736.5" y="-257.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ EndpointNotificationClient</text>
+<text text-anchor="start" x="736.5" y="-246.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Devices</text>
+<text text-anchor="start" x="736.5" y="-235.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DefaultDevice</text>
+<text text-anchor="start" x="736.5" y="-224.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DataFlow</text>
+<text text-anchor="start" x="736.5" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Count</text>
+<text text-anchor="start" x="736.5" y="-202.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IsReadOnly</text>
+<text text-anchor="start" x="736.5" y="-191.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IsSynchronized</text>
+<text text-anchor="start" x="736.5" y="-180.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SyncRoot</text>
+<text text-anchor="start" x="736.5" y="-169.5" font-family="Helvetica,sans-Serif" font-size="10.00">and 11 more...</text>
 <polyline fill="none" stroke="black" points="728.5,-162.5 912.5,-162.5 "/>
 <text text-anchor="start" x="736.5" y="-150.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AudioDeviceCollection()</text>
 <text text-anchor="start" x="736.5" y="-139.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FindDeviceWithMMDevice()</text>
 <text text-anchor="start" x="736.5" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FindDeviceWithDeviceID()</text>
 <text text-anchor="start" x="736.5" y="-117.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ReloadDevices()</text>
-<text text-anchor="start" x="736.5" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Dispose()</text>
-<text text-anchor="start" x="736.5" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GetEnumerator()</text>
-<text text-anchor="start" x="736.5" y="-84.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Add()</text>
-<text text-anchor="start" x="736.5" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Clear()</text>
-<text text-anchor="start" x="736.5" y="-62.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Contains()</text>
-<text text-anchor="start" x="736.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ CopyTo()</text>
-<text text-anchor="start" x="736.5" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">and 20 more...</text>
+<text text-anchor="start" x="736.5" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ReloadDevices()</text>
+<text text-anchor="start" x="736.5" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Dispose()</text>
+<text text-anchor="start" x="736.5" y="-84.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GetEnumerator()</text>
+<text text-anchor="start" x="736.5" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Add()</text>
+<text text-anchor="start" x="736.5" y="-62.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Clear()</text>
+<text text-anchor="start" x="736.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Contains()</text>
+<text text-anchor="start" x="736.5" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">and 21 more...</text>
 <text text-anchor="start" x="736.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">~ ConnectAudioDeviceEvents()</text>
 <text text-anchor="start" x="736.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">~ DisconnectAudioDeviceEvents()</text>
 <text text-anchor="start" x="736.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">~ RemoveDevice()</text>

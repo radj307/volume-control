@@ -18,12 +18,17 @@ var class_volume_control_1_1_hotkeys_1_1_audio_device_actions =
     [ "SetDeviceMute", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#aed967eb34734364d2f6b0695a0378753", null ],
     [ "SetDeviceVolume", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#ab841c1fd037028af2904e8be083a0c79", null ],
     [ "ToggleDeviceMute", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#a4c3e207bc685a7840a7f056863a4817f", null ],
+    [ "ToggleLock", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#a0bc5e7fa3bcb665b57d4663f14a46167", null ],
+    [ "ToggleLockSelection", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#a0bc32913b9ddf12e04b70e115e25585e", null ],
     [ "ToggleMute", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#ae5b0f288c2e234e1a71fb28c9f6c74d6", null ],
     [ "Unmute", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#a04087e122158e3b3b0b22c7a3f6c39f7", null ],
     [ "VolumeDown", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#abd54c8a702dc5326da2decbdea5b057d", null ],
     [ "VolumeUp", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#af31d11cca0e2c063b364efde3c8dcccc", null ],
     [ "AudioAPI", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#a501ac6345a9de1d814a61f9707a8ca12", null ],
+    [ "DeviceSelectionLocked", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#a3e006b60c21452ab9df721fa872d9cbe", null ],
     [ "SelectedDevice", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#a4a1f430d4a45824162e385415b734ab1", null ],
+    [ "Settings", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#ab3fe9d77433d84e4dfd23dd4af7cb9c7", null ],
+    [ "LockSelectionChanged", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#a366d1a0e0a6b226842934e7dc685c24b", null ],
     [ "SelectedDeviceSwitched", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#a854cdfbb0ac4a28a9bf4727d08144808", null ],
     [ "SelectedDeviceVolumeChanged", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#a8955730d3867c18e772946c3c39f827b", null ]
 ];

@@ -1,0 +1,4 @@
+<map id="VolumeControl.Audio.Collections.AudioDeviceCollection.ReloadDevices" name="VolumeControl.Audio.Collections.AudioDeviceCollection.ReloadDevices">
+<area shape="rect" id="node1" title="Reloads all AudioDevices using deviceEnumerator ." alt="" coords="269,5,540,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_audio_a_p_i.html#aacaf1126bb40b289448d4172a6aae268" title="Clears and reloads all audio devices." alt="" coords="5,5,221,47"/>
+</map>

@@ -1,6 +1,5 @@
 <map id="VolumeControl.Audio.Collections.AudioDeviceCollection.FindDeviceWithMMDevice" name="VolumeControl.Audio.Collections.AudioDeviceCollection.FindDeviceWithMMDevice">
-<area shape="rect" id="node1" title="Gets the AudioDevice associated with the given mmDevice ." alt="" coords="692,31,967,87"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#acd7d7cf31e128ba32f3c98397e0c1f52" title="Reloads all AudioDevices using the default MMDeviceEnumerator." alt="" coords="373,39,644,80"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#ab766b6fcbad7a94910be4cced22c018a" title="Creates a new AudioDeviceCollection instance with the given NAudio.CoreAudioApi.DataFlow." alt="" coords="5,5,325,47"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_audio_1_1_audio_a_p_i.html#aacaf1126bb40b289448d4172a6aae268" title="Clears and reloads all audio devices." alt="" coords="57,71,273,112"/>
+<area shape="rect" id="node1" title="Gets the AudioDevice associated with the given mmDevice ." alt="" coords="588,5,863,61"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#ad4a7b12005e0b4877d74cc8f9ccce3bb" title="Reloads all AudioDevices using deviceEnumerator ." alt="" coords="269,13,540,54"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_audio_a_p_i.html#aacaf1126bb40b289448d4172a6aae268" title="Clears and reloads all audio devices." alt="" coords="5,13,221,54"/>
 </map>

@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#acd7d7cf31e128ba32f3c98397e0c1f52" target="_top" xlink:title="Reloads all AudioDevices using the default MMDeviceEnumerator.">
+<g id="a_node2"><a xlink:href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#ad4a7b12005e0b4877d74cc8f9ccce3bb" target="_top" xlink:title="Reloads all AudioDevices using deviceEnumerator .">
 <polygon fill="none" stroke="black" points="198,-6 198,-36 401,-36 401,-6 198,-6"/>
 <text text-anchor="start" x="206" y="-24" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Audio.Collections.</text>
 <text text-anchor="middle" x="299.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">AudioDeviceCollection.ReloadDevices</text>

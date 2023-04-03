@@ -121,6 +121,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a463414eb4e6600c1b6d1590be5728506"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html">AudioDevice</a>?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a463414eb4e6600c1b6d1590be5728506">FindDeviceWithDeviceID</a> (string deviceID, StringComparison sCompareType=StringComparison.Ordinal)</td></tr>
 <tr class="memdesc:a463414eb4e6600c1b6d1590be5728506"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html" title="An audio device.">AudioDevice</a> associated with the given <em>deviceID</em> .  <a href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a463414eb4e6600c1b6d1590be5728506">More...</a><br /></td></tr>
 <tr class="separator:a463414eb4e6600c1b6d1590be5728506"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4a7b12005e0b4877d74cc8f9ccce3bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#ad4a7b12005e0b4877d74cc8f9ccce3bb">ReloadDevices</a> (MMDeviceEnumerator deviceEnumerator)</td></tr>
+<tr class="memdesc:ad4a7b12005e0b4877d74cc8f9ccce3bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reloads all AudioDevices using <em>deviceEnumerator</em> .  <a href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#ad4a7b12005e0b4877d74cc8f9ccce3bb">More...</a><br /></td></tr>
+<tr class="separator:ad4a7b12005e0b4877d74cc8f9ccce3bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd7d7cf31e128ba32f3c98397e0c1f52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#acd7d7cf31e128ba32f3c98397e0c1f52">ReloadDevices</a> ()</td></tr>
 <tr class="memdesc:acd7d7cf31e128ba32f3c98397e0c1f52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reloads all AudioDevices using the default MMDeviceEnumerator.  <a href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#acd7d7cf31e128ba32f3c98397e0c1f52">More...</a><br /></td></tr>
 <tr class="separator:acd7d7cf31e128ba32f3c98397e0c1f52"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -214,6 +217,24 @@ Properties</h2></td></tr>
 <tr class="memitem:a7b9bba561f4948072e93db5e1438e505"><td class="memItemLeft" align="right" valign="top">DataFlow&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a7b9bba561f4948072e93db5e1438e505">DataFlow</a><code> [get]</code></td></tr>
 <tr class="memdesc:a7b9bba561f4948072e93db5e1438e505"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the (I/O) type of <a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html" title="An audio device.">AudioDevice</a> objects that this instance manages.  <a href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a7b9bba561f4948072e93db5e1438e505">More...</a><br /></td></tr>
 <tr class="separator:a7b9bba561f4948072e93db5e1438e505"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f12b39565cd5ce408d7ff1b64759809"><td class="memItemLeft" align="right" valign="top"><a id="a5f12b39565cd5ce408d7ff1b64759809"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>Count</b><code> [get]</code></td></tr>
+<tr class="separator:a5f12b39565cd5ce408d7ff1b64759809"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b72c06d18c67e2e905d0b40807f6f61"><td class="memItemLeft" align="right" valign="top"><a id="a4b72c06d18c67e2e905d0b40807f6f61"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsReadOnly</b><code> [get]</code></td></tr>
+<tr class="separator:a4b72c06d18c67e2e905d0b40807f6f61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a41016f88d0618bcae1bb48871030d4"><td class="memItemLeft" align="right" valign="top"><a id="a1a41016f88d0618bcae1bb48871030d4"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsSynchronized</b><code> [get]</code></td></tr>
+<tr class="separator:a1a41016f88d0618bcae1bb48871030d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf18d4ad3fd4b3aafbbc19767c75a8f3"><td class="memItemLeft" align="right" valign="top"><a id="adf18d4ad3fd4b3aafbbc19767c75a8f3"></a>
+object&#160;</td><td class="memItemRight" valign="bottom"><b>SyncRoot</b><code> [get]</code></td></tr>
+<tr class="separator:adf18d4ad3fd4b3aafbbc19767c75a8f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e8174f675e6db84448645ed790d6101"><td class="memItemLeft" align="right" valign="top"><a id="a7e8174f675e6db84448645ed790d6101"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsFixedSize</b><code> [get]</code></td></tr>
+<tr class="separator:a7e8174f675e6db84448645ed790d6101"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac71b0655f431f8dd566c17a3ceeaf9de"><td class="memItemLeft" align="right" valign="top"><a id="ac71b0655f431f8dd566c17a3ceeaf9de"></a>
+<a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html">AudioDevice</a>&#160;</td><td class="memItemRight" valign="bottom"><b>this[int index]</b><code> [get]</code></td></tr>
+<tr class="separator:ac71b0655f431f8dd566c17a3ceeaf9de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32a5dbedcb99c94f01ec294d7719fc9f"><td class="memItemLeft" align="right" valign="top"><a id="a32a5dbedcb99c94f01ec294d7719fc9f"></a>
 NotifyCollectionChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a32a5dbedcb99c94f01ec294d7719fc9f">CollectionChanged</a></td></tr>
 <tr class="separator:a32a5dbedcb99c94f01ec294d7719fc9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -235,24 +256,6 @@ EventHandler&lt;(string, PropertyKey)&gt;?&#160;</td><td class="memItemRight" va
 <tr class="memitem:a1b2705c5596a816059ffe32ce1ee9bd2"><td class="memItemLeft" align="right" valign="top">bool?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a1b2705c5596a816059ffe32ce1ee9bd2">AllDevicesEnabled</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a1b2705c5596a816059ffe32ce1ee9bd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables or disables all devices.  <a href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a1b2705c5596a816059ffe32ce1ee9bd2">More...</a><br /></td></tr>
 <tr class="separator:a1b2705c5596a816059ffe32ce1ee9bd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f12b39565cd5ce408d7ff1b64759809"><td class="memItemLeft" align="right" valign="top"><a id="a5f12b39565cd5ce408d7ff1b64759809"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>Count</b><code> [get]</code></td></tr>
-<tr class="separator:a5f12b39565cd5ce408d7ff1b64759809"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b72c06d18c67e2e905d0b40807f6f61"><td class="memItemLeft" align="right" valign="top"><a id="a4b72c06d18c67e2e905d0b40807f6f61"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsReadOnly</b><code> [get]</code></td></tr>
-<tr class="separator:a4b72c06d18c67e2e905d0b40807f6f61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a41016f88d0618bcae1bb48871030d4"><td class="memItemLeft" align="right" valign="top"><a id="a1a41016f88d0618bcae1bb48871030d4"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsSynchronized</b><code> [get]</code></td></tr>
-<tr class="separator:a1a41016f88d0618bcae1bb48871030d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf18d4ad3fd4b3aafbbc19767c75a8f3"><td class="memItemLeft" align="right" valign="top"><a id="adf18d4ad3fd4b3aafbbc19767c75a8f3"></a>
-object&#160;</td><td class="memItemRight" valign="bottom"><b>SyncRoot</b><code> [get]</code></td></tr>
-<tr class="separator:adf18d4ad3fd4b3aafbbc19767c75a8f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e8174f675e6db84448645ed790d6101"><td class="memItemLeft" align="right" valign="top"><a id="a7e8174f675e6db84448645ed790d6101"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsFixedSize</b><code> [get]</code></td></tr>
-<tr class="separator:a7e8174f675e6db84448645ed790d6101"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac71b0655f431f8dd566c17a3ceeaf9de"><td class="memItemLeft" align="right" valign="top"><a id="ac71b0655f431f8dd566c17a3ceeaf9de"></a>
-<a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html">AudioDevice</a>&#160;</td><td class="memItemRight" valign="bottom"><b>this[int index]</b><code> [get]</code></td></tr>
-<tr class="separator:ac71b0655f431f8dd566c17a3ceeaf9de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
 Events</h2></td></tr>
@@ -315,11 +318,11 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00059">VolumeControl.Audio.Collections.AudioDeviceCollection.DataFlow</a>, <a class="el" href="#l00051">VolumeControl.Audio.Collections.AudioDeviceCollection.Devices</a>, and <a class="el" href="#l00275">VolumeControl.Audio.Collections.AudioDeviceCollection.ReloadDevices()</a>.</p>
+<p class="reference">References <a class="el" href="#l00058">VolumeControl.Audio.Collections.AudioDeviceCollection.DataFlow</a>, <a class="el" href="#l00050">VolumeControl.Audio.Collections.AudioDeviceCollection.Devices</a>, and <a class="el" href="#l00294">VolumeControl.Audio.Collections.AudioDeviceCollection.ReloadDevices()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection_ab766b6fcbad7a94910be4cced22c018a_cgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection_ab766b6fcbad7a94910be4cced22c018a_cgraph.svg" width="650" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -389,18 +392,18 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html" title="An audio device.">AudioDevice</a> associated with <em>mmDevice</em>  if it was found in <a class="el" href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a7d7b808573b0d7446102879a262e44df" title="Gets the list of AudioDevice instances that are currently being tracked.">Devices</a>; otherwise <code>null</code>.</dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="#l00275">VolumeControl.Audio.Collections.AudioDeviceCollection.ReloadDevices()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00276">VolumeControl.Audio.Collections.AudioDeviceCollection.ReloadDevices()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection_a060de539a039ed4bf8d0fd4f8602fd78_icgraph.svg" width="100%" height="388"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection_a060de539a039ed4bf8d0fd4f8602fd78_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
 </div>
 </div>
 <a id="acd7d7cf31e128ba32f3c98397e0c1f52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd7d7cf31e128ba32f3c98397e0c1f52">&#9670;&nbsp;</a></span>ReloadDevices()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acd7d7cf31e128ba32f3c98397e0c1f52">&#9670;&nbsp;</a></span>ReloadDevices() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -416,19 +419,53 @@ Here is the caller graph for this function:</div>
 
 <p>Reloads all AudioDevices using the default MMDeviceEnumerator. </p>
 
-<p class="reference">References <a class="el" href="#l00055">VolumeControl.Audio.Collections.AudioDeviceCollection.DefaultDevice</a>, <a class="el" href="#l00051">VolumeControl.Audio.Collections.AudioDeviceCollection.Devices</a>, and <a class="el" href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a060de539a039ed4bf8d0fd4f8602fd78">VolumeControl.Audio.Collections.AudioDeviceCollection.FindDeviceWithMMDevice()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00026">VolumeControl.Audio.Collections.AudioDeviceCollection.AudioDeviceCollection()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection_acd7d7cf31e128ba32f3c98397e0c1f52_icgraph.svg" width="650" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 
-<p class="reference">Referenced by <a class="el" href="#l00026">VolumeControl.Audio.Collections.AudioDeviceCollection.AudioDeviceCollection()</a>, and <a class="el" href="#l00235">VolumeControl.Audio.AudioAPI.ForceReloadAudioDevices()</a>.</p>
+</div>
+</div>
+<a id="ad4a7b12005e0b4877d74cc8f9ccce3bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4a7b12005e0b4877d74cc8f9ccce3bb">&#9670;&nbsp;</a></span>ReloadDevices() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void VolumeControl.Audio.Collections.AudioDeviceCollection.ReloadDevices </td>
+          <td>(</td>
+          <td class="paramtype">MMDeviceEnumerator&#160;</td>
+          <td class="paramname"><em>deviceEnumerator</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reloads all AudioDevices using <em>deviceEnumerator</em> . </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">deviceEnumerator</td><td>An MMDeviceEnumerator instance to use.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="reference">References <a class="el" href="#l00054">VolumeControl.Audio.Collections.AudioDeviceCollection.DefaultDevice</a>, <a class="el" href="#l00050">VolumeControl.Audio.Collections.AudioDeviceCollection.Devices</a>, and <a class="el" href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a060de539a039ed4bf8d0fd4f8602fd78">VolumeControl.Audio.Collections.AudioDeviceCollection.FindDeviceWithMMDevice()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="#l00235">VolumeControl.Audio.AudioAPI.ForceReloadAudioDevices()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection_acd7d7cf31e128ba32f3c98397e0c1f52_cgraph.svg" width="604" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection_ad4a7b12005e0b4877d74cc8f9ccce3bb_cgraph.svg" width="604" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection_acd7d7cf31e128ba32f3c98397e0c1f52_icgraph.svg" width="650" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection_ad4a7b12005e0b4877d74cc8f9ccce3bb_icgraph.svg" width="546" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -508,7 +545,7 @@ Here is the caller graph for this function:</div>
 
 <p>Gets the default DataFlow.Render Role.Multimedia <a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html" title="An audio device.">AudioDevice</a>. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00275">VolumeControl.Audio.Collections.AudioDeviceCollection.ReloadDevices()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00276">VolumeControl.Audio.Collections.AudioDeviceCollection.ReloadDevices()</a>.</p>
 
 </div>
 </div>
@@ -534,7 +571,7 @@ Here is the caller graph for this function:</div>
 
 <p>Gets the list of <a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html" title="An audio device.">AudioDevice</a> instances that are currently being tracked. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00026">VolumeControl.Audio.Collections.AudioDeviceCollection.AudioDeviceCollection()</a>, <a class="el" href="#l00423">VolumeControl.Audio.Collections.AudioDeviceCollection.Dispose()</a>, and <a class="el" href="#l00275">VolumeControl.Audio.Collections.AudioDeviceCollection.ReloadDevices()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00026">VolumeControl.Audio.Collections.AudioDeviceCollection.AudioDeviceCollection()</a>, <a class="el" href="#l00432">VolumeControl.Audio.Collections.AudioDeviceCollection.Dispose()</a>, and <a class="el" href="#l00276">VolumeControl.Audio.Collections.AudioDeviceCollection.ReloadDevices()</a>.</p>
 
 </div>
 </div>

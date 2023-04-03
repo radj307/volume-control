@@ -102,12 +102,14 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_s_d_k_1_1_lis
 <div class="dynheader">
 Inheritance diagram for VolumeControl.SDK.ListDisplayTarget:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_s_d_k_1_1_list_display_target__inherit__graph.svg" width="358" height="478"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_s_d_k_1_1_list_display_target__inherit__graph.svg" width="559" height="580"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.SDK.ListDisplayTarget:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_s_d_k_1_1_list_display_target__coll__graph.svg" width="358" height="478"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_s_d_k_1_1_list_display_target__coll__graph.svg" width="559" height="580"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -121,6 +123,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1a3e04cba43916389a9f265243fa8ffc"><td class="memItemLeft" align="right" valign="top">delegate bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a1a3e04cba43916389a9f265243fa8ffc">ListDisplayConditional</a> ()</td></tr>
 <tr class="memdesc:a1a3e04cba43916389a9f265243fa8ffc"><td class="mdescLeft">&#160;</td><td class="mdescRight">A condition delegate that does not accept parameters &amp; returns bool.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a1a3e04cba43916389a9f265243fa8ffc">More...</a><br /></td></tr>
 <tr class="separator:a1a3e04cba43916389a9f265243fa8ffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb84e9207410cd531efe99dc682841a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#afb84e9207410cd531efe99dc682841a9">Show</a> ()</td></tr>
+<tr class="memdesc:afb84e9207410cd531efe99dc682841a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ae7a4eb489fd2b6b25a0041f3f76920ca" title="Triggered when any one of this ListDisplayTarget instance&#39;s ConditionalShowTriggers fire.">ShowEvent</a>, causing the notification to show the display target, if it's enabled.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#afb84e9207410cd531efe99dc682841a9">More...</a><br /></td></tr>
+<tr class="separator:afb84e9207410cd531efe99dc682841a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aead3e99c61c62e2e021ee7234e279e4f"><td class="memItemLeft" align="right" valign="top"><a id="aead3e99c61c62e2e021ee7234e279e4f"></a>
 BindingExpressionBase&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#aead3e99c61c62e2e021ee7234e279e4f">SetBinding</a> (DependencyProperty dp, BindingBase binding)</td></tr>
 <tr class="separator:aead3e99c61c62e2e021ee7234e279e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,50 +136,72 @@ BindingExpressionBase&#160;</td><td class="memItemRight" valign="bottom"><a clas
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a9cb3b386d78bfe537fc1315f0f23bb19"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a9cb3b386d78bfe537fc1315f0f23bb19">BackgroundProperty</a> = DependencyProperty.Register(nameof(<a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a9cdd1d0e10beb50c8ec45c3af3aa05f8">Background</a>), typeof(Brush), typeof(<a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html">ListDisplayTarget</a>), new PropertyMetadata(null))</td></tr>
-<tr class="memdesc:a9cb3b386d78bfe537fc1315f0f23bb19"><td class="mdescLeft">&#160;</td><td class="mdescRight">DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a9cdd1d0e10beb50c8ec45c3af3aa05f8" title="Gets or sets the background color of the notification window.">Background</a> brush.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a9cb3b386d78bfe537fc1315f0f23bb19">More...</a><br /></td></tr>
+<tr class="memdesc:a9cb3b386d78bfe537fc1315f0f23bb19"><td class="mdescLeft">&#160;</td><td class="mdescRight">DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a9cdd1d0e10beb50c8ec45c3af3aa05f8">Background</a> brush.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a9cb3b386d78bfe537fc1315f0f23bb19">More...</a><br /></td></tr>
 <tr class="separator:a9cb3b386d78bfe537fc1315f0f23bb19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32de3bfa6741248dc622216760f0391f"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a32de3bfa6741248dc622216760f0391f">LockSelectionProperty</a> = DependencyProperty.Register(nameof(<a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a141c4ab6118761c3d5448c69efea6063">LockSelection</a>), typeof(bool), typeof(<a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html">ListDisplayTarget</a>), new PropertyMetadata(null))</td></tr>
-<tr class="memdesc:a32de3bfa6741248dc622216760f0391f"><td class="mdescLeft">&#160;</td><td class="mdescRight">DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a141c4ab6118761c3d5448c69efea6063" title="Gets or sets whether the user can change the SelectedItem property of the ListView control by clickin...">LockSelection</a> state.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a32de3bfa6741248dc622216760f0391f">More...</a><br /></td></tr>
+<tr class="memdesc:a32de3bfa6741248dc622216760f0391f"><td class="mdescLeft">&#160;</td><td class="mdescRight">DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a141c4ab6118761c3d5448c69efea6063">LockSelection</a> state.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a32de3bfa6741248dc622216760f0391f">More...</a><br /></td></tr>
 <tr class="separator:a32de3bfa6741248dc622216760f0391f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade3d0ba2d72b487bf482f6d91b34a798"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ade3d0ba2d72b487bf482f6d91b34a798">IconProperty</a> = DependencyProperty.Register(nameof(<a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a6a17bf4d5442418fdd9b42274faafa8d">Icon</a>), typeof(ImageSource), typeof(<a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html">ListDisplayTarget</a>), new PropertyMetadata(null))</td></tr>
-<tr class="memdesc:ade3d0ba2d72b487bf482f6d91b34a798"><td class="mdescLeft">&#160;</td><td class="mdescRight">DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a6a17bf4d5442418fdd9b42274faafa8d" title="Gets or sets an optional icon to show in the display target list.">Icon</a> icon.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ade3d0ba2d72b487bf482f6d91b34a798">More...</a><br /></td></tr>
+<tr class="memdesc:ade3d0ba2d72b487bf482f6d91b34a798"><td class="mdescLeft">&#160;</td><td class="mdescRight">DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a6a17bf4d5442418fdd9b42274faafa8d">Icon</a> icon.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ade3d0ba2d72b487bf482f6d91b34a798">More...</a><br /></td></tr>
 <tr class="separator:ade3d0ba2d72b487bf482f6d91b34a798"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d838a9bee2521c72796593f21db012c"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a1d838a9bee2521c72796593f21db012c">ItemsSourceProperty</a> = DependencyProperty.Register(nameof(<a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a93a2ae04b8e218646595d73cd2dd589d">ItemsSource</a>), typeof(IEnumerable&lt;<a class="el" href="interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html">IListDisplayable</a>&gt;), typeof(<a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html">ListDisplayTarget</a>), new PropertyMetadata(null, HandleItemsSourcePropertyChanged))</td></tr>
-<tr class="memdesc:a1d838a9bee2521c72796593f21db012c"><td class="mdescLeft">&#160;</td><td class="mdescRight">DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a93a2ae04b8e218646595d73cd2dd589d" title="Gets or sets the enumerable list of objects that implement IListDisplayable to show in the notificati...">ItemsSource</a> list source.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a1d838a9bee2521c72796593f21db012c">More...</a><br /></td></tr>
+<tr class="memdesc:a1d838a9bee2521c72796593f21db012c"><td class="mdescLeft">&#160;</td><td class="mdescRight">DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a93a2ae04b8e218646595d73cd2dd589d">ItemsSource</a> list source.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a1d838a9bee2521c72796593f21db012c">More...</a><br /></td></tr>
 <tr class="separator:a1d838a9bee2521c72796593f21db012c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57b45c8fb30dac4cb5e0379d8dbf68aa"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a57b45c8fb30dac4cb5e0379d8dbf68aa">SelectedItemProperty</a> = DependencyProperty.Register(nameof(<a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ac8eef8b197c582ef93380106ba88b1d5">SelectedItem</a>), typeof(<a class="el" href="interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html">IListDisplayable</a>), typeof(<a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html">ListDisplayTarget</a>), new PropertyMetadata(null, HandleSelectedItemPropertyChanged))</td></tr>
-<tr class="memdesc:a57b45c8fb30dac4cb5e0379d8dbf68aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ac8eef8b197c582ef93380106ba88b1d5" title="Gets or sets the currently-selected item in the ListView control.">SelectedItem</a> item.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a57b45c8fb30dac4cb5e0379d8dbf68aa">More...</a><br /></td></tr>
+<tr class="memdesc:a57b45c8fb30dac4cb5e0379d8dbf68aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ac8eef8b197c582ef93380106ba88b1d5">SelectedItem</a> item.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a57b45c8fb30dac4cb5e0379d8dbf68aa">More...</a><br /></td></tr>
 <tr class="separator:a57b45c8fb30dac4cb5e0379d8dbf68aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3aeca4b2d9f20260a8429f1f653c4863"><td class="memItemLeft" align="right" valign="top">static readonly DependencyProperty&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a3aeca4b2d9f20260a8429f1f653c4863">SelectedItemControlsProperty</a> = DependencyProperty.Register(nameof(<a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#afe41d2af3933fa8f7341b609c6745a8d">SelectedItemControls</a>), typeof(Control[]), typeof(<a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html">ListDisplayTarget</a>), new PropertyMetadata(null))</td></tr>
-<tr class="memdesc:a3aeca4b2d9f20260a8429f1f653c4863"><td class="mdescLeft">&#160;</td><td class="mdescRight">DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#afe41d2af3933fa8f7341b609c6745a8d" title="Gets or sets an optional array of controls to display in the notification window when the individual ...">SelectedItemControls</a> control array.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a3aeca4b2d9f20260a8429f1f653c4863">More...</a><br /></td></tr>
+<tr class="memdesc:a3aeca4b2d9f20260a8429f1f653c4863"><td class="mdescLeft">&#160;</td><td class="mdescRight">DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#afe41d2af3933fa8f7341b609c6745a8d">SelectedItemControls</a> control array.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a3aeca4b2d9f20260a8429f1f653c4863">More...</a><br /></td></tr>
 <tr class="separator:a3aeca4b2d9f20260a8429f1f653c4863"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
+<tr class="memitem:a6c25979729fb2641a764b507ccf01574"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a6c25979729fb2641a764b507ccf01574">IsSelected</a><code> [get]</code></td></tr>
+<tr class="memdesc:a6c25979729fb2641a764b507ccf01574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets whether this <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html" title="Wrapper object for a ListNotification display target.  This provides the necessary interaction interf...">ListDisplayTarget</a> instance is currently selected.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a6c25979729fb2641a764b507ccf01574">More...</a><br /></td></tr>
+<tr class="separator:a6c25979729fb2641a764b507ccf01574"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91d7fb3978249b4c593369a889d53831"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a91d7fb3978249b4c593369a889d53831">Name</a> = nameof(<a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html">ListDisplayTarget</a>)<code> [get, set]</code></td></tr>
 <tr class="memdesc:a91d7fb3978249b4c593369a889d53831"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of this display target.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a91d7fb3978249b4c593369a889d53831">More...</a><br /></td></tr>
 <tr class="separator:a91d7fb3978249b4c593369a889d53831"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cdd1d0e10beb50c8ec45c3af3aa05f8"><td class="memItemLeft" align="right" valign="top">Brush?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a9cdd1d0e10beb50c8ec45c3af3aa05f8">Background</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a9cdd1d0e10beb50c8ec45c3af3aa05f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the background color of the notification window.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a9cdd1d0e10beb50c8ec45c3af3aa05f8">More...</a><br /></td></tr>
+<tr class="memitem:a9cdd1d0e10beb50c8ec45c3af3aa05f8"><td class="memItemLeft" align="right" valign="top"><a id="a9cdd1d0e10beb50c8ec45c3af3aa05f8"></a>
+Brush?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a9cdd1d0e10beb50c8ec45c3af3aa05f8">Background</a><code> [get, set]</code></td></tr>
 <tr class="separator:a9cdd1d0e10beb50c8ec45c3af3aa05f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a141c4ab6118761c3d5448c69efea6063"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a141c4ab6118761c3d5448c69efea6063">LockSelection</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a141c4ab6118761c3d5448c69efea6063"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets whether the user can change the SelectedItem property of the ListView control by clicking on an item in the list.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a141c4ab6118761c3d5448c69efea6063">More...</a><br /></td></tr>
+<tr class="memitem:a141c4ab6118761c3d5448c69efea6063"><td class="memItemLeft" align="right" valign="top"><a id="a141c4ab6118761c3d5448c69efea6063"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a141c4ab6118761c3d5448c69efea6063">LockSelection</a><code> [get, set]</code></td></tr>
 <tr class="separator:a141c4ab6118761c3d5448c69efea6063"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a17bf4d5442418fdd9b42274faafa8d"><td class="memItemLeft" align="right" valign="top">ImageSource?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a6a17bf4d5442418fdd9b42274faafa8d">Icon</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a6a17bf4d5442418fdd9b42274faafa8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets an optional icon to show in the display target list.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a6a17bf4d5442418fdd9b42274faafa8d">More...</a><br /></td></tr>
+<tr class="memitem:a6a17bf4d5442418fdd9b42274faafa8d"><td class="memItemLeft" align="right" valign="top"><a id="a6a17bf4d5442418fdd9b42274faafa8d"></a>
+ImageSource?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a6a17bf4d5442418fdd9b42274faafa8d">Icon</a><code> [get, set]</code></td></tr>
 <tr class="separator:a6a17bf4d5442418fdd9b42274faafa8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93a2ae04b8e218646595d73cd2dd589d"><td class="memItemLeft" align="right" valign="top">IEnumerable&lt; <a class="el" href="interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html">IListDisplayable</a> &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a93a2ae04b8e218646595d73cd2dd589d">ItemsSource</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a93a2ae04b8e218646595d73cd2dd589d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the enumerable list of objects that implement IListDisplayable to show in the notification window.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a93a2ae04b8e218646595d73cd2dd589d">More...</a><br /></td></tr>
+<tr class="memitem:a93a2ae04b8e218646595d73cd2dd589d"><td class="memItemLeft" align="right" valign="top"><a id="a93a2ae04b8e218646595d73cd2dd589d"></a>
+IEnumerable&lt; <a class="el" href="interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html">IListDisplayable</a> &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a93a2ae04b8e218646595d73cd2dd589d">ItemsSource</a><code> [get, set]</code></td></tr>
 <tr class="separator:a93a2ae04b8e218646595d73cd2dd589d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8eef8b197c582ef93380106ba88b1d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html">IListDisplayable</a>?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ac8eef8b197c582ef93380106ba88b1d5">SelectedItem</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:ac8eef8b197c582ef93380106ba88b1d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the currently-selected item in the ListView control.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ac8eef8b197c582ef93380106ba88b1d5">More...</a><br /></td></tr>
+<tr class="memitem:ac8eef8b197c582ef93380106ba88b1d5"><td class="memItemLeft" align="right" valign="top"><a id="ac8eef8b197c582ef93380106ba88b1d5"></a>
+<a class="el" href="interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html">IListDisplayable</a>?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ac8eef8b197c582ef93380106ba88b1d5">SelectedItem</a><code> [get, set]</code></td></tr>
 <tr class="separator:ac8eef8b197c582ef93380106ba88b1d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe41d2af3933fa8f7341b609c6745a8d"><td class="memItemLeft" align="right" valign="top">Control?[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#afe41d2af3933fa8f7341b609c6745a8d">SelectedItemControls</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:afe41d2af3933fa8f7341b609c6745a8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets an optional array of controls to display in the notification window when the individual controls are disabled.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#afe41d2af3933fa8f7341b609c6745a8d">More...</a><br /></td></tr>
+<tr class="memitem:afe41d2af3933fa8f7341b609c6745a8d"><td class="memItemLeft" align="right" valign="top"><a id="afe41d2af3933fa8f7341b609c6745a8d"></a>
+Control?[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#afe41d2af3933fa8f7341b609c6745a8d">SelectedItemControls</a><code> [get, set]</code></td></tr>
 <tr class="separator:afe41d2af3933fa8f7341b609c6745a8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20411b523340038d68dc14d641b6bc30"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html">ConditionalEventForward</a>[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a20411b523340038d68dc14d641b6bc30">ConditionalShowTriggers</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a20411b523340038d68dc14d641b6bc30"><td class="mdescLeft">&#160;</td><td class="mdescRight">An array of <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html" title="Forwards event triggers when the specified Condition is true.">ConditionalEventForward</a> instances that are automatically attached to this object via this property's setter method.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a20411b523340038d68dc14d641b6bc30">More...</a><br /></td></tr>
 <tr class="separator:a20411b523340038d68dc14d641b6bc30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target"><td colspan="2" onclick="javascript:toggleInherit('properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="interface_volume_control_1_1_s_d_k_1_1_i_list_display_target.html">VolumeControl.SDK.IListDisplayTarget</a></td></tr>
+<tr class="memitem:a1f927e85bf24c94b9859cc28202962e3 inherit properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target"><td class="memItemLeft" align="right" valign="top">Brush?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_s_d_k_1_1_i_list_display_target.html#a1f927e85bf24c94b9859cc28202962e3">Background</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a1f927e85bf24c94b9859cc28202962e3 inherit properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the background color of the notification window.  <a href="interface_volume_control_1_1_s_d_k_1_1_i_list_display_target.html#a1f927e85bf24c94b9859cc28202962e3">More...</a><br /></td></tr>
+<tr class="separator:a1f927e85bf24c94b9859cc28202962e3 inherit properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c2895b88d4f4e19e907e6ae29a631bb inherit properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_s_d_k_1_1_i_list_display_target.html#a0c2895b88d4f4e19e907e6ae29a631bb">LockSelection</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a0c2895b88d4f4e19e907e6ae29a631bb inherit properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets whether the user can change the SelectedItem property of the ListView control by clicking on an item in the list.  <a href="interface_volume_control_1_1_s_d_k_1_1_i_list_display_target.html#a0c2895b88d4f4e19e907e6ae29a631bb">More...</a><br /></td></tr>
+<tr class="separator:a0c2895b88d4f4e19e907e6ae29a631bb inherit properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d0f59df5f7809e52499113a26af0348 inherit properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target"><td class="memItemLeft" align="right" valign="top">ImageSource?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_s_d_k_1_1_i_list_display_target.html#a9d0f59df5f7809e52499113a26af0348">Icon</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a9d0f59df5f7809e52499113a26af0348 inherit properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets an optional icon to show in the display target list.  <a href="interface_volume_control_1_1_s_d_k_1_1_i_list_display_target.html#a9d0f59df5f7809e52499113a26af0348">More...</a><br /></td></tr>
+<tr class="separator:a9d0f59df5f7809e52499113a26af0348 inherit properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade02deb03b3147d531c1c1ff4da58b20 inherit properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target"><td class="memItemLeft" align="right" valign="top">IEnumerable&lt; <a class="el" href="interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html">IListDisplayable</a> &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_s_d_k_1_1_i_list_display_target.html#ade02deb03b3147d531c1c1ff4da58b20">ItemsSource</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ade02deb03b3147d531c1c1ff4da58b20 inherit properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the enumerable list of objects that implement IListDisplayable to show in the notification window.  <a href="interface_volume_control_1_1_s_d_k_1_1_i_list_display_target.html#ade02deb03b3147d531c1c1ff4da58b20">More...</a><br /></td></tr>
+<tr class="separator:ade02deb03b3147d531c1c1ff4da58b20 inherit properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d33a3d7289a56cfa7a8ffe4669ce8b0 inherit properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html">IListDisplayable</a>?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_s_d_k_1_1_i_list_display_target.html#a1d33a3d7289a56cfa7a8ffe4669ce8b0">SelectedItem</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a1d33a3d7289a56cfa7a8ffe4669ce8b0 inherit properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the currently-selected item in the ListView control.  <a href="interface_volume_control_1_1_s_d_k_1_1_i_list_display_target.html#a1d33a3d7289a56cfa7a8ffe4669ce8b0">More...</a><br /></td></tr>
+<tr class="separator:a1d33a3d7289a56cfa7a8ffe4669ce8b0 inherit properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fdf25e1661179929d6bc528de6b1b5d inherit properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target"><td class="memItemLeft" align="right" valign="top">Control?[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_s_d_k_1_1_i_list_display_target.html#a0fdf25e1661179929d6bc528de6b1b5d">SelectedItemControls</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a0fdf25e1661179929d6bc528de6b1b5d inherit properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets an optional array of controls to display in the notification window when the individual controls are disabled.  <a href="interface_volume_control_1_1_s_d_k_1_1_i_list_display_target.html#a0fdf25e1661179929d6bc528de6b1b5d">More...</a><br /></td></tr>
+<tr class="separator:a0fdf25e1661179929d6bc528de6b1b5d inherit properties_interface_volume_control_1_1_s_d_k_1_1_i_list_display_target"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
 Events</h2></td></tr>
@@ -182,7 +209,7 @@ Events</h2></td></tr>
 PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a3f44ed12af9a8d9a9199b5c89a57302d">PropertyChanged</a></td></tr>
 <tr class="separator:a3f44ed12af9a8d9a9199b5c89a57302d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1b0845cb668ec9e1a40803b6eecc0a3"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; <a class="el" href="interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html">IListDisplayable</a>?&gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ad1b0845cb668ec9e1a40803b6eecc0a3">SelectedItemChanged</a></td></tr>
-<tr class="memdesc:ad1b0845cb668ec9e1a40803b6eecc0a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered when the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ac8eef8b197c582ef93380106ba88b1d5" title="Gets or sets the currently-selected item in the ListView control.">SelectedItem</a> is changed.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ad1b0845cb668ec9e1a40803b6eecc0a3">More...</a><br /></td></tr>
+<tr class="memdesc:ad1b0845cb668ec9e1a40803b6eecc0a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered when the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ac8eef8b197c582ef93380106ba88b1d5">SelectedItem</a> is changed.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ad1b0845cb668ec9e1a40803b6eecc0a3">More...</a><br /></td></tr>
 <tr class="separator:ad1b0845cb668ec9e1a40803b6eecc0a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7a4eb489fd2b6b25a0041f3f76920ca"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; object &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ae7a4eb489fd2b6b25a0041f3f76920ca">ShowEvent</a></td></tr>
 <tr class="memdesc:ae7a4eb489fd2b6b25a0041f3f76920ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered when any one of this <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html" title="Wrapper object for a ListNotification display target.  This provides the necessary interaction interf...">ListDisplayTarget</a> instance's <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a20411b523340038d68dc14d641b6bc30" title="An array of ConditionalEventForward instances that are automatically attached to this object via this...">ConditionalShowTriggers</a> fire.  <a href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ae7a4eb489fd2b6b25a0041f3f76920ca">More...</a><br /></td></tr>
@@ -221,6 +248,8 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
   </table>
   </dd>
 </dl>
+
+<p class="reference">References <a class="el" href="#l00050">VolumeControl.SDK.ListDisplayTarget.IsSelected</a>, <a class="el" href="#l00195">VolumeControl.SDK.ListDisplayTarget.Selected</a>, and <a class="el" href="#l00199">VolumeControl.SDK.ListDisplayTarget.Unselected</a>.</p>
 
 </div>
 </div>
@@ -284,7 +313,7 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html" title="Forwards event triggers when the specified Condition is true.">ConditionalEventForward</a> instance bound to this <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html" title="Wrapper object for a ListNotification display target.  This provides the necessary interaction interf...">ListDisplayTarget</a>.</dd></dl>
 
-<p class="reference">References <a class="el" href="#l00154">VolumeControl.SDK.ListDisplayTarget.ConditionalShowTriggers</a>.</p>
+<p class="reference">References <a class="el" href="#l00157">VolumeControl.SDK.ListDisplayTarget.ConditionalShowTriggers</a>.</p>
 
 </div>
 </div>
@@ -305,6 +334,25 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
 
 <p>A condition delegate that does not accept parameters &amp; returns bool. </p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> causes the ListNotification window to be shown; <code>false</code> prevents the window from being shown.</dd></dl>
+
+</div>
+</div>
+<a id="afb84e9207410cd531efe99dc682841a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb84e9207410cd531efe99dc682841a9">&#9670;&nbsp;</a></span>Show()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void VolumeControl.SDK.ListDisplayTarget.Show </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Triggers the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ae7a4eb489fd2b6b25a0041f3f76920ca" title="Triggered when any one of this ListDisplayTarget instance&#39;s ConditionalShowTriggers fire.">ShowEvent</a>, causing the notification to show the display target, if it's enabled. </p>
 
 </div>
 </div>
@@ -329,7 +377,7 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
 </table>
 </div><div class="memdoc">
 
-<p>DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a9cdd1d0e10beb50c8ec45c3af3aa05f8" title="Gets or sets the background color of the notification window.">Background</a> brush. </p>
+<p>DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a9cdd1d0e10beb50c8ec45c3af3aa05f8">Background</a> brush. </p>
 
 </div>
 </div>
@@ -353,7 +401,7 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
 </table>
 </div><div class="memdoc">
 
-<p>DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a6a17bf4d5442418fdd9b42274faafa8d" title="Gets or sets an optional icon to show in the display target list.">Icon</a> icon. </p>
+<p>DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a6a17bf4d5442418fdd9b42274faafa8d">Icon</a> icon. </p>
 
 </div>
 </div>
@@ -377,7 +425,7 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
 </table>
 </div><div class="memdoc">
 
-<p>DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a93a2ae04b8e218646595d73cd2dd589d" title="Gets or sets the enumerable list of objects that implement IListDisplayable to show in the notificati...">ItemsSource</a> list source. </p>
+<p>DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a93a2ae04b8e218646595d73cd2dd589d">ItemsSource</a> list source. </p>
 
 </div>
 </div>
@@ -401,7 +449,7 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
 </table>
 </div><div class="memdoc">
 
-<p>DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a141c4ab6118761c3d5448c69efea6063" title="Gets or sets whether the user can change the SelectedItem property of the ListView control by clickin...">LockSelection</a> state. </p>
+<p>DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a141c4ab6118761c3d5448c69efea6063">LockSelection</a> state. </p>
 
 </div>
 </div>
@@ -425,7 +473,7 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
 </table>
 </div><div class="memdoc">
 
-<p>DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#afe41d2af3933fa8f7341b609c6745a8d" title="Gets or sets an optional array of controls to display in the notification window when the individual ...">SelectedItemControls</a> control array. </p>
+<p>DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#afe41d2af3933fa8f7341b609c6745a8d">SelectedItemControls</a> control array. </p>
 
 </div>
 </div>
@@ -449,35 +497,11 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
 </table>
 </div><div class="memdoc">
 
-<p>DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ac8eef8b197c582ef93380106ba88b1d5" title="Gets or sets the currently-selected item in the ListView control.">SelectedItem</a> item. </p>
+<p>DependencyProperty for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ac8eef8b197c582ef93380106ba88b1d5">SelectedItem</a> item. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
-<a id="a9cdd1d0e10beb50c8ec45c3af3aa05f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cdd1d0e10beb50c8ec45c3af3aa05f8">&#9670;&nbsp;</a></span>Background</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Brush? VolumeControl.SDK.ListDisplayTarget.Background</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets or sets the background color of the notification window. </p>
-
-</div>
-</div>
 <a id="a20411b523340038d68dc14d641b6bc30"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a20411b523340038d68dc14d641b6bc30">&#9670;&nbsp;</a></span>ConditionalShowTriggers</h2>
 
@@ -500,12 +524,12 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
 
 <p>An array of <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html" title="Forwards event triggers when the specified Condition is true.">ConditionalEventForward</a> instances that are automatically attached to this object via this property's setter method. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00201">VolumeControl.SDK.ListDisplayTarget.AddConditionalEventForward()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00210">VolumeControl.SDK.ListDisplayTarget.AddConditionalEventForward()</a>.</p>
 
 </div>
 </div>
-<a id="a6a17bf4d5442418fdd9b42274faafa8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a17bf4d5442418fdd9b42274faafa8d">&#9670;&nbsp;</a></span>Icon</h2>
+<a id="a6c25979729fb2641a764b507ccf01574"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c25979729fb2641a764b507ccf01574">&#9670;&nbsp;</a></span>IsSelected</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -514,66 +538,20 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">ImageSource? VolumeControl.SDK.ListDisplayTarget.Icon</td>
+          <td class="memname">bool VolumeControl.SDK.ListDisplayTarget.IsSelected</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Gets or sets an optional icon to show in the display target list. </p>
+<p>Gets whether this <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html" title="Wrapper object for a ListNotification display target.  This provides the necessary interaction interf...">ListDisplayTarget</a> instance is currently selected. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> when selected; otherwise <code>false</code>. </dd></dl>
 
-</div>
-</div>
-<a id="a93a2ae04b8e218646595d73cd2dd589d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93a2ae04b8e218646595d73cd2dd589d">&#9670;&nbsp;</a></span>ItemsSource</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">IEnumerable&lt;<a class="el" href="interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html">IListDisplayable</a>&gt;? VolumeControl.SDK.ListDisplayTarget.ItemsSource</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets or sets the enumerable list of objects that implement IListDisplayable to show in the notification window. </p>
-
-</div>
-</div>
-<a id="a141c4ab6118761c3d5448c69efea6063"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a141c4ab6118761c3d5448c69efea6063">&#9670;&nbsp;</a></span>LockSelection</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool VolumeControl.SDK.ListDisplayTarget.LockSelection</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets or sets whether the user can change the SelectedItem property of the ListView control by clicking on an item in the list. </p>
-<p>While this <em>is</em> used by the <a class="el" href="namespace_volume_control_1_1_audio.html">Audio</a> Sessions &amp; <a class="el" href="namespace_volume_control_1_1_audio.html">Audio</a> Devices display targets, this property is <b>not the same thing</b>; this controls whether the actual ListView control allows the user to change the selection; it does not work the other way around! </p>
+<p class="reference">Referenced by <a class="el" href="#l00022">VolumeControl.SDK.ListDisplayTarget.ListDisplayTarget()</a>.</p>
 
 </div>
 </div>
@@ -601,54 +579,6 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
 
 </div>
 </div>
-<a id="ac8eef8b197c582ef93380106ba88b1d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8eef8b197c582ef93380106ba88b1d5">&#9670;&nbsp;</a></span>SelectedItem</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html">IListDisplayable</a>? VolumeControl.SDK.ListDisplayTarget.SelectedItem</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets or sets the currently-selected item in the ListView control. </p>
-
-</div>
-</div>
-<a id="afe41d2af3933fa8f7341b609c6745a8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe41d2af3933fa8f7341b609c6745a8d">&#9670;&nbsp;</a></span>SelectedItemControls</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Control? [] VolumeControl.SDK.ListDisplayTarget.SelectedItemControls</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets or sets an optional array of controls to display in the notification window when the individual controls are disabled. </p>
-
-</div>
-</div>
 <h2 class="groupheader">Event Documentation</h2>
 <a id="a8618d2685b6eeceec36fd7fc83b6d2d6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8618d2685b6eeceec36fd7fc83b6d2d6">&#9670;&nbsp;</a></span>Selected</h2>
@@ -664,6 +594,8 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
 
 <p>Triggered when this <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html" title="Wrapper object for a ListNotification display target.  This provides the necessary interaction interf...">ListDisplayTarget</a> instance becomes the active display target. </p>
 
+<p class="reference">Referenced by <a class="el" href="#l00022">VolumeControl.SDK.ListDisplayTarget.ListDisplayTarget()</a>.</p>
+
 </div>
 </div>
 <a id="ad1b0845cb668ec9e1a40803b6eecc0a3"></a>
@@ -678,7 +610,7 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
       </table>
 </div><div class="memdoc">
 
-<p>Triggered when the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ac8eef8b197c582ef93380106ba88b1d5" title="Gets or sets the currently-selected item in the ListView control.">SelectedItem</a> is changed. </p>
+<p>Triggered when the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ac8eef8b197c582ef93380106ba88b1d5">SelectedItem</a> is changed. </p>
 
 </div>
 </div>
@@ -711,6 +643,8 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
 </div><div class="memdoc">
 
 <p>Triggered when this <a class="el" href="class_volume_control_1_1_s_d_k_1_1_list_display_target.html" title="Wrapper object for a ListNotification display target.  This provides the necessary interaction interf...">ListDisplayTarget</a> instance is no longer the active display target. </p>
+
+<p class="reference">Referenced by <a class="el" href="#l00022">VolumeControl.SDK.ListDisplayTarget.ListDisplayTarget()</a>.</p>
 
 </div>
 </div>
