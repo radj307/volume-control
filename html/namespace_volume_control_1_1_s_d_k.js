@@ -12,9 +12,9 @@ var namespace_volume_control_1_1_s_d_k =
       [ "HotkeyActionDelegate< T1, T2, T3, T4, T5, T6, T7, T8 >", "namespace_volume_control_1_1_s_d_k_1_1_delegates.html#acfa27cab7f2e7c0d9dc407d96fe6a3c8", null ],
       [ "HotkeyActionDelegate< T1, T2, T3, T4, T5, T6, T7, T8, T9 >", "namespace_volume_control_1_1_s_d_k_1_1_delegates.html#a75ac4d5df75c5a14cdb174c995c540b2", null ]
     ] ],
+    [ "Interfaces", "namespace_volume_control_1_1_s_d_k_1_1_interfaces.html", "namespace_volume_control_1_1_s_d_k_1_1_interfaces" ],
     [ "Internal", "namespace_volume_control_1_1_s_d_k_1_1_internal.html", "namespace_volume_control_1_1_s_d_k_1_1_internal" ],
     [ "ConditionalEventForward", "class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html", "class_volume_control_1_1_s_d_k_1_1_conditional_event_forward" ],
-    [ "IListDisplayTarget", "interface_volume_control_1_1_s_d_k_1_1_i_list_display_target.html", "interface_volume_control_1_1_s_d_k_1_1_i_list_display_target" ],
     [ "ListDisplayTarget", "class_volume_control_1_1_s_d_k_1_1_list_display_target.html", "class_volume_control_1_1_s_d_k_1_1_list_display_target" ],
     [ "VCAPI", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i" ]
 ];

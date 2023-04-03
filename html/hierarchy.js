@@ -151,7 +151,7 @@ var hierarchy =
         [ "VolumeControl.Audio.Interfaces.IMeteredVolumeControl", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_metered_volume_control.html", null ]
       ] ]
     ] ],
-    [ "VolumeControl.SDK.IListDisplayTarget", "interface_volume_control_1_1_s_d_k_1_1_i_list_display_target.html", [
+    [ "VolumeControl.SDK.Interfaces.IListDisplayTarget", "interface_volume_control_1_1_s_d_k_1_1_interfaces_1_1_i_list_display_target.html", [
       [ "VolumeControl.SDK.ListDisplayTarget", "class_volume_control_1_1_s_d_k_1_1_list_display_target.html", null ]
     ] ],
     [ "VolumeControl.Log.Interfaces.ILogWriter", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html", [
@@ -219,6 +219,7 @@ var hierarchy =
       [ "VolumeControl.Log.Timestamp", "class_volume_control_1_1_log_1_1_timestamp.html", null ]
     ] ],
     [ "IValueConverter", null, [
+      [ "VolumeControl.WPF.Converters.ArrayHasItemsBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_array_has_items_boolean_converter.html", null ],
       [ "VolumeControl.WPF.Converters.BoolToBrushConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_brush_converter.html", null ],
       [ "VolumeControl.WPF.Converters.BoolToCheckVisibleConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_check_visible_converter.html", null ],
       [ "VolumeControl.WPF.Converters.BoolToThicknessConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter.html", null ],

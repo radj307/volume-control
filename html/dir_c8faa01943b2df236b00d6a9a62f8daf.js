@@ -1,5 +1,6 @@
 var dir_c8faa01943b2df236b00d6a9a62f8daf =
 [
+    [ "ArrayHasItemsBooleanConverter.cs", null, null ],
     [ "BooleanInverter.cs", null, null ],
     [ "BoolToBrushConverter.cs", null, null ],
     [ "BoolToThicknessConverter.cs", null, null ],

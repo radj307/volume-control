@@ -99,11 +99,13 @@ var annotated_dup =
         [ "Timestamp", "class_volume_control_1_1_log_1_1_timestamp.html", "class_volume_control_1_1_log_1_1_timestamp" ]
       ] ],
       [ "SDK", "namespace_volume_control_1_1_s_d_k.html", [
+        [ "Interfaces", "namespace_volume_control_1_1_s_d_k_1_1_interfaces.html", [
+          [ "IListDisplayTarget", "interface_volume_control_1_1_s_d_k_1_1_interfaces_1_1_i_list_display_target.html", "interface_volume_control_1_1_s_d_k_1_1_interfaces_1_1_i_list_display_target" ]
+        ] ],
         [ "Internal", "namespace_volume_control_1_1_s_d_k_1_1_internal.html", [
           [ "Initializer", "class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer.html", "class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer" ]
         ] ],
         [ "ConditionalEventForward", "class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html", "class_volume_control_1_1_s_d_k_1_1_conditional_event_forward" ],
-        [ "IListDisplayTarget", "interface_volume_control_1_1_s_d_k_1_1_i_list_display_target.html", "interface_volume_control_1_1_s_d_k_1_1_i_list_display_target" ],
         [ "ListDisplayTarget", "class_volume_control_1_1_s_d_k_1_1_list_display_target.html", "class_volume_control_1_1_s_d_k_1_1_list_display_target" ],
         [ "VCAPI", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i" ]
       ] ],
@@ -138,6 +140,7 @@ var annotated_dup =
           [ "ObservableList", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list" ]
         ] ],
         [ "Converters", "namespace_volume_control_1_1_w_p_f_1_1_converters.html", [
+          [ "ArrayHasItemsBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_array_has_items_boolean_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_array_has_items_boolean_converter" ],
           [ "BooleanInverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_boolean_inverter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_boolean_inverter" ],
           [ "BoolToBrushConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_brush_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_brush_converter" ],
           [ "BoolToThicknessConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter" ],

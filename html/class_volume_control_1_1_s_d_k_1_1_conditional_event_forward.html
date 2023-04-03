@@ -95,22 +95,24 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_s_d_k_1_1_con
 </div><!--header-->
 <div class="contents">
 
-<p>Forwards event triggers when the specified <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#afee66d01deee26727877ba58a8c73d81" title="A delegate of type ConditionEvaluator that, when it returns true, forwards the event sender &amp; argumen...">Condition</a> is <code>true</code>.  
+<p>Forwards event invocations only when the specified <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#afee66d01deee26727877ba58a8c73d81" title="Gets or sets this instance&#39;s condition.  If this is force-set to null, event triggers are always forw...">Condition</a> returns <code>true</code>.<br  />
+ This essentially acts like a switch that can prevent events from firing under certain circumstances.  
  <a href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#details">More...</a></p>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.SDK.ConditionalEventForward:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward__coll__graph.svg" width="238" height="162"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward__coll__graph.svg" width="238" height="162"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a29344db5a7f1f598cfd37aefe2e2f920"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#a29344db5a7f1f598cfd37aefe2e2f920">ConditionalEventForward</a> (<a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#a2fac2b34342f7dfce05d795e969be7cb">ConditionEvaluator</a> condition, params EventHandler&lt; object &gt;[] customEventHandlers)</td></tr>
-<tr class="memdesc:a29344db5a7f1f598cfd37aefe2e2f920"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html" title="Forwards event triggers when the specified Condition is true.">ConditionalEventForward</a> instance with the given <em>condition</em>  &amp; any number of <em>customEventHandlers</em> ..  <a href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#a29344db5a7f1f598cfd37aefe2e2f920">More...</a><br /></td></tr>
+<tr class="memitem:a29344db5a7f1f598cfd37aefe2e2f920"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#a29344db5a7f1f598cfd37aefe2e2f920">ConditionalEventForward</a> (<a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#a962c2c336310876e5f98bcd70045aa27">ConditionEvaluator</a> condition, params EventHandler&lt; object &gt;[] customEventHandlers)</td></tr>
+<tr class="memdesc:a29344db5a7f1f598cfd37aefe2e2f920"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html" title="Forwards event invocations only when the specified Condition returns true.  This essentially acts lik...">ConditionalEventForward</a> instance with the given <em>condition</em>  &amp; any number of <em>customEventHandlers</em> ..  <a href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#a29344db5a7f1f598cfd37aefe2e2f920">More...</a><br /></td></tr>
 <tr class="separator:a29344db5a7f1f598cfd37aefe2e2f920"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2fac2b34342f7dfce05d795e969be7cb"><td class="memItemLeft" align="right" valign="top">delegate bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#a2fac2b34342f7dfce05d795e969be7cb">ConditionEvaluator</a> ()</td></tr>
-<tr class="memdesc:a2fac2b34342f7dfce05d795e969be7cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <code>delegate</code> method or lambda that determines whether or not events received through the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab11c85b4a04c9ceff504cc868430387b" title="An event handler that can be attached to any EventHandler or EventHandler&lt;TEventArgs&gt; compatible even...">Handler(object?, object)</a> are forwarded to the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab45c9e75f4927ea384fa53c5a2bd31dd" title="Triggered whenever the Handler(object?, object) is called and Condition returns true.">Event</a>.  <a href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#a2fac2b34342f7dfce05d795e969be7cb">More...</a><br /></td></tr>
-<tr class="separator:a2fac2b34342f7dfce05d795e969be7cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a962c2c336310876e5f98bcd70045aa27"><td class="memItemLeft" align="right" valign="top">delegate bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#a962c2c336310876e5f98bcd70045aa27">ConditionEvaluator</a> (object? sender, object e)</td></tr>
+<tr class="memdesc:a962c2c336310876e5f98bcd70045aa27"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <code>delegate</code> that returns a bool and accepts sender &amp; event arguments parameters.  <a href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#a962c2c336310876e5f98bcd70045aa27">More...</a><br /></td></tr>
+<tr class="separator:a962c2c336310876e5f98bcd70045aa27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab11c85b4a04c9ceff504cc868430387b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab11c85b4a04c9ceff504cc868430387b">Handler</a> (object? sender, object e)</td></tr>
 <tr class="memdesc:ab11c85b4a04c9ceff504cc868430387b"><td class="mdescLeft">&#160;</td><td class="mdescRight">An event handler that can be attached to any EventHandler or EventHandler&lt;TEventArgs&gt; compatible event trigger.<br  />
  Note that if the generic TEventArgs type of the event handler is <b>not an object type</b>, such as a tuple, you will have to 'wrap' the handler call with a lambda:  <a href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab11c85b4a04c9ceff504cc868430387b">More...</a><br /></td></tr>
@@ -122,17 +124,29 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:ab45c9e75f4927ea384fa53c5a2bd31dd"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; object &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab45c9e75f4927ea384fa53c5a2bd31dd">Event</a></td></tr>
-<tr class="memdesc:ab45c9e75f4927ea384fa53c5a2bd31dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered whenever the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab11c85b4a04c9ceff504cc868430387b" title="An event handler that can be attached to any EventHandler or EventHandler&lt;TEventArgs&gt; compatible even...">Handler(object?, object)</a> is called and <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#afee66d01deee26727877ba58a8c73d81" title="A delegate of type ConditionEvaluator that, when it returns true, forwards the event sender &amp; argumen...">Condition</a> returns <code>true</code>.  <a href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab45c9e75f4927ea384fa53c5a2bd31dd">More...</a><br /></td></tr>
+<tr class="memdesc:ab45c9e75f4927ea384fa53c5a2bd31dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered whenever the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab11c85b4a04c9ceff504cc868430387b" title="An event handler that can be attached to any EventHandler or EventHandler&lt;TEventArgs&gt; compatible even...">Handler(object?, object)</a> is called and <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#afee66d01deee26727877ba58a8c73d81" title="Gets or sets this instance&#39;s condition.  If this is force-set to null, event triggers are always forw...">Condition</a> returns <code>true</code>.  <a href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab45c9e75f4927ea384fa53c5a2bd31dd">More...</a><br /></td></tr>
 <tr class="separator:ab45c9e75f4927ea384fa53c5a2bd31dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:afee66d01deee26727877ba58a8c73d81"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#a2fac2b34342f7dfce05d795e969be7cb">ConditionEvaluator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#afee66d01deee26727877ba58a8c73d81">Condition</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:afee66d01deee26727877ba58a8c73d81"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <code>delegate</code> of type <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#a2fac2b34342f7dfce05d795e969be7cb" title="A delegate method or lambda that determines whether or not events received through the Handler(object...">ConditionEvaluator</a> that, when it returns <code>true</code>, forwards the event sender &amp; arguments to the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab45c9e75f4927ea384fa53c5a2bd31dd" title="Triggered whenever the Handler(object?, object) is called and Condition returns true.">Event</a> event trigger.  <a href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#afee66d01deee26727877ba58a8c73d81">More...</a><br /></td></tr>
+<tr class="memitem:afee66d01deee26727877ba58a8c73d81"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#a962c2c336310876e5f98bcd70045aa27">ConditionEvaluator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#afee66d01deee26727877ba58a8c73d81">Condition</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:afee66d01deee26727877ba58a8c73d81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets this instance's <b>condition</b>.<br  />
+ If this is force-set to <code>null</code>, event triggers are always forwarded and the conditional evaluation step is skipped entirely.  <a href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#afee66d01deee26727877ba58a8c73d81">More...</a><br /></td></tr>
 <tr class="separator:afee66d01deee26727877ba58a8c73d81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Forwards event triggers when the specified <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#afee66d01deee26727877ba58a8c73d81" title="A delegate of type ConditionEvaluator that, when it returns true, forwards the event sender &amp; argumen...">Condition</a> is <code>true</code>. </p>
+<div class="textblock"><p>Forwards event invocations only when the specified <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#afee66d01deee26727877ba58a8c73d81" title="Gets or sets this instance&#39;s condition.  If this is force-set to null, event triggers are always forw...">Condition</a> returns <code>true</code>.<br  />
+ This essentially acts like a switch that can prevent events from firing under certain circumstances. </p>
+<p>To use, first identify an <b>input</b> <em>(an <code>event</code> definition)</em>, an <b>output</b> <em>(a compatible event handler method)</em>, and a <b>condition</b> <em>(A callback that fulfills <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#a962c2c336310876e5f98bcd70045aa27" title="A delegate that returns a bool and accepts sender &amp; event arguments parameters.">ConditionEvaluator</a>)</em>.<br  />
+ </p><ol>
+<li>
+Connect your <b>input</b> <code>event</code> to this instance's <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab11c85b4a04c9ceff504cc868430387b" title="An event handler that can be attached to any EventHandler or EventHandler&lt;TEventArgs&gt; compatible even...">Handler(object?, object)</a> method. </li>
+<li>
+Connect this instance's <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab45c9e75f4927ea384fa53c5a2bd31dd" title="Triggered whenever the Handler(object?, object) is called and Condition returns true.">Event</a> trigger to your <b>output</b> handler. </li>
+<li>
+Set this instance's <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#afee66d01deee26727877ba58a8c73d81" title="Gets or sets this instance&#39;s condition.  If this is force-set to null, event triggers are always forw...">Condition</a> property to your <b>condition</b> callback. </li>
+</ol>
+<p>When your <b>input</b> <code>event</code> is triggered, the <b>condition</b> is evaluated and if it returned <code>true</code> this instance's <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab45c9e75f4927ea384fa53c5a2bd31dd" title="Triggered whenever the Handler(object?, object) is called and Condition returns true.">Event</a> will fire with the same sender/args. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a29344db5a7f1f598cfd37aefe2e2f920"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a29344db5a7f1f598cfd37aefe2e2f920">&#9670;&nbsp;</a></span>ConditionalEventForward()</h2>
@@ -143,7 +157,7 @@ Properties</h2></td></tr>
         <tr>
           <td class="memname">VolumeControl.SDK.ConditionalEventForward.ConditionalEventForward </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#a2fac2b34342f7dfce05d795e969be7cb">ConditionEvaluator</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#a962c2c336310876e5f98bcd70045aa27">ConditionEvaluator</a>&#160;</td>
           <td class="paramname"><em>condition</em>, </td>
         </tr>
         <tr>
@@ -160,22 +174,22 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html" title="Forwards event triggers when the specified Condition is true.">ConditionalEventForward</a> instance with the given <em>condition</em>  &amp; any number of <em>customEventHandlers</em> .. </p>
+<p>Creates a new <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html" title="Forwards event invocations only when the specified Condition returns true.  This essentially acts lik...">ConditionalEventForward</a> instance with the given <em>condition</em>  &amp; any number of <em>customEventHandlers</em> .. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">condition</td><td>The condition <code>delegate</code> to use when evaluating whether or not to forward an event.</td></tr>
-    <tr><td class="paramname">customEventHandlers</td><td>Any number of custom event handlers to bind from within the constructor. <em>(See EventHandler)</em></td></tr>
+    <tr><td class="paramname">customEventHandlers</td><td>Any number of <b>output</b> event handlers to connect.</td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00035">VolumeControl.SDK.ConditionalEventForward.Condition</a>, and <a class="el" href="#l00042">VolumeControl.SDK.ConditionalEventForward.Event</a>.</p>
+<p class="reference">References <a class="el" href="#l00046">VolumeControl.SDK.ConditionalEventForward.Condition</a>, and <a class="el" href="#l00053">VolumeControl.SDK.ConditionalEventForward.Event</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2fac2b34342f7dfce05d795e969be7cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2fac2b34342f7dfce05d795e969be7cb">&#9670;&nbsp;</a></span>ConditionEvaluator()</h2>
+<a id="a962c2c336310876e5f98bcd70045aa27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a962c2c336310876e5f98bcd70045aa27">&#9670;&nbsp;</a></span>ConditionEvaluator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -183,13 +197,24 @@ Properties</h2></td></tr>
         <tr>
           <td class="memname">delegate bool VolumeControl.SDK.ConditionalEventForward.ConditionEvaluator </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">object?&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>A <code>delegate</code> method or lambda that determines whether or not events received through the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab11c85b4a04c9ceff504cc868430387b" title="An event handler that can be attached to any EventHandler or EventHandler&lt;TEventArgs&gt; compatible even...">Handler(object?, object)</a> are forwarded to the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab45c9e75f4927ea384fa53c5a2bd31dd" title="Triggered whenever the Handler(object?, object) is called and Condition returns true.">Event</a>. </p>
+<p>A <code>delegate</code> that returns a bool and accepts sender &amp; event arguments parameters. </p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> causes the event to be forwarded via the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab45c9e75f4927ea384fa53c5a2bd31dd" title="Triggered whenever the Handler(object?, object) is called and Condition returns true.">Event</a> event; <code>false</code> causes the event to be ignored, and <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab45c9e75f4927ea384fa53c5a2bd31dd" title="Triggered whenever the Handler(object?, object) is called and Condition returns true.">Event</a> is not triggered.</dd></dl>
 
 </div>
@@ -222,7 +247,7 @@ Properties</h2></td></tr>
 
 <p>An event handler that can be attached to any EventHandler or EventHandler&lt;TEventArgs&gt; compatible event trigger.<br  />
  Note that if the generic TEventArgs type of the event handler is <b>not an object type</b>, such as a tuple, you will have to 'wrap' the handler call with a lambda: </p>
-<p><code> <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html" title="Forwards event triggers when the specified Condition is true.">ConditionalEventForward</a> cef = new(() =&gt; allowEventCondition); MyEvent += (s, e) =&gt; cef.Handler(s, e); </code></p>
+<p><code> <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html" title="Forwards event invocations only when the specified Condition returns true.  This essentially acts lik...">ConditionalEventForward</a> cef = new(() =&gt; allowEventCondition); MyEvent += (s, e) =&gt; cef.Handler(s, e); </code></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sender</td><td>This is forwarded to the first parameter in any handlers attached to <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab45c9e75f4927ea384fa53c5a2bd31dd" title="Triggered whenever the Handler(object?, object) is called and Condition returns true.">Event</a>.</td></tr>
@@ -231,7 +256,7 @@ Properties</h2></td></tr>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00035">VolumeControl.SDK.ConditionalEventForward.Condition</a>.</p>
+<p class="reference">References <a class="el" href="#l00046">VolumeControl.SDK.ConditionalEventForward.Condition</a>, and <a class="el" href="#l00053">VolumeControl.SDK.ConditionalEventForward.Event</a>.</p>
 
 </div>
 </div>
@@ -248,9 +273,9 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Triggered whenever the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab11c85b4a04c9ceff504cc868430387b" title="An event handler that can be attached to any EventHandler or EventHandler&lt;TEventArgs&gt; compatible even...">Handler(object?, object)</a> is called and <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#afee66d01deee26727877ba58a8c73d81" title="A delegate of type ConditionEvaluator that, when it returns true, forwards the event sender &amp; argumen...">Condition</a> returns <code>true</code>. </p>
+<p>Triggered whenever the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab11c85b4a04c9ceff504cc868430387b" title="An event handler that can be attached to any EventHandler or EventHandler&lt;TEventArgs&gt; compatible even...">Handler(object?, object)</a> is called and <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#afee66d01deee26727877ba58a8c73d81" title="Gets or sets this instance&#39;s condition.  If this is force-set to null, event triggers are always forw...">Condition</a> returns <code>true</code>. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00016">VolumeControl.SDK.ConditionalEventForward.ConditionalEventForward()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00026">VolumeControl.SDK.ConditionalEventForward.ConditionalEventForward()</a>, <a class="el" href="#l00067">VolumeControl.SDK.ConditionalEventForward.Handler()</a>, and <a class="el" href="#l00073">VolumeControl.SDK.ConditionalEventForward.Handler&lt; T &gt;()</a>.</p>
 
 </div>
 </div>
@@ -265,7 +290,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#a2fac2b34342f7dfce05d795e969be7cb">ConditionEvaluator</a> VolumeControl.SDK.ConditionalEventForward.Condition</td>
+          <td class="memname"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#a962c2c336310876e5f98bcd70045aa27">ConditionEvaluator</a> VolumeControl.SDK.ConditionalEventForward.Condition</td>
         </tr>
       </table>
   </td>
@@ -275,9 +300,10 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>A <code>delegate</code> of type <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#a2fac2b34342f7dfce05d795e969be7cb" title="A delegate method or lambda that determines whether or not events received through the Handler(object...">ConditionEvaluator</a> that, when it returns <code>true</code>, forwards the event sender &amp; arguments to the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab45c9e75f4927ea384fa53c5a2bd31dd" title="Triggered whenever the Handler(object?, object) is called and Condition returns true.">Event</a> event trigger. </p>
+<p>Gets or sets this instance's <b>condition</b>.<br  />
+ If this is force-set to <code>null</code>, event triggers are always forwarded and the conditional evaluation step is skipped entirely. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00016">VolumeControl.SDK.ConditionalEventForward.ConditionalEventForward()</a>, <a class="el" href="#l00056">VolumeControl.SDK.ConditionalEventForward.Handler()</a>, and <a class="el" href="#l00062">VolumeControl.SDK.ConditionalEventForward.Handler&lt; T &gt;()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00026">VolumeControl.SDK.ConditionalEventForward.ConditionalEventForward()</a>, <a class="el" href="#l00067">VolumeControl.SDK.ConditionalEventForward.Handler()</a>, and <a class="el" href="#l00073">VolumeControl.SDK.ConditionalEventForward.Handler&lt; T &gt;()</a>.</p>
 
 </div>
 </div>

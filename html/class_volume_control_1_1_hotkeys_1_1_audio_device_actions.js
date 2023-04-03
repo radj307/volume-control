@@ -24,6 +24,7 @@ var class_volume_control_1_1_hotkeys_1_1_audio_device_actions =
     [ "Unmute", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#a04087e122158e3b3b0b22c7a3f6c39f7", null ],
     [ "VolumeDown", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#abd54c8a702dc5326da2decbdea5b057d", null ],
     [ "VolumeUp", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#af31d11cca0e2c063b364efde3c8dcccc", null ],
+    [ "DisplayTargetName", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#a3e1098c57d5cc3993a266a4b7f747594", null ],
     [ "AudioAPI", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#a501ac6345a9de1d814a61f9707a8ca12", null ],
     [ "DeviceSelectionLocked", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#a3e006b60c21452ab9df721fa872d9cbe", null ],
     [ "SelectedDevice", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#a4a1f430d4a45824162e385415b734ab1", null ],
