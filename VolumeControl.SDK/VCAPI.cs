@@ -13,12 +13,13 @@ namespace VolumeControl.SDK
     /// </remarks>
     public class VCAPI
     {
-        internal VCAPI(AudioAPI aAPI, HotkeyManager hkManager, IntPtr MainHWnd, Config settings)
+        internal VCAPI(AudioAPI audioAPI, HotkeyManager hkManager, IntPtr MainHWnd, Config settings)
         {
-            this.AudioAPI = aAPI;
+            this.AudioAPI = audioAPI;
             this.HotkeyManager = hkManager;
             this.MainWindowHWnd = MainHWnd;
             this.Settings = settings;
+            this.ListDisplayTargets = new();
         }
 
         #region Statics
@@ -49,6 +50,10 @@ namespace VolumeControl.SDK
         /// This is the object that contains many of the runtime application settings.<br/>These are saved to the user configuration when the application shuts down.
         /// </summary>
         public Config Settings { get; }
+        /// <summary>
+        /// The list of <see cref="ListDisplayTarget"/> instances currently 
+        /// </summary>
+        public List<ListDisplayTarget> ListDisplayTargets { get; }
         #endregion Properties
     }
 }

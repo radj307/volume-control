@@ -18,7 +18,7 @@ namespace VolumeControl.ViewModels
     /// <summary>
     /// View model for the <see cref="ListNotification"/> window.
     /// </summary>
-    public class ListNotificationVM : INotifyPropertyChanged
+    public class ListNotificationVM : INotifyPropertyChanged, IListDisplayTarget
     {
         #region Statics
         private static LogWriter Log => FLog.Log;
@@ -48,38 +48,15 @@ namespace VolumeControl.ViewModels
                 this.SetDisplayTarget(value);
             }
         }
-        /// <summary>
-        /// The <see cref="CurrentDisplayTarget"/>'s <see cref="ListDisplayTarget.ItemsSource"/> property.
-        /// </summary>
-        public IEnumerable<IListDisplayable>? ItemsSource => this.CurrentDisplayTarget?.ItemsSource;
-        /// <summary>
-        /// The <see cref="CurrentDisplayTarget"/>'s <see cref="ListDisplayTarget.SelectedItem"/> property.
-        /// </summary>
-        public IListDisplayable? SelectedItem
+        public Brush? Background
         {
-            get => this.CurrentDisplayTarget?.SelectedItem;
+            get => this.CurrentDisplayTarget?.Background;
             set
             {
-                if (this.CurrentDisplayTarget is null) return;
-                this.CurrentDisplayTarget.SelectedItem = value;
-                NotifyPropertyChanged(nameof(SelectedItemControls)); //< update controls
+                if (CurrentDisplayTarget is null) return;
+                this.CurrentDisplayTarget.Background = value;
             }
         }
-        /// <summary>
-        /// The <see cref="CurrentDisplayTarget"/>'s <see cref="ListDisplayTarget.SelectedItemControls"/> property.
-        /// </summary>
-        public Control[]? SelectedItemControls
-        {
-            get => this.CurrentDisplayTarget?.SelectedItemControls;
-            set
-            {
-                if (this.CurrentDisplayTarget is null) return;
-                this.CurrentDisplayTarget.SelectedItemControls = value;
-            }
-        }
-        /// <summary>
-        /// The <see cref="CurrentDisplayTarget"/>'s <see cref="ListDisplayTarget.LockSelection"/> property.
-        /// </summary>
         public bool LockSelection
         {
             get => this.CurrentDisplayTarget?.LockSelection ?? false;
@@ -89,18 +66,43 @@ namespace VolumeControl.ViewModels
                 this.CurrentDisplayTarget.LockSelection = value;
             }
         }
-        /// <summary>
-        /// The <see cref="CurrentDisplayTarget"/>'s <see cref="ListDisplayTarget.Background"/> property.
-        /// </summary>
-        public Brush Background
+        public ImageSource? Icon
         {
-            get => this.CurrentDisplayTarget?.Background ?? Config.NotificationDefaultBrush;
+            get => this.CurrentDisplayTarget?.Icon;
             set
             {
                 if (this.CurrentDisplayTarget is null) return;
-                this.CurrentDisplayTarget.Background = value;
+                this.CurrentDisplayTarget.Icon = value;
             }
         }
+        public IEnumerable<IListDisplayable>? ItemsSource
+        {
+            get => this.CurrentDisplayTarget?.ItemsSource;
+            set
+            {
+                if (this.CurrentDisplayTarget is null) return;
+                this.CurrentDisplayTarget.ItemsSource = value;
+            }
+        }
+        public IListDisplayable? SelectedItem
+        {
+            get => this.CurrentDisplayTarget?.SelectedItem;
+            set
+            {
+                if (this.CurrentDisplayTarget is null) return;
+                this.CurrentDisplayTarget.SelectedItem = value;
+            }
+        }
+        public Control[]? SelectedItemControls
+        {
+            get => this.CurrentDisplayTarget?.SelectedItemControls;
+            set
+            {
+                if (this.CurrentDisplayTarget is null) return;
+                this.CurrentDisplayTarget.SelectedItemControls = value;
+            }
+        }
+
         #region Settings
         public bool DoFadeIn
         {
@@ -226,6 +228,7 @@ namespace VolumeControl.ViewModels
             {
                 // unhook event triggers from outgoing display target
                 _currentDisplayTarget.ShowEvent -= this.ListDisplayTarget_ShowEvent;
+                _currentDisplayTarget.PropertyChanged -= this.ForwardCurrentDisplayTargetPropertyChanged;
 
                 _currentDisplayTarget.RaiseEvent(nameof(ListDisplayTarget.Unselected), new object[] { this, EventArgs.Empty });
 
@@ -253,6 +256,15 @@ namespace VolumeControl.ViewModels
 
             // hook up event triggers for incoming display target
             _currentDisplayTarget.ShowEvent += this.ListDisplayTarget_ShowEvent;
+            _currentDisplayTarget.PropertyChanged += this.ForwardCurrentDisplayTargetPropertyChanged;
+        }
+        private void ForwardCurrentDisplayTargetPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName is null) return;
+            if (typeof(IListDisplayTarget).GetProperty(e.PropertyName) is not null)
+            {
+                NotifyPropertyChanged(e.PropertyName);
+            }
         }
         /// <summary>
         /// Removes the specified <paramref name="displayable"/> from <see cref="DisplayTargets"/>.
@@ -282,7 +294,8 @@ namespace VolumeControl.ViewModels
         /// <param name="name">The name of the target display target.</param>
         /// <param name="comparisonType"><see cref="StringComparison.Ordinal"/> by default.</param>
         /// <returns></returns>
-        public ListDisplayTarget? FindDisplayTarget(string name, StringComparison comparisonType = StringComparison.Ordinal) => DisplayTargets.FirstOrDefault(tgt => tgt?.Name.Equals(name, comparisonType) ?? false, null);
+        public ListDisplayTarget? FindDisplayTarget(string name, StringComparison comparisonType = StringComparison.Ordinal)
+            => DisplayTargets.FirstOrDefault(tgt => tgt?.Name.Equals(name, comparisonType) ?? false, null);
         #endregion ...DisplayTargets
         #endregion Methods
 

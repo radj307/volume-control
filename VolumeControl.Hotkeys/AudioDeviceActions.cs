@@ -1,8 +1,13 @@
 ﻿using System.ComponentModel;
+using System.Windows.Data;
+using System.Windows;
 using VolumeControl.Audio;
 using VolumeControl.Audio.Events;
 using VolumeControl.Core.Attributes;
 using VolumeControl.SDK;
+using VolumeControl.TypeExtensions;
+using VolumeControl.Core;
+using VolumeControl.Core.Interfaces;
 
 namespace VolumeControl.Hotkeys
 {
@@ -12,7 +17,48 @@ namespace VolumeControl.Hotkeys
     [HotkeyActionGroup("Device", GroupColor = "#FF9999")]
     public sealed class AudioDeviceActions
     {
+        static AudioDeviceActions()
+        {
+            // devices
+            ListDisplayTarget ldtDevices = new("Audio Devices");
+            ldtDevices.SetBinding(ListDisplayTarget.ItemsSourceProperty, new Binding()
+            {
+                Source = AudioAPI,
+                Path = new PropertyPath(nameof(VCAPI.Default.AudioAPI.Devices))
+            });
+            ldtDevices.SetBinding(ListDisplayTarget.SelectedItemControlsProperty, new Binding()
+            {
+                RelativeSource = RelativeSource.Self,
+                Path = new PropertyPath($"{nameof(ListDisplayTarget.SelectedItem)}.{nameof(IListDisplayable.DisplayControls)}"),
+            });
+            // device target show triggers
+            ConditionalEventForward? cefSelectedDeviceSwitched = ldtDevices.AddConditionalEventForward(() => Settings.NotificationsEnabled);
+            SelectedDeviceSwitched += (s, e) =>
+            {
+                cefSelectedDeviceSwitched.Handler(s, e);
+                ldtDevices.SelectedItem = SelectedDevice;
+            };
+            var cefEnableDeviceChanged = ldtDevices.AddConditionalEventForward(() => Settings.NotificationsEnabled);
+            AudioAPI.Devices.DeviceEnabledChanged += cefEnableDeviceChanged.Handler;
+            var cefDeviceVolumeChanged = ldtDevices.AddConditionalEventForward(() => Settings.NotificationsEnabled && Settings.NotificationsOnVolumeChange);
+            AudioAPI.Devices.DeviceVolumeChanged += cefDeviceVolumeChanged.Handler;
+            SelectedDeviceVolumeChanged += ldtDevices.AddConditionalEventForward(() => Settings.NotificationsEnabled && Settings.NotificationsOnVolumeChange).Handler;
+            var cefDeviceSelectionLockedChanged = ldtDevices.AddConditionalEventForward(() => Settings.NotificationsEnabled);
+            LockSelectionChanged += (s, e) =>
+            {
+                cefDeviceSelectionLockedChanged.Handler(s, e);
+                ldtDevices.LockSelection = DeviceSelectionLocked;
+                ldtDevices.Background = DeviceSelectionLocked
+                    ? Config.NotificationLockedBrush
+                    : Config.NotificationUnlockedBrush;
+                ldtDevices.Show();
+            };
+
+            VCAPI.Default.ListDisplayTargets.Add(ldtDevices);
+        }
+
         #region Properties
+        private static Config Settings => VCAPI.Default.Settings;
         /// <summary>
         /// The <see cref="Audio.AudioAPI"/> instance to use for volume-related events.
         /// </summary>
@@ -29,6 +75,7 @@ namespace VolumeControl.Hotkeys
                 NotifySelectedDeviceSwitched();
             }
         }
+        public static bool DeviceSelectionLocked { get; set; } = false;
         #endregion Properties
 
         #region Events
@@ -38,6 +85,8 @@ namespace VolumeControl.Hotkeys
         /// <summary>Triggered when the selected session is changed.</summary>
         public static event EventHandler? SelectedDeviceSwitched;
         private static void NotifySelectedDeviceSwitched() => SelectedDeviceSwitched?.Invoke(SelectedDevice, new());
+        public static event EventHandler? LockSelectionChanged;
+        private static void NotifyLockSelectionChanged() => LockSelectionChanged?.Invoke(LockSelectionChanged, new());
         #endregion Events
 
         #region DeviceSelection
@@ -115,6 +164,7 @@ namespace VolumeControl.Hotkeys
         /// <remarks>If <see cref="SelectedDevice"/> is set to null, the first element in <see cref="Devices"/> is selected.</remarks>
         public static void SelectNextDevice()
         {
+            if (DeviceSelectionLocked) return;
             if (AudioAPI.Devices.Count == 0)
             {
                 if (SelectedDevice == null) return;
@@ -140,6 +190,7 @@ namespace VolumeControl.Hotkeys
         /// <remarks>If <see cref="SelectedDevice"/> is set to null, the last element in <see cref="Devices"/> is selected.</remarks>
         public static void SelectPreviousDevice()
         {
+            if (DeviceSelectionLocked) return;
             if (AudioAPI.Devices.Count == 0)
             {
                 if (SelectedDevice == null) return;
@@ -185,6 +236,11 @@ namespace VolumeControl.Hotkeys
             }
             return false;
         }
+        public static void ToggleLockSelection()
+        {
+            DeviceSelectionLocked = !DeviceSelectionLocked;
+            NotifyLockSelectionChanged();
+        }
         #endregion DeviceSelection
 
         #region Actions
@@ -206,6 +262,8 @@ namespace VolumeControl.Hotkeys
         public void Deselect(object? sender, HandledEventArgs e) => DeselectDevice();
         [HotkeyAction(Description = "Selects the default output device in the list.")]
         public void SelectDefault(object? sender, HandledEventArgs e) => SelectDefaultDevice();
+        [HotkeyAction(Description = "Toggles whether the selected device can be changed or not.")]
+        public void ToggleLock(object? sender, HandledEventArgs e) => ToggleLockSelection();
         #endregion Actions
     }
 }

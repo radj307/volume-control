@@ -12,7 +12,7 @@ namespace VolumeControl.SDK
     /// Wrapper object for a ListNotification display target.<br/>
     /// This provides the necessary interaction interfaces for the ListNotification window to display a list of items.
     /// </summary>
-    public sealed class ListDisplayTarget : DependencyObject, INotifyPropertyChanged
+    public sealed class ListDisplayTarget : DependencyObject, IListDisplayTarget, INotifyPropertyChanged
     {
         #region Constructors
         /// <summary>
@@ -23,6 +23,9 @@ namespace VolumeControl.SDK
         {
             _conditionalShowTriggers = conditionalShowTriggers;
             this.HookUpConditionalShowTriggers();
+
+            this.Selected += (s, e) => IsSelected = true;
+            this.Unselected += (s, e) => IsSelected = false;
         }
         /// <summary>
         /// Creates a new <see cref="ListDisplayTarget"/> instance.
@@ -37,6 +40,16 @@ namespace VolumeControl.SDK
         public ListDisplayTarget(string name = "") : this(name, Array.Empty<ConditionalEventForward>()) { }
         #endregion Constructors
 
+        #region IsSelected
+        /// <summary>
+        /// Gets whether this <see cref="ListDisplayTarget"/> instance is currently selected.
+        /// </summary>
+        /// <returns>
+        /// <see langword="true"/> when selected; otherwise <see langword="false"/>.
+        /// </returns>
+        public bool IsSelected { get; private set; }
+        #endregion IsSelected
+
         #region Name
         /// <summary>
         /// The name of this display target.
@@ -49,9 +62,7 @@ namespace VolumeControl.SDK
         /// <see cref="DependencyProperty"/> for the <see cref="Background"/> brush.
         /// </summary>
         public static readonly DependencyProperty BackgroundProperty = DependencyProperty.Register(nameof(Background), typeof(Brush), typeof(ListDisplayTarget), new PropertyMetadata(null));
-        /// <summary>
-        /// Gets or sets the background color of the notification window.
-        /// </summary>
+        /// <inheritdoc/>
         public Brush? Background
         {
             get => this.GetValue(BackgroundProperty) as Brush;
@@ -64,12 +75,7 @@ namespace VolumeControl.SDK
         /// <see cref="DependencyProperty"/> for the <see cref="LockSelection"/> state.
         /// </summary>
         public static readonly DependencyProperty LockSelectionProperty = DependencyProperty.Register(nameof(LockSelection), typeof(bool), typeof(ListDisplayTarget), new PropertyMetadata(null));
-        /// <summary>
-        /// Gets or sets whether the user can change the SelectedItem property of the ListView control by clicking on an item in the list.
-        /// </summary>
-        /// <remarks>
-        /// While this <i>is</i> used by the Audio Sessions &amp; Audio Devices display targets, this property is <b>not the same thing</b>; this controls whether the actual ListView control allows the user to change the selection; it does not work the other way around!
-        /// </remarks>
+        /// <inheritdoc/>
         public bool LockSelection
         {
             get => (bool)this.GetValue(LockSelectionProperty);
@@ -82,9 +88,7 @@ namespace VolumeControl.SDK
         /// <see cref="DependencyProperty"/> for the <see cref="Icon"/> icon.
         /// </summary>
         public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(ImageSource), typeof(ListDisplayTarget), new PropertyMetadata(null));
-        /// <summary>
-        /// Gets or sets an optional icon to show in the display target list.
-        /// </summary>
+        /// <inheritdoc/>
         public ImageSource? Icon
         {
             get => this.GetValue(IconProperty) as ImageSource;
@@ -99,9 +103,7 @@ namespace VolumeControl.SDK
         public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable<IListDisplayable>), typeof(ListDisplayTarget), new PropertyMetadata(null, HandleItemsSourcePropertyChanged));
         private static void HandleItemsSourcePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as ListDisplayTarget)?.UnsetSelectedItem();
         private void UnsetSelectedItem() => this.SelectedItem = null;
-        /// <summary>
-        /// Gets or sets the enumerable list of objects that implement <see cref="IListDisplayable"/> to show in the notification window.
-        /// </summary>
+        /// <inheritdoc/>
         public IEnumerable<IListDisplayable>? ItemsSource
         {
             get => this.GetValue(ItemsSourceProperty) as IEnumerable<IListDisplayable>;
@@ -114,10 +116,13 @@ namespace VolumeControl.SDK
         /// <see cref="DependencyProperty"/> for the <see cref="SelectedItem"/> item.
         /// </summary>
         public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register(nameof(SelectedItem), typeof(IListDisplayable), typeof(ListDisplayTarget), new PropertyMetadata(null, HandleSelectedItemPropertyChanged));
-        private static void HandleSelectedItemPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as ListDisplayTarget)?.NotifySelectedItemChanged();
-        /// <summary>
-        /// Gets or sets the currently-selected item in the ListView control.
-        /// </summary>
+        private static void HandleSelectedItemPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var listDisplayTarget = (ListDisplayTarget)d;
+            listDisplayTarget.NotifySelectedItemChanged();
+            listDisplayTarget.PropertyChanged?.Invoke(listDisplayTarget, new(nameof(SelectedItemControls)));
+        }
+        /// <inheritdoc/>
         public IListDisplayable? SelectedItem
         {
             get => this.GetValue(SelectedItemProperty) as IListDisplayable;
@@ -130,9 +135,7 @@ namespace VolumeControl.SDK
         /// <see cref="DependencyProperty"/> for the <see cref="SelectedItemControls"/> control array.
         /// </summary>
         public static readonly DependencyProperty SelectedItemControlsProperty = DependencyProperty.Register(nameof(SelectedItemControls), typeof(Control[]), typeof(ListDisplayTarget), new PropertyMetadata(null));
-        /// <summary>
-        /// Gets or sets an optional array of controls to display in the notification window when the individual controls are disabled.
-        /// </summary>
+        /// <inheritdoc/>
         public Control[]? SelectedItemControls
         {
             get => this.GetValue(SelectedItemControlsProperty) as Control[];
@@ -160,8 +163,10 @@ namespace VolumeControl.SDK
                 this.HookUpConditionalShowTriggers();
             }
         }
-        private void HookUpConditionalShowTriggers() => this.ConditionalShowTriggers.ForEach(t => t.Event += this.NotifyShowEvent);
-        private void UnHookConditionalShowTriggers() => this.ConditionalShowTriggers.ForEach(t => t.Event -= this.NotifyShowEvent);
+        private void HookUpConditionalShowTriggers()
+            => this.ConditionalShowTriggers.ForEach(t => t.Event += this.NotifyShowEvent);
+        private void UnHookConditionalShowTriggers()
+            => this.ConditionalShowTriggers.ForEach(t => t.Event -= this.NotifyShowEvent);
         #endregion ConditionalShowTriggers
 
         #region Events
@@ -180,6 +185,10 @@ namespace VolumeControl.SDK
         /// </summary>
         public event EventHandler<object>? ShowEvent;
         private void NotifyShowEvent(object? sender, object e) => ShowEvent?.Invoke(sender, e);
+        /// <summary>
+        /// Triggers the <see cref="ShowEvent"/>, causing the notification to show the display target, if it's enabled.
+        /// </summary>
+        public void Show() => ShowEvent?.Invoke(this, new());
         /// <summary>
         /// Triggered when this <see cref="ListDisplayTarget"/> instance becomes the active display target.
         /// </summary>
