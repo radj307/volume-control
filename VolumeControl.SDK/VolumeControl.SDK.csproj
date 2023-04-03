@@ -20,7 +20,7 @@
     <NeutralLanguage>en-CA</NeutralLanguage>
     <PackageReleaseNotes>Full Changelog: https://github.com/radj307/volume-control/commits/main</PackageReleaseNotes>
     <Version>6.0.0</Version>
-    <ExtendedVersion>6.0.0-pr4</ExtendedVersion>
+    <ExtendedVersion>6.0.0-pr5</ExtendedVersion>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
   <ItemGroup>
