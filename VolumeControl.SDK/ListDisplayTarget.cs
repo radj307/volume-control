@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using VolumeControl.Core.Interfaces;
+using VolumeControl.SDK.Interfaces;
 using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.SDK

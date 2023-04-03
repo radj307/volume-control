@@ -2,7 +2,7 @@
 using System.Windows.Media;
 using VolumeControl.Core.Interfaces;
 
-namespace VolumeControl.SDK
+namespace VolumeControl.SDK.Interfaces
 {
     /// <summary>
     /// Represents a <see cref="ListDisplayTarget"/>.

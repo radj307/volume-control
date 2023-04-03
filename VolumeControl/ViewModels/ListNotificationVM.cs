@@ -11,6 +11,7 @@ using VolumeControl.Core;
 using VolumeControl.Core.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.SDK;
+using VolumeControl.SDK.Interfaces;
 using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.ViewModels
