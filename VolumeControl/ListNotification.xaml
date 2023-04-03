@@ -19,6 +19,7 @@
     Loaded="lnotifWindow_Loaded"
     MouseDown="lnotifWindow_MouseDown"
     MouseEnter="lnotifWindow_MouseEnter"
+    MouseLeave="lnotifWindow_MouseLeave"
     ResizeMode="NoResize"
     ShowActivated="False"
     ShowInTaskbar="False"
@@ -68,6 +69,10 @@
 
             <conv:ConverterChain x:Key="InvertedBooleanToVisibilityConverter">
                 <conv:BooleanInverter />
+                <BooleanToVisibilityConverter />
+            </conv:ConverterChain>
+            <conv:ConverterChain x:Key="ArrayHasItemsVisibilityConverter">
+                <conv:ArrayHasItemsBooleanConverter />
                 <BooleanToVisibilityConverter />
             </conv:ConverterChain>
         </ResourceDictionary>
@@ -183,7 +188,7 @@
         </Grid>
 
         <!--  Outer Layout Grid Control  -->
-        <Grid Grid.Row="1" Margin="10,8">
+        <Grid Grid.Row="1" Margin="10,5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
@@ -191,6 +196,8 @@
 
             <ListView
                 Name="listView"
+                Grid.Row="0"
+                Margin="3,2"
                 Background="{StaticResource panelBrush}"
                 Focusable="{Binding ListNotificationVM.LockSelection, Source={StaticResource Settings}, Mode=OneWay, Converter={StaticResource InvertConverter}}"
                 ItemsSource="{Binding ListNotificationVM.ItemsSource, Source={StaticResource Settings}, Mode=OneWay}"
@@ -280,11 +287,11 @@
             <Grid
                 Grid.Row="1"
                 Margin="1"
-                DataContext="{Binding ListNotificationVM, Source={StaticResource Settings}}">
-                <!--  Visibility="{Binding ShowsCustomControls, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"  -->
+                HorizontalAlignment="Center"
+                DataContext="{Binding ListNotificationVM, Source={StaticResource Settings}}"
+                Visibility="{Binding SelectedItemControls, Mode=OneWay, Converter={StaticResource ArrayHasItemsVisibilityConverter}}">
                 <StackPanel
                     x:Name="selectedItemControlsTemplate"
-                    Margin="5,3,0,3"
                     HorizontalAlignment="Stretch"
                     Loaded="displayableControlsTemplate_Loaded"
                     Orientation="Horizontal"

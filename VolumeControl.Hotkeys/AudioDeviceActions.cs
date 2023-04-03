@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel;
-using System.Windows.Data;
 using System.Windows;
+using System.Windows.Data;
 using VolumeControl.Audio;
 using VolumeControl.Audio.Events;
+using VolumeControl.Core;
 using VolumeControl.Core.Attributes;
+using VolumeControl.Core.Interfaces;
 using VolumeControl.SDK;
 using VolumeControl.TypeExtensions;
-using VolumeControl.Core;
-using VolumeControl.Core.Interfaces;
 
 namespace VolumeControl.Hotkeys
 {
@@ -17,36 +17,53 @@ namespace VolumeControl.Hotkeys
     [HotkeyActionGroup("Device", GroupColor = "#FF9999")]
     public sealed class AudioDeviceActions
     {
+        #region Constructor
         static AudioDeviceActions()
         {
-            // devices
-            ListDisplayTarget ldtDevices = new("Audio Devices");
+            // create a notification display target for audio devices
+            ListDisplayTarget ldtDevices = new(DisplayTargetName);
+            // Create a function to handle property changed events on ldtDevices so we can update our static properties
+            void handleSelectedItemPropertyChanged(object? s, PropertyChangedEventArgs e)
+            {
+                if (e.PropertyName?.Equals(nameof(ldtDevices.SelectedItem)) ?? false && !ldtDevices.SelectedItem.Equals(SelectedDevice))
+                {
+                    SelectedDevice = ldtDevices.SelectedItem as AudioDevice;
+                }
+            }
+            // Bind ItemsSource => AudioAPI.Devices
             ldtDevices.SetBinding(ListDisplayTarget.ItemsSourceProperty, new Binding()
             {
                 Source = AudioAPI,
-                Path = new PropertyPath(nameof(VCAPI.Default.AudioAPI.Devices))
+                Path = new PropertyPath(nameof(Audio.AudioAPI.Devices))
             });
+            // Bind SelectedItemControls => (self).SelectedItem.DisplayControls
             ldtDevices.SetBinding(ListDisplayTarget.SelectedItemControlsProperty, new Binding()
             {
                 RelativeSource = RelativeSource.Self,
                 Path = new PropertyPath($"{nameof(ListDisplayTarget.SelectedItem)}.{nameof(IListDisplayable.DisplayControls)}"),
             });
-            // device target show triggers
-            ConditionalEventForward? cefSelectedDeviceSwitched = ldtDevices.AddConditionalEventForward(() => Settings.NotificationsEnabled);
+            // Show when SelectedDeviceSwitched is triggered
+            ConditionalEventForward? cefSelectedDeviceSwitched = ldtDevices.AddConditionalEventForward((s, e) => Settings.NotificationsEnabled);
             SelectedDeviceSwitched += (s, e) =>
             {
-                cefSelectedDeviceSwitched.Handler(s, e);
-                ldtDevices.SelectedItem = SelectedDevice;
+                cefSelectedDeviceSwitched.Handler(s, e); //< show
+                ldtDevices.PropertyChanged -= handleSelectedItemPropertyChanged;
+                ldtDevices.SelectedItem = SelectedDevice; //< update SelectedItem to match new value
+                ldtDevices.RaisePropertyChanged(nameof(ldtDevices.SelectedItemControls));
+                ldtDevices.PropertyChanged += handleSelectedItemPropertyChanged;
             };
-            var cefEnableDeviceChanged = ldtDevices.AddConditionalEventForward(() => Settings.NotificationsEnabled);
+            // Show when DeviceEnabledChanged is triggered
+            var cefEnableDeviceChanged = ldtDevices.AddConditionalEventForward((s, e) => Settings.NotificationsEnabled);
             AudioAPI.Devices.DeviceEnabledChanged += cefEnableDeviceChanged.Handler;
-            var cefDeviceVolumeChanged = ldtDevices.AddConditionalEventForward(() => Settings.NotificationsEnabled && Settings.NotificationsOnVolumeChange);
+            // Show when DeviceVolumeChanged is triggered
+            var cefDeviceVolumeChanged = ldtDevices.AddConditionalEventForward((s, e) => Settings.NotificationsEnabled && Settings.NotificationsOnVolumeChange);
             AudioAPI.Devices.DeviceVolumeChanged += cefDeviceVolumeChanged.Handler;
-            SelectedDeviceVolumeChanged += ldtDevices.AddConditionalEventForward(() => Settings.NotificationsEnabled && Settings.NotificationsOnVolumeChange).Handler;
-            var cefDeviceSelectionLockedChanged = ldtDevices.AddConditionalEventForward(() => Settings.NotificationsEnabled);
+            SelectedDeviceVolumeChanged += ldtDevices.AddConditionalEventForward((s, e) => Settings.NotificationsEnabled && Settings.NotificationsOnVolumeChange).Handler;
+            // Show when LockSelectedChanged is triggered
+            var cefDeviceSelectionLockedChanged = ldtDevices.AddConditionalEventForward((s, e) => Settings.NotificationsEnabled);
             LockSelectionChanged += (s, e) =>
             {
-                cefDeviceSelectionLockedChanged.Handler(s, e);
+                cefDeviceSelectionLockedChanged.Handler(s, e); //< show
                 ldtDevices.LockSelection = DeviceSelectionLocked;
                 ldtDevices.Background = DeviceSelectionLocked
                     ? Config.NotificationLockedBrush
@@ -54,8 +71,14 @@ namespace VolumeControl.Hotkeys
                 ldtDevices.Show();
             };
 
+            ldtDevices.PropertyChanged += handleSelectedItemPropertyChanged;
+
             VCAPI.Default.ListDisplayTargets.Add(ldtDevices);
+
+            // TODO: Implement a setting for this:
+            SelectedDevice = AudioAPI.DefaultDevice; //< initialize the selected device
         }
+        #endregion Constructor
 
         #region Properties
         private static Config Settings => VCAPI.Default.Settings;
@@ -64,6 +87,7 @@ namespace VolumeControl.Hotkeys
         /// </summary>
         private static AudioAPI AudioAPI => _audioAPI ??= VCAPI.Default.AudioAPI;
         private static AudioAPI? _audioAPI = null;
+        public const string DisplayTargetName = "Audio Devices";
 
         private static AudioDevice? _selectedDevice;
         public static AudioDevice? SelectedDevice
@@ -243,27 +267,37 @@ namespace VolumeControl.Hotkeys
         }
         #endregion DeviceSelection
 
-        #region Actions
+        #region Action Methods
         [HotkeyAction(Description = "Increases the device volume of the selected device.")]
-        public void VolumeUp(object? sender, HandledEventArgs e) => IncrementDeviceVolume();
+        public void VolumeUp(object? sender, HandledEventArgs e)
+            => IncrementDeviceVolume();
         [HotkeyAction(Description = "Decreases the device volume of the selected device.")]
-        public void VolumeDown(object? sender, HandledEventArgs e) => DecrementDeviceVolume();
+        public void VolumeDown(object? sender, HandledEventArgs e)
+            => DecrementDeviceVolume();
         [HotkeyAction(Description = "Mutes the selected device.")]
-        public void Mute(object? sender, HandledEventArgs e) => SetDeviceMute(true);
+        public void Mute(object? sender, HandledEventArgs e)
+            => SetDeviceMute(true);
         [HotkeyAction(Description = "Unmutes the selected device.")]
-        public void Unmute(object? sender, HandledEventArgs e) => SetDeviceMute(false);
+        public void Unmute(object? sender, HandledEventArgs e)
+            => SetDeviceMute(false);
         [HotkeyAction(Description = "Toggles the selected device's mute state.")]
-        public void ToggleMute(object? sender, HandledEventArgs e) => ToggleDeviceMute();
+        public void ToggleMute(object? sender, HandledEventArgs e)
+            => ToggleDeviceMute();
         [HotkeyAction(Description = "Selects the next device in the list.")]
-        public void SelectNext(object? sender, HandledEventArgs e) => SelectNextDevice();
+        public void SelectNext(object? sender, HandledEventArgs e)
+            => SelectNextDevice();
         [HotkeyAction(Description = "Selects the previous device in the list.")]
-        public void SelectPrevious(object? sender, HandledEventArgs e) => SelectPreviousDevice();
+        public void SelectPrevious(object? sender, HandledEventArgs e)
+            => SelectPreviousDevice();
         [HotkeyAction(Description = "Deselects the selected device.")]
-        public void Deselect(object? sender, HandledEventArgs e) => DeselectDevice();
+        public void Deselect(object? sender, HandledEventArgs e)
+            => DeselectDevice();
         [HotkeyAction(Description = "Selects the default output device in the list.")]
-        public void SelectDefault(object? sender, HandledEventArgs e) => SelectDefaultDevice();
+        public void SelectDefault(object? sender, HandledEventArgs e)
+            => SelectDefaultDevice();
         [HotkeyAction(Description = "Toggles whether the selected device can be changed or not.")]
-        public void ToggleLock(object? sender, HandledEventArgs e) => ToggleLockSelection();
-        #endregion Actions
+        public void ToggleLock(object? sender, HandledEventArgs e)
+            => ToggleLockSelection();
+        #endregion Action Methods
     }
 }

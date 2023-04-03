@@ -206,6 +206,10 @@ namespace VolumeControl
                 this.Show();
             }
         }
+        private void lnotifWindow_MouseLeave(object sender, MouseEventArgs e)
+        {
+            this.StartTimer();
+        }
         private void ListNotificationVM_Show(object? sender, object e) => this.Show();
         private void ListNotificationVM_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
@@ -222,7 +226,7 @@ namespace VolumeControl
         private void Timer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e) => this.Dispatcher.Invoke(() =>
                                                                                                  {
                                                                                                      if (this.IsMouseOver || this.HasEffectiveKeyboardFocus)
-                                                                                                         this.StartTimer();
+                                                                                                         this.StopTimer();
                                                                                                      else
                                                                                                          this.Hide();
                                                                                                  });

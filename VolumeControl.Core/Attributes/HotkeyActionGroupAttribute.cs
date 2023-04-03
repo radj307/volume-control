@@ -1,6 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
-using VolumeControl.Core;
-using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Core.Attributes
 {
