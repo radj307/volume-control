@@ -45,13 +45,13 @@ var annotated_dup =
         ] ],
         [ "Input", "namespace_volume_control_1_1_core_1_1_input.html", [
           [ "Actions", "namespace_volume_control_1_1_core_1_1_input_1_1_actions.html", [
+            [ "ActionTargetSpecifier", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_action_target_specifier.html", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_action_target_specifier" ],
             [ "HotkeyActionData", "struct_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_data.html", "struct_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_data" ],
             [ "HotkeyActionPressedEventArgs", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_pressed_event_args.html", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_pressed_event_args" ],
-            [ "IHotkeyActionSetting", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting.html", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting" ],
             [ "HotkeyActionSetting", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting.html", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting" ],
-            [ "ActionTargetSpecifier", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_action_target_specifier.html", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_action_target_specifier" ],
             [ "HotkeyActionSettingValueTemplateSelector", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting_value_template_selector.html", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting_value_template_selector" ],
-            [ "IHotkeyAction", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action" ]
+            [ "IHotkeyAction", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action" ],
+            [ "IHotkeyActionSetting", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting.html", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting" ]
           ] ],
           [ "BindableHotkey", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey" ],
           [ "BindableHotkeyJsonWrapper", "struct_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey_json_wrapper.html", "struct_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey_json_wrapper" ],

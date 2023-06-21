@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="Used to specify AudioDevice targets for hotkey actions.">
+<g id="a_node1"><a xlink:title="Used to specify Audio.AudioDevice targets for hotkey actions.">
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-68.5 175,-68.5 175,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Hotkeys.Helpers.</text>
 <text text-anchor="middle" x="87.5" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">DeviceSpecifier</text>
@@ -25,7 +25,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_action_target_specifier.html" target="_top" xlink:title="Specifies a target of a hotkey action.">
+<g id="a_node2"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_action_target_specifier.html" target="_top" xlink:title="Specifies the target(s) of a hotkey action.">
 <polygon fill="none" stroke="black" points="28,-105.5 28,-162.5 147,-162.5 147,-105.5 28,-105.5"/>
 <text text-anchor="middle" x="87.5" y="-150.5" font-family="Helvetica,sans-Serif" font-size="10.00">ActionTargetSpecifier</text>
 <polyline fill="none" stroke="black" points="28,-143.5 147,-143.5 "/>

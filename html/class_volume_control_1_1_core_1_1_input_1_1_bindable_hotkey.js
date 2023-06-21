@@ -12,7 +12,7 @@ var class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey =
     [ "HasError", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#a5aa91d1d399bd6a4624fa7a79ed8b8b5", null ],
     [ "Hotkey", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#abd242e7ed9eadc450824de11d3161e2a", null ],
     [ "ID", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#a30c0446ad9e8b4652cfbbb7fe73f92c2", null ],
-    [ "Key", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#aba5b8c52355b57947da6678765d55297", null ],
+    [ "Key", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#ade72615336f6d9569a28f598cf187296", null ],
     [ "Modifier", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#a6868acfdf6fce019842f12f67b966689", null ],
     [ "Name", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#a057569fd2df93e87835b8d481f267caa", null ],
     [ "NoRepeat", "class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#a634a03036634bde0e0a148dbd3884df8", null ],

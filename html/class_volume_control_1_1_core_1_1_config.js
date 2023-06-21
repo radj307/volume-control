@@ -3,7 +3,6 @@ var class_volume_control_1_1_core_1_1_config =
     [ "PauseAutoSave", "class_volume_control_1_1_core_1_1_config.html#a6c890b9f23d737235d707b288ae0899f", null ],
     [ "ResumeAutoSave", "class_volume_control_1_1_core_1_1_config.html#ae8442da4c2358be20ba944d474d72f5f", null ],
     [ "Hotkeys_Default", "class_volume_control_1_1_core_1_1_config.html#aabc2f606723e6010d5ee104e3c043186", null ],
-    [ "KeyBlacklist", "class_volume_control_1_1_core_1_1_config.html#ad499121c4db6f525d7144e00bfc8df29", null ],
     [ "NotificationDefaultBrush", "class_volume_control_1_1_core_1_1_config.html#a487db62f9ac51c93ed87b59a3b9ceab9", null ],
     [ "NotificationLockedBrush", "class_volume_control_1_1_core_1_1_config.html#abb4a43d216b2119d78819d2b2e449c92", null ],
     [ "NotificationUnlockedBrush", "class_volume_control_1_1_core_1_1_config.html#a4d85f3526b9b33c4c9f98d2f046484ed", null ],

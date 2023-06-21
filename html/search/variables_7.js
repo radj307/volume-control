@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['left_1221',['left',['../struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html#a5c79a9dab09be8ce5b19137bca25d49e',1,'VolumeControl::WPF::PInvoke::RECT']]],
-  ['lockselectionproperty_1222',['LockSelectionProperty',['../class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a32de3bfa6741248dc622216760f0391f',1,'VolumeControl::SDK::ListDisplayTarget']]]
+  ['notificationdefaultbrush_1336',['NotificationDefaultBrush',['../class_volume_control_1_1_core_1_1_config.html#a487db62f9ac51c93ed87b59a3b9ceab9',1,'VolumeControl::Core::Config']]],
+  ['notificationlockedbrush_1337',['NotificationLockedBrush',['../class_volume_control_1_1_core_1_1_config.html#abb4a43d216b2119d78819d2b2e449c92',1,'VolumeControl::Core::Config']]],
+  ['notificationunlockedbrush_1338',['NotificationUnlockedBrush',['../class_volume_control_1_1_core_1_1_config.html#a4d85f3526b9b33c4c9f98d2f046484ed',1,'VolumeControl::Core::Config']]],
+  ['nullaction_1339',['NullAction',['../interface_volume_control_1_1_core_1_1_interfaces_1_1_i_hotkey_action_manager.html#a923c9bd9ebc7956afc1dfcdd87c8c469',1,'VolumeControl::Core::Interfaces::IHotkeyActionManager']]],
+  ['nullactionhandler_1340',['NullActionHandler',['../interface_volume_control_1_1_core_1_1_interfaces_1_1_i_hotkey_action_manager.html#ad799dc7f56759d731c6dd8d6392e8636',1,'VolumeControl::Core::Interfaces::IHotkeyActionManager']]]
 ];
