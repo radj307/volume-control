@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
 using VolumeControl.Core.Enum;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.Log;
@@ -24,7 +23,7 @@ namespace VolumeControl.Core.Input
         /// <param name="key">The primary keyboard <see cref="Key"/> associated with this hotkey.</param>
         /// <param name="modifiers">Modifier key(s) required by this hotkey.</param>
         /// <param name="registered">Whether this hotkey should be registered during construction.</param>
-        public Hotkey(Key key, Modifier modifiers, bool registered = false)
+        public Hotkey(EFriendlyKey key, Modifier modifiers, bool registered = false)
         {
             this.ID = WindowsHotkeyAPI.NextID;
             this.Key = key;
@@ -37,7 +36,7 @@ namespace VolumeControl.Core.Input
         /// <inheritdoc/>
         public int ID { get; }
         /// <inheritdoc/>
-        public Key Key
+        public EFriendlyKey Key
         {
             get => _key;
             set
@@ -46,7 +45,7 @@ namespace VolumeControl.Core.Input
                 _ = WindowsHotkeyAPI.Reregister(this);
             }
         }
-        private Key _key;
+        private EFriendlyKey _key;
         /// <inheritdoc/>
         public Modifier Modifier
         {

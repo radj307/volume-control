@@ -19,7 +19,7 @@ namespace VolumeControl.Core.Input
         /// <summary>
         /// Gets or sets the key associated with this hotkey.
         /// </summary>
-        Key Key { get; set; }
+        EFriendlyKey Key { get; set; }
         /// <summary>
         /// Gets or sets the modifier keys associated with this hotkey.
         /// </summary>

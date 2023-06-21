@@ -53,7 +53,7 @@ namespace VolumeControl.Core.Input
         /// <inheritdoc/>
         public int ID => this.Hotkey.ID;
         /// <inheritdoc/>
-        public Key Key
+        public EFriendlyKey Key
         {
             get => this.Hotkey.Key;
             set => this.Hotkey.Key = value;
@@ -104,7 +104,7 @@ namespace VolumeControl.Core.Input
         /// <summary>
         /// Gets whether <see cref="Key"/> is set to <see cref="Key.None"/> or not.
         /// </summary>
-        public bool Valid => !this.Key.Equals(Key.None);
+        public bool Valid => !this.Key.Equals(EFriendlyKey.None);
         /// <summary>
         /// Gets or sets the <see cref="IHotkeyAction"/> associated with this hotkey instance.
         /// </summary>

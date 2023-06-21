@@ -2,6 +2,7 @@
 using System.Text;
 using System.Windows.Input;
 using System.Windows.Interop;
+using VolumeControl.Core.Enum;
 using VolumeControl.Log;
 
 namespace VolumeControl.Core.Input
@@ -159,7 +160,7 @@ namespace VolumeControl.Core.Input
         private static readonly MessageOnlyWindow messageOnlyWindow = new();
 
         /// <inheritdoc cref="KeyInterop.VirtualKeyFromKey(Key)"/>
-        private static uint ToVirtualKey(Key key) => (uint)KeyInterop.VirtualKeyFromKey(key);
+        private static uint ToVirtualKey(EFriendlyKey key) => (uint)KeyInterop.VirtualKeyFromKey((Key)key);
 
         /// <summary>
         /// Registers <paramref name="hk"/> with the windows API.

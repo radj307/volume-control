@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using VolumeControl.Audio;
 using VolumeControl.Core;
+using VolumeControl.Core.Enum;
 using VolumeControl.Core.Input;
 using VolumeControl.Core.Interfaces;
 using VolumeControl.Helpers;
@@ -184,9 +185,12 @@ namespace VolumeControl
         {
             if (e.Key.Equals(System.Windows.Input.Key.Tab))
                 return; //< don't capture the tab key or it breaks keyboard navigation
+            if (!System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftCtrl) && !System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftCtrl))
+                return; //< only capture when CTRL is held down to allow proper searching
             if (sender is ComboBox cmb)
             {
-                int i = cmb.Items.IndexOf(e.Key);
+                var eventKey = (EFriendlyKey)e.Key;
+                int i = cmb.Items.IndexOf(eventKey);
 
                 if (i.Equals(-1))
                     return;
@@ -195,7 +199,7 @@ namespace VolumeControl
 
                 if (this.TryFindResource("KeyOptions") is KeyOptions keys && keys.Contains(item))
                 {
-                    cmb.SelectedItem = e.Key;
+                    cmb.SelectedItem = eventKey;
                     e.Handled = true;
                 }
             }

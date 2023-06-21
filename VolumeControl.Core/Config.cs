@@ -120,80 +120,6 @@ namespace VolumeControl.Core
         /// </summary>
         /// <remarks><b>Default: <see langword="true"/></b></remarks>
         public bool AllowTransparency { get; set; } = true;
-        /// <summary>
-        /// List of <see cref="Key"/>s that shouldn't be included as an option in the key selector.
-        /// </summary>
-        public static readonly List<Key> KeyBlacklist = new()
-        {
-            // Alt Modifier
-            Key.LeftAlt,
-            Key.RightAlt,
-            // Ctrl Modifier:
-            Key.LeftCtrl,
-            Key.RightCtrl,
-            // Shift Modifier:
-            Key.LeftShift,
-            Key.RightShift,
-            // Super/Windows Modifier:
-            Key.LWin,
-            Key.RWin,
-            // Duplicate keys & unused keys:
-            Key.NoName,
-            Key.System,
-            Key.Prior,
-            Key.Next,
-            Key.Snapshot,
-            Key.Print,
-            Key.Pa1,
-            // All 'Ime-', 'Oem-', & 'Dbe-' key entries:
-            Key.ImeConvert,
-            Key.ImeNonConvert,
-            Key.ImeAccept,
-            Key.ImeModeChange,
-            Key.Oem1,
-            Key.OemSemicolon,
-            Key.OemPlus,
-            Key.OemComma,
-            Key.OemMinus,
-            Key.OemPeriod,
-            Key.Oem2,
-            Key.OemQuestion,
-            Key.Oem3,
-            Key.OemTilde,
-            Key.Oem4,
-            Key.OemOpenBrackets,
-            Key.Oem5,
-            Key.OemPipe,
-            Key.Oem6,
-            Key.OemCloseBrackets,
-            Key.Oem7,
-            Key.OemQuotes,
-            Key.Oem8,
-            Key.Oem102,
-            Key.OemBackslash,
-            Key.ImeProcessed,
-            Key.DbeAlphanumeric,
-            Key.OemAttn,
-            Key.DbeKatakana,
-            Key.OemFinish,
-            Key.DbeHiragana,
-            Key.OemCopy,
-            Key.DbeSbcsChar,
-            Key.OemAuto,
-            Key.DbeDbcsChar,
-            Key.OemEnlw,
-            Key.DbeRoman,
-            Key.OemBackTab,
-            Key.DbeNoRoman,
-            Key.DbeEnterWordRegisterMode,
-            Key.DbeEnterImeConfigureMode,
-            Key.DbeFlushString,
-            Key.DbeCodeInput,
-            Key.DbeNoCodeInput,
-            Key.DbeDetermineString,
-            Key.DbeEnterDialogConversionMode,
-            Key.OemClear,
-        };
         #endregion Main
 
         #region Notifications
@@ -304,42 +230,42 @@ namespace VolumeControl.Core
             new ()
             {
                 Name = "Volume Up",
-                Key = Key.VolumeUp,
+                Key = EFriendlyKey.VolumeUp,
                 Modifier = Modifier.None,
                 ActionIdentifier = "Session:Volume Up",
             },
             new()
             {
                 Name = "Volume Down",
-                Key = Key.VolumeDown,
+                Key = EFriendlyKey.VolumeDown,
                 Modifier = Modifier.None,
                 ActionIdentifier = "Session:Volume Down",
             },
             new()
             {
                 Name = "Toggle Mute",
-                Key = Key.VolumeMute,
+                Key = EFriendlyKey.VolumeMute,
                 Modifier = Modifier.None,
                 ActionIdentifier = "Session:Toggle Mute",
             },
             new()
             {
                 Name = "Next Session",
-                Key = Key.E,
+                Key = EFriendlyKey.E,
                 Modifier = Modifier.Alt | Modifier.Shift | Modifier.Ctrl,
                 ActionIdentifier = "Session:Select Next",
             },
             new()
             {
                 Name = "Previous Session",
-                Key = Key.Q,
+                Key = EFriendlyKey.Q,
                 Modifier = Modifier.Alt | Modifier.Shift | Modifier.Ctrl,
                 ActionIdentifier = "Session:Select Previous",
             },
             new()
             {
                 Name = "Un/Lock Session",
-                Key = Key.S,
+                Key = EFriendlyKey.S,
                 Modifier = Modifier.Alt | Modifier.Shift | Modifier.Ctrl,
                 ActionIdentifier = "Session:Toggle Lock",
             }

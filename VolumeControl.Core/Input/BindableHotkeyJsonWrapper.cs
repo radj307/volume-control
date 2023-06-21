@@ -30,7 +30,7 @@ namespace VolumeControl.Core.Input
         /// The primary key
         /// </summary>
         [JsonProperty]
-        public Key Key { get; set; } = Key.None;
+        public EFriendlyKey Key { get; set; } = EFriendlyKey.None;
         /// <summary>
         /// The modifier keys
         /// </summary>
