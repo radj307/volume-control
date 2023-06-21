@@ -1,4 +1,5 @@
 ﻿using CodingSeb.Localization;
+using CodingSeb.Localization.WPF;
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;
@@ -102,9 +103,9 @@ namespace VolumeControl
                         $"\n" +
                         $"- 'Yes'     Delete the hotkey.\n" +
                         $"- 'No'      Do not delete the hotkey.\n" +
-                        $"- 'Cancel'  Disable these confirmation prompts in the future. (Does not delete the hotkey)\n")
+                        $"- 'Cancel'  Don't show this again. (Press again to delete)\n")
                         .Replace("${ID}", id.ToString()),
-                        Loc.Tr("VolumeControl.Dialogs.RemoveHotkey.Caption", "Confirm Remove"),
+                        Loc.Tr("VolumeControl.Dialogs.RemoveHotkey.Caption", "Confirm Delete"),
                         MessageBoxButton.YesNoCancel,
                         MessageBoxImage.Question,
                         MessageBoxResult.No)
@@ -225,7 +226,13 @@ namespace VolumeControl
         }
         private void Handle_DisplayTargetsHyperlinkClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("A display target is a collection of triggers, controls, colors, & logic that determine the behaviour and appearance of the notification window.\nDisplay targets also change when the notification window appears. For example, the Audio Sessions display target shows the notification window when the selected session is changed or (un)locked, or when the session's volume or mute state changes.", "Help", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+            MessageBox.Show(
+                Loc.Tr("VolumeControl.Dialogs.DisplayTargetsHelp.Message", "A display target is a collection of triggers, controls, colors, & logic that determine the behaviour and appearance of the notification window.\nDisplay targets also change when the notification window appears. For example, the Audio Sessions display target shows the notification window when the selected session is changed or (un)locked, or when the session's volume or mute state changes."),
+                Loc.Tr("VolumeControl.Dialogs.DisplayTargetsHelp.Caption", "Display Targets Help"),
+                MessageBoxButton.OK,
+                MessageBoxImage.Information,
+                MessageBoxResult.OK
+                );
         }
         #endregion EventHandlers
     }

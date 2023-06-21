@@ -525,12 +525,10 @@
       },
       "RemoveHotkey": {
         "Message": {
-          "English (US/CA)": "Are you sure you want to delete hotkey ${ID}?\n\n- 'Yes'     Delete the hotkey.\n- 'No'      Do not delete the hotkey.\n- 'Cancel'  Disable these confirmation prompts in the future. (Does not delete the hotkey)\n"
+          "English (US/CA)": "Are you sure you want to delete hotkey ${ID}?\n\n- 'Yes'     Delete the hotkey.\n- 'No'      Do not delete the hotkey.\n- 'Cancel'  Don't show this again. (Press again to delete)\n"
         },
         "Caption": {
-          "ConfirmRemove": {
-            "English (US/CA)": "Confirm Remove"
-          }
+          "English (US/CA)": "Confirm Delete"
         }
       },
       "DisplayTargetsHelp": {
