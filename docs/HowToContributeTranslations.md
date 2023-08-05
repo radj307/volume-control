@@ -1,4 +1,6 @@
-This guide is intended as a guide for contributors looking to provide language translations for Volume Control. It describes in depth how to edit existing translations, create new translations, and submit pull requests on Github. 
+@page How to Contribute Translations
+
+This is intended as a guide for contributors looking to provide language translations for Volume Control. It describes in depth how to edit existing translations, create new translations, and submit pull requests on Github.
 
 For a comprehensive overview of how Volume Control implements translations, see the documentation for the localization nuget package we use: [CodingSeb.Localization](https://github.com/codingseb/Localization).
 
@@ -15,7 +17,7 @@ This is the simplest way for a complete beginner to get started; if you're alrea
     
     If it doesn't open automatically, you can find your fork at this URL:  
     `https://github.com/<YOUR_GITHUB_USERNAME>/volume-control`  
- 4. Press the PERIOD key (`.`/`>`) to open Github's browser-based version of VS Code.
+ 4. Press the period key (`.`/`>`) to open Github's browser-based version of VS Code *(referred to from here on as the "editor")*.
  5. In the **Explorer** tab, navigate to `VolumeControl/Localization`.  
     ![](https://i.imgur.com/799CQAo.png)  
 
@@ -49,13 +51,14 @@ Translated strings are provided as JSON string values in the format `"<LANGUAGE_
 
 # Edit an Existing Translation
 
-Open the translation config file *(found in `VolumeControl/Localization`)* associated with the translation you want to modify.
+Open the translation config file *(found in `VolumeControl/Localization`)* associated with the translation you want to modify, then proceed to [Add a Missing Translated String](#add-a-missing-translated-string) or [Change an Existing Translated String](#change-an-existing-translated-string).  
+Removing a translated string is fairly self-explanatory; simply delete the sections you want to remove from your translation config file.
 
 ## Add a Missing Translated String
 
- 1. Copy the missing section from `en.loc.json` and paste it into the correct position in the translation config file.
- 2. Change `English (US/CA)` to the language name.
- 3. Replace the english string with the translated string.
+ 1. Copy the missing section(s) from `en.loc.json` and paste it into the correct position(s) in your translation config file.
+ 2. Change `English (US/CA)` to your language name using the find & replace tool *(CTRL+F ➔ Click on the arrow icon)*.
+ 3. Replace the English string(s) with the translated string(s).
 
 ## Change an Existing Translated String
 
@@ -75,6 +78,16 @@ Open the translation config file *(found in `VolumeControl/Localization`)* assoc
     > `"Are you sure you want to delete hotkey ${ID}?\n\n- 'Yes'     Delete the hotkey.\n- 'No'      Do not delete the hotkey.\n- 'Cancel'  Don't show this again. (Press again to delete)\n"`  
     > When changing these entries, be sure to use the correct number of spaces to preserve the alignment!
 
+# Push Your Changes
+
+Changes that you make in the editor will not appear in your forked repository until you **push** them.
+
+ 1. Switch to the **SOURCE CONTROL** tab in the editor.
+ 2. Enter a brief description of the changes you've made in the **Message** field, such as *"Added support for X language"* or *"Changed `Some.Path` to `SomeString`"*. This description is relative to whichever file(s) you've edited/created, so keep it brief and don't worry about context.
+ 3. Click **Commit & Push** or press **CTRL+ENTER** to push your changes.
+
+Your forked repository will now contain your changes, and you're ready to submit a pull request.
+
 # Submit a Pull Request
 
 Pull Requests (PRs) are Github's way of pushing changes across forked repositories. By submitting a pull request, you can contribute to Volume Control directly, and your Github username and picture *(if you have one)* will appear in the **Contributors** section of the main repository:  
@@ -87,10 +100,10 @@ Pull Requests (PRs) are Github's way of pushing changes across forked repositori
     ![](https://i.imgur.com/L3jLiSD.png)
  4. Change the **base repository** dropdown box to your fork, then click **Create pull request**.  
     ![](https://i.imgur.com/N71GFoS.png)
+ 5. Give your PR a name and fill in any relevant information in the description field, then click **Create pull request**.
 
-You're all done!  
-The developers will review your pull request and merge the changes if everything looks good, or they may ask you to make changes first.  
+You're all done! The developers will review your pull request and merge the changes if everything looks good, otherwise they will ask you to make changes first. For more information, see [Updating a Pull Request](#updating-a-pull-request).
 
 ## Updating a Pull Request
 
-If the developers ask you to make changes to your pull request before merging it, you can 
+If the developers ask you to make changes to your pull request before merging it, you can do this by simply pushing the changes to your forked repository as described in [Pushing Your Changes](#pushing-your-changes). No further action is required on your part to update the PR as this happens automatically.
