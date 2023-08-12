@@ -1,5 +1,5 @@
-﻿using CodingSeb.Localization;
-using CodingSeb.Localization.WPF;
+﻿using Audio;
+using CodingSeb.Localization;
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;
@@ -7,13 +7,13 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using VolumeControl.Audio;
 using VolumeControl.Core;
 using VolumeControl.Core.Enum;
 using VolumeControl.Core.Input;
 using VolumeControl.Core.Interfaces;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
+using VolumeControl.ViewModels;
 using VolumeControl.WPF;
 using VolumeControl.WPF.Collections;
 
@@ -54,7 +54,7 @@ namespace VolumeControl
         #region Properties
         private ListNotification ListNotification => (this.FindResource("Notification") as ListNotification)!;
         private VolumeControlSettings VCSettings => (this.FindResource("Settings") as VolumeControlSettings)!;
-        private AudioAPI AudioAPI => this.VCSettings.AudioAPI;
+        private AudioDeviceManagerVM AudioAPI => this.VCSettings.AudioAPI;
         private HotkeyManager HotkeyAPI => this.VCSettings.HotkeyAPI;
         private static LogWriter Log => FLog.Log;
         private static Config Settings => (Config.Default as Config)!;
@@ -71,15 +71,10 @@ namespace VolumeControl
         #endregion Properties
 
         #region EventHandlers
-        /// <summary>Handles the reload session list button's click event.</summary>
-        private void Handle_ReloadDevicesClick(object sender, RoutedEventArgs e) => this.AudioAPI.ForceReloadAudioDevices();
-        /// <summary>Handles the reload session list button's click event.</summary>
-        private void Handle_ReloadSessionsClick(object sender, RoutedEventArgs e) => this.AudioAPI.ForceReloadSessionList();
-
         /// <summary>Handles the Select process button's click event.</summary>
         private void Handle_ProcessSelectClick(object sender, RoutedEventArgs e)
         {
-            if (MixerGrid.CurrentCell.Item is AudioSession session)
+            if (MixerGrid.CurrentCell.Item is AudioSessionVM session)
             {
                 this.AudioAPI.SelectedSession = session;
             }

@@ -668,7 +668,7 @@
                                             IsInactiveSelectionHighlightEnabled="True"
                                             MouseDoubleClick="Handle_TargetNameBoxDoubleClick"
                                             Style="{StaticResource TextBoxStyle}"
-                                            Text="{Binding AudioAPI.Target, Source={StaticResource Settings}, UpdateSourceTrigger=LostFocus}" />
+                                            Text="{Binding AudioAPI.TargetSession, Source={StaticResource Settings}, UpdateSourceTrigger=LostFocus}" />
                                         <TextBlock
                                             Margin="5,0"
                                             Style="{StaticResource WatermarkTextBlockStyle}"
@@ -701,7 +701,7 @@
                                         d:ItemsSource="{x:Null}"
                                         AutoGenerateColumns="False"
                                         DataContext="{StaticResource Settings}"
-                                        ItemsSource="{Binding AudioAPI.Sessions}"
+                                        ItemsSource="{Binding AudioAPI.AllSessions}"
                                         Style="{StaticResource DataGridStyle}">
                                         <DataGrid.OpacityMask>
                                             <VisualBrush Visual="{Binding ElementName=MixerGridMask}" />
@@ -732,14 +732,13 @@
                                                             DefaultText='Name'}"
                                                 IsReadOnly="False">
                                                 <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
+                                                    <DataTemplate DataType="{x:Type vm:AudioSessionVM}">
                                                         <Grid>
                                                             <Grid.ColumnDefinitions>
                                                                 <ColumnDefinition Width="20" />
                                                                 <ColumnDefinition Width="*" />
                                                             </Grid.ColumnDefinitions>
                                                             <Image
-                                                                HorizontalAlignment="Left"
                                                                 Source="{Binding Icon, Mode=OneTime}"
                                                                 Style="{StaticResource IconImageStyle}"
                                                                 Visibility="{Binding ShowIcons, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -759,7 +758,7 @@
                                             <DataGridTemplateColumn Width="40" Header="{Tr 'VolumeControl.MainWindow.Mixer.MixerGrid.Mute.Header', DefaultText='Mute'}">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <CheckBox IsChecked="{Binding Muted, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
+                                                        <CheckBox IsChecked="{Binding Mute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
@@ -1111,7 +1110,7 @@
                                     MinValue="1"
                                     ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.VolumeStep.Tooltip',
                                                  DefaultText='This is the number of volume ticks that change each time you press the volume up or down hotkeys.'}"
-                                    Value="{Binding AudioAPI.VolumeStepSize, Mode=TwoWay, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}" />
+                                    Value="{Binding VolumeStepSize, Mode=TwoWay, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                             <Button
                                 Grid.Column="1"
@@ -1315,9 +1314,6 @@
                                                                         <ColumnDefinition Width="*" />
                                                                     </Grid.ColumnDefinitions>
                                                                     <Image
-                                                                        Margin="2"
-                                                                        HorizontalAlignment="Stretch"
-                                                                        VerticalAlignment="Stretch"
                                                                         Source="{Binding Icon, Mode=OneTime}"
                                                                         Style="{StaticResource IconImageStyle}"
                                                                         Visibility="{Binding ShowIcons, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -1327,7 +1323,7 @@
                                                                         VerticalAlignment="Center"
                                                                         Background="#0000"
                                                                         Style="{StaticResource TextBlockStyle}"
-                                                                        Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                                                                        Text="{Binding Name, Mode=OneWay}" />
                                                                 </Grid>
                                                             </DataTemplate>
                                                         </DataGridTemplateColumn.CellTemplate>
@@ -1354,7 +1350,7 @@
                                                             <DataTemplate>
                                                                 <CheckBox
                                                                     Margin="5,1"
-                                                                    IsChecked="{Binding Muted, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                    IsChecked="{Binding Mute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     Style="{StaticResource CheckBoxStyle}" />
                                                             </DataTemplate>
                                                         </DataGridTemplateColumn.CellTemplate>
@@ -1427,22 +1423,6 @@
                                                 Style="{StaticResource CheckBoxStyle}"
                                                 ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.EnableDefault.Tooltip',
                                                              DefaultText='When checked, the default audio device is always enabled during the application loading phase.'}" />
-                                            <Button
-                                                Margin="6,3"
-                                                Padding="6,0"
-                                                Click="Handle_ReloadDevicesClick"
-                                                Content="{Tr 'VolumeControl.MainWindow.Settings.Audio.ReloadDevices.Content',
-                                                             DefaultText='Reload Devices'}"
-                                                ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.ReloadDevices.Tooltip',
-                                                             DefaultText='Forcibly reload all devices.'}" />
-                                            <Button
-                                                Margin="6,3"
-                                                Padding="6,0"
-                                                Click="Handle_ReloadSessionsClick"
-                                                Content="{Tr 'VolumeControl.MainWindow.Settings.Audio.ReloadSessions.Content',
-                                                             DefaultText='Reload Sessions'}"
-                                                ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.ReloadSessions.Tooltip',
-                                                             DefaultText='Forcibly reload all sessions.'}" />
                                         </StackPanel>
                                     </StackPanel>
                                 </Grid>

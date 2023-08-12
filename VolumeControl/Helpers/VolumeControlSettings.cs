@@ -2,16 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Data;
-using VolumeControl.Audio;
 using VolumeControl.Core;
 using VolumeControl.Core.Enum;
 using VolumeControl.Core.Input.Actions;
-using VolumeControl.Core.Interfaces;
 using VolumeControl.Helpers.Addon;
 using VolumeControl.Helpers.Update;
 using VolumeControl.Hotkeys;
@@ -20,7 +16,6 @@ using VolumeControl.SDK;
 using VolumeControl.SDK.Internal;
 using VolumeControl.TypeExtensions;
 using VolumeControl.ViewModels;
-using VolumeControl.WPF.Converters;
 
 namespace VolumeControl.Helpers
 {
@@ -43,7 +38,7 @@ namespace VolumeControl.Helpers
             this.HotkeyAPI = new(actionManager);
 
             // Initialize the addon API
-            var api = Initializer.Initialize(this.AudioAPI, this.HotkeyAPI, this.MainWindowHandle, (Config.Default as Config)!);
+            var api = Initializer.Initialize(this.AudioAPI.AudioDeviceManager, this.AudioAPI.AudioSessionManager, this.HotkeyAPI, this.MainWindowHandle, (Config.Default as Config)!);
 
             VCHotkeyAddon vcHkAddon = new();
 
@@ -132,7 +127,8 @@ namespace VolumeControl.Helpers
         /// <summary>
         /// This is used by the target box's autocomplete feature, and is automatically invalidated & refreshed each time the sessions list changes.
         /// </summary>
-        public IEnumerable<string> TargetAutoCompleteSource => _targetAutoCompleteSource ??= this.AudioAPI.GetSessionNames(AudioAPI.SessionNameFormat.ProcessIdentifier | AudioAPI.SessionNameFormat.ProcessName);
+        public IEnumerable<string> TargetAutoCompleteSource => _targetAutoCompleteSource ??= GetSessionAutoCompleteSources();
+         //   this.AudioDeviceManagerVM.GetSessionNames(AudioDeviceManagerVM.SessionNameFormat.ProcessIdentifier | AudioDeviceManagerVM.SessionNameFormat.ProcessName);
         public IEnumerable<IHotkeyAction> Actions { get; internal set; } = null!;
         public IEnumerable<string> NotificationModes { get; set; } = Enum.GetNames(typeof(DisplayTarget));
         public IEnumerable<string> AddonDirectories { get; set; } = GetAddonDirectories();
@@ -155,7 +151,8 @@ namespace VolumeControl.Helpers
         #endregion Statics
 
         #region ParentObjects
-        public AudioAPI AudioAPI { get; }
+        //public AudioDeviceManagerVM AudioDeviceManagerVM { get; }
+        public AudioDeviceManagerVM AudioAPI { get; }
         public HotkeyManager HotkeyAPI { get; }
         public ListNotificationVM ListNotificationVM { get; }
         #endregion ParentObjects
@@ -184,7 +181,6 @@ namespace VolumeControl.Helpers
                 if (disposing)
                 {
                     // Dispose of objects
-                    this.AudioAPI?.Dispose();
                     this.HotkeyAPI?.Dispose();
                 }
 
@@ -231,6 +227,25 @@ namespace VolumeControl.Helpers
             }
 
             return l;
+        }
+        /// <summary>
+        /// Gets all of the PIDs, ProcessNames, and ProcessIdentifiers of all managed audio sessions.
+        /// </summary>
+        /// <returns>Array of strings containing all known PIDs, ProcessNames, and ProcessIdentifiers.</returns>
+        private string[] GetSessionAutoCompleteSources()
+        {
+            List<string> l = new();
+
+            for (int i = 0; i < AudioAPI.Sessions.Count; ++i)
+            {
+                var sessionVM = AudioAPI.Sessions[i];
+
+                l.Add(sessionVM.PID.ToString());
+                l.Add(sessionVM.ProcessName);
+                l.Add(sessionVM.ProcessIdentifier);
+            }
+
+            return l.ToArray();
         }
         #endregion Methods
     }

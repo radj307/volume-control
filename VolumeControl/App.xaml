@@ -29,7 +29,7 @@
                 <Setter Property="MaxHeight" Value="16" />
                 <Setter Property="MaxWidth" Value="16" />
                 <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
             </Style>
 
             <!--  Global Settings Object  -->

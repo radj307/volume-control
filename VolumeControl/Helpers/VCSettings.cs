@@ -146,6 +146,11 @@ namespace VolumeControl.Helpers
             get => Settings.AllowMultipleDistinctInstances;
             set => Settings.AllowMultipleDistinctInstances = value;
         }
+        public int VolumeStepSize
+        {
+            get => Settings.VolumeStepSize;
+            set => Settings.VolumeStepSize = value;
+        }
         /// <summary>
         /// This is read-only since there wouldn't be a way for volume control to find the config again after restarting
         /// </summary>

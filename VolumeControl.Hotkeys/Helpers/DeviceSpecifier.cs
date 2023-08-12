@@ -10,14 +10,15 @@ namespace VolumeControl.Hotkeys.Helpers
     {
         public override void AddNewTarget()
         {
-            if (VCAPI.Default.AudioAPI.DefaultDevice?.DeviceID is string deviceID && !Targets.Any(t => t.Value.Equals(deviceID, StringComparison.OrdinalIgnoreCase)))
-            {
-                Targets.Add(new()
-                {
-                    Value = deviceID
-                });
-            }
-            else Targets.Add(new());
+            // TODO: Reimplement
+            //if (VCAPI.Default.AudioDeviceManager.DefaultDevice?.DeviceID is string deviceID && !Targets.Any(t => t.Value.Equals(deviceID, StringComparison.OrdinalIgnoreCase)))
+            //{
+            //    Targets.Add(new()
+            //    {
+            //        Value = deviceID
+            //    });
+            //}
+            //else Targets.Add(new());
         }
     }
 }

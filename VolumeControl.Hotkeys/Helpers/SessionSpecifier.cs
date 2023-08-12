@@ -11,14 +11,15 @@ namespace VolumeControl.Hotkeys.Helpers
     {
         public override void AddNewTarget()
         {
-            if (VCAPI.Default.AudioAPI.SelectedSession?.ProcessName is string processName && !Targets.Any(t => t.Value.Equals(processName, StringComparison.OrdinalIgnoreCase)))
-            {
-                Targets.Add(new TargetInfoVM()
-                {
-                    Value = processName
-                });
-            }
-            else Targets.Add(new());
+            // TODO: Reimplement
+            //if (VCAPI.Default.AudioDeviceManager.SelectedSession?.ProcessName is string processName && !Targets.Any(t => t.Value.Equals(processName, StringComparison.OrdinalIgnoreCase)))
+            //{
+            //    Targets.Add(new TargetInfoVM()
+            //    {
+            //        Value = processName
+            //    });
+            //}
+            //else Targets.Add(new());
         }
     }
 }

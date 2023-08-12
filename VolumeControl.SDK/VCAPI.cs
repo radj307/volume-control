@@ -1,4 +1,4 @@
-﻿using VolumeControl.Audio;
+﻿using Audio;
 using VolumeControl.Core;
 using VolumeControl.Log;
 
@@ -13,9 +13,10 @@ namespace VolumeControl.SDK
     /// </remarks>
     public class VCAPI
     {
-        internal VCAPI(AudioAPI audioAPI, HotkeyManager hkManager, IntPtr MainHWnd, Config settings)
+        internal VCAPI(AudioDeviceManager audioDeviceManager, AudioSessionManager audioSessionManager, HotkeyManager hkManager, IntPtr MainHWnd, Config settings)
         {
-            this.AudioAPI = audioAPI;
+            this.AudioDeviceManager = audioDeviceManager;
+            this.AudioSessionManager = audioSessionManager;
             this.HotkeyManager = hkManager;
             this.MainWindowHWnd = MainHWnd;
             this.Settings = settings;
@@ -35,9 +36,13 @@ namespace VolumeControl.SDK
 
         #region Properties
         /// <summary>
-        /// This is the global <see cref="Audio.AudioAPI"/>.
+        /// This is the global <see cref="Audio.AudioDeviceManager"/>.
         /// </summary>
-        public AudioAPI AudioAPI { get; }
+        public AudioDeviceManager AudioDeviceManager { get; }
+        /// <summary>
+        /// This is the global <see cref="Audio.AudioSessionManager"/>
+        /// </summary>
+        public AudioSessionManager AudioSessionManager { get; }
         /// <summary>
         /// This is the global <see cref="Core.HotkeyManager"/>.
         /// </summary>

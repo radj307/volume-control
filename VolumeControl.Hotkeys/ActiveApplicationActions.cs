@@ -1,6 +1,5 @@
-﻿using System.Runtime.InteropServices;
-using VolumeControl.Audio;
-using VolumeControl.Audio.Interfaces;
+﻿using Audio;
+using System.Runtime.InteropServices;
 using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.SDK;
@@ -14,7 +13,7 @@ namespace VolumeControl.Hotkeys
     public class ActiveApplicationActions
     {
         #region Properties
-        private static AudioAPI AudioAPI => VCAPI.Default.AudioAPI;
+        private static VCAPI VCAPI => VCAPI.Default;
         #endregion Properties
 
         #region Functions
@@ -28,7 +27,7 @@ namespace VolumeControl.Hotkeys
         /// Gets the associated <see cref="ISession"/> of the current foreground window.
         /// </summary>
         /// <returns>The <see cref="ISession"/> associated with the current foreground application, if one was found; otherwise <see langword="null"/>.</returns>
-        private static ISession? GetActiveSession()
+        private static AudioSession? GetActiveSession()
         {
             var hwnd = GetForegroundWindow();
 
@@ -38,10 +37,10 @@ namespace VolumeControl.Hotkeys
             if (GetWindowThreadProcessId(hwnd, out int pid) == 0)
                 return null;
 
-            if (AudioAPI.FindSessionWithID(pid) is ISession session)
+            if (VCAPI.AudioDeviceManager.FindSessionWithID(pid) is AudioSession session)
                 return session; //< found with process ID
 
-            return AudioAPI.FindSessionWithName(System.Diagnostics.Process.GetProcessById(pid).ProcessName);
+            return VCAPI.AudioDeviceManager.FindSessionWithProcessName(System.Diagnostics.Process.GetProcessById(pid).ProcessName);
         }
         #endregion Functions
 
@@ -49,41 +48,41 @@ namespace VolumeControl.Hotkeys
         [HotkeyAction(Description = "Increases the volume of the current foreground application.")]
         public void VolumeUp(object? sender, HotkeyActionPressedEventArgs e)
         {
-            if (GetActiveSession() is ISession session)
+            if (GetActiveSession() is AudioSession session)
             {
-                session.Volume += AudioAPI.VolumeStepSize;
+                session.Volume += VCAPI.Settings.VolumeStepSize;
             }
         }
         [HotkeyAction(Description = "Decreases the volume of the current foreground application.")]
         public void VolumeDown(object? sender, HotkeyActionPressedEventArgs e)
         {
-            if (GetActiveSession() is ISession session)
+            if (GetActiveSession() is AudioSession session)
             {
-                session.Volume -= AudioAPI.VolumeStepSize;
+                session.Volume -= VCAPI.Settings.VolumeStepSize;
             }
         }
         [HotkeyAction(Description = "Mutes the current foreground application.")]
         public void Mute(object? sender, HotkeyActionPressedEventArgs e)
         {
-            if (GetActiveSession() is ISession session)
+            if (GetActiveSession() is AudioSession session)
             {
-                session.Muted = true;
+                session.Mute = true;
             }
         }
         [HotkeyAction(Description = "Unmutes the current foreground application.")]
         public void Unmute(object? sender, HotkeyActionPressedEventArgs e)
         {
-            if (GetActiveSession() is ISession session)
+            if (GetActiveSession() is AudioSession session)
             {
-                session.Muted = false;
+                session.Mute = false;
             }
         }
         [HotkeyAction(Description = "(Un)Mutes the current foreground application.")]
         public void ToggleMute(object? sender, HotkeyActionPressedEventArgs e)
         {
-            if (GetActiveSession() is ISession session)
+            if (GetActiveSession() is AudioSession session)
             {
-                session.Muted = !session.Muted;
+                session.Mute = !session.Mute;
             }
         }
         #endregion Methods

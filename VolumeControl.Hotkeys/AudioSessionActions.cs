@@ -1,100 +1,107 @@
-﻿using System.Windows;
-using System.Windows.Data;
-using VolumeControl.Audio;
-using VolumeControl.Audio.Interfaces;
-using VolumeControl.Core;
+﻿using Audio;
+using Audio.Helpers;
 using VolumeControl.Core.Attributes;
+using VolumeControl.Core.Helpers;
 using VolumeControl.Core.Input.Actions;
-using VolumeControl.Core.Interfaces;
 using VolumeControl.Hotkeys.Helpers;
 using VolumeControl.SDK;
 using VolumeControl.TypeExtensions;
-using VolumeControl.WPF.Converters;
 
 namespace VolumeControl.Hotkeys
 {
     /// <summary>
-    /// Contains hotkey action handlers that interact with AudioSessions in the AudioAPI object.
+    /// Contains hotkey action handlers that interact with AudioSessions in the AudioDeviceManager object.
     /// </summary>
     [HotkeyActionGroup("Session", GroupColor = "#99FF99")]
     public sealed class AudioSessionActions
     {
-        #region Constructor
-        static AudioSessionActions()
-        {
-            // create a notification display target for audio sessions
-            ListDisplayTarget ldtSessions = new(DisplayTargetName);
-            // Bind ItemsSource => AudioAPI.Sessions
-            ldtSessions.SetBinding(ListDisplayTarget.ItemsSourceProperty, new Binding()
-            {
-                Source = AudioAPI,
-                Path = new PropertyPath(nameof(AudioAPI.Sessions))
-            });
-            // Bind SelectedItem => AudioAPI.SelectedSession
-            ldtSessions.SetBinding(ListDisplayTarget.SelectedItemProperty, new Binding()
-            {
-                Source = AudioAPI,
-                Path = new PropertyPath(nameof(AudioAPI.SelectedSession)),
-                Mode = BindingMode.TwoWay,
-                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
-            });
-            // Bind LockSelection => AudioAPI.LockSelectedSession
-            ldtSessions.SetBinding(ListDisplayTarget.LockSelectionProperty, new Binding()
-            {
-                Source = AudioAPI,
-                Path = new PropertyPath(nameof(AudioAPI.LockSelectedSession))
-            });
-            // Bind Background => AudioAPI.LockSelectedSession
-            ldtSessions.SetBinding(ListDisplayTarget.BackgroundProperty, new Binding()
-            {
-                Source = AudioAPI,
-                Path = new PropertyPath(nameof(AudioAPI.LockSelectedSession)),
-                Mode = BindingMode.OneWay,
-                Converter = new BoolToBrushConverter()
-                {
-                    WhenTrue = Config.NotificationLockedBrush,
-                    WhenFalse = Config.NotificationUnlockedBrush
-                }
-            });
-            // Bind SelectedItemControls => (Self).SelectedItem.DisplayControls
-            ldtSessions.SetBinding(ListDisplayTarget.SelectedItemControlsProperty, new Binding()
-            {
-                RelativeSource = RelativeSource.Self,
-                Path = new PropertyPath($"{nameof(ListDisplayTarget.SelectedItem)}.{nameof(IListDisplayable.DisplayControls)}"),
-            });
-            // Show when SelectedSessionSwitched is triggered
-            var cefSessionSwitched = ldtSessions.AddConditionalEventForward((s, e) => Settings.NotificationsEnabled);
-            AudioAPI.SelectedSessionSwitched += (s, e) =>
-            {
-                cefSessionSwitched.Handler(s, e);
-                if (!ldtSessions.IsSelected) return;
-                ldtSessions.RaisePropertyChanged(nameof(ldtSessions.SelectedItem));
-                ldtSessions.RaisePropertyChanged(nameof(ldtSessions.SelectedItemControls));
-            };
-            // Show when LockSelectedSessionChanged is triggered
-            var cefLockSelectedSessionChanged = ldtSessions.AddConditionalEventForward((s, e) => Settings.NotificationsEnabled);
-            AudioAPI.LockSelectedSessionChanged += (s, e) =>
-            {
-                cefLockSelectedSessionChanged.Handler(s, e);
-                if (!ldtSessions.IsSelected) return;
-                ldtSessions.RaisePropertyChanged(nameof(ldtSessions.LockSelection));
-                ldtSessions.RaisePropertyChanged(nameof(ldtSessions.Background));
-            };
-            // Show when SelectedSessionVolumeChanged is triggered
-            AudioAPI.SelectedSessionVolumeChanged += ldtSessions.AddConditionalEventForward((s, e) => Settings.NotificationsEnabled && Settings.NotificationsOnVolumeChange).Handler;
-
-            // Add the display target to the list
-            VCAPI.Default.ListDisplayTargets.Add(ldtSessions);
-        }
-        #endregion Constructor
-
         #region Properties
-        private static Config Settings => VCAPI.Default.Settings;
-        private static AudioAPI AudioAPI => VCAPI.Default.AudioAPI;
+        private static VCAPI VCAPI => VCAPI.Default;
+
+        private static AudioSession? _selectedSession;
+        public static AudioSession? SelectedSession
+        {
+            get => _selectedSession;
+            set
+            {
+                _selectedSession = value;
+                VCAPI.Settings.Target = _selectedSession?.GetTargetInfo() ?? TargetInfo.Empty;
+            }
+        }
+        public static bool SessionSelectionLocked
+        {
+            get => VCAPI.Settings.LockTargetSession;
+            set => VCAPI.Settings.LockTargetSession = value;
+        }
+
         private const string ActionTargetSpecifierName = "Target Override";
         private const string ActionTargetSpecifierDescription = "Overrides the target audio session so that this action only affects the specified audio session(s).";
         public const string DisplayTargetName = "Audio Sessions";
         #endregion Properties
+
+        #region Methods
+        private void SelectNextSession()
+        {
+            // if the selected session is locked, return
+            if (SessionSelectionLocked) return;
+
+            if (VCAPI.AudioSessionManager.Sessions.Count == 0)
+            {
+                if (SelectedSession == null) return;
+                SelectedSession = null;
+            }
+            if (SelectedSession is AudioSession session)
+            { // a valid audio session is selected
+                //ResolveTarget();
+                int index = VCAPI.AudioSessionManager.Sessions.IndexOf(session);
+                if (index == -1 || (index += 1) >= VCAPI.AudioSessionManager.Sessions.Count)
+                    index = 0;
+                SelectedSession = VCAPI.AudioSessionManager.Sessions[index];
+            }
+            // nothing is selected, select the first element in the list
+            else if (VCAPI.AudioSessionManager.Sessions.Count > 0)
+            {
+                SelectedSession = VCAPI.AudioSessionManager.Sessions[0];
+            }
+
+            // TODO: Notify
+        }
+        private void SelectPreviousSession()
+        {
+            // if the selected session is locked, return
+            if (SessionSelectionLocked) return;
+
+            if (VCAPI.AudioSessionManager.Sessions.Count == 0)
+            {
+                if (SelectedSession == null) return;
+                SelectedSession = null;
+            }
+            if (SelectedSession is AudioSession session)
+            { // a valid audio session is selected
+                //ResolveTarget();
+                int index = VCAPI.AudioSessionManager.Sessions.IndexOf(session);
+                if (index == -1 || (index -= 1) < 0)
+                    index = VCAPI.AudioSessionManager.Sessions.Count - 1;
+                SelectedSession = VCAPI.AudioSessionManager.Sessions[index];
+            }
+            // nothing is selected, select the last element in the list
+            else if (VCAPI.AudioSessionManager.Sessions.Count > 0)
+            {
+                SelectedSession = VCAPI.AudioSessionManager.Sessions[^1];
+            }
+
+            // TODO: Notify
+        }
+        private void DeselectSession()
+        {
+            // if the selected session is locked, return
+            if (SessionSelectionLocked) return;
+
+            SelectedSession = null;
+
+            // TODO: Notify
+        }
+        #endregion Methods
 
         #region Action Methods
         [HotkeyAction(Description = "Increases the volume of the selected session by the value of VolumeStep.")]
@@ -105,11 +112,11 @@ namespace VolumeControl.Hotkeys
             {
                 for (int i = 0; i < specifier.Targets.Count; ++i)
                 {
-                    if (AudioAPI.FindSessionWithName(specifier.Targets[i].Value) is ISession session)
-                        session.IncreaseVolume(AudioAPI.VolumeStepSize);
+                    if (VCAPI.AudioDeviceManager.FindSessionWithProcessName(specifier.Targets[i].Value) is AudioSession session)
+                        session.IncreaseVolume(VCAPI.Settings.VolumeStepSize);
                 }
             }
-            else AudioAPI.IncrementSessionVolume();
+            else SelectedSession?.IncreaseVolume(VCAPI.Settings.VolumeStepSize);
         }
         [HotkeyAction(Description = "Decreases the volume of the selected session by the value of VolumeStep.")]
         [HotkeyActionSetting(ActionTargetSpecifierName, typeof(SessionSpecifier), ActionTargetSpecifierDescription)]
@@ -119,11 +126,11 @@ namespace VolumeControl.Hotkeys
             {
                 for (int i = 0; i < specifier.Targets.Count; ++i)
                 {
-                    if (AudioAPI.FindSessionWithName(specifier.Targets[i].Value) is ISession session)
-                        session.DecreaseVolume(AudioAPI.VolumeStepSize);
+                    if (VCAPI.AudioDeviceManager.FindSessionWithProcessName(specifier.Targets[i].Value) is AudioSession session)
+                        session.DecreaseVolume(VCAPI.Settings.VolumeStepSize);
                 }
             }
-            else AudioAPI.DecrementSessionVolume();
+            else SelectedSession?.DecreaseVolume(VCAPI.Settings.VolumeStepSize);
         }
         [HotkeyAction(Description = "Mutes the selected session.")]
         [HotkeyActionSetting(ActionTargetSpecifierName, typeof(SessionSpecifier), ActionTargetSpecifierDescription)]
@@ -133,11 +140,11 @@ namespace VolumeControl.Hotkeys
             {
                 for (int i = 0; i < specifier.Targets.Count; ++i)
                 {
-                    if (AudioAPI.FindSessionWithName(specifier.Targets[i].Value) is ISession session)
-                        session.Muted = true;
+                    if (VCAPI.AudioDeviceManager.FindSessionWithProcessName(specifier.Targets[i].Value) is AudioSession session)
+                        session.SetMute(true);
                 }
             }
-            else AudioAPI.SetSessionMute(true);
+            else SelectedSession?.SetMute(true);
         }
         [HotkeyAction(Description = "Unmutes the selected session.")]
         [HotkeyActionSetting(ActionTargetSpecifierName, typeof(SessionSpecifier), ActionTargetSpecifierDescription)]
@@ -147,11 +154,11 @@ namespace VolumeControl.Hotkeys
             {
                 for (int i = 0; i < specifier.Targets.Count; ++i)
                 {
-                    if (AudioAPI.FindSessionWithName(specifier.Targets[i].Value) is ISession session)
-                        session.Muted = false;
+                    if (VCAPI.AudioDeviceManager.FindSessionWithProcessName(specifier.Targets[i].Value) is AudioSession session)
+                        session.SetMute(false);
                 }
             }
-            else AudioAPI.SetSessionMute(false);
+            else SelectedSession?.SetMute(false);
         }
         [HotkeyAction(Description = "Toggles the selected session's mute state.")]
         [HotkeyActionSetting(ActionTargetSpecifierName, typeof(SessionSpecifier), ActionTargetSpecifierDescription)]
@@ -161,30 +168,30 @@ namespace VolumeControl.Hotkeys
             {
                 for (int i = 0; i < specifier.Targets.Count; ++i)
                 {
-                    if (AudioAPI.FindSessionWithName(specifier.Targets[i].Value) is ISession session)
-                        session.Muted = !session.Muted;
+                    if (VCAPI.AudioDeviceManager.FindSessionWithProcessName(specifier.Targets[i].Value) is AudioSession session)
+                        session.ToggleMute();
                 }
             }
-            else AudioAPI.ToggleSessionMute();
+            else SelectedSession?.ToggleMute();
         }
         [HotkeyAction(Description = "Selects the next session in the list.")]
         public void SelectNext(object? sender, HotkeyActionPressedEventArgs e)
-            => AudioAPI.SelectNextSession();
+            => SelectNextSession();
         [HotkeyAction(Description = "Selects the previous session in the list.")]
         public void SelectPrevious(object? sender, HotkeyActionPressedEventArgs e)
-            => AudioAPI.SelectPreviousSession();
+            => SelectPreviousSession();
         [HotkeyAction(Description = "Locks the selected session, preventing it from being changed.")]
         public void Lock(object? sender, HotkeyActionPressedEventArgs e)
-            => AudioAPI.LockSelectedSession = true;
+            => SessionSelectionLocked = true;
         [HotkeyAction(Description = "Unlocks the selected session, allowing it to be changed.")]
         public void Unlock(object? sender, HotkeyActionPressedEventArgs e)
-            => AudioAPI.LockSelectedSession = false;
+            => SessionSelectionLocked = false;
         [HotkeyAction(Description = "Toggles whether the selected session can be changed or not.")]
         public void ToggleLock(object? sender, HotkeyActionPressedEventArgs e)
-            => AudioAPI.LockSelectedSession = !AudioAPI.LockSelectedSession;
+            => SessionSelectionLocked = !SessionSelectionLocked;
         [HotkeyAction(Description = "Changes the selected session to null.")]
         public void Deselect(object? sender, HotkeyActionPressedEventArgs e)
-            => AudioAPI.DeselectSession();
+            => DeselectSession();
         #endregion Action Methods
     }
 }

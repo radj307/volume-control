@@ -223,6 +223,7 @@ namespace VolumeControl.ViewModels
         /// <param name="displayable">An enumerable list of objects that implement <see cref="IListDisplayable"/>. If this isn't present in <see cref="DisplayTargets"/>, it is added.</param>
         public void SetDisplayTarget(ListDisplayTarget displayable)
         {
+            if (displayable is null) return;
             if (!this.DisplayTargets.Contains(displayable)) _ = this.AddDisplayTarget(displayable);
 
             if (_currentDisplayTarget is not null)

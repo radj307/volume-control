@@ -42,10 +42,7 @@
     <PackageReference Include="radj307.AppConfig" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VolumeControl.Audio\VolumeControl.Audio.csproj">
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-      <IncludeAssets>VolumeControl.Audio.dll</IncludeAssets>
-    </ProjectReference>
+    <ProjectReference Include="..\VolumeControl.CoreAudio\VolumeControl.CoreAudio.csproj" />
     <ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj">
       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
       <IncludeAssets>VolumeControl.Core.dll</IncludeAssets>

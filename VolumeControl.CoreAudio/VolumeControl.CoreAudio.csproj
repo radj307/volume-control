@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
+    <ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CoreAudio" Version="1.27.0" />
+  </ItemGroup>
+
+</Project>
