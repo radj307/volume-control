@@ -1,4 +1,6 @@
-﻿namespace Audio
+﻿using SharpDX.DirectInput;
+
+namespace Audio
 {
     /// <summary>
     /// Manages a list of <see cref="AudioSession"/> instances and their related events for any number of <see cref="AudioDeviceSessionManager"/> instances.
@@ -71,6 +73,22 @@
         /// </summary>
         private readonly List<AudioSession> _sessions;
         #endregion Properties
+
+        #region FindSession
+        public AudioSession? FindSession(Predicate<AudioSession> predicate)
+        {
+            foreach (var session in Sessions)
+            {
+                if (predicate(session))
+                {
+                    return session;
+                }
+            }
+            return null;
+        }
+        public AudioSession? FindSessionWithID(uint pid) => FindSession((session) => session.PID.Equals(pid));
+        public AudioSession? FindSessionWithProcessName(string processName) => FindSession((session) => session.ProcessName.Equals(processName));
+        #endregion FindSession
 
         #region Methods
         /// <summary>

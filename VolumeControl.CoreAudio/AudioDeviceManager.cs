@@ -143,23 +143,6 @@ namespace Audio
                 return null;
             }
         }
-        public AudioSession? FindSession(Predicate<AudioSession> predicate)
-        {
-            foreach (var device in _devices)
-            {
-                foreach (var session in device.SessionManager.Sessions)
-                {
-                    if (predicate(session))
-                    {
-                        return session;
-                    }
-                }                
-            }
-            return null;
-        }
-        public AudioSession? FindSessionWithID(uint pid) => FindSession((session) => session.PID.Equals(pid));
-        public AudioSession? FindSessionWithID(int pid) => FindSession((session) => session.PID.Equals(pid));
-        public AudioSession? FindSessionWithProcessName(string processName) => FindSession((session) => session.ProcessName.Equals(processName));
         #endregion Methods
 
         #region Methods (_deviceNotificationClient EventHandlers)

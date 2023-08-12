@@ -2,6 +2,7 @@
 using Audio.Helpers;
 using Audio.Interfaces;
 using CoreAudio;
+using CoreAudio.Interfaces;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -186,7 +187,11 @@ namespace Audio
         /// Triggers the <see cref="VolumeChanged"/> event.
         /// </summary>
         private void AudioSessionControl_OnSimpleVolumeChanged(object sender, float newVolume, bool newMute)
-            => NotifyVolumeChanged(newVolume, newMute);
+        {
+            NativeVolume = newVolume;
+            Mute = newMute;
+            NotifyVolumeChanged(newVolume, newMute);
+        }
         /// <summary>
         /// Triggers the <see cref="StateChanged"/> event.
         /// </summary>

@@ -749,7 +749,7 @@
                                                                 Background="#0000"
                                                                 BorderThickness="0"
                                                                 Style="{StaticResource TextBoxStyle}"
-                                                                Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                                                                Text="{Binding AudioSession.Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
                                                         </Grid>
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
@@ -758,7 +758,7 @@
                                             <DataGridTemplateColumn Width="40" Header="{Tr 'VolumeControl.MainWindow.Mixer.MixerGrid.Mute.Header', DefaultText='Mute'}">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <CheckBox IsChecked="{Binding Mute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
+                                                        <CheckBox IsChecked="{Binding AudioSession.Mute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
@@ -787,8 +787,8 @@
                                                                 Maximum="100"
                                                                 Minimum="0"
                                                                 SmallChange="1"
-                                                                Tag="{Binding PeakMeterValue, Mode=OneWay}"
-                                                                Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                                                Tag="{Binding AudioSession.PeakMeterValue, Mode=OneWay}"
+                                                                Value="{Binding AudioSession.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                                                 <i:Interaction.Behaviors>
                                                                     <behaviour:IntervalUpdateBinding
                                                                         EnableTimer="{Binding ShowPeakMeters, Source={StaticResource Settings}}"
@@ -805,7 +805,7 @@
                                                                 BorderBrush="#0000"
                                                                 BorderThickness="0"
                                                                 Style="{StaticResource TextBoxStyle}"
-                                                                Text="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                                Text="{Binding AudioSession.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                         </Grid>
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
@@ -1350,7 +1350,7 @@
                                                             <DataTemplate>
                                                                 <CheckBox
                                                                     Margin="5,1"
-                                                                    IsChecked="{Binding Mute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                    IsChecked="{Binding AudioDevice.Mute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     Style="{StaticResource CheckBoxStyle}" />
                                                             </DataTemplate>
                                                         </DataGridTemplateColumn.CellTemplate>
@@ -1384,8 +1384,8 @@
                                                                         Maximum="100"
                                                                         Minimum="0"
                                                                         SmallChange="1"
-                                                                        Tag="{Binding PeakMeterValue, Mode=OneWay}"
-                                                                        Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                                                        Tag="{Binding AudioDevice.PeakMeterValue, Mode=OneWay}"
+                                                                        Value="{Binding AudioDevice.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                                                         <i:Interaction.Behaviors>
                                                                             <behaviour:IntervalUpdateBinding
                                                                                 EnableTimer="{Binding ShowPeakMeters, Source={StaticResource Settings}}"
@@ -1400,7 +1400,7 @@
                                                                         Background="#00000000"
                                                                         BorderThickness="0"
                                                                         Style="{StaticResource TextBoxStyle}"
-                                                                        Text="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                                        Text="{Binding AudioDevice.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                                 </Grid>
                                                             </DataTemplate>
                                                         </DataGridTemplateColumn.CellTemplate>

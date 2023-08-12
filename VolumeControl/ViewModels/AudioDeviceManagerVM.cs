@@ -134,7 +134,7 @@ namespace VolumeControl.ViewModels
             get => _targetSession;
             set
             {
-
+                _targetSession = value;
             }
         }
         private string _targetSession;

@@ -112,7 +112,7 @@ namespace VolumeControl.Hotkeys
             {
                 for (int i = 0; i < specifier.Targets.Count; ++i)
                 {
-                    if (VCAPI.AudioDeviceManager.FindSessionWithProcessName(specifier.Targets[i].Value) is AudioSession session)
+                    if (VCAPI.AudioSessionManager.FindSessionWithProcessName(specifier.Targets[i].Value) is AudioSession session)
                         session.IncreaseVolume(VCAPI.Settings.VolumeStepSize);
                 }
             }
@@ -126,7 +126,7 @@ namespace VolumeControl.Hotkeys
             {
                 for (int i = 0; i < specifier.Targets.Count; ++i)
                 {
-                    if (VCAPI.AudioDeviceManager.FindSessionWithProcessName(specifier.Targets[i].Value) is AudioSession session)
+                    if (VCAPI.AudioSessionManager.FindSessionWithProcessName(specifier.Targets[i].Value) is AudioSession session)
                         session.DecreaseVolume(VCAPI.Settings.VolumeStepSize);
                 }
             }
@@ -140,7 +140,7 @@ namespace VolumeControl.Hotkeys
             {
                 for (int i = 0; i < specifier.Targets.Count; ++i)
                 {
-                    if (VCAPI.AudioDeviceManager.FindSessionWithProcessName(specifier.Targets[i].Value) is AudioSession session)
+                    if (VCAPI.AudioSessionManager.FindSessionWithProcessName(specifier.Targets[i].Value) is AudioSession session)
                         session.SetMute(true);
                 }
             }
@@ -154,7 +154,7 @@ namespace VolumeControl.Hotkeys
             {
                 for (int i = 0; i < specifier.Targets.Count; ++i)
                 {
-                    if (VCAPI.AudioDeviceManager.FindSessionWithProcessName(specifier.Targets[i].Value) is AudioSession session)
+                    if (VCAPI.AudioSessionManager.FindSessionWithProcessName(specifier.Targets[i].Value) is AudioSession session)
                         session.SetMute(false);
                 }
             }
@@ -168,7 +168,7 @@ namespace VolumeControl.Hotkeys
             {
                 for (int i = 0; i < specifier.Targets.Count; ++i)
                 {
-                    if (VCAPI.AudioDeviceManager.FindSessionWithProcessName(specifier.Targets[i].Value) is AudioSession session)
+                    if (VCAPI.AudioSessionManager.FindSessionWithProcessName(specifier.Targets[i].Value) is AudioSession session)
                         session.ToggleMute();
                 }
             }

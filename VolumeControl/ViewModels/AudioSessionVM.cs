@@ -42,23 +42,7 @@ namespace VolumeControl.ViewModels
         public ImageSource? Icon => IconPair.GetBestFitIcon(preferLarge: false);
         public uint PID => AudioSession.PID;
         public string ProcessName => AudioSession.ProcessName;
-        public string Name
-        {
-            get => AudioSession.Name;
-            set => AudioSession.Name = value;
-        }
         public string ProcessIdentifier => AudioSession.ProcessIdentifier;
-        public int Volume
-        {
-            get => AudioSession.Volume;
-            set => AudioSession.Volume = value;
-        }
-        public bool Mute
-        {
-            get => AudioSession.Mute;
-            set => AudioSession.Mute = value;
-        }
-        public float PeakMeterValue => AudioSession.PeakMeterValue;
         #endregion Properties
 
         #region Events

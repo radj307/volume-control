@@ -25,7 +25,7 @@ namespace Audio
             _sessions = new();
 
             AudioSessionManager.OnSessionCreated += this.AudioSessionManager_OnSessionCreated;
-
+            
             if (AudioSessionManager.Sessions is not null)
             { // populate the sessions list
                 foreach (var audioSessionControl in AudioSessionManager.Sessions)
