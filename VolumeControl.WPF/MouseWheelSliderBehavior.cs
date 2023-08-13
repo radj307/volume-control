@@ -10,12 +10,18 @@ namespace VolumeControl.WPF
     /// </summary>
     public class MouseWheelSliderBehavior : Behavior<Slider>
     {
+        /// <summary>
+        /// Gets or sets the amount to change the slider value by.
+        /// </summary>
         public double Amount
         {
             get => (double)GetValue(AmountProperty);
             set => SetValue(AmountProperty, value);
         }
 
+        /// <summary>
+        /// The amount to change the slider value by.
+        /// </summary>
         public static readonly DependencyProperty AmountProperty
             = DependencyProperty.RegisterAttached(
                 nameof(Amount), 
@@ -37,12 +43,14 @@ namespace VolumeControl.WPF
             }
         }
 
+        /// <inheritdoc/>
         protected override void OnAttached()
         {
             base.OnAttached();
             this.AssociatedObject.PreviewMouseWheel += this.AssociatedObject_PreviewMouseWheel;
         }
 
+        /// <inheritdoc/>
         protected override void OnDetaching()
         {
             base.OnDetaching();
