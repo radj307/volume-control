@@ -31,7 +31,7 @@ namespace VolumeControl.Hotkeys
             => SelectedDevice?.IncreaseVolume(VCAPI.Settings.VolumeStepSize);
         [HotkeyAction(Description = "Decreases the device volume of the selected device.")]
         public void VolumeDown(object? sender, HandledEventArgs e)
-            => SelectedDevice?.IncreaseVolume(VCAPI.Settings.VolumeStepSize);
+            => SelectedDevice?.DecreaseVolume(VCAPI.Settings.VolumeStepSize);
         [HotkeyAction(Description = "Mutes the selected device.")]
         public void Mute(object? sender, HandledEventArgs e)
             => SelectedDevice?.SetMute(true);

@@ -16,6 +16,8 @@ namespace VolumeControl.SDK
             AudioDeviceManager = audioDeviceManager;
 
             AudioDeviceManager.DeviceRemovedFromList += this.AudioDeviceManager_DeviceRemovedFromList;
+
+            SelectDefaultDevice();
         }
         #endregion Initializer
 
