@@ -68,7 +68,7 @@ namespace VolumeControl.Core.Input
                 _registered = value;
                 if (_registered)
                     WindowsHotkeyAPI.Register(this);
-                else 
+                else
                     WindowsHotkeyAPI.Unregister(this);
             }
         }

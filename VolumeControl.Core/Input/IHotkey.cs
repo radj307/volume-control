@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
-using System.Windows.Input;
 using VolumeControl.Core.Enum;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.WPF.Collections;

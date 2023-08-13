@@ -124,7 +124,7 @@ namespace VolumeControl.Core.Input
                     Pressed += _actionBinding.HandleKeyEvent;
                     ActionSettings = new(_actionBinding.GetDefaultActionSettings());
                 }
-            } 
+            }
         }
         /// <inheritdoc/>
         private IHotkeyAction? _actionBinding;

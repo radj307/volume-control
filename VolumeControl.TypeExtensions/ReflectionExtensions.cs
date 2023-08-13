@@ -92,7 +92,7 @@ namespace VolumeControl.TypeExtensions
                         handler.Method.Invoke(handler.Target, args);
                     }
                 }
-            }            
+            }
         }
 
         /// <summary>

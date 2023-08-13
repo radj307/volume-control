@@ -6,7 +6,6 @@ using System.Linq;
 using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.Core.Interfaces;
-using VolumeControl.Hotkeys;
 
 namespace VolumeControl.Helpers.Addon
 {

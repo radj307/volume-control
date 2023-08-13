@@ -3,7 +3,6 @@ using CodingSeb.Localization;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Diagnostics.Tracing;
 using System.IO;
 using System.Linq;
 using System.Windows;

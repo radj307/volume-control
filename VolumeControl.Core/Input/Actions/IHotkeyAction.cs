@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using VolumeControl.Core.Attributes;
 
 namespace VolumeControl.Core.Input.Actions
 {

@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
 using VolumeControl.Core.Input;
 using VolumeControl.Core.Interfaces;
 using VolumeControl.Log;

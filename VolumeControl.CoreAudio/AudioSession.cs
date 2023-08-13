@@ -2,7 +2,6 @@
 using Audio.Helpers;
 using Audio.Interfaces;
 using CoreAudio;
-using CoreAudio.Interfaces;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;

@@ -6,7 +6,6 @@ using System.Windows;
 using VolumeControl.Controls;
 using VolumeControl.Log;
 using VolumeControl.ViewModels;
-using VolumeControl.WPF;
 
 namespace VolumeControl
 {

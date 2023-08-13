@@ -2,7 +2,6 @@
 using Semver;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media;
 using VolumeControl.Core.Enum;
 using VolumeControl.Core.Helpers;

@@ -24,9 +24,9 @@ namespace VolumeControl.WPF
         /// </summary>
         public static readonly DependencyProperty AmountProperty
             = DependencyProperty.RegisterAttached(
-                nameof(Amount), 
-                typeof(double), 
-                typeof(MouseWheelSliderBehavior), 
+                nameof(Amount),
+                typeof(double),
+                typeof(MouseWheelSliderBehavior),
                 new UIPropertyMetadata(0.0));
 
         private void AssociatedObject_PreviewMouseWheel(object sender, MouseWheelEventArgs e)

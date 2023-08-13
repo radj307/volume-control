@@ -4,7 +4,6 @@ using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.Hotkeys.Helpers;
 using VolumeControl.SDK;
-using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Hotkeys
 {

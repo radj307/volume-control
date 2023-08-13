@@ -1,5 +1,4 @@
-﻿using Audio;
-using CodingSeb.Localization;
+﻿using CodingSeb.Localization;
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;

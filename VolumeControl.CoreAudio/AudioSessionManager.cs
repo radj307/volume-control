@@ -1,6 +1,4 @@
-﻿using SharpDX.DirectInput;
-
-namespace Audio
+﻿namespace Audio
 {
     /// <summary>
     /// Manages a list of <see cref="AudioSession"/> instances and their related events for any number of <see cref="AudioDeviceSessionManager"/> instances.

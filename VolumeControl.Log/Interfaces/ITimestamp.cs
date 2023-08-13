@@ -40,7 +40,7 @@ namespace VolumeControl.Log.Interfaces
         private string GetEventType()
         {
             var eventType = this.EventType;
-            
+
             if (eventType.HasFlag(EventType.CRITICAL) && !eventType.Equals(EventType.CRITICAL))
                 eventType &= ~EventType.CRITICAL; //< remove the critical flag if present
 

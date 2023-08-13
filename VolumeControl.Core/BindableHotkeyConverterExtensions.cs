@@ -1,11 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Collections;
-using VolumeControl.Core.Helpers;
 using VolumeControl.Core.Input;
-using VolumeControl.Core.Input.Actions;
 using VolumeControl.Core.Interfaces;
-using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Core
 {

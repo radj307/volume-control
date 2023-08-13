@@ -37,7 +37,7 @@ namespace VolumeControl.Hotkeys
             if (GetWindowThreadProcessId(hwnd, out int pid) == 0)
                 return null;
 
-            
+
             if (VCAPI.AudioSessionManager.FindSessionWithID((uint)pid) is AudioSession session)
                 return session; //< found with process ID
 

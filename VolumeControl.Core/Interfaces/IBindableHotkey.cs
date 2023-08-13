@@ -2,7 +2,6 @@
 using VolumeControl.Core.Enum;
 using VolumeControl.Core.Input;
 using VolumeControl.Core.Input.Actions;
-using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Core.Interfaces
 {
