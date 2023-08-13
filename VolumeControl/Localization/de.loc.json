@@ -215,30 +215,6 @@
                 "German (DE/DE)": "Lautstärke"
               }
             }
-          },
-          "EnableDefault": {
-            "Content": {
-              "German (DE/DE)": "Aktiviere Standard"
-            },
-            "Tooltip": {
-              "German (DE/DE)": "Wenn selektiert wird immer das Standard-Audiogerät aktiviert während der Ladephase."
-            }
-          },
-          "ReloadDevices": {
-            "Content": {
-              "German (DE/DE)": "Geräte neu laden"
-            },
-            "Tooltip": {
-              "German (DE/DE)": "Neu laden der Geräte erzwingen."
-            }
-          },
-          "ReloadSessions": {
-            "Content": {
-              "German (DE/DE)": "Sitzung neu laden"
-            },
-            "Tooltip": {
-              "German (DE/DE)": "Neu laden der Sitzung erzwingen."
-            }
           }
         },
         "Notifications": {

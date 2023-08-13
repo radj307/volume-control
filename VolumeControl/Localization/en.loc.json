@@ -229,30 +229,6 @@
                 "English (US/CA)": "Volume"
               }
             }
-          },
-          "EnableDefault": {
-            "Content": {
-              "English (US/CA)": "Enable Default"
-            },
-            "Tooltip": {
-              "English (US/CA)": "When checked, the default audio device is always enabled during the application loading phase."
-            }
-          },
-          "ReloadDevices": {
-            "Content": {
-              "English (US/CA)": "Reload Devices"
-            },
-            "Tooltip": {
-              "English (US/CA)": "Forcibly reload all devices."
-            }
-          },
-          "ReloadSessions": {
-            "Content": {
-              "English (US/CA)": "Reload Sessions"
-            },
-            "Tooltip": {
-              "English (US/CA)": "Forcibly reload all sessions."
-            }
           }
         },
         "Notifications": {

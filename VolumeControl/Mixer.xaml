@@ -1282,30 +1282,6 @@
                                                     <VisualBrush Visual="{Binding ElementName=DeviceGridMask}" />
                                                 </DataGrid.OpacityMask>
                                                 <DataGrid.Columns>
-                                                    <!--  Enabled checkbox  -->
-                                                    <DataGridTemplateColumn Width="Auto" CanUserResize="False">
-                                                        <DataGridTemplateColumn.Header>
-                                                            <CheckBox
-                                                                Margin="3,0,0,0"
-                                                                d:IsChecked="{x:Null}"
-                                                                Click="Handle_ThreeStateCheckboxClick"
-                                                                IsChecked="{Binding AudioAPI.Devices.AllDevicesEnabled, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                                                                IsThreeState="True"
-                                                                Style="{StaticResource CheckBoxStyle}"
-                                                                ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.DeviceGrid.Enabled.Header.Tooltip',
-                                                                             DefaultText='Checks/Unchecks all devices.'}" />
-                                                        </DataGridTemplateColumn.Header>
-                                                        <DataGridTemplateColumn.CellTemplate>
-                                                            <DataTemplate>
-                                                                <CheckBox
-                                                                    Margin="3,0,0,0"
-                                                                    IsChecked="{Binding Enabled, UpdateSourceTrigger=PropertyChanged}"
-                                                                    Style="{StaticResource CheckBoxStyle}"
-                                                                    ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.DeviceGrid.Enabled.Tooltip',
-                                                                                 DefaultText='The Mixer tab only shows Audio Sessions for enabled Devices.'}" />
-                                                            </DataTemplate>
-                                                        </DataGridTemplateColumn.CellTemplate>
-                                                    </DataGridTemplateColumn>
                                                     <!--  Name  -->
                                                     <DataGridTemplateColumn Width="Auto" Header="{Tr 'VolumeControl.MainWindow.Settings.Audio.DeviceGrid.Name.Header', DefaultText='Device Name'}">
                                                         <DataGridTemplateColumn.CellTemplate>
@@ -1411,22 +1387,6 @@
                                                 </DataGrid.Columns>
                                             </DataGrid>
                                         </Grid>
-
-                                        <StackPanel
-                                            Margin="5,3"
-                                            HorizontalAlignment="Center"
-                                            FlowDirection="LeftToRight"
-                                            Orientation="Horizontal">
-                                            <CheckBox
-                                                Margin="6,3"
-                                                Padding="6,0"
-                                                Content="{Tr 'VolumeControl.MainWindow.Settings.Audio.EnableDefault.Content',
-                                                             DefaultText='Enable Default'}"
-                                                IsChecked="{Binding EnableDefaultDevice, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                                                Style="{StaticResource CheckBoxStyle}"
-                                                ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.EnableDefault.Tooltip',
-                                                             DefaultText='When checked, the default audio device is always enabled during the application loading phase.'}" />
-                                        </StackPanel>
                                     </StackPanel>
                                 </Grid>
                             </Border>

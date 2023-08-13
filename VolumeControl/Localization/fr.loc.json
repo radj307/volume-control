@@ -176,30 +176,6 @@
                 "Français (French)": "Volume"
               }
             }
-          },
-          "EnableDefault": {
-            "Content": {
-              "Français (French)": "Activation par Défaut"
-            },
-            "Tooltip": {
-              "Français (French)": "Lorsque cette option est cochée, le périphérique audio par défaut est toujours activé pendant la phase de chargement de l'application."
-            }
-          },
-          "ReloadDevices": {
-            "Content": {
-              "Français (French)": "Rechargez les Dispositifs"
-            },
-            "Tooltip": {
-              "Français (French)": "Rechargement forcé de tous les appareils."
-            }
-          },
-          "ReloadSessions": {
-            "Content": {
-              "Français (French)": "Rechargez les Sessions"
-            },
-            "Tooltip": {
-              "Français (French)": "Rechargement forcé de toutes les sessions."
-            }
           }
         },
         "Notifications": {

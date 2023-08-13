@@ -230,30 +230,6 @@
                 "Italiano (Italian)": "Volume"
               }
             }
-          },
-          "EnableDefault": {
-            "Content": {
-              "Italiano (Italian)": "Abilita predefiniti"
-            },
-            "Tooltip": {
-              "Italiano (Italian)": "Se selezionato, il dispositivo audio predefinito è sempre abilitato durante la fase di caricamento dell'applicazione."
-            }
-          },
-          "ReloadDevices": {
-            "Content": {
-              "Italiano (Italian)": "Ricarica dispositivi"
-            },
-            "Tooltip": {
-              "Italiano (Italian)": "Ricarica forzatamente tutti i dispositivi."
-            }
-          },
-          "ReloadSessions": {
-            "Content": {
-              "Italiano (Italian)": "Ricarica sessioni"
-            },
-            "Tooltip": {
-              "Italiano (Italian)": "Ricarica forzatamente tutte le sessioni."
-            }
           }
         },
         "Notifications": {

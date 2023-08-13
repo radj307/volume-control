@@ -176,30 +176,6 @@
                 "Portuguese (Portugal)": "Volume"
               }
             }
-          },
-          "EnableDefault": {
-            "Content": {
-              "Portuguese (Portugal)": "Ativar Padrão"
-            },
-            "Tooltip": {
-              "Portuguese (Portugal)": "Quando marcado, o dispositivo de padrão do audio está sempre ativado durante a fase de carregamento do aplicativo."
-            }
-          },
-          "ReloadDevices": {
-            "Content": {
-              "Portuguese (Portugal)": "Recarregar Dispositivos"
-            },
-            "Tooltip": {
-              "Portuguese (Portugal)": "Recarregar todos os dispositivos à forçosamente."
-            }
-          },
-          "ReloadSessions": {
-            "Content": {
-              "Portuguese (Portugal)": "Recarregar Sessões"
-            },
-            "Tooltip": {
-              "Portuguese (Portugal)": "Recarregar todas as sessões à forçosamente."
-            }
           }
         },
         "Notifications": {
