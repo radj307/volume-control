@@ -21,6 +21,7 @@
     xmlns:sdk="clr-namespace:VolumeControl.SDK;assembly=VolumeControl.SDK"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
     xmlns:vm="clr-namespace:VolumeControl.ViewModels"
+    xmlns:wpf="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
     x:Name="window"
     Title="Volume Control"
     AllowsTransparency="True"
@@ -790,6 +791,7 @@
                                                                 Tag="{Binding AudioSession.PeakMeterValue, Mode=OneWay}"
                                                                 Value="{Binding AudioSession.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                                                 <i:Interaction.Behaviors>
+                                                                    <wpf:MouseWheelSliderBehavior Amount="{Binding VolumeStepSize, Source={StaticResource Settings}}" />
                                                                     <behaviour:IntervalUpdateBinding
                                                                         EnableTimer="{Binding ShowPeakMeters, Source={StaticResource Settings}}"
                                                                         Interval="{Binding PeakMeterUpdateIntervalMs, Source={StaticResource Settings}}"
@@ -1387,6 +1389,7 @@
                                                                         Tag="{Binding AudioDevice.PeakMeterValue, Mode=OneWay}"
                                                                         Value="{Binding AudioDevice.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                                                         <i:Interaction.Behaviors>
+                                                                            <wpf:MouseWheelSliderBehavior Amount="{Binding VolumeStepSize, Source={StaticResource Settings}}" />
                                                                             <behaviour:IntervalUpdateBinding
                                                                                 EnableTimer="{Binding ShowPeakMeters, Source={StaticResource Settings}}"
                                                                                 Interval="{Binding PeakMeterUpdateIntervalMs, Source={StaticResource Settings}}"
