@@ -36,6 +36,8 @@ namespace Audio
             }
 
             SessionManager = new(this);
+
+            AudioEndpointVolume.OnVolumeNotification += AudioEndpointVolume_OnVolumeNotification;
         }
         #endregion Constructor
 
@@ -168,7 +170,11 @@ namespace Audio
         /// Triggers the <see cref="VolumeChanged"/> event.
         /// </summary>
         private void AudioEndpointVolume_OnVolumeNotification(AudioVolumeNotificationData data)
-            => NotifyVolumeChanged(data);
+        {
+            NativeVolume = data.MasterVolume;
+            Mute = data.Muted;
+            NotifyVolumeChanged(data);
+        }
         #endregion Methods (EventHandlers)
 
         public void Dispose()
