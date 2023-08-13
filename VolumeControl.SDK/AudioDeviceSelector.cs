@@ -6,36 +6,30 @@ using VolumeControl.TypeExtensions;
 namespace VolumeControl.SDK
 {
     /// <summary>
-    /// Manages the currently "selected" <see cref="AudioSession"/> instance for a given <see cref="Audio.AudioSessionManager"/> object.
+    /// Manages the currently "selected" <see cref="AudioDevice"/> instance for a given <see cref="Audio.AudioDeviceManager"/> object.
     /// </summary>
-    public class AudioSessionSelector : INotifyPropertyChanged
+    public class AudioDeviceSelector : INotifyPropertyChanged
     {
         #region Initializer
-        internal AudioSessionSelector(AudioSessionManager audioSessionManager)
+        internal AudioDeviceSelector(AudioDeviceManager audioDeviceManager)
         {
-            AudioSessionManager = audioSessionManager;
+            AudioDeviceManager = audioDeviceManager;
 
-            // attach event to remove previously-selected session.
-            AudioSessionManager.SessionRemovedFromList += this.AudioSessionManager_SessionRemovedFromList;
+            AudioDeviceManager.DeviceRemovedFromList += this.AudioDeviceManager_DeviceRemovedFromList;
         }
         #endregion Initializer
 
         #region Properties
-        AudioSessionManager AudioSessionManager { get; }
+        AudioDeviceManager AudioDeviceManager { get; }
         /// <summary>
         /// Gets or the sets the selected item.
         /// </summary>
         /// <remarks>
         /// Cannot be changed if <see cref="LockSelection"/> == <see langword="true"/>.
         /// </remarks>
-        public AudioSession? Selected
+        public AudioDevice? Selected
         {
-            get
-            {
-                if (_selected is null)
-                    ResolveSelected();
-                return _selected;
-            }
+            get => _selected;
             set
             {
                 if (LockSelection) return;
@@ -45,7 +39,7 @@ namespace VolumeControl.SDK
                 NotifyPropertyChanged(nameof(SelectedIndex));
             }
         }
-        private AudioSession? _selected;
+        private AudioDevice? _selected;
         /// <summary>
         /// Gets or sets the currently <see cref="Selected"/> item by its index in the list.
         /// </summary>
@@ -54,17 +48,17 @@ namespace VolumeControl.SDK
         /// </remarks>
         public int SelectedIndex
         {
-            get => AudioSessionManager.Sessions.IndexOf(Selected);
+            get => AudioDeviceManager.Devices.IndexOf(Selected);
             set
             {
                 if (LockSelection) return;
 
                 if (value == -1)
                     Selected = null;
-                else if (value < 0 || value >= AudioSessionManager.Sessions.Count)
+                else if (value < 0 || value >= AudioDeviceManager.Devices.Count)
                     throw new ArgumentOutOfRangeException(nameof(value));
                 else
-                    Selected = AudioSessionManager.Sessions[value];
+                    Selected = AudioDeviceManager.Devices[value];
                 // no notification necessary since Selected handles that for us
             }
         }
@@ -97,16 +91,16 @@ namespace VolumeControl.SDK
         /// <remarks>
         /// Does nothing if <see cref="LockSelection"/> == <see langword="true"/>.
         /// </remarks>
-        public void SelectNextSession()
+        public void SelectNextDevice()
         {
             if (LockSelection) return;
 
-            if (SelectedIndex + 1 < AudioSessionManager.Sessions.Count)
+            if (SelectedIndex + 1 < AudioDeviceManager.Devices.Count)
             {
                 ++SelectedIndex;
             }
             else
-            { // loopback:
+            {
                 SelectedIndex = 0;
             }
         }
@@ -116,7 +110,7 @@ namespace VolumeControl.SDK
         /// <remarks>
         /// Does nothing if <see cref="LockSelection"/> == <see langword="true"/>.
         /// </remarks>
-        public void SelectPreviousSession()
+        public void SelectPreviousDevice()
         {
             if (LockSelection) return;
 
@@ -126,7 +120,7 @@ namespace VolumeControl.SDK
             }
             else
             {
-                SelectedIndex = AudioSessionManager.Sessions.Count - 1;
+                SelectedIndex = AudioDeviceManager.Devices.Count - 1;
             }
         }
         /// <summary>
@@ -135,41 +129,31 @@ namespace VolumeControl.SDK
         /// <remarks>
         /// Does nothing if <see cref="LockSelection"/> == <see langword="true"/>.
         /// </remarks>
-        public void DeselectSession()
+        public void DeselectDevice()
         {
             if (LockSelection) return;
 
             Selected = null;
         }
         /// <summary>
-        /// Changes the <see cref="Selected"/> item to whatever is specified by <see cref="Core.Config.Target"/>.
+        /// Changes the <see cref="Selected"/> item to the default Multimedia audio device.
         /// </summary>
         /// <remarks>
-        /// This works even when <see cref="LockSelection"/> == <see langword="true"/>.<br/>
+        /// Does nothing if <see cref="LockSelection"/> == <see langword="true"/>.
         /// </remarks>
-        private void ResolveSelected()
+        public void SelectDefaultDevice()
         {
-            var targetInfo = VCAPI.Default.Settings.Target;
+            if (LockSelection) return;
 
-            AudioSession? target
-                = AudioSessionManager.FindSessionWithSessionInstanceIdentifier(targetInfo.SessionInstanceIdentifier)
-                ?? AudioSessionManager.FindSessionWithProcessIdentifier(targetInfo.ProcessIdentifier);
-
-            // only update if the resolved target isn't null AND is different
-            if (target != null && _selected != target)
-            {
-                _selected = target;
-                NotifyPropertyChanged(nameof(Selected));
-                NotifyPropertyChanged(nameof(SelectedIndex));
-            }
+            Selected = AudioDeviceManager.GetDefaultDevice(CoreAudio.Role.Multimedia);
         }
-        private void AudioSessionManager_SessionRemovedFromList(object? sender, AudioSession e)
+        private void AudioDeviceManager_DeviceRemovedFromList(object? sender, AudioDevice e)
         {
             if (e.Equals(Selected))
             {
                 // edit _selected directly to avoid notifications
                 _selected = null;
-                // don't notify manually because we don't want to cause the targetbox to be changed; just remove the now-deleted session.
+                // don't notify manually because we don't want to cause the targetbox to be changed; just remove the now-deleted device.
             }
         }
         #endregion Methods

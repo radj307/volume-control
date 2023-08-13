@@ -16,6 +16,7 @@ namespace VolumeControl.SDK
         internal VCAPI(AudioDeviceManager audioDeviceManager, AudioSessionManager audioSessionManager, HotkeyManager hkManager, IntPtr MainHWnd, Config settings)
         {
             AudioDeviceManager = audioDeviceManager;
+            AudioDeviceSelector = new(AudioDeviceManager);
             AudioSessionManager = audioSessionManager;
             AudioSessionSelector = new(AudioSessionManager);
             HotkeyManager = hkManager;
@@ -40,6 +41,10 @@ namespace VolumeControl.SDK
         /// This is the global <see cref="Audio.AudioDeviceManager"/>.
         /// </summary>
         public AudioDeviceManager AudioDeviceManager { get; }
+        /// <summary>
+        /// Manages the selected <see cref="AudioDevice"/> instance.
+        /// </summary>
+        public AudioDeviceSelector AudioDeviceSelector { get; }
         /// <summary>
         /// This is the global <see cref="Audio.AudioSessionManager"/>
         /// </summary>
