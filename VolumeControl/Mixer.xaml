@@ -668,7 +668,7 @@
                                             IsInactiveSelectionHighlightEnabled="True"
                                             MouseDoubleClick="Handle_TargetNameBoxDoubleClick"
                                             Style="{StaticResource TextBoxStyle}"
-                                            Text="{Binding AudioAPI.TargetSession, Source={StaticResource Settings}, UpdateSourceTrigger=LostFocus}" />
+                                            Text="{Binding TargetSessionText, Source={StaticResource Settings}, UpdateSourceTrigger=LostFocus}" />
                                         <TextBlock
                                             Margin="5,0"
                                             Style="{StaticResource WatermarkTextBlockStyle}"
@@ -682,7 +682,7 @@
                                             Content="{Tr 'VolumeControl.MainWindow.Mixer.TargetBox.LockTarget',
                                                          DefaultText='Lock'}"
                                             DataContext="{StaticResource Settings}"
-                                            IsChecked="{Binding AudioAPI.LockSelectedSession, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
+                                            IsChecked="{Binding TargetSessionLocked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                                             Style="{StaticResource CheckBoxStyle}" />
                                     </Grid>
                                 </Border>

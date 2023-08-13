@@ -87,7 +87,59 @@ namespace Audio
             return null;
         }
         public AudioSession? FindSessionWithID(uint pid) => FindSession((session) => session.PID.Equals(pid));
-        public AudioSession? FindSessionWithProcessName(string processName) => FindSession((session) => session.ProcessName.Equals(processName));
+        public AudioSession? FindSessionWithProcessName(string processName, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase) => FindSession((session) => session.ProcessName.Equals(processName, sCompareType));
+        /// <summary>
+        /// Gets a session from <see cref="Sessions"/> by parsing <paramref name="identifier"/> to determine whether to pass it to <see cref="FindSessionWithID(uint)"/>, <see cref="FindSessionWithProcessName(string, StringComparison)"/>, or directly comparing it to the <see cref="AudioSession.ProcessIdentifier"/> property.
+        /// </summary>
+        /// <param name="identifier">
+        /// This can match any of the following properties:<br/>
+        /// <list type="bullet">
+        /// <item><description><b><see cref="AudioSession.PID"/></b></description></item>
+        /// <item><term><b><see cref="AudioSession.ProcessName"/></b></term><description>Uses <paramref name="sCompareType"/></description></item>
+        /// <item><term><b><see cref="AudioSession.ProcessIdentifier"/></b></term><description>Uses <paramref name="sCompareType"/></description></item>
+        /// </list>
+        /// </param>
+        /// <param name="prioritizePID">When <see langword="true"/> <i>(default)</i>, process IDs are prioritized over process names, which returns more accurate results when multiple sessions have identical names but may take longer.<br/>When <see langword="false"/>, the first process with a matching ID or name is returned.</param>
+        /// <param name="sCompareType">A <see cref="StringComparison"/> enum value to use when matching process names or full identifiers.</param>
+        /// <returns><see cref="ISession"/> if a session was found.<br/>Returns null if nothing was found.</returns>
+        public AudioSession? FindSessionWithProcessIdentifier(string identifier, bool prioritizePID = true, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase)
+        {
+            if (identifier.Length == 0)
+                return null;
+
+            (int pid, string name) = AudioSession.ParseProcessIdentifier(identifier);
+
+            AudioSession? potentialMatch = null;
+
+            foreach (AudioSession session in Sessions)
+            {
+                if (prioritizePID && pid != -1 && session.PID.Equals(pid))
+                {
+                    return session;
+                }
+                else if (session.ProcessName.Equals(name, sCompareType))
+                {
+                    if (!prioritizePID || pid == -1)
+                        return session;
+                    else if (potentialMatch == null)
+                        potentialMatch = session;
+                    else return potentialMatch;
+                }
+            }
+
+            return potentialMatch;
+        }
+        public AudioSession? FindSessionWithSessionInstanceIdentifier(string sessionInstanceIdentifier)
+        {
+            foreach (AudioSession session in Sessions)
+            {
+                if (session.SessionInstanceIdentifier.Equals(sessionInstanceIdentifier, StringComparison.Ordinal))
+                {
+                    return session;
+                }
+            }
+            return null;
+        }
         #endregion FindSession
 
         #region Methods

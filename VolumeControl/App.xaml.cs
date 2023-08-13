@@ -4,8 +4,8 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using VolumeControl.Controls;
-using VolumeControl.Helpers;
 using VolumeControl.Log;
+using VolumeControl.ViewModels;
 using VolumeControl.WPF;
 
 namespace VolumeControl
@@ -57,7 +57,7 @@ namespace VolumeControl
         #region Methods
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            (this.TryFindResource("Settings") as VolumeControlSettings)?.Dispose();
+            (this.TryFindResource("Settings") as VolumeControlVM)?.Dispose();
             // delete the tray icon
             TrayIcon.Dispose();
         }

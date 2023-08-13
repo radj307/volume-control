@@ -6,7 +6,6 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Threading;
 using VolumeControl.Core;
-using VolumeControl.Hotkeys;
 using VolumeControl.Log;
 using VolumeControl.WPF.Collections;
 
@@ -31,7 +30,7 @@ namespace VolumeControl.ViewModels
                 Devices.Add(new(device));
             }
 
-            Sessions = new();
+            //SelectedDeviceSessions = new();
             AllSessions = new();
 
             AudioSessionManager = new();
@@ -41,7 +40,7 @@ namespace VolumeControl.ViewModels
 
             AudioSessionManager.AddSessionManagers(Devices.Select(d => d.AudioDevice.SessionManager));
 
-            TargetSession = Settings.Target.ProcessIdentifier;
+            //TargetSession = Settings.Target.ProcessIdentifier;
         }
 
         private void AudioSessionManager_SessionAddedToList(object? sender, AudioSession e)
@@ -66,78 +65,78 @@ namespace VolumeControl.ViewModels
         private static Config Settings => (Config.Default as Config)!;
         private static LogWriter Log => FLog.Log;
         public ObservableImmutableList<AudioDeviceVM> Devices { get; }
-        public AudioDeviceVM? SelectedDevice
-        {
-            get => _selectedDevice;
-            set
-            {
-                // disconnect previous selected device
-                if (_selectedDevice is not null)
-                {
-                    // disconnect event handlers
-                    _selectedDevice.AudioDevice.SessionManager.SessionAddedToList -= SessionManager_SessionAddedToList;
-                    _selectedDevice.AudioDevice.SessionManager.SessionRemovedFromList -= SessionManager_SessionRemovedFromList;
-                    // clear the Sessions list
-                    Sessions.Clear();
-                }
+        //public AudioDeviceVM? SelectedDevice
+        //{
+        //    get => _selectedDevice;
+        //    set
+        //    {
+        //        // disconnect previous selected device
+        //        if (_selectedDevice is not null)
+        //        {
+        //            // disconnect event handlers
+        //            _selectedDevice.AudioDevice.SessionManager.SessionAddedToList -= SessionManager_SessionAddedToList;
+        //            _selectedDevice.AudioDevice.SessionManager.SessionRemovedFromList -= SessionManager_SessionRemovedFromList;
+        //            // clear the SelectedDeviceSessions list
+        //            SelectedDeviceSessions.Clear();
+        //        }
 
-                // set new selected device
-                _selectedDevice = value;
+        //        // set new selected device
+        //        _selectedDevice = value;
 
-                // connect new selected device & update sessions
-                if (_selectedDevice is not null)
-                {
-                    // connect event handlers
-                    _selectedDevice.AudioDevice.SessionManager.SessionAddedToList += SessionManager_SessionAddedToList;
-                    _selectedDevice.AudioDevice.SessionManager.SessionRemovedFromList += SessionManager_SessionRemovedFromList;
-                    // populate the sessions list
-                    foreach (var session in _selectedDevice.AudioDevice.SessionManager.Sessions)
-                    {
-                        Sessions.Add(new(session));
-                    }
-                }
+        //        // connect new selected device & update sessions
+        //        if (_selectedDevice is not null)
+        //        {
+        //            // connect event handlers
+        //            _selectedDevice.AudioDevice.SessionManager.SessionAddedToList += SessionManager_SessionAddedToList;
+        //            _selectedDevice.AudioDevice.SessionManager.SessionRemovedFromList += SessionManager_SessionRemovedFromList;
+        //            // populate the sessions list
+        //            foreach (var session in _selectedDevice.AudioDevice.SessionManager.Sessions)
+        //            {
+        //                SelectedDeviceSessions.Add(new(session));
+        //            }
+        //        }
 
-                AudioDeviceActions.SelectedDevice = _selectedDevice?.AudioDevice;
+        //        AudioDeviceActions.SelectedDevice = _selectedDevice?.AudioDevice;
 
-                // notify that SelectedDevice has changed
-                NotifyPropertyChanged();
-            }
-        }
-        private AudioDeviceVM? _selectedDevice;
-        public ObservableImmutableList<AudioSessionVM> Sessions { get; }
+        //        // notify that SelectedDevice has changed
+        //        NotifyPropertyChanged();
+        //    }
+        //}
+        //private AudioDeviceVM? _selectedDevice;
+        //public ObservableImmutableList<AudioSessionVM> SelectedDeviceSessions { get; }
         public Audio.AudioSessionManager AudioSessionManager { get; }
         public ObservableImmutableList<AudioSessionVM> AllSessions { get; }
-        public AudioSessionVM? SelectedSession
-        {
-            get => _selectedSession;
-            set
-            {
-                _selectedSession = value;
-                AudioSessionActions.SelectedSession = _selectedSession?.AudioSession;
-                NotifyPropertyChanged();
-            }
-        }
-        private AudioSessionVM? _selectedSession;
-        public bool LockSelectedSession
-        {
-            get => _lockSelectedSession;
-            set
-            {
-                _lockSelectedSession = value;
-                AudioSessionActions.SessionSelectionLocked = _lockSelectedSession;
-                NotifyPropertyChanged();
-            }
-        }
-        private bool _lockSelectedSession = false;
-        public string TargetSession
-        {
-            get => _targetSession;
-            set
-            {
-                _targetSession = value;
-            }
-        }
-        private string _targetSession;
+        //public AudioSessionVM? SelectedSession
+        //{
+        //    get => _selectedSession;
+        //    set
+        //    {
+        //        _selectedSession = value;
+        //        AudioSessionActions.SelectedSession = _selectedSession?.AudioSession;
+        //        NotifyPropertyChanged();
+        //    }
+        //}
+        //private AudioSessionVM? _selectedSession;
+        //public bool LockSelectedSession
+        //{
+        //    get => _lockSelectedSession;
+        //    set
+        //    {
+        //        _lockSelectedSession = value;
+        //        AudioSessionActions.SessionSelectionLocked = _lockSelectedSession;
+        //        NotifyPropertyChanged();
+        //    }
+        //}
+        //private bool _lockSelectedSession = false;
+        //public string TargetSession
+        //{
+        //    get => _targetSession;
+        //    set
+        //    {
+        //        _targetSession = value;
+        //    }
+        //}
+        //private string _targetSession;
         #endregion Properties
 
         #region Methods (EventHandlers)
@@ -155,12 +154,14 @@ namespace VolumeControl.ViewModels
             vm.Dispose();
         }
         private void SessionManager_SessionAddedToList(object? sender, AudioSession e)
-            => Dispatcher.Invoke(() => Sessions.Add(new AudioSessionVM(e)));
+        {
+            //Dispatcher.Invoke(() => SelectedDeviceSessions.Add(new AudioSessionVM(e)));
+        }
         private void SessionManager_SessionRemovedFromList(object? sender, AudioSession e)
         {
-            var vm = Sessions.First(session => session.AudioSession.Equals(e));
-            Sessions.Remove(vm);
-            vm.Dispose();
+            //var vm = SelectedDeviceSessions.First(session => session.AudioSession.Equals(e));
+            //SelectedDeviceSessions.Remove(vm);
+            //vm.Dispose();
         }
         #endregion Methods (EventHandlers)
     }

@@ -5,15 +5,16 @@ using System.Diagnostics;
 using System.Windows;
 using VolumeControl.Core;
 using VolumeControl.Log;
+using VolumeControl.ViewModels;
 
 namespace VolumeControl.Helpers.Update
 {
     public class Updater
     {
-        public Updater(VolumeControlSettings vcSettingsInstance) => VCSettings = vcSettingsInstance;
+        public Updater(VolumeControlVM vcSettingsInstance) => VCSettings = vcSettingsInstance;
 
         #region Fields
-        private readonly VolumeControlSettings VCSettings;
+        private readonly VolumeControlVM VCSettings;
         internal const string _apiUriLatest = "https://api.github.com/repos/radj307/volume-control/releases/latest";
         internal const string _apiUserAgent = "curl/7.64.1";
         internal const string _htmlURLLatest = "https://github.com/radj307/volume-control/releases/latest";

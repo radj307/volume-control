@@ -6,9 +6,9 @@
     xmlns:Converters="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
     xmlns:controls="clr-namespace:VolumeControl.Controls"
     xmlns:core="clr-namespace:VolumeControl.Core;assembly=VolumeControl.Core"
-    xmlns:helpers="clr-namespace:VolumeControl.Helpers"
     xmlns:local="clr-namespace:VolumeControl"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
+    xmlns:vm="clr-namespace:VolumeControl.ViewModels"
     Exit="Application_Exit"
     ShutdownMode="OnMainWindowClose"
     StartupUri="Mixer.xaml">
@@ -33,7 +33,7 @@
             </Style>
 
             <!--  Global Settings Object  -->
-            <helpers:VolumeControlSettings x:Key="Settings" />
+            <vm:VolumeControlVM x:Key="Settings" />
 
             <!--  List Notification Definition  -->
             <local:ListNotification x:Key="Notification" />

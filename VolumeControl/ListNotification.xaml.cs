@@ -6,7 +6,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using VolumeControl.Core;
-using VolumeControl.Helpers;
 using VolumeControl.Log;
 using VolumeControl.SDK;
 using VolumeControl.TypeExtensions;
@@ -89,9 +88,9 @@ namespace VolumeControl
         private static Window MainWindow => App.Current.MainWindow;
         private static LogWriter Log => FLog.Log;
         private static Config Settings => (Config.Default as Config)!;
-        private VolumeControlSettings? _vcSettings;
-        /// <summary>The <see cref="VolumeControlSettings"/> resource instance.</summary>
-        private VolumeControlSettings VCSettings => _vcSettings ??= (this.FindResource("Settings") as VolumeControlSettings)!;
+        private VolumeControlVM? _vcSettings;
+        /// <summary>The <see cref="VolumeControlVM"/> resource instance.</summary>
+        private VolumeControlVM VCSettings => _vcSettings ??= (this.FindResource("Settings") as VolumeControlVM)!;
         /// <summary>The currently-selected <see cref="ListDisplayTarget"/> instance.</summary>
         private ListDisplayTarget? CurrentDisplayTarget => this.VCSettings.ListNotificationVM.CurrentDisplayTarget;
         #endregion Properties

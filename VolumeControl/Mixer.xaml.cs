@@ -13,6 +13,7 @@ using VolumeControl.Core.Input;
 using VolumeControl.Core.Interfaces;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
+using VolumeControl.SDK;
 using VolumeControl.ViewModels;
 using VolumeControl.WPF;
 using VolumeControl.WPF.Collections;
@@ -53,7 +54,7 @@ namespace VolumeControl
 
         #region Properties
         private ListNotification ListNotification => (this.FindResource("Notification") as ListNotification)!;
-        private VolumeControlSettings VCSettings => (this.FindResource("Settings") as VolumeControlSettings)!;
+        private VolumeControlVM VCSettings => (this.FindResource("Settings") as VolumeControlVM)!;
         private AudioDeviceManagerVM AudioAPI => this.VCSettings.AudioAPI;
         private HotkeyManager HotkeyAPI => this.VCSettings.HotkeyAPI;
         private static LogWriter Log => FLog.Log;
@@ -76,7 +77,8 @@ namespace VolumeControl
         {
             if (MixerGrid.CurrentCell.Item is AudioSessionVM session)
             {
-                this.AudioAPI.SelectedSession = session;
+                VCAPI.Default.AudioSessionSelector.Selected = session.AudioSession;
+                //this.AudioAPI.SelectedSession = session;
             }
         }
         /// <summary>Handles the create new hotkey button's click event.</summary>
@@ -123,7 +125,7 @@ namespace VolumeControl
             }
         }
 
-        /// <inheritdoc cref="VolumeControlSettings.ResetHotkeySettings"/>
+        /// <inheritdoc cref="VolumeControlVM.ResetHotkeySettings"/>
         private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e)
         {
             this.VCSettings.ResetHotkeySettings();

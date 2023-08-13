@@ -20,11 +20,14 @@
         {
             if (index > list.Count)
                 throw new ArgumentOutOfRangeException($"Index {index} is out of range for the given list with size {list.Count}!");
-            for (int i = index, j = 0; j < count && i < list.Count; ++i, ++j)
+            if (item is not null)
             {
-                if (item.Equals(list[i]))
+                for (int i = index, j = 0; j < count && i < list.Count; ++i, ++j)
                 {
-                    return i;
+                    if (item.Equals(list[i]))
+                    {
+                        return i;
+                    }
                 }
             }
             return -1;
@@ -43,11 +46,14 @@
         {
             if (index > list.Count)
                 throw new ArgumentOutOfRangeException($"Index {index} is out of range for the given list with size {list.Count}!");
-            for (int i = index; i < list.Count; ++i)
+            if (item is not null)
             {
-                if (item.Equals(list[i]))
+                for (int i = index; i < list.Count; ++i)
                 {
-                    return i;
+                    if (item.Equals(list[i]))
+                    {
+                        return i;
+                    }
                 }
             }
             return -1;
@@ -63,11 +69,14 @@
         /// <returns>The index of <paramref name="item"/> if found in the list; otherwise -1.</returns>
         public static int IndexOf<T>(this IReadOnlyList<T> list, T item)
         {
-            for (int i = 0; i < list.Count; ++i)
+            if (item is not null)
             {
-                if (item.Equals(list[i]))
+                for (int i = 0; i < list.Count; ++i)
                 {
-                    return i;
+                    if (item.Equals(list[i]))
+                    {
+                        return i;
+                    }
                 }
             }
             return -1;
