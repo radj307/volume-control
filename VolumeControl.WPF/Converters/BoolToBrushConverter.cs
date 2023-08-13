@@ -8,11 +8,20 @@ using System.Windows.Media;
 
 namespace VolumeControl.WPF.Converters
 {
+    /// <summary>
+    /// Converts between <see cref="bool"/> and given <see cref="Brush"/> instances.
+    /// </summary>
     [ValueConversion(typeof(bool), typeof(Brush))]
-    public class BoolToBrushConverter : DependencyObject, IValueConverter, INotifyPropertyChanged
+    public class BoolToBrushConverter : DependencyObject, IValueConverter
     {
         #region WhenTrue
+        /// <summary>
+        /// The <see cref="Brush"/> returned when the value is <see langword="true"/>.
+        /// </summary>
         public static readonly DependencyProperty WhenTrueProperty = DependencyProperty.Register(nameof(WhenTrue), typeof(Brush), typeof(BoolToBrushConverter), new PropertyMetadata(new SolidColorBrush()));
+        /// <summary>
+        /// Gets or sets the <see cref="Brush"/> returned when the value is <see langword="true"/>.
+        /// </summary>
         public Brush WhenTrue
         {
             get => (this.GetValue(WhenTrueProperty) as Brush)!;
@@ -21,7 +30,13 @@ namespace VolumeControl.WPF.Converters
         #endregion WhenTrue
 
         #region WhenFalse
+        /// <summary>
+        /// The <see cref="Brush"/> returned when the value is <see langword="false"/>.
+        /// </summary>
         public static readonly DependencyProperty WhenFalseProperty = DependencyProperty.Register(nameof(WhenFalse), typeof(Brush), typeof(BoolToBrushConverter), new PropertyMetadata(new SolidColorBrush()));
+        /// <summary>
+        /// Gets or sets the <see cref="Brush"/> returned when the value is <see langword="false"/>.
+        /// </summary>
         public Brush WhenFalse
         {
             get => (this.GetValue(WhenFalseProperty) as Brush)!;
@@ -30,18 +45,19 @@ namespace VolumeControl.WPF.Converters
         #endregion WhenFalse
 
         #region WhenNull
+        /// <summary>
+        /// The <see cref="Brush"/> returned when the value is <see langword="null"/>.
+        /// </summary>
         public static readonly DependencyProperty WhenNullProperty = DependencyProperty.Register(nameof(WhenNull), typeof(Brush), typeof(BoolToBrushConverter), new PropertyMetadata(new SolidColorBrush()));
+        /// <summary>
+        /// Gets or sets the <see cref="Brush"/> returned when the value is <see langword="null"/>.
+        /// </summary>
         public Brush WhenNull
         {
             get => (this.GetValue(WhenNullProperty) as Brush)!;
             set => this.SetValue(WhenNullProperty, value);
         }
         #endregion WhenNull
-
-        #region Events
-        public event PropertyChangedEventHandler? PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
-        #endregion Events
 
         #region ValueConverter
         /// <inheritdoc/>
