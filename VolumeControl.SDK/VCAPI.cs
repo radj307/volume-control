@@ -5,7 +5,7 @@ using VolumeControl.Log;
 namespace VolumeControl.SDK
 {
     /// <summary>
-    /// Exposes the primary interaction point with the Volume Control API to addons.<br/>
+    /// The primary interaction point for the Volume Control API.<br/>
     /// See the <see cref="VCAPI.Default"/> property for more information.<br/>
     /// </summary>
     /// <remarks>
@@ -38,23 +38,23 @@ namespace VolumeControl.SDK
 
         #region Properties
         /// <summary>
-        /// This is the global <see cref="Audio.AudioDeviceManager"/>.
+        /// This is the global <see cref="Audio.AudioDeviceManager"/> responsible for managing <see cref="AudioDevice"/> instances.
         /// </summary>
         public AudioDeviceManager AudioDeviceManager { get; }
         /// <summary>
-        /// Manages the selected <see cref="AudioDevice"/> instance.
+        /// Manages the selected <see cref="AudioDevice"/> instance for the <see cref="AudioDeviceManager"/>.
         /// </summary>
         public AudioDeviceSelector AudioDeviceSelector { get; }
         /// <summary>
-        /// This is the global <see cref="Audio.AudioSessionManager"/>
+        /// This is the global <see cref="Audio.AudioSessionManager"/> responsible for managing <see cref="AudioSession"/> instances.
         /// </summary>
         public AudioSessionManager AudioSessionManager { get; }
         /// <summary>
-        /// Manages the selected <see cref="AudioSession"/> instance.
+        /// Manages the selected <see cref="AudioSession"/> instance for the <see cref="AudioSessionManager"/>.
         /// </summary>
         public AudioSessionSelector AudioSessionSelector { get; }
         /// <summary>
-        /// This is the global <see cref="Core.HotkeyManager"/>.
+        /// This is the global <see cref="Core.HotkeyManager"/> responsible for managing hotkeys.
         /// </summary>
         public HotkeyManager HotkeyManager { get; }
         /// <summary>
@@ -66,8 +66,11 @@ namespace VolumeControl.SDK
         /// </summary>
         public Config Settings { get; }
         /// <summary>
-        /// The list of <see cref="ListDisplayTarget"/> instances currently 
+        /// The list of <see cref="ListDisplayTarget"/> instances for the ListNotification window
         /// </summary>
+        /// <remarks>
+        /// This is checked only once, when the program starts up. It is recommended to use a static constructor in your addon to add items to this list.
+        /// </remarks>
         public List<ListDisplayTarget> ListDisplayTargets { get; }
         #endregion Properties
     }

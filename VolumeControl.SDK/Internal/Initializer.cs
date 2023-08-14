@@ -4,7 +4,12 @@ using VolumeControl.Log;
 
 namespace VolumeControl.SDK.Internal
 {
-    /// <summary>Initializes <see cref="VCAPI.Default"/>.</summary>
+    /// <summary>
+    /// Initializes <see cref="VCAPI.Default"/>.
+    /// </summary>
+    /// <remarks>
+    /// Do not attempt to access this from an addon!
+    /// </remarks>
     public static class Initializer
     {
         private static bool _initialized = false;
@@ -20,7 +25,7 @@ namespace VolumeControl.SDK.Internal
         {
             if (_initialized)
             {
-                FLog.Log.Warning(new Exception($"{typeof(Initializer).FullName} was already initialized!"));
+                FLog.Log.Error(new Exception($"{typeof(Initializer).FullName} was already initialized! This indicates that an addon called it, which is not allowed!"));
                 return VCAPI.Default;
             }
             _initialized = true;
