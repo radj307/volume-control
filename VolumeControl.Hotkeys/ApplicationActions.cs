@@ -8,7 +8,7 @@ using VolumeControl.SDK;
 namespace VolumeControl.Hotkeys
 {
     [HotkeyActionGroup("Application", GroupColor = "#F2B2FF")]
-    public class ApplicationActions
+    public sealed class ApplicationActions
     {
         #region Constructor
         public ApplicationActions() => this.MainHWnd = VCAPI.Default.MainWindowHWnd;

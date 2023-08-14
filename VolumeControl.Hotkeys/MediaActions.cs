@@ -6,7 +6,7 @@ using VolumeControl.Core.Enum;
 namespace VolumeControl.Hotkeys
 {
     [HotkeyActionGroup("Media", GroupColor = "#FFA54C")]
-    public class MediaActions
+    public sealed class MediaActions
     {
         #region Methods
         [HotkeyAction(Description = "Switches media playback to the next track.\nThis is for people that don't have media keys.")]

@@ -10,7 +10,7 @@ namespace VolumeControl.Hotkeys
     /// Defines actions that affect the current foreground application.
     /// </summary>
     [HotkeyActionGroup("Active Application", GroupColor = "#9F87FF")]
-    public class ActiveApplicationActions
+    public sealed class ActiveApplicationActions
     {
         #region Properties
         private static VCAPI VCAPI => VCAPI.Default;
