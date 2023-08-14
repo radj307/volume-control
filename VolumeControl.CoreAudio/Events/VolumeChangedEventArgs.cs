@@ -7,7 +7,7 @@ namespace Audio.Events
     /// <summary>
     /// Contains event data for the <see cref="VolumeChangedEventHandler"/> event type.
     /// </summary>
-    public sealed class VolumeChangedEventArgs : EventArgs, IReadOnlyVolumeControl
+    public sealed class VolumeChangedEventArgs : EventArgs, IReadOnlyAudioControl
     {
         #region Constructor
         /// <summary>
@@ -42,7 +42,7 @@ namespace Audio.Events
     /// <summary>
     /// Represents a method that is called when an audio instance's volume or mute state was changed.
     /// </summary>
-    /// <param name="sender">The <see cref="IVolumeControl"/> instance that sent the event.</param>
+    /// <param name="sender">The <see cref="IAudioControl"/> instance that sent the event.</param>
     /// <param name="e"></param>
-    public delegate void VolumeChangedEventHandler(IVolumeControl? sender, VolumeChangedEventArgs e);
+    public delegate void VolumeChangedEventHandler(IAudioControl? sender, VolumeChangedEventArgs e);
 }

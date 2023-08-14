@@ -11,7 +11,7 @@ namespace Audio
     /// <summary>
     /// An audio endpoint device.
     /// </summary>
-    public sealed class AudioDevice : IVolumeControl, IReadOnlyVolumeControl, IVolumePeakMeter, INotifyPropertyChanged, IDisposable
+    public sealed class AudioDevice : IAudioControl, IReadOnlyAudioControl, IAudioPeakMeter, INotifyPropertyChanged, IDisposable
     {
         #region Constructor
         internal AudioDevice(MMDevice mmDevice)

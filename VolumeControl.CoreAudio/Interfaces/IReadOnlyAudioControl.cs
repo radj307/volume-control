@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents an audio instance with a read-only volume level and mute state.
     /// </summary>
-    public interface IReadOnlyVolumeControl
+    public interface IReadOnlyAudioControl
     {
         /// <summary>
         /// Gets the volume level of the audio instance, in the native float format.

@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents an audio instance with a controllable volume level and mute state.
     /// </summary>
-    public interface IVolumeControl
+    public interface IAudioControl
     {
         /// <summary>
         /// Gets or sets the volume level of the audio instance, in the native float format.

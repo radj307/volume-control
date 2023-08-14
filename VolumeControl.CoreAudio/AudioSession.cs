@@ -13,7 +13,7 @@ namespace Audio
     /// <summary>
     /// A single audio session running on an audio device.
     /// </summary>
-    public class AudioSession : IVolumeControl, IReadOnlyVolumeControl, IVolumePeakMeter, INotifyPropertyChanged, IDisposable
+    public class AudioSession : IAudioControl, IReadOnlyAudioControl, IAudioPeakMeter, INotifyPropertyChanged, IDisposable
     {
         #region Constructor
         internal AudioSession(AudioDevice owningDevice, AudioSessionControl2 audioSessionControl2)
