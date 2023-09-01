@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value:  |
-              ### 🠕 :warning: Don't forget to set a descriptive title for your issue! :warning: 🠕
+              ### :warning:    🠕 Don't forget to set a descriptive title for your issue! 🠕
               
               Thank you for taking the time to fill out a bug report, your feedback helps us to improve your experience with our product!  
               
