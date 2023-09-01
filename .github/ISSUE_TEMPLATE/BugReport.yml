@@ -33,8 +33,9 @@ body:
                     We need to know what version of Windows you're using to diagnose the problem.  
 
                     To find this out, press **Win**+**R** to open the run dialog, then type `"winver"` and press **Enter** to open *About Windows*.  
-                    ![](https://github.com/radj307/volume-control/assets/1927798/e6ec5b78-2260-4d6c-a26c-8d6ef4c102b3)
-      placeholder:  Windows 10 Home
+                    ![](https://github.com/radj307/volume-control/assets/1927798/e6ec5b78-2260-4d6c-a26c-8d6ef4c102b3)  
+                    *(Including the OS Build is optional)*
+      placeholder:  Windows 10 Enterprise N LTSC Version 21H2
     validations:
       required:     true
 
