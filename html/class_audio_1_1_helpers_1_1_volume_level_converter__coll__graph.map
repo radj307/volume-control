@@ -1,0 +1,3 @@
+<map id="Audio.Helpers.VolumeLevelConverter" name="Audio.Helpers.VolumeLevelConverter">
+<area shape="rect" id="node1" title="Exposes functions for converting between native volume level (float; 0.0&#45;1.0) and regular volume leve..." alt="" coords="5,5,207,112"/>
+</map>

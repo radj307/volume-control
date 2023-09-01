@@ -1,0 +1,5 @@
+<map id="Audio.AudioDeviceManager.FindDeviceByID" name="Audio.AudioDeviceManager.FindDeviceByID">
+<area shape="rect" id="node1" title="Gets the AudioDevice instance associated with the given deviceID &#160;string. (MMDevice...." alt="" coords="541,5,747,47"/>
+<area shape="rect" id="node2" href="$class_audio_1_1_audio_device_manager.html#af13e3db11d5d147097fa6d53010cd4e7" title="Gets the default device for the specified deviceRole ." alt="" coords="288,5,493,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_s_d_k_1_1_audio_device_selector.html#a6a191b0bbc318c2cc70aa2079551414b" title="Changes the Selected item to the default Multimedia audio device." alt="" coords="5,5,240,47"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Audio.Interfaces.IAudioControl" name="Audio.Interfaces.IAudioControl">
+<area shape="rect" id="node1" title="Represents an audio instance with a controllable volume level and mute state." alt="" coords="95,5,315,112"/>
+<area shape="rect" id="node2" href="$class_audio_1_1_audio_device.html" title="An audio endpoint device." alt="" coords="5,160,193,443"/>
+<area shape="rect" id="node3" href="$class_audio_1_1_audio_session.html" title="A single audio session running on an audio device." alt="" coords="217,160,405,443"/>
+</map>

@@ -1,5 +1,6 @@
 <map id="VolumeControl.Log.LogWriter.Error" name="VolumeControl.Log.LogWriter.Error">
-<area shape="rect" id="node1" title="Write a formatted EventType.ERROR message to the log endpoint." alt="" coords="501,5,716,47"/>
+<area shape="rect" id="node1" title="Write a formatted EventType.ERROR message to the log endpoint." alt="" coords="508,35,723,76"/>
 <area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_audio_session.html#ac0154b840ada9e66ac201e3660ec714c" title=" " alt="" coords="5,5,205,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_audio_session.html#a59a3626b8a1cde96c65a68b65d5182da" title="Gets the process associated with this audio session instance." alt="" coords="253,35,453,76"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_audio_session.html#a59a3626b8a1cde96c65a68b65d5182da" title="Gets the process associated with this audio session instance." alt="" coords="257,35,457,76"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer.html#ade47492b45606bbfa86f4d5437c13b22" title=" " alt="" coords="253,100,460,141"/>
 </map>

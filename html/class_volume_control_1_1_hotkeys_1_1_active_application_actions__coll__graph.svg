@@ -16,7 +16,7 @@
 <text text-anchor="start" x="8" y="-100.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Hotkeys.Active</text>
 <text text-anchor="middle" x="82.5" y="-89.5" font-family="Helvetica,sans-Serif" font-size="10.00">ApplicationActions</text>
 <polyline fill="none" stroke="black" points="0,-82.5 165,-82.5 "/>
-<text text-anchor="start" x="8" y="-70.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AudioAPI</text>
+<text text-anchor="start" x="8" y="-70.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ VCAPI</text>
 <polyline fill="none" stroke="black" points="0,-63.5 165,-63.5 "/>
 <text text-anchor="start" x="8" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ VolumeUp()</text>
 <text text-anchor="start" x="8" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ VolumeDown()</text>

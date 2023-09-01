@@ -14,6 +14,8 @@ var namespace_volume_control_1_1_s_d_k =
     ] ],
     [ "Interfaces", "namespace_volume_control_1_1_s_d_k_1_1_interfaces.html", "namespace_volume_control_1_1_s_d_k_1_1_interfaces" ],
     [ "Internal", "namespace_volume_control_1_1_s_d_k_1_1_internal.html", "namespace_volume_control_1_1_s_d_k_1_1_internal" ],
+    [ "AudioDeviceSelector", "class_volume_control_1_1_s_d_k_1_1_audio_device_selector.html", "class_volume_control_1_1_s_d_k_1_1_audio_device_selector" ],
+    [ "AudioSessionSelector", "class_volume_control_1_1_s_d_k_1_1_audio_session_selector.html", "class_volume_control_1_1_s_d_k_1_1_audio_session_selector" ],
     [ "ConditionalEventForward", "class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html", "class_volume_control_1_1_s_d_k_1_1_conditional_event_forward" ],
     [ "ListDisplayTarget", "class_volume_control_1_1_s_d_k_1_1_list_display_target.html", "class_volume_control_1_1_s_d_k_1_1_list_display_target" ],
     [ "VCAPI", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i" ]

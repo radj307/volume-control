@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_volume_control_1_1_hotkeys_1_1_active_application_actions.html" title="Defines actions that affect the current foreground application." alt="" coords="5,5,225,47"/>
+<area shape="rect" id="node1" href="$interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html" title="Represents an invokable method that can be triggered via a hotkey." alt="" coords="5,5,199,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_structs_1_1_hotkey_action.html" title="Wrapper for a hotkey action method type." alt="" coords="247,5,452,47"/>
 </map>

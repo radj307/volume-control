@@ -1,26 +1,8 @@
 var searchData=
 [
-  ['ibindablehotkey_989',['IBindableHotkey',['../interface_volume_control_1_1_core_1_1_interfaces_1_1_i_bindable_hotkey.html',1,'VolumeControl::Core::Interfaces']]],
-  ['icongetter_990',['IconGetter',['../class_volume_control_1_1_w_p_f_1_1_icon_getter.html',1,'VolumeControl::WPF']]],
-  ['iconpair_991',['IconPair',['../class_volume_control_1_1_w_p_f_1_1_icon_pair.html',1,'VolumeControl::WPF']]],
-  ['idevice_992',['IDevice',['../interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html',1,'VolumeControl::Audio::Interfaces']]],
-  ['idevicenotificationclient_993',['IDeviceNotificationClient',['../interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device_notification_client.html',1,'VolumeControl::Audio::Interfaces']]],
-  ['iendpoint_994',['IEndpoint',['../interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html',1,'VolumeControl::Log::Endpoints']]],
-  ['ihotkey_995',['IHotkey',['../interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html',1,'VolumeControl::Core::Input']]],
-  ['ihotkeyaction_996',['IHotkeyAction',['../interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html',1,'VolumeControl::Core::Input::Actions']]],
-  ['ihotkeyactionmanager_997',['IHotkeyActionManager',['../interface_volume_control_1_1_core_1_1_interfaces_1_1_i_hotkey_action_manager.html',1,'VolumeControl::Core::Interfaces']]],
-  ['ihotkeyactionsetting_998',['IHotkeyActionSetting',['../interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting.html',1,'VolumeControl::Core::Input::Actions']]],
-  ['ilistdisplayable_999',['IListDisplayable',['../interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html',1,'VolumeControl::Core::Interfaces']]],
-  ['ilistdisplaytarget_1000',['IListDisplayTarget',['../interface_volume_control_1_1_s_d_k_1_1_interfaces_1_1_i_list_display_target.html',1,'VolumeControl::SDK::Interfaces']]],
-  ['ilogwriter_1001',['ILogWriter',['../interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html',1,'VolumeControl::Log::Interfaces']]],
-  ['imeteredvolumecontrol_1002',['IMeteredVolumeControl',['../interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_metered_volume_control.html',1,'VolumeControl::Audio::Interfaces']]],
-  ['initializer_1003',['Initializer',['../class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer.html',1,'VolumeControl::SDK::Internal']]],
-  ['inputsimulator_1004',['InputSimulator',['../class_volume_control_1_1_core_1_1_input_simulator.html',1,'VolumeControl::Core']]],
-  ['int32extensions_1005',['Int32Extensions',['../class_volume_control_1_1_type_extensions_1_1_int32_extensions.html',1,'VolumeControl::TypeExtensions']]],
-  ['iprocess_1006',['IProcess',['../interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html',1,'VolumeControl::Audio::Interfaces']]],
-  ['isession_1007',['ISession',['../interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html',1,'VolumeControl::Audio::Interfaces']]],
-  ['isessionextensions_1008',['ISessionExtensions',['../class_volume_control_1_1_audio_1_1_extensions_1_1_i_session_extensions.html',1,'VolumeControl::Audio::Extensions']]],
-  ['item_1009',['Item',['../class_volume_control_1_1_core_1_1_generics_1_1_item.html',1,'VolumeControl::Core::Generics']]],
-  ['itimestamp_1010',['ITimestamp',['../interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp.html',1,'VolumeControl::Log::Interfaces']]],
-  ['ivolumecontrol_1011',['IVolumeControl',['../interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_volume_control.html',1,'VolumeControl::Audio::Interfaces']]]
+  ['listdisplaytarget_1075',['ListDisplayTarget',['../class_volume_control_1_1_s_d_k_1_1_list_display_target.html',1,'VolumeControl::SDK']]],
+  ['listextensions_1076',['ListExtensions',['../class_volume_control_1_1_type_extensions_1_1_list_extensions.html',1,'VolumeControl::TypeExtensions']]],
+  ['listhasitemsbooleanconverter_1077',['ListHasItemsBooleanConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_list_has_items_boolean_converter.html',1,'VolumeControl::WPF::Converters']]],
+  ['logeventtypefilter_1078',['LogEventTypeFilter',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_log_event_type_filter.html',1,'VolumeControl::WPF::Collections']]],
+  ['logwriter_1079',['LogWriter',['../class_volume_control_1_1_log_1_1_log_writer.html',1,'VolumeControl::Log']]]
 ];

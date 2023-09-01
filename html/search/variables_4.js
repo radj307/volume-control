@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['hotkeys_5fdefault_1326',['Hotkeys_Default',['../class_volume_control_1_1_core_1_1_config.html#aabc2f606723e6010d5ee104e3c043186',1,'VolumeControl::Core::Config']]],
-  ['hwnd_5fbottom_1327',['HWND_BOTTOM',['../class_volume_control_1_1_core_1_1_user32.html#a37c04cc042dd351d7f558eebe4384ec9',1,'VolumeControl::Core::User32']]],
-  ['hwnd_5fnotopmost_1328',['HWND_NOTOPMOST',['../class_volume_control_1_1_core_1_1_user32.html#ac5d6cf066ba22a57fea7bc1302a1cf4d',1,'VolumeControl::Core::User32']]],
-  ['hwnd_5ftop_1329',['HWND_TOP',['../class_volume_control_1_1_core_1_1_user32.html#abc2bc42a9c44afc9ff9ddcf2eaac6732',1,'VolumeControl::Core::User32']]],
-  ['hwnd_5ftopmost_1330',['HWND_TOPMOST',['../class_volume_control_1_1_core_1_1_user32.html#a3beb4f7d69a4a2d70985ddb9de56f96e',1,'VolumeControl::Core::User32']]]
+  ['empty_1410',['Empty',['../class_volume_control_1_1_audio_1_1_events_1_1_volume_changed_event_args.html#a2c5e39d34883d0651af577df3d4bf4d4',1,'VolumeControl.Audio.Events.VolumeChangedEventArgs.Empty()'],['../struct_volume_control_1_1_core_1_1_helpers_1_1_target_info.html#a51260af8e4f2163757a409c114e740f2',1,'VolumeControl.Core.Helpers.TargetInfo.Empty()'],['../struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html#a2147e23307888a7724019e9d71b3550c',1,'VolumeControl.WPF.PInvoke.RECT.Empty()']]],
+  ['event_1411',['Event',['../class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html#ab45c9e75f4927ea384fa53c5a2bd31dd',1,'VolumeControl::SDK::ConditionalEventForward']]]
 ];

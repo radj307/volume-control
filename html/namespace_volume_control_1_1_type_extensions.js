@@ -5,6 +5,7 @@ var namespace_volume_control_1_1_type_extensions =
     [ "EnumerableExtensions", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions" ],
     [ "EnumExtensions", "class_volume_control_1_1_type_extensions_1_1_enum_extensions.html", "class_volume_control_1_1_type_extensions_1_1_enum_extensions" ],
     [ "Int32Extensions", "class_volume_control_1_1_type_extensions_1_1_int32_extensions.html", "class_volume_control_1_1_type_extensions_1_1_int32_extensions" ],
+    [ "IReadOnlyListExtensions", "class_volume_control_1_1_type_extensions_1_1_i_read_only_list_extensions.html", "class_volume_control_1_1_type_extensions_1_1_i_read_only_list_extensions" ],
     [ "ListExtensions", "class_volume_control_1_1_type_extensions_1_1_list_extensions.html", "class_volume_control_1_1_type_extensions_1_1_list_extensions" ],
     [ "MathExt", "class_volume_control_1_1_type_extensions_1_1_math_ext.html", "class_volume_control_1_1_type_extensions_1_1_math_ext" ],
     [ "MemberInfoExtensions", "class_volume_control_1_1_type_extensions_1_1_member_info_extensions.html", "class_volume_control_1_1_type_extensions_1_1_member_info_extensions" ],

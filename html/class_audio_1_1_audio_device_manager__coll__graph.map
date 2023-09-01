@@ -1,0 +1,3 @@
+<map id="Audio.AudioDeviceManager" name="Audio.AudioDeviceManager">
+<area shape="rect" id="node1" title="Manages a list of AudioDevice instances and related events." alt="" coords="5,5,211,171"/>
+</map>

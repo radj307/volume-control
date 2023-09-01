@@ -25,14 +25,14 @@
 var NAVTREE =
 [
   [ "Volume Control", "index.html", [
-    [ "Getting Started", "index.html#autotoc_md32", [
-      [ "What It Does", "index.html#autotoc_md30", null ],
-      [ "How does it work?", "index.html#autotoc_md31", null ],
-      [ "Installation", "index.html#autotoc_md33", null ],
-      [ "Setup", "index.html#autotoc_md34", null ],
-      [ "Usage", "index.html#autotoc_md35", null ],
-      [ "Contributing", "index.html#autotoc_md36", null ],
-      [ "Addon Development", "index.html#autotoc_md37", null ]
+    [ "Getting Started", "index.html#autotoc_md43", [
+      [ "What It Does", "index.html#autotoc_md41", null ],
+      [ "How does it work?", "index.html#autotoc_md42", null ],
+      [ "Installation", "index.html#autotoc_md44", null ],
+      [ "Setup", "index.html#autotoc_md45", null ],
+      [ "Usage", "index.html#autotoc_md46", null ],
+      [ "Contributing", "index.html#autotoc_md47", null ],
+      [ "Addon Development", "index.html#autotoc_md48", null ]
     ] ],
     [ "Contributing", "md__home_runner_work_volume_control_volume_control__c_o_n_t_r_i_b_u_t_i_n_g.html", [
       [ "Guidelines for Code Contributions", "md__home_runner_work_volume_control_volume_control__c_o_n_t_r_i_b_u_t_i_n_g.html#autotoc_md1", null ],
@@ -77,6 +77,22 @@ var NAVTREE =
         [ "Process", "md_docs__building_from_source.html#autotoc_md29", null ]
       ] ]
     ] ],
+    [ "to Contribute Translations", "_how.html", [
+      [ "Getting Started", "_how.html#autotoc_md30", null ],
+      [ "File Format", "_how.html#autotoc_md31", [
+        [ "File Naming Conventions", "_how.html#autotoc_md32", null ],
+        [ "String \"Paths\"", "_how.html#autotoc_md33", null ]
+      ] ],
+      [ "Edit an Existing Translation", "_how.html#autotoc_md34", [
+        [ "Add a Missing Translated String", "_how.html#autotoc_md35", null ],
+        [ "Change an Existing Translated String", "_how.html#autotoc_md36", null ]
+      ] ],
+      [ "Create a New Translation", "_how.html#autotoc_md37", null ],
+      [ "Push Your Changes", "_how.html#autotoc_md38", null ],
+      [ "Submit a Pull Request", "_how.html#autotoc_md39", [
+        [ "Updating a Pull Request", "_how.html#autotoc_md40", null ]
+      ] ]
+    ] ],
     [ "Packages", "namespaces.html", [
       [ "Packages", "namespaces.html", "namespaces_dup" ],
       [ "Package Functions", "namespacemembers.html", [
@@ -106,14 +122,15 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"",
-"class_volume_control_1_1_audio_1_1_audio_device.html#ad2e708de6b9feafc7e3af676d845cb85",
-"class_volume_control_1_1_core_1_1_enum_1_1_modifier_extensions.html#ad3c2175ea9366c72db8be82b394779d8",
-"class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a8e290ff57ab36aaf944c453de9b07c2b",
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type_1_1_bindable_event_type_flag.html#a0b7427d886a9a30390dc101dda4b80e3",
-"functions_prop_g.html",
-"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a677fc2cb4e72ff9c7d7ad283112ef56b",
-"namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613beaf2a6c498fb90ee345d997f888fce3b18"
+"_addon.html",
+"class_volume_control_1_1_audio_1_1_audio_device.html#af298cd0d6ec6a91f734ae1c6dde49c4e",
+"class_volume_control_1_1_core_1_1_helpers_1_1_target_info_v_m.html#a6fe7f425f5134b60a5ee302044e23eeb",
+"class_volume_control_1_1_log_1_1_f_log.html#affa9bfcea4468b27f8de4637eeb5a65f",
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#af7196cd9cf964c7a210c01781d1ea6c9",
+"functions_o.html",
+"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a4a4079e06eb2f7ba7a12821c7c58a3f6",
+"namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613beadd7536794b63bf90eccfd37f9b147d7f",
+""
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

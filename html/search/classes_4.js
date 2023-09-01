@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['enumerableextensions_971',['EnumerableExtensions',['../class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html',1,'VolumeControl::TypeExtensions']]],
-  ['enumextensions_972',['EnumExtensions',['../class_volume_control_1_1_type_extensions_1_1_enum_extensions.html',1,'VolumeControl::TypeExtensions']]],
-  ['evirtualkeycodeextensions_973',['EVirtualKeyCodeExtensions',['../class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions.html',1,'VolumeControl::Core::Enum']]]
+  ['fileendpoint_1032',['FileEndpoint',['../class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html',1,'VolumeControl::Log::Endpoints']]],
+  ['flog_1033',['FLog',['../class_volume_control_1_1_log_1_1_f_log.html',1,'VolumeControl::Log']]]
 ];

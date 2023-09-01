@@ -103,14 +103,15 @@ Collaboration diagram for VolumeControl.SDK.Internal.Initializer:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a554bed73713974e7844b1fb940b0a63b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html">VCAPI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer.html#a554bed73713974e7844b1fb940b0a63b">Initialize</a> (<a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html">AudioAPI</a> audioAPI, <a class="el" href="class_volume_control_1_1_core_1_1_hotkey_manager.html">HotkeyManager</a> mgr, IntPtr mainWindowHWnd, <a class="el" href="class_volume_control_1_1_core_1_1_config.html">Config</a> settings)</td></tr>
-<tr class="separator:a554bed73713974e7844b1fb940b0a63b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade47492b45606bbfa86f4d5437c13b22"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html">VCAPI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer.html#ade47492b45606bbfa86f4d5437c13b22">Initialize</a> (<a class="el" href="class_audio_1_1_audio_device_manager.html">AudioDeviceManager</a> audioDeviceManager, <a class="el" href="class_audio_1_1_audio_session_manager.html">AudioSessionManager</a> audioSessionManager, <a class="el" href="class_volume_control_1_1_core_1_1_hotkey_manager.html">HotkeyManager</a> mgr, IntPtr mainWindowHWnd, <a class="el" href="class_volume_control_1_1_core_1_1_config.html">Config</a> settings)</td></tr>
+<tr class="separator:ade47492b45606bbfa86f4d5437c13b22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Initializes <a class="el" href="class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#a086eb8a099594ba8a170c1b83c4df939" title="This is the default instance of VCAPI. You must use this to access the API.">VCAPI.Default</a>. </p>
+<p>Do not attempt to access this from an addon! </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a554bed73713974e7844b1fb940b0a63b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a554bed73713974e7844b1fb940b0a63b">&#9670;&nbsp;</a></span>Initialize()</h2>
+<a id="ade47492b45606bbfa86f4d5437c13b22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade47492b45606bbfa86f4d5437c13b22">&#9670;&nbsp;</a></span>Initialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -121,8 +122,14 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html">VCAPI</a> VolumeControl.SDK.Internal.Initializer.Initialize </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html">AudioAPI</a>&#160;</td>
-          <td class="paramname"><em>audioAPI</em>, </td>
+          <td class="paramtype"><a class="el" href="class_audio_1_1_audio_device_manager.html">AudioDeviceManager</a>&#160;</td>
+          <td class="paramname"><em>audioDeviceManager</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_audio_1_1_audio_session_manager.html">AudioSessionManager</a>&#160;</td>
+          <td class="paramname"><em>audioSessionManager</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -156,7 +163,8 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">audioAPI</td><td>The audio API object.</td></tr>
+    <tr><td class="paramname">audioDeviceManager</td><td>The audio device manager object.</td></tr>
+    <tr><td class="paramname">audioSessionManager</td><td>The audio session manager object.</td></tr>
     <tr><td class="paramname">mgr</td><td>The hotkey manager object.</td></tr>
     <tr><td class="paramname">mainWindowHWnd</td><td>The mixer window's handle</td></tr>
     <tr><td class="paramname">settings</td><td>The program settings container object.</td></tr>
@@ -170,11 +178,12 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00029">VolumeControl.SDK.VCAPI.Default</a>, <a class="el" href="#l00019">VolumeControl.Log.FLog.Log</a>, and <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#a5caf611b6e4d2cf97b6521b9b2e3f9ef">VolumeControl.Log.LogWriter.Warning()</a>.</p>
+<p class="reference">References <a class="el" href="#l00032">VolumeControl.SDK.VCAPI.Default</a>, <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7">VolumeControl.Log.LogWriter.Error()</a>, and <a class="el" href="#l00019">VolumeControl.Log.FLog.Log</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer_a554bed73713974e7844b1fb940b0a63b_cgraph.svg" width="480" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer_ade47492b45606bbfa86f4d5437c13b22_cgraph.svg" width="480" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 
 </div>

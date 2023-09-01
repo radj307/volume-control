@@ -1,28 +1,7 @@
 var searchData=
 [
-  ['actions_1052',['Actions',['../namespace_volume_control_1_1_core_1_1_input_1_1_actions.html',1,'VolumeControl::Core::Input']]],
-  ['attributes_1053',['Attributes',['../namespace_volume_control_1_1_core_1_1_attributes.html',1,'VolumeControl::Core']]],
-  ['audio_1054',['Audio',['../namespace_volume_control_1_1_audio.html',1,'VolumeControl']]],
-  ['bindings_1055',['Bindings',['../namespace_volume_control_1_1_w_p_f_1_1_bindings.html',1,'VolumeControl::WPF']]],
-  ['collections_1056',['Collections',['../namespace_volume_control_1_1_audio_1_1_collections.html',1,'VolumeControl.Audio.Collections'],['../namespace_volume_control_1_1_w_p_f_1_1_collections.html',1,'VolumeControl.WPF.Collections']]],
-  ['converters_1057',['Converters',['../namespace_volume_control_1_1_w_p_f_1_1_converters.html',1,'VolumeControl::WPF']]],
-  ['core_1058',['Core',['../namespace_volume_control_1_1_core.html',1,'VolumeControl']]],
-  ['delegates_1059',['Delegates',['../namespace_volume_control_1_1_s_d_k_1_1_delegates.html',1,'VolumeControl::SDK']]],
-  ['endpoints_1060',['Endpoints',['../namespace_volume_control_1_1_log_1_1_endpoints.html',1,'VolumeControl::Log']]],
-  ['enum_1061',['Enum',['../namespace_volume_control_1_1_core_1_1_enum.html',1,'VolumeControl.Core.Enum'],['../namespace_volume_control_1_1_log_1_1_enum.html',1,'VolumeControl.Log.Enum']]],
-  ['events_1062',['Events',['../namespace_volume_control_1_1_audio_1_1_events.html',1,'VolumeControl::Audio']]],
-  ['extensions_1063',['Extensions',['../namespace_volume_control_1_1_audio_1_1_extensions.html',1,'VolumeControl.Audio.Extensions'],['../namespace_volume_control_1_1_w_p_f_1_1_extensions.html',1,'VolumeControl.WPF.Extensions']]],
-  ['generics_1064',['Generics',['../namespace_volume_control_1_1_core_1_1_generics.html',1,'VolumeControl::Core']]],
-  ['helpers_1065',['Helpers',['../namespace_volume_control_1_1_core_1_1_helpers.html',1,'VolumeControl.Core.Helpers'],['../namespace_volume_control_1_1_hotkeys_1_1_helpers.html',1,'VolumeControl.Hotkeys.Helpers']]],
-  ['hotkeys_1066',['Hotkeys',['../namespace_volume_control_1_1_hotkeys.html',1,'VolumeControl']]],
-  ['input_1067',['Input',['../namespace_volume_control_1_1_core_1_1_input.html',1,'VolumeControl::Core']]],
-  ['interfaces_1068',['Interfaces',['../namespace_volume_control_1_1_audio_1_1_interfaces.html',1,'VolumeControl.Audio.Interfaces'],['../namespace_volume_control_1_1_core_1_1_interfaces.html',1,'VolumeControl.Core.Interfaces'],['../namespace_volume_control_1_1_log_1_1_interfaces.html',1,'VolumeControl.Log.Interfaces'],['../namespace_volume_control_1_1_s_d_k_1_1_interfaces.html',1,'VolumeControl.SDK.Interfaces']]],
-  ['internal_1069',['Internal',['../namespace_volume_control_1_1_s_d_k_1_1_internal.html',1,'VolumeControl::SDK']]],
-  ['log_1070',['Log',['../namespace_volume_control_1_1_log.html',1,'VolumeControl']]],
-  ['pinvoke_1071',['PInvoke',['../namespace_volume_control_1_1_w_p_f_1_1_p_invoke.html',1,'VolumeControl::WPF']]],
-  ['sdk_1072',['SDK',['../namespace_volume_control_1_1_s_d_k.html',1,'VolumeControl']]],
-  ['structs_1073',['Structs',['../namespace_volume_control_1_1_core_1_1_structs.html',1,'VolumeControl::Core']]],
-  ['typeextensions_1074',['TypeExtensions',['../namespace_volume_control_1_1_type_extensions.html',1,'VolumeControl']]],
-  ['volumecontrol_1075',['VolumeControl',['../namespace_volume_control.html',1,'']]],
-  ['wpf_1076',['WPF',['../namespace_volume_control_1_1_w_p_f.html',1,'VolumeControl']]]
+  ['audio_1118',['Audio',['../namespace_audio.html',1,'']]],
+  ['events_1119',['Events',['../namespace_audio_1_1_events.html',1,'Audio']]],
+  ['helpers_1120',['Helpers',['../namespace_audio_1_1_helpers.html',1,'Audio']]],
+  ['interfaces_1121',['Interfaces',['../namespace_audio_1_1_interfaces.html',1,'Audio']]]
 ];

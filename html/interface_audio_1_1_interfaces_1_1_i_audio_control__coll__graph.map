@@ -1,0 +1,3 @@
+<map id="Audio.Interfaces.IAudioControl" name="Audio.Interfaces.IAudioControl">
+<area shape="rect" id="node1" title="Represents an audio instance with a controllable volume level and mute state." alt="" coords="5,5,225,112"/>
+</map>

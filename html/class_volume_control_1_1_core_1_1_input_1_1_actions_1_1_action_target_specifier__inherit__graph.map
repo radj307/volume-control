@@ -1,5 +1,4 @@
 <map id="VolumeControl.Core.Input.Actions.ActionTargetSpecifier" name="VolumeControl.Core.Input.Actions.ActionTargetSpecifier">
-<area shape="rect" id="node1" title="Specifies the target(s) of a hotkey action." alt="" coords="145,5,355,97"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_helpers_1_1_device_specifier.html" title="Used to specify Audio.AudioDevice targets for hotkey actions." alt="" coords="5,145,239,237"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_hotkeys_1_1_helpers_1_1_session_specifier.html" title="Used to specify Audio.AudioSession targets for hotkey actions." alt="" coords="263,145,496,237"/>
+<area shape="rect" id="node1" title="Specifies the target(s) of a hotkey action." alt="" coords="17,5,227,97"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_helpers_1_1_session_specifier.html" title="Used to specify Audio.AudioSession targets for hotkey actions." alt="" coords="5,145,239,237"/>
 </map>

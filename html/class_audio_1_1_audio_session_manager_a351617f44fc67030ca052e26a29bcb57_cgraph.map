@@ -1,0 +1,4 @@
+<map id="Audio.AudioSessionManager.AddSessionManagers" name="Audio.AudioSessionManager.AddSessionManagers">
+<area shape="rect" id="node1" title="Adds the given sessionManagers &#160;to the SessionManagers list using AddSessionManager(AudioDeviceSessio..." alt="" coords="5,5,216,47"/>
+<area shape="rect" id="node2" href="$class_audio_1_1_audio_session_manager.html#a2c9be5667090c8b14e1fd4c58955405e" title="Adds the given sessionManager &#160;to the SessionManagers list." alt="" coords="264,5,475,47"/>
+</map>

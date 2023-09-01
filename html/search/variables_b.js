@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['selecteditemcontrolsproperty_1347',['SelectedItemControlsProperty',['../class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a3aeca4b2d9f20260a8429f1f653c4863',1,'VolumeControl::SDK::ListDisplayTarget']]],
-  ['selecteditemproperty_1348',['SelectedItemProperty',['../class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a57b45c8fb30dac4cb5e0379d8dbf68aa',1,'VolumeControl::SDK::ListDisplayTarget']]],
-  ['string_1349',['string',['../class_volume_control_1_1_w_p_f_1_1_icon_getter.html#acca893e3f9d7b49fa4878063c4a08f2d',1,'VolumeControl::WPF::IconGetter']]]
+  ['rcmonitor_1430',['rcMonitor',['../class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html#a4874dbc6e95678ba553dafddfe948357',1,'VolumeControl::WPF::PInvoke::MONITORINFO']]],
+  ['rcwork_1431',['rcWork',['../class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html#afae05d1f45f1584a11e78ac3318c417d',1,'VolumeControl::WPF::PInvoke::MONITORINFO']]],
+  ['right_1432',['right',['../struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html#a63cf1803b274eaab83038961e725e1eb',1,'VolumeControl::WPF::PInvoke::RECT']]]
 ];

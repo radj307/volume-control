@@ -5,6 +5,7 @@ var dir_61c495eb9d50607c90e16e42a6ca76f2 =
     [ "EnumerableExtensions.cs", null, null ],
     [ "EnumExtensions.cs", null, null ],
     [ "Int32Extensions.cs", null, null ],
+    [ "IReadOnlyListExtensions.cs", null, null ],
     [ "ListExtensions.cs", null, null ],
     [ "MathExt.cs", null, null ],
     [ "MemberInfoExtensions.cs", null, null ],

@@ -1,3 +1,69 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_volume_control_1_1_type_extensions_1_1_enum_extensions.html" title="Extensions for any Enum type." alt="" coords="5,5,232,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="602,2998,747,3025"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_s_d_k_1_1_list_display_target.html" title="Wrapper object for a ListNotification display target. &#160;This provides the necessary interaction interf..." alt="" coords="877,2601,1103,2643"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_brush_converter.html" title="Converts between bool and given Brush instances." alt="" coords="876,3031,1104,3072"/>
+<area shape="rect" id="node4" title=" " alt="" coords="631,2907,719,2934"/>
+<area shape="rect" id="node5" href="$class_audio_1_1_events_1_1_volume_changed_event_args.html" title="Contains event data for the VolumeChangedEventHandler event type." alt="" coords="881,2484,1099,2525"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html" title="Event arguments for the TargetChangingEventHandler event handler type." alt="" coords="885,2900,1095,2941"/>
+<area shape="rect" id="node7" href="$class_volume_control_1_1_audio_1_1_events_1_1_volume_changed_event_args.html" title="Event arguments for volume change events." alt="" coords="885,2965,1095,3007"/>
+<area shape="rect" id="node8" href="$interface_audio_1_1_interfaces_1_1_i_audio_control.html" title="Represents an audio instance with a controllable volume level and mute state." alt="" coords="565,71,785,98"/>
+<area shape="rect" id="node9" href="$class_audio_1_1_audio_device.html" title="An audio endpoint device." alt="" coords="917,82,1063,109"/>
+<area shape="rect" id="node10" href="$class_audio_1_1_audio_session.html" title="A single audio session running on an audio device." alt="" coords="915,31,1065,58"/>
+<area shape="rect" id="node11" href="$interface_audio_1_1_interfaces_1_1_i_audio_peak_meter.html" title="Represents some kind of object that has an audio peak meter." alt="" coords="572,5,777,47"/>
+<area shape="rect" id="node12" title=" " alt="" coords="945,1407,1035,1434"/>
+<area shape="rect" id="node13" href="$class_volume_control_1_1_audio_1_1_audio_device.html" title="An audio device." alt="" coords="1209,1653,1409,1695"/>
+<area shape="rect" id="node14" href="$class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html" title="Management container object for the AudioDevice class." alt="" coords="1189,984,1428,1025"/>
+<area shape="rect" id="node15" href="$class_volume_control_1_1_audio_1_1_collections_1_1_audio_session_collection.html" title="AudioSession management container type. &#160;This is implemented as a viewmodel in the AudioAPI class." alt="" coords="1189,1425,1428,1467"/>
+<area shape="rect" id="node16" href="$class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html" title="Provides the source for a WPF list component&#39;s ItemsSource property to expose a readable and writable..." alt="" coords="1194,919,1423,960"/>
+<area shape="rect" id="node18" href="$class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html" title=" " alt="" coords="1194,1552,1423,1593"/>
+<area shape="rect" id="node17" href="$class_volume_control_1_1_w_p_f_1_1_collections_1_1_log_event_type_filter.html" title="This is an extension of the BindableEventType object that initializes the BindableEventType...." alt="" coords="1476,919,1705,960"/>
+<area shape="rect" id="node19" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device_notification_client.html" title="Represents an accessible IMMNotificationClient wrapper that exposes events." alt="" coords="874,757,1106,799"/>
+<area shape="rect" id="node20" title=" " alt="" coords="625,326,724,353"/>
+<area shape="rect" id="node21" href="$class_volume_control_1_1_audio_1_1_audio_a_p_i.html" title="Contains methods related to audio devices, sessions, and the underlying selection mechanics responsib..." alt="" coords="879,1159,1101,1186"/>
+<area shape="rect" id="node22" href="$class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system." alt="" coords="1491,2389,1691,2431"/>
+<area shape="rect" id="node23" href="$class_volume_control_1_1_core_1_1_hotkey_manager.html" title="This object is responsible for managing hotkeys at runtime." alt="" coords="889,1043,1091,1084"/>
+<area shape="rect" id="node24" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html" title="A Hotkey that may be registered with the windows API." alt="" coords="1212,289,1405,331"/>
+<area shape="rect" id="node25" href="$interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html" title="Represents a hotkey instance." alt="" coords="893,235,1087,276"/>
+<area shape="rect" id="node28" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html" title="A log endpoint that implements IEndpoint and uses a MemoryStream as an endpoint." alt="" coords="881,1763,1099,1804"/>
+<area shape="rect" id="node29" href="$class_volume_control_1_1_log_1_1_log_writer.html" title="Basic log writer object." alt="" coords="884,183,1096,210"/>
+<area shape="rect" id="node30" href="$class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html" title="Handles receiving windows event messages." alt="" coords="877,133,1103,159"/>
+<area shape="rect" id="node26" href="$interface_volume_control_1_1_core_1_1_interfaces_1_1_i_bindable_hotkey.html" title="Represents a BindableHotkey." alt="" coords="1196,224,1421,265"/>
+<area shape="rect" id="node27" href="$class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html" title="Wraps a Input.Hotkey instance and exposes an action binding point. (see Action)" alt="" coords="1494,335,1687,376"/>
+<area shape="rect" id="node31" href="$interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html" title="Represents an endpoint output target for a log writer, and exposes helper methods for interacting wit..." alt="" coords="566,2769,783,2811"/>
+<area shape="rect" id="node32" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html" title="Allows using the Console as a logging endpoint." alt="" coords="881,2769,1099,2811"/>
+<area shape="rect" id="node33" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk." alt="" coords="881,2835,1099,2876"/>
+<area shape="rect" id="node34" title=" " alt="" coords="938,991,1042,1018"/>
+<area shape="rect" id="node35" title=" " alt="" coords="629,2426,720,2453"/>
+<area shape="rect" id="node36" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html" title="Represents read&#45;only information about a process running on the local system." alt="" coords="874,2419,1106,2460"/>
+<area shape="rect" id="node37" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html" title="Represents an audio session." alt="" coords="1193,2360,1425,2401"/>
+<area shape="rect" id="node38" title=" " alt="" coords="930,1610,1050,1637"/>
+<area shape="rect" id="node39" title=" " alt="" coords="965,1559,1015,1586"/>
+<area shape="rect" id="node40" href="$interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html" title="Represents an object that, when it is a member of a list of similar items, can be displayed in the Li..." alt="" coords="5,2360,231,2401"/>
+<area shape="rect" id="node41" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_metered_volume_control.html" title="Extends the IMeteredVolumeControl interface with the AudioMeterInformation property." alt="" coords="559,2360,791,2401"/>
+<area shape="rect" id="node43" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_volume_control.html" title="Represents some kind of controllable audio playback instance." alt="" coords="279,2389,511,2431"/>
+<area shape="rect" id="node42" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html" title="Represents an audio device." alt="" coords="874,1997,1106,2039"/>
+<area shape="rect" id="node44" href="$interface_volume_control_1_1_s_d_k_1_1_interfaces_1_1_i_list_display_target.html" title="Represents a ListDisplayTarget." alt="" coords="563,2601,786,2643"/>
+<area shape="rect" id="node45" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html" title="Represents a log writer object, which is responsible for exposing logging methods,..." alt="" coords="565,188,784,229"/>
+<area shape="rect" id="node46" title=" " alt="" coords="581,1458,768,1485"/>
+<area shape="rect" id="node47" href="$class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object.html" title=" " alt="" coords="875,1880,1105,1921"/>
+<area shape="rect" id="node48" title=" " alt="" coords="586,1079,763,1106"/>
+<area shape="rect" id="node49" href="$interface_volume_control_1_1_core_1_1_interfaces_1_1_i_hotkey_action_manager.html" title="Represents a hotkey action manager object, which contains the list of IHotkeyActions used in the hotk..." alt="" coords="877,925,1103,967"/>
+<area shape="rect" id="node50" href="$class_volume_control_1_1_s_d_k_1_1_audio_device_selector.html" title="Manages the currently &quot;selected&quot; AudioDevice instance for a given Audio.AudioDeviceManager object." alt="" coords="873,1211,1107,1252"/>
+<area shape="rect" id="node51" href="$class_volume_control_1_1_s_d_k_1_1_audio_session_selector.html" title="Manages the currently &quot;selected&quot; AudioSession instance for a given Audio.AudioSessionManager object." alt="" coords="870,1276,1110,1317"/>
+<area shape="rect" id="node52" href="$class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type_1_1_bindable_event_type_flag.html" title="This represents a single flag value of the EventType enum." alt="" coords="839,1341,1141,1383"/>
+<area shape="rect" id="node53" title=" " alt="" coords="584,1837,765,1863"/>
+<area shape="rect" id="node54" href="$interface_audio_1_1_interfaces_1_1_i_read_only_audio_control.html" title="Represents an audio instance with a read&#45;only volume level and mute state." alt="" coords="575,123,774,164"/>
+<area shape="rect" id="node55" title=" " alt="" coords="913,874,1067,901"/>
+<area shape="rect" id="node56" title=" " alt="" coords="934,1509,1046,1535"/>
+<area shape="rect" id="node57" title=" " alt="" coords="611,3331,738,3358"/>
+<area shape="rect" id="node58" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_array_has_items_boolean_converter.html" title="Converts from an arbitrary array of items to a boolean value that depends on whether the array is emp..." alt="" coords="872,3096,1108,3137"/>
+<area shape="rect" id="node59" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_check_visible_converter.html" title="Converts from bool types to thickness types." alt="" coords="876,3161,1104,3203"/>
+<area shape="rect" id="node60" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter.html" title="Converts from bool types to thickness types." alt="" coords="876,3227,1104,3268"/>
+<area shape="rect" id="node61" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_boolean_inverter.html" title="Binding converter for boolean types that negates the expression." alt="" coords="876,3292,1104,3333"/>
+<area shape="rect" id="node62" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain.html" title="Any number of IValueConverter objects that are used in assembly&#45;line fashion on a given value." alt="" coords="876,3619,1104,3660"/>
+<area shape="rect" id="node63" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_list_has_items_boolean_converter.html" title="Converts from an arbitrary list of items to a boolean value that depends on whether the list is empty..." alt="" coords="876,3357,1104,3399"/>
+<area shape="rect" id="node64" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html" title="Converts from any object type to bool depending on whether or not that object is null." alt="" coords="876,3423,1104,3464"/>
+<area shape="rect" id="node65" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter.html" title="This converter removes specific rounded corners depending on the Squared property...." alt="" coords="876,3488,1104,3529"/>
+<area shape="rect" id="node66" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_tag_double_converter.html" title=" " alt="" coords="876,3553,1104,3595"/>
+<area shape="rect" id="node67" title=" " alt="" coords="652,3626,697,3653"/>
 </map>

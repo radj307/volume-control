@@ -1,0 +1,4 @@
+<map id="VolumeControl.SDK.AudioSessionSelector" name="VolumeControl.SDK.AudioSessionSelector">
+<area shape="rect" id="node1" title="Manages the currently &quot;selected&quot; AudioSession instance for a given Audio.AudioSessionManager object." alt="" coords="5,131,245,311"/>
+<area shape="rect" id="node2" title=" " alt="" coords="37,5,214,83"/>
+</map>

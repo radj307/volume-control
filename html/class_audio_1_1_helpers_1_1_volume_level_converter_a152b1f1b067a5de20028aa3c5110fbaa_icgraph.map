@@ -1,0 +1,4 @@
+<map id="Audio.Helpers.VolumeLevelConverter.FromNativeVolume" name="Audio.Helpers.VolumeLevelConverter.FromNativeVolume">
+<area shape="rect" id="node1" title="Converts from a native volume level (float) to a regular volume level (int)." alt="" coords="317,5,532,47"/>
+<area shape="rect" id="node2" href="$class_audio_1_1_events_1_1_volume_changed_event_args.html#a255d0b9e55869cefdb68d71704830b52" title="Creates a new VolumeChangedEventArgs instance with the given data ." alt="" coords="5,5,269,47"/>
+</map>

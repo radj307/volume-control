@@ -1,0 +1,5 @@
+<map id="VolumeControl.SDK.AudioDeviceSelector.SelectDefaultDevice" name="VolumeControl.SDK.AudioDeviceSelector.SelectDefaultDevice">
+<area shape="rect" id="node1" title="Changes the Selected item to the default Multimedia audio device." alt="" coords="5,5,240,47"/>
+<area shape="rect" id="node2" href="$class_audio_1_1_audio_device_manager.html#af13e3db11d5d147097fa6d53010cd4e7" title="Gets the default device for the specified deviceRole ." alt="" coords="288,5,493,47"/>
+<area shape="rect" id="node3" href="$class_audio_1_1_audio_device_manager.html#a713202294566061e48e7f3415a7691e3" title="Gets the AudioDevice instance associated with the given deviceID &#160;string. (MMDevice...." alt="" coords="541,5,747,47"/>
+</map>

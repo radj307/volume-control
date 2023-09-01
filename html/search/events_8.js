@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['unselected_1937',['Unselected',['../class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ad044eab96fde7d1a9d633c3aaccf9921',1,'VolumeControl::SDK::ListDisplayTarget']]]
+  ['targetchanged_2048',['TargetChanged',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a629bf396f71edf39c98b7b6d389b0af4',1,'VolumeControl::Audio::AudioAPI']]],
+  ['targetchanging_2049',['TargetChanging',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a17dc69fa9029c87f4d825c3041f7bbc3',1,'VolumeControl::Audio::AudioAPI']]]
 ];
