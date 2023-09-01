@@ -33,7 +33,8 @@ body:
       description:  |
                     We need to know what version of Windows you're using to diagnose the problem.  
 
-                    To find this out, press **Win**+**R** to open the run dialog, then type `"winver"` and press **Enter** to open the *About Windows* window.
+                    To find this out, press **Win**+**R** to open the run dialog, then type `"winver"` and press **Enter** to open *About Windows*.  
+                    ![](https://github.com/radj307/volume-control/assets/1927798/e6ec5b78-2260-4d6c-a26c-8d6ef4c102b3)
       placeholder:  Windows 10 Home
     validations:
       required:     true
