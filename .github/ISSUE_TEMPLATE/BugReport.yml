@@ -34,7 +34,7 @@ body:
                     We need to know what version of Windows you're using to diagnose the problem.  
 
                     To find this out, press **Win**+**R** to open the run dialog, then type `winver` and press **Enter** to open the *About Windows* window.
-      placeholder:  Windows 10
+      placeholder:  Windows 10 Home
     validations:
       required:     true
 
