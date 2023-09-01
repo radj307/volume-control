@@ -7,12 +7,12 @@ body:
   - type: markdown
     attributes:
       value:  |
+              ### :warning: 🠕 Don't forget to set a descriptive title for your issue report at the top of this page!  
+              
               Thank you for taking the time to fill out a bug report, your feedback helps us to improve your experience with our product!  
               
               The more fields you can fill out, the better our understanding of the problem and its underlying causes.  
               If you feel a section doesn't apply, or is already obvious from previous fields, skip them.  
-
-              ### :warning: Don't forget to set a descriptive title for your issue report at the top of this page!
               
   - type: input
     id: version
