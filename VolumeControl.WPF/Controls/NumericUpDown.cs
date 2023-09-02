@@ -6,11 +6,12 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
-namespace VolumeControl.Controls
+namespace VolumeControl.WPF.Controls
 {
     [TemplatePart(Name = "PART_TextBox", Type = typeof(TextBox))]
     [TemplatePart(Name = "PART_IncreaseButton", Type = typeof(RepeatButton))]
     [TemplatePart(Name = "PART_DecreaseButton", Type = typeof(RepeatButton))]
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class NumericUpDown : Control
     {
         #region Properties
@@ -194,9 +195,7 @@ namespace VolumeControl.Controls
             if (element is NumericUpDown control)
             {
                 if (decimalPlaces < control.MinDecimalPlaces)
-                {
                     decimalPlaces = control.MinDecimalPlaces;
-                }
                 else if (decimalPlaces > control.MaxDecimalPlaces)
                 {
                     decimalPlaces = control.MaxDecimalPlaces;
@@ -229,9 +228,7 @@ namespace VolumeControl.Controls
             if (element is NumericUpDown control)
             {
                 if (maxDecimalPlaces > 28)
-                {
                     maxDecimalPlaces = 28;
-                }
                 else if (maxDecimalPlaces < 0)
                 {
                     maxDecimalPlaces = 0;
@@ -268,9 +265,7 @@ namespace VolumeControl.Controls
             if (element is NumericUpDown control)
             {
                 if (minDecimalPlaces < 0)
-                {
                     minDecimalPlaces = 0;
-                }
                 else if (minDecimalPlaces > 28)
                 {
                     minDecimalPlaces = 28;
@@ -570,9 +565,7 @@ namespace VolumeControl.Controls
         private void CoerceValueToBounds(ref decimal value)
         {
             if (value < this.MinValue)
-            {
                 value = this.MinValue;
-            }
             else if (value > this.MaxValue)
             {
                 value = this.MaxValue;
@@ -611,9 +604,7 @@ namespace VolumeControl.Controls
                 if (minor)
                 {
                     if (this.IsValueWrapAllowed && value + this.MinorDelta > this.MaxValue)
-                    {
                         value = this.MinValue;
-                    }
                     else
                     {
                         value += this.MinorDelta;
@@ -622,9 +613,7 @@ namespace VolumeControl.Controls
                 else
                 {
                     if (this.IsValueWrapAllowed && value + this.MajorDelta > this.MaxValue)
-                    {
                         value = this.MinValue;
-                    }
                     else
                     {
                         value += this.MajorDelta;
@@ -649,9 +638,7 @@ namespace VolumeControl.Controls
                 if (minor)
                 {
                     if (this.IsValueWrapAllowed && value - this.MinorDelta < this.MinValue)
-                    {
                         value = this.MaxValue;
-                    }
                     else
                     {
                         value -= this.MinorDelta;
@@ -660,9 +647,7 @@ namespace VolumeControl.Controls
                 else
                 {
                     if (this.IsValueWrapAllowed && value - this.MajorDelta < this.MinValue)
-                    {
                         value = this.MaxValue;
-                    }
                     else
                     {
                         value -= this.MajorDelta;
@@ -675,4 +660,5 @@ namespace VolumeControl.Controls
 
         #endregion
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

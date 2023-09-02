@@ -6,7 +6,7 @@
     xmlns:autocomplete="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
     xmlns:b="clr-namespace:VolumeControl.WPF.Bindings;assembly=VolumeControl.WPF"
     xmlns:behaviour="clr-namespace:XamlTimers;assembly=XamlTimers"
-    xmlns:controls="clr-namespace:VolumeControl.Controls"
+    xmlns:controls="clr-namespace:VolumeControl.WPF.Controls;assembly=VolumeControl.WPF"
     xmlns:conv="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
     xmlns:core="clr-namespace:VolumeControl.Core;assembly=VolumeControl.Core"
     xmlns:ctrlz="urn:controlzex"
@@ -791,7 +791,7 @@
                                                                 Tag="{Binding AudioSession.PeakMeterValue, Mode=OneWay}"
                                                                 Value="{Binding AudioSession.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                                                 <i:Interaction.Behaviors>
-                                                                    <wpf:MouseWheelSliderBehavior Amount="{Binding VolumeStepSize, Source={StaticResource Settings}}" />
+                                                                    <wpf:MouseWheelRangeBaseBehavior Amount="{Binding VolumeStepSize, Source={StaticResource Settings}}" />
                                                                     <behaviour:IntervalUpdateBinding
                                                                         EnableTimer="{Binding ShowPeakMeters, Source={StaticResource Settings}}"
                                                                         Interval="{Binding PeakMeterUpdateIntervalMs, Source={StaticResource Settings}}"
@@ -1112,7 +1112,11 @@
                                     MinValue="1"
                                     ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.VolumeStep.Tooltip',
                                                  DefaultText='This is the number of volume ticks that change each time you press the volume up or down hotkeys.'}"
-                                    Value="{Binding VolumeStepSize, Mode=TwoWay, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}" />
+                                    Value="{Binding VolumeStepSize, Mode=TwoWay, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}">
+                                    <i:Interaction.Behaviors>
+                                        <wpf:MouseWheelNumericUpDownBehavior Amount="1" />
+                                    </i:Interaction.Behaviors>
+                                </controls:NumericUpDown>
                             </StackPanel>
                             <Button
                                 Grid.Column="1"
@@ -1237,7 +1241,11 @@
                                                         MinValue="50"
                                                         ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.UpdateInterval.Tooltip',
                                                                      DefaultText='The amount of time, in milliseconds, between each update of the peak meters in the Mixer.'}"
-                                                        Value="{Binding PeakMeterUpdateIntervalMs, Mode=TwoWay, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}" />
+                                                        Value="{Binding PeakMeterUpdateIntervalMs, Mode=TwoWay, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}">
+                                                        <i:Interaction.Behaviors>
+                                                            <wpf:MouseWheelNumericUpDownBehavior Amount="5" />
+                                                        </i:Interaction.Behaviors>
+                                                    </controls:NumericUpDown>
                                                 </Grid>
                                                 <CheckBox
                                                     Content="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.EnableDeviceControl.Content',
@@ -1365,7 +1373,7 @@
                                                                         Tag="{Binding AudioDevice.PeakMeterValue, Mode=OneWay}"
                                                                         Value="{Binding AudioDevice.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                                                         <i:Interaction.Behaviors>
-                                                                            <wpf:MouseWheelSliderBehavior Amount="{Binding VolumeStepSize, Source={StaticResource Settings}}" />
+                                                                            <wpf:MouseWheelRangeBaseBehavior Amount="{Binding VolumeStepSize, Source={StaticResource Settings}}" />
                                                                             <behaviour:IntervalUpdateBinding
                                                                                 EnableTimer="{Binding ShowPeakMeters, Source={StaticResource Settings}}"
                                                                                 Interval="{Binding PeakMeterUpdateIntervalMs, Source={StaticResource Settings}}"
@@ -1574,7 +1582,11 @@
                                                 MinValue="100"
                                                 ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Timeout.Tooltip',
                                                              DefaultText='The amount of time in milliseconds that notifications will remain visible after being triggered.'}"
-                                                Value="{Binding ListNotificationVM.Timeout, Mode=TwoWay, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}" />
+                                                Value="{Binding ListNotificationVM.Timeout, Mode=TwoWay, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}">
+                                                <i:Interaction.Behaviors>
+                                                    <wpf:MouseWheelNumericUpDownBehavior Amount="50" />
+                                                </i:Interaction.Behaviors>
+                                            </controls:NumericUpDown>
                                         </DockPanel>
                                     </Grid>
                                 </Grid>
