@@ -27,7 +27,7 @@ namespace VolumeControl.Helpers.Update
         #endregion Properties
 
         #region Methods
-        public void CheckNow()
+        public void CheckForUpdateNow()
         {
             ReleaseInfo latest = ReleaseInfo.Latest;
 

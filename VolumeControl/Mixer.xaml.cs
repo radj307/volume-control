@@ -176,7 +176,7 @@ namespace VolumeControl
         private void Handle_MinimizeClick(object sender, RoutedEventArgs e) => this.Hide();
         private void Handle_MaximizeClick(object sender, RoutedEventArgs e) => this.WindowState = WindowState.Maximized;
         private void Handle_CloseClick(object sender, RoutedEventArgs e) => App.Current.Shutdown();
-        private void Handle_CheckForUpdatesClick(object sender, RoutedEventArgs e) => this.VCSettings.Updater.CheckNow();
+        private void Handle_CheckForUpdatesClick(object sender, RoutedEventArgs e) => this.VCSettings.Updater.CheckForUpdateNow();
         private void Handle_LogFilterBoxSelectionChanged(object sender, SelectionChangedEventArgs e) => logFilterBox.SelectedItem = null;
         private void Handle_KeySelectorKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
