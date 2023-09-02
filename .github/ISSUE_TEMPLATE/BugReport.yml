@@ -1,35 +1,51 @@
 name: Bug Report
 description: File a bug report
-title: "[BUG] ..."
+title: "[BUG] "
 labels: [ bug, triage ]
 assignees: []
 body:
   - type: markdown
     attributes:
       value:  |
+              ### :warning:    🠕 Don't forget to set a descriptive title for your issue! 🠕
+              
               Thank you for taking the time to fill out a bug report, your feedback helps us to improve your experience with our product!  
               
               The more fields you can fill out, the better our understanding of the problem and its underlying causes.  
-              If you feel a section doesn't apply, is already obvious from previous fields, skip them.  
+              If you feel a section doesn't apply, or is already obvious from previous fields, skip them.  
               
   - type: input
     id: version
     attributes:
       label: Version
       description:  |
-                    This tells us what version of the program we need to fix, and can be found to the left of the minimize & close buttons on the top bar.
+                    This tells us what version of the program we need to fix, and can be found to the left of the minimize & close buttons on the top bar.  
                     If the program won't start, R+Click on the executable and select **Properties**, then navigate to the **Details** tab. Enter the version shown in the `Product version` field here.
       placeholder: x.x.x
     validations:
-      required: true
+      required:     true
+
+  - type: input
+    id: winver
+    attributes:
+      label:        Windows Version
+      description:  |
+                    We need to know what version of Windows you're using to diagnose the problem.  
+
+                    To find this out, press **Win**+**R** to open the run dialog, then type `"winver"` and press **Enter** to open *About Windows*.  
+                    ![](https://github.com/radj307/volume-control/assets/1927798/e6ec5b78-2260-4d6c-a26c-8d6ef4c102b3)  
+                    *(Including the OS Build is optional)*
+      placeholder:  Windows 10 Enterprise N LTSC Version 21H2
+    validations:
+      required:     true
 
   - type: textarea
     id:   actual
     attributes:
       label:        Actual Behaviour
       description:  |
-                    This tells us what happened, which helps us build a description of the bug we need to fix.
-                    Please be specific whenever possible.
+                    This tells us what happened, which helps us build a description of the bug we need to fix.  
+                    Be specific, and include as much detail as possible.
       placeholder:  The program does *this*
     validations:
       required: true
@@ -51,7 +67,7 @@ body:
       description:  |
                     [Optional]
                     This helps us replicate the conditions that led to the bug you experienced, so that we can observe the cause in a debugging environment.  
-                    While this is optional, it is highly encouraged since it cuts the amount of time needed to fix the problem by half in cases where the cause isn't obvious.
+                    While this is optional, it is highly encouraged since it cuts the amount of time needed to fix the problem by half in cases where the cause isn't obvious.  
       placeholder:  |
                     1. While sitting in an office chair, begin spinning clockwise as fast as you can until you've fully rotated a total of 99 times.
                     2. Launch the program within a few seconds.
