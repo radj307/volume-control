@@ -1,0 +1,4 @@
+<map id="VolumeControl.CoreAudio.AudioSessionManager.AudioSessionManager" name="VolumeControl.CoreAudio.AudioSessionManager.AudioSessionManager">
+<area shape="rect" id="node1" title="Creates a new AudioSessionManager instance with the given sessionManagers ." alt="" coords="5,5,261,61"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a471bcb761f4a046dc496a48a136bac3b" title="Adds the given sessionManager &#160;to the SessionManagers list." alt="" coords="309,5,553,61"/>
+</map>

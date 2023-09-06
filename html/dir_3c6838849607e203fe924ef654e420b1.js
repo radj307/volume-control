@@ -5,7 +5,9 @@ var dir_3c6838849607e203fe924ef654e420b1 =
     [ "Interfaces", "dir_d7a58618ea9822b9a82e510ab9eedd1f.html", "dir_d7a58618ea9822b9a82e510ab9eedd1f" ],
     [ "AudioDevice.cs", null, null ],
     [ "AudioDeviceManager.cs", null, null ],
+    [ "AudioDeviceSelector.cs", null, null ],
     [ "AudioDeviceSessionManager.cs", null, null ],
     [ "AudioSession.cs", null, null ],
-    [ "AudioSessionManager.cs", null, null ]
+    [ "AudioSessionManager.cs", null, null ],
+    [ "AudioSessionSelector.cs", null, null ]
 ];

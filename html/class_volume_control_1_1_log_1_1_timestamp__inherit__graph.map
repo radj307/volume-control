@@ -1,4 +1,4 @@
 <map id="VolumeControl.Log.Timestamp" name="VolumeControl.Log.Timestamp">
-<area shape="rect" id="node1" title="Implements ITimestamp using UTC format." alt="" coords="5,204,239,487"/>
-<area shape="rect" id="node2" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp.html" title="Interface for the timestamps on each log message, which contain a DateTime and Enum...." alt="" coords="19,5,225,156"/>
+<area shape="rect" id="node1" title="Implements ITimestamp using UTC format." alt="" coords="5,189,239,472"/>
+<area shape="rect" id="node2" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp.html" title="Interface for the timestamps on each log message, which contain a DateTime and Enum...." alt="" coords="19,5,225,141"/>
 </map>

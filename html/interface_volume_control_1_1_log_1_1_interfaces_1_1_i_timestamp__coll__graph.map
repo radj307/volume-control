@@ -1,3 +1,3 @@
 <map id="VolumeControl.Log.Interfaces.ITimestamp" name="VolumeControl.Log.Interfaces.ITimestamp">
-<area shape="rect" id="node1" title="Interface for the timestamps on each log message, which contain a DateTime and Enum...." alt="" coords="5,5,201,171"/>
+<area shape="rect" id="node1" title="Interface for the timestamps on each log message, which contain a DateTime and Enum...." alt="" coords="5,5,224,156"/>
 </map>

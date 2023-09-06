@@ -1,0 +1,3 @@
+<map id="VolumeControl.CoreAudio.AudioSessionManager" name="VolumeControl.CoreAudio.AudioSessionManager">
+<area shape="rect" id="node1" title="Manages a list of AudioSession instances and their related events for any number of AudioDeviceSessio..." alt="" coords="5,5,268,288"/>
+</map>

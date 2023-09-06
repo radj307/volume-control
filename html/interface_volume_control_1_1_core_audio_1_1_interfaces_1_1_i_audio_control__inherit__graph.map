@@ -1,0 +1,5 @@
+<map id="VolumeControl.CoreAudio.Interfaces.IAudioControl" name="VolumeControl.CoreAudio.Interfaces.IAudioControl">
+<area shape="rect" id="node1" title="Represents an audio instance with a controllable volume level and mute state." alt="" coords="113,5,307,127"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_device.html" title="An audio endpoint device." alt="" coords="5,175,199,472"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device." alt="" coords="223,175,416,472"/>
+</map>

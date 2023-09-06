@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['iconpathchanged_2027',['IconPathChanged',['../class_audio_1_1_audio_session.html#af903abdb97c958cf1b15b52483e38093',1,'Audio::AudioSession']]]
+  ['iconpathchanged_2035',['IconPathChanged',['../class_volume_control_1_1_core_audio_1_1_audio_session.html#ad202871d111c29e340d39da574e885a4',1,'VolumeControl::CoreAudio::AudioSession']]]
 ];

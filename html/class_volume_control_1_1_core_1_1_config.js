@@ -1,7 +1,8 @@
 var class_volume_control_1_1_core_1_1_config =
 [
+    [ "Config", "class_volume_control_1_1_core_1_1_config.html#aa8f840871d71833a4e209a04e7d28345", null ],
     [ "PauseAutoSave", "class_volume_control_1_1_core_1_1_config.html#a6c890b9f23d737235d707b288ae0899f", null ],
-    [ "ResumeAutoSave", "class_volume_control_1_1_core_1_1_config.html#ae8442da4c2358be20ba944d474d72f5f", null ],
+    [ "ResumeAutoSave", "class_volume_control_1_1_core_1_1_config.html#acae4db80be97fb8bad0436613e473a10", null ],
     [ "Hotkeys_Default", "class_volume_control_1_1_core_1_1_config.html#aabc2f606723e6010d5ee104e3c043186", null ],
     [ "NotificationDefaultBrush", "class_volume_control_1_1_core_1_1_config.html#a487db62f9ac51c93ed87b59a3b9ceab9", null ],
     [ "NotificationLockedBrush", "class_volume_control_1_1_core_1_1_config.html#abb4a43d216b2119d78819d2b2e449c92", null ],
@@ -34,6 +35,7 @@ var class_volume_control_1_1_core_1_1_config =
     [ "NotificationDisplayTarget", "class_volume_control_1_1_core_1_1_config.html#afb63d2aba1041ae3eba3f8eeadc39125", null ],
     [ "NotificationDoFadeIn", "class_volume_control_1_1_core_1_1_config.html#aa598bb08083017d507ded63e7551b035", null ],
     [ "NotificationDoFadeOut", "class_volume_control_1_1_core_1_1_config.html#ac6af3fbd15f8100ee8ada85aeb3e8c00", null ],
+    [ "NotificationExtraMouseControlsEnabled", "class_volume_control_1_1_core_1_1_config.html#ad0b6ca70c6dac8357bc6cdf68841c2ab", null ],
     [ "NotificationFadeInDuration", "class_volume_control_1_1_core_1_1_config.html#a883fecf25cc29975f6936384a892e302", null ],
     [ "NotificationFadeOutDuration", "class_volume_control_1_1_core_1_1_config.html#a4ac960e92ec669fbc7b2ff0fce4a47d6", null ],
     [ "NotificationMoveRequiresAlt", "class_volume_control_1_1_core_1_1_config.html#ab8de5520ed832d74e4808dcba4d85a04", null ],

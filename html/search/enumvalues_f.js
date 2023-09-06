@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['p_1589',['P',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613bea44c29edb103a2872f519ad0c9a0fdaaa',1,'VolumeControl.Core.Enum.P()'],['../namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a44c29edb103a2872f519ad0c9a0fdaaa',1,'VolumeControl.Core.Enum.P()']]],
-  ['pa1_1590',['Pa1',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613bea76ce36f397c902f6ed669ba1bd49859b',1,'VolumeControl::Core::Enum']]],
-  ['pagedown_1591',['PageDown',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613beaee3677bcca83ece9384b01e43952bf33',1,'VolumeControl::Core::Enum']]],
-  ['pageup_1592',['PageUp',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613bea9b869c510c75c5827ac82e49d4340927',1,'VolumeControl::Core::Enum']]],
-  ['pausebreak_1593',['PauseBreak',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613beae6dbc024afbf66b31d5b1f3d2c0ee13c',1,'VolumeControl::Core::Enum']]],
-  ['period_1594',['Period',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613bea1901606ea069a83dc7beea17881ef95a',1,'VolumeControl::Core::Enum']]],
-  ['pid_1595',['PID',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac704c2041e69677649b892c1f8fbbb02a2d73559f294204a42bda2e926d094612',1,'VolumeControl::Audio::AudioAPI']]],
-  ['play_1596',['Play',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613beade3c731be5633838089a07179d301d7b',1,'VolumeControl::Core::Enum']]],
-  ['print_1597',['Print',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613bea13dba24862cf9128167a59100e154c8d',1,'VolumeControl::Core::Enum']]],
-  ['printscreen_1598',['PrintScreen',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613beabf54024481cd2ad6bbb9ae44b7312472',1,'VolumeControl::Core::Enum']]],
-  ['processidentifier_1599',['ProcessIdentifier',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac704c2041e69677649b892c1f8fbbb02a4f95a21d21a5f1950b78306e9344bc05',1,'VolumeControl::Audio::AudioAPI']]],
-  ['processname_1600',['ProcessName',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac704c2041e69677649b892c1f8fbbb02a4256695f566ce80cf1000035d7589148',1,'VolumeControl::Audio::AudioAPI']]]
+  ['p_1597',['P',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613bea44c29edb103a2872f519ad0c9a0fdaaa',1,'VolumeControl.Core.Enum.P()'],['../namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a44c29edb103a2872f519ad0c9a0fdaaa',1,'VolumeControl.Core.Enum.P()']]],
+  ['pa1_1598',['Pa1',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613bea76ce36f397c902f6ed669ba1bd49859b',1,'VolumeControl::Core::Enum']]],
+  ['pagedown_1599',['PageDown',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613beaee3677bcca83ece9384b01e43952bf33',1,'VolumeControl::Core::Enum']]],
+  ['pageup_1600',['PageUp',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613bea9b869c510c75c5827ac82e49d4340927',1,'VolumeControl::Core::Enum']]],
+  ['pausebreak_1601',['PauseBreak',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613beae6dbc024afbf66b31d5b1f3d2c0ee13c',1,'VolumeControl::Core::Enum']]],
+  ['period_1602',['Period',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613bea1901606ea069a83dc7beea17881ef95a',1,'VolumeControl::Core::Enum']]],
+  ['pid_1603',['PID',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac704c2041e69677649b892c1f8fbbb02a2d73559f294204a42bda2e926d094612',1,'VolumeControl::Audio::AudioAPI']]],
+  ['play_1604',['Play',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613beade3c731be5633838089a07179d301d7b',1,'VolumeControl::Core::Enum']]],
+  ['print_1605',['Print',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613bea13dba24862cf9128167a59100e154c8d',1,'VolumeControl::Core::Enum']]],
+  ['printscreen_1606',['PrintScreen',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613beabf54024481cd2ad6bbb9ae44b7312472',1,'VolumeControl::Core::Enum']]],
+  ['processidentifier_1607',['ProcessIdentifier',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac704c2041e69677649b892c1f8fbbb02a4f95a21d21a5f1950b78306e9344bc05',1,'VolumeControl::Audio::AudioAPI']]],
+  ['processname_1608',['ProcessName',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac704c2041e69677649b892c1f8fbbb02a4256695f566ce80cf1000035d7589148',1,'VolumeControl::Audio::AudioAPI']]]
 ];

@@ -1,25 +1,5 @@
 var annotated_dup =
 [
-    [ "Audio", "namespace_audio.html", [
-      [ "Events", "namespace_audio_1_1_events.html", [
-        [ "VolumeChangedEventArgs", "class_audio_1_1_events_1_1_volume_changed_event_args.html", "class_audio_1_1_events_1_1_volume_changed_event_args" ]
-      ] ],
-      [ "Helpers", "namespace_audio_1_1_helpers.html", [
-        [ "IAudioControlExtensions", "class_audio_1_1_helpers_1_1_i_audio_control_extensions.html", "class_audio_1_1_helpers_1_1_i_audio_control_extensions" ],
-        [ "MMDeviceExtensions", "class_audio_1_1_helpers_1_1_m_m_device_extensions.html", "class_audio_1_1_helpers_1_1_m_m_device_extensions" ],
-        [ "VolumeLevelConverter", "class_audio_1_1_helpers_1_1_volume_level_converter.html", "class_audio_1_1_helpers_1_1_volume_level_converter" ]
-      ] ],
-      [ "Interfaces", "namespace_audio_1_1_interfaces.html", [
-        [ "IAudioControl", "interface_audio_1_1_interfaces_1_1_i_audio_control.html", "interface_audio_1_1_interfaces_1_1_i_audio_control" ],
-        [ "IAudioPeakMeter", "interface_audio_1_1_interfaces_1_1_i_audio_peak_meter.html", "interface_audio_1_1_interfaces_1_1_i_audio_peak_meter" ],
-        [ "IReadOnlyAudioControl", "interface_audio_1_1_interfaces_1_1_i_read_only_audio_control.html", "interface_audio_1_1_interfaces_1_1_i_read_only_audio_control" ]
-      ] ],
-      [ "AudioDevice", "class_audio_1_1_audio_device.html", "class_audio_1_1_audio_device" ],
-      [ "AudioDeviceManager", "class_audio_1_1_audio_device_manager.html", "class_audio_1_1_audio_device_manager" ],
-      [ "AudioDeviceSessionManager", "class_audio_1_1_audio_device_session_manager.html", "class_audio_1_1_audio_device_session_manager" ],
-      [ "AudioSession", "class_audio_1_1_audio_session.html", "class_audio_1_1_audio_session" ],
-      [ "AudioSessionManager", "class_audio_1_1_audio_session_manager.html", "class_audio_1_1_audio_session_manager" ]
-    ] ],
     [ "VolumeControl", "namespace_volume_control.html", [
       [ "Audio", "namespace_volume_control_1_1_audio.html", [
         [ "Collections", "namespace_volume_control_1_1_audio_1_1_collections.html", [
@@ -56,9 +36,6 @@ var annotated_dup =
           [ "EVirtualKeyCodeExtensions", "class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions.html", "class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions" ],
           [ "ModifierExtensions", "class_volume_control_1_1_core_1_1_enum_1_1_modifier_extensions.html", "class_volume_control_1_1_core_1_1_enum_1_1_modifier_extensions" ]
         ] ],
-        [ "Generics", "namespace_volume_control_1_1_core_1_1_generics.html", [
-          [ "Item", "class_volume_control_1_1_core_1_1_generics_1_1_item.html", "class_volume_control_1_1_core_1_1_generics_1_1_item" ]
-        ] ],
         [ "Helpers", "namespace_volume_control_1_1_core_1_1_helpers.html", [
           [ "TargetInfo", "struct_volume_control_1_1_core_1_1_helpers_1_1_target_info.html", "struct_volume_control_1_1_core_1_1_helpers_1_1_target_info" ],
           [ "TargetInfoVM", "class_volume_control_1_1_core_1_1_helpers_1_1_target_info_v_m.html", "class_volume_control_1_1_core_1_1_helpers_1_1_target_info_v_m" ]
@@ -92,6 +69,29 @@ var annotated_dup =
         [ "InputSimulator", "class_volume_control_1_1_core_1_1_input_simulator.html", "class_volume_control_1_1_core_1_1_input_simulator" ],
         [ "User32", "class_volume_control_1_1_core_1_1_user32.html", "class_volume_control_1_1_core_1_1_user32" ]
       ] ],
+      [ "CoreAudio", "namespace_volume_control_1_1_core_audio.html", [
+        [ "Events", "namespace_volume_control_1_1_core_audio_1_1_events.html", [
+          [ "VolumeChangedEventArgs", "class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args.html", "class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args" ]
+        ] ],
+        [ "Helpers", "namespace_volume_control_1_1_core_audio_1_1_helpers.html", [
+          [ "IAudioControlExtensions", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_i_audio_control_extensions.html", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_i_audio_control_extensions" ],
+          [ "MMDeviceExtensions", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_m_m_device_extensions.html", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_m_m_device_extensions" ],
+          [ "VolumeLevelConverter", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_volume_level_converter.html", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_volume_level_converter" ]
+        ] ],
+        [ "Interfaces", "namespace_volume_control_1_1_core_audio_1_1_interfaces.html", [
+          [ "IAudioControl", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_control.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_control" ],
+          [ "IAudioPeakMeter", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_peak_meter.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_peak_meter" ],
+          [ "IAudioSelector", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_selector.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_selector" ],
+          [ "IReadOnlyAudioControl", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control" ]
+        ] ],
+        [ "AudioDevice", "class_volume_control_1_1_core_audio_1_1_audio_device.html", "class_volume_control_1_1_core_audio_1_1_audio_device" ],
+        [ "AudioDeviceManager", "class_volume_control_1_1_core_audio_1_1_audio_device_manager.html", "class_volume_control_1_1_core_audio_1_1_audio_device_manager" ],
+        [ "AudioDeviceSelector", "class_volume_control_1_1_core_audio_1_1_audio_device_selector.html", "class_volume_control_1_1_core_audio_1_1_audio_device_selector" ],
+        [ "AudioDeviceSessionManager", "class_volume_control_1_1_core_audio_1_1_audio_device_session_manager.html", "class_volume_control_1_1_core_audio_1_1_audio_device_session_manager" ],
+        [ "AudioSession", "class_volume_control_1_1_core_audio_1_1_audio_session.html", "class_volume_control_1_1_core_audio_1_1_audio_session" ],
+        [ "AudioSessionManager", "class_volume_control_1_1_core_audio_1_1_audio_session_manager.html", "class_volume_control_1_1_core_audio_1_1_audio_session_manager" ],
+        [ "AudioSessionSelector", "class_volume_control_1_1_core_audio_1_1_audio_session_selector.html", "class_volume_control_1_1_core_audio_1_1_audio_session_selector" ]
+      ] ],
       [ "Hotkeys", "namespace_volume_control_1_1_hotkeys.html", [
         [ "Helpers", "namespace_volume_control_1_1_hotkeys_1_1_helpers.html", [
           [ "SessionSpecifier", "class_volume_control_1_1_hotkeys_1_1_helpers_1_1_session_specifier.html", "class_volume_control_1_1_hotkeys_1_1_helpers_1_1_session_specifier" ]
@@ -118,16 +118,10 @@ var annotated_dup =
         [ "Timestamp", "class_volume_control_1_1_log_1_1_timestamp.html", "class_volume_control_1_1_log_1_1_timestamp" ]
       ] ],
       [ "SDK", "namespace_volume_control_1_1_s_d_k.html", [
-        [ "Interfaces", "namespace_volume_control_1_1_s_d_k_1_1_interfaces.html", [
-          [ "IListDisplayTarget", "interface_volume_control_1_1_s_d_k_1_1_interfaces_1_1_i_list_display_target.html", "interface_volume_control_1_1_s_d_k_1_1_interfaces_1_1_i_list_display_target" ]
-        ] ],
         [ "Internal", "namespace_volume_control_1_1_s_d_k_1_1_internal.html", [
-          [ "Initializer", "class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer.html", "class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer" ]
+          [ "Initializer", "class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer.html", "class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer" ],
+          [ "VCEvents", "class_volume_control_1_1_s_d_k_1_1_internal_1_1_v_c_events.html", "class_volume_control_1_1_s_d_k_1_1_internal_1_1_v_c_events" ]
         ] ],
-        [ "AudioDeviceSelector", "class_volume_control_1_1_s_d_k_1_1_audio_device_selector.html", "class_volume_control_1_1_s_d_k_1_1_audio_device_selector" ],
-        [ "AudioSessionSelector", "class_volume_control_1_1_s_d_k_1_1_audio_session_selector.html", "class_volume_control_1_1_s_d_k_1_1_audio_session_selector" ],
-        [ "ConditionalEventForward", "class_volume_control_1_1_s_d_k_1_1_conditional_event_forward.html", "class_volume_control_1_1_s_d_k_1_1_conditional_event_forward" ],
-        [ "ListDisplayTarget", "class_volume_control_1_1_s_d_k_1_1_list_display_target.html", "class_volume_control_1_1_s_d_k_1_1_list_display_target" ],
         [ "VCAPI", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i" ]
       ] ],
       [ "TypeExtensions", "namespace_volume_control_1_1_type_extensions.html", [
@@ -161,6 +155,9 @@ var annotated_dup =
           [ "ObservableImmutableList", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list" ],
           [ "ObservableList", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list" ]
         ] ],
+        [ "Controls", "namespace_volume_control_1_1_w_p_f_1_1_controls.html", [
+          [ "NumericUpDown", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down.html", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" ]
+        ] ],
         [ "Converters", "namespace_volume_control_1_1_w_p_f_1_1_converters.html", [
           [ "ArrayHasItemsBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_array_has_items_boolean_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_array_has_items_boolean_converter" ],
           [ "BooleanInverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_boolean_inverter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_boolean_inverter" ],
@@ -183,11 +180,15 @@ var annotated_dup =
           [ "POINT", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_p_o_i_n_t.html", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_p_o_i_n_t" ],
           [ "RECT", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t" ]
         ] ],
+        [ "BindableTimer", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html", "class_volume_control_1_1_w_p_f_1_1_bindable_timer" ],
         [ "HWndHook", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook" ],
         [ "HWndHookWPFMaximizeBugFix", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix.html", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix" ],
         [ "IconGetter", "class_volume_control_1_1_w_p_f_1_1_icon_getter.html", "class_volume_control_1_1_w_p_f_1_1_icon_getter" ],
         [ "IconPair", "class_volume_control_1_1_w_p_f_1_1_icon_pair.html", "class_volume_control_1_1_w_p_f_1_1_icon_pair" ],
-        [ "MouseWheelSliderBehavior", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_slider_behavior.html", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_slider_behavior" ],
+        [ "Item", "class_volume_control_1_1_w_p_f_1_1_item.html", "class_volume_control_1_1_w_p_f_1_1_item" ],
+        [ "MouseWheelListViewBehavior", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_list_view_behavior.html", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_list_view_behavior" ],
+        [ "MouseWheelNumericUpDownBehavior", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_numeric_up_down_behavior.html", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_numeric_up_down_behavior" ],
+        [ "MouseWheelRangeBaseBehavior", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_range_base_behavior.html", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_range_base_behavior" ],
         [ "WindowHandleGetter", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter" ]
       ] ]
     ] ]

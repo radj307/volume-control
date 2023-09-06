@@ -1,5 +1,6 @@
 var namespace_volume_control_1_1_audio =
 [
+    [ "Summary:", "md_docs__addon_development.html#autotoc_md17", null ],
     [ "Collections", "namespace_volume_control_1_1_audio_1_1_collections.html", "namespace_volume_control_1_1_audio_1_1_collections" ],
     [ "Events", "namespace_volume_control_1_1_audio_1_1_events.html", "namespace_volume_control_1_1_audio_1_1_events" ],
     [ "Extensions", "namespace_volume_control_1_1_audio_1_1_extensions.html", "namespace_volume_control_1_1_audio_1_1_extensions" ],

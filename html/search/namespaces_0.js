@@ -1,7 +1,29 @@
 var searchData=
 [
-  ['audio_1118',['Audio',['../namespace_audio.html',1,'']]],
-  ['events_1119',['Events',['../namespace_audio_1_1_events.html',1,'Audio']]],
-  ['helpers_1120',['Helpers',['../namespace_audio_1_1_helpers.html',1,'Audio']]],
-  ['interfaces_1121',['Interfaces',['../namespace_audio_1_1_interfaces.html',1,'Audio']]]
+  ['actions_1122',['Actions',['../namespace_volume_control_1_1_core_1_1_input_1_1_actions.html',1,'VolumeControl::Core::Input']]],
+  ['attributes_1123',['Attributes',['../namespace_volume_control_1_1_core_1_1_attributes.html',1,'VolumeControl::Core']]],
+  ['audio_1124',['Audio',['../namespace_volume_control_1_1_audio.html',1,'VolumeControl']]],
+  ['bindings_1125',['Bindings',['../namespace_volume_control_1_1_w_p_f_1_1_bindings.html',1,'VolumeControl::WPF']]],
+  ['collections_1126',['Collections',['../namespace_volume_control_1_1_audio_1_1_collections.html',1,'VolumeControl.Audio.Collections'],['../namespace_volume_control_1_1_w_p_f_1_1_collections.html',1,'VolumeControl.WPF.Collections']]],
+  ['controls_1127',['Controls',['../namespace_volume_control_1_1_w_p_f_1_1_controls.html',1,'VolumeControl::WPF']]],
+  ['converters_1128',['Converters',['../namespace_volume_control_1_1_w_p_f_1_1_converters.html',1,'VolumeControl::WPF']]],
+  ['core_1129',['Core',['../namespace_volume_control_1_1_core.html',1,'VolumeControl']]],
+  ['coreaudio_1130',['CoreAudio',['../namespace_volume_control_1_1_core_audio.html',1,'VolumeControl']]],
+  ['delegates_1131',['Delegates',['../namespace_volume_control_1_1_s_d_k_1_1_delegates.html',1,'VolumeControl::SDK']]],
+  ['endpoints_1132',['Endpoints',['../namespace_volume_control_1_1_log_1_1_endpoints.html',1,'VolumeControl::Log']]],
+  ['enum_1133',['Enum',['../namespace_volume_control_1_1_core_1_1_enum.html',1,'VolumeControl.Core.Enum'],['../namespace_volume_control_1_1_log_1_1_enum.html',1,'VolumeControl.Log.Enum']]],
+  ['events_1134',['Events',['../namespace_volume_control_1_1_audio_1_1_events.html',1,'VolumeControl.Audio.Events'],['../namespace_volume_control_1_1_core_audio_1_1_events.html',1,'VolumeControl.CoreAudio.Events']]],
+  ['extensions_1135',['Extensions',['../namespace_volume_control_1_1_audio_1_1_extensions.html',1,'VolumeControl.Audio.Extensions'],['../namespace_volume_control_1_1_w_p_f_1_1_extensions.html',1,'VolumeControl.WPF.Extensions']]],
+  ['helpers_1136',['Helpers',['../namespace_volume_control_1_1_core_1_1_helpers.html',1,'VolumeControl.Core.Helpers'],['../namespace_volume_control_1_1_core_audio_1_1_helpers.html',1,'VolumeControl.CoreAudio.Helpers'],['../namespace_volume_control_1_1_hotkeys_1_1_helpers.html',1,'VolumeControl.Hotkeys.Helpers']]],
+  ['hotkeys_1137',['Hotkeys',['../namespace_volume_control_1_1_hotkeys.html',1,'VolumeControl']]],
+  ['input_1138',['Input',['../namespace_volume_control_1_1_core_1_1_input.html',1,'VolumeControl::Core']]],
+  ['interfaces_1139',['Interfaces',['../namespace_volume_control_1_1_audio_1_1_interfaces.html',1,'VolumeControl.Audio.Interfaces'],['../namespace_volume_control_1_1_core_1_1_interfaces.html',1,'VolumeControl.Core.Interfaces'],['../namespace_volume_control_1_1_core_audio_1_1_interfaces.html',1,'VolumeControl.CoreAudio.Interfaces'],['../namespace_volume_control_1_1_log_1_1_interfaces.html',1,'VolumeControl.Log.Interfaces']]],
+  ['internal_1140',['Internal',['../namespace_volume_control_1_1_s_d_k_1_1_internal.html',1,'VolumeControl::SDK']]],
+  ['log_1141',['Log',['../namespace_volume_control_1_1_log.html',1,'VolumeControl']]],
+  ['pinvoke_1142',['PInvoke',['../namespace_volume_control_1_1_w_p_f_1_1_p_invoke.html',1,'VolumeControl::WPF']]],
+  ['sdk_1143',['SDK',['../namespace_volume_control_1_1_s_d_k.html',1,'VolumeControl']]],
+  ['structs_1144',['Structs',['../namespace_volume_control_1_1_core_1_1_structs.html',1,'VolumeControl::Core']]],
+  ['typeextensions_1145',['TypeExtensions',['../namespace_volume_control_1_1_type_extensions.html',1,'VolumeControl']]],
+  ['volumecontrol_1146',['VolumeControl',['../namespace_volume_control.html',1,'']]],
+  ['wpf_1147',['WPF',['../namespace_volume_control_1_1_w_p_f.html',1,'VolumeControl']]]
 ];

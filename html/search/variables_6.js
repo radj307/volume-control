@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['iconproperty_1417',['IconProperty',['../class_volume_control_1_1_s_d_k_1_1_list_display_target.html#ade3d0ba2d72b487bf482f6d91b34a798',1,'VolumeControl::SDK::ListDisplayTarget']]],
-  ['int_1418',['int',['../class_volume_control_1_1_audio_1_1_audio_session.html#a6b2e52691965a8840591964da0bb8295',1,'VolumeControl::Audio::AudioSession']]],
-  ['itemssourceproperty_1419',['ItemsSourceProperty',['../class_volume_control_1_1_s_d_k_1_1_list_display_target.html#a1d838a9bee2521c72796593f21db012c',1,'VolumeControl::SDK::ListDisplayTarget']]]
+  ['int_1427',['int',['../class_volume_control_1_1_audio_1_1_audio_session.html#a6b2e52691965a8840591964da0bb8295',1,'VolumeControl::Audio::AudioSession']]],
+  ['intervalproperty_1428',['IntervalProperty',['../class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#a49b7b3bf063cafc14960d52f638ef8c7',1,'VolumeControl::WPF::BindableTimer']]]
 ];

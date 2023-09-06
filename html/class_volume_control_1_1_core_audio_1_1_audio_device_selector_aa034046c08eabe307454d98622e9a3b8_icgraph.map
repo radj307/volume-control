@@ -1,0 +1,4 @@
+<map id="VolumeControl.CoreAudio.AudioDeviceSelector.SelectDefaultDevice" name="VolumeControl.CoreAudio.AudioDeviceSelector.SelectDefaultDevice">
+<area shape="rect" id="node1" title="Changes the Selected item to the default Multimedia audio device." alt="" coords="296,5,544,61"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a139e061b6f96ab63535b4ad5f18cc7ce" title="Creates a new AudioDeviceSelector instance bound to the given audioDeviceManager ." alt="" coords="5,5,248,61"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="VolumeControl.CoreAudio.AudioSessionSelector" name="VolumeControl.CoreAudio.AudioSessionSelector">
+<area shape="rect" id="node1" title="Manages the currently &quot;selected&quot; AudioSession instance for a given CoreAudio.AudioSessionManager obje..." alt="" coords="61,145,255,340"/>
+<area shape="rect" id="node2" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_selector.html" title="Represents a list item selector." alt="" coords="5,5,135,97"/>
+<area shape="rect" id="node3" title=" " alt="" coords="159,13,336,90"/>
+</map>

@@ -104,19 +104,22 @@ $(document).ready(function(){initNavTree('functions_d.html',''); initResizable()
 , <a class="el" href="class_volume_control_1_1_w_p_f_1_1_icon_pair.html#a3483981652ec41a2d714f153278fb80d">VolumeControl.WPF.IconPair</a>
 </li>
 <li>DecreaseNativeVolume()
-: <a class="el" href="class_audio_1_1_helpers_1_1_i_audio_control_extensions.html#a1fd899ee2d41a1db71485a9332eabc5f">Audio.Helpers.IAudioControlExtensions</a>
+: <a class="el" href="class_volume_control_1_1_core_audio_1_1_helpers_1_1_i_audio_control_extensions.html#ab0c1e672603c214f6ee8aaa612247b2e">VolumeControl.CoreAudio.Helpers.IAudioControlExtensions</a>
 </li>
 <li>DecreaseVolume()
-: <a class="el" href="class_audio_1_1_helpers_1_1_i_audio_control_extensions.html#a855492fff0948376291e08640a0b13dc">Audio.Helpers.IAudioControlExtensions</a>
-, <a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#a800045f219608ad4a07f47739eae801c">VolumeControl.Audio.AudioDevice</a>
+: <a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#a800045f219608ad4a07f47739eae801c">VolumeControl.Audio.AudioDevice</a>
 , <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a1086e4ff0afb419523437d0b6d310923">VolumeControl.Audio.AudioSession</a>
-, <a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_volume_control.html#a77a5fcf89ce54614e3b8ded5cb7cd19e">VolumeControl.Audio.Interfaces.IVolumeControl</a>
+, <a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_volume_control.html#a18c5bdb842c551515572b04c9b2217fd">VolumeControl.Audio.Interfaces.IVolumeControl</a>
+, <a class="el" href="class_volume_control_1_1_core_audio_1_1_helpers_1_1_i_audio_control_extensions.html#a523c636a8257619f61fc2ec9d88cd652">VolumeControl.CoreAudio.Helpers.IAudioControlExtensions</a>
 </li>
 <li>DecrementSessionVolume()
 : <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#aa46d72e89d39934c027cc2c5a35dcb6c">VolumeControl.Audio.AudioAPI</a>
 </li>
 <li>Default
 : <a class="el" href="class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#a086eb8a099594ba8a170c1b83c4df939">VolumeControl.SDK.VCAPI</a>
+</li>
+<li>DefaultAutoReset
+: <a class="el" href="class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#a400d9f17855419784da4a2111e3efb73">VolumeControl.WPF.BindableTimer</a>
 </li>
 <li>DefaultDevice
 : <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#adbad371839c83cf530e52249e0c0bfaa">VolumeControl.Audio.AudioAPI</a>
@@ -125,6 +128,18 @@ $(document).ready(function(){initNavTree('functions_d.html',''); initResizable()
 <li>DefaultDeviceChanged
 : <a class="el" href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#afc883d3471e0120329d854b197d7a81f">VolumeControl.Audio.Collections.AudioDeviceCollection</a>
 , <a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device_notification_client.html#a5e6c264b52f7c72c51d51a7368acdc34">VolumeControl.Audio.Interfaces.IDeviceNotificationClient</a>
+</li>
+<li>DefaultEnabled
+: <a class="el" href="class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#a4db3d6e16149b2cd2bf7399fa1c3cd9c">VolumeControl.WPF.BindableTimer</a>
+</li>
+<li>DefaultInterval
+: <a class="el" href="class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#aaac4009158ceb727ac53f92ae7eb1535">VolumeControl.WPF.BindableTimer</a>
+</li>
+<li>DefaultMaxInterval
+: <a class="el" href="class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#a6b6108a692e0405cefef48d13e5057d6">VolumeControl.WPF.BindableTimer</a>
+</li>
+<li>DefaultMinInterval
+: <a class="el" href="class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#ae0f3b4e1a0b6e3ff927b627afafdc5ff">VolumeControl.WPF.BindableTimer</a>
 </li>
 <li>DefaultSizeOptions
 : <a class="el" href="class_volume_control_1_1_w_p_f_1_1_icon_pair.html#a185364466d052ef78ff1c8ea29259a66">VolumeControl.WPF.IconPair</a>
@@ -147,21 +162,21 @@ $(document).ready(function(){initNavTree('functions_d.html',''); initResizable()
 , <a class="el" href="class_volume_control_1_1_core_1_1_structs_1_1_hotkey_action.html#a5110e7bd9c0eee8cd04ac781f6c889c9">VolumeControl.Core.Structs.HotkeyAction</a>
 </li>
 <li>DeselectDevice()
-: <a class="el" href="class_volume_control_1_1_s_d_k_1_1_audio_device_selector.html#a83e86703837b4b86f7031a37c030bb3a">VolumeControl.SDK.AudioDeviceSelector</a>
+: <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a96f595fdb67cc751ed8a479e01a8aebf">VolumeControl.CoreAudio.AudioDeviceSelector</a>
 </li>
 <li>DeselectSession()
 : <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#aedfb2066f9716c3d47c44f3f35f9b9ef">VolumeControl.Audio.AudioAPI</a>
-, <a class="el" href="class_volume_control_1_1_s_d_k_1_1_audio_session_selector.html#aef4ef2a53919144ee251097649f0c4ed">VolumeControl.SDK.AudioSessionSelector</a>
+, <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_selector.html#a75635b7ae0ea2375418df2eedbe01428">VolumeControl.CoreAudio.AudioSessionSelector</a>
 </li>
 <li>DeviceAdded
 : <a class="el" href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a42d10502bd7165d21cb36cb9c44f204b">VolumeControl.Audio.Collections.AudioDeviceCollection</a>
 , <a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device_notification_client.html#a82b00c55fd72c8af1c57c1fb7d3808a1">VolumeControl.Audio.Interfaces.IDeviceNotificationClient</a>
 </li>
 <li>DeviceAddedToList
-: <a class="el" href="class_audio_1_1_audio_device_manager.html#a97d70496bd98657b8c2b3345c4128a16">Audio.AudioDeviceManager</a>
+: <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#af31e88a903345df33104d316f171bc37">VolumeControl.CoreAudio.AudioDeviceManager</a>
 </li>
 <li>DeviceDataFlow
-: <a class="el" href="class_audio_1_1_audio_device_manager.html#a5334706cc45505fbe3595511ef5e11ae">Audio.AudioDeviceManager</a>
+: <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#a2080a29d5cf859351d196258c1868dbb">VolumeControl.CoreAudio.AudioDeviceManager</a>
 </li>
 <li>DeviceEnabledChanged
 : <a class="el" href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a51f1c9f4cf4c7aa0debddd801a0cddb9">VolumeControl.Audio.Collections.AudioDeviceCollection</a>
@@ -178,12 +193,12 @@ $(document).ready(function(){initNavTree('functions_d.html',''); initResizable()
 , <a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device_notification_client.html#a44b8a679889b53238683d009e376d80c">VolumeControl.Audio.Interfaces.IDeviceNotificationClient</a>
 </li>
 <li>DeviceRemovedFromList
-: <a class="el" href="class_audio_1_1_audio_device_manager.html#af5dae1a9f9cd82d0e8722e6855f6635e">Audio.AudioDeviceManager</a>
+: <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#aaba764deb7f32b039a5e36a141eeb693">VolumeControl.CoreAudio.AudioDeviceManager</a>
 </li>
 <li>Devices
-: <a class="el" href="class_audio_1_1_audio_device_manager.html#adcf8850a3351df97b377ce5f81c9ca55">Audio.AudioDeviceManager</a>
-, <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac4a4d0b928b54159f1e54cbfa11f5679">VolumeControl.Audio.AudioAPI</a>
+: <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac4a4d0b928b54159f1e54cbfa11f5679">VolumeControl.Audio.AudioAPI</a>
 , <a class="el" href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a7d7b808573b0d7446102879a262e44df">VolumeControl.Audio.Collections.AudioDeviceCollection</a>
+, <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#a0b9bc46411027398c8ba66376f8e34fa">VolumeControl.CoreAudio.AudioDeviceManager</a>
 </li>
 <li>DeviceSessionCreated
 : <a class="el" href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a0fa6cd759842e5fe546eb51a5914166a">VolumeControl.Audio.Collections.AudioDeviceCollection</a>
@@ -192,9 +207,9 @@ $(document).ready(function(){initNavTree('functions_d.html',''); initResizable()
 : <a class="el" href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#ac9474afbb75bc76bb2860f45cbf85399">VolumeControl.Audio.Collections.AudioDeviceCollection</a>
 </li>
 <li>DeviceStateChanged
-: <a class="el" href="class_audio_1_1_audio_device_manager.html#a6016c0544e8c5f5712e16c12bed41955">Audio.AudioDeviceManager</a>
-, <a class="el" href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a1578fbfb569dddcbc0190b8f1d921e94">VolumeControl.Audio.Collections.AudioDeviceCollection</a>
+: <a class="el" href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a1578fbfb569dddcbc0190b8f1d921e94">VolumeControl.Audio.Collections.AudioDeviceCollection</a>
 , <a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device_notification_client.html#a950f0332d5202b28ab56b95be41631c5">VolumeControl.Audio.Interfaces.IDeviceNotificationClient</a>
+, <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#a56bf2c57750d155d36462bcd874ac40f">VolumeControl.CoreAudio.AudioDeviceManager</a>
 </li>
 <li>DeviceVolumeChanged
 : <a class="el" href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#ac311c4825d22ba43e1b791f5c5a848b7">VolumeControl.Audio.Collections.AudioDeviceCollection</a>
@@ -219,7 +234,7 @@ $(document).ready(function(){initNavTree('functions_d.html',''); initResizable()
 : <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a2275e1b03112ef80ff3d6855b4e759cc">VolumeControl.Audio.AudioSession</a>
 </li>
 <li>DisplayNameChanged
-: <a class="el" href="class_audio_1_1_audio_session.html#a439eb3c1483e5fe8243b67b042bf6cae">Audio.AudioSession</a>
+: <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a3677973822932709c7a6814bb12ef517">VolumeControl.CoreAudio.AudioSession</a>
 </li>
 <li>DisplayTargetName
 : <a class="el" href="class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#a3e1098c57d5cc3993a266a4b7f747594">VolumeControl.Hotkeys.AudioDeviceActions</a>
@@ -239,7 +254,11 @@ $(document).ready(function(){initNavTree('functions_d.html',''); initResizable()
 , <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#abc58db58ed561f5f0cac45eea2d3e8eb">VolumeControl.Core.Input.Hotkey</a>
 , <a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#aaf98f13c2ed329d9fb2395573dfcd97d">VolumeControl.Log.Endpoints.MemoryEndpoint</a>
 , <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#ad15ebefc27f412e93bb25a211100d2af">VolumeControl.Log.LogWriter</a>
+, <a class="el" href="class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#a504b0137d8d5600b9e905e6fc6ac9b15">VolumeControl.WPF.BindableTimer</a>
 , <a class="el" href="class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#afe72189fce6b397473696a1b3cf2b5ac">VolumeControl.WPF.HWndHook</a>
+</li>
+<li>Disposed
+: <a class="el" href="class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#a676a9eb448b3285c96de4ca48569c905">VolumeControl.WPF.BindableTimer</a>
 </li>
 <li>dwFlags
 : <a class="el" href="class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html#ab64e60440b54f8c6e02157a99b5fb6fe">VolumeControl.WPF.PInvoke.MONITORINFO</a>

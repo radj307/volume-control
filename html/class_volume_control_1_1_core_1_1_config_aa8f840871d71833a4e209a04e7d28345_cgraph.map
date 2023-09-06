@@ -1,0 +1,4 @@
+<map id="VolumeControl.Core.Config.Config" name="VolumeControl.Core.Config.Config">
+<area shape="rect" id="node1" title="Creates a new Config instance." alt="" coords="5,5,207,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_config.html#acae4db80be97fb8bad0436613e473a10" title="Resumes automatic saving of the config to disk whenever a PropertyChanged event is triggered." alt="" coords="255,5,456,47"/>
+</map>

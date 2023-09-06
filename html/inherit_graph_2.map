@@ -1,3 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_audio_1_1_audio_session_manager.html" title="Manages a list of AudioSession instances and their related events for any number of AudioDeviceSessio..." alt="" coords="5,5,212,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,78,84,105"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_attribute.html" title="Indicates that a method is a valid hotkey action. If you don&#39;t specify a name parameter,..." alt="" coords="132,5,356,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_group_attribute.html" title="(Optional) Marks the attached class type as a Hotkey Actions addon type." alt="" coords="132,71,356,112"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_setting_attribute.html" title="Attribute that specifies a hotkey action setting. This can be applied to methods, or directly to para..." alt="" coords="132,136,356,177"/>
 </map>

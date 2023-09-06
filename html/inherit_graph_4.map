@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_audio_1_1_helpers_1_1_m_m_device_extensions.html" title="Extension methods for the MMDevice class." alt="" coords="5,5,263,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,208,32"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_config.html" title="Contains the application configuration and logic to read from and write to JSON files." alt="" coords="256,5,453,32"/>
 </map>
