@@ -40,7 +40,7 @@ If you're unsure about where to choose as a location, create a directory in your
 
 ## Setup
 Before starting the program for the first time, you have to unblock the executable from the properties menu.  
-This is necessary because Windows Defender requires a paying *&gt;$300* a year for a [Microsoft-approved publishing certificate](https://docs.microsoft.com/en-us/windows-hardware/drivers/dashboard/get-a-code-signing-certificate) in order to prevent Windows Defender from blocking it.  
+This is necessary because Windows Defender requires paying *&gt;$300* a year for a [Microsoft-approved publishing certificate](https://docs.microsoft.com/en-us/windows-hardware/drivers/dashboard/get-a-code-signing-certificate) in order to prevent Windows Defender from blocking it.  
 *If you're unsure, you're can always run it through [VirusTotal](https://www.virustotal.com/gui/home/upload) first, or check the source code yourself.*
 
  1. R+Click on `VolumeControl.exe` in the file explorer and select *Properties* in the context menu.  
