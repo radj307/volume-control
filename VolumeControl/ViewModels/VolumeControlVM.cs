@@ -18,7 +18,6 @@ using VolumeControl.Log;
 using VolumeControl.SDK;
 using VolumeControl.SDK.Internal;
 using VolumeControl.TypeExtensions;
-using VolumeControl.WPF;
 
 namespace VolumeControl.ViewModels
 {

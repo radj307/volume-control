@@ -2,10 +2,8 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Controls;
 using System.Windows.Media;
 using VolumeControl.CoreAudio;
-using VolumeControl.Helpers;
 using VolumeControl.WPF;
 using VolumeControl.WPF.Collections;
 

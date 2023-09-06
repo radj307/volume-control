@@ -1,5 +1,4 @@
-﻿using PropertyChanged;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace VolumeControl.ViewModels
@@ -24,7 +23,7 @@ namespace VolumeControl.ViewModels
         #endregion Fields
 
         #region Properties
-        
+
         #endregion Properties
 
         #region Methods

@@ -4,7 +4,6 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using VolumeControl.Controls;
-using VolumeControl.Core;
 using VolumeControl.Log;
 using VolumeControl.ViewModels;
 
