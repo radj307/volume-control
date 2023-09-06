@@ -34,8 +34,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.SDK", "Volume
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.Hotkeys", "VolumeControl.Hotkeys\VolumeControl.Hotkeys.csproj", "{72844B40-3799-45D6-90E5-542098FD17AD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Audio", "Audio\Audio.csproj", "{AAA975DD-980C-4BB6-880E-78067BF3D765}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.CoreAudio", "VolumeControl.CoreAudio\VolumeControl.CoreAudio.csproj", "{D8F276F9-35B3-4A89-AE0C-62828AA4BB32}"
 EndProject
 Global
@@ -183,24 +181,6 @@ Global
 		{72844B40-3799-45D6-90E5-542098FD17AD}.TestLangLocalizationGenerator|x64.Build.0 = Debug|Any CPU
 		{72844B40-3799-45D6-90E5-542098FD17AD}.TestLangLocalizationGenerator|x86.ActiveCfg = Debug|Any CPU
 		{72844B40-3799-45D6-90E5-542098FD17AD}.TestLangLocalizationGenerator|x86.Build.0 = Debug|Any CPU
-		{AAA975DD-980C-4BB6-880E-78067BF3D765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AAA975DD-980C-4BB6-880E-78067BF3D765}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AAA975DD-980C-4BB6-880E-78067BF3D765}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{AAA975DD-980C-4BB6-880E-78067BF3D765}.Debug|x64.Build.0 = Debug|Any CPU
-		{AAA975DD-980C-4BB6-880E-78067BF3D765}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{AAA975DD-980C-4BB6-880E-78067BF3D765}.Debug|x86.Build.0 = Debug|Any CPU
-		{AAA975DD-980C-4BB6-880E-78067BF3D765}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AAA975DD-980C-4BB6-880E-78067BF3D765}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AAA975DD-980C-4BB6-880E-78067BF3D765}.Release|x64.ActiveCfg = Release|Any CPU
-		{AAA975DD-980C-4BB6-880E-78067BF3D765}.Release|x64.Build.0 = Release|Any CPU
-		{AAA975DD-980C-4BB6-880E-78067BF3D765}.Release|x86.ActiveCfg = Release|Any CPU
-		{AAA975DD-980C-4BB6-880E-78067BF3D765}.Release|x86.Build.0 = Release|Any CPU
-		{AAA975DD-980C-4BB6-880E-78067BF3D765}.TestLangLocalizationGenerator|Any CPU.ActiveCfg = Debug|Any CPU
-		{AAA975DD-980C-4BB6-880E-78067BF3D765}.TestLangLocalizationGenerator|Any CPU.Build.0 = Debug|Any CPU
-		{AAA975DD-980C-4BB6-880E-78067BF3D765}.TestLangLocalizationGenerator|x64.ActiveCfg = Debug|Any CPU
-		{AAA975DD-980C-4BB6-880E-78067BF3D765}.TestLangLocalizationGenerator|x64.Build.0 = Debug|Any CPU
-		{AAA975DD-980C-4BB6-880E-78067BF3D765}.TestLangLocalizationGenerator|x86.ActiveCfg = Debug|Any CPU
-		{AAA975DD-980C-4BB6-880E-78067BF3D765}.TestLangLocalizationGenerator|x86.Build.0 = Debug|Any CPU
 		{D8F276F9-35B3-4A89-AE0C-62828AA4BB32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D8F276F9-35B3-4A89-AE0C-62828AA4BB32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8F276F9-35B3-4A89-AE0C-62828AA4BB32}.Debug|x64.ActiveCfg = Debug|Any CPU
