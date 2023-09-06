@@ -1,4 +1,4 @@
-﻿namespace Audio
+﻿namespace VolumeControl.CoreAudio
 {
     /// <summary>
     /// Manages a list of <see cref="AudioSession"/> instances and their related events for any number of <see cref="AudioDeviceSessionManager"/> instances.
@@ -78,9 +78,7 @@
             foreach (var session in Sessions)
             {
                 if (predicate(session))
-                {
                     return session;
-                }
             }
             return null;
         }
@@ -112,9 +110,7 @@
             foreach (AudioSession session in Sessions)
             {
                 if (prioritizePID && pid != -1 && session.PID.Equals(pid))
-                {
                     return session;
-                }
                 else if (session.ProcessName.Equals(name, sCompareType))
                 {
                     if (!prioritizePID || pid == -1)
@@ -132,9 +128,7 @@
             foreach (AudioSession session in Sessions)
             {
                 if (session.SessionInstanceIdentifier.Equals(sessionInstanceIdentifier, StringComparison.Ordinal))
-                {
                     return session;
-                }
             }
             return null;
         }
@@ -194,7 +188,7 @@
             int successfulCount = 0;
             foreach (var sessionManager in sessionManagers)
             {
-                successfulCount += (AddSessionManager(sessionManager) ? 1 : 0);
+                successfulCount += AddSessionManager(sessionManager) ? 1 : 0;
             }
             return successfulCount;
         }

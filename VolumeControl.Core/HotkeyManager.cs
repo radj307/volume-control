@@ -224,7 +224,7 @@ namespace VolumeControl.Core
 
             try
             {
-                Settings.PauseAutoSave();
+                Settings.PauseAutoSave(); //< prevent writing changes all at once
                 _allSelectedChanging = true;
 
                 // this can of course be simplified

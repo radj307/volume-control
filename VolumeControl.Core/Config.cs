@@ -22,7 +22,10 @@ namespace VolumeControl.Core
         /// Creates a new <see cref="Config"/> instance.
         /// </summary>
         /// <remarks>The first time this is called, the <see cref="AppConfig.Configuration.Default"/> property is set to that instance; all subsequent calls do not update this property.</remarks>
-        public Config() : base(_filePath) => this.ResumeAutoSave();
+        public Config() : base(_filePath)
+        {
+            this.ResumeAutoSave();
+        }
         #endregion Constructor
 
         #region Methods
@@ -39,7 +42,7 @@ namespace VolumeControl.Core
         #region EventHandlers
         private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            Log.Debug($"Property '{e.PropertyName}' was modified, saving {nameof(Config)}...");
+            Log.Debug($"Config property '{e.PropertyName}' was modified.");
             this.Save();
         }
         #endregion EventHandlers
@@ -164,7 +167,7 @@ namespace VolumeControl.Core
         /// <summary>
         /// Gets or sets whether the notification can be dragged without holding down the ALT key.
         /// </summary>
-        public bool NotificationMoveRequiresAlt { get; set; } = true;
+        public bool NotificationMoveRequiresAlt { get; set; } = false;
         /// <summary>
         /// Gets or sets the location of the notification window
         /// </summary>
@@ -188,7 +191,7 @@ namespace VolumeControl.Core
         /// <summary>
         /// Gets or sets the duration of the notification fade-in animation.
         /// </summary>
-        public Duration NotificationFadeInDuration { get; set; } = new(TimeSpan.FromMilliseconds(300));
+        public Duration NotificationFadeInDuration { get; set; } = new(TimeSpan.FromMilliseconds(150));
         /// <summary>
         /// Gets or sets whether the notification window slowly fades out instead of disappearing instantly.
         /// </summary>
@@ -196,11 +199,16 @@ namespace VolumeControl.Core
         /// <summary>
         /// Gets or sets the duration of the notification fade-in animation.
         /// </summary>
-        public Duration NotificationFadeOutDuration { get; set; } = new(TimeSpan.FromMilliseconds(500));
+        public Duration NotificationFadeOutDuration { get; set; } = new(TimeSpan.FromMilliseconds(750));
         /// <summary>
         /// Gets or sets the name of the currently-selected list notification display target.
         /// </summary>
         public string NotificationDisplayTarget { get; set; } = "Audio Sessions";
+        /// <summary>
+        /// Gets or sets whether extra mouse controls are enabled in the notification window.<br/>
+        /// Extra mouse controls include Right-Click to deselect &amp; Middle-Click to toggle selection lock.
+        /// </summary>
+        public bool NotificationExtraMouseControlsEnabled { get; set; } = true;
         #endregion Notifications
 
         #region Updates

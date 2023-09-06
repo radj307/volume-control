@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace VolumeControl.Core.Generics
+namespace VolumeControl.WPF
 {
     [JsonObject]
     public class Item<T>

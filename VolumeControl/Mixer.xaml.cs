@@ -35,8 +35,13 @@ namespace VolumeControl
         private void Window_Initialized(object sender, EventArgs e)
         {
             if (Settings.StartMinimized) this.Hide();
-            // Initialize the list notification window so it can appear
-            _ = WindowHandleGetter.GetWindowHandle((this.FindResource("Notification") as ListNotification)!);
+
+            // Initialize secondary windows so they can run their own code to appear:
+
+            // ListNotification
+            //_ = WindowHandleGetter.GetWindowHandle((this.FindResource("Notification") as ListNotification)!);
+
+            _ = WindowHandleGetter.GetWindowHandle((this.FindResource("SessionListNotification") as SessionListNotification)!);
 #if DEBUG
             //(FindResource("DebugWindow") as DebugWindow)!.Show();
 #endif
@@ -52,7 +57,7 @@ namespace VolumeControl
         #endregion Teardown
 
         #region Properties
-        private ListNotification ListNotification => (this.FindResource("Notification") as ListNotification)!;
+        //private ListNotification ListNotification => (this.FindResource("Notification") as ListNotification)!;
         private VolumeControlVM VCSettings => (this.FindResource("Settings") as VolumeControlVM)!;
         private AudioDeviceManagerVM AudioAPI => this.VCSettings.AudioAPI;
         private HotkeyManager HotkeyAPI => this.VCSettings.HotkeyAPI;
@@ -216,9 +221,30 @@ namespace VolumeControl
         }
         private void Handle_ResetNotificationPositionClick(object sender, RoutedEventArgs e)
         {
-            ListNotification.Left = this.Left;
-            ListNotification.Top = this.Top;
-            ListNotification.Show();
+            var appWindows = App.Current.Windows;
+
+            var cp = this.GetPosAtCenterPoint();
+
+            for (int i = 0; i < appWindows.Count; ++i)
+            {
+                if (appWindows[i] is SessionListNotification sessionListNotificationWindow)
+                {
+                    sessionListNotificationWindow.SetPosAtCenterPoint(cp);
+                    VCAPI.Default.ShowSessionListNotification();
+                }
+            }
+        }
+        private void Handle_ForceHideNotificationClick(object sender, RoutedEventArgs e)
+        {
+            var appWindows = App.Current.Windows;
+
+            for (int i = 0; i < appWindows.Count; ++i)
+            {
+                if (appWindows[i] is SessionListNotification sessionListNotificationWindow)
+                {
+                    sessionListNotificationWindow.Hide();
+                }
+            }
         }
         private void Handle_DisplayTargetsHyperlinkClick(object sender, RoutedEventArgs e)
         {

@@ -16,7 +16,7 @@ namespace VolumeControl.WPF.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
     }
     /// <summary>
-    /// Converts from bool types to thickness types.
+    /// Converts from bool types to visibility types.
     /// </summary>
     public class BoolToCheckVisibleConverter : IValueConverter
     {

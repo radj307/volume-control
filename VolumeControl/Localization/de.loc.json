@@ -221,6 +221,30 @@
           "Header": {
             "German (DE/DE)": "Benachrichtigungen"
           },
+          "AdditionalSettings": {
+            "Header": {
+              "Content": {
+                "German (DE/DE)": "Zusätzliche Einstellungen"
+              },
+              "Tooltip": {}
+            },
+            "ResetPosition": {
+              "Content": {
+                "German (DE/DE)": "Benachrichtigungsort Zurücksetzen"
+              },
+              "Tooltip": {
+                "German (DE/DE)": "Setzt die Position der Listenbenachrichtigung zurück, wenn sie im Ansichtsfenster fehlt."
+              }
+            },
+            "ForceHide": {
+              "Content": {
+                "German (DE/DE)": "Verstecken"
+              },
+              "Tooltip": {
+                "German (DE/DE)": "Erzwingt, dass das Benachrichtigungsfenster ausgeblendet wird."
+              }
+            }
+          },
           "Enable": {
             "Content": {
               "German (DE/DE)": "Aktivieren"

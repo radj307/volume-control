@@ -4,7 +4,7 @@ using VolumeControl.TypeExtensions;
 namespace VolumeControl.WPF.Bindings
 {
     /// <summary>
-    /// Easy multibinding object.
+    /// Easy multibinding markup pseudo-extension.
     /// </summary>
     public class MultiBinding : System.Windows.Data.MultiBinding
     {
@@ -15,7 +15,6 @@ namespace VolumeControl.WPF.Bindings
         public MultiBinding(params BindingBase[] bindings) : base() => bindings.ForEach(b => this.Bindings.Add(b));
 
 #       pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        // This is required because JESUS CHRIST MICROSOFT FIX YOUR FUCKING SHIT AND STOP MAKING EVERYTHING SO GODDAMN DIFFICULT FOR NO REASON:
         public MultiBinding(BindingBase b1) : this(new[] { b1 }) { }
         public MultiBinding(BindingBase b1, BindingBase b2) : this(new[] { b1, b2 }) { }
         public MultiBinding(BindingBase b1, BindingBase b2, BindingBase b3) : this(new[] { b1, b2, b3 }) { }

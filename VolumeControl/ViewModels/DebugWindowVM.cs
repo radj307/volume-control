@@ -20,21 +20,11 @@ namespace VolumeControl.ViewModels
 
         #region Fields
         private Mixer Mixer => (App.Current.MainWindow as Mixer)!;
-        private ListNotification Notification => (App.Current.FindResource("Notification") as ListNotification)!;
+        //private ListNotification Notification => (App.Current.FindResource("Notification") as ListNotification)!;
         #endregion Fields
 
         #region Properties
-        public ListNotification ListNotification => (App.Current.FindResource("Notification") as ListNotification)!;
-        [SuppressPropertyChangedWarnings]
-        public double NotifX
-        {
-            set => Notification.SetPosAtCorner(Notification.GetCurrentScreenCorner(), new(value, Notification.GetPosAtCurrentCorner().Y));
-        }
-        [SuppressPropertyChangedWarnings]
-        public double NotifY
-        {
-            set => Notification.SetPosAtCorner(Notification.GetCurrentScreenCorner(), new(Notification.GetPosAtCurrentCorner().X, value));
-        }
+        
         #endregion Properties
 
         #region Methods

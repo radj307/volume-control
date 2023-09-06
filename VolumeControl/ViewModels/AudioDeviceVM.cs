@@ -1,18 +1,20 @@
-﻿using Audio;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Controls;
 using System.Windows.Media;
+using VolumeControl.CoreAudio;
+using VolumeControl.Helpers;
 using VolumeControl.WPF;
 using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.ViewModels
 {
     /// <summary>
-    /// ViewModel for the <see cref="Audio.AudioDevice"/> class.
+    /// ViewModel for the <see cref="CoreAudio.AudioDevice"/> class.
     /// </summary>
-    public class AudioDeviceVM : INotifyPropertyChanged, IDisposable
+    public sealed class AudioDeviceVM : INotifyPropertyChanged, IDisposable
     {
         public AudioDeviceVM(AudioDevice audioDevice)
         {
@@ -22,11 +24,13 @@ namespace VolumeControl.ViewModels
 
             Sessions = new();
 
+            // attach events to add and remove audio sessions from the Sessions list
             AudioDevice.SessionManager.SessionAddedToList += this.SessionManager_SessionAddedToList;
             AudioDevice.SessionManager.SessionRemovedFromList += this.SessionManager_SessionRemovedFromList;
 
+            // initialize Sessions list
             foreach (var session in AudioDevice.SessionManager.Sessions)
-            { // initialize SelectedDeviceSessions list:
+            {
                 Sessions.Add(new AudioSessionVM(session));
             }
         }

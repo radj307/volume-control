@@ -1,7 +1,7 @@
-﻿using Audio;
-using Audio.Helpers;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using VolumeControl.Core.Attributes;
+using VolumeControl.CoreAudio;
+using VolumeControl.CoreAudio.Helpers;
 using VolumeControl.SDK;
 
 namespace VolumeControl.Hotkeys

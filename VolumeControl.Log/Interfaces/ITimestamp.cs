@@ -44,17 +44,18 @@ namespace VolumeControl.Log.Interfaces
             if (eventType.HasFlag(EventType.CRITICAL) && !eventType.Equals(EventType.CRITICAL))
                 eventType &= ~EventType.CRITICAL; //< remove the critical flag if present
 
-            string head = eventType switch
-            {
-                EventType.TRACE => "[TRACE]",
-                EventType.DEBUG => "[DEBUG]",
-                EventType.INFO => "[INFO]",
-                EventType.WARN => "[WARN]",
-                EventType.ERROR => "[ERROR]",
-                EventType.FATAL => "[FATAL]",
-                EventType.CRITICAL => "[CRITICAL]",
-                _ => "[????]",
-            };
+            string head = $"[{System.Enum.GetName(eventType)}]";
+            //    eventType switch
+            //{
+            //    EventType.TRACE => "[TRACE]",
+            //    EventType.DEBUG => "[DEBUG]",
+            //    EventType.INFO => "[INFO]",
+            //    EventType.WARN => "[WARN]",
+            //    EventType.ERROR => "[ERROR]",
+            //    EventType.FATAL => "[FATAL]",
+            //    EventType.CRITICAL => "[CRITICAL]",
+            //    _ => "[????]",
+            //};
             return $"{head}{new string(' ', this.EventTypeSegmentLength - head.Length)}";
         }
         private string GetMargin() => $"{(this.MarginSegmentLength > 0 ? new string(' ', this.MarginSegmentLength) : "")}";
@@ -64,8 +65,9 @@ namespace VolumeControl.Log.Interfaces
         /// </summary>
         /// <inheritdoc cref="DateTime.ToString(string?)"/>
         /// <returns>A <see cref="string"/> with the time-point and event type specified by the <see cref="ITimestamp"/>.</returns>
-        static string MakeHeader(ITimestamp timestamp, string? format) => $"{timestamp.GetTimePoint(format)}{timestamp.GetEventType()}{timestamp.GetMargin()}";
+        static string MakeHeader(ITimestamp timestamp, string? format)
+            => $"{timestamp.GetTimePoint(format)}{timestamp.GetEventType()}{timestamp.GetMargin()}";
         /// <inheritdoc cref="MakeHeader(ITimestamp, string?)"/>
-        string ToString();
+        //string ToString();
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
+using System.Windows;
 using VolumeControl.Core;
 using VolumeControl.Helpers.Win32;
 using VolumeControl.Log;
@@ -151,6 +152,62 @@ namespace VolumeControl.Helpers
             get => Settings.VolumeStepSize;
             set => Settings.VolumeStepSize = value;
         }
+        public bool NotificationDoFadeIn
+        {
+            get => Settings.NotificationDoFadeIn;
+            set => Settings.NotificationDoFadeIn = value;
+        }
+        public Duration NotificationFadeInDuration
+        {
+            get => Settings.NotificationFadeInDuration;
+            set => Settings.NotificationFadeInDuration = value;
+        }
+        public bool NotificationDoFadeOut
+        {
+            get => Settings.NotificationDoFadeOut;
+            set => Settings.NotificationDoFadeOut = value;
+        }
+        public Duration NotificationFadeOutDuration
+        {
+            get => Settings.NotificationFadeOutDuration;
+            set => Settings.NotificationFadeOutDuration = value;
+        }
+        /// <inheritdoc cref="Config.NotificationsEnabled"/>
+        public bool NotificationEnabled
+        {
+            get => Settings.NotificationsEnabled;
+            set => Settings.NotificationsEnabled = value;
+        }
+        /// <inheritdoc cref="Config.NotificationTimeoutMs"/>
+        public int NotificationTimeout
+        {
+            get => Settings.NotificationTimeoutMs;
+            set => Settings.NotificationTimeoutMs = value;
+        }
+        /// <inheritdoc cref="Config.NotificationTimeoutEnabled"/>
+        public bool NotificationTimeoutEnabled
+        {
+            get => Settings.NotificationTimeoutEnabled;
+            set => Settings.NotificationTimeoutEnabled = value;
+        }
+        /// <inheritdoc cref="Config.NotificationsOnVolumeChange"/>
+        public bool NotificationShowsVolumeChange
+        {
+            get => Settings.NotificationsOnVolumeChange;
+            set => Settings.NotificationsOnVolumeChange = value;
+        }
+        /// <inheritdoc cref="Config.NotificationMoveRequiresAlt"/>
+        public bool NotificationDragRequiresAlt
+        {
+            get => Settings.NotificationMoveRequiresAlt;
+            set => Settings.NotificationMoveRequiresAlt = value;
+        }
+        /// <inheritdoc cref="Config.NotificationSavePos"/>
+        public bool NotificationSavesPosition
+        {
+            get => Settings.NotificationSavePos;
+            set => Settings.NotificationSavePos = value;
+        }
         /// <summary>
         /// This is read-only since there wouldn't be a way for volume control to find the config again after restarting
         /// </summary>
@@ -158,11 +215,10 @@ namespace VolumeControl.Helpers
         #endregion Properties
 
         #region Events
-#pragma warning disable CS0067 // The event 'BindableHotkey.PropertyChanged' is never used ; This is automatically used by Fody.
         /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
         public abstract event NotifyCollectionChangedEventHandler? CollectionChanged;
-#pragma warning restore CS0067 // The event 'BindableHotkey.PropertyChanged' is never used ; This is automatically used by Fody.
+        protected void ForceNotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new(propertyName));
         #endregion Events
 
         #region Methods

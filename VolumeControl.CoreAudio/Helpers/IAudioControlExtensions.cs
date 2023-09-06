@@ -1,6 +1,6 @@
-﻿using Audio.Interfaces;
+﻿using VolumeControl.CoreAudio.Interfaces;
 
-namespace Audio.Helpers
+namespace VolumeControl.CoreAudio.Helpers
 {
     /// <summary>
     /// Extension methods for any class that implements the <see cref="IAudioControl"/> interface.

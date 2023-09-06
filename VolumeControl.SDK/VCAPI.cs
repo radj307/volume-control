@@ -1,6 +1,8 @@
-﻿using Audio;
-using VolumeControl.Core;
+﻿using VolumeControl.Core;
+using VolumeControl.CoreAudio;
+using VolumeControl.CoreAudio.Interfaces;
 using VolumeControl.Log;
+using VolumeControl.SDK.Internal;
 
 namespace VolumeControl.SDK
 {
@@ -13,16 +15,15 @@ namespace VolumeControl.SDK
     /// </remarks>
     public class VCAPI
     {
-        internal VCAPI(AudioDeviceManager audioDeviceManager, AudioSessionManager audioSessionManager, HotkeyManager hkManager, IntPtr MainHWnd, Config settings)
+        internal VCAPI(AudioDeviceManager audioDeviceManager, AudioDeviceSelector audioDeviceSelector, AudioSessionManager audioSessionManager, AudioSessionSelector audioSessionSelector, HotkeyManager hkManager, IntPtr MainHWnd, Config settings)
         {
             AudioDeviceManager = audioDeviceManager;
-            AudioDeviceSelector = new(AudioDeviceManager);
+            AudioDeviceSelector = audioDeviceSelector;
             AudioSessionManager = audioSessionManager;
-            AudioSessionSelector = new(AudioSessionManager);
+            AudioSessionSelector = audioSessionSelector;
             HotkeyManager = hkManager;
             MainWindowHWnd = MainHWnd;
             Settings = settings;
-            ListDisplayTargets = new();
         }
 
         #region Statics
@@ -38,7 +39,7 @@ namespace VolumeControl.SDK
 
         #region Properties
         /// <summary>
-        /// This is the global <see cref="Audio.AudioDeviceManager"/> responsible for managing <see cref="AudioDevice"/> instances.
+        /// This is the global <see cref="CoreAudio.AudioDeviceManager"/> responsible for managing <see cref="AudioDevice"/> instances.
         /// </summary>
         public AudioDeviceManager AudioDeviceManager { get; }
         /// <summary>
@@ -46,7 +47,7 @@ namespace VolumeControl.SDK
         /// </summary>
         public AudioDeviceSelector AudioDeviceSelector { get; }
         /// <summary>
-        /// This is the global <see cref="Audio.AudioSessionManager"/> responsible for managing <see cref="AudioSession"/> instances.
+        /// This is the global <see cref="CoreAudio.AudioSessionManager"/> responsible for managing <see cref="AudioSession"/> instances.
         /// </summary>
         public AudioSessionManager AudioSessionManager { get; }
         /// <summary>
@@ -65,13 +66,19 @@ namespace VolumeControl.SDK
         /// This is the object that contains many of the runtime application settings.<br/>These are saved to the user configuration when the application shuts down.
         /// </summary>
         public Config Settings { get; }
-        /// <summary>
-        /// The list of <see cref="ListDisplayTarget"/> instances for the ListNotification window
-        /// </summary>
-        /// <remarks>
-        /// This is checked only once, when the program starts up. It is recommended to use a static constructor in your addon to add items to this list.
-        /// </remarks>
-        public List<ListDisplayTarget> ListDisplayTargets { get; }
         #endregion Properties
+
+        #region Methods
+        /// <summary>
+        /// Display the SessionListNotification window.
+        /// </summary>
+        public void ShowSessionListNotification()
+        {
+            // don't trigger notification events if notifs are disabled-
+            if (!Settings.NotificationsEnabled) return;
+
+            VCEvents.NotifyShowSessionListNotification(this, EventArgs.Empty);
+        }
+        #endregion Methods
     }
 }

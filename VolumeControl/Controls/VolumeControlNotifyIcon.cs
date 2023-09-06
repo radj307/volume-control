@@ -65,7 +65,6 @@ namespace VolumeControl.Controls
             _contextMenuStrip.ResumeLayout();
             _contextMenuStrip.Refresh();
         }
-
         private void HandleShowHideClick(object? sender, EventArgs e)
         {
             if (_mainWindowVisibilityChecker())

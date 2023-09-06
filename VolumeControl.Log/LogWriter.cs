@@ -104,13 +104,20 @@ namespace VolumeControl.Log
             // TargetSite
             if (ex.TargetSite != null)
             {
-                m += $"{tabPrefix}'TargetSite': {{{lineSuffix}";
-                m += $"{tabPrefix}{tabString}'Name': '{ex.TargetSite.Name}'{lineSuffix}";
-                if (ex.TargetSite.DeclaringType != null)
-                    m += $"{tabPrefix}{tabString}'DeclaringType': '{ex.TargetSite.DeclaringType.FullName}'{lineSuffix}";
-                m += $"{tabPrefix}{tabString}'Attributes': '{ex.TargetSite.Attributes:G}'{lineSuffix}";
-                m += $"{tabPrefix}{tabString}'CallingConvention': '{ex.TargetSite.CallingConvention:G}'{lineSuffix}";
-                m += $"{tabPrefix}}}{lineSuffix}";
+                try
+                {
+                    m += $"{tabPrefix}'TargetSite': {{{lineSuffix}";
+                    m += $"{tabPrefix}{tabString}'Name': '{ex.TargetSite.Name}'{lineSuffix}";
+                    if (ex.TargetSite.DeclaringType != null)
+                        m += $"{tabPrefix}{tabString}'DeclaringType': '{ex.TargetSite.DeclaringType.FullName}'{lineSuffix}";
+                    m += $"{tabPrefix}{tabString}'Attributes': '{ex.TargetSite.Attributes:G}'{lineSuffix}";
+                    m += $"{tabPrefix}{tabString}'CallingConvention': '{ex.TargetSite.CallingConvention:G}'{lineSuffix}";
+                    m += $"{tabPrefix}}}{lineSuffix}";
+                }
+                catch (TypeLoadException typeLoadException) // catch exceedingly rare type load exceptions
+                {
+                    m += $"{tabPrefix}'TargetSite': (ERROR - TypeLoadException {typeLoadException.TypeName}) {FormatExceptionMessage(typeLoadException, tabPrefix, lineSuffix, tabString)}{lineSuffix}";
+                }
             }
 
             // Data

@@ -182,6 +182,30 @@
           "Header": {
             "Français (French)": "Notifications"
           },
+          "AdditionalSettings": {
+            "Header": {
+              "Content": {
+                "Français (French)": "Paramètres Supplémentaires"
+              },
+              "Tooltip": {}
+            },
+            "ResetPosition": {
+              "Content": {
+                "Français (French)": "Réinitialiser la Position"
+              },
+              "Tooltip": {
+                "Français (French)": "Réinitialise la position de la notification de liste au cas où elle disparaîtrait de la fenêtre d'affichage."
+              }
+            },
+            "ForceHide": {
+              "Content": {
+                "Français (French)": "Cacher"
+              },
+              "Tooltip": {
+                "Français (French)": "Force la disparition de la fenêtre de notification."
+              }
+            }
+          },
           "Enable": {
             "Content": {
               "Français (French)": "Activer"

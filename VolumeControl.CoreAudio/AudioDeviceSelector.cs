@@ -1,17 +1,22 @@
-﻿using Audio;
+﻿using CoreAudio;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using VolumeControl.CoreAudio.Interfaces;
 using VolumeControl.TypeExtensions;
 
-namespace VolumeControl.SDK
+namespace VolumeControl.CoreAudio
 {
     /// <summary>
-    /// Manages the currently "selected" <see cref="AudioDevice"/> instance for a given <see cref="Audio.AudioDeviceManager"/> object.
+    /// Manages the currently "selected" <see cref="AudioDevice"/> instance for a given <see cref="CoreAudio.AudioDeviceManager"/> object.
     /// </summary>
-    public class AudioDeviceSelector : INotifyPropertyChanged
+    public class AudioDeviceSelector : IAudioSelector, INotifyPropertyChanged
     {
         #region Initializer
-        internal AudioDeviceSelector(AudioDeviceManager audioDeviceManager)
+        /// <summary>
+        /// Creates a new <see cref="AudioDeviceSelector"/> instance bound to the given <paramref name="audioDeviceManager"/>.
+        /// </summary>
+        /// <param name="audioDeviceManager">An <see cref="CoreAudio.AudioDeviceManager"/> instance to select from.</param>
+        public AudioDeviceSelector(AudioDeviceManager audioDeviceManager)
         {
             AudioDeviceManager = audioDeviceManager;
 
@@ -42,12 +47,7 @@ namespace VolumeControl.SDK
             }
         }
         private AudioDevice? _selected;
-        /// <summary>
-        /// Gets or sets the currently <see cref="Selected"/> item by its index in the list.
-        /// </summary>
-        /// <remarks>
-        /// Cannot be changed if <see cref="LockSelection"/> == <see langword="true"/>.
-        /// </remarks>
+        /// <inheritdoc/>
         public int SelectedIndex
         {
             get => AudioDeviceManager.Devices.IndexOf(Selected);
@@ -64,10 +64,7 @@ namespace VolumeControl.SDK
                 // no notification necessary since Selected handles that for us
             }
         }
-        /// <summary>
-        /// Gets or sets whether the <see cref="Selected"/> item can be changed or not.
-        /// </summary>
-        /// <returns><see langword="true"/> when the selection cannot be changed; otherwise <see langword="false"/>.</returns>
+        /// <inheritdoc/>
         public bool LockSelection
         {
             get => _lockSelection;
@@ -98,9 +95,7 @@ namespace VolumeControl.SDK
             if (LockSelection) return;
 
             if (SelectedIndex + 1 < AudioDeviceManager.Devices.Count)
-            {
                 ++SelectedIndex;
-            }
             else
             {
                 SelectedIndex = 0;
@@ -117,9 +112,7 @@ namespace VolumeControl.SDK
             if (LockSelection) return;
 
             if (SelectedIndex > 0)
-            {
                 --SelectedIndex;
-            }
             else
             {
                 SelectedIndex = AudioDeviceManager.Devices.Count - 1;
@@ -147,16 +140,13 @@ namespace VolumeControl.SDK
         {
             if (LockSelection) return;
 
-            Selected = AudioDeviceManager.GetDefaultDevice(CoreAudio.Role.Multimedia);
+            Selected = AudioDeviceManager.GetDefaultDevice(Role.Multimedia);
         }
         private void AudioDeviceManager_DeviceRemovedFromList(object? sender, AudioDevice e)
         {
             if (e.Equals(Selected))
-            {
                 // edit _selected directly to avoid notifications
                 _selected = null;
-                // don't notify manually because we don't want to cause the targetbox to be changed; just remove the now-deleted device.
-            }
         }
         #endregion Methods
     }

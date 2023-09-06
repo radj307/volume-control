@@ -1,20 +1,20 @@
-﻿using Audio;
-using CoreAudio;
+﻿using CoreAudio;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Threading;
 using VolumeControl.Core;
+using VolumeControl.CoreAudio;
 using VolumeControl.Log;
 using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.ViewModels
 {
     /// <summary>
-    /// ViewModel for the <see cref="Audio.AudioDeviceManager"/> class.
+    /// ViewModel for the <see cref="CoreAudio.AudioDeviceManager"/> class.
     /// </summary>
-    public class AudioDeviceManagerVM : DependencyObject, INotifyPropertyChanged
+    public sealed class AudioDeviceManagerVM : DependencyObject, INotifyPropertyChanged
     {
         public AudioDeviceManagerVM()
         {
@@ -43,6 +43,12 @@ namespace VolumeControl.ViewModels
 
             AudioSessionManager.AddSessionManagers(Devices.Select(d => d.AudioDevice.SessionManager));
 
+            AudioDeviceSelector = new(AudioDeviceManager);
+            AudioSessionSelector = new(AudioSessionManager)
+            {
+                LockSelection = Settings.LockTargetSession,
+            };
+
             Log.Debug("Finished initializing Audio Sessions.");
         }
 
@@ -68,8 +74,10 @@ namespace VolumeControl.ViewModels
         private static Config Settings => (Config.Default as Config)!;
         private static LogWriter Log => FLog.Log;
         public ObservableImmutableList<AudioDeviceVM> Devices { get; }
-        public Audio.AudioSessionManager AudioSessionManager { get; }
+        public CoreAudio.AudioSessionManager AudioSessionManager { get; }
         public ObservableImmutableList<AudioSessionVM> AllSessions { get; }
+        public AudioDeviceSelector AudioDeviceSelector { get; }
+        public AudioSessionSelector AudioSessionSelector { get; }
         #endregion Properties
 
         #region Methods (EventHandlers)

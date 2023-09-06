@@ -1,4 +1,4 @@
-﻿namespace Audio.Interfaces
+﻿namespace VolumeControl.CoreAudio.Interfaces
 {
     /// <summary>
     /// Represents an audio instance with a controllable volume level and mute state.

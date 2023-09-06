@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
     xmlns:Converters="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
-    xmlns:controls="clr-namespace:VolumeControl.Controls"
+    xmlns:controls="clr-namespace:VolumeControl.WPF.Controls;assembly=VolumeControl.WPF"
     xmlns:core="clr-namespace:VolumeControl.Core;assembly=VolumeControl.Core"
     xmlns:local="clr-namespace:VolumeControl"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
@@ -32,12 +32,13 @@
                 <Setter Property="HorizontalAlignment" Value="Left" />
             </Style>
 
-            <!--  Global Settings Object  -->
+            <!--  Application View Model  -->
             <vm:VolumeControlVM x:Key="Settings" />
 
             <!--  List Notification Definition  -->
-            <local:ListNotification x:Key="Notification" />
-            <local:DebugWindow x:Key="DebugWindow" />
+            <!--<local:ListNotification x:Key="Notification" />-->
+            <!--<local:DebugWindow x:Key="DebugWindow" />-->
+            <local:SessionListNotification x:Key="SessionListNotification" />
 
 
             <CornerRadius x:Key="RoundedControlCorner">4</CornerRadius>
@@ -48,6 +49,7 @@
             <SolidColorBrush x:Key="WindowBorderBrush">#D0252525</SolidColorBrush>
             <Thickness x:Key="WindowBorderThickness">3</Thickness>
             <SolidColorBrush x:Key="UpdateIconBrush">Yellow</SolidColorBrush>
+            <SolidColorBrush x:Key="NotificationBackgroundBrush">#FF3f3f3f</SolidColorBrush>
 
             <!--  Tabs  -->
             <SolidColorBrush x:Key="TabBackgroundBrush">#D03d3d3d</SolidColorBrush>
@@ -438,6 +440,48 @@
                 <Setter Property="FontSize" Value="{StaticResource GlobalFontSize}" />
                 <Setter Property="FocusVisualStyle" Value="{DynamicResource CustomFocusVisualStyle}" />
             </Style>
+            <!--  RoundedTextBoxStyle  -->
+            <Style
+                x:Key="RoundedTextBoxStyle"
+                BasedOn="{StaticResource TextBoxStyle}"
+                TargetType="{x:Type TextBox}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TextBox}">
+                            <Border
+                                Name="border"
+                                Margin="{TemplateBinding Margin}"
+                                Padding="3,1.5"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{StaticResource RoundedControlCorner}">
+                                <TextBox
+                                    Name="textBox"
+                                    Padding="{TemplateBinding Padding}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Background="#0000"
+                                    BorderThickness="0"
+                                    FontFamily="{TemplateBinding FontFamily}"
+                                    FontSize="{TemplateBinding FontSize}"
+                                    FontStretch="{TemplateBinding FontStretch}"
+                                    FontWeight="{TemplateBinding FontWeight}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    Text="{TemplateBinding Text}"
+                                    TextAlignment="{TemplateBinding TextAlignment}" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger SourceName="border" Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
             <!--  ApplicationSettingsCheckboxStyle (Settings/Debug)  -->
             <Style
@@ -763,6 +807,7 @@
                         Margin="1"
                         Padding="1.5,0"
                         VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
                         Content="{TemplateBinding Header}"
                         DockPanel.Dock="Top"
                         FocusVisualStyle="{TemplateBinding FocusVisualStyle}"

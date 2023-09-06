@@ -1,5 +1,5 @@
-﻿using Audio;
-using VolumeControl.Core;
+﻿using VolumeControl.Core;
+using VolumeControl.CoreAudio;
 using VolumeControl.Log;
 
 namespace VolumeControl.SDK.Internal
@@ -21,7 +21,7 @@ namespace VolumeControl.SDK.Internal
         /// <param name="mainWindowHWnd">The mixer window's handle</param>
         /// <param name="settings">The program settings container object.</param>
         /// <exception cref="InvalidOperationException">Initialize was already called previously.</exception>
-        public static VCAPI Initialize(AudioDeviceManager audioDeviceManager, AudioSessionManager audioSessionManager, HotkeyManager mgr, IntPtr mainWindowHWnd, Config settings)
+        public static VCAPI Initialize(AudioDeviceManager audioDeviceManager, AudioDeviceSelector audioDeviceSelector, AudioSessionManager audioSessionManager, AudioSessionSelector audioSessionSelector, HotkeyManager mgr, IntPtr mainWindowHWnd, Config settings)
         {
             if (_initialized)
             {
@@ -30,7 +30,7 @@ namespace VolumeControl.SDK.Internal
             }
             _initialized = true;
 
-            return VCAPI.Default = new(audioDeviceManager, audioSessionManager, mgr, mainWindowHWnd, settings);
+            return VCAPI.Default = new(audioDeviceManager, audioDeviceSelector, audioSessionManager, audioSessionSelector, mgr, mainWindowHWnd, settings);
         }
     }
 }

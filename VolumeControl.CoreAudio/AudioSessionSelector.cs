@@ -1,26 +1,35 @@
-﻿using Audio;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using VolumeControl.Core;
+using VolumeControl.CoreAudio.Interfaces;
 using VolumeControl.TypeExtensions;
 
-namespace VolumeControl.SDK
+namespace VolumeControl.CoreAudio
 {
     /// <summary>
-    /// Manages the currently "selected" <see cref="AudioSession"/> instance for a given <see cref="Audio.AudioSessionManager"/> object.
+    /// Manages the currently "selected" <see cref="AudioSession"/> instance for a given <see cref="CoreAudio.AudioSessionManager"/> object.
     /// </summary>
-    public class AudioSessionSelector : INotifyPropertyChanged
+    public class AudioSessionSelector : IAudioSelector, INotifyPropertyChanged
     {
         #region Initializer
-        internal AudioSessionSelector(AudioSessionManager audioSessionManager)
+        /// <summary>
+        /// Creates a new <see cref="AudioSessionSelector"/> instance bound to the given <paramref name="audioSessionManager"/>.
+        /// </summary>
+        /// <param name="audioSessionManager">An <see cref="CoreAudio.AudioSessionManager"/> instance to select from.</param>
+        public AudioSessionSelector(AudioSessionManager audioSessionManager)
         {
             AudioSessionManager = audioSessionManager;
 
             // attach event to remove previously-selected session.
             AudioSessionManager.SessionRemovedFromList += this.AudioSessionManager_SessionRemovedFromList;
+
+            // attach event to update the selected item when the target changes from another source
+            Settings.PropertyChanged += this.Settings_PropertyChanged;
         }
         #endregion Initializer
 
         #region Properties
+        private static Config Settings => (Config.Default as Config)!;
         AudioSessionManager AudioSessionManager { get; }
         /// <summary>
         /// Gets or the sets the selected item.
@@ -41,17 +50,18 @@ namespace VolumeControl.SDK
                 if (LockSelection) return;
 
                 _selected = value;
+
+                if (_selected == null)
+                {// we have to do this here to avoid calls to the getter from data bindings preventing us from setting this to null
+                    Settings.Target = VolumeControl.Core.Helpers.TargetInfo.Empty;
+                }
+
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(SelectedIndex));
             }
         }
         private AudioSession? _selected;
-        /// <summary>
-        /// Gets or sets the currently <see cref="Selected"/> item by its index in the list.
-        /// </summary>
-        /// <remarks>
-        /// Cannot be changed if <see cref="LockSelection"/> == <see langword="true"/>.
-        /// </remarks>
+        /// <inheritdoc/>
         public int SelectedIndex
         {
             get => AudioSessionManager.Sessions.IndexOf(Selected);
@@ -68,10 +78,7 @@ namespace VolumeControl.SDK
                 // no notification necessary since Selected handles that for us
             }
         }
-        /// <summary>
-        /// Gets or sets whether the <see cref="Selected"/> item can be changed or not.
-        /// </summary>
-        /// <returns><see langword="true"/> when the selection cannot be changed; otherwise <see langword="false"/>.</returns>
+        /// <inheritdoc/>
         public bool LockSelection
         {
             get => _lockSelection;
@@ -102,9 +109,7 @@ namespace VolumeControl.SDK
             if (LockSelection) return;
 
             if (SelectedIndex + 1 < AudioSessionManager.Sessions.Count)
-            {
                 ++SelectedIndex;
-            }
             else
             { // loopback:
                 SelectedIndex = 0;
@@ -121,9 +126,7 @@ namespace VolumeControl.SDK
             if (LockSelection) return;
 
             if (SelectedIndex > 0)
-            {
                 --SelectedIndex;
-            }
             else
             {
                 SelectedIndex = AudioSessionManager.Sessions.Count - 1;
@@ -149,7 +152,7 @@ namespace VolumeControl.SDK
         /// </remarks>
         private void ResolveSelected()
         {
-            var targetInfo = VCAPI.Default.Settings.Target;
+            var targetInfo = Settings.Target;
 
             AudioSession? target
                 = AudioSessionManager.FindSessionWithSessionInstanceIdentifier(targetInfo.SessionInstanceIdentifier)
@@ -163,15 +166,28 @@ namespace VolumeControl.SDK
                 NotifyPropertyChanged(nameof(SelectedIndex));
             }
         }
+        #endregion Methods
+
+        #region EventHandlers
+        /// <summary>
+        /// Deselect session when it was removed from the list
+        /// </summary>
         private void AudioSessionManager_SessionRemovedFromList(object? sender, AudioSession e)
         {
             if (e.Equals(Selected))
-            {
                 // edit _selected directly to avoid notifications
                 _selected = null;
-                // don't notify manually because we don't want to cause the targetbox to be changed; just remove the now-deleted session.
+        }
+        /// <summary>
+        /// Update the <see cref="Selected"/> item when the <see cref="Config.Target"/> changes from an external source.
+        /// </summary>
+        private void Settings_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName?.Equals(nameof(Config.Target)) ?? false)
+            {
+                Selected = AudioSessionManager.FindSessionWithSessionInstanceIdentifier(Settings.Target.SessionInstanceIdentifier);
             }
         }
-        #endregion Methods
+        #endregion EventHandlers
     }
 }

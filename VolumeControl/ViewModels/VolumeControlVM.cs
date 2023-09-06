@@ -1,5 +1,4 @@
-﻿using Audio;
-using CodingSeb.Localization;
+﻿using CodingSeb.Localization;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -10,6 +9,7 @@ using VolumeControl.Core;
 using VolumeControl.Core.Enum;
 using VolumeControl.Core.Helpers;
 using VolumeControl.Core.Input.Actions;
+using VolumeControl.CoreAudio;
 using VolumeControl.Helpers;
 using VolumeControl.Helpers.Addon;
 using VolumeControl.Helpers.Update;
@@ -18,6 +18,7 @@ using VolumeControl.Log;
 using VolumeControl.SDK;
 using VolumeControl.SDK.Internal;
 using VolumeControl.TypeExtensions;
+using VolumeControl.WPF;
 
 namespace VolumeControl.ViewModels
 {
@@ -28,7 +29,7 @@ namespace VolumeControl.ViewModels
         {
             // create the updater & check for updates if enabled
             Updater = new(this);
-            if (Settings.CheckForUpdates) Updater.CheckNow();
+            if (Settings.CheckForUpdates) Updater.CheckForUpdateNow();
 
             this.AudioAPI = new();
             string? i = Loc.Instance.AvailableLanguages[0];
@@ -40,7 +41,7 @@ namespace VolumeControl.ViewModels
             this.HotkeyAPI = new(actionManager);
 
             // Initialize the addon API
-            var api = Initializer.Initialize(this.AudioAPI.AudioDeviceManager, this.AudioAPI.AudioSessionManager, this.HotkeyAPI, this.MainWindowHandle, (AppConfig.Configuration.Default as Config)!);
+            var api = Initializer.Initialize(this.AudioAPI.AudioDeviceManager, this.AudioAPI.AudioDeviceSelector, this.AudioAPI.AudioSessionManager, this.AudioAPI.AudioSessionSelector, this.HotkeyAPI, this.MainWindowHandle, (AppConfig.Configuration.Default as Config)!);
 
             VCHotkeyAddon vcHkAddon = new();
 
@@ -80,24 +81,38 @@ namespace VolumeControl.ViewModels
             //  We need to have accessed the Settings property at least once by the time we reach this point
             this.HotkeyAPI.LoadHotkeys();
 
-            this.ListNotificationVM = new();
+            //this.ListNotificationVM = new();
 
             // Add display targets from VCAPI
-            foreach (ListDisplayTarget ldt in VCAPI.Default.ListDisplayTargets)
-            {
-                this.ListNotificationVM.AddDisplayTarget(ldt);
-                Log.Debug($"Added {nameof(ListDisplayTarget)} '{ldt.Name}' from {nameof(VCAPI)}");
-            }
-            // Sort display targets
-            this.ListNotificationVM.DisplayTargets.Sort((l, r) => l.Name.CompareTo(r.Name));
+            //foreach (ListDisplayTarget ldt in VCAPI.Default.ListDisplayTargets)
+            //{
+            //    this.ListNotificationVM.AddDisplayTarget(ldt);
+            //    Log.Debug($"Added {nameof(ListDisplayTarget)} '{ldt.Name}' from {nameof(VCAPI)}");
+            //}
+            //// Sort display targets
+            //this.ListNotificationVM.DisplayTargets.Sort((l, r) => l.Name.CompareTo(r.Name));
 
             // Set the active display target
-            this.ListNotificationVM.SetDisplayTarget(this.ListNotificationVM.FindDisplayTarget(Settings.NotificationDisplayTarget) ?? this.ListNotificationVM.FindDisplayTarget(AudioSessionActions.DisplayTargetName)!);
+            //this.ListNotificationVM.SetDisplayTarget(this.ListNotificationVM.FindDisplayTarget(Settings.NotificationDisplayTarget) ?? this.ListNotificationVM.FindDisplayTarget(AudioSessionActions.DisplayTargetName)!);
 
             Log.Info($"Volume Control v{this.CurrentVersionString}");
 
             // attach event to update TargetSessionText & TargetSessionLocked properties
             VCAPI.Default.AudioSessionSelector.PropertyChanged += this.AudioSessionSelector_PropertyChanged;
+
+            //VCEvents.ShowNotification += (s, e) =>
+            //{
+            //    // resolve targets to their VM counterparts
+            //    //ListNotificationVM.ItemsSource = e.Items;
+            //    //ListNotificationVM.SelectedIndex = e.SelectedIndex;
+            //    ListNotificationVM.ForceShow();
+            //};
+
+            // setup autocomplete
+            SessionAutoCompleteSource = GetSessionAutoCompleteSources();
+            // bind to session added/removed events to update the auto complete sources
+            AudioAPI.AudioSessionManager.SessionAddedToList += this.AudioSessionManager_SessionAddedOrRemoved;
+            AudioAPI.AudioSessionManager.SessionRemovedFromList += this.AudioSessionManager_SessionAddedOrRemoved;
         }
 
         #region Events
@@ -121,7 +136,6 @@ namespace VolumeControl.ViewModels
         #region Fields
         #region PrivateFields
         private bool disposedValue;
-        private IEnumerable<string>? _targetAutoCompleteSource;
         #endregion PrivateFields
         //public readonly AddonManager AddonManager;
         public readonly Updater Updater;
@@ -132,7 +146,7 @@ namespace VolumeControl.ViewModels
         /// <summary>
         /// This is used by the target box's autocomplete feature, and is automatically invalidated & refreshed each time the sessions list changes.
         /// </summary>
-        public IEnumerable<string> TargetAutoCompleteSource => _targetAutoCompleteSource ??= GetSessionAutoCompleteSources();
+        public IEnumerable<string> SessionAutoCompleteSource { get; private set; }
         //   this.AudioDeviceManagerVM.GetSessionNames(AudioDeviceManagerVM.SessionNameFormat.ProcessIdentifier | AudioDeviceManagerVM.SessionNameFormat.ProcessName);
         public IEnumerable<IHotkeyAction> Actions { get; internal set; } = null!;
         public IEnumerable<string> NotificationModes { get; set; } = Enum.GetNames(typeof(DisplayTarget));
@@ -159,7 +173,7 @@ namespace VolumeControl.ViewModels
         //public AudioDeviceManagerVM AudioDeviceManagerVM { get; }
         public AudioDeviceManagerVM AudioAPI { get; }
         public HotkeyManager HotkeyAPI { get; }
-        public ListNotificationVM ListNotificationVM { get; }
+        //public ListNotificationVM ListNotificationVM { get; }
         #endregion ParentObjects
 
         public string TargetSessionText
@@ -167,9 +181,18 @@ namespace VolumeControl.ViewModels
             get => Settings.Target.ProcessIdentifier;
             set
             {
-                Settings.Target = AudioAPI.AudioSessionManager.FindSessionWithProcessIdentifier(value) is AudioSession session
-                    ? session.GetTargetInfo()
-                    : new TargetInfo() { ProcessIdentifier = value, SessionInstanceIdentifier = string.Empty };
+                value = value.Trim();
+
+                if (value.Length == 0)
+                {
+                    Settings.Target = TargetInfo.Empty;
+                }
+                else
+                {
+                    Settings.Target = AudioAPI.AudioSessionManager.FindSessionWithProcessIdentifier(value) is AudioSession session
+                        ? session.GetTargetInfo()
+                        : new TargetInfo() { ProcessIdentifier = value, SessionInstanceIdentifier = string.Empty };
+                }
             }
         }
         public bool TargetSessionLocked
@@ -194,27 +217,6 @@ namespace VolumeControl.ViewModels
 
                 Log.Info("Hotkey definitions were reset to default.");
             }
-        }
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                    // Dispose of objects
-                    this.HotkeyAPI?.Dispose();
-
-                disposedValue = true;
-            }
-        }
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            this.Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
-        ~VolumeControlVM()
-        {
-            this.Dispose(disposing: true);
         }
         private static List<string> GetAddonDirectories()
         {
@@ -255,16 +257,22 @@ namespace VolumeControl.ViewModels
         {
             List<string> l = new();
 
-            for (int i = 0; i < AudioAPI.AllSessions.Count; ++i)
+            foreach (var sessionVM in AudioAPI.AllSessions)
             {
-                var sessionVM = AudioAPI.AllSessions[i];
-
                 l.Add(sessionVM.PID.ToString());
                 l.Add(sessionVM.ProcessName);
                 l.Add(sessionVM.ProcessIdentifier);
             }
 
             return l.ToArray();
+        }
+        /// <summary>
+        /// Refreshes the list of auto completion options for the target box.
+        /// </summary>
+        private void RefreshSessionAutoCompleteSources()
+        {
+            SessionAutoCompleteSource = GetSessionAutoCompleteSources();
+            ForceNotifyPropertyChanged(nameof(SessionAutoCompleteSource));
         }
         #endregion Methods
 
@@ -278,13 +286,42 @@ namespace VolumeControl.ViewModels
 
             if (e.PropertyName.Equals(nameof(AudioSessionSelector.Selected)))
             {
-                TargetSessionText = VCAPI.Default.AudioSessionSelector.Selected?.ProcessIdentifier ?? TargetSessionText;
+                TargetSessionText = VCAPI.Default.AudioSessionSelector.Selected?.ProcessIdentifier ?? string.Empty;
             }
             else if (e.PropertyName.Equals(nameof(AudioSessionSelector.LockSelection)))
             {
                 TargetSessionLocked = VCAPI.Default.AudioSessionSelector.LockSelection;
             }
         }
+        /// <summary>
+        /// Refreshes the <see cref="SessionAutoCompleteSource"/> list.
+        /// </summary>
+        private void AudioSessionManager_SessionAddedOrRemoved(object? sender, AudioSession e)
+            => RefreshSessionAutoCompleteSources();
         #endregion Methods (EventHandlers)
+
+        #region IDisposable
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                    // Dispose of objects
+                    this.HotkeyAPI?.Dispose();
+
+                disposedValue = true;
+            }
+        }
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            this.Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+        ~VolumeControlVM()
+        {
+            this.Dispose(disposing: true);
+        }
+        #endregion IDisposable
     }
 }

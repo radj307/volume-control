@@ -1,14 +1,14 @@
-﻿using Audio.Events;
-using Audio.Helpers;
-using Audio.Interfaces;
-using CoreAudio;
+﻿using CoreAudio;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using VolumeControl.Core.Helpers;
+using VolumeControl.CoreAudio.Events;
+using VolumeControl.CoreAudio.Helpers;
+using VolumeControl.CoreAudio.Interfaces;
 using VolumeControl.Log;
 
-namespace Audio
+namespace VolumeControl.CoreAudio
 {
     /// <summary>
     /// A single audio session running on an audio device.
@@ -23,17 +23,13 @@ namespace Audio
 
             PID = AudioSessionControl.ProcessID;
             ProcessName = Process?.ProcessName ?? string.Empty;
-            Name = (AudioSessionControl.DisplayName.Length > 0 && !AudioSessionControl.DisplayName.StartsWith('@')) ? AudioSessionControl.DisplayName : ProcessName;
+            Name = AudioSessionControl.DisplayName.Length > 0 && !AudioSessionControl.DisplayName.StartsWith('@') ? AudioSessionControl.DisplayName : ProcessName;
             ProcessIdentifier = $"{PID}:{ProcessName}";
 
             if (AudioSessionControl.SimpleAudioVolume is null)
-            {
                 throw new NullReferenceException($"{nameof(AudioSession)} '{ProcessName}' ({PID}) {nameof(AudioSessionControl2.SimpleAudioVolume)} is null!");
-            }
             if (AudioSessionControl.AudioMeterInformation is null)
-            {
                 throw new NullReferenceException($"{nameof(AudioSession)} '{ProcessName}' ({PID}) {nameof(AudioSessionControl2.AudioMeterInformation)} is null!");
-            }
 
             AudioSessionControl.OnDisplayNameChanged += this.AudioSessionControl_OnDisplayNameChanged;
             AudioSessionControl.OnIconPathChanged += this.AudioSessionControl_OnIconPathChanged;
@@ -83,7 +79,7 @@ namespace Audio
         #region Properties
         private static LogWriter Log => FLog.Log;
         /// <summary>
-        /// Gets the <see cref="Audio.AudioDevice"/> that this <see cref="AudioSession"/> instance is running on.
+        /// Gets the <see cref="CoreAudio.AudioDevice"/> that this <see cref="AudioSession"/> instance is running on.
         /// </summary>
         public AudioDevice AudioDevice { get; }
         /// <summary>

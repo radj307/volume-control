@@ -1,14 +1,15 @@
 ﻿using CoreAudio;
+using CoreAudio.Interfaces;
 using VolumeControl.Log;
 
-namespace Audio
+namespace VolumeControl.CoreAudio
 {
     /// <summary>
-    /// Manages a list of <see cref="AudioSession"/> instances and their related events for a single <see cref="Audio.AudioDevice"/> instance.
+    /// Manages a list of <see cref="AudioSession"/> instances and their related events for a single <see cref="CoreAudio.AudioDevice"/> instance.
     /// </summary>
     /// <remarks>
-    /// This class is highly coupled to <see cref="Audio.AudioDevice"/>, and cannot be constructed externally.<br/>
-    /// If you're looking for a session manager that works with multiple <see cref="Audio.AudioDevice"/> instances, see <see cref="Audio.AudioSessionManager"/>.
+    /// This class is highly coupled to <see cref="CoreAudio.AudioDevice"/>, and cannot be constructed externally.<br/>
+    /// If you're looking for a session manager that works with multiple <see cref="CoreAudio.AudioDevice"/> instances, see <see cref="CoreAudio.AudioSessionManager"/>.
     /// </remarks>
     public sealed class AudioDeviceSessionManager
     {
@@ -16,7 +17,7 @@ namespace Audio
         /// <summary>
         /// Creates a new <see cref="AudioDeviceSessionManager"/> instance for the given <paramref name="audioDevice"/>.
         /// </summary>
-        /// <param name="audioDevice">The <see cref="Audio.AudioDevice"/> instance to attach this <see cref="AudioDeviceSessionManager"/> instance to.</param>
+        /// <param name="audioDevice">The <see cref="CoreAudio.AudioDevice"/> instance to attach this <see cref="AudioDeviceSessionManager"/> instance to.</param>
         internal AudioDeviceSessionManager(AudioDevice audioDevice)
         {
             AudioDevice = audioDevice;
@@ -52,7 +53,7 @@ namespace Audio
         #region Properties
         private static LogWriter Log => FLog.Log;
         /// <summary>
-        /// Gets the <see cref="Audio.AudioDevice"/> instance that this <see cref="AudioDeviceSessionManager"/> instance is managing.
+        /// Gets the <see cref="CoreAudio.AudioDevice"/> instance that this <see cref="AudioDeviceSessionManager"/> instance is managing.
         /// </summary>
         public AudioDevice AudioDevice { get; }
         internal AudioSessionManager2 AudioSessionManager { get; }
@@ -131,20 +132,16 @@ namespace Audio
         private void Session_StateChanged(object? sender, AudioSessionState e)
         {
             if (e.Equals(AudioSessionState.AudioSessionStateExpired) && sender is AudioSession session)
-            {
                 DeleteSession(session);
-            }
         }
-        private void AudioSessionManager_OnSessionCreated(object sender, CoreAudio.Interfaces.IAudioSessionControl2 newSessionControl)
+        private void AudioSessionManager_OnSessionCreated(object sender, IAudioSessionControl2 newSessionControl)
         {
             newSessionControl.GetSessionInstanceIdentifier(out string newSessionInstanceIdentifier);
             AudioSessionManager.RefreshSessions();
             if (AudioSessionManager.Sessions?.FirstOrDefault(session => session.SessionInstanceIdentifier.Equals(newSessionInstanceIdentifier, StringComparison.Ordinal)) is AudioSessionControl2 audioSessionControl)
             {
                 if (CreateAndAddSessionIfUnique(audioSessionControl) is AudioSession newAudioSession)
-                {
                     Log.Debug($"New {nameof(AudioSession)} '{newAudioSession.ProcessName}' ({newAudioSession.PID}) created; successfully added it to the list.");
-                }
                 else if (FindSessionByAudioSessionControl(audioSessionControl) is AudioSession existingSession)
                 {
                     Log.Error($"New {nameof(AudioSession)} '{existingSession?.ProcessName}' ({existingSession?.PID}) created; but it was already in the list!");

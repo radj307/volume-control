@@ -1,9 +1,11 @@
-﻿using Audio;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Windows.Controls;
 using System.Windows.Media;
+using VolumeControl.CoreAudio;
+using VolumeControl.Helpers;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
 using VolumeControl.WPF;
@@ -11,9 +13,9 @@ using VolumeControl.WPF;
 namespace VolumeControl.ViewModels
 {
     /// <summary>
-    /// ViewModel for the <see cref="Audio.AudioSession"/> class.
+    /// ViewModel for the <see cref="CoreAudio.AudioSession"/> class.
     /// </summary>
-    public class AudioSessionVM : INotifyPropertyChanged, IDisposable
+    public sealed class AudioSessionVM : INotifyPropertyChanged, IDisposable
     {
         #region Constructor
         public AudioSessionVM(AudioSession audioSession)

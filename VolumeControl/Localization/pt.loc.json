@@ -182,6 +182,30 @@
           "Header": {
             "Portuguese (Portugal)": "Notificações"
           },
+          "AdditionalSettings": {
+            "Header": {
+              "Content": {
+                "Portuguese (Portugal)": "Definições Adicionais"
+              },
+              "Tooltip": {}
+            },
+            "ResetPosition": {
+              "Content": {
+                "Portuguese (Portugal)": "Posição de Reposição"
+              },
+              "Tooltip": {
+                "Portuguese (Portugal)": "Repõe a posição da notificação de lista no caso de esta desaparecer da janela de visualização."
+              }
+            },
+            "ForceHide": {
+              "Content": {
+                "Portuguese (Portugal)": "Esconder"
+              },
+              "Tooltip": {
+                "Portuguese (Portugal)": "Forçar o desaparecimento da janela de notificação."
+              }
+            }
+          },
           "Enable": {
             "Content": {
               "Portuguese (Portugal)": "Permitir"

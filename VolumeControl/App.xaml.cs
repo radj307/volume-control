@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using VolumeControl.Controls;
+using VolumeControl.Core;
 using VolumeControl.Log;
 using VolumeControl.ViewModels;
 
@@ -49,7 +50,9 @@ namespace VolumeControl
         #endregion Fields
 
         #region Properties
+#   if DEBUG
         private DebugWindow DebugWindow => (FindResource("DebugWindow") as DebugWindow)!;
+#   endif
         private static LogWriter Log => FLog.Log;
         #endregion Properties
 

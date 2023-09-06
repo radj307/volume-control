@@ -1,8 +1,8 @@
-﻿using Audio.Helpers;
-using CoreAudio;
+﻿using CoreAudio;
+using VolumeControl.CoreAudio.Helpers;
 using VolumeControl.TypeExtensions;
 
-namespace Audio
+namespace VolumeControl.CoreAudio
 {
     /// <summary>
     /// Manages a list of <see cref="AudioDevice"/> instances and related events.
@@ -71,7 +71,7 @@ namespace Audio
         #endregion Fields
 
         #region Properties
-        private static VolumeControl.Log.LogWriter Log => VolumeControl.Log.FLog.Log;
+        private static Log.LogWriter Log => VolumeControl.Log.FLog.Log;
         /// <summary>
         /// Gets the list of <see cref="AudioDevice"/> instances.
         /// </summary>
@@ -192,9 +192,7 @@ namespace Audio
             if (mmDevice.State.Equals(DeviceState.Active))
             {
                 if (CreateAndAddDeviceIfUnique(mmDevice) is AudioDevice newAudioDevice)
-                {
                     Log.Debug($"Detected new {nameof(AudioDevice)} '{newAudioDevice.Name}'; added it to the list.");
-                }
                 else
                 {
                     Log.Error($"Detected new {nameof(AudioDevice)} '{mmDevice.GetDeviceName()}'; it is already in the list!");
@@ -222,9 +220,7 @@ namespace Audio
         {
             Devices.ForEach(device => device.IsDefault = false);
             if (FindDeviceByID(e.DeviceId) is AudioDevice audioDevice)
-            {
                 audioDevice.IsDefault = true;
-            }
         }
         #endregion Methods (_deviceNotificationClient EventHandlers)
     }

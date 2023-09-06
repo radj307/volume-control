@@ -8,7 +8,6 @@
     xmlns:behaviour="clr-namespace:XamlTimers;assembly=XamlTimers"
     xmlns:controls="clr-namespace:VolumeControl.WPF.Controls;assembly=VolumeControl.WPF"
     xmlns:conv="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
-    xmlns:core="clr-namespace:VolumeControl.Core;assembly=VolumeControl.Core"
     xmlns:ctrlz="urn:controlzex"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:extensions="clr-namespace:VolumeControl.WPF.Extensions;assembly=VolumeControl.WPF"
@@ -18,7 +17,6 @@
     xmlns:loc="clr-namespace:CodingSeb.Localization;assembly=CodingSeb.Localization"
     xmlns:local="clr-namespace:VolumeControl"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:sdk="clr-namespace:VolumeControl.SDK;assembly=VolumeControl.SDK"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
     xmlns:vm="clr-namespace:VolumeControl.ViewModels"
     xmlns:wpf="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
@@ -424,6 +422,11 @@
     <Window.Background>
         <SolidColorBrush Color="{StaticResource WindowBackgroundColor}" />
     </Window.Background>
+    <Window.Style>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="ShowInTaskbar" Value="{Binding ShowInTaskbar, Source={StaticResource Settings}, Mode=OneWay}" />
+        </Style>
+    </Window.Style>
 
     <!--  ( Element Layout )  -->
     <!--  Window Border  -->
@@ -657,7 +660,7 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBox
                                             x:Name="targetbox"
-                                            autocomplete:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TargetAutoCompleteSource, Source={StaticResource Settings}}"
+                                            autocomplete:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding SessionAutoCompleteSource, Source={StaticResource Settings}}"
                                             autocomplete:AutoCompleteBehavior.AutoCompleteStringComparison="OrdinalIgnoreCase"
                                             d:Text=""
                                             AutoWordSelection="True"
@@ -715,7 +718,7 @@
                                                             DefaultText='PID'}"
                                                 IsReadOnly="True">
                                                 <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
+                                                    <DataTemplate DataType="{x:Type vm:AudioSessionVM}">
                                                         <TextBlock
                                                             Margin="3,0"
                                                             VerticalAlignment="Center"
@@ -731,7 +734,7 @@
                                                 MinWidth="150"
                                                 Header="{Tr 'VolumeControl.MainWindow.Mixer.MixerGrid.Name.Header',
                                                             DefaultText='Name'}"
-                                                IsReadOnly="False">
+                                                IsReadOnly="True">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate DataType="{x:Type vm:AudioSessionVM}">
                                                         <Grid>
@@ -758,7 +761,7 @@
                                             <!--  Mute  -->
                                             <DataGridTemplateColumn Width="40" Header="{Tr 'VolumeControl.MainWindow.Mixer.MixerGrid.Mute.Header', DefaultText='Mute'}">
                                                 <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
+                                                    <DataTemplate DataType="{x:Type vm:AudioSessionVM}">
                                                         <CheckBox IsChecked="{Binding AudioSession.Mute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
@@ -766,7 +769,7 @@
                                             <!--  Volume  -->
                                             <DataGridTemplateColumn Width="170" Header="{Tr 'VolumeControl.MainWindow.Mixer.MixerGrid.Volume.Header', DefaultText='Volume'}">
                                                 <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
+                                                    <DataTemplate DataType="{x:Type vm:AudioSessionVM}">
                                                         <Grid Margin="1" VerticalAlignment="Center">
                                                             <Grid.RowDefinitions>
                                                                 <RowDefinition Height="Auto" />
@@ -802,7 +805,7 @@
                                                             <TextBox
                                                                 x:Name="dgVolumeTextBox"
                                                                 Grid.Column="2"
-                                                                MinWidth="30"
+                                                                MinWidth="35"
                                                                 Background="#0000"
                                                                 BorderBrush="#0000"
                                                                 BorderThickness="0"
@@ -818,7 +821,7 @@
                                                 Header=""
                                                 IsReadOnly="True">
                                                 <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
+                                                    <DataTemplate DataType="{x:Type vm:AudioSessionVM}">
                                                         <Button
                                                             Padding="6,0"
                                                             Click="Handle_ProcessSelectClick"
@@ -1205,12 +1208,19 @@
                                                              DefaultText=' '}" />
                                         </Expander.Header>
 
-                                        <Grid Margin="5">
+                                        <Grid
+                                            Margin="5,3"
+                                            Background="{StaticResource WindowBorderBrush}"
+                                            FlowDirection="LeftToRight">
+                                            <Grid.OpacityMask>
+                                                <VisualBrush Visual="{Binding ElementName=audioAdditionalSettingsExpanderGridMask}" />
+                                            </Grid.OpacityMask>
+                                            <Border x:Name="audioAdditionalSettingsExpanderGridMask" Style="{StaticResource RoundBorderMaskStyle}" />
+
                                             <WrapPanel
                                                 MaxWidth="{Binding ActualWidth, ElementName=deviceGrid}"
-                                                HorizontalAlignment="Stretch"
-                                                FlowDirection="LeftToRight">
-
+                                                Margin="0,0,0,6"
+                                                HorizontalAlignment="Stretch">
                                                 <CheckBox
                                                     VerticalAlignment="Center"
                                                     Content="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.ShowPeakMeters.Content',
@@ -1412,6 +1422,7 @@
                                         <Label Content="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Header', DefaultText='Notifications'}" Style="{StaticResource HeaderLabelStyle}" />
                                     </Canvas>
 
+                                    <!--  Additional Options Expander  -->
                                     <Expander
                                         Grid.Row="1"
                                         Margin="5,4"
@@ -1426,109 +1437,119 @@
                                                              DefaultText=' '}" />
                                         </Expander.Header>
 
-                                        <Grid FlowDirection="LeftToRight">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition />
-                                                <RowDefinition />
-                                            </Grid.RowDefinitions>
+                                        <Grid Margin="5,3" FlowDirection="LeftToRight">
+                                            <Grid.OpacityMask>
+                                                <VisualBrush Visual="{Binding ElementName=notificationsAdditionalSettingsExpanderGridMask}" />
+                                            </Grid.OpacityMask>
+                                            <Border x:Name="notificationsAdditionalSettingsExpanderGridMask" Style="{StaticResource RoundBorderMaskStyle}" />
 
-                                            <TextBlock Style="{StaticResource TextBlockStyle}" ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.AdditionalSettings.DisplayTarget.Tooltip', DefaultText=' '}">
-                                                <Hyperlink x:Name="DisplayTargetsHyperlink" Click="Handle_DisplayTargetsHyperlinkClick">
-                                                    <TextBlock Text="{Tr 'VolumeControl.MainWindow.Settings.Notifications.AdditionalSettings.DisplayTarget.Content', DefaultText='Display Target:'}" />
-                                                </Hyperlink>
-                                            </TextBlock>
-                                            <Grid Grid.Column="2" Margin="5,8,5,3">
-                                                <Border Name="displayTargetListBoxMask" Style="{StaticResource RoundBorderMaskStyle}" />
-                                                <ListBox
-                                                    Name="displayTargetListBox"
-                                                    ItemsSource="{Binding ListNotificationVM.DisplayTargets, Source={StaticResource Settings}, Mode=OneWay}"
-                                                    SelectedItem="{Binding ListNotificationVM.CurrentDisplayTarget, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Style="{StaticResource ListBoxStyle}"
-                                                    ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.AdditionalSettings.DisplayTargetList.Tooltip',
-                                                                 DefaultText=' '}">
-                                                    <ListBox.OpacityMask>
-                                                        <VisualBrush Visual="{Binding ElementName=displayTargetListBoxMask}" />
-                                                    </ListBox.OpacityMask>
-                                                    <ListBox.ItemContainerStyle>
-                                                        <Style TargetType="{x:Type ListBoxItem}">
-                                                            <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
-                                                                    <Setter Property="Background" Value="#1AAA" />
-                                                                    <Setter Property="FontWeight" Value="DemiBold" />
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
-                                                                    <Setter Property="Background" Value="#3AAA" />
-                                                                </DataTrigger>
-                                                                <MultiDataTrigger>
-                                                                    <MultiDataTrigger.Conditions>
-                                                                        <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
-                                                                        <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
-                                                                    </MultiDataTrigger.Conditions>
-                                                                    <Setter Property="Background" Value="#4AAA" />
-                                                                    <Setter Property="FontWeight" Value="Bold" />
-                                                                </MultiDataTrigger>
-                                                            </Style.Triggers>
-                                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                                                            <Setter Property="Padding" Value="3,1" />
-                                                            <Setter Property="Template">
-                                                                <Setter.Value>
-                                                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                                                        <Border
-                                                                            Padding="{TemplateBinding Padding}"
-                                                                            Background="{TemplateBinding Background}"
-                                                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                                                            BorderThickness="{TemplateBinding BorderThickness}"
-                                                                            FocusVisualStyle="{TemplateBinding FocusVisualStyle}">
-                                                                            <ContentPresenter
-                                                                                Content="{TemplateBinding Content}"
-                                                                                ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                                                                ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                                                ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" />
-                                                                        </Border>
-                                                                    </ControlTemplate>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </Style>
-                                                    </ListBox.ItemContainerStyle>
-                                                    <ListBox.ItemTemplate>
-                                                        <DataTemplate DataType="{x:Type sdk:ListDisplayTarget}">
-                                                            <Grid Margin="3,1">
-                                                                <Grid.ColumnDefinitions>
-                                                                    <ColumnDefinition Width="Auto" />
-                                                                    <ColumnDefinition Width="*" />
-                                                                    <ColumnDefinition Width="Auto" />
-                                                                </Grid.ColumnDefinitions>
+                                            <Grid Margin="6,5">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition MinWidth="20" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
 
-                                                                <Image
-                                                                    Grid.Column="0"
-                                                                    Width="{Binding Height, RelativeSource={RelativeSource Self}}"
-                                                                    Margin="2,1"
-                                                                    HorizontalAlignment="Left"
-                                                                    Source="{Binding Icon}"
-                                                                    Visibility="{Binding ShowIcons, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                                <!--  Column 0  -->
+                                                <CheckBox
+                                                    Grid.Row="0"
+                                                    Margin="5,3"
+                                                    HorizontalAlignment="Left"
+                                                    Content="{Tr 'VolumeControl.ListNotification.Options.DragRequiresAlt.Content',
+                                                                 DefaultText='Drag Requires Alt'}"
+                                                    IsChecked="{Binding NotificationDragRequiresAlt, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Style="{StaticResource CheckBoxStyle}"
+                                                    ToolTip="{Tr 'VolumeControl.ListNotification.Options.DragRequiresAlt.Tooltip',
+                                                                 DefaultText='When checked, the ALT key must be held down in order to drag the notification window around with the mouse.'}" />
+                                                <CheckBox
+                                                    Grid.Row="1"
+                                                    Margin="5,3"
+                                                    HorizontalAlignment="Left"
+                                                    Content="{Tr 'VolumeControl.ListNotification.Options.SavePosition.Tooltip',
+                                                                 DefaultText='Save Position'}"
+                                                    IsChecked="{Binding NotificationSavesPosition, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Style="{StaticResource CheckBoxStyle}"
+                                                    ToolTip="{Tr 'VolumeControl.ListNotification.Options.SavePosition.Tooltip',
+                                                                 DefaultText=' '}" />
 
-                                                                <TextBlock
-                                                                    Grid.Column="2"
-                                                                    Style="{StaticResource TextBlockStyle}"
-                                                                    Text="{Binding Name}" />
+                                                <!--  Fade In (Row 0; Column 1-2)  -->
+                                                <CheckBox
+                                                    x:Name="doFadeInCheckBox"
+                                                    Grid.Column="1"
+                                                    Margin="0,0,2.5,0"
+                                                    HorizontalAlignment="Left"
+                                                    Content="{Tr 'VolumeControl.ListNotification.Options.DoFadeIn.Content',
+                                                                 DefaultText='Fade In'}"
+                                                    IsChecked="{Binding NotificationDoFadeIn, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                                                    Style="{StaticResource CheckBoxStyle}"
+                                                    ToolTip="{Tr 'VolumeControl.ListNotification.Options.DoFadeIn.Tooltip',
+                                                                 DefaultText='When checked, the notification window shows a fade-in animation instead of instantly appearing.'}" />
+                                                <TextBox
+                                                    Grid.Column="2"
+                                                    Margin="5,1.5"
+                                                    IsEnabled="{Binding IsChecked, ElementName=doFadeInCheckBox}"
+                                                    Style="{StaticResource RoundedTextBoxStyle}"
+                                                    Text="{Binding NotificationFadeInDuration, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                    ToolTip="{Tr 'VolumeControl.ListNotification.Options.FadeIn.Tooltip',
+                                                                 DefaultText='Specifies the duration of the fade-in animation in milliseconds.'}" />
 
-                                                            </Grid>
-                                                        </DataTemplate>
-                                                    </ListBox.ItemTemplate>
-                                                </ListBox>
-                                            </Grid>
+                                                <!--  Fade Out (Row 1; Column 1-2)  -->
+                                                <CheckBox
+                                                    x:Name="doFadeOutCheckBox"
+                                                    Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    Margin="0,0,2.5,0"
+                                                    HorizontalAlignment="Left"
+                                                    Content="{Tr 'VolumeControl.ListNotification.Options.DoFadeOut.Content',
+                                                                 DefaultText='Fade Out'}"
+                                                    IsChecked="{Binding NotificationDoFadeOut, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                                                    Style="{StaticResource CheckBoxStyle}"
+                                                    ToolTip="{Tr 'VolumeControl.ListNotification.Options.DoFadeOut.Tooltip',
+                                                                 DefaultText='When checked, the notification window shows a fade-out animation instead of instantly disappearing.'}" />
+                                                <TextBox
+                                                    Grid.Row="1"
+                                                    Grid.Column="2"
+                                                    Margin="5,1.5"
+                                                    IsEnabled="{Binding IsChecked, ElementName=doFadeOutCheckBox}"
+                                                    Style="{StaticResource RoundedTextBoxStyle}"
+                                                    Text="{Binding NotificationFadeOutDuration, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                    ToolTip="{Tr 'VolumeControl.ListNotification.Options.FadeOut.Tooltip',
+                                                                 DefaultText='Specifies the duration of the fade-out animation in milliseconds.'}" />
 
-                                            <Grid Grid.Row="1" Grid.ColumnSpan="2">
-                                                <Button
-                                                    Click="Handle_ResetNotificationPositionClick"
-                                                    Content="{Tr 'VolumeControl.MainWindow.Settings.Notifications.AdditionalSettings.ResetPosition.Content'}"
-                                                    Style="{StaticResource RedButtonStyle}"
-                                                    ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.AdditionalSettings.ResetPosition.Tooltip'}" />
+                                                <!--  Row 2  -->
+                                                <Grid
+                                                    Grid.Row="2"
+                                                    Grid.ColumnSpan="3"
+                                                    HorizontalAlignment="Stretch">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <Button
+                                                        Margin="5,3"
+                                                        Padding="6,0"
+                                                        Click="Handle_ResetNotificationPositionClick"
+                                                        Content="{Tr 'VolumeControl.MainWindow.Settings.Notifications.AdditionalSettings.ResetPosition.Content',
+                                                                     DefaultText='Reset Notification Position'}"
+                                                        Style="{StaticResource RedButtonStyle}"
+                                                        ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.AdditionalSettings.ResetPosition.Tooltip'}" />
+                                                    <Button
+                                                        Grid.Column="1"
+                                                        Margin="5,3"
+                                                        Padding="6,0"
+                                                        Click="Handle_ForceHideNotificationClick"
+                                                        Content="{Tr 'VolumeControl.MainWindow.Settings.Notifications.AdditionalSettings.ForceHide.Content',
+                                                                     DefaultText='Hide'}"
+                                                        Style="{StaticResource RedButtonStyle}"
+                                                        ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.AdditionalSettings.ForceHide.Tooltip',
+                                                                     DefaultText='Forces the notification window to disappear.'}" />
+                                                </Grid>
                                             </Grid>
                                         </Grid>
                                     </Expander>
@@ -1547,7 +1568,7 @@
                                             Margin="3,0"
                                             Content="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Enable.Content',
                                                          DefaultText='Enable'}"
-                                            IsChecked="{Binding ListNotificationVM.Enabled, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                                            IsChecked="{Binding NotificationEnabled, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource CheckBoxStyle}"
                                             ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Enable.Tooltip',
                                                          DefaultText='Toggle whether or not notifications appear when switching the target session.'}" />
@@ -1556,7 +1577,7 @@
                                             Margin="3,0"
                                             Content="{Tr 'VolumeControl.MainWindow.Settings.Notifications.OnVolumeChange.Content',
                                                          DefaultText='On Volume Change'}"
-                                            IsChecked="{Binding ListNotificationVM.ShowsVolumeChange, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                                            IsChecked="{Binding NotificationShowsVolumeChange, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                             IsEnabled="{Binding IsChecked, ElementName=cbEnableNotifications}"
                                             Style="{StaticResource CheckBoxStyle}"
                                             ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.OnVolumeChange.Tooltip',
@@ -1571,7 +1592,7 @@
                                             <CheckBox
                                                 Content="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Timeout.Content',
                                                              DefaultText='Timeout'}"
-                                                IsChecked="{Binding ListNotificationVM.TimeoutEnabled, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                IsChecked="{Binding NotificationTimeoutEnabled, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 Style="{StaticResource ApplicationSettingsCheckboxStyle}"
                                                 ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Timeout.Tooltip',
                                                              DefaultText='The amount of time in milliseconds that notifications will remain visible after being triggered.'}" />
@@ -1579,10 +1600,10 @@
                                                 MinWidth="88"
                                                 HorizontalAlignment="Stretch"
                                                 DockPanel.Dock="Right"
-                                                MinValue="100"
+                                                MinValue="500"
                                                 ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Timeout.Tooltip',
                                                              DefaultText='The amount of time in milliseconds that notifications will remain visible after being triggered.'}"
-                                                Value="{Binding ListNotificationVM.Timeout, Mode=TwoWay, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}">
+                                                Value="{Binding NotificationTimeout, Mode=TwoWay, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}">
                                                 <i:Interaction.Behaviors>
                                                     <wpf:MouseWheelNumericUpDownBehavior Amount="50" />
                                                 </i:Interaction.Behaviors>

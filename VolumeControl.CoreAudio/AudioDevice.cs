@@ -1,12 +1,12 @@
-﻿using Audio.Events;
-using Audio.Helpers;
-using Audio.Interfaces;
-using CoreAudio;
+﻿using CoreAudio;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using VolumeControl.CoreAudio.Events;
+using VolumeControl.CoreAudio.Helpers;
+using VolumeControl.CoreAudio.Interfaces;
 using VolumeControl.Log;
 
-namespace Audio
+namespace VolumeControl.CoreAudio
 {
     /// <summary>
     /// An audio endpoint device.
@@ -23,17 +23,11 @@ namespace Audio
             ID = mmDevice.ID;
 
             if (MMDevice.AudioSessionManager2 is null)
-            {
                 throw new NullReferenceException($"{nameof(AudioDevice)} '{Name}' has a null {nameof(MMDevice.AudioSessionManager2)} property!");
-            }
             if (MMDevice.AudioEndpointVolume is null)
-            {
                 throw new NullReferenceException($"{nameof(AudioDevice)} '{Name}' has a null {nameof(MMDevice.AudioEndpointVolume)} property!");
-            }
             if (MMDevice.AudioMeterInformation is null)
-            {
                 throw new NullReferenceException($"{nameof(AudioDevice)} '{Name}' has a null {nameof(MMDevice.AudioMeterInformation)} property!");
-            }
 
             SessionManager = new(this);
 

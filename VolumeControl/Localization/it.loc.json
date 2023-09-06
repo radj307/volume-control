@@ -243,14 +243,21 @@
               },
               "Tooltip": {}
             },
-            "DisplayTarget": {
+            "ResetPosition": {
               "Content": {
-                "Italiano (Italian)": "Visualizza destinazione:"
+                "Italiano (Italian)": "Ripristina Posizione"
               },
-              "Tooltip": {}
+              "Tooltip": {
+                "Italiano (Italian)": "Reimpostare la posizione della notifica dell'elenco nel caso in cui scompaia dal riquadro di visualizzazione."
+              }
             },
-            "DisplayTargetList": {
-              "Tooltip": {}
+            "ForceHide": {
+              "Content": {
+                "Italiano (Italian)": "Nascondere"
+              },
+              "Tooltip": {
+                "Italiano (Italian)": "Forza la scomparsa della finestra di notifica."
+              }
             }
           },
           "Enable": {

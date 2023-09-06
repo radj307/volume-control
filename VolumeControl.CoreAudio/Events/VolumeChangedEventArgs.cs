@@ -1,8 +1,8 @@
-﻿using Audio.Helpers;
-using Audio.Interfaces;
-using CoreAudio;
+﻿using CoreAudio;
+using VolumeControl.CoreAudio.Helpers;
+using VolumeControl.CoreAudio.Interfaces;
 
-namespace Audio.Events
+namespace VolumeControl.CoreAudio.Events
 {
     /// <summary>
     /// Contains event data for the <see cref="VolumeChangedEventHandler"/> event type.
