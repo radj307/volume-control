@@ -7,7 +7,6 @@ using System.Linq;
 using System.Windows;
 using VolumeControl.Core;
 using VolumeControl.Core.Enum;
-using VolumeControl.Core.Helpers;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.CoreAudio;
 using VolumeControl.Helpers;
@@ -80,32 +79,10 @@ namespace VolumeControl.ViewModels
             //  We need to have accessed the Settings property at least once by the time we reach this point
             this.HotkeyAPI.LoadHotkeys();
 
-            //this.ListNotificationVM = new();
-
-            // Add display targets from VCAPI
-            //foreach (ListDisplayTarget ldt in VCAPI.Default.ListDisplayTargets)
-            //{
-            //    this.ListNotificationVM.AddDisplayTarget(ldt);
-            //    Log.Debug($"Added {nameof(ListDisplayTarget)} '{ldt.Name}' from {nameof(VCAPI)}");
-            //}
-            //// Sort display targets
-            //this.ListNotificationVM.DisplayTargets.Sort((l, r) => l.Name.CompareTo(r.Name));
-
-            // Set the active display target
-            //this.ListNotificationVM.SetDisplayTarget(this.ListNotificationVM.FindDisplayTarget(Settings.NotificationDisplayTarget) ?? this.ListNotificationVM.FindDisplayTarget(AudioSessionActions.DisplayTargetName)!);
-
             Log.Info($"Volume Control v{this.CurrentVersionString}");
 
-            // attach event to update TargetSessionText & TargetSessionLocked properties
+            // attach event to update TargetSessionText & LockTargetSession properties
             VCAPI.Default.AudioSessionSelector.PropertyChanged += this.AudioSessionSelector_PropertyChanged;
-
-            //VCEvents.ShowNotification += (s, e) =>
-            //{
-            //    // resolve targets to their VM counterparts
-            //    //ListNotificationVM.ItemsSource = e.Items;
-            //    //ListNotificationVM.SelectedIndex = e.SelectedIndex;
-            //    ListNotificationVM.ForceShow();
-            //};
 
             // setup autocomplete
             SessionAutoCompleteSource = GetSessionAutoCompleteSources();
