@@ -5,7 +5,7 @@ namespace VolumeControl.SDK.Delegates
     /// <summary>
     /// Represents a method that can be used by Volume Control to generate a hotkey action.
     /// </summary>
-    /// <param name="sender">The <see cref="Hotkeys."/></param>
+    /// <param name="sender"></param>
     /// <param name="e"></param>
     public delegate void HotkeyActionDelegate(object? sender, HandledEventArgs e);
     public delegate void HotkeyActionDelegate<T1>(object? sender, HandledEventArgs e, T1 opt1);

@@ -214,7 +214,7 @@ namespace VolumeControl.Log
         /// <param name="ts">The timestamp object.</param>
         /// <param name="lines">Any number of lines of any object type.</param>
         /// <inheritdoc cref="WriteWithTimestamp(string, object?[])"/>
-        public void WriteWithTimestamp(ITimestamp ts, params object?[] lines) => this.WriteWithTimestamp(ts.ToString(), lines);
+        public void WriteWithTimestamp(ITimestamp ts, params object?[] lines) => this.WriteWithTimestamp(ts.ToString() ?? string.Empty, lines);
 
         /// <summary>Creates a trace message for the calling method using the <see cref="CallerMemberNameAttribute"/>, <see cref="CallerFilePathAttribute"/>, &amp; <see cref="CallerLineNumberAttribute"/> attributes.</summary>
         /// <remarks>Don't provide parameters or the attributes won't work.</remarks>

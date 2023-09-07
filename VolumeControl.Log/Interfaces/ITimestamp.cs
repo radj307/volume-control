@@ -67,7 +67,5 @@ namespace VolumeControl.Log.Interfaces
         /// <returns>A <see cref="string"/> with the time-point and event type specified by the <see cref="ITimestamp"/>.</returns>
         static string MakeHeader(ITimestamp timestamp, string? format)
             => $"{timestamp.GetTimePoint(format)}{timestamp.GetEventType()}{timestamp.GetMargin()}";
-        /// <inheritdoc cref="MakeHeader(ITimestamp, string?)"/>
-        //string ToString();
     }
 }

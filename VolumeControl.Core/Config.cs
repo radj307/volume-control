@@ -177,10 +177,6 @@ namespace VolumeControl.Core
         /// </summary>
         public bool NotificationSavePos { get; set; } = true;
         /// <summary>
-        /// Gets or sets whether controls from <see cref="Interfaces.IListDisplayable.DisplayControls"/> are shown or not.
-        /// </summary>
-        //public bool NotificationShowsCustomControls { get; set; } = true;
-        /// <summary>
         /// Gets or sets the corner from which ListNotification size transform operations are rooted.
         /// </summary>
         public ScreenCorner NotificationPositionOriginCorner { get; set; } = ScreenCorner.BottomLeft;
