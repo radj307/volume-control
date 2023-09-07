@@ -52,15 +52,6 @@ namespace VolumeControl.ViewModels
             Log.Debug("Finished initializing Audio Sessions.");
         }
 
-        private void AudioSessionManager_SessionAddedToList(object? sender, AudioSession e)
-            => Dispatcher.Invoke(() => AllSessions.Add(new AudioSessionVM(e)));
-        private void AudioSessionManager_SessionRemovedFromList(object? sender, AudioSession e)
-        {
-            var vm = AllSessions.First(svm => svm.AudioSession.Equals(e));
-            AllSessions.Remove(vm);
-            vm.Dispose();
-        }
-
         #region Events
         public event PropertyChangedEventHandler? PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
@@ -80,7 +71,28 @@ namespace VolumeControl.ViewModels
         public AudioSessionSelector AudioSessionSelector { get; }
         #endregion Properties
 
-        #region Methods (EventHandlers)
+        #region Methods
+        /// <summary>
+        /// Gets the viewmodel object for the given <paramref name="audioDevice"/> instance.
+        /// </summary>
+        /// <param name="audioDevice">An <see cref="AudioDevice"/> instance.</param>
+        /// <returns>The <see cref="AudioDeviceVM"/> instance associated with the given device, or <see langword="null"/> if it wasn't found.</returns>
+        public AudioDeviceVM? GetAudioDeviceVM(AudioDevice audioDevice)
+            => Devices.FirstOrDefault(audioDeviceVM => audioDeviceVM!.AudioDevice.Equals(audioDevice), null);
+        /// <summary>
+        /// Gets the viewmodel object for the given <paramref name="audioSession"/> instance.
+        /// </summary>
+        /// <param name="audioSession">An <see cref="AudioSession"/> instance.</param>
+        /// <returns>The <see cref="AudioSessionVM"/> instance associated with the given session, or <see langword="null"/> if it wasn't found.</returns>
+        public AudioSessionVM? GetAudioSessionVM(AudioSession audioSession)
+            => AllSessions.FirstOrDefault(audioSessionVM => audioSessionVM!.AudioSession.Equals(audioSession), null);
+        public AudioSessionVM? FindAudioSessionVMWithProcessIdentifier(string processIdentifier)
+            => AudioSessionManager.FindSessionWithProcessIdentifier(processIdentifier) is AudioSession session
+                ? GetAudioSessionVM(session)
+                : null;
+        #endregion Methods
+
+        #region AudioDeviceManager EventHandler Methods
         private void AudioDeviceManager_DeviceAddedToList(object? sender, AudioDevice e)
         {
             var vm = new AudioDeviceVM(e);
@@ -96,6 +108,17 @@ namespace VolumeControl.ViewModels
             AudioSessionManager.RemoveSessionManager(vm.AudioDevice.SessionManager);
             vm.Dispose();
         }
-        #endregion Methods (EventHandlers)
+        #endregion AudioDeviceManager EventHandler Methods
+
+        #region AudioSessionManager EventHandler Methods
+        private void AudioSessionManager_SessionAddedToList(object? sender, AudioSession e)
+            => Dispatcher.Invoke(() => AllSessions.Add(new AudioSessionVM(e)));
+        private void AudioSessionManager_SessionRemovedFromList(object? sender, AudioSession e)
+        {
+            var vm = AllSessions.First(svm => svm.AudioSession.Equals(e));
+            AllSessions.Remove(vm);
+            vm.Dispose();
+        }
+        #endregion AudioSessionManager EventHandler Methods
     }
 }
