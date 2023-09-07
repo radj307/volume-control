@@ -241,10 +241,7 @@ namespace VolumeControl.ViewModels
         /// Refreshes the list of auto completion options for the target box.
         /// </summary>
         private void RefreshSessionAutoCompleteSources()
-        {
-            SessionAutoCompleteSource = GetSessionAutoCompleteSources();
-            ForceNotifyPropertyChanged(nameof(SessionAutoCompleteSource));
-        }
+            => SessionAutoCompleteSource = GetSessionAutoCompleteSources();
         #endregion Methods
 
         #region Methods (EventHandlers)
