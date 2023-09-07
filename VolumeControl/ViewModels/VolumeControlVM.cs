@@ -112,8 +112,8 @@ namespace VolumeControl.ViewModels
         #region Fields
         #region PrivateFields
         private bool disposedValue;
+        private bool _updatingAudioSessionSelectorFromTargetSessionText = false;
         #endregion PrivateFields
-        //public readonly AddonManager AddonManager;
         public readonly Updater Updater;
         #endregion Fields
 
@@ -154,21 +154,33 @@ namespace VolumeControl.ViewModels
 
         public string TargetSessionText
         {
-            get => Settings.Target.ProcessIdentifier;
+            get => AudioAPI.AudioSessionSelector.Selected?.ProcessIdentifier ?? Settings.Target.ProcessIdentifier;
             set
             {
                 value = value.Trim();
 
-                if (value.Length == 0)
+                _updatingAudioSessionSelectorFromTargetSessionText = true;
+
+                if (value.Length > 0)
                 {
-                    Settings.Target = TargetInfo.Empty;
+                    if (AudioAPI.AudioSessionManager.FindSessionWithProcessIdentifier(value) is AudioSession session)
+                    { // text resolves to a valid AudioSession, select it:
+                        AudioAPI.AudioSessionSelector.Selected = session;
+                    }
+                    else
+                    { // text does not resolve to a valid AudioSession:
+                        // update Settings.Target with the (invalid) process identifier directly.
+                        //  This causes the AudioSessionSelector to receive a PropertyChanged event and deselect the previously selected session.
+                        //  AudioSessionSelector has code to prevent overwriting Settings.Target in this case.
+                        Settings.Target = new() { ProcessIdentifier = value };
+                    }
                 }
                 else
                 {
-                    Settings.Target = AudioAPI.AudioSessionManager.FindSessionWithProcessIdentifier(value) is AudioSession session
-                        ? session.GetTargetInfo()
-                        : new TargetInfo() { ProcessIdentifier = value, SessionInstanceIdentifier = string.Empty };
+                    AudioAPI.AudioSessionSelector.Selected = null;
                 }
+
+                _updatingAudioSessionSelectorFromTargetSessionText = false;
             }
         }
         #endregion Properties
@@ -254,7 +266,10 @@ namespace VolumeControl.ViewModels
 
             if (e.PropertyName.Equals(nameof(AudioSessionSelector.Selected)))
             {
-                TargetSessionText = VCAPI.Default.AudioSessionSelector.Selected?.ProcessIdentifier ?? string.Empty;
+                if (!_updatingAudioSessionSelectorFromTargetSessionText)
+                {
+                    ForceNotifyPropertyChanged(nameof(TargetSessionText));
+                }
             }
             else if (e.PropertyName.Equals(nameof(AudioSessionSelector.LockSelection)))
             {

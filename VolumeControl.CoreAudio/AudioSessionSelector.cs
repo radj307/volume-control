@@ -28,6 +28,10 @@ namespace VolumeControl.CoreAudio
         }
         #endregion Initializer
 
+        #region Fields
+        private bool _updatingSelectedFromSettingsPropertyChanged = false;
+        #endregion Fields
+
         #region Properties
         private static Config Settings => (Config.Default as Config)!;
         AudioSessionManager AudioSessionManager { get; }
@@ -51,9 +55,20 @@ namespace VolumeControl.CoreAudio
 
                 _selected = value;
 
+                // update the TargetInfo in the settings
                 if (_selected == null)
-                {// we have to do this here to avoid calls to the getter from data bindings preventing us from setting this to null
-                    Settings.Target = VolumeControl.Core.Helpers.TargetInfo.Empty;
+                {
+                    // prevent erasing invalid (but not blank) Settings.Target values
+                    //  This allows invalid strings to remain in the targetbox without them
+                    //  being overwritten when they don't resolve to a valid session.
+                    if (!_updatingSelectedFromSettingsPropertyChanged)
+                    { // Selected is being set to null from a source other than the Settings.Target property:
+                        Settings.Target = Core.Helpers.TargetInfo.Empty;
+                    }
+                }
+                else
+                {
+                    Settings.Target = _selected.GetTargetInfo();
                 }
 
                 NotifyPropertyChanged();
@@ -185,7 +200,9 @@ namespace VolumeControl.CoreAudio
         {
             if (e.PropertyName?.Equals(nameof(Config.Target)) ?? false)
             {
+                _updatingSelectedFromSettingsPropertyChanged = true;
                 Selected = AudioSessionManager.FindSessionWithSessionInstanceIdentifier(Settings.Target.SessionInstanceIdentifier);
+                _updatingSelectedFromSettingsPropertyChanged = false;
             }
         }
         #endregion EventHandlers
