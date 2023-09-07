@@ -258,7 +258,7 @@ namespace VolumeControl.ViewModels
             }
             else if (e.PropertyName.Equals(nameof(AudioSessionSelector.LockSelection)))
             {
-                TargetSessionLocked = VCAPI.Default.AudioSessionSelector.LockSelection;
+                LockTargetSession = VCAPI.Default.AudioSessionSelector.LockSelection;
             }
         }
         /// <summary>
