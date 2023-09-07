@@ -194,11 +194,6 @@ namespace VolumeControl.ViewModels
                 }
             }
         }
-        public bool TargetSessionLocked
-        {
-            get => Settings.LockTargetSession;
-            set => Settings.LockTargetSession = value;
-        }
         #endregion Properties
 
         #region Methods

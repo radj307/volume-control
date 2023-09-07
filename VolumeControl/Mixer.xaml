@@ -685,8 +685,7 @@
                                             Margin="3"
                                             Content="{Tr 'VolumeControl.MainWindow.Mixer.TargetBox.LockTarget',
                                                          DefaultText='Lock'}"
-                                            DataContext="{StaticResource Settings}"
-                                            IsChecked="{Binding TargetSessionLocked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
+                                            IsChecked="{Binding LockTargetSession, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource CheckBoxStyle}" />
                                     </Grid>
                                 </Border>

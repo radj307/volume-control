@@ -208,6 +208,12 @@ namespace VolumeControl.Helpers
             get => Settings.NotificationSavePos;
             set => Settings.NotificationSavePos = value;
         }
+        /// <inheritdoc cref="Config.LockTargetSession"/>
+        public bool LockTargetSession
+        {
+            get => Settings.LockTargetSession;
+            set => Settings.LockTargetSession = value;
+        }
         /// <summary>
         /// This is read-only since there wouldn't be a way for volume control to find the config again after restarting
         /// </summary>
