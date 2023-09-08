@@ -7,6 +7,7 @@
     xmlns:conv="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="clr-namespace:VolumeControl.Core.Helpers;assembly=VolumeControl.Core"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:inputActions="clr-namespace:VolumeControl.Core.Input.Actions;assembly=VolumeControl.Core"
     xmlns:local="clr-namespace:VolumeControl"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -86,7 +87,11 @@
                                         Padding="3,1"
                                         VerticalAlignment="Center"
                                         VerticalContentAlignment="Center"
-                                        Text="{Binding Value, UpdateSourceTrigger=LostFocus}" />
+                                        Text="{Binding Value, UpdateSourceTrigger=LostFocus}">
+                                        <i:Interaction.Behaviors>
+                                            <wpf:TextBoxAutocompleteBehavior ItemsSource="{Binding SessionAutoCompleteSource, Source={StaticResource Settings}}" StringComparison="OrdinalIgnoreCase" />
+                                        </i:Interaction.Behaviors>
+                                    </TextBox>
                                     <Button
                                         Grid.Column="1"
                                         Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
