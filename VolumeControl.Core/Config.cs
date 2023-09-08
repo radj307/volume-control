@@ -299,27 +299,22 @@ namespace VolumeControl.Core
         /// <summary>
         /// Gets or sets the interval (in milliseconds) between updating the audio peak meters.
         /// </summary>
-        /// <remarks><b>Default: 500ms</b></remarks>
         public int PeakMeterUpdateIntervalMs { get; set; } = 100;
         /// <summary>
         /// Gets or sets whether or not peak meters are shown in the mixer.
         /// </summary>
-        /// <remarks><b>Default: <see langword="true"/></b></remarks>
         public bool ShowPeakMeters { get; set; } = true;
         /// <summary>
         /// The minimum boundary shown on peak meters.
         /// </summary>
-        /// <remarks><b>0.0</b></remarks>
         public const double PeakMeterMinValue = 0.0;
         /// <summary>
         /// The maximum boundary shown on peak meters.
         /// </summary>
-        /// <remarks><b>1.0</b></remarks>
         public const double PeakMeterMaxValue = 1.0;
         /// <summary>
         /// Gets or sets whether volume &amp; mute controls are visible in the Audio Devices list.
         /// </summary>
-        /// <remarks><b>Default: <see langword="false"/></b></remarks>
         public bool EnableDeviceControl { get; set; } = false;
         #endregion Audio
 
