@@ -5,28 +5,29 @@
 
 ***
 
-A universal, portable, and extensible hotkey framework that lets you control the volume of specific applications, and a whole lot more.  
-Designed for adjusting the volume of your music independently of other programs, such as games and VoIP.  
-
+<p align="center">
+The ultimate Windows Volume Mixer alternative with custom keybinding support.<br/>
+Designed for effortless music volume control *(Spotify, Deezer, Chrome, Firefox, etc.)* without disrupting gaming or VoIP audio.
+</p>
 
 ## What It Does
 
 - Makes your keyboard's volume slider useful
-- Provides you with an alternative to media keys if you don't have them
-- Adds a fully configurable hotkey framework that can be extended via [user-created addons](https://radj307.github.io/volume-control/html/md_docs__addon_development.html)
-- Has all of the same features as Windows' Volume Mixer
+- Serves as a viable alternative to media keys, even if your keyboard lacks them.
+- Introduces a highly customizable hotkey framework, extensible through [user-created addons](https://radj307.github.io/volume-control/html/md_docs__addon_development.html).
+- Includes all of the same features as the Windows Volume Mixer while making better use of screen space.
 - And more!
 
 
 ## How does it work?
 
-Volume Control uses the same method as the built-in windows volume mixer to modify the volume of specific applications, and the Win32 API to create hotkey combinations; resulting in little to no latency when pressing a hotkey.  
+Volume Control leverages the Win32 API to establish seamless native hotkeys, effectively superseding default Windows keybindings with minimal latency. Employing the identical approach as the native Windows volume mixer, it offers compatibility with all applications.
 
-You can have an unlimited number of distinct hotkey combinations at the same time, and each hotkey can be assigned an action. These determine what happens when you press the associated key combination. Most common actions are provided by default, such as *Volume Up*, *Volume Down*, & *Toggle Mute*. You can also write your own actions in C# and use them in Volume Control.
+Volume Control empowers users with an unlimited array of unique hotkey combinations, each fully customizable with specific actions. The default options include common actions like "Volume Up," "Volume Down," and "Toggle Mute." Furthermore, you have the flexibility to create and integrate your own custom actions in C# to enhance Volume Control's functionality.
 
 # Getting Started
 
-Getting started is simple; first, download the [latest release](https://github.com/radj307/volume-control/releases/latest).  
+Getting started is simple. Download the [latest release](https://github.com/radj307/volume-control/releases/latest), and proceed to the [installation instructions](#installation).
 
 
 ## Installation
@@ -40,13 +41,15 @@ If you're unsure about where to choose as a location, create a directory in your
 
 ## Setup
 Before starting the program for the first time, you have to unblock the executable from the properties menu.  
-This is necessary because Windows Defender requires paying *&gt;$300* a year for a [Microsoft-approved publishing certificate](https://docs.microsoft.com/en-us/windows-hardware/drivers/dashboard/get-a-code-signing-certificate) in order to prevent Windows Defender from blocking it.  
-*If you're unsure, you're can always run it through [VirusTotal](https://www.virustotal.com/gui/home/upload) first, or check the source code yourself.*
+This is necessary because Windows requires paying *&gt;$300* a year for a [Microsoft-approved publishing certificate](https://docs.microsoft.com/en-us/windows-hardware/drivers/dashboard/get-a-code-signing-certificate) in order to prevent Windows Defender from blocking it.  
+*If you're unsure, you can always run it through [VirusTotal](https://www.virustotal.com/gui/home/upload) first, or check the source code yourself.*
 
  1. R+Click on `VolumeControl.exe` in the file explorer and select *Properties* in the context menu.  
  2. Check the box next to *Unblock:*  
  ![](https://i.imgur.com/NMI4m4F.png)  
  3. Click **Ok** to save the changes.  
+
+All that's left now is to run the application.
 
 
 ## Usage
