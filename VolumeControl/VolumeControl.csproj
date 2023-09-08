@@ -110,9 +110,6 @@
     <PackageReference Include="PropertyChanged.Fody" Version="4.0.1">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="WPFTextBoxAutoComplete" Version="1.0.5">
-      <NoWarn>NU1701</NoWarn>
-    </PackageReference>
     <PackageReference Include="XamlTimers" Version="1.2.1" />
   </ItemGroup>
   <ItemGroup>
