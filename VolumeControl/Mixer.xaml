@@ -1266,7 +1266,7 @@
                                                     ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.EnableDeviceControl.Tooltip',
                                                                  DefaultText='Toggle the visibility of volume &amp; mute controls in the Audio Devices section.'}" />
 
-                                                <Grid Background="{StaticResource TextBoxBackground}">
+                                                <Grid MinWidth="50" Background="{StaticResource TextBoxBackground}">
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition />
                                                         <RowDefinition />
