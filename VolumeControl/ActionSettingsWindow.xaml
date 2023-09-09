@@ -106,7 +106,6 @@
                         x:Name="AddTargetTextBox"
                         Grid.Row="1"
                         KeyUp="AddTargetTextBox_KeyUp"
-                        LostFocus="AddTargetTextBox_LostFocus"
                         Tag="{Binding ElementName=listBox}">
                         <i:Interaction.Behaviors>
                             <wpf:TextBoxAutocompleteBehavior ItemsSource="{Binding SessionAutoCompleteSource, Source={StaticResource Settings}}" StringComparison="OrdinalIgnoreCase" />

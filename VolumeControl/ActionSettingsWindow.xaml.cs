@@ -1,7 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using VolumeControl.Core.Input.Actions;
+using VolumeControl.SDK;
 using VolumeControl.ViewModels;
 
 namespace VolumeControl
@@ -47,27 +49,17 @@ namespace VolumeControl
 
                 if (setting?.Value is not ActionTargetSpecifier list) return;
 
-                list.Targets.Add(new() { Value = textBox.Text });
+                if (VCAPI.Default.AudioSessionManager.FindSessionWithProcessName(textBox.Text, StringComparison.OrdinalIgnoreCase) is CoreAudio.AudioSession session)
+                {
+                    list.Targets.Add(new() { Value = session.ProcessName });
+                }
+                else
+                {
+                    list.Targets.Add(new() { Value = textBox.Text });
+                }
 
                 textBox.Text = string.Empty;
             }
-        }
-        /// <summary>
-        /// Creates a new target override entry with the text in the textbox when the control loses focus.
-        /// </summary>
-        private void AddTargetTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            var textBox = (TextBox)sender;
-            if (textBox.Text.Trim().Length == 0) return; //< if the text is blank, don't add it to the list
-
-            var listBox = (ListBox)textBox.Tag;
-            var setting = (HotkeyActionSetting)listBox.DataContext;
-
-            if (setting?.Value is not ActionTargetSpecifier list) return;
-
-            list.Targets.Add(new() { Value = textBox.Text });
-
-            textBox.Text = string.Empty;
         }
     }
 }
