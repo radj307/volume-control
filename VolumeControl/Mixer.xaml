@@ -667,6 +667,7 @@
                                             HorizontalScrollBarVisibility="Hidden"
                                             IsEnabled="{Binding IsChecked, ElementName=cbLockTargetSelection, Converter={StaticResource InvertConverter}}"
                                             IsInactiveSelectionHighlightEnabled="True"
+                                            KeyUp="Handle_TextBoxKeyUp_UpdateTextBindingSource"
                                             MouseDoubleClick="Handle_TargetNameBoxDoubleClick"
                                             Style="{StaticResource TextBoxStyle}"
                                             Text="{Binding TargetSessionText, Source={StaticResource Settings}, UpdateSourceTrigger=LostFocus}">

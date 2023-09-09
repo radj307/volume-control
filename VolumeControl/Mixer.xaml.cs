@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using VolumeControl.Core;
 using VolumeControl.Core.Enum;
@@ -291,6 +292,21 @@ namespace VolumeControl
             Settings.HiddenSessionProcessNames.Add(textBox.Text);
             textBox.Text = string.Empty;
             Settings.Save();
+        }
+        /// <summary>
+        /// Update source when the Enter key is pressed while a textbox is focused.
+        /// </summary>
+        private void Handle_TextBoxKeyUp_UpdateTextBindingSource(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                var textBox = (TextBox)sender;
+
+                if (textBox.GetBindingExpression(TextBox.TextProperty) is BindingExpression binding)
+                {
+                    binding.UpdateSource();
+                }
+            }
         }
         #endregion EventHandlers
     }
