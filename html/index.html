@@ -93,27 +93,25 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <p><a href="https://radj307.github.io/volume-control"><img src="https://i.imgur.com/rMbNIhU.png" alt="[Volume Control Banner]" class="inline"/></a><br  />
  <a href="https://github.com/radj307/volume-control/releases/latest"><img src="https://img.shields.io/github/v/tag/radj307/volume-control?color=e8e8e7&amp;label=Latest%20Release&amp;logo=github&amp;logoColor=e8e8e7&amp;sort=semver&amp;style=flat-square" alt="GitHub tag (latest SemVer)" class="inline"/></a>&#160;&#160;&#160;<a href="https://github.com/radj307/volume-control/releases"><img src="https://img.shields.io/github/downloads/radj307/volume-control/total?color=e8e8e7&amp;logo=github&amp;logoColor=e8e8e7&amp;style=flat-square" alt="Downloads" class="inline"/></a>&#160;&#160;&#160;<a href="https://github.com/radj307/volume-control-cli"><img src="https://img.shields.io/github/v/tag/radj307/volume-control-cli?color=e8e8e7&amp;logo=github&amp;logoColor=e8e8e7&amp;label=Latest%20VCCLI%20Version&amp;style=flat-square" alt="Volume Control CLI Latest Version" class="inline"/></a> </p>
 <hr  />
-<p>A universal, portable, and extensible hotkey framework that lets you control the volume of specific applications, and a whole lot more. <br  />
- Designed for adjusting the volume of your music independently of other programs, such as games and VoIP. <br  />
-</p>
+<p align="center"></p>
+<p>The ultimate Windows Volume Mixer alternative with custom keybinding support.<br  />
+ Designed for effortless music volume control *(Spotify, Deezer, Chrome, Firefox, etc.)* without disrupting gaming or VoIP audio. </p>
 <h2><a class="anchor" id="autotoc_md41"></a>
 What It Does</h2>
 <ul>
 <li>Makes your keyboard's volume slider useful</li>
-<li>Provides you with an alternative to media keys if you don't have them</li>
-<li>Adds a fully configurable hotkey framework that can be extended via <a href="https://radj307.github.io/volume-control/html/md_docs__addon_development.html">user-created addons</a></li>
-<li>Has all of the same features as Windows' Volume Mixer</li>
+<li>Serves as a viable alternative to media keys, even if your keyboard lacks them.</li>
+<li>Introduces a highly customizable hotkey framework, extensible through <a href="https://radj307.github.io/volume-control/html/md_docs__addon_development.html">user-created addons</a>.</li>
+<li>Includes all of the same features as the Windows Volume Mixer while making better use of screen space.</li>
 <li>And more!</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md42"></a>
 How does it work?</h2>
-<p>Volume Control uses the same method as the built-in windows volume mixer to modify the volume of specific applications, and the Win32 API to create hotkey combinations; resulting in little to no latency when pressing a hotkey. <br  />
-</p>
-<p>You can have an unlimited number of distinct hotkey combinations at the same time, and each hotkey can be assigned an action. These determine what happens when you press the associated key combination. Most common actions are provided by default, such as <em>Volume Up</em>, <em>Volume Down</em>, &amp; <em>Toggle Mute</em>. You can also write your own actions in C# and use them in Volume Control.</p>
+<p>Volume Control leverages the Win32 API to establish seamless native hotkeys, effectively superseding default Windows keybindings with minimal latency. Employing the identical approach as the native Windows volume mixer, it offers compatibility with all applications.</p>
+<p>Volume Control empowers users with an unlimited array of unique hotkey combinations, each fully customizable with specific actions. The default options include common actions like "Volume Up," "Volume Down," and "Toggle Mute." Furthermore, you have the flexibility to create and integrate your own custom actions in C# to enhance Volume Control's functionality.</p>
 <h1><a class="anchor" id="autotoc_md43"></a>
 Getting Started</h1>
-<p>Getting started is simple; first, download the <a href="https://github.com/radj307/volume-control/releases/latest">latest release</a>. <br  />
-</p>
+<p>Getting started is simple. Download the <a href="https://github.com/radj307/volume-control/releases/latest">latest release</a>, and proceed to the <a href="#installation">installation instructions</a>.</p>
 <h2><a class="anchor" id="autotoc_md44"></a>
 Installation</h2>
 <p>Because Volume Control is portable, there is no installation required. <br  />
@@ -124,8 +122,8 @@ Installation</h2>
 <h2><a class="anchor" id="autotoc_md45"></a>
 Setup</h2>
 <p>Before starting the program for the first time, you have to unblock the executable from the properties menu. <br  />
- This is necessary because Windows Defender requires paying <em>&gt;$300</em> a year for a <a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/dashboard/get-a-code-signing-certificate">Microsoft-approved publishing certificate</a> in order to prevent Windows Defender from blocking it. <br  />
- <em>If you're unsure, you're can always run it through <a href="https://www.virustotal.com/gui/home/upload">VirusTotal</a> first, or check the source code yourself.</em></p>
+ This is necessary because Windows requires paying <em>&gt;$300</em> a year for a <a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/dashboard/get-a-code-signing-certificate">Microsoft-approved publishing certificate</a> in order to prevent Windows Defender from blocking it. <br  />
+ <em>If you're unsure, you can always run it through <a href="https://www.virustotal.com/gui/home/upload">VirusTotal</a> first, or check the source code yourself.</em></p>
 <ol type="1">
 <li>R+Click on <code>VolumeControl.exe</code> in the file explorer and select <em>Properties</em> in the context menu. <br  />
 </li>
@@ -135,6 +133,7 @@ Setup</h2>
 <li>Click <b>Ok</b> to save the changes. <br  />
 </li>
 </ol>
+<p>All that's left now is to run the application.</p>
 <h2><a class="anchor" id="autotoc_md46"></a>
 Usage</h2>
 <p>First, enable the <b>Volume Up</b> &amp; <b>Volume Down</b> hotkeys from the <b>Hotkeys</b> tab by checking the box to the left of the hotkey name. If you don't have a volume slider, change the key from the dropdown. You can also set a modifier key with the checkboxes to the right of the dropdown.</p>

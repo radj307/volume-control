@@ -1,8 +1,9 @@
 <map id="VolumeControl.CoreAudio.AudioSession" name="VolumeControl.CoreAudio.AudioSession">
-<area shape="rect" id="node1" title="A single audio session running on an audio device." alt="" coords="332,160,525,457"/>
+<area shape="rect" id="node1" title="A single audio session running on an audio device." alt="" coords="320,315,513,612"/>
 <area shape="rect" id="node2" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_control.html" title="Represents an audio instance with a controllable volume level and mute state." alt="" coords="5,5,135,112"/>
-<area shape="rect" id="node3" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html" title="Represents an audio instance with a read&#45;only volume level and mute state." alt="" coords="159,5,333,112"/>
-<area shape="rect" id="node4" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_peak_meter.html" title="Represents some kind of object that has an audio peak meter." alt="" coords="357,20,500,97"/>
-<area shape="rect" id="node5" title=" " alt="" coords="524,20,701,97"/>
-<area shape="rect" id="node6" title=" " alt="" coords="726,20,825,97"/>
+<area shape="rect" id="node4" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_hideable_audio_control.html" title="Represents an audio instance that can be prevented from becoming selected." alt="" coords="47,175,215,252"/>
+<area shape="rect" id="node3" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html" title="Represents an audio instance with a read&#45;only volume level and mute state." alt="" coords="239,160,413,267"/>
+<area shape="rect" id="node5" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_peak_meter.html" title="Represents some kind of object that has an audio peak meter." alt="" coords="437,175,580,252"/>
+<area shape="rect" id="node6" title=" " alt="" coords="604,175,781,252"/>
+<area shape="rect" id="node7" title=" " alt="" coords="806,175,905,252"/>
 </map>

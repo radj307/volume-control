@@ -1,5 +1,6 @@
 var namespace_volume_control_1_1_core =
 [
+    [ "Summary:", "md_docs__addon_development.html#autotoc_md17", null ],
     [ "Attributes", "namespace_volume_control_1_1_core_1_1_attributes.html", "namespace_volume_control_1_1_core_1_1_attributes" ],
     [ "Enum", "namespace_volume_control_1_1_core_1_1_enum.html", "namespace_volume_control_1_1_core_1_1_enum" ],
     [ "Helpers", "namespace_volume_control_1_1_core_1_1_helpers.html", "namespace_volume_control_1_1_core_1_1_helpers" ],

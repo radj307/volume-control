@@ -12,9 +12,9 @@ var dir_664a3e44ef2f2a17c41aa8f100901d0a =
     [ "HWndHookWPFMaximizeBugFix.cs", null, null ],
     [ "IconGetter.cs", null, null ],
     [ "IconPair.cs", null, null ],
-    [ "Item.cs", null, null ],
     [ "MouseWheelListViewBehavior.cs", null, null ],
     [ "MouseWheelNumericUpDownBehavior.cs", null, null ],
     [ "MouseWheelRangeBaseBehavior.cs", null, null ],
+    [ "TextBoxAutocompleteBehavior.cs", null, null ],
     [ "WindowHandleGetter.cs", null, null ]
 ];

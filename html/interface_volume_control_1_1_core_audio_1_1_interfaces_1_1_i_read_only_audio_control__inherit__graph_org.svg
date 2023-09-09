@@ -68,16 +68,16 @@
 <polyline fill="none" stroke="black" points="163,-192.5 308,-192.5 "/>
 <text text-anchor="start" x="171" y="-180.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ pid</text>
 <text text-anchor="start" x="171" y="-169.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Log</text>
-<text text-anchor="start" x="171" y="-158.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AudioDevice</text>
-<text text-anchor="start" x="171" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AudioSessionControl</text>
-<text text-anchor="start" x="171" y="-136.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SimpleAudioVolume</text>
-<text text-anchor="start" x="171" y="-125.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AudioMeterInformation</text>
-<text text-anchor="start" x="171" y="-114.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ PID</text>
-<text text-anchor="start" x="171" y="-103.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ProcessName</text>
-<text text-anchor="start" x="171" y="-92.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
-<text text-anchor="start" x="171" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Process</text>
-<text text-anchor="start" x="171" y="-70.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ProcessIdentifier</text>
-<text text-anchor="start" x="171" y="-59.5" font-family="Helvetica,sans-Serif" font-size="10.00">and 6 more...</text>
+<text text-anchor="start" x="171" y="-158.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Settings</text>
+<text text-anchor="start" x="171" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AudioDevice</text>
+<text text-anchor="start" x="171" y="-136.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AudioSessionControl</text>
+<text text-anchor="start" x="171" y="-125.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SimpleAudioVolume</text>
+<text text-anchor="start" x="171" y="-114.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AudioMeterInformation</text>
+<text text-anchor="start" x="171" y="-103.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ PID</text>
+<text text-anchor="start" x="171" y="-92.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ProcessName</text>
+<text text-anchor="start" x="171" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
+<text text-anchor="start" x="171" y="-70.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Process</text>
+<text text-anchor="start" x="171" y="-59.5" font-family="Helvetica,sans-Serif" font-size="10.00">and 8 more...</text>
 <polyline fill="none" stroke="black" points="163,-52.5 308,-52.5 "/>
 <text text-anchor="start" x="171" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GetProcess()</text>
 <text text-anchor="start" x="171" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GetTargetInfo()</text>

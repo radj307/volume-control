@@ -1,6 +1,5 @@
 var files_dup =
 [
-    [ "VolumeControl.Audio", "dir_6669490ab7341c9adf099ef9202f5515.html", "dir_6669490ab7341c9adf099ef9202f5515" ],
     [ "VolumeControl.Core", "dir_269c642ea8ba511592b8a0a4f9f45a95.html", "dir_269c642ea8ba511592b8a0a4f9f45a95" ],
     [ "VolumeControl.CoreAudio", "dir_3c6838849607e203fe924ef654e420b1.html", "dir_3c6838849607e203fe924ef654e420b1" ],
     [ "VolumeControl.Hotkeys", "dir_ddfc1f683bca628c730f408f75b564d1.html", "dir_ddfc1f683bca628c730f408f75b564d1" ],

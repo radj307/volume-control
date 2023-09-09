@@ -126,16 +126,6 @@ var menudata={children:[
 {text:"u",url:"functions_prop_u.html#index_u"},
 {text:"v",url:"functions_prop_v.html#index_v"},
 {text:"w",url:"functions_prop_w.html#index_w"}]},
-{text:"Events",url:"functions_evnt.html",children:[
-{text:"c",url:"functions_evnt.html#index_c"},
-{text:"d",url:"functions_evnt.html#index_d"},
-{text:"e",url:"functions_evnt.html#index_e"},
-{text:"i",url:"functions_evnt.html#index_i"},
-{text:"l",url:"functions_evnt.html#index_l"},
-{text:"p",url:"functions_evnt.html#index_p"},
-{text:"r",url:"functions_evnt.html#index_r"},
-{text:"s",url:"functions_evnt.html#index_s"},
-{text:"t",url:"functions_evnt.html#index_t"},
-{text:"v",url:"functions_evnt.html#index_v"}]}]}]},
+{text:"Events",url:"functions_evnt.html"}]}]},
 {text:"Files",url:"files.html",children:[
 {text:"File List",url:"files.html"}]}]}

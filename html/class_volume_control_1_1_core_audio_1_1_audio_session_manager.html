@@ -100,7 +100,8 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_core_audio_1_
 <div class="dynheader">
 Collaboration diagram for VolumeControl.CoreAudio.AudioSessionManager:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_audio_1_1_audio_session_manager__coll__graph.svg" width="274" height="294"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_audio_1_1_audio_session_manager__coll__graph.svg" width="274" height="323"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -144,6 +145,9 @@ Properties</h2></td></tr>
 <tr class="memitem:a9503528e0f5df1a72c573d8fe136386f"><td class="memItemLeft" align="right" valign="top">IReadOnlyList&lt; <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html">AudioSession</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a9503528e0f5df1a72c573d8fe136386f">Sessions</a><code> [get]</code></td></tr>
 <tr class="memdesc:a9503528e0f5df1a72c573d8fe136386f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the list of <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> instances currently being managed by this <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html" title="Manages a list of AudioSession instances and their related events for any number of AudioDeviceSessio...">AudioSessionManager</a> instance.  <a href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a9503528e0f5df1a72c573d8fe136386f">More...</a><br /></td></tr>
 <tr class="separator:a9503528e0f5df1a72c573d8fe136386f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a121e46541bfd55095d28d676ee220ebc"><td class="memItemLeft" align="right" valign="top">IReadOnlyList&lt; <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html">AudioSession</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a121e46541bfd55095d28d676ee220ebc">HiddenSessions</a><code> [get]</code></td></tr>
+<tr class="memdesc:a121e46541bfd55095d28d676ee220ebc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the list of hidden <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> instances (AudioSession.IsHidden) currently being managed by this <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html" title="Manages a list of AudioSession instances and their related events for any number of AudioDeviceSessio...">AudioSessionManager</a> instance.  <a href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a121e46541bfd55095d28d676ee220ebc">More...</a><br /></td></tr>
+<tr class="separator:a121e46541bfd55095d28d676ee220ebc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
 Events</h2></td></tr>
@@ -153,6 +157,12 @@ Events</h2></td></tr>
 <tr class="memitem:acde78fae0aba1ca2c7230d8be737de4d"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html">AudioSession</a> &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#acde78fae0aba1ca2c7230d8be737de4d">SessionRemovedFromList</a></td></tr>
 <tr class="memdesc:acde78fae0aba1ca2c7230d8be737de4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Occurs when an <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> is removed from the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a9503528e0f5df1a72c573d8fe136386f" title="Gets the list of AudioSession instances currently being managed by this AudioSessionManager instance.">Sessions</a> list for any reason.  <a href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#acde78fae0aba1ca2c7230d8be737de4d">More...</a><br /></td></tr>
 <tr class="separator:acde78fae0aba1ca2c7230d8be737de4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafce14d1aef6963ce1b2e30cbf6bfe77"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html">AudioSession</a> &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#aafce14d1aef6963ce1b2e30cbf6bfe77">SessionAddedToHiddenList</a></td></tr>
+<tr class="memdesc:aafce14d1aef6963ce1b2e30cbf6bfe77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Occurs when an <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> is added to the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a121e46541bfd55095d28d676ee220ebc" title="Gets the list of hidden AudioSession instances (AudioSession.IsHidden) currently being managed by thi...">HiddenSessions</a> list for any reason.  <a href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#aafce14d1aef6963ce1b2e30cbf6bfe77">More...</a><br /></td></tr>
+<tr class="separator:aafce14d1aef6963ce1b2e30cbf6bfe77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5b372c36b33c73d2e036a01558b4c6b"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html">AudioSession</a> &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#af5b372c36b33c73d2e036a01558b4c6b">SessionRemovedFromHiddenList</a></td></tr>
+<tr class="memdesc:af5b372c36b33c73d2e036a01558b4c6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Occurs when an <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> is removed from the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a121e46541bfd55095d28d676ee220ebc" title="Gets the list of hidden AudioSession instances (AudioSession.IsHidden) currently being managed by thi...">HiddenSessions</a> list for any reason.  <a href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#af5b372c36b33c73d2e036a01558b4c6b">More...</a><br /></td></tr>
+<tr class="separator:af5b372c36b33c73d2e036a01558b4c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa46abf52d60580c0d585c20247585226"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_session_manager.html">AudioDeviceSessionManager</a> &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#aa46abf52d60580c0d585c20247585226">SessionManagerAddedToList</a></td></tr>
 <tr class="memdesc:aa46abf52d60580c0d585c20247585226"><td class="mdescLeft">&#160;</td><td class="mdescRight">Occurs when an <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_session_manager.html" title="Manages a list of AudioSession instances and their related events for a single CoreAudio....">AudioDeviceSessionManager</a> is added to the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#ab9844a7f905a7219e2c731fb13b0c359" title="Gets the list of AudioDeviceSessionManager instances currently being managed by this AudioSessionMana...">SessionManagers</a> list for any reason.  <a href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#aa46abf52d60580c0d585c20247585226">More...</a><br /></td></tr>
 <tr class="separator:aa46abf52d60580c0d585c20247585226"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,6 +191,8 @@ Events</h2></td></tr>
 
 <p>Creates a new <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html" title="Manages a list of AudioSession instances and their related events for any number of AudioDeviceSessio...">AudioSessionManager</a> instance without any <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#ab9844a7f905a7219e2c731fb13b0c359" title="Gets the list of AudioDeviceSessionManager instances currently being managed by this AudioSessionMana...">SessionManagers</a>. </p>
 
+<p class="reference">References <a class="el" href="#l00322">VolumeControl.Core.Config.HiddenSessionProcessNames</a>.</p>
+
 </div>
 </div>
 <a id="aac6b1105f5d8dfe44b1d0cd65118124a"></a>
@@ -207,7 +219,7 @@ Events</h2></td></tr>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00163">VolumeControl.CoreAudio.AudioSessionManager.AddSessionManager()</a>.</p>
+<p class="reference">References <a class="el" href="#l00203">VolumeControl.CoreAudio.AudioSessionManager.AddSessionManager()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -242,9 +254,9 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> when successful; otherwise <code>false</code> if the <em>sessionManager</em>  is already in the list.</dd></dl>
 
-<p class="reference">References <a class="el" href="#l00044">VolumeControl.CoreAudio.AudioDeviceSessionManager.SessionAddedToList</a>, <a class="el" href="#l00060">VolumeControl.CoreAudio.AudioSessionManager.SessionManagers</a>, and <a class="el" href="#l00049">VolumeControl.CoreAudio.AudioDeviceSessionManager.SessionRemovedFromList</a>.</p>
+<p class="reference">References <a class="el" href="#l00044">VolumeControl.CoreAudio.AudioDeviceSessionManager.SessionAddedToList</a>, <a class="el" href="#l00076">VolumeControl.CoreAudio.AudioSessionManager.SessionManagers</a>, and <a class="el" href="#l00049">VolumeControl.CoreAudio.AudioDeviceSessionManager.SessionRemovedFromList</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="#l00186">VolumeControl.CoreAudio.AudioSessionManager.AddSessionManagers()</a>, and <a class="el" href="#l00024">VolumeControl.CoreAudio.AudioSessionManager.AudioSessionManager()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00226">VolumeControl.CoreAudio.AudioSessionManager.AddSessionManagers()</a>, and <a class="el" href="#l00029">VolumeControl.CoreAudio.AudioSessionManager.AudioSessionManager()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -278,7 +290,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The number of <em>sessionManagers</em>  that were successfully added to the list.</dd></dl>
 
-<p class="reference">References <a class="el" href="#l00163">VolumeControl.CoreAudio.AudioSessionManager.AddSessionManager()</a>.</p>
+<p class="reference">References <a class="el" href="#l00203">VolumeControl.CoreAudio.AudioSessionManager.AddSessionManager()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -341,7 +353,7 @@ When <code>false</code>, the first process with a matching ID or name is returne
 <dl class="section return"><dt>Returns</dt><dd>ISession if a session was found.<br  />
 Returns null if nothing was found.</dd></dl>
 
-<p class="reference">References <a class="el" href="#l00095">VolumeControl.CoreAudio.AudioSession.PID</a>, <a class="el" href="#l00099">VolumeControl.CoreAudio.AudioSession.ProcessName</a>, and <a class="el" href="#l00068">VolumeControl.CoreAudio.AudioSessionManager.Sessions</a>.</p>
+<p class="reference">References <a class="el" href="#l00097">VolumeControl.CoreAudio.AudioSession.PID</a>, <a class="el" href="#l00101">VolumeControl.CoreAudio.AudioSession.ProcessName</a>, and <a class="el" href="#l00084">VolumeControl.CoreAudio.AudioSessionManager.Sessions</a>.</p>
 
 </div>
 </div>
@@ -370,11 +382,35 @@ Returns null if nothing was found.</dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> when successful; otherwise <code>false</code> when the <em>sessionManager</em>  wasn't in the list.</dd></dl>
 
-<p class="reference">References <a class="el" href="#l00044">VolumeControl.CoreAudio.AudioDeviceSessionManager.SessionAddedToList</a>, <a class="el" href="#l00060">VolumeControl.CoreAudio.AudioSessionManager.SessionManagers</a>, and <a class="el" href="#l00049">VolumeControl.CoreAudio.AudioDeviceSessionManager.SessionRemovedFromList</a>.</p>
+<p class="reference">References <a class="el" href="#l00044">VolumeControl.CoreAudio.AudioDeviceSessionManager.SessionAddedToList</a>, <a class="el" href="#l00076">VolumeControl.CoreAudio.AudioSessionManager.SessionManagers</a>, and <a class="el" href="#l00049">VolumeControl.CoreAudio.AudioDeviceSessionManager.SessionRemovedFromList</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
+<a id="a121e46541bfd55095d28d676ee220ebc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a121e46541bfd55095d28d676ee220ebc">&#9670;&nbsp;</a></span>HiddenSessions</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">IReadOnlyList&lt;<a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html">AudioSession</a>&gt; VolumeControl.CoreAudio.AudioSessionManager.HiddenSessions</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the list of hidden <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> instances (AudioSession.IsHidden) currently being managed by this <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html" title="Manages a list of AudioSession instances and their related events for any number of AudioDeviceSessio...">AudioSessionManager</a> instance. </p>
+
+</div>
+</div>
 <a id="ab9844a7f905a7219e2c731fb13b0c359"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab9844a7f905a7219e2c731fb13b0c359">&#9670;&nbsp;</a></span>SessionManagers</h2>
 
@@ -397,7 +433,7 @@ Returns null if nothing was found.</dd></dl>
 
 <p>Gets the list of <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_session_manager.html" title="Manages a list of AudioSession instances and their related events for a single CoreAudio....">AudioDeviceSessionManager</a> instances currently being managed by this <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html" title="Manages a list of AudioSession instances and their related events for any number of AudioDeviceSessio...">AudioSessionManager</a> instance. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00163">VolumeControl.CoreAudio.AudioSessionManager.AddSessionManager()</a>, and <a class="el" href="#l00200">VolumeControl.CoreAudio.AudioSessionManager.RemoveSessionManager()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00203">VolumeControl.CoreAudio.AudioSessionManager.AddSessionManager()</a>, and <a class="el" href="#l00240">VolumeControl.CoreAudio.AudioSessionManager.RemoveSessionManager()</a>.</p>
 
 </div>
 </div>
@@ -423,11 +459,27 @@ Returns null if nothing was found.</dd></dl>
 
 <p>Gets the list of <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> instances currently being managed by this <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html" title="Manages a list of AudioSession instances and their related events for any number of AudioDeviceSessio...">AudioSessionManager</a> instance. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00101">VolumeControl.CoreAudio.AudioSessionManager.FindSessionWithProcessIdentifier()</a>, <a class="el" href="#l00122">VolumeControl.CoreAudio.AudioSessionSelector.SelectNextSession()</a>, and <a class="el" href="#l00139">VolumeControl.CoreAudio.AudioSessionSelector.SelectPreviousSession()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00125">VolumeControl.CoreAudio.AudioSessionManager.FindSessionWithProcessIdentifier()</a>, <a class="el" href="#l00122">VolumeControl.CoreAudio.AudioSessionSelector.SelectNextSession()</a>, and <a class="el" href="#l00139">VolumeControl.CoreAudio.AudioSessionSelector.SelectPreviousSession()</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Event Documentation</h2>
+<a id="aafce14d1aef6963ce1b2e30cbf6bfe77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafce14d1aef6963ce1b2e30cbf6bfe77">&#9670;&nbsp;</a></span>SessionAddedToHiddenList</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EventHandler&lt;<a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html">AudioSession</a>&gt;? VolumeControl.CoreAudio.AudioSessionManager.SessionAddedToHiddenList</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Occurs when an <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> is added to the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a121e46541bfd55095d28d676ee220ebc" title="Gets the list of hidden AudioSession instances (AudioSession.IsHidden) currently being managed by thi...">HiddenSessions</a> list for any reason. </p>
+
+</div>
+</div>
 <a id="ac660a9c3101077d26a523bd2851ce0f4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac660a9c3101077d26a523bd2851ce0f4">&#9670;&nbsp;</a></span>SessionAddedToList</h2>
 
@@ -473,6 +525,22 @@ Returns null if nothing was found.</dd></dl>
 </div><div class="memdoc">
 
 <p>Occurs when an <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_session_manager.html" title="Manages a list of AudioSession instances and their related events for a single CoreAudio....">AudioDeviceSessionManager</a> is removed from the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#ab9844a7f905a7219e2c731fb13b0c359" title="Gets the list of AudioDeviceSessionManager instances currently being managed by this AudioSessionMana...">SessionManagers</a> list for any reason. </p>
+
+</div>
+</div>
+<a id="af5b372c36b33c73d2e036a01558b4c6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5b372c36b33c73d2e036a01558b4c6b">&#9670;&nbsp;</a></span>SessionRemovedFromHiddenList</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EventHandler&lt;<a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html">AudioSession</a>&gt;? VolumeControl.CoreAudio.AudioSessionManager.SessionRemovedFromHiddenList</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Occurs when an <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> is removed from the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a121e46541bfd55095d28d676ee220ebc" title="Gets the list of hidden AudioSession instances (AudioSession.IsHidden) currently being managed by thi...">HiddenSessions</a> list for any reason. </p>
 
 </div>
 </div>
