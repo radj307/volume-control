@@ -275,11 +275,24 @@ namespace VolumeControl.CoreAudio
                 foreach (var item in e.OldItems)
                 {
                     var processName = (string)item;
-                    if (HiddenSessions.FirstOrDefault(hiddenSession => hiddenSession.ProcessName.Equals(processName, StringComparison.Ordinal)) is AudioSession session)
+
+                    // we have to enumerate the entire list here because of applications 
+                    //  like Discord that have multiple identically-named audio sessions:
+                    for (int i = HiddenSessions.Count - 1; i >= 0; --i)
                     {
-                        RemoveSession(session); //< remove from hidden sessions list
-                        AddSession(session); //< add to sessions list
+                        var hiddenSession = HiddenSessions[i];
+                        if (hiddenSession.ProcessName.Equals(processName, StringComparison.Ordinal))
+                        {
+                            RemoveSession(hiddenSession); //< remove from hidden sessions list
+                            AddSession(hiddenSession); //< add to sessions list
+                        }
                     }
+
+                    //if (HiddenSessions.FirstOrDefault(hiddenSession => hiddenSession.ProcessName.Equals(processName, StringComparison.Ordinal)) is AudioSession session)
+                    //{
+                    //    RemoveSession(session); //< remove from hidden sessions list
+                    //    AddSession(session); //< add to sessions list
+                    //}
                 }
             }
             if (e.NewItems is not null)
@@ -287,11 +300,24 @@ namespace VolumeControl.CoreAudio
                 foreach (var item in e.NewItems)
                 {
                     var processName = (string)item;
-                    if (Sessions.FirstOrDefault(hiddenSession => hiddenSession.ProcessName.Equals(processName, StringComparison.Ordinal)) is AudioSession session)
+
+                    // we have to enumerate the entire list here because of applications 
+                    //  like Discord that have multiple identically-named audio sessions:
+                    for (int i = Sessions.Count - 1; i >= 0; --i)
                     {
-                        RemoveSession(session); //< remove from sessions list
-                        AddSession(session); //< add to hidden sessions list
+                        var session = Sessions[i];
+                        if (session.ProcessName.Equals(processName, StringComparison.Ordinal))
+                        {
+                            RemoveSession(session); //< remove from hidden sessions list
+                            AddSession(session); //< add to sessions list
+                        }
                     }
+
+                    //if (Sessions.FirstOrDefault(hiddenSession => hiddenSession.ProcessName.Equals(processName, StringComparison.Ordinal)) is AudioSession session)
+                    //{
+                    //    RemoveSession(session); //< remove from sessions list
+                    //    AddSession(session); //< add to hidden sessions list
+                    //}
                 }
             }
         }
