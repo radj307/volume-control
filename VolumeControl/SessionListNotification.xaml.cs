@@ -51,6 +51,8 @@ namespace VolumeControl
                 this.Close();
             };
 
+            Settings.PropertyChanged += this.Settings_PropertyChanged;
+
             // bind to the show event
             VCEvents.ShowSessionListNotification += this.VCEvents_ShowSessionListNotification;
         }
@@ -299,6 +301,20 @@ namespace VolumeControl
             Hide();
         }
         #endregion _timer
+
+        #region Settings
+        /// <summary>
+        /// Hides the window if the timeout is enabled while the window is already visible.
+        /// This fixes a bug where the notification window won't automatically disappear.
+        /// </summary>
+        private void Settings_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (IsVisible && (e.PropertyName?.Equals(nameof(Settings.NotificationDoFadeOut), StringComparison.Ordinal) ?? false) && !_timer.Enabled)
+            {
+                Hide();
+            }
+        }
+        #endregion Settings
 
         #region VCEvents
         /// <summary>
