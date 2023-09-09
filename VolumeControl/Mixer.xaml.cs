@@ -277,7 +277,14 @@ namespace VolumeControl
             {
                 var textBox = (TextBox)sender;
                 if (textBox.Text.Trim().Length == 0) return; //< if the text is blank, don't add it to the list
-                Settings.HiddenSessionProcessNames.Add(textBox.Text);
+                if (AudioAPI.AudioSessionManager.FindSessionWithProcessName(textBox.Text, StringComparison.OrdinalIgnoreCase) is CoreAudio.AudioSession session)
+                {
+                    Settings.HiddenSessionProcessNames.Add(session.ProcessName);
+                }
+                else
+                {
+                    Settings.HiddenSessionProcessNames.Add(textBox.Text);
+                }
                 textBox.Text = string.Empty;
                 Settings.Save();
             }
@@ -289,7 +296,14 @@ namespace VolumeControl
         {
             var textBox = (TextBox)sender;
             if (textBox.Text.Trim().Length == 0) return; //< if the text is blank, don't add it to the list
-            Settings.HiddenSessionProcessNames.Add(textBox.Text);
+            if (AudioAPI.AudioSessionManager.FindSessionWithProcessName(textBox.Text, StringComparison.OrdinalIgnoreCase) is CoreAudio.AudioSession session)
+            {
+                Settings.HiddenSessionProcessNames.Add(session.ProcessName);
+            }
+            else
+            {
+                Settings.HiddenSessionProcessNames.Add(textBox.Text);
+            }
             textBox.Text = string.Empty;
             Settings.Save();
         }
