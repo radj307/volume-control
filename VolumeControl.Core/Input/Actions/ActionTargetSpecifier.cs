@@ -11,7 +11,7 @@ namespace VolumeControl.Core.Input.Actions
         /// <summary>
         /// List of targets.
         /// </summary>
-        public ObservableImmutableList<TargetInfoVM> Targets { get; } = new();
+        public ObservableImmutableList<TargetOverrideVM> Targets { get; } = new();
 
         /// <summary>
         /// Creates a new target entry.

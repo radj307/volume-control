@@ -62,20 +62,19 @@
                 <CheckBox IsChecked="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
             </DataTemplate>
             <DataTemplate x:Key="TargetSpecifierDataTemplate" DataType="{x:Type inputActions:HotkeyActionSetting}">
-                <Grid>
+                <Grid MinWidth="50">
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <!--  TODO: Change this to use a ComboBox somehow  -->
                     <ListBox
-                        Name="listBox"
+                        x:Name="listBox"
                         Grid.Row="0"
                         BorderThickness="0"
                         ItemsSource="{Binding Value.Targets}">
                         <ListBox.ItemTemplate>
-                            <DataTemplate DataType="{x:Type helpers:TargetInfoVM}">
+                            <DataTemplate DataType="{x:Type helpers:TargetOverrideVM}">
                                 <Grid Margin="5,1">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
@@ -96,20 +95,23 @@
                                         Grid.Column="1"
                                         Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                                         Click="ListBoxRemoveButton_Click"
-                                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                         Content="-"
-                                        Tag="{Binding}" />
+                                        Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" />
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <Button
+                    <TextBox
+                        x:Name="AddTargetTextBox"
                         Grid.Row="1"
-                        MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                        Click="ListBoxAddButton_Click"
-                        CommandParameter="{Binding ElementName=listBox}"
-                        Content="+" />
+                        KeyUp="AddTargetTextBox_KeyUp"
+                        LostFocus="AddTargetTextBox_LostFocus"
+                        Tag="{Binding ElementName=listBox}">
+                        <i:Interaction.Behaviors>
+                            <wpf:TextBoxAutocompleteBehavior ItemsSource="{Binding SessionAutoCompleteSource, Source={StaticResource Settings}}" StringComparison="OrdinalIgnoreCase" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>

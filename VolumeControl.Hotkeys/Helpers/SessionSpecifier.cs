@@ -13,7 +13,7 @@ namespace VolumeControl.Hotkeys.Helpers
         {
             if (VCAPI.Default.AudioSessionSelector.Selected?.ProcessName is string processName && !Targets.Any(t => t.Value.Equals(processName, StringComparison.OrdinalIgnoreCase)))
             {
-                Targets.Add(new TargetInfoVM()
+                Targets.Add(new TargetOverrideVM()
                 {
                     Value = processName
                 });
