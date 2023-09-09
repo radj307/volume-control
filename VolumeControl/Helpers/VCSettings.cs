@@ -218,6 +218,12 @@ namespace VolumeControl.Helpers
         /// This is read-only since there wouldn't be a way for volume control to find the config again after restarting
         /// </summary>
         public string ConfigLocation => System.IO.Path.Combine(Environment.CurrentDirectory, Settings.Location);
+        /// <inheritdoc cref="Config.HiddenSessionProcessNames"/>
+        public ObservableImmutableList<string> HiddenSessionProcessNames
+        {
+            get => Settings.HiddenSessionProcessNames;
+            set => Settings.HiddenSessionProcessNames = value;
+        }
         #endregion Properties
 
         #region Events

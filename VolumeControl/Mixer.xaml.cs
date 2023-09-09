@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using VolumeControl.Core;
 using VolumeControl.Core.Enum;
 using VolumeControl.Core.Input;
@@ -255,6 +256,41 @@ namespace VolumeControl
                 MessageBoxImage.Information,
                 MessageBoxResult.OK
                 );
+        }
+        /// <summary>
+        /// Handles removing items from the list of hidden audio sessions when the button next to an item is clicked.
+        /// </summary>
+        private void Handle_RemoveHiddenSessionFromListClick(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+
+            Settings.HiddenSessionProcessNames.Remove(button.DataContext);
+            Settings.Save();
+        }
+        /// <summary>
+        /// Handles adding sessions to the list of hidden audio sessions when the user presses the Enter key while focused on the <see cref="AddHiddenSessionTextBox"/>.
+        /// </summary>
+        private void Handle_AddHiddenSessionTextBoxKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                var textBox = (TextBox)sender;
+                if (textBox.Text.Trim().Length == 0) return; //< if the text is blank, don't add it to the list
+                Settings.HiddenSessionProcessNames.Add(textBox.Text);
+                textBox.Text = string.Empty;
+                Settings.Save();
+            }
+        }
+        /// <summary>
+        /// Handles adding sessions to the list of hidden audio sessions when the <see cref="AddHiddenSessionTextBox"/> loses focus.
+        /// </summary>
+        private void Handle_AddHiddenSessionTextBoxLostFocus(object sender, RoutedEventArgs e)
+        {
+            var textBox = (TextBox)sender;
+            if (textBox.Text.Trim().Length == 0) return; //< if the text is blank, don't add it to the list
+            Settings.HiddenSessionProcessNames.Add(textBox.Text);
+            textBox.Text = string.Empty;
+            Settings.Save();
         }
         #endregion EventHandlers
     }

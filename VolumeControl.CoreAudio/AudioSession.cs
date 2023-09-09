@@ -7,13 +7,14 @@ using VolumeControl.CoreAudio.Events;
 using VolumeControl.CoreAudio.Helpers;
 using VolumeControl.CoreAudio.Interfaces;
 using VolumeControl.Log;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.CoreAudio
 {
     /// <summary>
     /// A single audio session running on an audio device.
     /// </summary>
-    public class AudioSession : IAudioControl, IReadOnlyAudioControl, IAudioPeakMeter, INotifyPropertyChanged, IDisposable
+    public class AudioSession : IAudioControl, IReadOnlyAudioControl, IHideableAudioControl, IAudioPeakMeter, INotifyPropertyChanged, IDisposable
     {
         #region Constructor
         internal AudioSession(AudioDevice owningDevice, AudioSessionControl2 audioSessionControl2)
@@ -78,6 +79,7 @@ namespace VolumeControl.CoreAudio
 
         #region Properties
         private static LogWriter Log => FLog.Log;
+        private static Core.Config Settings => (Core.Config.Default as Core.Config)!;
         /// <summary>
         /// Gets the <see cref="CoreAudio.AudioDevice"/> that this <see cref="AudioSession"/> instance is running on.
         /// </summary>
@@ -159,6 +161,27 @@ namespace VolumeControl.CoreAudio
         public float PeakMeterValue
             => AudioMeterInformation.MasterPeakValue;
         #endregion Properties (IVolumePeakMeter)
+        #region Properties (IHideableAudioControl)
+        public bool IsHidden
+        {
+            get => Settings.HiddenSessionProcessNames.Contains(this.ProcessName);
+            set
+            {
+                if (value)
+                { // hide this session
+                    if (IsHidden) return; //< already hidden
+
+                    Settings.HiddenSessionProcessNames.Add(this.ProcessName);
+                }
+                else
+                { // unhide this session
+                    if (!IsHidden) return; //< already not hidden
+
+                    Settings.HiddenSessionProcessNames.RemoveAll(pname => pname.Equals(this.ProcessName, StringComparison.Ordinal));
+                }
+            }
+        }
+        #endregion Properties (IHideableAudioControl)
         #endregion Properties
 
         #region Methods

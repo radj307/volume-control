@@ -1265,6 +1265,57 @@
                                                     ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.EnableDeviceControl.Tooltip',
                                                                  DefaultText='Toggle the visibility of volume &amp; mute controls in the Audio Devices section.'}" />
 
+                                                <Grid Background="{StaticResource TextBoxBackground}">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition />
+                                                        <RowDefinition />
+                                                    </Grid.RowDefinitions>
+
+                                                    <ListBox
+                                                        x:Name="HiddenSessionProcessNamesList"
+                                                        Margin="0"
+                                                        Padding="0"
+                                                        Background="#0000"
+                                                        ItemsSource="{Binding HiddenSessionProcessNames, Source={StaticResource Settings}}"
+                                                        Style="{StaticResource ListBoxStyle}">
+                                                        <ListBox.ItemTemplate>
+                                                            <DataTemplate DataType="{x:Type sys:String}">
+                                                                <Grid>
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="*" />
+                                                                        <ColumnDefinition />
+                                                                    </Grid.ColumnDefinitions>
+
+                                                                    <TextBlock
+                                                                        Margin="5,1"
+                                                                        VerticalAlignment="Center"
+                                                                        Text="{Binding}" />
+                                                                    <Button
+                                                                        Grid.Column="1"
+                                                                        Width="{Binding Height, RelativeSource={RelativeSource Self}, UpdateSourceTrigger=PropertyChanged}"
+                                                                        HorizontalAlignment="Right"
+                                                                        Click="Handle_RemoveHiddenSessionFromListClick"
+                                                                        Content="❌"
+                                                                        Foreground="{StaticResource CancelRed}" />
+                                                                </Grid>
+                                                            </DataTemplate>
+                                                        </ListBox.ItemTemplate>
+                                                    </ListBox>
+                                                    <TextBox
+                                                        x:Name="AddHiddenSessionTextBox"
+                                                        Grid.Row="1"
+                                                        Margin="3,1"
+                                                        Background="#0000"
+                                                        BorderThickness="1"
+                                                        KeyUp="Handle_AddHiddenSessionTextBoxKeyUp"
+                                                        LostFocus="Handle_AddHiddenSessionTextBoxLostFocus"
+                                                        Style="{StaticResource TextBoxStyle}">
+                                                        <i:Interaction.Behaviors>
+                                                            <wpf:TextBoxAutocompleteBehavior ItemsSource="{Binding SessionAutoCompleteSource, Source={StaticResource Settings}}" StringComparison="OrdinalIgnoreCase" />
+                                                        </i:Interaction.Behaviors>
+                                                    </TextBox>
+                                                </Grid>
+
                                             </WrapPanel>
                                         </Grid>
                                     </Expander>

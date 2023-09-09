@@ -316,6 +316,10 @@ namespace VolumeControl.Core
         /// Gets or sets whether volume &amp; mute controls are visible in the Audio Devices list.
         /// </summary>
         public bool EnableDeviceControl { get; set; } = false;
+        /// <summary>
+        /// Gets or sets the list of (process names of) hidden audio sessions.
+        /// </summary>
+        public ObservableImmutableList<string> HiddenSessionProcessNames { get; set; } = new() { };
         #endregion Audio
 
         #region Log
