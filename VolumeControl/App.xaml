@@ -35,11 +35,8 @@
             <!--  Application View Model  -->
             <vm:VolumeControlVM x:Key="Settings" />
 
-            <!--  List Notification Definition  -->
-            <!--<local:ListNotification x:Key="Notification" />-->
-            <!--<local:DebugWindow x:Key="DebugWindow" />-->
+            <!--  Notification Windows  -->
             <local:SessionListNotification x:Key="SessionListNotification" />
-
 
             <CornerRadius x:Key="RoundedControlCorner">4</CornerRadius>
             <CornerRadius x:Key="RoundedWindowCorner">5</CornerRadius>
@@ -141,7 +138,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <!--  TextBlock  -->
             <Style x:Key="TextBlockStyle" TargetType="TextBlock">
                 <Style.Triggers>

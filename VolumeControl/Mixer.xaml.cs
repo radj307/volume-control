@@ -40,13 +40,8 @@ namespace VolumeControl
 
             // Initialize secondary windows so they can run their own code to appear:
 
-            // ListNotification
-            //_ = WindowHandleGetter.GetWindowHandle((this.FindResource("Notification") as ListNotification)!);
-
+            // SessionListNotification
             _ = WindowHandleGetter.GetWindowHandle((this.FindResource("SessionListNotification") as SessionListNotification)!);
-#if DEBUG
-            //(FindResource("DebugWindow") as DebugWindow)!.Show();
-#endif
         }
         #endregion Setup
 

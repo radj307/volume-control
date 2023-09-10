@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using VolumeControl.Core;
-using VolumeControl.Core.Enum;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.CoreAudio;
 using VolumeControl.Helpers;
@@ -123,9 +122,7 @@ namespace VolumeControl.ViewModels
         /// This is used by the target box's autocomplete feature, and is automatically invalidated & refreshed each time the sessions list changes.
         /// </summary>
         public IEnumerable<string> SessionAutoCompleteSource { get; private set; }
-        //   this.AudioDeviceManagerVM.GetSessionNames(AudioDeviceManagerVM.SessionNameFormat.ProcessIdentifier | AudioDeviceManagerVM.SessionNameFormat.ProcessName);
         public IEnumerable<IHotkeyAction> Actions { get; internal set; } = null!;
-        public IEnumerable<string> NotificationModes { get; set; } = Enum.GetNames(typeof(DisplayTarget));
         public IEnumerable<string> AddonDirectories { get; set; } = GetAddonDirectories();
         #endregion Other
 
@@ -152,6 +149,9 @@ namespace VolumeControl.ViewModels
         //public ListNotificationVM ListNotificationVM { get; }
         #endregion ParentObjects
 
+        /// <summary>
+        /// Gets or sets the target session text that appears on the mixer tab.
+        /// </summary>
         public string TargetSessionText
         {
             get => AudioAPI.AudioSessionSelector.Selected?.ProcessIdentifier ?? Settings.Target.ProcessIdentifier;

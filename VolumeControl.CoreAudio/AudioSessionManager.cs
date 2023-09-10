@@ -20,7 +20,7 @@ namespace VolumeControl.CoreAudio
             _sessions = new();
             _hiddenSessions = new();
 
-            Settings.HiddenSessionProcessNames.CollectionChanged += this.HiddenSessionProcessNames_CollectionChanged; ;
+            Settings.HiddenSessionProcessNames.CollectionChanged += this.HiddenSessionProcessNames_CollectionChanged;
         }
         /// <summary>
         /// Creates a new <see cref="AudioSessionManager"/> instance with the given <paramref name="sessionManagers"/>.

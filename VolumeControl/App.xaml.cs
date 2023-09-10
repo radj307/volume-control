@@ -49,9 +49,6 @@ namespace VolumeControl
         #endregion Fields
 
         #region Properties
-#   if DEBUG
-        private DebugWindow DebugWindow => (FindResource("DebugWindow") as DebugWindow)!;
-#   endif
         private static LogWriter Log => FLog.Log;
         #endregion Properties
 
