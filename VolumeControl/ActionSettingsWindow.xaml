@@ -7,6 +7,7 @@
     xmlns:conv="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="clr-namespace:VolumeControl.Core.Helpers;assembly=VolumeControl.Core"
+    xmlns:hotkeyHelpers="clr-namespace:VolumeControl.Hotkeys.Helpers;assembly=VolumeControl.Hotkeys"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:inputActions="clr-namespace:VolumeControl.Core.Input.Actions;assembly=VolumeControl.Core"
     xmlns:local="clr-namespace:VolumeControl"
@@ -14,18 +15,20 @@
     xmlns:sys="clr-namespace:System;assembly=netstandard"
     xmlns:vm="clr-namespace:VolumeControl.ViewModels"
     xmlns:wpf="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
-    Title="{Binding WindowTitle}"
+    x:Name="Window"
     MinWidth="70"
     d:MinHeight="100"
+    Closed="Window_Closed"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
     FontFamily="{StaticResource InterFont}"
+    MouseDown="Window_MouseDown"
+    ResizeMode="NoResize"
     ShowActivated="True"
+    ShowInTaskbar="False"
     SizeToContent="WidthAndHeight"
     WindowStartupLocation="CenterOwner"
-    WindowStyle="ToolWindow"
+    WindowStyle="None"
     mc:Ignorable="d">
-    <Window.DataContext>
-        <vm:ActionSettingsWindowVM />
-    </Window.DataContext>
     <Window.InputBindings>
         <KeyBinding Key="Esc" Command="ApplicationCommands.Close" />
     </Window.InputBindings>
@@ -34,6 +37,16 @@
     </Window.CommandBindings>
     <Window.Resources>
         <ResourceDictionary>
+
+            <sys:Double x:Key="CaptionHeight">22</sys:Double>
+
+            <!--  Converters  -->
+            <conv:ConverterChain x:Key="ListToVisibilityConverter">
+                <conv:ListHasItemsBooleanConverter />
+                <BooleanToVisibilityConverter />
+            </conv:ConverterChain>
+
+            <!--  Styles  -->
             <Style TargetType="{x:Type ListBoxItem}">
                 <Setter Property="Template">
                     <Setter.Value>
@@ -46,15 +59,7 @@
                 </Setter>
             </Style>
 
-            <conv:ConverterChain x:Key="ListToVisibilityConverter">
-                <conv:ListHasItemsBooleanConverter />
-                <BooleanToVisibilityConverter />
-            </conv:ConverterChain>
-
-            <conv:BooleanInverter x:Key="BooleanInverter" />
-
-            <inputActions:HotkeyActionSettingValueTemplateSelector x:Key="DataTemplateSelector" />
-            <!--  These key names are important; don't change them! (See HotkeyActionSettingValueTemplateSelector):  -->
+            <!--  DataTemplates  -->
             <DataTemplate x:Key="StringDataTemplate" DataType="{x:Type inputActions:HotkeyActionSetting}">
                 <TextBox Text="{Binding Value, UpdateSourceTrigger=LostFocus}" />
             </DataTemplate>
@@ -82,6 +87,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <TextBox
+                                        x:Name="textBox"
                                         Grid.Column="0"
                                         Padding="3,1"
                                         VerticalAlignment="Center"
@@ -94,8 +100,10 @@
                                     <Button
                                         Grid.Column="1"
                                         Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                        Height="{Binding Height, ElementName=textBox}"
                                         Click="ListBoxRemoveButton_Click"
-                                        Content="-"
+                                        Content="❌"
+                                        FontSize="9"
                                         Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" />
                                 </Grid>
                             </DataTemplate>
@@ -113,42 +121,142 @@
                     </TextBox>
                 </Grid>
             </DataTemplate>
+
+            <wpf:DataTemplateTypeBindingSelector x:Key="DataTemplateSelector" TargetPropertyName="Value">
+                <wpf:DataTemplateTypeBindingSelector.DataTemplateTypeBindings>
+                    <wpf:DataTemplateTypeBinding DataTemplate="{StaticResource StringDataTemplate}" Type="{x:Type sys:String}" />
+                    <wpf:DataTemplateTypeBinding DataTemplate="{StaticResource BoolDataTemplate}" Type="{x:Type sys:Boolean}" />
+                    <wpf:DataTemplateTypeBinding DataTemplate="{StaticResource TargetSpecifierDataTemplate}" Type="{x:Type hotkeyHelpers:SessionSpecifier}" />
+                </wpf:DataTemplateTypeBindingSelector.DataTemplateTypeBindings>
+            </wpf:DataTemplateTypeBindingSelector>
         </ResourceDictionary>
     </Window.Resources>
 
     <!--  LAYOUT  -->
-    <Grid>
-        <ListBox ItemsSource="{Binding ActionSettings}">
-            <ListBox.Resources>
-                <Style TargetType="{x:Type TextBox}">
-                    <Setter Property="HorizontalAlignment" Value="Stretch" />
-                </Style>
-            </ListBox.Resources>
-            <ListBox.ItemTemplate>
-                <DataTemplate DataType="{x:Type inputActions:HotkeyActionSetting}">
-                    <Grid HorizontalAlignment="Stretch">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" MinWidth="80" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+    <Border BorderBrush="{StaticResource WindowBorderBrush}" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
 
-                        <TextBlock
-                            Grid.Column="0"
-                            Margin="5,3"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            Text="{Binding Label}"
-                            ToolTip="{Binding Description}"
-                            ToolTipService.InitialShowDelay="500" />
-                        <ContentControl
-                            Grid.Column="1"
-                            Margin="5,3"
-                            HorizontalAlignment="Stretch"
-                            Content="{Binding}"
-                            ContentTemplateSelector="{DynamicResource DataTemplateSelector}" />
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-    </Grid>
+            <!--  Caption Bar  -->
+            <Grid Height="{StaticResource CaptionHeight}" Background="{StaticResource HeaderBackgroundBrush}">
+                <Grid.Resources>
+                    <!--  Caption Button Style:  -->
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border
+                                        x:Name="ButtonMouseOver"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        RenderOptions.EdgeMode="Aliased"
+                                        Style="{StaticResource BorderStyle}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="ButtonMouseOver" Property="Background" Value="#22FFFFFF" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="ButtonMouseOver" Property="Background" Value="#44FFFFFF" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+                        <Setter Property="Width" Value="{StaticResource CaptionHeight}" />
+                        <Setter Property="Height" Value="{StaticResource CaptionHeight}" />
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="FontWeight" Value="Black" />
+                        <Setter Property="Background" Value="#00000000" />
+                        <Setter Property="Foreground" Value="LightGray" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                        <Setter Property="IsHitTestVisible" Value="true" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Margin="7,0"
+                    VerticalAlignment="Center"
+                    FontWeight="SemiBold"
+                    Foreground="LightGray"
+                    Text="{Binding Title, ElementName=Window}" />
+                <Button
+                    x:Name="CloseWindowButton"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Click="CloseWindowButton_Click"
+                    Content="❌"
+                    Cursor="Hand"
+                    IsTabStop="False" />
+            </Grid>
+
+            <!--  Below-Caption Body Area  -->
+            <Border Grid.Row="1" Background="{StaticResource TabBackgroundBrush}">
+                <Grid Margin="7">
+                    <Border x:Name="ActionSettingsListBoxMask" Style="{StaticResource RoundBorderMaskStyle}" />
+                    <ListBox
+                        x:Name="ActionSettingsListBox"
+                        BorderThickness="0"
+                        ItemsSource="{Binding ActionSettings}">
+                        <ListBox.OpacityMask>
+                            <VisualBrush Visual="{Binding ElementName=ActionSettingsListBoxMask}" />
+                        </ListBox.OpacityMask>
+                        <ListBox.Resources>
+                            <Style TargetType="{x:Type ListBox}">
+                                <Setter Property="Background" Value="{StaticResource TextBoxBackgroundDisabled}" />
+                                <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
+                            </Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
+                                <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
+                                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            </Style>
+                        </ListBox.Resources>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type inputActions:HotkeyActionSetting}">
+                                <Grid HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" MinWidth="80" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Margin="5,3"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Label}"
+                                        ToolTip="{Binding Description}"
+                                        ToolTipService.InitialShowDelay="500" />
+                                    <ContentControl
+                                        Grid.Column="1"
+                                        Margin="5,3"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        Content="{Binding}"
+                                        ContentTemplateSelector="{DynamicResource DataTemplateSelector}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" GlassFrameThickness="1,1,1,0" />
+    </WindowChrome.WindowChrome>
 </Window>

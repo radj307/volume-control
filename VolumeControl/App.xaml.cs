@@ -53,12 +53,6 @@ namespace VolumeControl
         #endregion Properties
 
         #region Methods
-        private void Application_Exit(object sender, ExitEventArgs e)
-        {
-            (this.TryFindResource("Settings") as VolumeControlVM)?.Dispose();
-            // delete the tray icon
-            TrayIcon.Dispose();
-        }
         private void HideMainWindow() => this.MainWindow.Hide();
         private void ShowMainWindow()
         {
@@ -78,5 +72,18 @@ namespace VolumeControl
                 this.ShowMainWindow();
         }
         #endregion Methods
+
+        #region EventHandlers
+
+        #region Application
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            (this.TryFindResource("Settings") as VolumeControlVM)?.Dispose();
+            // delete the tray icon
+            TrayIcon.Dispose();
+        }
+        #endregion Application
+
+        #endregion EventHandlers
     }
 }

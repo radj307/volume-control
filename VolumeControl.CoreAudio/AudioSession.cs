@@ -7,7 +7,6 @@ using VolumeControl.CoreAudio.Events;
 using VolumeControl.CoreAudio.Helpers;
 using VolumeControl.CoreAudio.Interfaces;
 using VolumeControl.Log;
-using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.CoreAudio
 {
@@ -79,7 +78,6 @@ namespace VolumeControl.CoreAudio
 
         #region Properties
         private static LogWriter Log => FLog.Log;
-        private static Core.Config Settings => (Core.Config.Default as Core.Config)!;
         /// <summary>
         /// Gets the <see cref="CoreAudio.AudioDevice"/> that this <see cref="AudioSession"/> instance is running on.
         /// </summary>
@@ -111,11 +109,19 @@ namespace VolumeControl.CoreAudio
         /// </summary>
         public Process? Process => _process ??= GetProcess();
         private Process? _process;
+        /// <summary>
+        /// Gets the process identifier of this audio session.
+        /// </summary>
+        /// <remarks>
+        /// Process Identifiers are composed of the <see cref="PID"/> and <see cref="ProcessName"/> of a session, separated by a colon.<br/>
+        /// Example: "1234:SomeProcess"
+        /// </remarks>
         public string ProcessIdentifier { get; }
         public string SessionIdentifier => AudioSessionControl.SessionIdentifier;
         public string SessionInstanceIdentifier => AudioSessionControl.SessionInstanceIdentifier;
+        #endregion Properties
 
-        #region Properties (IVolumeControl)
+        #region IAudioControl Properties
         public float NativeVolume
         {
             get => SimpleAudioVolume.MasterVolume;
@@ -156,36 +162,105 @@ namespace VolumeControl.CoreAudio
                 NotifyPropertyChanged();
             }
         }
-        #endregion Properties (IVolumeControl)
-        #region Properties (IVolumePeakMeter)
-        public float PeakMeterValue
-            => AudioMeterInformation.MasterPeakValue;
-        #endregion Properties (IVolumePeakMeter)
-        #region Properties (IHideableAudioControl)
+        #endregion IAudioControl Properties
+
+        #region IVolumePeakMeter Properties
+        public float PeakMeterValue => AudioMeterInformation.MasterPeakValue;
+        #endregion IVolumePeakMeter Properties
+
+        #region IHideableAudioControl Properties
         public bool IsHidden
         {
-            get => Settings.HiddenSessionProcessNames.Contains(this.ProcessName);
+            get => (Core.Config.Default as Core.Config)!.HiddenSessionProcessNames.Contains(this.ProcessName);
             set
             {
                 if (value)
                 { // hide this session
                     if (IsHidden) return; //< already hidden
 
-                    Settings.HiddenSessionProcessNames.Add(this.ProcessName);
+                    (Core.Config.Default as Core.Config)!.HiddenSessionProcessNames.Add(this.ProcessName);
                 }
                 else
                 { // unhide this session
                     if (!IsHidden) return; //< already not hidden
 
-                    Settings.HiddenSessionProcessNames.RemoveAll(pname => pname.Equals(this.ProcessName, StringComparison.Ordinal));
+                    (Core.Config.Default as Core.Config)!.HiddenSessionProcessNames.RemoveAll(pname => pname.Equals(this.ProcessName, StringComparison.Ordinal));
                 }
             }
         }
-        #endregion Properties (IHideableAudioControl)
-        #endregion Properties
+        #endregion IHideableAudioControl Properties
 
         #region Methods
-        #region Methods (EventHandlers)
+        /// <summary>
+        /// Gets the process that created this audio session.
+        /// </summary>
+        /// <returns><see cref="System.Diagnostics.Process"/> instance that created this audio session, or <see langword="null"/> if an error occurred.</returns>
+        public Process? GetProcess()
+        {
+            try
+            {
+                return Process.GetProcessById(Convert.ToInt32(PID));
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Failed to get process with ID '{PID}' because of an exception:", ex);
+                return null;
+            }
+        }
+        /// <inheritdoc cref="GetProcess"/>
+        /// <param name="exception">When the method returns <see langword="null"/>, this is set to the exception that occurred; otherwise this is <see langword="null"/>.</param>
+        public Process? GetProcess(out Exception? exception)
+        {
+            try
+            {
+                exception = null;
+                return Process.GetProcessById(Convert.ToInt32(PID));
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+                return null;
+            }
+        }
+        /// <summary>
+        /// Gets a new TargetInfo object representing this AudioSession instance.
+        /// </summary>
+        /// <returns>A <see cref="TargetInfo"/> struct that represents this <see cref="AudioSession"/> instance.</returns>
+        public TargetInfo GetTargetInfo() => new TargetInfo()
+        {
+            ProcessIdentifier = ProcessIdentifier,
+            SessionInstanceIdentifier = SessionInstanceIdentifier,
+        };
+        /// <summary>
+        /// Parses the given <paramref name="processIdentifier"/> to retrieve the ProcessId and ProcessName components.
+        /// </summary>
+        /// <param name="processIdentifier">A process identifier string.</param>
+        /// <returns>A tuple that includes the ProcessId as an <see cref="int"/> and the ProcessName as a <see cref="string"/>.</returns>
+        /// <exception cref="FormatException"><paramref name="processIdentifier"/> was not in a valid format.</exception>
+        public static (int pid, string pname) ParseProcessIdentifier(string processIdentifier)
+        {
+            int delim = processIdentifier
+                .Trim(':', ' ') //< only allow colon characters that actually have text on both sides.
+                .IndexOf(':');  //< get the index of said inner-colons...
+
+            if (delim == -1)
+            {
+                if (processIdentifier.All(char.IsDigit) && int.TryParse(processIdentifier, out int result))
+                    // pid
+                    return (result, string.Empty);
+                else // process name
+                    return (-1, processIdentifier);
+            }
+            else // both
+            {
+                return !int.TryParse(processIdentifier[..delim], out int result)
+                    ? throw new FormatException($"Invalid process identifier string '{processIdentifier}'")
+                    : ((int, string))(result, processIdentifier[(delim + 1)..]);
+            }
+        }
+        #endregion Methods
+
+        #region AudioSessionControl EventHandlers
         /// <summary>
         /// Triggers the <see cref="DisplayNameChanged"/> event.
         /// </summary>
@@ -215,52 +290,14 @@ namespace VolumeControl.CoreAudio
         /// </summary>
         private void AudioSessionControl_OnStateChanged(object sender, AudioSessionState newState)
             => NotifyStateChanged(newState);
-        #endregion Methods (EventHandlers)
+        #endregion AudioSessionControl EventHandlers
 
-        public Process? GetProcess()
-        {
-            try
-            {
-                return Process.GetProcessById(Convert.ToInt32(PID));
-
-            }
-            catch (Exception ex)
-            {
-                Log.Error($"Failed to get process with ID '{PID}' because of an exception:", ex);
-                return null;
-            }
-        }
-        public TargetInfo GetTargetInfo() => new TargetInfo()
-        {
-            ProcessIdentifier = ProcessIdentifier,
-            SessionInstanceIdentifier = SessionInstanceIdentifier,
-        };
-        public static (int pid, string pname) ParseProcessIdentifier(string processIdentifier)
-        {
-            int delim = processIdentifier
-                .Trim(':', ' ') //< only allow colon characters that actually have text on both sides.
-                .IndexOf(':');  //< get the index of said inner-colons...
-
-            if (delim == -1)
-            {
-                if (processIdentifier.All(char.IsDigit) && int.TryParse(processIdentifier, out int result))
-                    // pid
-                    return (result, string.Empty);
-                else // process name
-                    return (-1, processIdentifier);
-            }
-            else // both
-            {
-                return !int.TryParse(processIdentifier[..delim], out int result)
-                    ? throw new FormatException($"Invalid process identifier string '{processIdentifier}'")
-                    : ((int, string))(result, processIdentifier[(delim + 1)..]);
-            }
-        }
+        #region IDisposable Implementation
         public void Dispose()
         {
             ((IDisposable)this.AudioSessionControl).Dispose();
             GC.SuppressFinalize(this);
         }
-        #endregion Methods
+        #endregion IDisposable Implementation
     }
 }

@@ -5,14 +5,15 @@ using VolumeControl.Core.Input.Actions;
 
 namespace VolumeControl.Core.Attributes
 {
-    /// <summary>Indicates that a method is a valid hotkey action.<br/>If you don't specify a name parameter, it is parsed from the name of the method it is attached to.</summary>
-    /// <remarks>To create a hotkey action, attach this attribute to the owning method.</remarks>
+    /// <summary>
+    /// Indicates that a method defines a hotkey action.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public sealed class HotkeyActionAttribute : Attribute
     {
         #region Constructor
         /// <summary>
-        /// Use this attribute to mark the associated method as a hotkey action.
+        /// Indicates that the attached method defines a hotkey action.
         /// </summary>
         /// <param name="name">
         /// This determines the value of the <see cref="Name"/> property, which is used in conjunction with the <see cref="InsertSpacesInName"/> &amp; <see cref="GroupName"/> properties to determine the action name shown in the GUI.<br/><br/>
@@ -24,52 +25,69 @@ namespace VolumeControl.Core.Attributes
 
         #region Properties
         /// <summary>
-        /// Mandatory name to use when referencing this action.<br/>
-        /// Note that when loading hotkey addons, the result of the <see cref="GetActionData"/> method is used to determine the final <see cref="HotkeyActionData.ActionName"/> string.
+        /// Gets or sets the name of this hotkey action.
         /// </summary>
+        /// <remarks>
+        /// When <see cref="InsertSpacesInName"/> is <see langword="true"/>, the name is modified before being used.
+        /// </remarks>
         public string Name { get; set; }
         /// <summary>
-        /// An optional paragraph to display as a tooltip next to the hotkey action in the dropdown menu when the user hovers their mouse over it.<br/>
-        /// When this is set to <see langword="null"/>, there will not be a tooltip when the user hovers over your action in the dropdown menu.
+        /// Gets or sets the description of this hotkey action.
         /// </summary>
+        /// <remarks>
+        /// This is displayed as a tooltip in the list of hotkey actions.
+        /// </remarks>
         public string? Description { get; set; } = null;
         /// <summary>
-        /// An optional name to include as a prefix in the GUI to assist with sorting elements.<br/>
-        /// Note that a seperator string is automatically appended to this, and all leading/trailing whitespace is trimmed.
+        /// Gets or sets the sorting group of this hotkey action.
+        /// Actions with the same group name appear next to each other in the list of hotkey actions.
         /// </summary>
-        /// <remarks><b>When this is set to <see langword="null"/>, the seperator string is not included</b> in the result of the <see cref="GetActionData"/> method.</remarks>
+        /// <remarks>
+        /// This overrides <see cref="HotkeyActionGroupAttribute.GroupName"/> for this action.
+        /// </remarks>
         public string? GroupName { get; set; } = null;
         /// <summary>
-        /// The color to use when painting the text of <see cref="GroupName"/> if it isn't set to <see langword="null"/>.<br/>
-        /// This is converted to a <see cref="SolidColorBrush"/> using the specified color.
+        /// Gets or sets the color of the <see cref="GroupName"/> string when it is displayed.
         /// </summary>
+        /// <remarks>
+        /// This overrides <see cref="HotkeyActionGroupAttribute.GroupColor"/> for this action.
+        /// </remarks>
         public string? GroupColor { get; set; }
         /// <summary>
-        /// Gets or sets a boolean that determines whether the <see cref="Name"/> property is 
+        /// Gets or sets whether the <see cref="Name"/> property will be formatted before being used.
         /// </summary>
+        /// <remarks>
+        /// When set to <see langword="true"/>, the <see cref="Name"/> property is passed through the <see cref="SeparateWordsInString(string)"/> function to insert spaces between capitalized letters;
+        /// otherwise when <see langword="false"/>, the <see cref="Name"/> property is not modified and is used as-is.
+        /// </remarks>
         public bool InsertSpacesInName { get; set; } = true;
         #endregion Properties
 
-        #region Methods
-        #region Static
+        #region SeparateWordsInString
         /// <summary>
-        /// Returns the result of replacing all occurrences of the regular expression "<see langword="\B([A-Z])"/>" with the replacement expression "<see langword=" $1"/>", effectively inserting a space between all capitalized words in the string.
+        /// Separates <paramref name="str"/> by inserting a space before each capitalized letter that appears directly after at least one non-whitespace character.
         /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static string InsertSpacesIn(string str) => Regex.Replace(str, "\\B([A-Z])", " $1");
-        #endregion Static
+        /// <remarks>
+        /// This works by replacing occurrences of the regular expression "<see langword="\B([A-Z])"/>" with the replacement expression "<see langword=" $1"/>".
+        /// </remarks>
+        /// <param name="str">A <see cref="string"/> to separate.</param>
+        /// <returns>The given string with a single space character inserted between each word.</returns>
+        public static string SeparateWordsInString(string str) => Regex.Replace(str, "\\B([A-Z])", " $1");
+        #endregion SeparateWordsInString
 
+        #region Methods
         #region Private
-        private string GetNameString() => this.InsertSpacesInName ? InsertSpacesIn(this.Name) : this.Name;
+        private string GetNameString() => this.InsertSpacesInName ? SeparateWordsInString(this.Name) : this.Name;
+        private Brush? GetGroupBrush() => this.GroupColor is null ? null : new SolidColorBrush((Color)ColorConverter.ConvertFromString(this.GroupColor));
         #endregion Private
 
         #region Public
         /// <summary>
-        /// Creates a new <see cref="HotkeyActionData"/> instance representing the final, interpolated 
+        /// Gets a new <see cref="HotkeyActionData"/> struct that contains all of the data for this hotkey action.
         /// </summary>
-        /// <returns>A new <see cref="HotkeyActionData"/> instance representing this hotkey action.</returns>
-        public HotkeyActionData GetActionData() => new(this.GetNameString(), this.Description, this.GroupName, this.GroupColor is null ? null : new SolidColorBrush((Color)ColorConverter.ConvertFromString(this.GroupColor)));
+        /// <returns>A new <see cref="HotkeyActionData"/> struct.</returns>
+        public HotkeyActionData GetActionData()
+            => new(this.GetNameString(), this.Description, this.GroupName, this.GetGroupBrush());
         #endregion Public
         #endregion Methods
     }

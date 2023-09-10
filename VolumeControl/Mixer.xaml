@@ -22,7 +22,6 @@
     x:Name="window"
     Title="Volume Control"
     AllowsTransparency="True"
-    Closing="Window_Closing"
     DataContext="{RelativeSource Self}"
     FontFamily="{StaticResource InterFont}"
     FontSize="{StaticResource GlobalFontSize}"
@@ -65,11 +64,6 @@
                 <Setter Property="Foreground" Value="WhiteSmoke" />
                 <Setter Property="Background" Value="{StaticResource HeaderBackgroundBrush}" />
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            </Style>
-            <!--  Border Style  -->
-            <Style x:Key="BorderStyle" TargetType="Border">
-                <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="BorderBrush" Value="Gainsboro" />
             </Style>
             <!--  Mixer Cell  -->
             <Style TargetType="{x:Type DataGridCell}">
@@ -132,7 +126,7 @@
                 BasedOn="{StaticResource BorderStyle}"
                 TargetType="{x:Type Border}">
                 <Setter Property="Margin" Value="3" />
-                <Setter Property="Background" Value="#E02F2F2F" />
+                <Setter Property="Background" Value="#303030" />
                 <Setter Property="Padding" Value="2" />
                 <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="BorderBrush" Value="{StaticResource AccentForeground}" />

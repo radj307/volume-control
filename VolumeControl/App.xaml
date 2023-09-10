@@ -138,6 +138,11 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <!--  Border Style  -->
+            <Style x:Key="BorderStyle" TargetType="Border">
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="BorderBrush" Value="Gainsboro" />
+            </Style>
             <!--  TextBlock  -->
             <Style x:Key="TextBlockStyle" TargetType="TextBlock">
                 <Style.Triggers>

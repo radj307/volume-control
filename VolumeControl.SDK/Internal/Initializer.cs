@@ -16,7 +16,9 @@ namespace VolumeControl.SDK.Internal
 
         /// <inheritdoc cref="Initializer"/>
         /// <param name="audioDeviceManager">The audio device manager object.</param>
+        /// <param name="audioDeviceSelector">The audio device selection manager object.</param>
         /// <param name="audioSessionManager">The audio session manager object.</param>
+        /// <param name="audioSessionSelector">The audio session selection manager object.</param>
         /// <param name="mgr">The hotkey manager object.</param>
         /// <param name="mainWindowHWnd">The mixer window's handle</param>
         /// <param name="settings">The program settings container object.</param>

@@ -3,7 +3,7 @@
 namespace VolumeControl.Core.Attributes
 {
     /// <summary>
-    /// <b>(Optional)</b> Marks the attached class type as a Hotkey Actions addon type.
+    /// Indicates that a class contains hotkey action definitions.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public sealed class HotkeyActionGroupAttribute : Attribute
@@ -15,12 +15,18 @@ namespace VolumeControl.Core.Attributes
         public HotkeyActionGroupAttribute([CallerMemberName] string groupName = "") => GroupName = groupName;
 
         /// <summary>
-        /// A default group name to apply to all methods found within the class that this attribute is applied to.
+        /// Gets or sets the default sorting group of hotkey actions defined within the attached class object.
         /// </summary>
+        /// <remarks>
+        /// The <see cref="HotkeyActionAttribute.GroupName"/> property will override this one, if set.
+        /// </remarks>
         public string? GroupName { get; set; }
         /// <summary>
-        /// A default group color to apply to all methods found within the class that this attribute is applied to.
+        /// Gets or sets the default color of the <see cref="GroupName"/> string when it is displayed.
         /// </summary>
+        /// <remarks>
+        /// The <see cref="HotkeyActionAttribute.GroupColor"/> property will override this one, if set.
+        /// </remarks>
         public string? GroupColor { get; set; }
     }
 }

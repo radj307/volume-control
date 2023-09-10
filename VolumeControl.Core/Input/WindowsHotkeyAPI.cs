@@ -14,7 +14,7 @@ namespace VolumeControl.Core.Input
         #region ID
         public const int MinID = 0x0000;
         public const int MaxID = 0xBFFF;
-        public const int TotalUniqueIDs = MaxID - MinID;
+        public const int TotalUniqueIDs = MaxID - MinID; //< 45,151
 
         /// <summary>
         /// Gets the next available hotkey ID number.

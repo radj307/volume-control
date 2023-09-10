@@ -65,11 +65,22 @@ namespace VolumeControl.Core.Input
             {
                 if (_registered.Equals(value)) return;
                 UnsetError();
-                _registered = value;
-                if (_registered)
-                    WindowsHotkeyAPI.Register(this);
+                if (value)
+                {
+                    if (WindowsHotkeyAPI.Register(this))
+                    { // registration succeeded
+                        _registered = true;
+                    }
+                    // registration failed, don't change _registered
+                }
                 else
-                    WindowsHotkeyAPI.Unregister(this);
+                {
+                    if (WindowsHotkeyAPI.Unregister(this))
+                    { // unregistration succeeded
+                        _registered = false;
+                    }
+                    // unregistration failed, don't change _registered
+                }
             }
         }
         private bool _registered = false;
@@ -84,6 +95,18 @@ namespace VolumeControl.Core.Input
         /// <inheritdoc/>
         public ObservableImmutableList<IHotkeyActionSetting>? ActionSettings { get; set; }
         #endregion Properties
+
+        #region Events
+#       pragma warning disable CS0067
+        /// <inheritdoc/>
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+#       pragma warning restore CS0067
+        /// <summary>
+        /// Triggered when the hotkey is pressed.
+        /// </summary>
+        public event HotkeyActionPressedEventHandler? Pressed;
+        #endregion Events
 
         #region Methods
         internal void SetError(string message)
@@ -108,17 +131,9 @@ namespace VolumeControl.Core.Input
                 this.NotifyPropertyChanged(nameof(this.HasError));
             }
         }
-#       pragma warning disable CS0067
-        /// <inheritdoc/>
-        public event PropertyChangedEventHandler? PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
-#       pragma warning restore CS0067
-        /// <summary>
-        /// Triggered when the hotkey is pressed.
-        /// </summary>
-        public event HotkeyActionPressedEventHandler? Pressed;
 #       pragma warning disable IDE0060 // Remove unused parameter
         internal IntPtr MessageHook(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+#       pragma warning restore IDE0060 // Remove unused parameter
         {
             switch (msg)
             {
@@ -142,7 +157,6 @@ namespace VolumeControl.Core.Input
             }
             return IntPtr.Zero;
         }
-#       pragma warning restore IDE0060 // Remove unused parameter
         /// <summary>
         /// Gets the string representation of this hotkey's key combination.
         /// </summary>

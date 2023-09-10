@@ -283,7 +283,7 @@ namespace VolumeControl.ViewModels
             => RefreshSessionAutoCompleteSources();
         #endregion Methods (EventHandlers)
 
-        #region IDisposable
+        #region IDisposable Implementation
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -305,6 +305,6 @@ namespace VolumeControl.ViewModels
         {
             this.Dispose(disposing: true);
         }
-        #endregion IDisposable
+        #endregion IDisposable Implementation
     }
 }

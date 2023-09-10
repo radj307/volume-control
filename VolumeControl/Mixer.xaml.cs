@@ -45,14 +45,6 @@ namespace VolumeControl
         }
         #endregion Setup
 
-        #region Teardown
-        private void Window_Closing(object sender, CancelEventArgs e)
-        {
-            this.HotkeyAPI.Dispose();
-            e.Cancel = false;
-        }
-        #endregion Teardown
-
         #region Properties
         //private ListNotification ListNotification => (this.FindResource("Notification") as ListNotification)!;
         private VolumeControlVM VCSettings => (this.FindResource("Settings") as VolumeControlVM)!;
@@ -209,10 +201,7 @@ namespace VolumeControl
         {
             if (sender is Button b && b.CommandParameter is int hkid && HotkeyAPI.Hotkeys.FirstOrDefault(hk => hk.ID.Equals(hkid)) is IBindableHotkey hk)
             {
-                ActionSettingsWindow settingsWindow = new();
-                settingsWindow.VM.Hotkey = hk;
-                settingsWindow.VM.WindowTitle = hk.Name;
-                settingsWindow.Owner = this;
+                ActionSettingsWindow settingsWindow = new(owner: this, hotkey: hk);
                 settingsWindow.ShowDialog();
             }
         }
