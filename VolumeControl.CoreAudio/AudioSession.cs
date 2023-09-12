@@ -98,10 +98,10 @@ namespace VolumeControl.CoreAudio
         /// </summary>
         public string ProcessName { get; }
         /// <summary>
-        /// Gets or <i>(temporarily)</i> sets the name of this <see cref="AudioSession"/> instance.
+        /// Gets or sets the name of this <see cref="AudioSession"/> instance.
         /// </summary>
         /// <remarks>
-        /// This is the DisplayName of the <see cref="AudioSessionControl"/> if it isn't empty, otherwise it is <see cref="ProcessName"/>.
+        /// This is the internal <see cref="AudioSessionControl2.DisplayName"/> if available, otherwise it is <see cref="ProcessName"/>.
         /// </remarks>
         public string Name { get; set; }
         /// <summary>
