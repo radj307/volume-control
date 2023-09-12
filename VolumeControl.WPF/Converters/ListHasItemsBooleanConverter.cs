@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Data;
 
 namespace VolumeControl.WPF.Converters
@@ -23,6 +24,14 @@ namespace VolumeControl.WPF.Converters
             if (value is IList list)
             {
                 return list.Count > 0;
+            }
+            else if (value is IEnumerable enumerable)
+            {
+                foreach (var item in enumerable)
+                {
+                    return true;
+                }
+                return false;
             }
             else return ResultOnInvalidInputType;
         }
