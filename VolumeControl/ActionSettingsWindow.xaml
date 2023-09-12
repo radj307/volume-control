@@ -134,6 +134,7 @@
                             x:Name="TargetSuggestionsPopup"
                             IsOpen="{b:MultiBinding {Binding IsFocused, ElementName=AddTargetTextBox, Mode=OneWay},
                                                     {Binding FilteredItemsSource, Source={StaticResource FilteredItemsSource}, Mode=OneWay, Converter={StaticResource ListHasItemsBooleanConverter}},
+                                                    {Binding IsActive, Mode=OneWay, ElementName=Window},
                                                     Mode=OneWay,
                                                     Converter={StaticResource MultiBindingBooleanConverter}}"
                             Loaded="TargetSuggestionsPopup_Loaded">

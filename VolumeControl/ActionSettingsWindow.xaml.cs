@@ -168,6 +168,8 @@ namespace VolumeControl
                     suggestionsView.SelectedIndex = index;
 
                     suggestionsView.SelectionChanged += TargetSuggestionsView_SelectionChanged;
+
+                    e.Handled = true; //< this key press is handled, don't do anything else with it
                     break;
                 }
             case Key.Down:
@@ -186,6 +188,8 @@ namespace VolumeControl
                     suggestionsView.SelectedIndex = index;
 
                     suggestionsView.SelectionChanged += TargetSuggestionsView_SelectionChanged;
+
+                    e.Handled = true; //< this key press is handled, don't do anything else with it
                     break;
                 }
             case Key.Left:
@@ -201,6 +205,8 @@ namespace VolumeControl
                     suggestionsView.SelectedIndex = -1;
 
                     suggestionsView.SelectionChanged += TargetSuggestionsView_SelectionChanged;
+
+                    e.Handled = true; //< this key press is handled, don't do anything else with it
                     break;
                 }
             case Key.Right:
@@ -217,18 +223,38 @@ namespace VolumeControl
                     suggestionsView.SelectedIndex = _lastSelectedSuggestionIndex;
 
                     suggestionsView.SelectionChanged += TargetSuggestionsView_SelectionChanged;
+
+                    e.Handled = true; //< this key press is handled, don't do anything else with it
                     break;
                 }
-            case Key.Enter: //< do this here - even though we don't have to - for improved responsiveness
+            case Key.Tab:
+                { // accept a suggestion:
+                    var textBox = (TextBox)sender;
+                    var suggestionsView = (ListView)textBox.Tag;
+
+                    if (suggestionsView.SelectedIndex != -1)
+                    { // an item is selected
+                        textBox.Text = (string)suggestionsView.SelectedItem;
+                        textBox.SelectionStart = textBox.Text.Length;
+                        e.Handled = true; //< this key press is handled, don't do anything else with it
+                    }
+                    else if (suggestionsView.Items.Count == 1)
+                    { // only 1 option is available
+                        textBox.Text = (string)suggestionsView.Items[0];
+                        textBox.SelectionStart = textBox.Text.Length;
+                        e.Handled = true; //< this key press is handled, don't do anything else with it
+                    }
+                    break;
+                }
+            case Key.Enter: //< this is the only key that doesn't HAVE to be here; but doing this improves responsiveness
                 { // insert selected suggestion:
                     var textBox = (TextBox)sender;
-
                     var suggestionsView = (ListView)textBox.Tag; //< use the currently selected suggestion instead, if available
+
                     if (suggestionsView.SelectedIndex != -1)
                     {
                         textBox.Text = (string)suggestionsView.SelectedItem;
                         textBox.SelectionStart = textBox.Text.Length;
-                        return;
                     }
                     break;
                 }
