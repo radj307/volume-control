@@ -75,7 +75,7 @@ namespace VolumeControl.ViewModels
                 .ToList();
 
             // load saved hotkeys
-            //  We need to have accessed the Settings property at least once by the time we reach this point
+            //  We need to have accessed the Settings propertyInfo at least once by the time we reach this point
             this.HotkeyAPI.LoadHotkeys();
 
             Log.Info($"Volume Control v{this.CurrentVersionString}");
@@ -84,7 +84,7 @@ namespace VolumeControl.ViewModels
             VCAPI.Default.AudioSessionSelector.PropertyChanged += this.AudioSessionSelector_PropertyChanged;
 
             // setup autocomplete
-            SessionAutoCompleteSource = GetSessionAutoCompleteSources();
+            RefreshSessionAutoCompleteSources();
             // bind to session added/removed events to update the auto complete sources
             AudioAPI.AudioSessionManager.SessionAddedToList += this.AudioSessionManager_SessionAddedOrRemoved;
             AudioAPI.AudioSessionManager.SessionRemovedFromList += this.AudioSessionManager_SessionAddedOrRemoved;
@@ -121,7 +121,8 @@ namespace VolumeControl.ViewModels
         /// <summary>
         /// This is used by the target box's autocomplete feature, and is automatically invalidated & refreshed each time the sessions list changes.
         /// </summary>
-        public IEnumerable<string> SessionAutoCompleteSource { get; private set; }
+        public IEnumerable<string> AudioSessionProcessIdentifierAutocompleteSource { get; private set; }
+        public IEnumerable<string> AudioSessionProcessNameAutocompleteSource { get; private set; }
         public IEnumerable<IHotkeyAction> Actions { get; internal set; } = null!;
         public IEnumerable<string> AddonDirectories { get; set; } = GetAddonDirectories();
         #endregion Other
@@ -233,27 +234,25 @@ namespace VolumeControl.ViewModels
             return l;
         }
         /// <summary>
-        /// Gets all of the PIDs, ProcessNames, and ProcessIdentifiers of all managed audio sessions.
-        /// </summary>
-        /// <returns>Array of strings containing all known PIDs, ProcessNames, and ProcessIdentifiers.</returns>
-        private string[] GetSessionAutoCompleteSources()
-        {
-            List<string> l = new();
-
-            foreach (var sessionVM in AudioAPI.AllSessions)
-            {
-                l.Add(sessionVM.PID.ToString());
-                l.Add(sessionVM.ProcessName);
-                l.Add(sessionVM.ProcessIdentifier);
-            }
-
-            return l.ToArray();
-        }
-        /// <summary>
         /// Refreshes the list of auto completion options for the target box.
         /// </summary>
         private void RefreshSessionAutoCompleteSources()
-            => SessionAutoCompleteSource = GetSessionAutoCompleteSources();
+        {
+            List<string> all = new();
+            List<string> pnames = new();
+
+            foreach (var item in AudioAPI.AllSessions)
+            {
+                pnames.Add(item.ProcessName);
+
+                all.Add(item.ProcessIdentifier);
+                all.Add(item.ProcessName);
+                all.Add(item.PID.ToString());
+            }
+
+            AudioSessionProcessIdentifierAutocompleteSource = all;
+            AudioSessionProcessNameAutocompleteSource = pnames;
+        }
         #endregion Methods
 
         #region Methods (EventHandlers)
@@ -277,7 +276,7 @@ namespace VolumeControl.ViewModels
             }
         }
         /// <summary>
-        /// Refreshes the <see cref="SessionAutoCompleteSource"/> list.
+        /// Refreshes the <see cref="AudioSessionProcessIdentifierAutocompleteSource"/> list.
         /// </summary>
         private void AudioSessionManager_SessionAddedOrRemoved(object? sender, AudioSession e)
             => RefreshSessionAutoCompleteSources();

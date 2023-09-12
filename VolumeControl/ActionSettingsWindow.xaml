@@ -38,6 +38,7 @@
     <Window.Resources>
         <ResourceDictionary>
 
+            <!--  Constants/Variables  -->
             <sys:Double x:Key="CaptionHeight">22</sys:Double>
 
             <!--  Converters  -->
@@ -45,6 +46,7 @@
                 <conv:ListHasItemsBooleanConverter />
                 <BooleanToVisibilityConverter />
             </conv:ConverterChain>
+            <conv:ListHasItemsBooleanConverter x:Key="ListHasItemsBooleanConverter" />
 
             <!--  Styles  -->
             <Style TargetType="{x:Type ListBoxItem}">
@@ -94,7 +96,7 @@
                                         VerticalContentAlignment="Center"
                                         Text="{Binding Value, UpdateSourceTrigger=LostFocus}">
                                         <i:Interaction.Behaviors>
-                                            <wpf:TextBoxAutocompleteBehavior ItemsSource="{Binding SessionAutoCompleteSource, Source={StaticResource Settings}}" StringComparison="OrdinalIgnoreCase" />
+                                            <wpf:TextBoxAutocompleteBehavior ItemsSource="{Binding AudioSessionProcessNameAutocompleteSource, Source={StaticResource Settings}}" StringComparison="OrdinalIgnoreCase" />
                                         </i:Interaction.Behaviors>
                                     </TextBox>
                                     <Button
@@ -110,15 +112,46 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <TextBox
-                        x:Name="AddTargetTextBox"
-                        Grid.Row="1"
-                        KeyUp="AddTargetTextBox_KeyUp"
-                        Tag="{Binding ElementName=listBox}">
-                        <i:Interaction.Behaviors>
-                            <wpf:TextBoxAutocompleteBehavior ItemsSource="{Binding SessionAutoCompleteSource, Source={StaticResource Settings}}" StringComparison="OrdinalIgnoreCase" />
-                        </i:Interaction.Behaviors>
-                    </TextBox>
+                    <Grid Grid.Row="1">
+                        <Grid.Resources>
+                            <ResourceDictionary>
+                                <!--  Provides filtered suggestions  -->
+                                <wpf:FilteredTextItemsSource
+                                    x:Key="FilteredItemsSource"
+                                    ItemsSource="{Binding AudioSessionProcessNameAutocompleteSource, Source={StaticResource Settings}}"
+                                    StringComparison="OrdinalIgnoreCase" />
+                            </ResourceDictionary>
+                        </Grid.Resources>
+
+                        <TextBox
+                            x:Name="AddTargetTextBox"
+                            DataContext="{Binding ElementName=listBox}"
+                            KeyUp="AddTargetTextBox_KeyUp"
+                            PreviewKeyDown="AddTargetTextBox_PreviewKeyDown"
+                            Tag="{Binding ElementName=TargetSuggestionsView}"
+                            Text="{Binding FilterText, Source={StaticResource FilteredItemsSource}, UpdateSourceTrigger=PropertyChanged}" />
+                        <Popup
+                            x:Name="TargetSuggestionsPopup"
+                            IsOpen="{b:MultiBinding {Binding IsFocused, ElementName=AddTargetTextBox, Mode=OneWay},
+                                                    {Binding FilteredItemsSource, Source={StaticResource FilteredItemsSource}, Mode=OneWay, Converter={StaticResource ListHasItemsBooleanConverter}},
+                                                    Mode=OneWay,
+                                                    Converter={StaticResource MultiBindingBooleanConverter}}"
+                            Loaded="TargetSuggestionsPopup_Loaded">
+                            <ListView
+                                x:Name="TargetSuggestionsView"
+                                ItemsSource="{Binding FilteredItemsSource, Source={StaticResource FilteredItemsSource}}"
+                                SelectionChanged="TargetSuggestionsView_SelectionChanged"
+                                SelectionMode="Single"
+                                Tag="{Binding ElementName=AddTargetTextBox}">
+                                <ListView.Style>
+                                    <Style TargetType="{x:Type ListView}">
+                                        <Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
+                                        <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
+                                    </Style>
+                                </ListView.Style>
+                            </ListView>
+                        </Popup>
+                    </Grid>
                 </Grid>
             </DataTemplate>
 

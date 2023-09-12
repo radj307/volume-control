@@ -666,7 +666,7 @@
                                             Style="{StaticResource TextBoxStyle}"
                                             Text="{Binding TargetSessionText, Source={StaticResource Settings}, UpdateSourceTrigger=LostFocus}">
                                             <i:Interaction.Behaviors>
-                                                <wpf:TextBoxAutocompleteBehavior ItemsSource="{Binding SessionAutoCompleteSource, Source={StaticResource Settings}}" StringComparison="OrdinalIgnoreCase" />
+                                                <wpf:TextBoxAutocompleteBehavior ItemsSource="{Binding AudioSessionProcessIdentifierAutocompleteSource, Source={StaticResource Settings}}" StringComparison="OrdinalIgnoreCase" />
                                             </i:Interaction.Behaviors>
                                         </TextBox>
                                         <TextBlock
@@ -1306,7 +1306,7 @@
                                                         LostFocus="Handle_AddHiddenSessionTextBoxLostFocus"
                                                         Style="{StaticResource TextBoxStyle}">
                                                         <i:Interaction.Behaviors>
-                                                            <wpf:TextBoxAutocompleteBehavior ItemsSource="{Binding SessionAutoCompleteSource, Source={StaticResource Settings}}" StringComparison="OrdinalIgnoreCase" />
+                                                            <wpf:TextBoxAutocompleteBehavior ItemsSource="{Binding AudioSessionProcessNameAutocompleteSource, Source={StaticResource Settings}}" StringComparison="OrdinalIgnoreCase" />
                                                         </i:Interaction.Behaviors>
                                                     </TextBox>
                                                 </Grid>

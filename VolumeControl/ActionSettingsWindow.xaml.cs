@@ -34,6 +34,10 @@ namespace VolumeControl
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => this.RaisePropertyChanged(propertyName);
         #endregion Events
 
+        #region Fields
+        private int _lastSelectedSuggestionIndex = 0;
+        #endregion Fields
+
         #region Properties
         public IBindableHotkey? Hotkey
         {
@@ -99,42 +103,179 @@ namespace VolumeControl
         /// </summary>
         private void AddTargetTextBox_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            switch (e.Key)
             {
-                var textBox = (TextBox)sender;
-                if (textBox.Text.Trim().Length == 0) return; //< if the text is blank, don't add it to the list
+            case Key.Back:
+                { // remove last item from the list:
+                    // don't do anything if the CTRL modifier key is pressed (backspace word)
+                    if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl)) return;
 
-                var listBox = (ListBox)textBox.Tag;
-                var setting = (HotkeyActionSetting)listBox.DataContext;
+                    var textBox = (TextBox)sender;
+                    if (textBox.Text.Length != 0) return;
 
-                if (setting?.Value is not ActionTargetSpecifier list) return;
+                    var listBox = (ListBox)textBox.DataContext;
+                    if (listBox.Items.Count == 0) return;
+                    var setting = (HotkeyActionSetting)listBox.DataContext;
 
-                if (VCAPI.Default.AudioSessionManager.FindSessionWithProcessName(textBox.Text, StringComparison.OrdinalIgnoreCase) is CoreAudio.AudioSession session)
-                {
-                    list.Targets.Add(new() { Value = session.ProcessName });
+                    if (setting?.Value is not ActionTargetSpecifier list) return;
+
+                    list.Targets.Remove(listBox.Items[^1]);//< remove the last item in the list
+                    break;
                 }
-                else
-                {
-                    list.Targets.Add(new() { Value = textBox.Text });
-                }
+            case Key.Enter:
+                { // commit current text
+                    var textBox = (TextBox)sender;
 
-                textBox.Text = string.Empty;
+                    if (textBox.Text.Trim().Length == 0) return; //< if the text is blank, don't add it to the list
+
+                    var listBox = (ListBox)textBox.DataContext;
+                    var setting = (HotkeyActionSetting)listBox.DataContext;
+
+                    if (setting?.Value is not ActionTargetSpecifier list) return;
+
+                    if (VCAPI.Default.AudioSessionManager.FindSessionWithProcessName(textBox.Text, StringComparison.OrdinalIgnoreCase) is CoreAudio.AudioSession session)
+                    {
+                        list.Targets.Add(new() { Value = session.ProcessName });
+                    }
+                    else
+                    {
+                        list.Targets.Add(new() { Value = textBox.Text });
+                    }
+
+                    textBox.Text = string.Empty;
+                    break;
+                }
+            default: break;
             }
-            else if (e.Key == Key.Back)// backspace
+        }
+        private void AddTargetTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        { // we have to use PreviewKeyDown because the KeyDown event doesn't fire for the arrow keys
+            switch (e.Key)
             {
-                var textBox = (TextBox)sender;
-                if (textBox.Text.Length != 0) return;
+            case Key.Up:
+                { // decrement selected session:
+                    var textBox = (TextBox)sender;
+                    var suggestionsView = (ListView)textBox.Tag;
 
-                var listBox = (ListBox)textBox.Tag;
-                if (listBox.Items.Count == 0) return;
-                var setting = (HotkeyActionSetting)listBox.DataContext;
+                    var index = suggestionsView.SelectedIndex;
+                    if (index > 0)
+                        index--;
+                    else
+                        index = suggestionsView.Items.Count - 1;
 
-                if (setting?.Value is not ActionTargetSpecifier list) return;
+                    suggestionsView.SelectionChanged -= TargetSuggestionsView_SelectionChanged;
 
-                list.Targets.Remove(listBox.Items[listBox.Items.Count - 1]);
+                    suggestionsView.SelectedIndex = index;
+
+                    suggestionsView.SelectionChanged += TargetSuggestionsView_SelectionChanged;
+                    break;
+                }
+            case Key.Down:
+                { // increment selected suggestion:
+                    var textBox = (TextBox)sender;
+                    var suggestionsView = (ListView)textBox.Tag;
+
+                    var index = suggestionsView.SelectedIndex;
+                    if (index < suggestionsView.Items.Count - 1)
+                        index++;
+                    else
+                        index = 0;
+
+                    suggestionsView.SelectionChanged -= TargetSuggestionsView_SelectionChanged;
+
+                    suggestionsView.SelectedIndex = index;
+
+                    suggestionsView.SelectionChanged += TargetSuggestionsView_SelectionChanged;
+                    break;
+                }
+            case Key.Left:
+                { // save selected suggestion to memory & deselect:
+                    var textBox = (TextBox)sender;
+                    var suggestionsView = (ListView)textBox.Tag;
+                    if (suggestionsView.SelectedIndex == -1) return; //< if nothing is selected, return
+
+                    _lastSelectedSuggestionIndex = suggestionsView.SelectedIndex; //< update last index
+
+                    suggestionsView.SelectionChanged -= TargetSuggestionsView_SelectionChanged;
+
+                    suggestionsView.SelectedIndex = -1;
+
+                    suggestionsView.SelectionChanged += TargetSuggestionsView_SelectionChanged;
+                    break;
+                }
+            case Key.Right:
+                { // recall selected suggestion:
+                    var textBox = (TextBox)sender;
+                    var suggestionsView = (ListView)textBox.Tag;
+                    if (suggestionsView.SelectedIndex != -1) return; //< if something is selected, return
+
+                    if (_lastSelectedSuggestionIndex >= suggestionsView.Items.Count)
+                        _lastSelectedSuggestionIndex = 0; //< don't set SelectedIndex to a non-existent index
+
+                    suggestionsView.SelectionChanged -= TargetSuggestionsView_SelectionChanged;
+
+                    suggestionsView.SelectedIndex = _lastSelectedSuggestionIndex;
+
+                    suggestionsView.SelectionChanged += TargetSuggestionsView_SelectionChanged;
+                    break;
+                }
+            case Key.Enter: //< do this here - even though we don't have to - for improved responsiveness
+                { // insert selected suggestion:
+                    var textBox = (TextBox)sender;
+
+                    var suggestionsView = (ListView)textBox.Tag; //< use the currently selected suggestion instead, if available
+                    if (suggestionsView.SelectedIndex != -1)
+                    {
+                        textBox.Text = (string)suggestionsView.SelectedItem;
+                        textBox.SelectionStart = textBox.Text.Length;
+                        return;
+                    }
+                    break;
+                }
+            default: break;
             }
         }
         #endregion AddTargetBox
+
+        #region TargetSuggestionsView
+        /// <summary>
+        /// Inserts the selected suggestion into the text box.
+        /// </summary>
+        private void TargetSuggestionsView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0) return;
+
+            var listView = (ListView)sender;
+            var textBox = (TextBox)listView.Tag;
+
+            textBox.Text = (string)e.AddedItems[0]!;
+            textBox.Focus();
+            textBox.SelectionStart = textBox.Text?.Length ?? 0;
+        }
+        #endregion TargetSuggestionsView
+
+        #region TargetSuggestionsPopup
+        /// <summary>
+        /// Fixes the positioning of the popup when the window moves or changes size.
+        /// </summary>
+        private void TargetSuggestionsPopup_Loaded(object sender, RoutedEventArgs e)
+        {
+            var popup = (System.Windows.Controls.Primitives.Popup)sender;
+
+            // fix position when the window's location changes:
+            LocationChanged += (s, e) =>
+            {
+                popup.HorizontalOffset += 1;
+                popup.HorizontalOffset -= 1;
+            };
+            // fix position when the window's size changes:
+            SizeChanged += (s, e) =>
+            {
+                popup.HorizontalOffset += 1;
+                popup.HorizontalOffset -= 1;
+            };
+        }
+        #endregion TargetSuggestionsPopup
 
         #endregion EventHandlers
     }
