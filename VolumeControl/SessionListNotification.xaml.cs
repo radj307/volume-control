@@ -338,7 +338,7 @@ namespace VolumeControl
                     e.Handled = true;
                     return;
                 }
-                else if (e.ChangedButton.Equals(MouseButton.Right))
+                else if (!Settings.LockTargetSession && e.ChangedButton.Equals(MouseButton.Right))
                 { // right mouse deselects
                     VCSettings.AudioAPI.AudioSessionSelector.DeselectSession();
                     e.Handled = true;
