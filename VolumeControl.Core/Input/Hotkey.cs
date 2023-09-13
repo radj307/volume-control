@@ -42,7 +42,10 @@ namespace VolumeControl.Core.Input
             set
             {
                 _key = value;
-                _ = WindowsHotkeyAPI.Reregister(this);
+                if (Registered)
+                {
+                    _ = WindowsHotkeyAPI.Reregister(this);
+                }
             }
         }
         private EFriendlyKey _key;
@@ -53,7 +56,10 @@ namespace VolumeControl.Core.Input
             set
             {
                 _modifier = value;
-                _ = WindowsHotkeyAPI.Reregister(this);
+                if (Registered)
+                {
+                    _ = WindowsHotkeyAPI.Reregister(this);
+                }
             }
         }
         private Modifier _modifier;
@@ -75,11 +81,8 @@ namespace VolumeControl.Core.Input
                 }
                 else
                 {
-                    if (WindowsHotkeyAPI.Unregister(this))
-                    { // unregistration succeeded
-                        _registered = false;
-                    }
-                    // unregistration failed, don't change _registered
+                    WindowsHotkeyAPI.Unregister(this);
+                    _registered = false;
                 }
             }
         }
