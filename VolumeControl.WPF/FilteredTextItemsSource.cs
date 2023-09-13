@@ -64,14 +64,15 @@ namespace VolumeControl.WPF
         #endregion FilterTextProperty
 
         #region FilteredItemsSourceProperty
-        /// <summary>
-        /// The <see cref="DependencyProperty"/> for <see cref="FilteredItemsSource"/>.
-        /// </summary>
-        public static readonly DependencyProperty FilteredItemsSourceProperty = DependencyProperty.Register(
+        private static readonly DependencyPropertyKey FilteredItemsSourceReadOnlyPropertyKey = DependencyProperty.RegisterReadOnly(
             nameof(FilteredItemsSource),
             typeof(IEnumerable<string>),
             typeof(FilteredTextItemsSource),
             new PropertyMetadata(null));
+        /// <summary>
+        /// The <see cref="DependencyProperty"/> for <see cref="FilteredItemsSource"/>.
+        /// </summary>
+        public static readonly DependencyProperty FilteredItemsSourceProperty = FilteredItemsSourceReadOnlyPropertyKey.DependencyProperty;
         /// <summary>
         /// Gets the filtered list.
         /// </summary>
@@ -81,7 +82,7 @@ namespace VolumeControl.WPF
         public IEnumerable<string>? FilteredItemsSource
         {
             get => (IEnumerable<string>?)GetValue(FilteredItemsSourceProperty);
-            protected set => SetValue(FilteredItemsSourceProperty, value);
+            protected set => SetValue(FilteredItemsSourceReadOnlyPropertyKey, value);
         }
         #endregion FilteredItemsSourceProperty
 
