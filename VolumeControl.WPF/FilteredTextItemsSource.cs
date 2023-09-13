@@ -63,6 +63,25 @@ namespace VolumeControl.WPF
         }
         #endregion FilterTextProperty
 
+        #region StringComparisonProperty
+        /// <summary>
+        /// The <see cref="DependencyProperty"/> for <see cref="StringComparison"/>.
+        /// </summary>
+        public static readonly DependencyProperty StringComparisonProperty = DependencyProperty.Register(
+            nameof(StringComparison),
+            typeof(StringComparison),
+            typeof(FilteredTextItemsSource),
+            new PropertyMetadata(StringComparison.Ordinal));
+        /// <summary>
+        /// Gets or sets the string comparison type to use when matching the FilterText to items.
+        /// </summary>
+        public StringComparison StringComparison
+        {
+            get => (StringComparison)GetValue(StringComparisonProperty);
+            set => SetValue(StringComparisonProperty, value);
+        }
+        #endregion StringComparisonProperty
+
         #region FilteredItemsSourceProperty
         private static readonly DependencyPropertyKey FilteredItemsSourceReadOnlyPropertyKey = DependencyProperty.RegisterReadOnly(
             nameof(FilteredItemsSource),
@@ -85,25 +104,6 @@ namespace VolumeControl.WPF
             protected set => SetValue(FilteredItemsSourceReadOnlyPropertyKey, value);
         }
         #endregion FilteredItemsSourceProperty
-
-        #region StringComparisonProperty
-        /// <summary>
-        /// The <see cref="DependencyProperty"/> for <see cref="StringComparison"/>.
-        /// </summary>
-        public static readonly DependencyProperty StringComparisonProperty = DependencyProperty.Register(
-            nameof(StringComparison),
-            typeof(StringComparison),
-            typeof(FilteredTextItemsSource),
-            new PropertyMetadata(StringComparison.Ordinal));
-        /// <summary>
-        /// Gets or sets the string comparison type to use when matching auto complete suggestions to the existing text.
-        /// </summary>
-        public StringComparison StringComparison
-        {
-            get => (StringComparison)GetValue(StringComparisonProperty);
-            set => SetValue(StringComparisonProperty, value);
-        }
-        #endregion StringComparisonProperty
 
         #region Methods
         /// <summary>

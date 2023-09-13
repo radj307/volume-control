@@ -121,8 +121,8 @@ namespace VolumeControl.ViewModels
         /// <summary>
         /// This is used by the target box's autocomplete feature, and is automatically invalidated & refreshed each time the sessions list changes.
         /// </summary>
-        public IEnumerable<string> AudioSessionProcessIdentifierAutocompleteSource { get; private set; }
-        public IEnumerable<string> AudioSessionProcessNameAutocompleteSource { get; private set; }
+        public IEnumerable<string> AudioSessionProcessIdentifierAutocompleteSource { get; private set; } = null!;
+        public IEnumerable<string> AudioSessionProcessNameAutocompleteSource { get; private set; } = null!;
         public IEnumerable<IHotkeyAction> Actions { get; internal set; } = null!;
         public IEnumerable<string> AddonDirectories { get; set; } = GetAddonDirectories();
         #endregion Other
