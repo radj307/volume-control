@@ -60,6 +60,9 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <Style TargetType="{x:Type ListViewItem}">
+                <EventSetter Event="Selected" Handler="ListViewItem_Selected" />
+            </Style>
 
             <!--  DataTemplates  -->
             <DataTemplate x:Key="StringDataTemplate" DataType="{x:Type inputActions:HotkeyActionSetting}">
@@ -140,6 +143,7 @@
                             Loaded="TargetSuggestionsPopup_Loaded">
                             <ListView
                                 x:Name="TargetSuggestionsView"
+                                DataContext="{Binding ElementName=listBox}"
                                 ItemsSource="{Binding FilteredItemsSource, Source={StaticResource FilteredItemsSource}}"
                                 SelectionChanged="TargetSuggestionsView_SelectionChanged"
                                 SelectionMode="Single"

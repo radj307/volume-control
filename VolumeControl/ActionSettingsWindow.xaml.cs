@@ -85,7 +85,7 @@ namespace VolumeControl
 
         #region ApplicationCommands
         /// <summary>
-        /// Closes the window.
+        /// Closes the window when ESC is pressed.
         /// </summary>
         private void ApplicationCommands_Close_Executed(object sender, ExecutedRoutedEventArgs e) => Close();
         #endregion ApplicationCommands
@@ -272,11 +272,22 @@ namespace VolumeControl
             if (e.AddedItems.Count == 0) return;
 
             var listView = (ListView)sender;
-            var textBox = (TextBox)listView.Tag;
+            var listBox = (ListBox)listView.DataContext;
 
-            textBox.Text = (string)e.AddedItems[0]!;
+            var setting = (HotkeyActionSetting)listBox.DataContext;
+
+            if (setting?.Value is not ActionTargetSpecifier list) return;
+
+            list.Targets.Add(new() { Value = (string)e.AddedItems[0]! });
+
+            // erase the text in the textbox
+            var textBox = (TextBox)listView.Tag;
+            if (textBox.Text.Length > 0)
+            {
+                textBox.Text = string.Empty;
+            }
+
             textBox.Focus();
-            textBox.SelectionStart = textBox.Text?.Length ?? 0;
         }
         #endregion TargetSuggestionsView
 
@@ -302,6 +313,18 @@ namespace VolumeControl
             };
         }
         #endregion TargetSuggestionsPopup
+
+        #region ListViewItem
+        /// <summary>
+        /// Prevents multiple items being selected on a single click when the window resizes as a result.
+        /// </summary>
+        private void ListViewItem_Selected(object sender, RoutedEventArgs e)
+        {
+            var listViewItem = (ListViewItem)sender;
+            var listView = (ListView)ItemsControl.ItemsControlFromItemContainer(listViewItem); ;
+            listView.ReleaseMouseCapture();
+        }
+        #endregion ListViewItem
 
         #endregion EventHandlers
     }
