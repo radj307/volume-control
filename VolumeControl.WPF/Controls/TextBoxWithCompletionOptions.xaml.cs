@@ -15,6 +15,9 @@ namespace VolumeControl.WPF.Controls
     public partial class TextBoxWithCompletionOptions : UserControl
     {
         #region Initializer
+        /// <summary>
+        /// Creates a new <see cref="TextBoxWithCompletionOptions"/> instance.
+        /// </summary>
         public TextBoxWithCompletionOptions()
         {
             InitializeComponent();
@@ -58,6 +61,11 @@ namespace VolumeControl.WPF.Controls
             /// </summary>
             public string SuggestionText { get; }
         }
+        /// <summary>
+        /// Represents the method that will handle <see cref="SuggestionClicked"/> events.
+        /// </summary>
+        /// <param name="sender">The <see cref="TextBoxWithCompletionOptions"/> instance that triggered the event.</param>
+        /// <param name="e"></param>
         public delegate void SuggestionClickedEventHandler(object sender, SuggestionClickedEventArgs e);
         /// <summary>
         /// <see cref="RoutedEvent"/> definition for <see cref="SuggestionClicked"/>.
@@ -94,6 +102,11 @@ namespace VolumeControl.WPF.Controls
             /// </summary>
             public string Text { get; }
         }
+        /// <summary>
+        /// Represents the method that will handle <see cref="CommittedText"/> events.
+        /// </summary>
+        /// <param name="sender">The <see cref="TextBoxWithCompletionOptions"/> instance that triggered the event.</param>
+        /// <param name="e"></param>
         public delegate void CommittedTextEventHandler(object sender, CommittedTextEventArgs e);
         /// <summary>
         /// <see cref="RoutedEvent"/> definition for <see cref="CommittedText"/>.
@@ -136,15 +149,24 @@ namespace VolumeControl.WPF.Controls
         #endregion Events
 
         #region Properties
+        /// <summary>
+        /// Gets the <see cref="FilteredTextItemsSource"/> object that provides a searchable suggestions list.
+        /// </summary>
         protected FilteredTextItemsSource FilteredItemsSource => (FilteredTextItemsSource)FindResource(nameof(FilteredItemsSource));
         #endregion Properties
 
         #region CompletionOptionsSourceProperty
+        /// <summary>
+        /// The <see cref="DependencyProperty"/> for <see cref="CompletionOptionsSource"/>.
+        /// </summary>
         public static readonly DependencyProperty CompletionOptionsSourceProperty = DependencyProperty.Register(
             nameof(CompletionOptionsSource),
             typeof(IEnumerable<string>),
             typeof(TextBoxWithCompletionOptions),
             new PropertyMetadata(null));
+        /// <summary>
+        /// Gets or sets the items source that will be used for completion options.
+        /// </summary>
         public IEnumerable<string> CompletionOptionsSource
         {
             get => (IEnumerable<string>)GetValue(CompletionOptionsSourceProperty);
@@ -153,11 +175,17 @@ namespace VolumeControl.WPF.Controls
         #endregion CompletionOptionsSourceProperty
 
         #region TextProperty
+        /// <summary>
+        /// The <see cref="DependencyProperty"/> for <see cref="Text"/>.
+        /// </summary>
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
             nameof(Text),
             typeof(string),
             typeof(TextBoxWithCompletionOptions),
             new PropertyMetadata(string.Empty, OnTextPropertyChanged));
+        /// <summary>
+        /// Gets or sets the text in the textbox.
+        /// </summary>
         public string Text
         {
             get => (string)GetValue(TextProperty);
@@ -190,26 +218,36 @@ namespace VolumeControl.WPF.Controls
         }
         #endregion StringComparisonProperty
 
-        #region BackPressedRequiredModifiersProperty
-        public static DependencyProperty BackPressedRequiredModifiersProperty = DependencyProperty.Register(
-            nameof(BackPressedRequiredModifiers),
+        #region BackPressedRequiredModifierKeysProperty
+        /// <summary>
+        /// The <see cref="DependencyProperty"/> for <see cref="BackPressedRequiredModifierKeys"/>.
+        /// </summary>
+        public static readonly DependencyProperty BackPressedRequiredModifierKeysProperty = DependencyProperty.Register(
+            nameof(BackPressedRequiredModifierKeys),
             typeof(ModifierKeys),
             typeof(TextBoxWithCompletionOptions),
             new PropertyMetadata(ModifierKeys.Control));
+        /// <summary>
+        /// Gets or sets the <see cref="ModifierKeys"/> that must be held when pressing Backspace in order for the <see cref="BackPressed"/> event to fire.
+        /// </summary>
         [TypeConverter(typeof(EnumConverter))]
-        public ModifierKeys BackPressedRequiredModifiers
+        public ModifierKeys BackPressedRequiredModifierKeys
         {
-            get => (ModifierKeys)GetValue(BackPressedRequiredModifiersProperty);
-            set => SetValue(BackPressedRequiredModifiersProperty, value);
+            get => (ModifierKeys)GetValue(BackPressedRequiredModifierKeysProperty);
+            set => SetValue(BackPressedRequiredModifierKeysProperty, value);
         }
         #endregion BackPressedRequiredModifiersProperty
 
         #region TextBoxSelectionBrushProperty
+        /// <summary>
+        /// The <see cref="DependencyProperty"/> for <see cref="TextBoxSelectionBrush"/>.
+        /// </summary>
         public static readonly DependencyProperty TextBoxSelectionBrushProperty = DependencyProperty.Register(
             nameof(TextBoxSelectionBrush),
             typeof(Brush),
             typeof(TextBoxWithCompletionOptions),
-            new PropertyMetadata(TextBox.SelectionBrushProperty.DefaultMetadata.DefaultValue));
+            new PropertyMetadata(System.Windows.Controls.Primitives.TextBoxBase.SelectionBrushProperty.DefaultMetadata.DefaultValue));
+        /// <inheritdoc cref="System.Windows.Controls.Primitives.TextBoxBase.SelectionBrush"/>
         public Brush TextBoxSelectionBrush
         {
             get => (Brush)GetValue(TextBoxSelectionBrushProperty);
@@ -218,11 +256,15 @@ namespace VolumeControl.WPF.Controls
         #endregion TextBoxSelectionBrushProperty
 
         #region TextBoxPaddingProperty
+        /// <summary>
+        /// The <see cref="DependencyProperty"/> for <see cref="TextBoxPadding"/>.
+        /// </summary>
         public static readonly DependencyProperty TextBoxPaddingProperty = DependencyProperty.Register(
             nameof(TextBoxPadding),
             typeof(Thickness),
             typeof(TextBoxWithCompletionOptions),
-            new PropertyMetadata(TextBox.PaddingProperty.DefaultMetadata.DefaultValue));
+            new PropertyMetadata(PaddingProperty.DefaultMetadata.DefaultValue));
+        /// <inheritdoc cref="Control.Padding"/>
         public Thickness TextBoxPadding
         {
             get => (Thickness)GetValue(TextBoxPaddingProperty);
@@ -231,11 +273,15 @@ namespace VolumeControl.WPF.Controls
         #endregion TextBoxPaddingProperty
 
         #region TextBoxBorderThicknessProperty
+        /// <summary>
+        /// The <see cref="DependencyProperty"/> for <see cref="TextBoxBorderThickness"/>.
+        /// </summary>
         public static readonly DependencyProperty TextBoxBorderThicknessProperty = DependencyProperty.Register(
             nameof(TextBoxBorderThickness),
             typeof(Thickness),
             typeof(TextBoxWithCompletionOptions),
-            new PropertyMetadata(TextBox.BorderThicknessProperty.DefaultMetadata.DefaultValue));
+            new PropertyMetadata(BorderThicknessProperty.DefaultMetadata.DefaultValue));
+        /// <inheritdoc cref="Control.BorderThickness"/>
         public Thickness TextBoxBorderThickness
         {
             get => (Thickness)GetValue(TextBoxBorderThicknessProperty);
@@ -244,11 +290,15 @@ namespace VolumeControl.WPF.Controls
         #endregion TextBoxBorderThicknessProperty
 
         #region TextBoxBorderBrushProperty
+        /// <summary>
+        /// The <see cref="DependencyProperty"/> for <see cref="TextBoxBorderBrush"/>.
+        /// </summary>
         public static readonly DependencyProperty TextBoxBorderBrushProperty = DependencyProperty.Register(
             nameof(TextBoxBorderBrush),
             typeof(Brush),
             typeof(TextBoxWithCompletionOptions),
-            new PropertyMetadata(TextBox.BorderBrushProperty.DefaultMetadata.DefaultValue));
+            new PropertyMetadata(BorderBrushProperty.DefaultMetadata.DefaultValue));
+        /// <inheritdoc cref="Control.BorderBrush"/>
         public Brush TextBoxBorderBrush
         {
             get => (Brush)GetValue(TextBoxBorderBrushProperty);
@@ -257,11 +307,15 @@ namespace VolumeControl.WPF.Controls
         #endregion TextBoxBorderBrushProperty
 
         #region TextBoxForegroundProperty
+        /// <summary>
+        /// The <see cref="DependencyProperty"/> for <see cref="TextBoxForeground"/>.
+        /// </summary>
         public static readonly DependencyProperty TextBoxForegroundProperty = DependencyProperty.Register(
             nameof(TextBoxForeground),
             typeof(Brush),
             typeof(TextBoxWithCompletionOptions),
-            new PropertyMetadata(TextBox.ForegroundProperty.DefaultMetadata.DefaultValue));
+            new PropertyMetadata(ForegroundProperty.DefaultMetadata.DefaultValue));
+        /// <inheritdoc cref="Control.Foreground"/>
         public Brush TextBoxForeground
         {
             get => (Brush)GetValue(TextBoxForegroundProperty);
@@ -270,11 +324,15 @@ namespace VolumeControl.WPF.Controls
         #endregion TextBoxForegroundProperty
 
         #region TextBoxBackgroundProperty
+        /// <summary>
+        /// The <see cref="DependencyProperty"/> for <see cref="TextBoxBackground"/>.
+        /// </summary>
         public static readonly DependencyProperty TextBoxBackgroundProperty = DependencyProperty.Register(
             nameof(TextBoxBackground),
             typeof(Brush),
             typeof(TextBoxWithCompletionOptions),
-            new PropertyMetadata(TextBox.BackgroundProperty.DefaultMetadata.DefaultValue));
+            new PropertyMetadata(BackgroundProperty.DefaultMetadata.DefaultValue));
+        /// <inheritdoc cref="Control.Background"/>
         public Brush TextBoxBackground
         {
             get => (Brush)GetValue(TextBoxBackgroundProperty);
@@ -313,7 +371,7 @@ namespace VolumeControl.WPF.Controls
             case Key.Back:
                 if (FilterTextBox.Text.Length > 0) break;
 
-                if (!Keyboard.Modifiers.Equals(BackPressedRequiredModifiers)) break;
+                if (!Keyboard.Modifiers.Equals(BackPressedRequiredModifierKeys)) break;
 
                 NotifyBackPressed();
                 e.Handled = true;
