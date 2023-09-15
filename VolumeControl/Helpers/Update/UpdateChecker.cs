@@ -9,9 +9,9 @@ using VolumeControl.ViewModels;
 
 namespace VolumeControl.Helpers.Update
 {
-    public class Updater
+    public class UpdateChecker
     {
-        public Updater(VolumeControlVM vcSettingsInstance) => VCSettings = vcSettingsInstance;
+        public UpdateChecker(VolumeControlVM vcSettingsInstance) => VCSettings = vcSettingsInstance;
 
         #region Fields
         private readonly VolumeControlVM VCSettings;

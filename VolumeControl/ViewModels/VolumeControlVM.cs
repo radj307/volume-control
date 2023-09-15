@@ -113,7 +113,7 @@ namespace VolumeControl.ViewModels
         private bool disposedValue;
         private bool _updatingAudioSessionSelectorFromTargetSessionText = false;
         #endregion PrivateFields
-        public readonly Updater Updater;
+        public readonly UpdateChecker Updater;
         #endregion Fields
 
         #region Properties
