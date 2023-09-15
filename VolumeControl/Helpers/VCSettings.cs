@@ -24,11 +24,7 @@ namespace VolumeControl.Helpers
             this.HWndHook = new(WindowHandleGetter.GetHwndSource(this.MainWindowHandle = WindowHandleGetter.GetWindowHandle()));
             this.HWndHook.AddMaximizeBugFixHandler();
 
-            // Get the executing assembly
-            var asm = Assembly.GetExecutingAssembly();
-
             // Get the executable path
-
             this.ExecutablePath = GetExecutablePath();
             Log.Debug($"{nameof(VCSettings)}.{nameof(this.ExecutablePath)} = '{this.ExecutablePath}'");
 

@@ -1,6 +1,5 @@
 ﻿using VolumeControl.Core;
 using VolumeControl.CoreAudio;
-using VolumeControl.CoreAudio.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.SDK.Internal;
 
@@ -15,6 +14,7 @@ namespace VolumeControl.SDK
     /// </remarks>
     public class VCAPI
     {
+        #region Initializer
         internal VCAPI(AudioDeviceManager audioDeviceManager, AudioDeviceSelector audioDeviceSelector, AudioSessionManager audioSessionManager, AudioSessionSelector audioSessionSelector, HotkeyManager hkManager, IntPtr MainHWnd, Config settings)
         {
             AudioDeviceManager = audioDeviceManager;
@@ -25,6 +25,7 @@ namespace VolumeControl.SDK
             MainWindowHWnd = MainHWnd;
             Settings = settings;
         }
+        #endregion Initializer
 
         #region Statics
         /// <summary>

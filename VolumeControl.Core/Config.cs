@@ -279,7 +279,7 @@ namespace VolumeControl.Core
         /// <summary>
         /// Gets or sets the last target session.
         /// </summary>
-        public TargetInfo Target { get; set; } = new() { ProcessIdentifier = string.Empty, SessionInstanceIdentifier = string.Empty };
+        public TargetInfo Target { get; set; } = TargetInfo.Empty;
         /// <summary>
         /// Gets or sets whether the target session is locked.
         /// </summary>

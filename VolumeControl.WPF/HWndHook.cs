@@ -11,22 +11,28 @@ namespace VolumeControl.WPF
     /// </summary>
     public class HWndHook : IDisposable
     {
+        #region Initializers
         /// <inheritdoc cref="HWndHook"/>
         /// <param name="hWndSource">The main window's <see cref="HwndSource"/> object.</param>
         public HWndHook(HwndSource hWndSource) => this.SetSource(hWndSource);
         /// <inheritdoc cref="HWndHook"/>
         public HWndHook() { }
+        #endregion Initializers
 
-        private List<HwndSourceHook> Hooks { get; } = new();
+        #region Fields
         private HwndSource? _source;
+        #endregion Fields
 
+        #region Properties
+        private static LogWriter Log => FLog.Log;
+        private List<HwndSourceHook> Hooks { get; } = new();
         /// <summary>
         /// Gets the current target handle from the hook source.
         /// </summary>
         public IntPtr Handle => _source?.Handle ?? IntPtr.Zero;
+        #endregion Properties
 
-        private static LogWriter Log => FLog.Log;
-
+        #region Methods
         /// <summary>
         /// Sets the <see cref="HwndSource"/> used to add and remove hooks.
         /// </summary>
@@ -47,7 +53,6 @@ namespace VolumeControl.WPF
             _source = src;
             this.AttachAll();
         }
-
         /// <summary>
         /// Adds a message handler.
         /// </summary>
@@ -79,7 +84,9 @@ namespace VolumeControl.WPF
                 Log.Warning($"{caller} attempted to remove a message hook that doesn't exist!");
             }
         }
+        #endregion Methods
 
+        #region Private Methods
         private void Attach(HwndSourceHook hook)
         {
             if (_source == null || _source.Handle.Equals(IntPtr.Zero))
@@ -102,10 +109,11 @@ namespace VolumeControl.WPF
                 _source.RemoveHook(hook);
             }
         }
-
         private void AttachAll() => this.Hooks.ForEach(hook => this.Attach(hook));
         private void DetachAll() => this.Hooks.ForEach(hook => this.Detach(hook));
+        #endregion Private Methods
 
+        #region IDisposable Implementation
         /// <inheritdoc/>
         public void Dispose()
         {
@@ -113,5 +121,6 @@ namespace VolumeControl.WPF
             _source?.Dispose();
             GC.SuppressFinalize(this);
         }
+        #endregion IDisposable Implementation
     }
 }

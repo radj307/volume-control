@@ -228,8 +228,9 @@ namespace VolumeControl.CoreAudio
         /// <returns>A <see cref="TargetInfo"/> struct that represents this <see cref="AudioSession"/> instance.</returns>
         public TargetInfo GetTargetInfo() => new TargetInfo()
         {
-            ProcessIdentifier = ProcessIdentifier,
-            SessionInstanceIdentifier = SessionInstanceIdentifier,
+            PID = this.PID,
+            ProcessName = this.ProcessName,
+            SessionInstanceIdentifier = this.SessionInstanceIdentifier,
         };
         /// <summary>
         /// Parses the given <paramref name="processIdentifier"/> to retrieve the ProcessId and ProcessName components.
