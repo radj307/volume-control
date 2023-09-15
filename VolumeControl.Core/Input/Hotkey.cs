@@ -90,11 +90,29 @@ namespace VolumeControl.Core.Input
         /// <summary>
         /// Gets a boolean that indicates whether the last attempt to register this hotkey failed or not.
         /// </summary>
-        public bool HasError { get; internal set; } = false;
+        public bool HasError
+        {
+            get => _hasError;
+            internal set
+            {
+                _hasError = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private bool _hasError = false;
         /// <summary>
         /// When <see cref="HasError"/> is <see langword="true"/>, this retrieves the error message string associated with the error that occurred; when <see cref="HasError"/> is <see langword="false"/>, this is <see langword="null"/>.
         /// </summary>
-        public string? ErrorMessage { get; internal set; } = null;
+        public string? ErrorMessage
+        {
+            get => _errorMessage;
+            internal set
+            {
+                _errorMessage = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private string? _errorMessage;
         /// <inheritdoc/>
         public ObservableImmutableList<IHotkeyActionSetting>? ActionSettings { get; set; }
         #endregion Properties
@@ -112,26 +130,26 @@ namespace VolumeControl.Core.Input
         #endregion Events
 
         #region Methods
+        /// <summary>
+        /// Sets the <see cref="ErrorMessage"/> property.
+        /// </summary>
+        /// <param name="message">The error message to set.</param>
         internal void SetError(string message)
         {
             this.ErrorMessage = message;
-            this.NotifyPropertyChanged(nameof(this.ErrorMessage));
 
             if (!this.HasError)
             {
                 this.HasError = true;
-                this.NotifyPropertyChanged(nameof(this.HasError));
             }
         }
         internal void UnsetError()
         {
             this.ErrorMessage = null;
-            this.NotifyPropertyChanged(nameof(this.ErrorMessage));
 
             if (this.HasError)
             {
                 this.HasError = false;
-                this.NotifyPropertyChanged(nameof(this.HasError));
             }
         }
 #       pragma warning disable IDE0060 // Remove unused parameter

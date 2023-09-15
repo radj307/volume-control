@@ -87,6 +87,13 @@ namespace VolumeControl.Core
         }
         #endregion Properties
 
+        #region EventHandlers
+        private void Hotkey_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            Settings.Save();
+        }
+        #endregion EventHandlers
+
         #region Methods
         #region HotkeysListManipulators
         /// <summary>
@@ -97,6 +104,7 @@ namespace VolumeControl.Core
             this.Hotkeys.Add(hk);
             Log.Info($"Created a new hotkey entry:", JsonConvert.SerializeObject(hk));
             this.RecheckAllSelected();
+            hk.PropertyChanged += Hotkey_PropertyChanged;
         }
         /// <summary>
         /// Create a new blank hotkey and add it to <see cref="Hotkeys"/>.
@@ -116,6 +124,7 @@ namespace VolumeControl.Core
             _ = this.Hotkeys.Remove(hk);
             Log.Info($"Deleted hotkey {hk.ID} '{hk.Name}'");
             this.RecheckAllSelected();
+            hk.PropertyChanged -= Hotkey_PropertyChanged;
         }
         /// <summary>
         /// Remove the specified hotkey from <see cref="Hotkeys"/>.
@@ -128,6 +137,8 @@ namespace VolumeControl.Core
                 if (this.Hotkeys[i].ID.Equals(id))
                 {
                     this.Hotkeys[i].Registered = false;
+                    this.Hotkeys[i].PropertyChanged -= Hotkey_PropertyChanged;
+                    this.Hotkeys[i].Dispose();
                     this.Hotkeys.RemoveAt(i);
                 }
             }
@@ -141,6 +152,7 @@ namespace VolumeControl.Core
             for (int i = this.Hotkeys.Count - 1; i >= 0; --i)
             {
                 this.Hotkeys[i].Registered = false;
+                this.Hotkeys[i].PropertyChanged -= Hotkey_PropertyChanged;
                 this.Hotkeys[i].Dispose();
                 this.Hotkeys.RemoveAt(i);
             }
@@ -284,24 +296,6 @@ namespace VolumeControl.Core
             }
         }
         #endregion AllSelected
-
-        /// <summary>
-        /// Checks if the given <paramref name="id"/> does <b>not</b> match any existing hotkeys.
-        /// </summary>
-        /// <param name="id">The hotkey ID to check.</param>
-        /// <returns><see langword="true"/> when <paramref name="id"/> is unique; otherwise <see langword="false"/> if an existing hotkey is already using it.</returns>
-        public bool IsUniqueID(int id) => !this.Hotkeys.Any(hk => hk.ID.Equals(id));
-        /// <summary>
-        /// Gets the next unique hotkey ID by repeatedly calling <see cref="WindowsHotkeyAPI.NextID"/> until a unique ID is found.
-        /// </summary>
-        /// <returns></returns>
-        public int GetNextUniqueID()
-        {
-            int i;
-
-            while (!IsUniqueID(i = WindowsHotkeyAPI.NextID)) { }
-            return i;
-        }
         #endregion Methods
     }
 }
