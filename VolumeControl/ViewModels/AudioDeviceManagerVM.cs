@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Threading;
 using VolumeControl.Core;
 using VolumeControl.CoreAudio;
+using VolumeControl.CoreAudio.Events;
 using VolumeControl.Log;
 using VolumeControl.WPF.Collections;
 
@@ -38,6 +39,7 @@ namespace VolumeControl.ViewModels
 
             AudioSessionManager = new();
 
+            AudioSessionManager.PreviewSessionName += this.AudioSessionManager_PreviewSessionName;
             AudioSessionManager.SessionAddedToList += this.AudioSessionManager_SessionAddedToList;
             AudioSessionManager.SessionRemovedFromList += this.AudioSessionManager_SessionRemovedFromList;
 
@@ -118,6 +120,13 @@ namespace VolumeControl.ViewModels
             var vm = AllSessions.First(svm => svm.AudioSession.Equals(e));
             AllSessions.Remove(vm);
             vm.Dispose();
+        }
+        private void AudioSessionManager_PreviewSessionName(object sender, PreviewSessionNameEventArgs e)
+        {
+            if (e.SessionName.Equals("Idle", System.StringComparison.Ordinal))
+            {
+                e.SessionName = "System Sounds";
+            }
         }
         #endregion AudioSessionManager EventHandler Methods
     }
