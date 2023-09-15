@@ -34,10 +34,6 @@ namespace VolumeControl
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => this.RaisePropertyChanged(propertyName);
         #endregion Events
 
-        #region Fields
-        private int _lastSelectedSuggestionIndex = 0;
-        #endregion Fields
-
         #region Properties
         public IBindableHotkey? Hotkey
         {
