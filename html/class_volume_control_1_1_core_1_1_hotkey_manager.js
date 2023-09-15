@@ -8,8 +8,6 @@ var class_volume_control_1_1_core_1_1_hotkey_manager =
     [ "DelHotkey", "class_volume_control_1_1_core_1_1_hotkey_manager.html#aff0055d19943f50b7d546aeeffb30cc1", null ],
     [ "Dispose", "class_volume_control_1_1_core_1_1_hotkey_manager.html#a000048cd157f8d0cae24b5aa06de28b9", null ],
     [ "GetHotkey", "class_volume_control_1_1_core_1_1_hotkey_manager.html#a55b01e61360792919027d2399975cb8a", null ],
-    [ "GetNextUniqueID", "class_volume_control_1_1_core_1_1_hotkey_manager.html#a5dd04ba46c6bbb5bfd0df281cd9371d3", null ],
-    [ "IsUniqueID", "class_volume_control_1_1_core_1_1_hotkey_manager.html#a775cee10e61cef16868f09f8e5bcc82a", null ],
     [ "LoadHotkeys", "class_volume_control_1_1_core_1_1_hotkey_manager.html#a3213be3e4c9842b037e3a1b27e712b5a", null ],
     [ "ResetHotkeys", "class_volume_control_1_1_core_1_1_hotkey_manager.html#ae2b774f7f577109fad2f8c807abb5a25", null ],
     [ "SaveHotkeys", "class_volume_control_1_1_core_1_1_hotkey_manager.html#afc79e772644308323e028945af53d9b1", null ],

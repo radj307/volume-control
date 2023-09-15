@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['observablecollectionobject_1008',['ObservableCollectionObject',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object.html',1,'VolumeControl::WPF::Collections']]],
-  ['observableimmutablelist_1009',['ObservableImmutableList',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html',1,'VolumeControl::WPF::Collections']]],
-  ['observablelist_1010',['ObservableList',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list.html',1,'VolumeControl::WPF::Collections']]]
+  ['nullableboolextensions_1034',['NullableBoolExtensions',['../class_volume_control_1_1_type_extensions_1_1_nullable_bool_extensions.html',1,'VolumeControl::TypeExtensions']]],
+  ['nulltobooleanconverter_1035',['NullToBooleanConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html',1,'VolumeControl::WPF::Converters']]],
+  ['numericupdown_1036',['NumericUpDown',['../class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down.html',1,'VolumeControl::WPF::Controls']]]
 ];

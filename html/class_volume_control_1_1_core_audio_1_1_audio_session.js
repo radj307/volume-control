@@ -2,6 +2,7 @@ var class_volume_control_1_1_core_audio_1_1_audio_session =
 [
     [ "Dispose", "class_volume_control_1_1_core_audio_1_1_audio_session.html#ac7d080e2d81f450d4177ba7ca2ccd7fa", null ],
     [ "GetProcess", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a41c715c15797053d56b0f3e3722c5093", null ],
+    [ "GetProcess", "class_volume_control_1_1_core_audio_1_1_audio_session.html#ad7c04f47c7c13fec0492598ee977e157", null ],
     [ "GetTargetInfo", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a5a7f0e9a82545ee48b703574258adf70", null ],
     [ "pid", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a8b1838f61e5a10787ec5477f76c4ff95", null ],
     [ "AudioDevice", "class_volume_control_1_1_core_audio_1_1_audio_session.html#afbe58a8ed3d922208f6bfc7da1b3a85e", null ],
@@ -19,7 +20,6 @@ var class_volume_control_1_1_core_audio_1_1_audio_session =
     [ "ProcessName", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a9233daa574ed29a653f612cfa526e4ab", null ],
     [ "SessionIdentifier", "class_volume_control_1_1_core_audio_1_1_audio_session.html#aab7405b92d06a550377e07acb65bbe73", null ],
     [ "SessionInstanceIdentifier", "class_volume_control_1_1_core_audio_1_1_audio_session.html#aefa57c169c1aa8c5d07ef237cf18af15", null ],
-    [ "Settings", "class_volume_control_1_1_core_audio_1_1_audio_session.html#af98b29bfa8926af848bb9890d965f5a2", null ],
     [ "SimpleAudioVolume", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a32e9f5611af6e4723baace9c7e3e1eac", null ],
     [ "Volume", "class_volume_control_1_1_core_audio_1_1_audio_session.html#ab28ae9c55005774371d6c48ea4e08f01", null ],
     [ "DisplayNameChanged", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a3677973822932709c7a6814bb12ef517", null ],

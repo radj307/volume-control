@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['intervalproperty_1307',['IntervalProperty',['../class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#a49b7b3bf063cafc14960d52f638ef8c7',1,'VolumeControl::WPF::BindableTimer']]],
-  ['itemssourceproperty_1308',['ItemsSourceProperty',['../class_volume_control_1_1_w_p_f_1_1_text_box_autocomplete_behavior.html#a819b1b34a0a8cef6e68b87cb71cdad25',1,'VolumeControl::WPF::TextBoxAutocompleteBehavior']]]
+  ['hotkeys_5fdefault_1342',['Hotkeys_Default',['../class_volume_control_1_1_core_1_1_config.html#aabc2f606723e6010d5ee104e3c043186',1,'VolumeControl::Core::Config']]],
+  ['hwnd_5fbottom_1343',['HWND_BOTTOM',['../class_volume_control_1_1_core_1_1_user32.html#a37c04cc042dd351d7f558eebe4384ec9',1,'VolumeControl::Core::User32']]],
+  ['hwnd_5fnotopmost_1344',['HWND_NOTOPMOST',['../class_volume_control_1_1_core_1_1_user32.html#ac5d6cf066ba22a57fea7bc1302a1cf4d',1,'VolumeControl::Core::User32']]],
+  ['hwnd_5ftop_1345',['HWND_TOP',['../class_volume_control_1_1_core_1_1_user32.html#abc2bc42a9c44afc9ff9ddcf2eaac6732',1,'VolumeControl::Core::User32']]],
+  ['hwnd_5ftopmost_1346',['HWND_TOPMOST',['../class_volume_control_1_1_core_1_1_user32.html#a3beb4f7d69a4a2d70985ddb9de56f96e',1,'VolumeControl::Core::User32']]]
 ];

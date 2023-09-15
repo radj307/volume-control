@@ -1,0 +1,4 @@
+var class_volume_control_1_1_w_p_f_1_1_controls_1_1_text_box_with_completion_options_1_1_committed_text_event_args =
+[
+    [ "Text", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_text_box_with_completion_options_1_1_committed_text_event_args.html#a3b51b341c9c3b6548d08b54088ce2b6a", null ]
+];

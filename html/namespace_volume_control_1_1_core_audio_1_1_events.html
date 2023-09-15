@@ -95,17 +95,60 @@ $(document).ready(function(){initNavTree('namespace_volume_control_1_1_core_audi
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_name_event_args.html">PreviewSessionNameEventArgs</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event arguments for the preview session name event, which allows session display names to be changed when they are added by the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html" title="Manages a list of AudioSession instances and their related events for any number of AudioDeviceSessio...">AudioSessionManager</a>.  <a href="class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_name_event_args.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args.html">VolumeChangedEventArgs</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains event data for the <a class="el" href="namespace_volume_control_1_1_core_audio_1_1_events.html#a59ed35f1775d48c0588327bdcf6a4817" title="Represents a method that is called when an audio instance&#39;s volume or mute state was changed.">VolumeChangedEventHandler</a> event type.  <a href="class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ae281c39ac136801fc2277b5c082dcaed"><td class="memItemLeft" align="right" valign="top">delegate void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_volume_control_1_1_core_audio_1_1_events.html#ae281c39ac136801fc2277b5c082dcaed">PreviewSessionNameEventHandler</a> (object sender, <a class="el" href="class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_name_event_args.html">PreviewSessionNameEventArgs</a> e)</td></tr>
+<tr class="memdesc:ae281c39ac136801fc2277b5c082dcaed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler delegate type for the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a55d60887d91fb4049ac92bcb0587be75" title="Occurs before an AudioSession is added to the Sessions list.">AudioSessionManager.PreviewSessionName</a> event.  <a href="namespace_volume_control_1_1_core_audio_1_1_events.html#ae281c39ac136801fc2277b5c082dcaed">More...</a><br /></td></tr>
+<tr class="separator:ae281c39ac136801fc2277b5c082dcaed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59ed35f1775d48c0588327bdcf6a4817"><td class="memItemLeft" align="right" valign="top">delegate void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_volume_control_1_1_core_audio_1_1_events.html#a59ed35f1775d48c0588327bdcf6a4817">VolumeChangedEventHandler</a> (<a class="el" href="interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_control.html">IAudioControl</a>? sender, <a class="el" href="class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args.html">VolumeChangedEventArgs</a> e)</td></tr>
 <tr class="memdesc:a59ed35f1775d48c0588327bdcf6a4817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a method that is called when an audio instance's volume or mute state was changed.  <a href="namespace_volume_control_1_1_core_audio_1_1_events.html#a59ed35f1775d48c0588327bdcf6a4817">More...</a><br /></td></tr>
 <tr class="separator:a59ed35f1775d48c0588327bdcf6a4817"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ae281c39ac136801fc2277b5c082dcaed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae281c39ac136801fc2277b5c082dcaed">&#9670;&nbsp;</a></span>PreviewSessionNameEventHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">delegate void VolumeControl.CoreAudio.Events.PreviewSessionNameEventHandler </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_name_event_args.html">PreviewSessionNameEventArgs</a>&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handler delegate type for the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a55d60887d91fb4049ac92bcb0587be75" title="Occurs before an AudioSession is added to the Sessions list.">AudioSessionManager.PreviewSessionName</a> event. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html" title="Manages a list of AudioSession instances and their related events for any number of AudioDeviceSessio...">AudioSessionManager</a> instance that invoked the event.</td></tr>
+    <tr><td class="paramname">e</td><td>Event arguments that allow changing an audio session's display name by modifying the <a class="el" href="class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_name_event_args.html#a46735ee1a93a7e2d11dff38a09612de1" title="Gets or sets the initial name that will be used for the new audio session instance.">PreviewSessionNameEventArgs.SessionName</a> property.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a59ed35f1775d48c0588327bdcf6a4817"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a59ed35f1775d48c0588327bdcf6a4817">&#9670;&nbsp;</a></span>VolumeChangedEventHandler()</h2>
 

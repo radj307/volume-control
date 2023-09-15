@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['peakmetermaxvalue_1318',['PeakMeterMaxValue',['../class_volume_control_1_1_core_1_1_config.html#a7034788612c2c6724aa3926032fd84d8',1,'VolumeControl::Core::Config']]],
-  ['peakmeterminvalue_1319',['PeakMeterMinValue',['../class_volume_control_1_1_core_1_1_config.html#a8d2d3c338d9cdf8df38ec327facc0ff1',1,'VolumeControl::Core::Config']]]
+  ['opensinbrowserproperty_1357',['OpensInBrowserProperty',['../class_volume_control_1_1_w_p_f_1_1_extensions_1_1_hyperlink_extensions.html#a27224cdd4d5b75778de5446dbf80bc22',1,'VolumeControl::WPF::Extensions::HyperlinkExtensions']]]
 ];

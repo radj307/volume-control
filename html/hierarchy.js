@@ -16,9 +16,6 @@ var hierarchy =
     [ "VolumeControl.CoreAudio.AudioDeviceSessionManager", "class_volume_control_1_1_core_audio_1_1_audio_device_session_manager.html", null ],
     [ "VolumeControl.Hotkeys.AudioSessionActions", "class_volume_control_1_1_hotkeys_1_1_audio_session_actions.html", null ],
     [ "VolumeControl.CoreAudio.AudioSessionManager", "class_volume_control_1_1_core_audio_1_1_audio_session_manager.html", null ],
-    [ "BaseAssemblyAttribute", null, [
-      [ "VolumeControl.Core.Attributes.AllowUpgradeConfigAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_allow_upgrade_config_attribute.html", null ]
-    ] ],
     [ "Behavior", null, [
       [ "VolumeControl.WPF.MouseWheelListViewBehavior", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_list_view_behavior.html", null ],
       [ "VolumeControl.WPF.MouseWheelNumericUpDownBehavior", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_numeric_up_down_behavior.html", null ],
@@ -36,15 +33,18 @@ var hierarchy =
       [ "VolumeControl.WPF.Controls.NumericUpDown", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down.html", null ]
     ] ],
     [ "DataTemplateSelector", null, [
-      [ "VolumeControl.Core.Input.Actions.HotkeyActionSettingValueTemplateSelector", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting_value_template_selector.html", null ]
+      [ "VolumeControl.WPF.DataTemplateTypeBindingSelector", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding_selector.html", null ]
     ] ],
+    [ "VolumeControl.Log.DebugUtils", "class_volume_control_1_1_log_1_1_debug_utils.html", null ],
     [ "DependencyObject", null, [
       [ "VolumeControl.WPF.BindableTimer", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html", null ],
-      [ "VolumeControl.WPF.Converters.BoolToBrushConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_brush_converter.html", null ]
+      [ "VolumeControl.WPF.Converters.BoolToBrushConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_brush_converter.html", null ],
+      [ "VolumeControl.WPF.FilteredTextItemsSource", "class_volume_control_1_1_w_p_f_1_1_filtered_text_items_source.html", null ]
     ] ],
     [ "VolumeControl.TypeExtensions.EnumerableExtensions", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html", null ],
     [ "VolumeControl.TypeExtensions.EnumExtensions", "class_volume_control_1_1_type_extensions_1_1_enum_extensions.html", null ],
     [ "EventArgs", null, [
+      [ "VolumeControl.CoreAudio.Events.PreviewSessionNameEventArgs", "class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_name_event_args.html", null ],
       [ "VolumeControl.CoreAudio.Events.VolumeChangedEventArgs", "class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args.html", null ]
     ] ],
     [ "VolumeControl.Core.Enum.EVirtualKeyCodeExtensions", "class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions.html", null ],
@@ -156,7 +156,8 @@ var hierarchy =
       [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ],
       [ "VolumeControl.WPF.Collections.BindableEventType.BindableEventTypeFlag", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type_1_1_bindable_event_type_flag.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableCollectionObject", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object.html", null ],
-      [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ]
+      [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ],
+      [ "VolumeControl.WPF.DataTemplateTypeBinding", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding.html", null ]
     ] ],
     [ "VolumeControl.Core.InputSimulator", "class_volume_control_1_1_core_1_1_input_simulator.html", null ],
     [ "VolumeControl.TypeExtensions.Int32Extensions", "class_volume_control_1_1_type_extensions_1_1_int32_extensions.html", null ],
@@ -217,12 +218,19 @@ var hierarchy =
     [ "VolumeControl.TypeExtensions.RealNumberExtensions", "class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html", null ],
     [ "VolumeControl.WPF.PInvoke.RECT", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html", null ],
     [ "VolumeControl.TypeExtensions.ReflectionExtensions", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html", null ],
+    [ "RoutedEventArgs", null, [
+      [ "VolumeControl.WPF.Controls.TextBoxWithCompletionOptions.CommittedTextEventArgs", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_text_box_with_completion_options_1_1_committed_text_event_args.html", null ],
+      [ "VolumeControl.WPF.Controls.TextBoxWithCompletionOptions.SuggestionClickedEventArgs", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_text_box_with_completion_options_1_1_suggestion_clicked_event_args.html", null ]
+    ] ],
     [ "VolumeControl.TypeExtensions.StringExtensions", "class_volume_control_1_1_type_extensions_1_1_string_extensions.html", null ],
     [ "VolumeControl.Core.Helpers.TargetInfo", "struct_volume_control_1_1_core_1_1_helpers_1_1_target_info.html", null ],
     [ "VolumeControl.Core.Helpers.TargetOverrideVM", "class_volume_control_1_1_core_1_1_helpers_1_1_target_override_v_m.html", null ],
     [ "VolumeControl.TypeExtensions.TimerExtensions", "class_volume_control_1_1_type_extensions_1_1_timer_extensions.html", null ],
     [ "VolumeControl.TypeExtensions.TypeExtensions", "class_volume_control_1_1_type_extensions_1_1_type_extensions.html", null ],
     [ "VolumeControl.Core.User32", "class_volume_control_1_1_core_1_1_user32.html", null ],
+    [ "UserControl", null, [
+      [ "VolumeControl.WPF.Controls.TextBoxWithCompletionOptions", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_text_box_with_completion_options.html", null ]
+    ] ],
     [ "VolumeControl.SDK.VCAPI", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html", null ],
     [ "VolumeControl.SDK.Internal.VCEvents", "class_volume_control_1_1_s_d_k_1_1_internal_1_1_v_c_events.html", null ],
     [ "VolumeControl.CoreAudio.Helpers.VolumeLevelConverter", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_volume_level_converter.html", null ],

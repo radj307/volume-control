@@ -16,6 +16,7 @@ var namespace_volume_control_1_1_log =
       ] ]
     ] ],
     [ "Interfaces", "namespace_volume_control_1_1_log_1_1_interfaces.html", "namespace_volume_control_1_1_log_1_1_interfaces" ],
+    [ "DebugUtils", "class_volume_control_1_1_log_1_1_debug_utils.html", "class_volume_control_1_1_log_1_1_debug_utils" ],
     [ "FLog", "class_volume_control_1_1_log_1_1_f_log.html", "class_volume_control_1_1_log_1_1_f_log" ],
     [ "LogWriter", "class_volume_control_1_1_log_1_1_log_writer.html", "class_volume_control_1_1_log_1_1_log_writer" ],
     [ "Timestamp", "class_volume_control_1_1_log_1_1_timestamp.html", "class_volume_control_1_1_log_1_1_timestamp" ]

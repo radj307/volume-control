@@ -3,7 +3,6 @@ var annotated_dup =
     [ "VolumeControl", "namespace_volume_control.html", [
       [ "Core", "namespace_volume_control_1_1_core.html", [
         [ "Attributes", "namespace_volume_control_1_1_core_1_1_attributes.html", [
-          [ "AllowUpgradeConfigAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_allow_upgrade_config_attribute.html", "class_volume_control_1_1_core_1_1_attributes_1_1_allow_upgrade_config_attribute" ],
           [ "HotkeyActionAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_attribute.html", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_attribute" ],
           [ "HotkeyActionGroupAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_group_attribute.html", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_group_attribute" ],
           [ "HotkeyActionSettingAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_setting_attribute.html", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_setting_attribute" ]
@@ -22,7 +21,6 @@ var annotated_dup =
             [ "HotkeyActionData", "struct_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_data.html", "struct_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_data" ],
             [ "HotkeyActionPressedEventArgs", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_pressed_event_args.html", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_pressed_event_args" ],
             [ "HotkeyActionSetting", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting.html", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting" ],
-            [ "HotkeyActionSettingValueTemplateSelector", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting_value_template_selector.html", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_setting_value_template_selector" ],
             [ "IHotkeyAction", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action" ],
             [ "IHotkeyActionSetting", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting.html", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting" ]
           ] ],
@@ -47,6 +45,7 @@ var annotated_dup =
       ] ],
       [ "CoreAudio", "namespace_volume_control_1_1_core_audio.html", [
         [ "Events", "namespace_volume_control_1_1_core_audio_1_1_events.html", [
+          [ "PreviewSessionNameEventArgs", "class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_name_event_args.html", "class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_name_event_args" ],
           [ "VolumeChangedEventArgs", "class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args.html", "class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args" ]
         ] ],
         [ "Helpers", "namespace_volume_control_1_1_core_audio_1_1_helpers.html", [
@@ -90,6 +89,7 @@ var annotated_dup =
           [ "ILogWriter", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer" ],
           [ "ITimestamp", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp.html", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp" ]
         ] ],
+        [ "DebugUtils", "class_volume_control_1_1_log_1_1_debug_utils.html", "class_volume_control_1_1_log_1_1_debug_utils" ],
         [ "FLog", "class_volume_control_1_1_log_1_1_f_log.html", "class_volume_control_1_1_log_1_1_f_log" ],
         [ "LogWriter", "class_volume_control_1_1_log_1_1_log_writer.html", "class_volume_control_1_1_log_1_1_log_writer" ],
         [ "Timestamp", "class_volume_control_1_1_log_1_1_timestamp.html", "class_volume_control_1_1_log_1_1_timestamp" ]
@@ -133,7 +133,8 @@ var annotated_dup =
           [ "ObservableList", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list" ]
         ] ],
         [ "Controls", "namespace_volume_control_1_1_w_p_f_1_1_controls.html", [
-          [ "NumericUpDown", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down.html", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" ]
+          [ "NumericUpDown", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down.html", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" ],
+          [ "TextBoxWithCompletionOptions", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_text_box_with_completion_options.html", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_text_box_with_completion_options" ]
         ] ],
         [ "Converters", "namespace_volume_control_1_1_w_p_f_1_1_converters.html", [
           [ "ArrayHasItemsBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_array_has_items_boolean_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_array_has_items_boolean_converter" ],
@@ -158,6 +159,9 @@ var annotated_dup =
           [ "RECT", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t" ]
         ] ],
         [ "BindableTimer", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html", "class_volume_control_1_1_w_p_f_1_1_bindable_timer" ],
+        [ "DataTemplateTypeBinding", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding.html", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding" ],
+        [ "DataTemplateTypeBindingSelector", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding_selector.html", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding_selector" ],
+        [ "FilteredTextItemsSource", "class_volume_control_1_1_w_p_f_1_1_filtered_text_items_source.html", "class_volume_control_1_1_w_p_f_1_1_filtered_text_items_source" ],
         [ "HWndHook", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook" ],
         [ "HWndHookWPFMaximizeBugFix", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix.html", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix" ],
         [ "IconGetter", "class_volume_control_1_1_w_p_f_1_1_icon_getter.html", "class_volume_control_1_1_w_p_f_1_1_icon_getter" ],

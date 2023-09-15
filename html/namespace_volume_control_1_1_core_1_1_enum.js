@@ -2,11 +2,6 @@ var namespace_volume_control_1_1_core_1_1_enum =
 [
     [ "EVirtualKeyCodeExtensions", "class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions.html", "class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions" ],
     [ "ModifierExtensions", "class_volume_control_1_1_core_1_1_enum_1_1_modifier_extensions.html", "class_volume_control_1_1_core_1_1_enum_1_1_modifier_extensions" ],
-    [ "DisplayTarget", "namespace_volume_control_1_1_core_1_1_enum.html#ae2b78fd080d1327ab88d2203eb48e5d3", [
-      [ "None", "namespace_volume_control_1_1_core_1_1_enum.html#ae2b78fd080d1327ab88d2203eb48e5d3a6adf97f83acf6453d4a6a4b1070f3754", null ],
-      [ "Sessions", "namespace_volume_control_1_1_core_1_1_enum.html#ae2b78fd080d1327ab88d2203eb48e5d3aa9c4b6c9fbd990849d1f128dfc4ed3e7", null ],
-      [ "Devices", "namespace_volume_control_1_1_core_1_1_enum.html#ae2b78fd080d1327ab88d2203eb48e5d3ac03ca67dda321195d74c951097f240c6", null ]
-    ] ],
     [ "EFriendlyKey", "namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613be", [
       [ "None", "namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613bea6adf97f83acf6453d4a6a4b1070f3754", null ],
       [ "Cancel", "namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613beaea4788705e6873b424c65e91c2846b19", null ],

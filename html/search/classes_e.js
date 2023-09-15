@@ -1,10 +1,7 @@
 var searchData=
 [
-  ['tagdoubleconverter_1021',['TagDoubleConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_tag_double_converter.html',1,'VolumeControl::WPF::Converters']]],
-  ['targetinfo_1022',['TargetInfo',['../struct_volume_control_1_1_core_1_1_helpers_1_1_target_info.html',1,'VolumeControl::Core::Helpers']]],
-  ['targetoverridevm_1023',['TargetOverrideVM',['../class_volume_control_1_1_core_1_1_helpers_1_1_target_override_v_m.html',1,'VolumeControl::Core::Helpers']]],
-  ['textboxautocompletebehavior_1024',['TextBoxAutocompleteBehavior',['../class_volume_control_1_1_w_p_f_1_1_text_box_autocomplete_behavior.html',1,'VolumeControl::WPF']]],
-  ['timerextensions_1025',['TimerExtensions',['../class_volume_control_1_1_type_extensions_1_1_timer_extensions.html',1,'VolumeControl::TypeExtensions']]],
-  ['timestamp_1026',['Timestamp',['../class_volume_control_1_1_log_1_1_timestamp.html',1,'VolumeControl::Log']]],
-  ['typeextensions_1027',['TypeExtensions',['../class_volume_control_1_1_type_extensions_1_1_type_extensions.html',1,'VolumeControl::TypeExtensions']]]
+  ['sessionspecifier_1048',['SessionSpecifier',['../class_volume_control_1_1_hotkeys_1_1_helpers_1_1_session_specifier.html',1,'VolumeControl::Hotkeys::Helpers']]],
+  ['squaredcornerradiusconverter_1049',['SquaredCornerRadiusConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter.html',1,'VolumeControl::WPF::Converters']]],
+  ['stringextensions_1050',['StringExtensions',['../class_volume_control_1_1_type_extensions_1_1_string_extensions.html',1,'VolumeControl::TypeExtensions']]],
+  ['suggestionclickedeventargs_1051',['SuggestionClickedEventArgs',['../class_volume_control_1_1_w_p_f_1_1_controls_1_1_text_box_with_completion_options_1_1_suggestion_clicked_event_args.html',1,'VolumeControl::WPF::Controls::TextBoxWithCompletionOptions']]]
 ];
