@@ -1,4 +1,5 @@
 ﻿using VolumeControl.Core;
+using VolumeControl.CoreAudio.Events;
 
 namespace VolumeControl.CoreAudio
 {
@@ -36,6 +37,19 @@ namespace VolumeControl.CoreAudio
         #endregion Constructors
 
         #region Events
+        /// <summary>
+        /// Occurs before an <see cref="AudioSession"/> is added to the <see cref="Sessions"/> list.
+        /// </summary>
+        /// <remarks>
+        /// This allows the name of the audio session to be changed by setting the <see cref="PreviewSessionNameEventArgs.SessionName"/> property in a handler method.
+        /// </remarks>
+        public event PreviewSessionNameEventHandler? PreviewSessionName;
+        private PreviewSessionNameEventArgs NotifyPreviewSessionName(string sessionName)
+        {
+            var args = new PreviewSessionNameEventArgs(sessionName);
+            PreviewSessionName?.Invoke(this, args);
+            return args;
+        }
         /// <summary>
         /// Occurs when an <see cref="AudioSession"/> is added to the <see cref="Sessions"/> list for any reason.
         /// </summary>
@@ -167,6 +181,10 @@ namespace VolumeControl.CoreAudio
         {
             if (_sessions.Any(s => s.PID.Equals(session.PID)))
                 return;
+
+            // allow handlers to edit the session's initial name:
+            session.Name = NotifyPreviewSessionName(session.Name).SessionName;
+             
             if (session.IsHidden)
             { // add session to hidden list
                 _hiddenSessions.Add(session);
