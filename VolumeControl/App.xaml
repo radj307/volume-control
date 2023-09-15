@@ -60,6 +60,7 @@
             <SolidColorBrush x:Key="TextBoxBackground">#1F1F1F</SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxForeground">WhiteSmoke</SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxBackgroundDisabled">#2F2F2F</SolidColorBrush>
+            <SolidColorBrush x:Key="TextBoxSelectionBrush">#569DE5</SolidColorBrush>
 
             <!--  Data Grid Colors  -->
             <SolidColorBrush x:Key="HeaderBackgroundBrush">#222</SolidColorBrush>
@@ -435,7 +436,7 @@
                 <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
                 <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
-                <Setter Property="SelectionBrush" Value="#569DE5" />
+                <Setter Property="SelectionBrush" Value="{StaticResource TextBoxSelectionBrush}" />
                 <Setter Property="SelectionOpacity" Value="0.5" />
                 <Setter Property="Padding" Value="3,2" />
                 <Setter Property="FontSize" Value="{StaticResource GlobalFontSize}" />
@@ -842,6 +843,18 @@
                 <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="Template" Value="{StaticResource ExpanderTemplate}" />
                 <Setter Property="FocusVisualStyle" Value="{DynamicResource CustomFocusVisualStyle}" />
+            </Style>
+            <!--  TextBoxWithCompletionOptions Style  -->
+            <Style x:Key="TextBoxWithCompletionOptionsStyle" TargetType="{x:Type controls:TextBoxWithCompletionOptions}">
+                <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
+                <Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
+                <Setter Property="MinWidth" Value="60" />
+                <Setter Property="TextBoxForeground" Value="{StaticResource TextBoxForeground}" />
+                <Setter Property="TextBoxBackground" Value="{StaticResource TextBoxBackground}" />
+                <Setter Property="TextBoxSelectionBrush" Value="{StaticResource TextBoxSelectionBrush}" />
+                <Setter Property="TextBoxPadding" Value="3,1" />
+                <Setter Property="TextBoxBorderBrush" Value="Gray" />
+                <Setter Property="TextBoxBorderThickness" Value="1" />
             </Style>
 
         </ResourceDictionary>

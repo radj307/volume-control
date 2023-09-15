@@ -18,6 +18,7 @@ using VolumeControl.SDK;
 using VolumeControl.ViewModels;
 using VolumeControl.WPF;
 using VolumeControl.WPF.Collections;
+using VolumeControl.WPF.Controls;
 
 namespace VolumeControl
 {
@@ -232,67 +233,8 @@ namespace VolumeControl
                 }
             }
         }
-        private void Handle_DisplayTargetsHyperlinkClick(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(
-                Loc.Tr("VolumeControl.Dialogs.DisplayTargetsHelp.Message", "A display target is a collection of triggers, controls, colors, & logic that determine the behaviour and appearance of the notification window.\nDisplay targets also change when the notification window appears. For example, the Audio Sessions display target shows the notification window when the selected session is changed or (un)locked, or when the session's volume or mute state changes."),
-                Loc.Tr("VolumeControl.Dialogs.DisplayTargetsHelp.Caption", "Display Targets Help"),
-                MessageBoxButton.OK,
-                MessageBoxImage.Information,
-                MessageBoxResult.OK
-                );
-        }
         /// <summary>
-        /// Handles removing items from the list of hidden audio sessions when the button next to an item is clicked.
-        /// </summary>
-        private void Handle_RemoveHiddenSessionFromListClick(object sender, RoutedEventArgs e)
-        {
-            var button = (Button)sender;
-
-            Settings.HiddenSessionProcessNames.Remove(button.DataContext);
-            Settings.Save();
-        }
-        /// <summary>
-        /// Handles adding sessions to the list of hidden audio sessions when the user presses the Enter key while focused on the <see cref="AddHiddenSessionTextBox"/>.
-        /// </summary>
-        private void Handle_AddHiddenSessionTextBoxKeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                var textBox = (TextBox)sender;
-                if (textBox.Text.Trim().Length == 0) return; //< if the text is blank, don't add it to the list
-                if (AudioAPI.AudioSessionManager.FindSessionWithProcessName(textBox.Text, StringComparison.OrdinalIgnoreCase) is CoreAudio.AudioSession session)
-                {
-                    Settings.HiddenSessionProcessNames.Add(session.ProcessName);
-                }
-                else
-                {
-                    Settings.HiddenSessionProcessNames.Add(textBox.Text);
-                }
-                textBox.Text = string.Empty;
-                Settings.Save();
-            }
-        }
-        /// <summary>
-        /// Handles adding sessions to the list of hidden audio sessions when the <see cref="AddHiddenSessionTextBox"/> loses focus.
-        /// </summary>
-        private void Handle_AddHiddenSessionTextBoxLostFocus(object sender, RoutedEventArgs e)
-        {
-            var textBox = (TextBox)sender;
-            if (textBox.Text.Trim().Length == 0) return; //< if the text is blank, don't add it to the list
-            if (AudioAPI.AudioSessionManager.FindSessionWithProcessName(textBox.Text, StringComparison.OrdinalIgnoreCase) is CoreAudio.AudioSession session)
-            {
-                Settings.HiddenSessionProcessNames.Add(session.ProcessName);
-            }
-            else
-            {
-                Settings.HiddenSessionProcessNames.Add(textBox.Text);
-            }
-            textBox.Text = string.Empty;
-            Settings.Save();
-        }
-        /// <summary>
-        /// Update source when the Enter key is pressed while a textbox is focused.
+        /// Update TextProperty source when the Enter key is pressed while a textbox is focused.
         /// </summary>
         private void Handle_TextBoxKeyUp_UpdateTextBindingSource(object sender, KeyEventArgs e)
         {
@@ -305,6 +247,47 @@ namespace VolumeControl
                     binding.UpdateSource();
                 }
             }
+        }
+        private void HiddenSessionProcessNamesCompletionBox_CommittedText(object sender, TextBoxWithCompletionOptions.CommittedTextEventArgs e)
+        {
+            if (e.Text.Trim().Length == 0)
+            { // don't commit empty text
+                e.Handled = true;
+                return;
+            }
+
+            if (AudioAPI.AudioSessionManager.FindSessionWithProcessName(e.Text, StringComparison.OrdinalIgnoreCase) is CoreAudio.AudioSession session)
+            {
+                Settings.HiddenSessionProcessNames.Add(session.ProcessName);
+            }
+            else
+            {
+                Settings.HiddenSessionProcessNames.Add(e.Text);
+            }
+            Settings.Save();
+
+            // clear the text box:
+            HiddenSessionProcessNamesCompletionBox.Text = string.Empty;
+        }
+        private void HiddenSessionProcessNamesCompletionBox_SuggestionClicked(object sender, TextBoxWithCompletionOptions.SuggestionClickedEventArgs e)
+        {
+            Settings.HiddenSessionProcessNames.Add(e.SuggestionText);
+            Settings.Save();
+        }
+        private void HiddenSessionProcessNamesRemoveItemButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+            var listBoxItem = (ListBoxItem)button.DataContext;
+
+            var index = HiddenSessionProcessNamesListBox.ItemContainerGenerator.IndexFromContainer(listBoxItem);
+            Settings.HiddenSessionProcessNames.RemoveAt(index);
+            Settings.Save();
+        }
+        private void HiddenSessionProcessNamesCompletionBox_BackPressed(object sender, RoutedEventArgs e)
+        {
+            if (Settings.HiddenSessionProcessNames.Count == 0) return;
+            Settings.HiddenSessionProcessNames.RemoveAt(Settings.HiddenSessionProcessNames.Count - 1);
+            Settings.Save();
         }
         #endregion EventHandlers
     }
