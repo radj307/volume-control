@@ -33,3 +33,4 @@ packages/
 publish/
 /gh-pages
 /*.nupkg
+InnoDependencyInstaller/

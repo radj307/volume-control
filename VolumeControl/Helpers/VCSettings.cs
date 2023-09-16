@@ -3,7 +3,6 @@ using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Reflection;
 using System.Windows;
 using VolumeControl.Core;
 using VolumeControl.Helpers.Win32;
