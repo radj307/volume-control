@@ -47,7 +47,7 @@ function SetVersion
 
     $CONTENT.Project.PropertyGroup.FileVersion = "$global:TAG"
     $CONTENT.Project.PropertyGroup.Version = "$global:GIT_TAG_RAW"
-    $CONTENT.Project.PropertyGroup.Copyright = "Copyright © $((Get-Date).Year) by $(Authors)"
+    $CONTENT.Project.PropertyGroup.Copyright = "Copyright © $((Get-Date).Year) by `$`(Authors`)"
     $CONTENT.Save("$file")
 }
 

@@ -20,10 +20,12 @@ jobs:
         with:
           ref:          'main'
           fetch-depth:  0
-      - name:   Update Version Numbers and Push Changes
+
+      - name:   Update .csproj Version Numbers
+        run:    .\SetVersion.ps1
+
+      - name:   Push Changes
         run:    |
-                cd ${{github.workspace}}
-                .\SetVersion.ps1
                 git config user.name github-actions
                 git config user.email github-actions@github.com
                 git add -A
