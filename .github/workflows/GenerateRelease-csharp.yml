@@ -104,4 +104,5 @@ jobs:
           fail_on_unmatched_files:  true
           files:      |
                       ${{github.workspace}}/build-windows/VolumeControl.exe
+                      ${{github.workspace}}/build-windows/VolumeControl-Installer.exe
                       ${{github.workspace}}/SDK.zip
