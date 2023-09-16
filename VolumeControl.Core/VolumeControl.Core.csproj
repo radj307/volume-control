@@ -13,7 +13,6 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="AssemblyAttribute" Version="0.0.0" />
 		<PackageReference Include="Fody" Version="6.6.3">
 			<PrivateAssets>All</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

@@ -153,7 +153,7 @@ namespace VolumeControl
         private static SemVersion GetProgramVersion()
         {
             var asm = Assembly.GetExecutingAssembly();
-            string myVersion = asm.GetCustomAttribute<AssemblyAttribute.ExtendedVersion>()?.Version ?? string.Empty;
+            string myVersion = asm.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? string.Empty;
             return myVersion.GetSemVer() ?? new(0);
         }
 

@@ -17,7 +17,7 @@ namespace VolumeControl
             this.InitializeComponent();
 
             var assembly = Assembly.GetAssembly(typeof(Mixer));
-            string version = $"v{assembly?.GetCustomAttribute<AssemblyAttribute.ExtendedVersion>()?.Version}";
+            string version = $"v{assembly?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion}";
 
             // Add a log handler to the dispatcher's unhandled exception event
             DispatcherUnhandledException += (s, e) =>

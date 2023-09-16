@@ -45,8 +45,9 @@ function SetVersion
     "  Outgoing file version:  '$oldversion'`t|   '$oldextversion'"
     "  Incoming file version:  '$global:TAG'`t|   '$global:GIT_TAG_RAW'"
 
-    $CONTENT.Project.PropertyGroup.Version = "$global:TAG"
-    $CONTENT.Project.PropertyGroup.ExtendedVersion = "$global:GIT_TAG_RAW"
+    $CONTENT.Project.PropertyGroup.FileVersion = "$global:TAG"
+    $CONTENT.Project.PropertyGroup.Version = "$global:GIT_TAG_RAW"
+    $CONTENT.Project.PropertyGroup.Copyright = "Copyright © $((Get-Date).Year) by $(Authors)"
     $CONTENT.Save("$file")
 }
 
