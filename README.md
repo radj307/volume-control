@@ -32,6 +32,8 @@ Getting started is simple. Download the [latest release](https://github.com/radj
 
 ## Installation
 
+*An installer is available as of version 6.0.0 Preview 9.1*
+
 Because Volume Control is portable, there is no installation required.  
 Simply move `VolumeControl.exe` to a location of your choice, and run it.  
 
