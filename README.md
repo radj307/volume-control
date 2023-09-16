@@ -58,7 +58,7 @@ All that's left now is to run the application.
 
 First, enable the **Volume Up** & **Volume Down** hotkeys from the **Hotkeys** tab by checking the box to the left of the hotkey name. If you don't have a volume slider, change the key from the dropdown. You can also set a modifier key with the checkboxes to the right of the dropdown. 
 
-**NOTE:** Hotkeys cannot be enabled if their associated key is set to `None`.
+**NOTE:** Hotkeys cannot be enabled if their associated key is set to `None`.  
 ![View of the Hotkeys Tab](https://i.imgur.com/Qvkev52.png)
 
 
