@@ -1,164 +1,164 @@
 <Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
-		<RootNamespace>VolumeControl</RootNamespace>
-		<Nullable>enable</Nullable>
-		<UseWPF>true</UseWPF>
-		<StartupObject>VolumeControl.Program</StartupObject>
-		<!-- VERSIONING INFO -->
-		<FileVersion>6.0.0</FileVersion>
-		<Version>6.0.0-pr9</Version>
-		<!-- VERSIONING INFO -->
-		<Authors>radj307</Authors>
-		<NeutralLanguage>en-CA</NeutralLanguage>
-		<RepositoryType>git</RepositoryType>
-		<RepositoryUrl>https://github.com/radj307/volume-control</RepositoryUrl>
-		<Copyright>Copyright © 2022 by $(Authors)</Copyright>
-		<ApplicationIcon>Resources\icons\iconSilvered.ico</ApplicationIcon>
-		<Company>radj307</Company>
-		<Product>Volume Control</Product>
-		<Description>Adds customizable global hotkeys for controlling the volume of specific applications, rather than the system volume.</Description>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
-		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-		<AnalysisLevel>6.0</AnalysisLevel>
-		<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
-		<Deterministic>true</Deterministic>
-		<Configurations>Debug;Release</Configurations>
-		<PublishSingleFile>true</PublishSingleFile>
-		<ErrorReport>none</ErrorReport>
-	</PropertyGroup>
-	<!-- VERSIONING ATTRIBUTES -->
-	<ItemGroup>
-		<AssemblyAttribute Include="AssemblyAttribute.ExtendedVersion">
-			<_Parameter1>$(ExtendedVersion)</_Parameter1>
-		</AssemblyAttribute>
-	</ItemGroup>
-	<!-- VERSIONING ATTRIBUTES -->
-	<ItemGroup>
-		<None Remove="Localization\de.loc.json" />
-		<None Remove="Localization\en.loc.json" />
-		<None Remove="Localization\fr.loc.json" />
-		<None Remove="Localization\it.loc.json" />
-		<None Remove="Localization\pt.loc.json" />
-		<None Remove="Resources\fonts\Inter.ttf" />
-		<None Remove="Resources\icons\icon-16x16-VC-inverted.ico" />
-		<None Remove="Resources\icons\icon-16x16-VC.ico" />
-		<None Remove="Resources\icons\icon.ico" />
-		<None Remove="Resources\images\background-img.png" />
-		<None Remove="Resources\images\background.png" />
-		<None Remove="Resources\images\banner.png" />
-		<None Remove="Resources\images\foreground.png" />
-		<None Remove="Resources\images\icon.png" />
-		<None Remove="Resources\images\iconSilvered.png" />
-		<None Remove="Resources\images\reload-white.png" />
-		<None Remove="Resources\images\reload.png" />
-		<None Remove="Resources\LICENSE" />
-		<!--<None Remove="Resources\VCUpdateUtility.exe" />-->
-	</ItemGroup>
-	<ItemGroup>
-		<EmbeddedResource Include="Localization\de.loc.json" />
-		<EmbeddedResource Include="Localization\en.loc.json" />
-		<EmbeddedResource Include="Localization\fr.loc.json" />
-		<EmbeddedResource Include="Localization\it.loc.json" />
-		<EmbeddedResource Include="Localization\pt.loc.json" />
-	</ItemGroup>
-	<ItemGroup>
-		<Resource Include="Resources\fonts\Inter.ttf">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\icons\icon-16x16-VC-inverted.ico">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\icons\icon.ico">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\icons\iconSilvered.ico">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="..\README.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="CodingSeb.Localization" Version="1.2.0">
-			<PrivateAssets>
-			</PrivateAssets>
-		</PackageReference>
-		<PackageReference Include="CodingSeb.Localization.JsonFileLoader" Version="1.2.0">
-			<PrivateAssets>
-			</PrivateAssets>
-		</PackageReference>
-		<PackageReference Include="CodingSeb.Localization.WPF" Version="1.2.0" />
-		<PackageReference Include="CodingSeb.Localization.YamlFileLoader" Version="1.2.0" />
-		<PackageReference Include="CodingSebLocalization.Fody" Version="1.2.0">
-			<PrivateAssets>All</PrivateAssets>
-		</PackageReference>
-		<PackageReference Include="ControlzEx" Version="5.0.1" />
-		<PackageReference Include="DotNetProjects.SVGImage" Version="4.1.108" />
-		<PackageReference Include="Fody" Version="6.6.3">
-			<PrivateAssets>All</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
-		<PackageReference Include="PropertyChanged.Fody" Version="4.0.1">
-			<PrivateAssets>All</PrivateAssets>
-		</PackageReference>
-		<PackageReference Include="XamlTimers" Version="1.2.1" />
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\VolumeControl.CoreAudio\VolumeControl.CoreAudio.csproj" />
-		<ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
-		<ProjectReference Include="..\VolumeControl.Hotkeys\VolumeControl.Hotkeys.csproj" />
-		<ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
-		<ProjectReference Include="..\VolumeControl.SDK\VolumeControl.SDK.csproj" />
-		<ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-		<Resource Include="Resources\icons\icon-16x16-VC.ico">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\images\background.png">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\images\banner.png">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\images\foreground.png">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\images\icon.png">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\images\iconSilvered.png">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\images\reload-white.png">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\images\reload.png">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\LICENSE">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-	</ItemGroup>
-	<ItemGroup>
-		<Compile Update="Properties\Resources.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Resources.resx</DependentUpon>
-		</Compile>
-	</ItemGroup>
-	<ItemGroup>
-		<EmbeddedResource Update="Properties\Resources.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
-			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
-		</EmbeddedResource>
-	</ItemGroup>
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>VolumeControl</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <StartupObject>VolumeControl.Program</StartupObject>
+    <!-- VERSIONING INFO -->
+    <FileVersion>6.0.0</FileVersion>
+    <Version>6.0.0-pr9.1</Version>
+    <!-- VERSIONING INFO -->
+    <Authors>radj307</Authors>
+    <NeutralLanguage>en-CA</NeutralLanguage>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/radj307/volume-control</RepositoryUrl>
+    <Copyright>Copyright © 2023 by $(Authors)</Copyright>
+    <ApplicationIcon>Resources\icons\iconSilvered.ico</ApplicationIcon>
+    <Company>radj307</Company>
+    <Product>Volume Control</Product>
+    <Description>Adds customizable global hotkeys for controlling the volume of specific applications, rather than the system volume.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <AnalysisLevel>6.0</AnalysisLevel>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+    <Deterministic>true</Deterministic>
+    <Configurations>Debug;Release</Configurations>
+    <PublishSingleFile>true</PublishSingleFile>
+    <ErrorReport>none</ErrorReport>
+  </PropertyGroup>
+  <!-- VERSIONING ATTRIBUTES -->
+  <ItemGroup>
+    <AssemblyAttribute Include="AssemblyAttribute.ExtendedVersion">
+      <_Parameter1>$(ExtendedVersion)</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+  <!-- VERSIONING ATTRIBUTES -->
+  <ItemGroup>
+    <None Remove="Localization\de.loc.json" />
+    <None Remove="Localization\en.loc.json" />
+    <None Remove="Localization\fr.loc.json" />
+    <None Remove="Localization\it.loc.json" />
+    <None Remove="Localization\pt.loc.json" />
+    <None Remove="Resources\fonts\Inter.ttf" />
+    <None Remove="Resources\icons\icon-16x16-VC-inverted.ico" />
+    <None Remove="Resources\icons\icon-16x16-VC.ico" />
+    <None Remove="Resources\icons\icon.ico" />
+    <None Remove="Resources\images\background-img.png" />
+    <None Remove="Resources\images\background.png" />
+    <None Remove="Resources\images\banner.png" />
+    <None Remove="Resources\images\foreground.png" />
+    <None Remove="Resources\images\icon.png" />
+    <None Remove="Resources\images\iconSilvered.png" />
+    <None Remove="Resources\images\reload-white.png" />
+    <None Remove="Resources\images\reload.png" />
+    <None Remove="Resources\LICENSE" />
+    <!--<None Remove="Resources\VCUpdateUtility.exe" />-->
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\de.loc.json" />
+    <EmbeddedResource Include="Localization\en.loc.json" />
+    <EmbeddedResource Include="Localization\fr.loc.json" />
+    <EmbeddedResource Include="Localization\it.loc.json" />
+    <EmbeddedResource Include="Localization\pt.loc.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\fonts\Inter.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icons\icon-16x16-VC-inverted.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icons\icon.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icons\iconSilvered.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CodingSeb.Localization" Version="1.2.0">
+      <PrivateAssets>
+      </PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="CodingSeb.Localization.JsonFileLoader" Version="1.2.0">
+      <PrivateAssets>
+      </PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="CodingSeb.Localization.WPF" Version="1.2.0" />
+    <PackageReference Include="CodingSeb.Localization.YamlFileLoader" Version="1.2.0" />
+    <PackageReference Include="CodingSebLocalization.Fody" Version="1.2.0">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="ControlzEx" Version="5.0.1" />
+    <PackageReference Include="DotNetProjects.SVGImage" Version="4.1.108" />
+    <PackageReference Include="Fody" Version="6.6.3">
+      <PrivateAssets>All</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="PropertyChanged.Fody" Version="4.0.1">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="XamlTimers" Version="1.2.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VolumeControl.CoreAudio\VolumeControl.CoreAudio.csproj" />
+    <ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
+    <ProjectReference Include="..\VolumeControl.Hotkeys\VolumeControl.Hotkeys.csproj" />
+    <ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
+    <ProjectReference Include="..\VolumeControl.SDK\VolumeControl.SDK.csproj" />
+    <ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\icon-16x16-VC.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\background.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\banner.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\foreground.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\iconSilvered.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\reload-white.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\reload.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\LICENSE">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>
