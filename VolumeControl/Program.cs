@@ -45,18 +45,6 @@ namespace VolumeControl
             int versionCompare = version.CompareSortOrderTo(Settings.__VERSION__);
             bool doUpdate = !versionCompare.Equals(0);
 
-            if (doUpdate)
-            {
-                Log.Info($"The version number in the settings file was {Settings.__VERSION__}, settings will be {(versionCompare.Equals(1) ? "upgraded" : "downgraded")} to {version}.");
-            }
-
-#if DEBUG // In debug configuration, always overwrite previous language files
-            doUpdate = true;
-#endif
-
-            // Update the Settings' version number
-            Settings.__VERSION__ = version;
-
             // Check commandline arguments:  
             bool overwriteLanguageConfigs = args.Any(arg => arg.Equals("--overwrite-language-configs", StringComparison.Ordinal));
             bool waitForMutex = args.Any(arg => arg.Equals("--wait-for-mutex", StringComparison.Ordinal));
@@ -86,6 +74,16 @@ namespace VolumeControl
                     return;
                 }
             }
+
+            // Update the Settings' version number
+            if (doUpdate)
+            {
+                Log.Info($"The version number in the settings file was {Settings.__VERSION__}, settings will be {(versionCompare.Equals(1) ? "upgraded" : "downgraded")} to {version}.");
+            }
+#if DEBUG // In debug configuration, always overwrite previous language files
+            doUpdate = true;
+#endif
+            Settings.__VERSION__ = version;
 
             // create the application class
             var app = new App();

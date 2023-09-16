@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GithubActions", "GithubActi
 		.github\workflows\GenerateRelease-csharp.yml = .github\workflows\GenerateRelease-csharp.yml
 		.github\workflows\Run-Unit-Tests.yml = .github\workflows\Run-Unit-Tests.yml
 		.github\workflows\update-documentation.yml = .github\workflows\update-documentation.yml
-		.github\workflows\UpdateVersion.yml = .github\workflows\UpdateVersion.yml
+		.github\workflows\UpdateVersion.yaml = .github\workflows\UpdateVersion.yaml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.Core", "VolumeControl.Core\VolumeControl.Core.csproj", "{116DECA2-D41D-4D6E-83AD-3D33AA8EFD54}"
