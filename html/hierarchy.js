@@ -4,6 +4,9 @@ var hierarchy =
       [ "VolumeControl.Hotkeys.Helpers.SessionSpecifier", "class_volume_control_1_1_hotkeys_1_1_helpers_1_1_session_specifier.html", null ]
     ] ],
     [ "VolumeControl.Hotkeys.ActiveApplicationActions", "class_volume_control_1_1_hotkeys_1_1_active_application_actions.html", null ],
+    [ "AnimationTimeline", null, [
+      [ "VolumeControl.WPF.Animations.BrushAnimation", "class_volume_control_1_1_w_p_f_1_1_animations_1_1_brush_animation.html", null ]
+    ] ],
     [ "VolumeControl.Hotkeys.ApplicationActions", "class_volume_control_1_1_hotkeys_1_1_application_actions.html", null ],
     [ "VolumeControl.TypeExtensions.ArrayExtensions", "class_volume_control_1_1_type_extensions_1_1_array_extensions.html", null ],
     [ "Attribute", null, [

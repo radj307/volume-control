@@ -1,5 +1,6 @@
 var namespace_volume_control_1_1_w_p_f =
 [
+    [ "Animations", "namespace_volume_control_1_1_w_p_f_1_1_animations.html", "namespace_volume_control_1_1_w_p_f_1_1_animations" ],
     [ "Bindings", "namespace_volume_control_1_1_w_p_f_1_1_bindings.html", "namespace_volume_control_1_1_w_p_f_1_1_bindings" ],
     [ "Collections", "namespace_volume_control_1_1_w_p_f_1_1_collections.html", "namespace_volume_control_1_1_w_p_f_1_1_collections" ],
     [ "Controls", "namespace_volume_control_1_1_w_p_f_1_1_controls.html", "namespace_volume_control_1_1_w_p_f_1_1_controls" ],

@@ -122,6 +122,9 @@ var annotated_dup =
         [ "TypeExtensions", "class_volume_control_1_1_type_extensions_1_1_type_extensions.html", "class_volume_control_1_1_type_extensions_1_1_type_extensions" ]
       ] ],
       [ "WPF", "namespace_volume_control_1_1_w_p_f.html", [
+        [ "Animations", "namespace_volume_control_1_1_w_p_f_1_1_animations.html", [
+          [ "BrushAnimation", "class_volume_control_1_1_w_p_f_1_1_animations_1_1_brush_animation.html", "class_volume_control_1_1_w_p_f_1_1_animations_1_1_brush_animation" ]
+        ] ],
         [ "Bindings", "namespace_volume_control_1_1_w_p_f_1_1_bindings.html", [
           [ "MultiBinding", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding" ]
         ] ],

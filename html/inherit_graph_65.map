@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_i_n_m_a_x_i_n_f_o.html" title=" " alt="" coords="5,5,213,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,111,85,138"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_mouse_wheel_list_view_behavior.html" title="Behavior&lt;T&gt; that enables the mouse wheel to increment/decrement the selected item in a ListView." alt="" coords="133,5,371,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_w_p_f_1_1_mouse_wheel_numeric_up_down_behavior.html" title="Behavior&lt;T&gt; that enables the mouse wheel to change the value of NumericUpDown controls." alt="" coords="133,71,371,112"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_w_p_f_1_1_mouse_wheel_range_base_behavior.html" title="Behavior&lt;T&gt; that enables the mouse wheel to change the value of controls based on RangeBase." alt="" coords="133,136,371,177"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_w_p_f_1_1_text_box_autocomplete_behavior.html" title="Behavior that implements autocomplete suggestions for TextBox controls." alt="" coords="149,201,355,243"/>
 </map>

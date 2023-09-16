@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 204;
+var viewWidth = 205;
 var viewHeight = 490;
 var sectionId = 'dynsection-1';
 </script>
@@ -58,18 +58,18 @@ var sectionId = 'dynsection-1';
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title="Interaction logic for TextBoxWithCompletionOptions.xaml">
-<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-387.5 196,-387.5 196,-0.5 0,-0.5"/>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-387.5 197,-387.5 197,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-375.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.WPF.Controls.</text>
-<text text-anchor="middle" x="98" y="-364.5" font-family="Helvetica,sans-Serif" font-size="10.00">TextBoxWithCompletionOptions</text>
-<polyline fill="none" stroke="black" points="0,-357.5 196,-357.5 "/>
+<text text-anchor="middle" x="98.5" y="-364.5" font-family="Helvetica,sans-Serif" font-size="10.00">TextBoxWithCompletionOptions</text>
+<polyline fill="none" stroke="black" points="0,-357.5 197,-357.5 "/>
 <text text-anchor="start" x="8" y="-345.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SuggestionClickedEvent</text>
 <text text-anchor="start" x="8" y="-334.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ CommittedTextEvent</text>
 <text text-anchor="start" x="8" y="-323.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ BackPressedEvent</text>
 <text text-anchor="start" x="8" y="-312.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ CompletionOptionsSourceProperty</text>
 <text text-anchor="start" x="8" y="-301.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TextProperty</text>
 <text text-anchor="start" x="8" y="-290.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ StringComparisonProperty</text>
-<text text-anchor="start" x="8" y="-279.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ BackPressedRequiredModifiers</text>
-<text text-anchor="start" x="8" y="-268.5" font-family="Helvetica,sans-Serif" font-size="10.00">Property</text>
+<text text-anchor="start" x="8" y="-279.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ BackPressedRequiredModifier</text>
+<text text-anchor="start" x="8" y="-268.5" font-family="Helvetica,sans-Serif" font-size="10.00">KeysProperty</text>
 <text text-anchor="start" x="8" y="-257.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TextBoxSelectionBrushProperty</text>
 <text text-anchor="start" x="8" y="-246.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TextBoxPaddingProperty</text>
 <text text-anchor="start" x="8" y="-235.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TextBoxBorderThicknessProperty</text>
@@ -83,14 +83,14 @@ var sectionId = 'dynsection-1';
 <text text-anchor="start" x="8" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ CompletionOptionsSource</text>
 <text text-anchor="start" x="8" y="-136.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Text</text>
 <text text-anchor="start" x="8" y="-125.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ StringComparison</text>
-<text text-anchor="start" x="8" y="-114.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ BackPressedRequiredModifiers</text>
+<text text-anchor="start" x="8" y="-114.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ BackPressedRequiredModifierKeys</text>
 <text text-anchor="start" x="8" y="-103.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TextBoxSelectionBrush</text>
 <text text-anchor="start" x="8" y="-92.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TextBoxPadding</text>
 <text text-anchor="start" x="8" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TextBoxBorderThickness</text>
 <text text-anchor="start" x="8" y="-70.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TextBoxBorderBrush</text>
 <text text-anchor="start" x="8" y="-59.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TextBoxForeground</text>
 <text text-anchor="start" x="8" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TextBoxBackground</text>
-<polyline fill="none" stroke="black" points="0,-41.5 196,-41.5 "/>
+<polyline fill="none" stroke="black" points="0,-41.5 197,-41.5 "/>
 <text text-anchor="start" x="8" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TextBoxWithCompletionOptions()</text>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SuggestionClickedEventHandler()</text>
 <text text-anchor="start" x="8" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ CommittedTextEventHandler()</text>
@@ -101,20 +101,20 @@ var sectionId = 'dynsection-1';
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:title=" ">
-<polygon fill="none" stroke="#bfbfbf" points="61,-424.5 61,-481.5 135,-481.5 135,-424.5 61,-424.5"/>
-<text text-anchor="middle" x="98" y="-469.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControl</text>
-<polyline fill="none" stroke="#bfbfbf" points="61,-462.5 135,-462.5 "/>
-<text text-anchor="middle" x="98" y="-450.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="61,-443.5 135,-443.5 "/>
-<text text-anchor="middle" x="98" y="-431.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="none" stroke="#bfbfbf" points="61.5,-424.5 61.5,-481.5 135.5,-481.5 135.5,-424.5 61.5,-424.5"/>
+<text text-anchor="middle" x="98.5" y="-469.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControl</text>
+<polyline fill="none" stroke="#bfbfbf" points="61.5,-462.5 135.5,-462.5 "/>
+<text text-anchor="middle" x="98.5" y="-450.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="61.5,-443.5 135.5,-443.5 "/>
+<text text-anchor="middle" x="98.5" y="-431.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node1 -->
 <g id="edge1" class="edge">
 <title>Node2&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M98,-414.46C98,-406.38 98,-397.31 98,-387.58"/>
-<polygon fill="none" stroke="midnightblue" points="94.5,-414.5 98,-424.5 101.5,-414.5 94.5,-414.5"/>
+<path fill="none" stroke="midnightblue" d="M98.5,-414.46C98.5,-406.38 98.5,-397.31 98.5,-387.58"/>
+<polygon fill="none" stroke="midnightblue" points="95,-414.5 98.5,-424.5 102,-414.5 95,-414.5"/>
 </g>
 </g>
 </svg>

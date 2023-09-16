@@ -1,5 +1,5 @@
 <map id="VolumeControl.CoreAudio.AudioDevice" name="VolumeControl.CoreAudio.AudioDevice">
-<area shape="rect" id="node1" title="An audio endpoint device." alt="" coords="332,160,525,457"/>
+<area shape="rect" id="node1" title="An audio endpoint device." alt="" coords="332,160,525,472"/>
 <area shape="rect" id="node2" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_control.html" title="Represents an audio instance with a controllable volume level and mute state." alt="" coords="5,5,135,112"/>
 <area shape="rect" id="node3" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html" title="Represents an audio instance with a read&#45;only volume level and mute state." alt="" coords="159,5,333,112"/>
 <area shape="rect" id="node4" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_peak_meter.html" title="Represents some kind of object that has an audio peak meter." alt="" coords="357,20,500,97"/>

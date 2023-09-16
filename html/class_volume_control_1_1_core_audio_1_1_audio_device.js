@@ -5,6 +5,7 @@ var class_volume_control_1_1_core_audio_1_1_audio_device =
     [ "AudioMeterInformation", "class_volume_control_1_1_core_audio_1_1_audio_device.html#a2987e71b7242c252b1eb42bcbac71ba6", null ],
     [ "AudioSessionManager", "class_volume_control_1_1_core_audio_1_1_audio_device.html#a98b2d5a4df6b15da365966b49a6919b7", null ],
     [ "FullName", "class_volume_control_1_1_core_audio_1_1_audio_device.html#a3a5724e247a62d525251cb2d959552a7", null ],
+    [ "IconPath", "class_volume_control_1_1_core_audio_1_1_audio_device.html#aff0c4ad61cf01b69222513d863baed85", null ],
     [ "ID", "class_volume_control_1_1_core_audio_1_1_audio_device.html#a4f1471f7aeb1a36d10f6988c103f9e6d", null ],
     [ "IsDefault", "class_volume_control_1_1_core_audio_1_1_audio_device.html#a6dc8e8769c8323854c30de6a8e99d17a", null ],
     [ "Log", "class_volume_control_1_1_core_audio_1_1_audio_device.html#a49ab1fe6d7af099b0a99b73fd727b2cb", null ],
