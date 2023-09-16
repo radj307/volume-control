@@ -40,6 +40,7 @@ namespace VolumeControl.CoreAudio
         #endregion Constructor
 
         #region Events
+        /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         /// <summary>
@@ -117,11 +118,18 @@ namespace VolumeControl.CoreAudio
         /// Example: "1234:SomeProcess"
         /// </remarks>
         public string ProcessIdentifier { get; }
+        /// <summary>
+        /// Gets the session identifier string from the windows API.
+        /// </summary>
         public string SessionIdentifier => AudioSessionControl.SessionIdentifier;
+        /// <summary>
+        /// Gets the session instance identifier from the windows API.
+        /// </summary>
         public string SessionInstanceIdentifier => AudioSessionControl.SessionInstanceIdentifier;
         #endregion Properties
 
         #region IAudioControl Properties
+        /// <inheritdoc/>
         public float NativeVolume
         {
             get => SimpleAudioVolume.MasterVolume;
@@ -140,6 +148,7 @@ namespace VolumeControl.CoreAudio
                 isNotifying = false;
             }
         }
+        /// <inheritdoc/>
         public int Volume
         {
             get => VolumeLevelConverter.FromNativeVolume(NativeVolume);
@@ -153,6 +162,7 @@ namespace VolumeControl.CoreAudio
                 isNotifying = false;
             }
         }
+        /// <inheritdoc/>
         public bool Mute
         {
             get => SimpleAudioVolume.Mute;
@@ -165,10 +175,14 @@ namespace VolumeControl.CoreAudio
         #endregion IAudioControl Properties
 
         #region IVolumePeakMeter Properties
+        /// <inheritdoc/>
         public float PeakMeterValue => AudioMeterInformation.MasterPeakValue;
         #endregion IVolumePeakMeter Properties
 
         #region IHideableAudioControl Properties
+        /// <summary>
+        /// Gets or sets whether this session is hidden in the <see cref="AudioSessionManager"/>.
+        /// </summary>
         public bool IsHidden
         {
             get => (Core.Config.Default as Core.Config)!.HiddenSessionProcessNames.Contains(this.ProcessName);
@@ -207,7 +221,7 @@ namespace VolumeControl.CoreAudio
                 return null;
             }
         }
-        /// <inheritdoc cref="GetProcess"/>
+        /// <inheritdoc cref="GetProcess()"/>
         /// <param name="exception">When the method returns <see langword="null"/>, this is set to the exception that occurred; otherwise this is <see langword="null"/>.</param>
         public Process? GetProcess(out Exception? exception)
         {
@@ -294,6 +308,7 @@ namespace VolumeControl.CoreAudio
         #endregion AudioSessionControl EventHandlers
 
         #region IDisposable Implementation
+        /// <inheritdoc/>
         public void Dispose()
         {
             ((IDisposable)this.AudioSessionControl).Dispose();

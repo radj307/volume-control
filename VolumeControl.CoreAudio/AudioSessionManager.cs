@@ -111,6 +111,11 @@ namespace VolumeControl.CoreAudio
         #endregion Properties
 
         #region FindSession
+        /// <summary>
+        /// Finds an audio session by using the given <paramref name="predicate"/>.
+        /// </summary>
+        /// <param name="predicate">A predicate delegate that returns a <see cref="bool"/> and accepts a single parameter of type <see cref="AudioSession"/>.</param>
+        /// <returns>The first <see cref="AudioSession"/> instance that the given <paramref name="predicate"/> returned true for; otherwise <see langword="null"/>.</returns>
         public AudioSession? FindSession(Predicate<AudioSession> predicate)
         {
             foreach (var session in Sessions)
@@ -120,7 +125,18 @@ namespace VolumeControl.CoreAudio
             }
             return null;
         }
+        /// <summary>
+        /// Finds an audio session with the specified <paramref name="pid"/>.
+        /// </summary>
+        /// <param name="pid">A Process ID to search for.</param>
+        /// <returns>The <see cref="AudioSession"/> instance with the given <paramref name="pid"/>, or <see langword="null"/> if one wasn't found.</returns>
         public AudioSession? FindSessionWithID(uint pid) => FindSession((session) => session.PID.Equals(pid));
+        /// <summary>
+        /// Finds an audio session with the specified <paramref name="processName"/>.
+        /// </summary>
+        /// <param name="processName">A Process Name to search for.</param>
+        /// <param name="sCompareType">The <see cref="StringComparison"/> type to use when comparing process name strings.</param>
+        /// <returns>The <see cref="AudioSession"/> instance with the given <paramref name="processName"/>, or <see langword="null"/> if one wasn't found.</returns>
         public AudioSession? FindSessionWithProcessName(string processName, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase) => FindSession((session) => session.ProcessName.Equals(processName, sCompareType));
         /// <summary>
         /// Gets a session from <see cref="Sessions"/> by parsing <paramref name="identifier"/> to determine whether to pass it to <see cref="FindSessionWithID(uint)"/>, <see cref="FindSessionWithProcessName(string, StringComparison)"/>, or directly comparing it to the <see cref="AudioSession.ProcessIdentifier"/> property.
@@ -135,7 +151,7 @@ namespace VolumeControl.CoreAudio
         /// </param>
         /// <param name="prioritizePID">When <see langword="true"/> <i>(default)</i>, process IDs are prioritized over process names, which returns more accurate results when multiple sessions have identical names but may take longer.<br/>When <see langword="false"/>, the first process with a matching ID or name is returned.</param>
         /// <param name="sCompareType">A <see cref="StringComparison"/> enum value to use when matching process names or full identifiers.</param>
-        /// <returns><see cref="ISession"/> if a session was found.<br/>Returns null if nothing was found.</returns>
+        /// <returns><see cref="AudioSession"/> if a session was found.<br/>Returns null if nothing was found.</returns>
         public AudioSession? FindSessionWithProcessIdentifier(string identifier, bool prioritizePID = true, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase)
         {
             if (identifier.Length == 0)
@@ -161,6 +177,11 @@ namespace VolumeControl.CoreAudio
 
             return potentialMatch;
         }
+        /// <summary>
+        /// Finds an audio session with the specified <paramref name="sessionInstanceIdentifier"/>.
+        /// </summary>
+        /// <param name="sessionInstanceIdentifier">A <see cref="AudioSession.SessionInstanceIdentifier"/> to search for.</param>
+        /// <returns>The <see cref="AudioSession"/> instance with the given <paramref name="sessionInstanceIdentifier"/>, or <see langword="null"/> if one wasn't found.</returns>
         public AudioSession? FindSessionWithSessionInstanceIdentifier(string sessionInstanceIdentifier)
         {
             foreach (AudioSession session in Sessions)

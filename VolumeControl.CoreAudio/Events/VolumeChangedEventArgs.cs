@@ -13,8 +13,8 @@ namespace VolumeControl.CoreAudio.Events
         /// <summary>
         /// Creates a new <see cref="VolumeChangedEventArgs"/> instance with the given <paramref name="data"/>.
         /// </summary>
-        /// <param name="data">The <see cref="CoreAudio.AudioVolumeNotificationData"/> object from the underlying event.</param>
-        public VolumeChangedEventArgs(AudioVolumeNotificationData data)
+        /// <param name="data">The <see cref="AudioVolumeNotificationData"/> object from the underlying event.</param>
+        internal VolumeChangedEventArgs(AudioVolumeNotificationData data)
         {
             NativeVolume = data.MasterVolume;
             Volume = VolumeLevelConverter.FromNativeVolume(NativeVolume);
@@ -25,7 +25,7 @@ namespace VolumeControl.CoreAudio.Events
         /// </summary>
         /// <param name="newVolume">The new volume level.</param>
         /// <param name="newMute">The new mute state.</param>
-        public VolumeChangedEventArgs(float newVolume, bool newMute)
+        internal VolumeChangedEventArgs(float newVolume, bool newMute)
         {
             NativeVolume = newVolume;
             Volume = VolumeLevelConverter.FromNativeVolume(NativeVolume);
@@ -34,8 +34,11 @@ namespace VolumeControl.CoreAudio.Events
         #endregion Constructor
 
         #region Properties
+        /// <inheritdoc/>
         public float NativeVolume { get; }
+        /// <inheritdoc/>
         public int Volume { get; }
+        /// <inheritdoc/>
         public bool Mute { get; }
         #endregion Properties
     }

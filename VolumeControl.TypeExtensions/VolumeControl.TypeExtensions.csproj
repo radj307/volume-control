@@ -17,4 +17,8 @@
 		<PackageReference Include="Semver" Version="2.2.0" />
 		<PackageReference Include="System.Management" Version="6.0.0" />
 	</ItemGroup>
+	
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).pdb&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).xml&quot; &quot;..\publish\SDK\&quot;" />
+	</Target>
 </Project>

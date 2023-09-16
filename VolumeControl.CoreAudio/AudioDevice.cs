@@ -60,9 +60,9 @@ namespace VolumeControl.CoreAudio
         #region Properties
         private static LogWriter Log => FLog.Log;
         /// <summary>
-        /// Gets the underlying <see cref="CoreAudio.MMDevice"/> for this <see cref="AudioDevice"/> instance.
+        /// Gets the underlying <see cref="MMDevice"/> for this <see cref="AudioDevice"/> instance.
         /// </summary>
-        public MMDevice MMDevice { get; }
+        internal MMDevice MMDevice { get; }
         internal AudioEndpointVolume AudioEndpointVolume
         {
             get
@@ -109,8 +109,13 @@ namespace VolumeControl.CoreAudio
             }
         }
         private bool _isDefault = false;
+        /// <summary>
+        /// Gets the path to the device's icon file.
+        /// </summary>
+        public string IconPath => MMDevice.IconPath;
 
         #region Properties (IVolumeControl)
+        /// <inheritdoc/>
         public float NativeVolume
         {
             get => AudioEndpointVolume.MasterVolumeLevelScalar;
@@ -129,6 +134,7 @@ namespace VolumeControl.CoreAudio
                 isNotifying = false;
             }
         }
+        /// <inheritdoc/>
         public int Volume
         {
             get => VolumeLevelConverter.FromNativeVolume(NativeVolume);
@@ -142,6 +148,7 @@ namespace VolumeControl.CoreAudio
                 isNotifying = false;
             }
         }
+        /// <inheritdoc/>
         public bool Mute
         {
             get => AudioEndpointVolume.Mute;
@@ -153,13 +160,15 @@ namespace VolumeControl.CoreAudio
         }
         #endregion Properties (IVolumeControl)
         #region Properties (IVolumePeakMeter)
+        /// <inheritdoc/>
         public float PeakMeterValue
             => AudioMeterInformation.MasterPeakValue;
         #endregion Properties (IVolumePeakMeter)
         #endregion Properties
 
-        #region Methods
-        #region Methods (EventHandlers)
+        #region EventHandlers
+
+        #region AudioEndpointVolume
         /// <summary>
         /// Triggers the <see cref="VolumeChanged"/> event.
         /// </summary>
@@ -169,13 +178,17 @@ namespace VolumeControl.CoreAudio
             Mute = data.Muted;
             NotifyVolumeChanged(data);
         }
-        #endregion Methods (EventHandlers)
+        #endregion AudioEndpointVolume
 
+        #endregion EventHandlers
+
+        #region IDisposable Implementation
+        /// <inheritdoc/>
         public void Dispose()
         {
             ((IDisposable)this.MMDevice).Dispose();
             GC.SuppressFinalize(this);
         }
-        #endregion Methods
+        #endregion IDisposable Implementation
     }
 }

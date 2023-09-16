@@ -61,14 +61,14 @@ namespace VolumeControl.ViewModels
         private IconPair _iconPair = null!;
         public ImageSource? Icon => IconPair.GetBestFitIcon(preferLarge: false);
         public string Name => AudioDevice.Name;
-        public string DeviceFriendlyName => AudioDevice.MMDevice.DeviceFriendlyName;
+        public string DeviceFriendlyName => AudioDevice.FullName;
         public ObservableImmutableList<AudioSessionVM> Sessions { get; }
 
         private IconPair GetIconPair()
         {
             try
             {
-                return IconGetter.GetIcons(AudioDevice.MMDevice.IconPath);
+                return IconGetter.GetIcons(AudioDevice.IconPath);
             }
             catch (Exception)
             {
