@@ -236,6 +236,7 @@ namespace VolumeControl.Core
                 Key = EFriendlyKey.VolumeUp,
                 Modifier = Modifier.None,
                 ActionIdentifier = "Session:Volume Up",
+                Registered = true,
             },
             new()
             {
@@ -243,6 +244,7 @@ namespace VolumeControl.Core
                 Key = EFriendlyKey.VolumeDown,
                 Modifier = Modifier.None,
                 ActionIdentifier = "Session:Volume Down",
+                Registered = true,
             },
             new()
             {
@@ -250,6 +252,7 @@ namespace VolumeControl.Core
                 Key = EFriendlyKey.VolumeMute,
                 Modifier = Modifier.None,
                 ActionIdentifier = "Session:Toggle Mute",
+                Registered = true,
             },
             new()
             {
@@ -257,6 +260,7 @@ namespace VolumeControl.Core
                 Key = EFriendlyKey.E,
                 Modifier = Modifier.Alt | Modifier.Shift | Modifier.Ctrl,
                 ActionIdentifier = "Session:Select Next",
+                Registered = true,
             },
             new()
             {
@@ -264,6 +268,7 @@ namespace VolumeControl.Core
                 Key = EFriendlyKey.Q,
                 Modifier = Modifier.Alt | Modifier.Shift | Modifier.Ctrl,
                 ActionIdentifier = "Session:Select Previous",
+                Registered = true,
             },
             new()
             {
@@ -271,6 +276,7 @@ namespace VolumeControl.Core
                 Key = EFriendlyKey.S,
                 Modifier = Modifier.Alt | Modifier.Shift | Modifier.Ctrl,
                 ActionIdentifier = "Session:Toggle Lock",
+                Registered = true,
             }
         };
         #endregion Hotkeys
