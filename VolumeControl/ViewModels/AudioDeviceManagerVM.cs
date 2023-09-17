@@ -43,7 +43,10 @@ namespace VolumeControl.ViewModels
             AudioSessionManager.SessionAddedToList += this.AudioSessionManager_SessionAddedToList;
             AudioSessionManager.SessionRemovedFromList += this.AudioSessionManager_SessionRemovedFromList;
 
-            AudioSessionManager.AddSessionManagers(Devices.Select(d => d.AudioDevice.SessionManager));
+            foreach (var sessionManager in Devices.Select(d => d.AudioDevice.SessionManager))
+            {
+                AudioSessionManager.AddSessionManager(sessionManager);
+            }
 
             AudioDeviceSelector = new(AudioDeviceManager);
             AudioSessionSelector = new(AudioSessionManager)
@@ -88,10 +91,6 @@ namespace VolumeControl.ViewModels
         /// <returns>The <see cref="AudioSessionVM"/> instance associated with the given session, or <see langword="null"/> if it wasn't found.</returns>
         public AudioSessionVM? GetAudioSessionVM(AudioSession audioSession)
             => AllSessions.FirstOrDefault(audioSessionVM => audioSessionVM!.AudioSession.Equals(audioSession), null);
-        public AudioSessionVM? FindAudioSessionVMWithProcessIdentifier(string processIdentifier)
-            => AudioSessionManager.FindSessionWithProcessIdentifier(processIdentifier) is AudioSession session
-                ? GetAudioSessionVM(session)
-                : null;
         #endregion Methods
 
         #region AudioDeviceManager EventHandler Methods

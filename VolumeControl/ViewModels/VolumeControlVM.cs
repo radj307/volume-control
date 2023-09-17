@@ -164,7 +164,7 @@ namespace VolumeControl.ViewModels
 
                 if (value.Length > 0)
                 {
-                    if (AudioAPI.AudioSessionManager.FindSessionWithProcessIdentifier(value) is AudioSession session)
+                    if (AudioAPI.AudioSessionManager.FindSessionWithSimilarProcessIdentifier(value) is AudioSession session)
                     { // text resolves to a valid AudioSession, select it:
                         AudioAPI.AudioSessionSelector.Selected = session;
                     }

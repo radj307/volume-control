@@ -24,7 +24,7 @@ namespace VolumeControl.CoreAudio
             PID = AudioSessionControl.ProcessID;
             ProcessName = Process?.ProcessName ?? string.Empty;
             Name = AudioSessionControl.DisplayName.Length > 0 && !AudioSessionControl.DisplayName.StartsWith('@') ? AudioSessionControl.DisplayName : ProcessName;
-            ProcessIdentifier = $"{PID}:{ProcessName}";
+            ProcessIdentifier = $"{PID}{ProcessIdentifierSeparatorChar}{ProcessName}";
 
             if (AudioSessionControl.SimpleAudioVolume is null)
                 throw new NullReferenceException($"{nameof(AudioSession)} '{ProcessName}' ({PID}) {nameof(AudioSessionControl2.SimpleAudioVolume)} is null!");
@@ -75,6 +75,10 @@ namespace VolumeControl.CoreAudio
         /// Used to prevent duplicate <see cref="PropertyChanged"/> events from being fired.
         /// </summary>
         private bool isNotifying = false;
+        /// <summary>
+        /// The character that separates the PID &amp; ProcessName components of ProcessIdentifier strings.
+        /// </summary>
+        public const char ProcessIdentifierSeparatorChar = ':';
         #endregion Fields
 
         #region Properties
@@ -102,9 +106,37 @@ namespace VolumeControl.CoreAudio
         /// Gets or sets the name of this <see cref="AudioSession"/> instance.
         /// </summary>
         /// <remarks>
-        /// This is the internal <see cref="AudioSessionControl2.DisplayName"/> if available, otherwise it is <see cref="ProcessName"/>.
+        /// This defaults to the internal <see cref="AudioSessionControl2.DisplayName"/> if available, otherwise it defaults to the <see cref="ProcessName"/>.
         /// </remarks>
-        public string Name { get; set; }
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                NotifyPropertyChanged();
+                // update HasCustomName:
+                if (!value.Equals(ProcessName, StringComparison.Ordinal) && !HasCustomName)
+                    HasCustomName = true;
+                else if (HasCustomName)
+                    HasCustomName = false;
+            }
+        }
+        private string _name = string.Empty;
+        /// <summary>
+        /// Gets whether this session has a Name that differs from its ProcessName.
+        /// </summary>
+        /// <returns><see langword="true"/> when the Name is not the same as the ProcessName; otherwise <see langword="false"/>.</returns>
+        public bool HasCustomName
+        {
+            get => _hasCustomName;
+            private set
+            {
+                _hasCustomName = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private bool _hasCustomName = false;
         /// <summary>
         /// Gets the <see cref="System.Diagnostics.Process"/> that is controlling this <see cref="AudioSession"/> instance.
         /// </summary>
@@ -121,10 +153,16 @@ namespace VolumeControl.CoreAudio
         /// <summary>
         /// Gets the session identifier string from the windows API.
         /// </summary>
+        /// <remarks>
+        /// Processes that create multiple audio sessions will create multiple <see cref="AudioSession"/> instances with identical SessionIdentifier strings. For an identifier that is unique across all audio sessions, use <see cref="SessionInstanceIdentifier"/> or <see cref="ProcessIdentifier"/> instead.
+        /// </remarks>
         public string SessionIdentifier => AudioSessionControl.SessionIdentifier;
         /// <summary>
         /// Gets the session instance identifier from the windows API.
         /// </summary>
+        /// <remarks>
+        /// Unlike the SessionIdentifier, each SessionInstanceIdentifier is guaranteed to be unique to this <see cref="AudioSession"/> instance.
+        /// </remarks>
         public string SessionInstanceIdentifier => AudioSessionControl.SessionInstanceIdentifier;
         #endregion Properties
 
@@ -205,6 +243,62 @@ namespace VolumeControl.CoreAudio
         #endregion IHideableAudioControl Properties
 
         #region Methods
+
+        #region ParseProcessIdentifier
+        /// <summary>
+        /// Splits the given <paramref name="processIdentifier"/> into its ProcessID and ProcessName components, if they exist.
+        /// </summary>
+        /// <param name="processIdentifier">A process identifier string.</param>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="FormatException"/>
+        /// <exception cref="OverflowException"/>
+        /// <returns>A tuple containing the ProcessID and ProcessName components of the given <paramref name="processIdentifier"/>, if found.</returns>
+        public static (uint? processId, string? processName) ParseProcessIdentifier(string processIdentifier)
+        {
+            // remove preceding/trailing whitespace & colons (separator char)
+            string s = processIdentifier.Trim(ProcessIdentifierSeparatorChar, ' ', '\t', '\v', '\r', '\n');
+
+            if (s.Length == 0) return (null, null);
+
+            int separatorIndex = s.IndexOf(ProcessIdentifierSeparatorChar, StringComparison.Ordinal);
+
+            if (separatorIndex == -1)
+            { // separator character not found; one of the components is missing
+                if (s.All(char.IsNumber))
+                { // only the PID component is present:
+                    return (uint.Parse(s), null);
+                }
+                else
+                { // only the ProcessName component is present:
+                    return (null, s);
+                }
+            }
+            else return (uint.Parse(s[..separatorIndex]), s[(separatorIndex + 1)..]);
+        }
+        /// <summary>
+        /// Splits the given <paramref name="processIdentifier"/> into its ProcessID &amp; ProcessName components, and converts the ProcessID to an unsigned integer.
+        /// </summary>
+        /// <param name="processIdentifier">A Process Identifier string. See <see cref="ProcessIdentifier"/>.</param>
+        /// <param name="processId">The ProcessID component of the <paramref name="processIdentifier"/> when it contains one &amp; the method returned <see langword="true"/>; otherwise <see langword="null"/>.</param>
+        /// <param name="processName">The ProcessName component of the <paramref name="processIdentifier"/> when it contains one &amp; the method returned <see langword="true"/>; otherwise <see langword="null"/>.</param>
+        /// <returns><see langword="true"/> when successful and no exceptions were thrown; otherwise <see langword="false"/>.</returns>
+        public static bool TryParseProcessIdentifier(string processIdentifier, out uint? processId, out string? processName)
+        {
+            try
+            {
+                (processId, processName) = ParseProcessIdentifier(processIdentifier);
+                return true;
+            }
+            catch (Exception)
+            {
+                processId = null;
+                processName = null;
+                return false;
+            }
+        }
+        #endregion ParseProcessIdentifier
+
+        #region GetProcess
         /// <summary>
         /// Gets the process that created this audio session.
         /// </summary>
@@ -236,6 +330,9 @@ namespace VolumeControl.CoreAudio
                 return null;
             }
         }
+        #endregion GetProcess
+
+        #region GetTargetInfo
         /// <summary>
         /// Gets a new TargetInfo object representing this AudioSession instance.
         /// </summary>
@@ -246,33 +343,8 @@ namespace VolumeControl.CoreAudio
             ProcessName = this.ProcessName,
             SessionInstanceIdentifier = this.SessionInstanceIdentifier,
         };
-        /// <summary>
-        /// Parses the given <paramref name="processIdentifier"/> to retrieve the ProcessId and ProcessName components.
-        /// </summary>
-        /// <param name="processIdentifier">A process identifier string.</param>
-        /// <returns>A tuple that includes the ProcessId as an <see cref="int"/> and the ProcessName as a <see cref="string"/>.</returns>
-        /// <exception cref="FormatException"><paramref name="processIdentifier"/> was not in a valid format.</exception>
-        public static (int pid, string pname) ParseProcessIdentifier(string processIdentifier)
-        {
-            int delim = processIdentifier
-                .Trim(':', ' ') //< only allow colon characters that actually have text on both sides.
-                .IndexOf(':');  //< get the index of said inner-colons...
+        #endregion GetTargetInfo
 
-            if (delim == -1)
-            {
-                if (processIdentifier.All(char.IsDigit) && int.TryParse(processIdentifier, out int result))
-                    // pid
-                    return (result, string.Empty);
-                else // process name
-                    return (-1, processIdentifier);
-            }
-            else // both
-            {
-                return !int.TryParse(processIdentifier[..delim], out int result)
-                    ? throw new FormatException($"Invalid process identifier string '{processIdentifier}'")
-                    : ((int, string))(result, processIdentifier[(delim + 1)..]);
-            }
-        }
         #endregion Methods
 
         #region AudioSessionControl EventHandlers

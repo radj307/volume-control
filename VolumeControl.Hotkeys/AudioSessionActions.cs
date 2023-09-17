@@ -60,7 +60,7 @@ namespace VolumeControl.Hotkeys
             else SelectedSession?.DecreaseVolume(VCAPI.Settings.VolumeStepSize);
 
             if (!VCAPI.Settings.NotificationsOnVolumeChange) return; //< don't show notifs if they're disabled on volume change
-            
+
             if (VCAPI.AudioSessionSelector.Selected is not null)
                 VCAPI.ShowSessionListNotification();
         }
@@ -79,7 +79,7 @@ namespace VolumeControl.Hotkeys
             else SelectedSession?.SetMute(true);
 
             if (!VCAPI.Settings.NotificationsOnVolumeChange) return; //< don't show notifs if they're disabled on volume change
-            
+
             if (VCAPI.AudioSessionSelector.Selected is not null)
                 VCAPI.ShowSessionListNotification();
         }
@@ -98,7 +98,7 @@ namespace VolumeControl.Hotkeys
             else SelectedSession?.SetMute(false);
 
             if (!VCAPI.Settings.NotificationsOnVolumeChange) return; //< don't show notifs if they're disabled on volume change
-            
+
             if (VCAPI.AudioSessionSelector.Selected is not null)
                 VCAPI.ShowSessionListNotification();
         }
@@ -117,7 +117,7 @@ namespace VolumeControl.Hotkeys
             else SelectedSession?.ToggleMute();
 
             if (!VCAPI.Settings.NotificationsOnVolumeChange) return; //< don't show notifs if they're disabled on volume change
-            
+
             if (VCAPI.AudioSessionSelector.Selected is not null)
                 VCAPI.ShowSessionListNotification();
         }

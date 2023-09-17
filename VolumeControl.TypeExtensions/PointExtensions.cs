@@ -28,6 +28,6 @@
         /// <summary>
         /// Get a <see cref="System.Drawing.Point"/> instance from a <see cref="System.Windows.Point"/> instance.
         /// </summary>
-        public static System.Windows.Point ToWpfPoint(this System.Drawing.Point p) => new((int)p.X, (int)p.Y);
+        public static System.Windows.Point ToWpfPoint(this System.Drawing.Point p) => new(p.X, p.Y);
     }
 }

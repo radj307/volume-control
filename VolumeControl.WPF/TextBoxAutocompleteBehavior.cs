@@ -125,10 +125,10 @@ namespace VolumeControl.WPF
                 int textLength = matchingString.Length;
                 StringComparison comparer = StringComparison;
                 string? text = (from subvalue in ItemsSource
-                               where subvalue != null && subvalue.Length >= textLength
-                               select subvalue into value
-                               where value[..textLength].Equals(matchingString, comparer)
-                               select value[textLength..]).FirstOrDefault();
+                                where subvalue != null && subvalue.Length >= textLength
+                                select subvalue into value
+                                where value[..textLength].Equals(matchingString, comparer)
+                                select value[textLength..]).FirstOrDefault();
                 if (!string.IsNullOrEmpty(text))
                 {
                     int num2 = num + matchingString.Length;

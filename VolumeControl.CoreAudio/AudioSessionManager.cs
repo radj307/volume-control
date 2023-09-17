@@ -110,94 +110,252 @@ namespace VolumeControl.CoreAudio
         private readonly List<AudioSession> _hiddenSessions;
         #endregion Properties
 
+        #region Methods
+
         #region FindSession
         /// <summary>
-        /// Finds an audio session by using the given <paramref name="predicate"/>.
+        /// Finds an audio session using a <paramref name="predicate"/> function.
         /// </summary>
-        /// <param name="predicate">A predicate delegate that returns a <see cref="bool"/> and accepts a single parameter of type <see cref="AudioSession"/>.</param>
-        /// <returns>The first <see cref="AudioSession"/> instance that the given <paramref name="predicate"/> returned true for; otherwise <see langword="null"/>.</returns>
-        public AudioSession? FindSession(Predicate<AudioSession> predicate)
-        {
-            foreach (var session in Sessions)
-            {
-                if (predicate(session))
-                    return session;
-            }
-            return null;
-        }
-        /// <summary>
-        /// Finds an audio session with the specified <paramref name="pid"/>.
-        /// </summary>
-        /// <param name="pid">A Process ID to search for.</param>
-        /// <returns>The <see cref="AudioSession"/> instance with the given <paramref name="pid"/>, or <see langword="null"/> if one wasn't found.</returns>
-        public AudioSession? FindSessionWithID(uint pid) => FindSession((session) => session.PID.Equals(pid));
-        /// <summary>
-        /// Finds an audio session with the specified <paramref name="processName"/>.
-        /// </summary>
-        /// <param name="processName">A Process Name to search for.</param>
-        /// <param name="sCompareType">The <see cref="StringComparison"/> type to use when comparing process name strings.</param>
-        /// <returns>The <see cref="AudioSession"/> instance with the given <paramref name="processName"/>, or <see langword="null"/> if one wasn't found.</returns>
-        public AudioSession? FindSessionWithProcessName(string processName, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase) => FindSession((session) => session.ProcessName.Equals(processName, sCompareType));
-        /// <summary>
-        /// Gets a session from <see cref="Sessions"/> by parsing <paramref name="identifier"/> to determine whether to pass it to <see cref="FindSessionWithID(uint)"/>, <see cref="FindSessionWithProcessName(string, StringComparison)"/>, or directly comparing it to the <see cref="AudioSession.ProcessIdentifier"/> property.
-        /// </summary>
-        /// <param name="identifier">
-        /// This can match any of the following properties:<br/>
-        /// <list type="bullet">
-        /// <item><description><b><see cref="AudioSession.PID"/></b></description></item>
-        /// <item><term><b><see cref="AudioSession.ProcessName"/></b></term><description>Uses <paramref name="sCompareType"/></description></item>
-        /// <item><term><b><see cref="AudioSession.ProcessIdentifier"/></b></term><description>Uses <paramref name="sCompareType"/></description></item>
-        /// </list>
-        /// </param>
-        /// <param name="prioritizePID">When <see langword="true"/> <i>(default)</i>, process IDs are prioritized over process names, which returns more accurate results when multiple sessions have identical names but may take longer.<br/>When <see langword="false"/>, the first process with a matching ID or name is returned.</param>
-        /// <param name="sCompareType">A <see cref="StringComparison"/> enum value to use when matching process names or full identifiers.</param>
-        /// <returns><see cref="AudioSession"/> if a session was found.<br/>Returns null if nothing was found.</returns>
-        public AudioSession? FindSessionWithProcessIdentifier(string identifier, bool prioritizePID = true, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase)
-        {
-            if (identifier.Length == 0)
-                return null;
-
-            (int pid, string name) = AudioSession.ParseProcessIdentifier(identifier);
-
-            AudioSession? potentialMatch = null;
-
-            foreach (AudioSession session in Sessions)
-            {
-                if (prioritizePID && pid != -1 && session.PID.Equals(pid))
-                    return session;
-                else if (session.ProcessName.Equals(name, sCompareType))
-                {
-                    if (!prioritizePID || pid == -1)
-                        return session;
-                    else if (potentialMatch == null)
-                        potentialMatch = session;
-                    else return potentialMatch;
-                }
-            }
-
-            return potentialMatch;
-        }
-        /// <summary>
-        /// Finds an audio session with the specified <paramref name="sessionInstanceIdentifier"/>.
-        /// </summary>
-        /// <param name="sessionInstanceIdentifier">A <see cref="AudioSession.SessionInstanceIdentifier"/> to search for.</param>
-        /// <returns>The <see cref="AudioSession"/> instance with the given <paramref name="sessionInstanceIdentifier"/>, or <see langword="null"/> if one wasn't found.</returns>
-        public AudioSession? FindSessionWithSessionInstanceIdentifier(string sessionInstanceIdentifier)
-        {
-            foreach (AudioSession session in Sessions)
-            {
-                if (session.SessionInstanceIdentifier.Equals(sessionInstanceIdentifier, StringComparison.Ordinal))
-                    return session;
-            }
-            return null;
-        }
+        /// <param name="predicate">A predicate delegate that accepts an <see cref="AudioSession"/> and returns <see langword="true"/> to indicate a match or <see langword="false"/> to continue.</param>
+        /// <param name="includeHiddenSessions">When <see langword="true"/>, also searches the hidden sessions; otherwise when <see langword="false"/>, only searches through visible sessions.</param>
+        /// <returns>The first <see cref="AudioSession"/> instance that the <paramref name="predicate"/> returned <see langword="true"/> for; otherwise <see langword="null"/>.</returns>
+        public AudioSession? FindSession(Func<AudioSession, bool> predicate, bool includeHiddenSessions = false)
+            => Sessions.FirstOrDefault(predicate) ?? (includeHiddenSessions ? HiddenSessions.FirstOrDefault(predicate) : null);
         #endregion FindSession
 
-        #region Methods
+        #region FindSessionWithPID
         /// <summary>
-        /// Adds the given <paramref name="session"/> to the <see cref="Sessions"/> list, and triggers the <see cref="SessionAddedToList"/> event.
+        /// Finds the audio session whose owning process has the given <paramref name="processId"/>.
         /// </summary>
-        /// <param name="session"></param>
+        /// <param name="processId">A Process ID to search for. See <see cref="AudioSession.PID"/>.</param>
+        /// <param name="includeHiddenSessions">When <see langword="true"/>, also searches the hidden sessions; otherwise when <see langword="false"/>, only searches through visible sessions.</param>
+        /// <returns>The <see cref="AudioSession"/> with the given <paramref name="processId"/> if found; otherwise <see langword="null"/>.</returns>
+        public AudioSession? FindSessionWithPID(uint processId, bool includeHiddenSessions = false)
+        { // don't use FindSession here, this way is more than 2x faster:
+            for (int i = 0; i < Sessions.Count; ++i)
+            {
+                AudioSession session = Sessions[i];
+                if (session.PID == processId) return session;
+            }
+            if (includeHiddenSessions)
+            {
+                for (int i = 0; i < HiddenSessions.Count; ++i)
+                {
+                    AudioSession session = HiddenSessions[i];
+                    if (session.PID == processId) return session;
+                }
+            }
+            return null;
+        }
+        #endregion FindSessionWithPID
+
+        #region FindSessionWithProcessName
+        /// <summary>
+        /// Finds the audio session whose owning process has the given <paramref name="processName"/>.
+        /// </summary>
+        /// <remarks>
+        /// Note that this method checks ONLY the <see cref="AudioSession.ProcessName"/> property, which can differ from the name shown in the UI (<see cref="AudioSession.Name"/>)!<br/>
+        /// To check both properties, use <see cref="FindSessionWithName(string, StringComparison, bool)"/> instead.
+        /// </remarks>
+        /// <param name="processName">A Process Name to search for. See <see cref="AudioSession.ProcessName"/>.</param>
+        /// <param name="stringComparison">The <see cref="StringComparison"/> type to use when comparing process name strings.</param>
+        /// <param name="includeHiddenSessions">When <see langword="true"/>, also searches the hidden sessions; otherwise when <see langword="false"/>, only searches through visible sessions.</param>
+        /// <returns>The first <see cref="AudioSession"/> with the given <paramref name="processName"/> if found; otherwise <see langword="null"/>.</returns>
+        public AudioSession? FindSessionWithProcessName(string processName, StringComparison stringComparison = StringComparison.Ordinal, bool includeHiddenSessions = false)
+        {
+            if (processName.Length == 0) return null;
+
+            for (int i = 0; i < Sessions.Count; ++i)
+            {
+                AudioSession session = Sessions[i];
+                if (session.ProcessName.Equals(processName, stringComparison)) return session;
+            }
+            if (includeHiddenSessions)
+            {
+                for (int i = 0; i < HiddenSessions.Count; ++i)
+                {
+                    AudioSession session = HiddenSessions[i];
+                    if (session.ProcessName.Equals(processName, stringComparison)) return session;
+                }
+            }
+            return null;
+        }
+        #endregion FindSessionWithProcessName
+
+        #region FindSessionWithName
+        /// <summary>
+        /// Finds the audio session whose owning process has the given <paramref name="sessionName"/>.
+        /// </summary>
+        /// <param name="sessionName">A Name or Process Name to search for. See <see cref="AudioSession.Name"/> &amp; <see cref="AudioSession.ProcessName"/>.</param>
+        /// <param name="stringComparison">The <see cref="StringComparison"/> type to use when comparing process name strings.</param>
+        /// <param name="includeHiddenSessions">When <see langword="true"/>, also searches the hidden sessions; otherwise when <see langword="false"/>, only searches through visible sessions.</param>
+        /// <returns>The first <see cref="AudioSession"/> with the given <paramref name="sessionName"/> if found; otherwise <see langword="null"/>.</returns>
+        public AudioSession? FindSessionWithName(string sessionName, StringComparison stringComparison = StringComparison.Ordinal, bool includeHiddenSessions = false)
+        {
+            if (sessionName.Length == 0) return null;
+
+            for (int i = 0; i < Sessions.Count; ++i)
+            {
+                AudioSession session = Sessions[i];
+                if ((session.HasCustomName && session.Name.Equals(sessionName, stringComparison))
+                    || session.ProcessName.Equals(sessionName, stringComparison)) return session;
+            }
+            if (includeHiddenSessions)
+            {
+                for (int i = 0; i < HiddenSessions.Count; ++i)
+                {
+                    AudioSession session = HiddenSessions[i];
+                    if ((session.HasCustomName && session.Name.Equals(sessionName, stringComparison))
+                        || session.ProcessName.Equals(sessionName, stringComparison)) return session;
+                }
+            }
+            return null;
+        }
+        #endregion FindSessionWithName
+
+        #region FindSessionWithExactProcessIdentifier
+        /// <summary>
+        /// Finds the audio session with the given <paramref name="processIdentifier"/>.
+        /// </summary>
+        /// <param name="processIdentifier">A Process Identifier to search for. See <see cref="AudioSession.ProcessIdentifier"/>.</param>
+        /// <param name="stringComparison">The <see cref="StringComparison"/> type to use when comparing process identifier strings.</param>
+        /// <param name="includeHiddenSessions">When <see langword="true"/>, also searches the hidden sessions; otherwise when <see langword="false"/>, only searches through visible sessions.</param>
+        /// <returns>The <see cref="AudioSession"/> with the given <paramref name="processIdentifier"/> if found; otherwise <see langword="null"/>.</returns>
+        public AudioSession? FindSessionWithExactProcessIdentifier(string processIdentifier, StringComparison stringComparison = StringComparison.Ordinal, bool includeHiddenSessions = false)
+        {
+            if (processIdentifier.Length == 0) return null;
+
+            for (int i = 0; i < Sessions.Count; ++i)
+            {
+                AudioSession session = Sessions[i];
+                if (session.ProcessIdentifier.Equals(processIdentifier, stringComparison)) return session;
+            }
+            if (includeHiddenSessions)
+            {
+                for (int i = 0; i < HiddenSessions.Count; ++i)
+                {
+                    AudioSession session = HiddenSessions[i];
+                    if (session.ProcessIdentifier.Equals(processIdentifier, stringComparison)) return session;
+                }
+            }
+            return null;
+        }
+        #endregion FindSessionWithExactProcessIdentifier
+
+        #region FindSessionWithSimilarProcessIdentifier
+        /// <summary>
+        /// Finds the audio session that matches - or is very similar to - the given <paramref name="processIdentifier"/>.
+        /// </summary>
+        /// <remarks>
+        /// When searching for text entered by the user, this method should always be used over the other FindSession... methods.
+        /// </remarks>
+        /// <param name="processIdentifier">A ProcessIdentifier to search for. See <see cref="AudioSession.ProcessIdentifier"/>.<br/>
+        /// Supports partial identifiers that only include the PID or ProcessName component, with or without the separator character.</param>
+        /// <param name="stringComparison">The <see cref="StringComparison"/> type to use when comparing strings.</param>
+        /// <param name="includeHiddenSessions">When <see langword="true"/>, also searches the hidden sessions; otherwise when <see langword="false"/>, only searches through visible sessions.</param>
+        /// <returns>
+        /// An <see cref="AudioSession"/> that matches - or is similar to - the given <paramref name="processIdentifier"/> if found; otherwise <see langword="null"/>.
+        /// <br/>
+        /// The returned session can have a different PID than the one specified by the <paramref name="processIdentifier"/>.
+        /// </returns>
+        public AudioSession? FindSessionWithSimilarProcessIdentifier(string processIdentifier, StringComparison stringComparison = StringComparison.OrdinalIgnoreCase, bool includeHiddenSessions = false)
+        {
+            // remove preceding/trailing whitespace & colons (separator char)
+            string s = processIdentifier.Trim(AudioSession.ProcessIdentifierSeparatorChar, ' ', '\t', '\v', '\r', '\n');
+
+            if (s.Length == 0) return null;
+
+            int delimIndex = s.IndexOf(AudioSession.ProcessIdentifierSeparatorChar);
+
+            if (delimIndex == -1)
+            { // no separator; only 1 segment is present:
+                if (s.All(char.IsNumber))
+                { // PID segment is present:
+                    return FindSessionWithPID(uint.Parse(s), includeHiddenSessions);
+                }
+                else
+                { // ProcessName segment is present:
+                    return FindSessionWithName(s, stringComparison, includeHiddenSessions); //< check both Name & ProcessName
+                }
+            }
+            else
+            { // both of the segments exist:
+                string name = s[(delimIndex + 1)..];
+
+                if (uint.TryParse(s[..delimIndex], out uint pid)
+                    && FindSessionWithPID(pid, includeHiddenSessions) is AudioSession session
+                    && (session.ProcessName.Equals(name, stringComparison) || (session.HasCustomName && session.Name.Equals(name, stringComparison))))
+                { // found a session with a matching process ID and ProcessName
+                    return session;
+                }
+                else return FindSessionWithName(name, stringComparison, includeHiddenSessions);
+            }
+        }
+        #endregion FindSessionWithSimilarProcessIdentifier
+
+        #region FindSessionWithSessionIdentifier
+        /// <summary>
+        /// Finds the first audio session with the specified <paramref name="sessionIdentifier"/>.
+        /// </summary>
+        /// <param name="sessionIdentifier">A SessionIdentifier string to search for. See <see cref="AudioSession.SessionIdentifier"/>.</param>
+        /// <param name="stringComparison">The <see cref="StringComparison"/> type to use when comparing session identifier strings.</param>
+        /// <param name="includeHiddenSessions">When <see langword="true"/>, also searches the hidden sessions; otherwise when <see langword="false"/>, only searches through visible sessions.</param>
+        /// <returns>The first <see cref="AudioSession"/> with the given <paramref name="sessionIdentifier"/> if found; otherwise <see langword="null"/>.</returns>
+        public AudioSession? FindSessionWithSessionIdentifier(string sessionIdentifier, StringComparison stringComparison = StringComparison.Ordinal, bool includeHiddenSessions = false)
+        {
+            if (sessionIdentifier.Length == 0) return null;
+
+            for (int i = 0; i < Sessions.Count; ++i)
+            {
+                AudioSession session = Sessions[i];
+                if (session.SessionIdentifier.Equals(sessionIdentifier, stringComparison)) return session;
+            }
+            if (includeHiddenSessions)
+            {
+                for (int i = 0; i < HiddenSessions.Count; ++i)
+                {
+                    AudioSession session = HiddenSessions[i];
+                    if (session.SessionIdentifier.Equals(sessionIdentifier, stringComparison)) return session;
+                }
+            }
+            return null;
+        }
+        #endregion FindSessionWithSessionIdentifier
+
+        #region FindSessionWithSessionInstanceIdentifier
+        /// <summary>
+        /// Finds the audio session with the specified <paramref name="sessionInstanceIdentifier"/>.
+        /// </summary>
+        /// <param name="sessionInstanceIdentifier">A SessionInstanceIdentifier to search for. See <see cref="AudioSession.SessionInstanceIdentifier"/>.</param>
+        /// <param name="stringComparison">The <see cref="StringComparison"/> type to use when comparing session instance identifier strings.</param>
+        /// <param name="includeHiddenSessions">When <see langword="true"/>, also searches the hidden sessions; otherwise when <see langword="false"/>, only searches through visible sessions.</param>
+        /// <returns>The <see cref="AudioSession"/> with the given <paramref name="sessionInstanceIdentifier"/> if found; otherwise <see langword="null"/>.</returns>
+        public AudioSession? FindSessionWithSessionInstanceIdentifier(string sessionInstanceIdentifier, StringComparison stringComparison = StringComparison.Ordinal, bool includeHiddenSessions = false)
+        {
+            if (sessionInstanceIdentifier.Length == 0) return null;
+
+            for (int i = 0; i < Sessions.Count; ++i)
+            {
+                AudioSession session = Sessions[i];
+                if (session.SessionInstanceIdentifier.Equals(sessionInstanceIdentifier, stringComparison)) return session;
+            }
+            if (includeHiddenSessions)
+            {
+                for (int i = 0; i < HiddenSessions.Count; ++i)
+                {
+                    AudioSession session = HiddenSessions[i];
+                    if (session.SessionInstanceIdentifier.Equals(sessionInstanceIdentifier, stringComparison)) return session;
+                }
+            }
+            return null;
+        }
+        #endregion FindSessionWithSessionInstanceIdentifier
+
+        #region Add/Remove Session
+        /// <summary>
+        /// Adds the given <paramref name="session"/> to the managed sessions.
+        /// </summary>
+        /// <param name="session">An <see cref="AudioSession"/> instance to add to the list.</param>
         internal void AddSession(AudioSession session)
         {
             if (_sessions.Any(s => s.PID.Equals(session.PID)))
@@ -205,7 +363,7 @@ namespace VolumeControl.CoreAudio
 
             // allow handlers to edit the session's initial name:
             session.Name = NotifyPreviewSessionName(session.Name).SessionName;
-             
+
             if (session.IsHidden)
             { // add session to hidden list
                 _hiddenSessions.Add(session);
@@ -218,9 +376,9 @@ namespace VolumeControl.CoreAudio
             }
         }
         /// <summary>
-        /// Removes the given <paramref name="session"/> from the <see cref="Sessions"/> list, and triggers the <see cref="SessionRemovedFromList"/> event.
+        /// Removes the specified <paramref name="session"/> from the managed sessions.
         /// </summary>
-        /// <param name="session">An <see cref="AudioSession"/> instance to add to the list.</param>
+        /// <param name="session">An <see cref="AudioSession"/> instance to remove from the list.</param>
         internal void RemoveSession(AudioSession session)
         {
             // AudioSession.IsHidden is not reliable for this method
@@ -234,6 +392,9 @@ namespace VolumeControl.CoreAudio
                 NotifySessionRemovedFromList(session);
             }
         }
+        #endregion Add/Remove Session
+
+        #region Add/Remove SessionManager
         /// <summary>
         /// Adds the given <paramref name="sessionManager"/> to the <see cref="SessionManagers"/> list.
         /// </summary>
@@ -258,20 +419,6 @@ namespace VolumeControl.CoreAudio
             return true;
         }
         /// <summary>
-        /// Adds the given <paramref name="sessionManagers"/> to the <see cref="SessionManagers"/> list using <see cref="AddSessionManager(AudioDeviceSessionManager)"/>.
-        /// </summary>
-        /// <param name="sessionManagers">Any number of <see cref="AudioDeviceSessionManager"/> instances to add.</param>
-        /// <returns>The number of <paramref name="sessionManagers"/> that were successfully added to the list.</returns>
-        public int AddSessionManagers(IEnumerable<AudioDeviceSessionManager> sessionManagers)
-        {
-            int successfulCount = 0;
-            foreach (var sessionManager in sessionManagers)
-            {
-                successfulCount += AddSessionManager(sessionManager) ? 1 : 0;
-            }
-            return successfulCount;
-        }
-        /// <summary>
         /// Removes the given <paramref name="sessionManager"/> from the <see cref="SessionManagers"/> list.
         /// </summary>
         /// <param name="sessionManager">A <see cref="AudioDeviceSessionManager"/> instance to remove.</param>
@@ -293,7 +440,13 @@ namespace VolumeControl.CoreAudio
             }
             return true;
         }
-        #region Methods (EventHandlers)
+        #endregion Add/Remove SessionManager
+
+        #endregion Methods
+
+        #region EventHandlers
+
+        #region SessionManager
         /// <summary>
         /// Calls <see cref="AddSession(AudioSession)"/>.
         /// </summary>
@@ -304,6 +457,9 @@ namespace VolumeControl.CoreAudio
         /// </summary>
         private void SessionManager_SessionRemovedFromList(object? sender, AudioSession e)
             => RemoveSession(e);
+        #endregion SessionManager
+
+        #region HiddenSessionProcessNames
         /// <summary>
         /// Moves sessions between the <see cref="HiddenSessions"/> and <see cref="Sessions"/> lists.
         /// </summary>
@@ -327,7 +483,7 @@ namespace VolumeControl.CoreAudio
                         }
                     }
 
-                    //if (HiddenSessions.FirstOrDefault(hiddenSession => hiddenSession.ProcessName.Equals(processName, StringComparison.Ordinal)) is AudioSession session)
+                    //if (HiddenSessions.FirstOrDefault(hiddenSession => hiddenSession.ProcessName.Equals(sessionName, StringComparison.Ordinal)) is AudioSession session)
                     //{
                     //    RemoveSession(session); //< remove from hidden sessions list
                     //    AddSession(session); //< add to sessions list
@@ -352,7 +508,7 @@ namespace VolumeControl.CoreAudio
                         }
                     }
 
-                    //if (Sessions.FirstOrDefault(hiddenSession => hiddenSession.ProcessName.Equals(processName, StringComparison.Ordinal)) is AudioSession session)
+                    //if (Sessions.FirstOrDefault(hiddenSession => hiddenSession.ProcessName.Equals(sessionName, StringComparison.Ordinal)) is AudioSession session)
                     //{
                     //    RemoveSession(session); //< remove from sessions list
                     //    AddSession(session); //< add to hidden sessions list
@@ -360,7 +516,8 @@ namespace VolumeControl.CoreAudio
                 }
             }
         }
-        #endregion Methods (EventHandlers)
-        #endregion Methods
+        #endregion HiddenSessionProcessNames
+
+        #endregion EventHandlers
     }
 }

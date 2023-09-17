@@ -32,7 +32,6 @@ namespace VolumeControl.TypeExtensions
         /// <returns>String with all preceeding/trailing characters from trimChars removed.</returns>
         public static string Trim(this string s, string trimChars)
             => s.Trim(trimChars.ToCharArray());
-
         /// <summary>
         /// Gets the <see langword="char"/> at <paramref name="index"/>, or <paramref name="defaultChar"/> if the index is out of range.
         /// </summary>

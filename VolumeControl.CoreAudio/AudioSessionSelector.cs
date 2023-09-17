@@ -171,7 +171,7 @@ namespace VolumeControl.CoreAudio
 
             AudioSession? target
                 = AudioSessionManager.FindSessionWithSessionInstanceIdentifier(targetInfo.SessionInstanceIdentifier)
-                ?? AudioSessionManager.FindSessionWithProcessIdentifier(targetInfo.ProcessIdentifier);
+                ?? AudioSessionManager.FindSessionWithSimilarProcessIdentifier(targetInfo.ProcessIdentifier);
 
             // only update if the resolved target isn't null AND is different
             if (target != null && _selected != target)
