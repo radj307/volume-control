@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace VolumeControl.WPF
+namespace VolumeControl.WPF.Behaviors
 {
     /// <summary>
     /// <see cref="Behavior{T}"/> that enables the mouse wheel to increment/decrement the selected item in a <see cref="ListView"/>.
@@ -12,7 +12,7 @@ namespace VolumeControl.WPF
         #region Methods
         private void AssociatedObject_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            ListView listView = (ListView)sender;
+            var listView = (ListView)sender;
 
             int count = listView.Items.Count;
             int index = listView.SelectedIndex;

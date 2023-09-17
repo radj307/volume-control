@@ -11,6 +11,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:VolumeControl.ViewModels"
     xmlns:wpf="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
+    xmlns:wpfBehaviors="clr-namespace:VolumeControl.WPF.Behaviors;assembly=VolumeControl.WPF"
     x:Name="Window"
     Title="SessionListNotification"
     AllowsTransparency="True"
@@ -143,7 +144,7 @@
                 SelectedIndex="{Binding AudioAPI.AudioSessionSelector.SelectedIndex, UpdateSourceTrigger=PropertyChanged}"
                 SelectionMode="Single">
                 <i:Interaction.Behaviors>
-                    <wpf:MouseWheelListViewBehavior />
+                    <wpfBehaviors:MouseWheelListViewBehavior />
                 </i:Interaction.Behaviors>
                 <!--<ListView.ContextMenu>
                     <ContextMenu>
@@ -207,7 +208,7 @@
                         Tag="{Binding PeakMeterValue, Mode=OneWay}"
                         Value="{Binding Volume, UpdateSourceTrigger=PropertyChanged}">
                         <i:Interaction.Behaviors>
-                            <wpf:MouseWheelRangeBaseBehavior Amount="{Binding VolumeStepSize, Source={StaticResource Settings}}" />
+                            <wpfBehaviors:MouseWheelRangeBaseBehavior Amount="{Binding VolumeStepSize, Source={StaticResource Settings}}" />
                             <behaviour:IntervalUpdateBinding
                                 EnableTimer="{Binding ShowPeakMeters, Source={StaticResource Settings}}"
                                 Interval="{Binding PeakMeterUpdateIntervalMs, Source={StaticResource Settings}}"

@@ -13,6 +13,7 @@
     xmlns:local="clr-namespace:VolumeControl"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
+    xmlns:wpfBehaviors="clr-namespace:VolumeControl.WPF.Behaviors;assembly=VolumeControl.WPF"
     xmlns:vm="clr-namespace:VolumeControl.ViewModels"
     xmlns:wpf="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
     x:Name="Window"
@@ -96,7 +97,7 @@
                                         VerticalContentAlignment="Center"
                                         Text="{Binding Value, UpdateSourceTrigger=LostFocus}">
                                         <i:Interaction.Behaviors>
-                                            <wpf:TextBoxAutocompleteBehavior ItemsSource="{Binding AudioSessionProcessNameAutocompleteSource, Source={StaticResource Settings}}" StringComparison="OrdinalIgnoreCase" />
+                                            <wpfBehaviors:TextBoxAutocompleteBehavior ItemsSource="{Binding AudioSessionProcessNameAutocompleteSource, Source={StaticResource Settings}}" StringComparison="OrdinalIgnoreCase" />
                                         </i:Interaction.Behaviors>
                                     </TextBox>
                                     <Button

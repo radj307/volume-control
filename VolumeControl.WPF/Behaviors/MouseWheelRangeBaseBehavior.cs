@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
-namespace VolumeControl.WPF
+namespace VolumeControl.WPF.Behaviors
 {
     /// <summary>
     /// <see cref="Behavior{T}"/> that enables the mouse wheel to change the value of controls based on <see cref="RangeBase"/>.
@@ -34,11 +34,9 @@ namespace VolumeControl.WPF
         private void AssociatedObject_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (Amount == 0.0) return;
-            RangeBase rangeBase = (RangeBase)sender;
+            var rangeBase = (RangeBase)sender;
             if (e.Delta > 0)
-            {
                 rangeBase.Value += Amount;
-            }
             else
             {
                 rangeBase.Value -= Amount;

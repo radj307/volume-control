@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using VolumeControl.WPF.Controls;
 
-namespace VolumeControl.WPF
+namespace VolumeControl.WPF.Behaviors
 {
     /// <summary>
     /// <see cref="Behavior{T}"/> that enables the mouse wheel to change the value of <see cref="NumericUpDown"/> controls.
@@ -34,11 +34,9 @@ namespace VolumeControl.WPF
         private void AssociatedObject_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (Amount == 0m) return;
-            NumericUpDown numericUpDown = (NumericUpDown)sender;
+            var numericUpDown = (NumericUpDown)sender;
             if (e.Delta > 0)
-            {
                 numericUpDown.Value += Amount;
-            }
             else
             {
                 numericUpDown.Value -= Amount;

@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace VolumeControl.WPF
+namespace VolumeControl.WPF.Behaviors
 {
     /// <summary>
     /// Behavior that implements autocomplete suggestions for <see cref="TextBox"/> controls.
@@ -96,15 +96,11 @@ namespace VolumeControl.WPF
         {
             if (sender is null) return;
 
-            if (e.Changes.Where((TextChange change) => change.RemovedLength > 0).Any() && !e.Changes.Where((TextChange change) => change.AddedLength > 0).Any())
-            {
+            if (e.Changes.Where((change) => change.RemovedLength > 0).Any() && !e.Changes.Where((change) => change.AddedLength > 0).Any())
                 return;
-            }
 
             if (ItemsSource == null || string.IsNullOrEmpty(AssociatedObject.Text))
-            {
                 return;
-            }
 
             int num = 0;
             string matchingString = AssociatedObject.Text;
@@ -112,9 +108,7 @@ namespace VolumeControl.WPF
             {
                 num = AssociatedObject.Text.LastIndexOf(RequirePrefix);
                 if (num == -1)
-                {
                     return;
-                }
 
                 num += RequirePrefix.Length;
                 matchingString = AssociatedObject.Text[num..];
