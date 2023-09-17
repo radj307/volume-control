@@ -6,24 +6,24 @@
 ***
 
 <p align="center">
-The ultimate Windows Volume Mixer alternative with custom keybinding support.<br/>
+The ultimate Windows Volume Mixer alternative that supports the keybindings you already use.<br/>
 Designed for effortless music volume control *(Spotify, Deezer, Chrome, Firefox, etc.)* without disrupting gaming or VoIP audio.
 </p>
 
 ## What It Does
 
-- Makes your keyboard's volume slider useful
-- Serves as a viable alternative to media keys, even if your keyboard lacks them.
-- Introduces a highly customizable hotkey framework, extensible through [user-created addons](https://radj307.github.io/volume-control/html/md_docs__addon_development.html).
-- Includes all of the same features as the Windows Volume Mixer while making better use of screen space.
+- Lets you control the volume of specific programs using only the keyboard.
+- Can override pre-existing keys & key combinations, including all of the media keys.
+- All hotkeys are completely user-customizable and can be bound to a variety of actions.
+- New actions can be added via [user-created addons](https://radj307.github.io/volume-control/html/md_docs__addon_development.html).
+- Offers more features and a more compact UI than the Windows Volume Mixer.
 - And more!
-
 
 ## How does it work?
 
-Volume Control leverages the Win32 API to establish seamless native hotkeys, effectively superseding default Windows keybindings with minimal latency. Employing the identical approach as the native Windows volume mixer, it offers compatibility with all applications.
+Volume Control leverages the Win32 API to establish seamless native hotkeys, effectively superseding default Windows keybindings with imperceptible latency. Employing the same approach as the native Windows volume mixer, it offers compatibility with all applications.
 
-Volume Control empowers users with an unlimited array of unique hotkey combinations, each fully customizable with specific actions. The default options include common actions like "Volume Up," "Volume Down," and "Toggle Mute." Furthermore, you have the flexibility to create and integrate your own custom actions in C# to enhance Volume Control's functionality.
+Volume Control empowers users with an unlimited array of unique hotkey combinations, each fully customizable with specific actions. The default options include common actions like "Volume Up", "Volume Down", and "Toggle Mute". Furthermore, you have the flexibility to create and integrate your own custom actions in C# to enhance Volume Control's functionality.
 
 # Getting Started
 
