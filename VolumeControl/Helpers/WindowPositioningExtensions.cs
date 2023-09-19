@@ -84,7 +84,7 @@ namespace VolumeControl.Helpers
                 wnd.Top = point.Y;
                 break;
             case Core.Helpers.ScreenCorner.TopRight:
-                wnd.Left = point.X + wnd.Width;
+                wnd.Left = point.X - wnd.Width;
                 wnd.Top = point.Y;
                 break;
             case Core.Helpers.ScreenCorner.BottomLeft:
@@ -92,7 +92,7 @@ namespace VolumeControl.Helpers
                 wnd.Top = point.Y - wnd.Height;
                 break;
             case Core.Helpers.ScreenCorner.BottomRight:
-                wnd.Left = point.X + wnd.Width;
+                wnd.Left = point.X - wnd.Width;
                 wnd.Top = point.Y - wnd.Height;
                 break;
             }
