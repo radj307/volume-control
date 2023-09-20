@@ -1,3 +1,5 @@
+# How to Contribute Translations
+
 This is intended as a guide for contributors looking to provide language translations for Volume Control. It describes in depth how to edit existing translations, create new translations, and submit pull requests on Github.
 
 For a comprehensive overview of how Volume Control implements translations, see the documentation for the localization nuget package we use: [CodingSeb.Localization](https://github.com/codingseb/Localization).
