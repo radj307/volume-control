@@ -19,7 +19,7 @@
     <Copyright>Copyright © 2023 by $(Authors)</Copyright>
     <NeutralLanguage>en-CA</NeutralLanguage>
     <PackageReleaseNotes>Full Changelog: https://github.com/radj307/volume-control/commits/main</PackageReleaseNotes>
-    <Version>6.0.0-pr9.1</Version>
+    <Version>6.0.0</Version>
     <FileVersion>6.0.0</FileVersion>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
