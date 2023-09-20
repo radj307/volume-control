@@ -7,6 +7,7 @@ using VolumeControl.CoreAudio.Events;
 using VolumeControl.CoreAudio.Helpers;
 using VolumeControl.CoreAudio.Interfaces;
 using VolumeControl.Log;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.CoreAudio
 {
@@ -116,10 +117,10 @@ namespace VolumeControl.CoreAudio
                 _name = value;
                 NotifyPropertyChanged();
                 // update HasCustomName:
-                if (!value.Equals(ProcessName, StringComparison.Ordinal) && !HasCustomName)
+                if (!value.Equals(ProcessName, StringComparison.Ordinal))
+                { // Name != ProcessName
                     HasCustomName = true;
-                else if (HasCustomName)
-                    HasCustomName = false;
+                }
             }
         }
         private string _name = string.Empty;
