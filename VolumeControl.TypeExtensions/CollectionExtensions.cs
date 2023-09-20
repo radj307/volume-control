@@ -39,5 +39,48 @@ namespace VolumeControl.TypeExtensions
             }
             return count;
         }
+        /// <summary>
+        /// Determines whether the <paramref name="collection"/> contains at least one of the specified <paramref name="items"/>.
+        /// </summary>
+        /// <typeparam name="T">Item type contained within the collection.</typeparam>
+        /// <param name="collection">The collection to search.</param>
+        /// <param name="items">The items to search for in the collection.</param>
+        /// <returns><see langword="true"/> when at least one of the specified <paramref name="items"/> exists in the <paramref name="collection"/>; otherwise <see langword="false"/>.</returns>
+        public static bool ContainsAny<T>(this ICollection<T> collection, params T[] items)
+        {
+            switch (items.Length)
+            {
+            case 0: // no search items specified:
+                return collection.Count > 0;
+            case 1: // one search item specified:
+                return collection.Contains(items[0]);
+            default: // multiple search items specified:
+                {
+                    bool itemsContainsNull = false;
+                    for (int i = 0; i < items.Length; ++i)
+                    {
+                        if (items[i] == null) itemsContainsNull = true;
+                    }
+
+                    foreach (var item in collection)
+                    {
+                        if (item == null)
+                        {
+                            if (itemsContainsNull) return true;
+                            else continue;
+                        }
+
+                        for (int i = 0; i < items.Length; ++i)
+                        {
+                            if (item.Equals(items[i]))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
     }
 }
