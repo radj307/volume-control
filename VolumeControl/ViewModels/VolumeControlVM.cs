@@ -155,7 +155,7 @@ namespace VolumeControl.ViewModels
         /// </summary>
         public string TargetSessionText
         {
-            get => AudioAPI.AudioSessionSelector.Selected?.ProcessIdentifier ?? Settings.Target.ProcessIdentifier;
+            get => AudioAPI.AudioSessionSelector.Selected?.ProcessIdentifier ?? Settings.TargetSession.ProcessIdentifier;
             set
             {
                 value = value.Trim();
@@ -170,10 +170,10 @@ namespace VolumeControl.ViewModels
                     }
                     else
                     { // text does not resolve to a valid AudioSession:
-                        // update Settings.Target with the (invalid) process identifier directly.
+                        // update Settings.TargetSession with the (invalid) process identifier directly.
                         //  This causes the AudioSessionSelector to receive a PropertyChanged event and deselect the previously selected session.
-                        //  AudioSessionSelector has code to prevent overwriting Settings.Target in this case.
-                        Settings.Target = new() { ProcessName = value };
+                        //  AudioSessionSelector has code to prevent overwriting Settings.TargetSession in this case.
+                        Settings.TargetSession = new() { ProcessName = value };
                     }
                 }
                 else
@@ -243,8 +243,10 @@ namespace VolumeControl.ViewModels
 
             foreach (var item in AudioAPI.AllSessions)
             {
-                pnames.Add(item.ProcessName);
+                pnames.Add(item.Name);
 
+                if (item.AudioSession.HasCustomName)
+                    all.Add(item.Name);
                 all.Add(item.ProcessIdentifier);
                 all.Add(item.ProcessName);
                 all.Add(item.PID.ToString());

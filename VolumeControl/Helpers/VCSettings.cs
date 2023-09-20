@@ -61,18 +61,13 @@ namespace VolumeControl.Helpers
         /// <inheritdoc/>
         public SemVersion CurrentVersion { get; }
         #endregion ReadOnlyProperties
-        /// <inheritdoc cref="Config.EnableDefaultDevice"/>
-        public bool EnableDefaultDevice
-        {
-            get => Settings.EnableDefaultDevice;
-            set => Settings.EnableDefaultDevice = value;
-        }
         /// <inheritdoc cref="Config.ShowIcons"/>
         public bool ShowIcons
         {
             get => Settings.ShowIcons;
             set => Settings.ShowIcons = value;
         }
+        /// <inheritdoc cref="Config.DeleteHotkeyConfirmation"/>
         public bool DeleteHotkeyConfirmation
         {
             get => Settings.DeleteHotkeyConfirmation;
@@ -84,19 +79,19 @@ namespace VolumeControl.Helpers
             get => !RunAtStartupHelper.ValueEquals(this.ExecutablePath) && !RunAtStartupHelper.ValueEqualsNull() ? null : Settings.RunAtStartup;
             set => RunAtStartupHelper.Value = (Settings.RunAtStartup = value ?? false) ? this.ExecutablePath : null;
         }
-        /// <inheritdoc/>
+        /// <inheritdoc cref="Config.StartMinimized"/>
         public bool StartMinimized
         {
             get => Settings.StartMinimized;
             set => Settings.StartMinimized = value;
         }
-        /// <inheritdoc/>
+        /// <inheritdoc cref="Config.CheckForUpdates"/>
         public bool CheckForUpdates
         {
             get => Settings.CheckForUpdates;
             set => Settings.CheckForUpdates = value;
         }
-        /// <inheritdoc/>
+        /// <inheritdoc cref="Config.ShowUpdatePrompt"/>
         public bool ShowUpdateMessageBox
         {
             get => Settings.ShowUpdatePrompt;
@@ -147,49 +142,17 @@ namespace VolumeControl.Helpers
             get => Settings.VolumeStepSize;
             set => Settings.VolumeStepSize = value;
         }
-        public bool NotificationDoFadeIn
+        /// <inheritdoc cref="Config.SessionListNotificationConfig"/>
+        public NotificationConfigSection SessionListNotificationConfig
         {
-            get => Settings.NotificationDoFadeIn;
-            set => Settings.NotificationDoFadeIn = value;
+            get => Settings.SessionListNotificationConfig;
+            set => Settings.SessionListNotificationConfig = value;
         }
-        public Duration NotificationFadeInDuration
+        /// <inheritdoc cref="Config.DeviceListNotificationConfig"/>
+        public NotificationConfigSection DeviceListNotificationConfig
         {
-            get => Settings.NotificationFadeInDuration;
-            set => Settings.NotificationFadeInDuration = value;
-        }
-        public bool NotificationDoFadeOut
-        {
-            get => Settings.NotificationDoFadeOut;
-            set => Settings.NotificationDoFadeOut = value;
-        }
-        public Duration NotificationFadeOutDuration
-        {
-            get => Settings.NotificationFadeOutDuration;
-            set => Settings.NotificationFadeOutDuration = value;
-        }
-        /// <inheritdoc cref="Config.NotificationsEnabled"/>
-        public bool NotificationEnabled
-        {
-            get => Settings.NotificationsEnabled;
-            set => Settings.NotificationsEnabled = value;
-        }
-        /// <inheritdoc cref="Config.NotificationTimeoutMs"/>
-        public int NotificationTimeout
-        {
-            get => Settings.NotificationTimeoutMs;
-            set => Settings.NotificationTimeoutMs = value;
-        }
-        /// <inheritdoc cref="Config.NotificationTimeoutEnabled"/>
-        public bool NotificationTimeoutEnabled
-        {
-            get => Settings.NotificationTimeoutEnabled;
-            set => Settings.NotificationTimeoutEnabled = value;
-        }
-        /// <inheritdoc cref="Config.NotificationsOnVolumeChange"/>
-        public bool NotificationShowsVolumeChange
-        {
-            get => Settings.NotificationsOnVolumeChange;
-            set => Settings.NotificationsOnVolumeChange = value;
+            get => Settings.DeviceListNotificationConfig;
+            set => Settings.DeviceListNotificationConfig = value;
         }
         /// <inheritdoc cref="Config.NotificationMoveRequiresAlt"/>
         public bool NotificationDragRequiresAlt
@@ -208,6 +171,12 @@ namespace VolumeControl.Helpers
         {
             get => Settings.LockTargetSession;
             set => Settings.LockTargetSession = value;
+        }
+        /// <inheritdoc cref="Config.LockTargetDevice"/>
+        public bool LockTargetDevice
+        {
+            get => Settings.LockTargetDevice;
+            set => Settings.LockTargetDevice = value;
         }
         /// <summary>
         /// This is read-only since there wouldn't be a way for volume control to find the config again after restarting

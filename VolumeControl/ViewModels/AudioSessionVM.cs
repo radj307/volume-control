@@ -43,6 +43,7 @@ namespace VolumeControl.ViewModels
         public uint PID => AudioSession.PID;
         public string ProcessName => AudioSession.ProcessName;
         public string ProcessIdentifier => AudioSession.ProcessIdentifier;
+        public string Name => AudioSession.Name;
         #endregion Properties
 
         #region Events

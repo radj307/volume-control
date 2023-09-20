@@ -87,13 +87,6 @@ namespace VolumeControl.Core
         }
         #endregion Properties
 
-        #region EventHandlers
-        private void Hotkey_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            Settings.Save();
-        }
-        #endregion EventHandlers
-
         #region Methods
         #region HotkeysListManipulators
         /// <summary>
@@ -104,7 +97,6 @@ namespace VolumeControl.Core
             this.Hotkeys.Add(hk);
             Log.Info($"Created a new hotkey entry:", JsonConvert.SerializeObject(hk));
             this.RecheckAllSelected();
-            hk.PropertyChanged += Hotkey_PropertyChanged;
         }
         /// <summary>
         /// Create a new blank hotkey and add it to <see cref="Hotkeys"/>.
@@ -124,7 +116,6 @@ namespace VolumeControl.Core
             _ = this.Hotkeys.Remove(hk);
             Log.Info($"Deleted hotkey {hk.ID} '{hk.Name}'");
             this.RecheckAllSelected();
-            hk.PropertyChanged -= Hotkey_PropertyChanged;
         }
         /// <summary>
         /// Remove the specified hotkey from <see cref="Hotkeys"/>.
@@ -137,7 +128,6 @@ namespace VolumeControl.Core
                 if (this.Hotkeys[i].ID.Equals(id))
                 {
                     this.Hotkeys[i].Registered = false;
-                    this.Hotkeys[i].PropertyChanged -= Hotkey_PropertyChanged;
                     this.Hotkeys[i].Dispose();
                     this.Hotkeys.RemoveAt(i);
                 }
@@ -152,7 +142,6 @@ namespace VolumeControl.Core
             for (int i = this.Hotkeys.Count - 1; i >= 0; --i)
             {
                 this.Hotkeys[i].Registered = false;
-                this.Hotkeys[i].PropertyChanged -= Hotkey_PropertyChanged;
                 this.Hotkeys[i].Dispose();
                 this.Hotkeys.RemoveAt(i);
             }
@@ -185,7 +174,7 @@ namespace VolumeControl.Core
         public void SaveHotkeys()
         {
             Settings.Hotkeys = this.Hotkeys.ConvertEach(hk => hk.ToBindableHotkeyJsonWrapper()).ToArray();
-            Settings.Save();
+            //Settings.Save();
         }
         /// <summary>Resets the current hotkey list by replacing it with <see cref="Config.Hotkeys_Default"/>.</summary>
         public void ResetHotkeys()

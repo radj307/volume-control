@@ -1,5 +1,5 @@
 ﻿<Window
-    x:Class="VolumeControl.SessionListNotification"
+    x:Class="VolumeControl.DeviceListNotification"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:behaviour="clr-namespace:XamlTimers;assembly=XamlTimers"
@@ -13,7 +13,7 @@
     xmlns:wpf="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
     xmlns:wpfBehaviors="clr-namespace:VolumeControl.WPF.Behaviors;assembly=VolumeControl.WPF"
     x:Name="Window"
-    Title="SessionListNotification"
+    Title="DeviceListNotification"
     AllowsTransparency="True"
     Closing="Window_Closing"
     FontFamily="{StaticResource InterFont}"
@@ -56,7 +56,7 @@
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
                         <Setter Property="FontWeight" Value="Bold" />
-                        <Setter Property="Background" Value="{Binding AudioAPI.AudioSessionSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
+                        <Setter Property="Background" Value="{Binding AudioAPI.AudioDeviceSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
                     </DataTrigger>
                 </Style.Triggers>
                 <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
@@ -98,7 +98,7 @@
                     Storyboard.TargetProperty="Opacity"
                     From="0.0"
                     To="1.0"
-                    Duration="{Binding SessionListNotificationConfig.FadeInDuration, Source={StaticResource Settings}}" />
+                    Duration="{Binding DeviceListNotificationConfig.FadeInDuration, Source={StaticResource Settings}}" />
             </Storyboard>
             <Storyboard x:Key="FadeOutStoryboard" Completed="FadeOutStoryboard_Completed">
                 <DoubleAnimation
@@ -106,7 +106,7 @@
                     Storyboard.TargetProperty="Opacity"
                     From="1.0"
                     To="0.0"
-                    Duration="{Binding SessionListNotificationConfig.FadeOutDuration, Source={StaticResource Settings}}" />
+                    Duration="{Binding DeviceListNotificationConfig.FadeOutDuration, Source={StaticResource Settings}}" />
             </Storyboard>
 
         </ResourceDictionary>
@@ -121,8 +121,8 @@
         <Border.Style>
             <Style TargetType="{x:Type Border}">
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding AudioAPI.AudioSessionSelector.Selected, Source={StaticResource Settings}, Converter={StaticResource IsNullConverter}}" Value="True">
-                        <Setter Property="BorderBrush" Value="{Binding AudioAPI.AudioSessionSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
+                    <DataTrigger Binding="{Binding AudioAPI.AudioDeviceSelector.Selected, Source={StaticResource Settings}, Converter={StaticResource IsNullConverter}}" Value="True">
+                        <Setter Property="BorderBrush" Value="{Binding AudioAPI.AudioDeviceSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
                     </DataTrigger>
                 </Style.Triggers>
                 <Setter Property="BorderBrush" Value="{StaticResource WindowBorderBrush}" />
@@ -139,23 +139,15 @@
                 x:Name="ListView"
                 Margin="6"
                 Padding="1"
-                ItemsSource="{Binding AudioAPI.AllSessions, Mode=OneWay}"
+                ItemsSource="{Binding AudioAPI.Devices, Mode=OneWay}"
                 PreviewMouseDown="ListView_PreviewMouseDown"
-                SelectedIndex="{Binding AudioAPI.AudioSessionSelector.SelectedIndex, UpdateSourceTrigger=PropertyChanged}"
+                SelectedIndex="{Binding AudioAPI.AudioDeviceSelector.SelectedIndex, UpdateSourceTrigger=PropertyChanged}"
                 SelectionMode="Single">
                 <i:Interaction.Behaviors>
                     <wpfBehaviors:MouseWheelListViewBehavior />
                 </i:Interaction.Behaviors>
-                <!--<ListView.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem
-                            Name="MenuItemToggleLock"
-                            Click="MenuItemToggleLock_Click"
-                            Header="Toggle Lock" />
-                    </ContextMenu>
-                </ListView.ContextMenu>-->
                 <ListView.ItemTemplate>
-                    <DataTemplate DataType="{x:Type vm:AudioSessionVM}">
+                    <DataTemplate DataType="{x:Type vm:AudioDeviceVM}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -164,14 +156,14 @@
 
                             <Image
                                 Width="{Binding Height, RelativeSource={RelativeSource Self}, Mode=OneWay}"
-                                Height="{Binding ActualHeight, ElementName=sessionProcessNameBox}"
+                                Height="{Binding ActualHeight, ElementName=deviceNameBox}"
                                 Margin="0,0,3,0"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Source="{Binding Icon}"
                                 Visibility="{Binding ShowIcons, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             <TextBlock
-                                x:Name="sessionProcessNameBox"
+                                x:Name="deviceNameBox"
                                 Grid.Column="1"
                                 Margin="3,0,0,0"
                                 HorizontalAlignment="Stretch"
@@ -183,9 +175,9 @@
             </ListView>
 
             <!--  Row 1 (Controls)  -->
-            <Grid Grid.Row="2" Visibility="{Binding AudioAPI.AudioSessionSelector.Selected, Mode=OneWay, Converter={StaticResource NullableToVisibilityConverter}}">
+            <Grid Grid.Row="2" Visibility="{Binding AudioAPI.AudioDeviceSelector.Selected, Mode=OneWay, Converter={StaticResource NullableToVisibilityConverter}}">
                 <Border Background="{StaticResource WindowBorderBrush}" />
-                <Grid Margin="2,4,2,2" DataContext="{Binding AudioAPI.AudioSessionSelector.Selected}">
+                <Grid Margin="2,4,2,2" DataContext="{Binding AudioAPI.AudioDeviceSelector.Selected}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition MinWidth="80" />
@@ -224,7 +216,6 @@
                         Text="{Binding Volume, UpdateSourceTrigger=LostFocus}">
                         <i:Interaction.Behaviors>
                             <wpfBehaviors:EscapeRemovesFocusBehavior />
-                            <wpfBehaviors:TextBoxEnterUpdatesTextSourceBehavior />
                         </i:Interaction.Behaviors>
                     </TextBox>
                 </Grid>

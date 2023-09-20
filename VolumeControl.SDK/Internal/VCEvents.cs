@@ -14,5 +14,11 @@
         public static event EventHandler? ShowSessionListNotification;
         internal static void NotifyShowSessionListNotification(object? sender, EventArgs e)
             => ShowSessionListNotification?.Invoke(sender, e);
+        /// <summary>
+        /// Indicates that the DeviceListNotification window should be shown.
+        /// </summary>
+        public static event EventHandler? ShowDeviceListNotification;
+        internal static void NotifyShowDeviceListNotification(object? sender, EventArgs e)
+            => ShowDeviceListNotification?.Invoke(sender, e);
     }
 }

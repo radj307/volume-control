@@ -76,9 +76,18 @@ namespace VolumeControl.SDK
         public void ShowSessionListNotification()
         {
             // don't trigger notification events if notifs are disabled-
-            if (!Settings.NotificationsEnabled) return;
+            if (!Settings.SessionListNotificationConfig.Enabled) return;
 
             VCEvents.NotifyShowSessionListNotification(this, EventArgs.Empty);
+        }
+        /// <summary>
+        /// Display the DeviceListNotification window.
+        /// </summary>
+        public void ShowDeviceListNotification()
+        {
+            if (!Settings.DeviceListNotificationConfig.Enabled) return;
+
+            VCEvents.NotifyShowDeviceListNotification(this, EventArgs.Empty);
         }
         #endregion Methods
     }

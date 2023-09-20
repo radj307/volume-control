@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Semver;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
@@ -24,25 +25,61 @@ namespace VolumeControl.Core
         /// <remarks>The first time this is called, the <see cref="AppConfig.Configuration.Default"/> property is set to that instance; all subsequent calls do not update this property.</remarks>
         public Config() : base(_filePath)
         {
-            this.ResumeAutoSave();
+            // Forward PropertyChanged events for all properties that implement INotifyPropertyChanged
+            foreach (var propertyInfo in typeof(Config).GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly))
+            {
+                var property = propertyInfo.GetValue(this);
+                if (property is INotifyPropertyChanged propertyWithPropertyChangedEvents)
+                { // property implements INotifyPropertyChanged
+                    propertyWithPropertyChangedEvents.PropertyChanged += this.PropertyWithPropertyChangedEvents_PropertyChanged;
+                }
+                else if (property is INotifyCollectionChanged propertyWithCollectionChangedEvents)
+                {
+                    propertyWithCollectionChangedEvents.CollectionChanged += this.PropertyWithCollectionChangedEvents_CollectionChanged;
+                }
+            }
         }
         #endregion Constructor
+
+        #region Fields
+        private static bool _autoSaveEnabled;
+        #endregion Fields
 
         #region Methods
         /// <summary>
         /// Resumes automatic saving of the config to disk whenever a <see cref="PropertyChanged"/> event is triggered.
         /// </summary>
-        public void ResumeAutoSave() => PropertyChanged += this.HandlePropertyChanged;
+        public void ResumeAutoSave()
+        {
+            _autoSaveEnabled = true;
+            PropertyChanged += this.HandlePropertyChanged;
+        }
         /// <summary>
         /// Pauses automatic saving of the config to disk whenever a <see cref="PropertyChanged"/> event is triggered.
         /// </summary>
-        public void PauseAutoSave() => PropertyChanged -= this.HandlePropertyChanged;
+        public void PauseAutoSave()
+        {
+            _autoSaveEnabled = false;
+            PropertyChanged -= this.HandlePropertyChanged;
+        }
         #endregion Methods
 
         #region EventHandlers
         private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             Log.Debug($"Config property '{e.PropertyName}' was modified.");
+            this.Save();
+        }
+        private void PropertyWithPropertyChangedEvents_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (!_autoSaveEnabled) return;
+            
+            this.Save();
+        }
+        private void PropertyWithCollectionChangedEvents_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (!_autoSaveEnabled) return;
+
             this.Save();
         }
         #endregion EventHandlers
@@ -149,57 +186,21 @@ namespace VolumeControl.Core
         [JsonIgnore]
         public static readonly Brush NotificationDefaultBrush = new SolidColorBrush(Color.FromRgb(0x30, 0x30, 0x30));
         /// <summary>
-        /// Gets or sets whether notifications are enabled or not.
+        /// Gets or sets the configuration for the SessionListNotification window.
         /// </summary>
-        public bool NotificationsEnabled { get; set; } = true;
+        public NotificationConfigSection SessionListNotificationConfig { get; set; } = new();
         /// <summary>
-        /// Gets or sets whether or not the list notification window appears for volume change events.
+        /// Gets or sets the configuration for the DeviceListNotification window.
         /// </summary>
-        public bool NotificationsOnVolumeChange { get; set; } = true;
-        /// <summary>
-        /// The amount of time, in milliseconds, that the notification window stays visible for before disappearing.
-        /// </summary>
-        public int NotificationTimeoutMs { get; set; } = 3000;
-        /// <summary>
-        /// Gets or sets whether the list notification timeout is enabled, which causes the list notification to disappear after <see cref="NotificationTimeoutMs"/> milliseconds.
-        /// </summary>
-        public bool NotificationTimeoutEnabled { get; set; } = true;
+        public NotificationConfigSection DeviceListNotificationConfig { get; set; } = new();
         /// <summary>
         /// Gets or sets whether the notification can be dragged without holding down the ALT key.
         /// </summary>
         public bool NotificationMoveRequiresAlt { get; set; } = false;
         /// <summary>
-        /// Gets or sets the location of the notification window
-        /// </summary>
-        public Point? NotificationPosition { get; set; }
-        /// <summary>
-        /// Gets or sets whether <see cref="NotificationPosition"/> is used or not.
+        /// Gets or sets whether the notification window position is restored when the program starts.
         /// </summary>
         public bool NotificationSavePos { get; set; } = true;
-        /// <summary>
-        /// Gets or sets the corner from which ListNotification size transform operations are rooted.
-        /// </summary>
-        public ScreenCorner NotificationPositionOriginCorner { get; set; } = ScreenCorner.BottomLeft;
-        /// <summary>
-        /// Gets or sets whether the notification window slowly fades in instead of appearing instantly.
-        /// </summary>
-        public bool NotificationDoFadeIn { get; set; } = true;
-        /// <summary>
-        /// Gets or sets the duration of the notification fade-in animation.
-        /// </summary>
-        public Duration NotificationFadeInDuration { get; set; } = new(TimeSpan.FromMilliseconds(150));
-        /// <summary>
-        /// Gets or sets whether the notification window slowly fades out instead of disappearing instantly.
-        /// </summary>
-        public bool NotificationDoFadeOut { get; set; } = true;
-        /// <summary>
-        /// Gets or sets the duration of the notification fade-in animation.
-        /// </summary>
-        public Duration NotificationFadeOutDuration { get; set; } = new(TimeSpan.FromMilliseconds(750));
-        /// <summary>
-        /// Gets or sets the name of the currently-selected list notification display target.
-        /// </summary>
-        public string NotificationDisplayTarget { get; set; } = "Audio Sessions";
         /// <summary>
         /// Gets or sets whether extra mouse controls are enabled in the notification window.<br/>
         /// Extra mouse controls include Right-Click to deselect &amp; Middle-Click to toggle selection lock.
@@ -285,23 +286,23 @@ namespace VolumeControl.Core
         /// <summary>
         /// Gets or sets the last target session.
         /// </summary>
-        public TargetInfo Target { get; set; } = TargetInfo.Empty;
+        public TargetInfo TargetSession { get; set; } = TargetInfo.Empty;
         /// <summary>
         /// Gets or sets whether the target session is locked.
         /// </summary>
         public bool LockTargetSession { get; set; } = false;
         /// <summary>
+        /// Gets or sets the target device ID.
+        /// </summary>
+        public string TargetDeviceID { get; set; } = string.Empty;
+        /// <summary>
+        /// Gets or sets whether the target device is locked.
+        /// </summary>
+        public bool LockTargetDevice { get; set; } = false;
+        /// <summary>
         /// Gets or sets the amount of volume added or subtracted from the current volume level when volume change hotkeys are pressed.
         /// </summary>
         public int VolumeStepSize { get; set; } = 2;
-        /// <summary>
-        /// List of enabled audio device IDs.
-        /// </summary>
-        public ObservableImmutableList<string> EnabledDevices { get; set; } = new() { };
-        /// <summary>
-        /// Whether the default audio device should be enabled or not, regardless of the device IDs in <see cref="EnabledDevices"/>.
-        /// </summary>
-        public bool EnableDefaultDevice { get; set; } = true;
         /// <summary>
         /// Gets or sets the interval (in milliseconds) between updating the audio peak meters.
         /// </summary>

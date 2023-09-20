@@ -58,17 +58,17 @@ namespace VolumeControl.CoreAudio
                 // update the TargetInfo in the settings
                 if (_selected == null)
                 {
-                    // prevent erasing invalid (but not blank) Settings.Target values
+                    // prevent erasing invalid (but not blank) Settings.TargetSession values
                     //  This allows invalid strings to remain in the targetbox without them
                     //  being overwritten when they don't resolve to a valid session.
                     if (!_updatingSelectedFromSettingsPropertyChanged)
-                    { // Selected is being set to null from a source other than the Settings.Target property:
-                        Settings.Target = Core.Helpers.TargetInfo.Empty;
+                    { // Selected is being set to null from a source other than the Settings.TargetSession property:
+                        Settings.TargetSession = Core.Helpers.TargetInfo.Empty;
                     }
                 }
                 else
                 {
-                    Settings.Target = _selected.GetTargetInfo();
+                    Settings.TargetSession = _selected.GetTargetInfo();
                 }
 
                 NotifyPropertyChanged();
@@ -160,14 +160,14 @@ namespace VolumeControl.CoreAudio
             Selected = null;
         }
         /// <summary>
-        /// Changes the <see cref="Selected"/> item to whatever is specified by <see cref="Core.Config.Target"/>.
+        /// Changes the <see cref="Selected"/> item to whatever is specified by <see cref="Config.TargetSession"/>.
         /// </summary>
         /// <remarks>
         /// This works even when <see cref="LockSelection"/> == <see langword="true"/>.<br/>
         /// </remarks>
         private void ResolveSelected()
         {
-            var targetInfo = Settings.Target;
+            var targetInfo = Settings.TargetSession;
 
             AudioSession? target
                 = AudioSessionManager.FindSessionWithSessionInstanceIdentifier(targetInfo.SessionInstanceIdentifier)
@@ -184,6 +184,8 @@ namespace VolumeControl.CoreAudio
         #endregion Methods
 
         #region EventHandlers
+
+        #region AudioSessionManager
         /// <summary>
         /// Deselect session when it was removed from the list
         /// </summary>
@@ -193,18 +195,23 @@ namespace VolumeControl.CoreAudio
                 // edit _selected directly to avoid notifications
                 _selected = null;
         }
+        #endregion AudioSessionManager
+
+        #region Settings
         /// <summary>
-        /// Update the <see cref="Selected"/> item when the <see cref="Config.Target"/> changes from an external source.
+        /// Update the <see cref="Selected"/> item when the <see cref="Config.TargetSession"/> changes from an external source.
         /// </summary>
         private void Settings_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName?.Equals(nameof(Config.Target)) ?? false)
+            if (e.PropertyName != null && e.PropertyName.Equals(nameof(Config.TargetSession)))
             {
                 _updatingSelectedFromSettingsPropertyChanged = true;
-                Selected = AudioSessionManager.FindSessionWithSessionInstanceIdentifier(Settings.Target.SessionInstanceIdentifier);
+                Selected = AudioSessionManager.FindSessionWithSessionInstanceIdentifier(Settings.TargetSession.SessionInstanceIdentifier);
                 _updatingSelectedFromSettingsPropertyChanged = false;
             }
         }
+        #endregion Settings
+
         #endregion EventHandlers
     }
 }

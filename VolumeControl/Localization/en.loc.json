@@ -257,6 +257,12 @@
               "Tooltip": {
                 "English (US/CA)": "Forces the notification window to disappear."
               }
+            },
+            "HiddenSessions": {
+              "Content": {
+                "English (US/CA)": "Hidden Sessions"
+              },
+              "Tooltip": {}
             }
           },
           "Enable": {
@@ -264,7 +270,7 @@
               "English (US/CA)": "Enable"
             },
             "Tooltip": {
-              "English (US/CA)": "Toggle whether or not notifications appear when switching the target session."
+              "English (US/CA)": "Enables the notification window."
             }
           },
           "OnVolumeChange": {
@@ -272,7 +278,7 @@
               "English (US/CA)": "On Volume Change"
             },
             "Tooltip": {
-              "English (US/CA)": "When this is checked, notifications also appear when the volume level of the target is changed."
+              "English (US/CA)": "Show notifications when changing the volume or mute state."
             }
           },
           "Timeout": {
@@ -281,6 +287,22 @@
             },
             "Tooltip": {
               "English (US/CA)": "The amount of time in milliseconds that notifications will remain visible after being triggered."
+            }
+          },
+          "SessionListNotificationConfig": {
+            "Header": {
+              "Content": {
+                "English (US/CA)": "Session Notification Options"
+              },
+              "Tooltip": {}
+            }
+          },
+          "DeviceListNotificationConfig": {
+            "Header": {
+              "Content": {
+                "English (US/CA)": "Device Notification Options"
+              },
+              "Tooltip": {}
             }
           }
         },
@@ -506,12 +528,12 @@
           "English (US/CA)": "Confirm Delete"
         }
       },
-      "DisplayTargetsHelp": {
+      "MultiInstanceChanged": {
         "Message": {
-          "English (US/CA)": "A display target is a collection of triggers, controls, colors, & logic that determine the behaviour and appearance of the notification window.\nDisplay targets also change when the notification window appears. For example, the Audio Sessions display target shows the notification window when the selected session is changed or (un)locked, or when the session's volume or mute state changes."
+          "English (US/CA)": "Changes to the MultiInstance setting will take effect after you restart Volume Control.\n\nDo you want to restart the application now?"
         },
         "Caption": {
-          "English (US/CA)": "Display Targets Help"
+          "English (US/CA)": "Application Restart Required"
         }
       }
     },

@@ -1,6 +1,7 @@
 ﻿using CoreAudio;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using VolumeControl.Core;
 using VolumeControl.CoreAudio.Interfaces;
 using VolumeControl.TypeExtensions;
 
@@ -22,11 +23,18 @@ namespace VolumeControl.CoreAudio
 
             AudioDeviceManager.DeviceRemovedFromList += this.AudioDeviceManager_DeviceRemovedFromList;
 
+            Settings.PropertyChanged += this.Settings_PropertyChanged;
+
             SelectDefaultDevice();
         }
         #endregion Initializer
 
+        #region Fields
+        private bool _updatingSelectedFromSettingsPropertyChanged = false;
+        #endregion Fields
+
         #region Properties
+        private static Config Settings => (Config.Default as Config)!;
         AudioDeviceManager AudioDeviceManager { get; }
         /// <summary>
         /// Gets or the sets the selected item.
@@ -36,12 +44,30 @@ namespace VolumeControl.CoreAudio
         /// </remarks>
         public AudioDevice? Selected
         {
-            get => _selected;
+            get
+            {
+                if (_selected is null)
+                    ResolveSelected();
+                return _selected;
+            }
             set
             {
                 if (LockSelection) return;
 
                 _selected = value;
+
+                if (_selected == null)
+                {
+                    if (!_updatingSelectedFromSettingsPropertyChanged)
+                    {
+                        Settings.TargetDeviceID = string.Empty;
+                    }
+                }
+                else
+                {
+                    Settings.TargetDeviceID = _selected.ID;
+                }
+
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(SelectedIndex));
             }
@@ -142,12 +168,50 @@ namespace VolumeControl.CoreAudio
 
             Selected = AudioDeviceManager.GetDefaultDevice(Role.Multimedia);
         }
+        /// <summary>
+        /// Changes the <see cref="Selected"/> item to whatever is specified by <see cref="Config.TargetDeviceID"/>
+        /// </summary>
+        private void ResolveSelected()
+        {
+            var targetDeviceID = Settings.TargetDeviceID;
+
+            AudioDevice? target = AudioDeviceManager.FindDeviceByID(targetDeviceID, StringComparison.Ordinal);
+
+            if (target != null && _selected != target)
+            {
+                _selected = target;
+                NotifyPropertyChanged(nameof(Selected));
+                NotifyPropertyChanged(nameof(SelectedIndex));
+            }
+        }
+        #endregion Methods
+
+        #region EventHandlers
+
+        #region AudioDeviceManager
         private void AudioDeviceManager_DeviceRemovedFromList(object? sender, AudioDevice e)
         {
             if (e.Equals(Selected))
                 // edit _selected directly to avoid notifications
                 _selected = null;
         }
-        #endregion Methods
+        #endregion AudioDeviceManager
+
+        #region Settings
+        /// <summary>
+        /// Update the <see cref="Selected"/> item when the <see cref="Config.TargetDeviceID"/> changes from an external source.
+        /// </summary>
+        private void Settings_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != null && e.PropertyName.Equals(nameof(Config.TargetDeviceID)))
+            {
+                _updatingSelectedFromSettingsPropertyChanged = true;
+                Selected = AudioDeviceManager.FindDeviceByID(Settings.TargetDeviceID, StringComparison.Ordinal);
+                _updatingSelectedFromSettingsPropertyChanged = false;
+            }
+        }
+        #endregion Settings
+
+        #endregion EventHandlers
     }
 }

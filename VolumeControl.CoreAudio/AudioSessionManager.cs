@@ -469,14 +469,15 @@ namespace VolumeControl.CoreAudio
             { // unhide removed sessions
                 foreach (var item in e.OldItems)
                 {
-                    var processName = (string)item;
+                    var name = (string)item;
 
                     // we have to enumerate the entire list here because of applications 
                     //  like Discord that have multiple identically-named audio sessions:
                     for (int i = HiddenSessions.Count - 1; i >= 0; --i)
                     {
                         var hiddenSession = HiddenSessions[i];
-                        if (hiddenSession.ProcessName.Equals(processName, StringComparison.Ordinal))
+                        if (hiddenSession.ProcessName.Equals(name, StringComparison.Ordinal)
+                            || (hiddenSession.HasCustomName && hiddenSession.Name.Equals(name, StringComparison.Ordinal)))
                         {
                             RemoveSession(hiddenSession); //< remove from hidden sessions list
                             AddSession(hiddenSession); //< add to sessions list
@@ -494,14 +495,15 @@ namespace VolumeControl.CoreAudio
             { // hide added sessions
                 foreach (var item in e.NewItems)
                 {
-                    var processName = (string)item;
+                    var name = (string)item;
 
                     // we have to enumerate the entire list here because of applications 
                     //  like Discord that have multiple identically-named audio sessions:
                     for (int i = Sessions.Count - 1; i >= 0; --i)
                     {
                         var session = Sessions[i];
-                        if (session.ProcessName.Equals(processName, StringComparison.Ordinal))
+                        if (session.ProcessName.Equals(name, StringComparison.Ordinal)
+                            || (session.HasCustomName && session.Name.Equals(name, StringComparison.Ordinal)))
                         {
                             RemoveSession(session); //< remove from hidden sessions list
                             AddSession(session); //< add to sessions list

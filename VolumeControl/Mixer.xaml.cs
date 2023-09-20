@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -34,6 +35,8 @@ namespace VolumeControl
 
             this.ShowInTaskbar = Settings.ShowInTaskbar;
             this.Topmost = Settings.AlwaysOnTop;
+
+            _currentMultiInstanceState = Settings.AllowMultipleDistinctInstances;
         }
         private void Window_Initialized(object sender, EventArgs e)
         {
@@ -43,8 +46,20 @@ namespace VolumeControl
 
             // SessionListNotification
             _ = WindowHandleGetter.GetWindowHandle((this.FindResource("SessionListNotification") as SessionListNotification)!);
+            // DeviceListNotification
+            _ = WindowHandleGetter.GetWindowHandle((this.FindResource("DeviceListNotification") as DeviceListNotification)!);
+
+            // Enable auto-saving of the config
+            Settings.ResumeAutoSave(); //< doing this here prevents unnecessary write operations during initialization
+
+            _initialized = true;
         }
         #endregion Setup
+
+        #region Fields
+        private readonly bool _currentMultiInstanceState;
+        private bool _initialized = false;
+        #endregion Fields
 
         #region Properties
         //private ListNotification ListNotification => (this.FindResource("Notification") as ListNotification)!;
@@ -52,7 +67,7 @@ namespace VolumeControl
         private AudioDeviceManagerVM AudioAPI => this.VCSettings.AudioAPI;
         private HotkeyManager HotkeyAPI => this.VCSettings.HotkeyAPI;
         private static LogWriter Log => FLog.Log;
-        private static Config Settings => (Config.Default as Config)!;
+        private static Config Settings => (AppConfig.Configuration.Default as Config)!;
         public static bool LogEnabled
         {
             get => Settings.EnableLogging;
@@ -72,12 +87,11 @@ namespace VolumeControl
             if (MixerGrid.CurrentCell.Item is AudioSessionVM session)
             {
                 VCAPI.Default.AudioSessionSelector.Selected = session.AudioSession;
-                //this.AudioAPI.SelectedSession = session;
             }
         }
         /// <summary>Handles the create new hotkey button's click event.</summary>
-        private void Handle_CreateNewHotkeyClick(object sender, RoutedEventArgs e) => this.HotkeyAPI.AddHotkey();
-
+        private void Handle_CreateNewHotkeyClick(object sender, RoutedEventArgs e)
+            => this.HotkeyAPI.AddHotkey();
         /// <summary>Handles the remove hotkey button's click event.</summary>
         private void Handle_hotkeyGridRemoveClick(object sender, RoutedEventArgs e)
         {
@@ -118,13 +132,11 @@ namespace VolumeControl
                 this.HotkeyAPI.DelHotkey(id);
             }
         }
-
         /// <inheritdoc cref="VolumeControlVM.ResetHotkeySettings"/>
         private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e)
         {
             this.VCSettings.ResetHotkeySettings();
         }
-
         private void Handle_BrowseForLogFilePathClick(object sender, RoutedEventArgs e)
         {
             string myDir = Path.GetDirectoryName(this.VCSettings.ExecutablePath) ?? string.Empty;
@@ -155,7 +167,7 @@ namespace VolumeControl
                 Settings.LogFilter = (this.FindResource("EventTypeOptions") as BindableEventType)!.Value;
             }
         }
-        private void Handle_TargetNameBoxDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void Handle_TargetNameBoxDoubleClick(object sender, MouseButtonEventArgs e)
         {
             targetbox.SelectionStart = 0;
             targetbox.SelectionLength = targetbox.Text.Length;
@@ -170,14 +182,14 @@ namespace VolumeControl
         }
         private void Handle_MinimizeClick(object sender, RoutedEventArgs e) => this.Hide();
         private void Handle_MaximizeClick(object sender, RoutedEventArgs e) => this.WindowState = WindowState.Maximized;
-        private void Handle_CloseClick(object sender, RoutedEventArgs e) => App.Current.Shutdown();
+        private void Handle_CloseClick(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
         private void Handle_CheckForUpdatesClick(object sender, RoutedEventArgs e) => this.VCSettings.Updater.CheckForUpdateNow();
         private void Handle_LogFilterBoxSelectionChanged(object sender, SelectionChangedEventArgs e) => logFilterBox.SelectedItem = null;
-        private void Handle_KeySelectorKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void Handle_KeySelectorKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key.Equals(System.Windows.Input.Key.Tab))
+            if (e.Key.Equals(Key.Tab))
                 return; //< don't capture the tab key or it breaks keyboard navigation
-            if (!System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftCtrl) && !System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftCtrl))
+            if (!Keyboard.IsKeyDown(Key.LeftCtrl) && !Keyboard.IsKeyDown(Key.LeftCtrl))
                 return; //< only capture when CTRL is held down to allow proper searching
             if (sender is ComboBox cmb)
             {
@@ -208,7 +220,7 @@ namespace VolumeControl
         }
         private void Handle_ResetNotificationPositionClick(object sender, RoutedEventArgs e)
         {
-            var appWindows = App.Current.Windows;
+            var appWindows = Application.Current.Windows;
 
             var cp = this.GetPosAtCenterPoint();
 
@@ -219,11 +231,16 @@ namespace VolumeControl
                     sessionListNotificationWindow.SetPosAtCenterPoint(cp);
                     VCAPI.Default.ShowSessionListNotification();
                 }
+                else if (appWindows[i] is DeviceListNotification deviceListNotificationWindow)
+                {
+                    deviceListNotificationWindow.SetPosAtCenterPoint(cp);
+                    VCAPI.Default.ShowDeviceListNotification();
+                }
             }
         }
         private void Handle_ForceHideNotificationClick(object sender, RoutedEventArgs e)
         {
-            var appWindows = App.Current.Windows;
+            var appWindows = Application.Current.Windows;
 
             for (int i = 0; i < appWindows.Count; ++i)
             {
@@ -264,7 +281,6 @@ namespace VolumeControl
             {
                 Settings.HiddenSessionProcessNames.Add(e.Text);
             }
-            Settings.Save();
 
             // clear the text box:
             HiddenSessionProcessNamesCompletionBox.Text = string.Empty;
@@ -272,7 +288,6 @@ namespace VolumeControl
         private void HiddenSessionProcessNamesCompletionBox_SuggestionClicked(object sender, TextBoxWithCompletionOptions.SuggestionClickedEventArgs e)
         {
             Settings.HiddenSessionProcessNames.Add(e.SuggestionText);
-            Settings.Save();
         }
         private void HiddenSessionProcessNamesRemoveItemButton_Click(object sender, RoutedEventArgs e)
         {
@@ -281,13 +296,29 @@ namespace VolumeControl
 
             var index = HiddenSessionProcessNamesListBox.ItemContainerGenerator.IndexFromContainer(listBoxItem);
             Settings.HiddenSessionProcessNames.RemoveAt(index);
-            Settings.Save();
         }
         private void HiddenSessionProcessNamesCompletionBox_BackPressed(object sender, RoutedEventArgs e)
         {
             if (Settings.HiddenSessionProcessNames.Count == 0) return;
             Settings.HiddenSessionProcessNames.RemoveAt(Settings.HiddenSessionProcessNames.Count - 1);
-            Settings.Save();
+        }
+        private void MultiInstanceCheckbox_CheckStateChanged(object sender, RoutedEventArgs e)
+        {
+            // don't show the messagebox if window hasn't initialized yet, or if the user changes the setting back without restarting
+            if (!_initialized || Settings.AllowMultipleDistinctInstances == _currentMultiInstanceState) return;
+
+            if (MessageBox.Show(Loc.Tr("VolumeControl.Dialogs.MultiInstanceChanged.Message",
+                            "Changes to the MultiInstance setting will take effect after you restart Volume Control.\n\n" +
+                            "Do you want to restart the application now?"),
+                            Loc.Tr("VolumeControl.Dialogs.MultiInstanceChanged.Caption", "Application Restart Required"),
+                            MessageBoxButton.OKCancel,
+                            MessageBoxImage.Exclamation,
+                            MessageBoxResult.OK)
+                == MessageBoxResult.OK)
+            {
+                Application.Current.Shutdown(); //< this waits for the method to return; doing this first seems to prevent crashes
+                Process.Start(VCSettings.ExecutablePath, "--wait-for-mutex");
+            }
         }
         #endregion EventHandlers
     }

@@ -15,21 +15,21 @@ using VolumeControl.WPF;
 namespace VolumeControl
 {
     /// <summary>
-    /// Interaction logic for SessionListNotification.xaml
+    /// Interaction logic for DeviceListNotification.xaml
     /// </summary>
-    public partial class SessionListNotification : Window
+    public partial class DeviceListNotification : Window
     {
-        public SessionListNotification()
+        public DeviceListNotification()
         {
             InitializeComponent();
 
             // setup the timeout timer
-            if (Settings.SessionListNotificationConfig.TimeoutMs <= 0)
+            if (Settings.DeviceListNotificationConfig.TimeoutMs <= 0)
             { // validate the timeout value before using it for the timer interval to prevent possible unhandled exception
                 int defaultValue = NotificationConfigSection.DefaultTimeoutMs;
-                Log.Error($"{nameof(SessionListNotification)} {nameof(Settings.SessionListNotificationConfig.TimeoutMs)} cannot be less than or equal to zero; it was reset to '{defaultValue}' in order to avoid a fatal exception.",
-                    new ArgumentOutOfRangeException($"{nameof(Settings)}.{nameof(Settings.SessionListNotificationConfig)}.{nameof(Settings.SessionListNotificationConfig.TimeoutMs)}", Settings.SessionListNotificationConfig.TimeoutMs, $"The value '{Settings.SessionListNotificationConfig.TimeoutMs}' isn't valid for property 'System.Timers.Timer.Interval'; Value is out-of-range! (Minimum: 1)"));
-                Settings.SessionListNotificationConfig.TimeoutMs = defaultValue;
+                Log.Error($"{nameof(DeviceListNotification)} {nameof(Settings.DeviceListNotificationConfig.TimeoutMs)} cannot be less than or equal to zero; it was reset to '{defaultValue}' in order to avoid a fatal exception.",
+                    new ArgumentOutOfRangeException($"{nameof(Settings)}.{Settings.DeviceListNotificationConfig}.{nameof(Settings.DeviceListNotificationConfig.TimeoutMs)}", Settings.DeviceListNotificationConfig.TimeoutMs, $"The value '{Settings.DeviceListNotificationConfig.TimeoutMs}' isn't valid for property 'System.Timers.Timer.Interval'; Value is out-of-range! (Minimum: 1)"));
+                Settings.DeviceListNotificationConfig.TimeoutMs = defaultValue;
             }
             _timer = new()
             {
@@ -39,7 +39,7 @@ namespace VolumeControl
             _timer.SetBinding(BindableTimer.IntervalProperty, new Binding()
             {
                 Source = Settings,
-                Path = new PropertyPath($"{nameof(Config.SessionListNotificationConfig)}.{nameof(NotificationConfigSection.TimeoutMs)}"),
+                Path = new PropertyPath($"{nameof(Config.DeviceListNotificationConfig)}.{nameof(NotificationConfigSection.TimeoutMs)}"),
                 Mode = BindingMode.OneWay
             });
             _timer.Elapsed += this._timer_Elapsed;
@@ -51,10 +51,10 @@ namespace VolumeControl
                 this.Close();
             };
 
-            Settings.SessionListNotificationConfig.PropertyChanged += this.SessionListNotificationConfig_PropertyChanged;
+            Settings.DeviceListNotificationConfig.PropertyChanged += this.DeviceListNotificationConfig_PropertyChanged;
 
             // bind to the show event
-            VCEvents.ShowSessionListNotification += this.VCEvents_ShowSessionListNotification;
+            VCEvents.ShowDeviceListNotification += this.VCEvents_ShowDeviceListNotification;
         }
 
         #region Fields
@@ -112,7 +112,7 @@ namespace VolumeControl
         /// </summary>
         private void StartTimer()
         {
-            if (!Settings.SessionListNotificationConfig.TimeoutEnabled) return;
+            if (!Settings.DeviceListNotificationConfig.TimeoutEnabled) return;
             _timer.Start();
         }
         /// <summary>
@@ -121,7 +121,7 @@ namespace VolumeControl
         private void StopTimer() => _timer.Stop();
         private void RestartTimer()
         {
-            if (!Settings.SessionListNotificationConfig.TimeoutEnabled) return;
+            if (!Settings.DeviceListNotificationConfig.TimeoutEnabled) return;
             _timer.Restart();
         }
         #endregion Start/Stop-Timer
@@ -130,7 +130,7 @@ namespace VolumeControl
         public new void Show()
         {
             StopTimer();
-            if (!Settings.SessionListNotificationConfig.DoFadeIn)
+            if (!Settings.DeviceListNotificationConfig.DoFadeIn)
             { // fade-in disabled:
                 //< we are on the main UI thread here
                 base.Show();
@@ -152,7 +152,7 @@ namespace VolumeControl
         }
         public new void Hide()
         {
-            if (!Settings.SessionListNotificationConfig.DoFadeOut)
+            if (!Settings.DeviceListNotificationConfig.DoFadeOut)
             { // fade-out disabled:
                 //< we are NOT on the main UI thread here (!), use the dispatcher:
                 this.Dispatcher.Invoke(() =>
@@ -279,7 +279,7 @@ namespace VolumeControl
                 this.Top += e.PreviousSize.Height - e.NewSize.Height;
                 break;
             default:
-                throw new InvalidEnumArgumentException(nameof(Settings.SessionListNotificationConfig.PositionOriginCorner), (byte)Settings.SessionListNotificationConfig.PositionOriginCorner, typeof(Core.Helpers.ScreenCorner));
+                throw new InvalidEnumArgumentException(nameof(Settings.DeviceListNotificationConfig.PositionOriginCorner), (byte)Settings.DeviceListNotificationConfig.PositionOriginCorner, typeof(Core.Helpers.ScreenCorner));
             }
         }
         #endregion Window Method Overrides
@@ -302,25 +302,29 @@ namespace VolumeControl
         }
         #endregion _timer
 
-        #region SessionListNotificationConfig
-        private void SessionListNotificationConfig_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        #region DeviceListNotificationConfig
+        /// <summary>
+        /// Hides the window if the timeout is enabled while the window is already visible.
+        /// This fixes a bug where the notification window won't automatically disappear.
+        /// </summary>
+        private void DeviceListNotificationConfig_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (IsVisible && e.PropertyName != null)
             {
-                if ((e.PropertyName.Equals(nameof(NotificationConfigSection.DoFadeOut)) && !_timer.Enabled)
-                    || e.PropertyName.Equals(nameof(NotificationConfigSection.Enabled)))
+                if ((e.PropertyName.Equals(nameof(Settings.DeviceListNotificationConfig.DoFadeOut), StringComparison.Ordinal) && !_timer.Enabled)
+                    || e.PropertyName.Equals(nameof(Settings.DeviceListNotificationConfig.Enabled)))
                 {
                     Hide();
                 }
             }
         }
-        #endregion SessionListNotificationConfig
+        #endregion DeviceListNotificationConfig
 
         #region VCEvents
         /// <summary>
         /// Make the window appear (checking if notifications are enabled is unnecessary here)
         /// </summary>
-        private void VCEvents_ShowSessionListNotification(object? sender, EventArgs e)
+        private void VCEvents_ShowDeviceListNotification(object? sender, EventArgs e)
             => Show();
         #endregion VCEvents
 
@@ -333,19 +337,19 @@ namespace VolumeControl
             if (Settings.NotificationExtraMouseControlsEnabled)
             {
                 if (e.ChangedButton.Equals(MouseButton.Middle))
-                { // middle mouse toggles session lock
-                    VCSettings.AudioAPI.AudioSessionSelector.LockSelection = !VCSettings.AudioAPI.AudioSessionSelector.LockSelection;
+                { // middle mouse toggles device lock
+                    VCSettings.AudioAPI.AudioDeviceSelector.LockSelection = !VCSettings.AudioAPI.AudioDeviceSelector.LockSelection;
                     e.Handled = true;
                     return;
                 }
-                else if (!Settings.LockTargetSession && e.ChangedButton.Equals(MouseButton.Right))
+                else if (!Settings.LockTargetDevice && e.ChangedButton.Equals(MouseButton.Right))
                 { // right mouse deselects
-                    VCSettings.AudioAPI.AudioSessionSelector.DeselectSession();
+                    VCSettings.AudioAPI.AudioDeviceSelector.DeselectDevice();
                     e.Handled = true;
                     return;
                 }
             }
-            if (Settings.LockTargetSession)
+            if (Settings.LockTargetDevice)
             {
                 e.Handled = true; //< ignore MouseDown events when selection is locked
             }
@@ -355,11 +359,11 @@ namespace VolumeControl
         #region ListViewItem
         /// <summary>
         /// Release mouse capture when a list item is selected and previously there was no selected item.
-        /// This prevents the selection from accidentally changing when the session controls suddenly appear &amp; the window resizes.
+        /// This prevents the selection from accidentally changing when the device controls suddenly appear &amp; the window resizes.
         /// </summary>
         private void ListViewItem_Selected(object sender, RoutedEventArgs e)
         {
-            if (VCAPI.Default.AudioSessionSelector.Selected is null)
+            if (VCAPI.Default.AudioDeviceSelector.Selected is null)
             { // only release mouse capture when there was no select
                 ListView.ReleaseMouseCapture();
             }
@@ -450,9 +454,9 @@ namespace VolumeControl
             {
                 _loaded = true;
 
-                if (Settings.NotificationSavePos && Settings.SessionListNotificationConfig.Position is Point pos)
+                if (Settings.NotificationSavePos && Settings.DeviceListNotificationConfig.Position is Point pos)
                 {
-                    this.SetPosAtCorner(Settings.SessionListNotificationConfig.PositionOriginCorner, pos);
+                    this.SetPosAtCorner(Settings.DeviceListNotificationConfig.PositionOriginCorner, pos);
                 }
                 else
                 {
@@ -469,8 +473,8 @@ namespace VolumeControl
             // if saving position is enabled and the notif window has actually loaded, save the current position
             if (Settings.NotificationSavePos && _loaded)
             {
-                Settings.SessionListNotificationConfig.PositionOriginCorner = this.GetCurrentScreenCorner();
-                Settings.SessionListNotificationConfig.Position = this.GetPosAtCorner(Settings.SessionListNotificationConfig.PositionOriginCorner);
+                Settings.DeviceListNotificationConfig.PositionOriginCorner = this.GetCurrentScreenCorner();
+                Settings.DeviceListNotificationConfig.Position = this.GetPosAtCorner(Settings.DeviceListNotificationConfig.PositionOriginCorner);
             }
         }
         #endregion Window

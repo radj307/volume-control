@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Input;
 using VolumeControl.Controls;
 using VolumeControl.Log;
 using VolumeControl.ViewModels;
@@ -85,5 +86,43 @@ namespace VolumeControl
         #endregion Application
 
         #endregion EventHandlers
+
+        private void PART_TextBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+            #region NumberKeys
+            case Key.D0:
+            case Key.D1:
+            case Key.D2:
+            case Key.D3:
+            case Key.D4:
+            case Key.D5:
+            case Key.D6:
+            case Key.D7:
+            case Key.D8:
+            case Key.D9:
+            #endregion NumberKeys
+            case Key.NumPad0:
+            case Key.NumPad1:
+            case Key.NumPad2:
+            case Key.NumPad3:
+            case Key.NumPad4:
+            case Key.NumPad5:
+            case Key.NumPad6:
+            case Key.NumPad7:
+            case Key.NumPad8:
+            case Key.NumPad9:
+            case Key.Back:
+            case Key.Left:
+            case Key.Right:
+            case Key.Delete:
+            case Key.Tab:
+                break;
+            default:
+                e.Handled = true;
+                break;
+            }
+        }
     }
 }

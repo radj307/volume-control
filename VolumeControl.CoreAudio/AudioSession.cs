@@ -224,7 +224,7 @@ namespace VolumeControl.CoreAudio
         /// </summary>
         public bool IsHidden
         {
-            get => (Core.Config.Default as Core.Config)!.HiddenSessionProcessNames.Contains(this.ProcessName);
+            get => (Core.Config.Default as Core.Config)!.HiddenSessionProcessNames.ContainsAny(this.ProcessName, this.Name);
             set
             {
                 if (value)

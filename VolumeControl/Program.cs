@@ -48,8 +48,11 @@ namespace VolumeControl
             // Check commandline arguments:  
             bool overwriteLanguageConfigs = args.Any(arg => arg.Equals("--overwrite-language-configs", StringComparison.Ordinal));
             bool waitForMutex = args.Any(arg => arg.Equals("--wait-for-mutex", StringComparison.Ordinal));
+#       if DEBUG // DEBUG
+            overwriteLanguageConfigs = true; //< always overwrite language configs in DEBUG configuration
+#       endif // DEBUG
 
-            LocalizationHelper locale = new(doUpdate || overwriteLanguageConfigs);
+            LocalizationHelper locale = new(overwriteDefaultLangConfigs: doUpdate || overwriteLanguageConfigs);
 
             // Multi instance gate
             string mutexId = appMutexIdentifier;
