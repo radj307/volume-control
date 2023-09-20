@@ -1,5 +1,3 @@
-@page How to Contribute Translations
-
 This is intended as a guide for contributors looking to provide language translations for Volume Control. It describes in depth how to edit existing translations, create new translations, and submit pull requests on Github.
 
 For a comprehensive overview of how Volume Control implements translations, see the documentation for the localization nuget package we use: [CodingSeb.Localization](https://github.com/codingseb/Localization).
@@ -37,9 +35,6 @@ For example, the locale ID of English is `en`, so the `en.loc.json` file contain
 Each translated [string](https://en.wikipedia.org/wiki/String_(computer_science)) used by Volume Control is accessed via a **PATH** that corresponds to the structure of the translation config file. These paths are named and organized in such a way as to *(loosely)* represent the underlying XAML code that defines the structure of the window.  
 **These path names MUST be in English and cannot be changed!**
 
-If you follow the instructions in this guide, you won't need to worry about string paths.  
-This section is included to highlight the importance of not editing the structure or key names in the translation config file.
-
 For example, the path `VolumeControl.MainWindow.CaptionBar.Title.Content` refers to the window title:  
 ![](https://i.imgur.com/w05XhDN.png)  
 and appears in the translation config as a series of nested JSON objects with a JSON string value in it:  
@@ -51,6 +46,8 @@ Translated strings are provided as JSON string values in the format `"<LANGUAGE_
 > Language names **MUST** be consistent throughout the entire file! Any translated strings defined with a typo in the language name will be interpreted as a seperate language.  
 > For this reason, it is **HIGHLY** recommended to use the Find & Replace feature *(CTRL+F ➔ Click on the arrow icon)* instead of typing the name every time:  
 > ![](https://i.imgur.com/ySNkurc.png)
+
+If you follow the instructions in this guide, you won't need to worry about the actual structure of the translation config file beyond ensuring it matches the structure of `en.loc.json`.  
 
 # Edit an Existing Translation
 
