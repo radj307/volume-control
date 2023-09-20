@@ -465,8 +465,6 @@ namespace VolumeControl.WPF.Controls
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs) => this.InvalidateProperty(ValueProperty);
 
-        private void ButtonOnPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs mouseButtonEventArgs) => this.Value = 0;
-
         #endregion
 
         #region Utility Methods
@@ -502,7 +500,6 @@ namespace VolumeControl.WPF.Controls
                 IncreaseButton.Focusable = false;
                 IncreaseButton.Command = _minorIncreaseValueCommand;
                 IncreaseButton.PreviewMouseLeftButtonDown += (sender, args) => this.RemoveFocus();
-                IncreaseButton.PreviewMouseRightButtonDown += this.ButtonOnPreviewMouseRightButtonDown;
             }
         }
 
@@ -514,7 +511,6 @@ namespace VolumeControl.WPF.Controls
                 DecreaseButton.Focusable = false;
                 DecreaseButton.Command = _minorDecreaseValueCommand;
                 DecreaseButton.PreviewMouseLeftButtonDown += (sender, args) => this.RemoveFocus();
-                DecreaseButton.PreviewMouseRightButtonDown += this.ButtonOnPreviewMouseRightButtonDown;
             }
         }
 
