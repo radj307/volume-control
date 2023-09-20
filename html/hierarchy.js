@@ -1,8 +1,6 @@
 var hierarchy =
 [
-    [ "VolumeControl.Core.Input.Actions.ActionTargetSpecifier", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_action_target_specifier.html", [
-      [ "VolumeControl.Hotkeys.Helpers.SessionSpecifier", "class_volume_control_1_1_hotkeys_1_1_helpers_1_1_session_specifier.html", null ]
-    ] ],
+    [ "VolumeControl.Core.Input.Actions.ActionTargetSpecifier", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_action_target_specifier.html", null ],
     [ "VolumeControl.Hotkeys.ActiveApplicationActions", "class_volume_control_1_1_hotkeys_1_1_active_application_actions.html", null ],
     [ "AnimationTimeline", null, [
       [ "VolumeControl.WPF.Animations.BrushAnimation", "class_volume_control_1_1_w_p_f_1_1_animations_1_1_brush_animation.html", null ]
@@ -20,10 +18,12 @@ var hierarchy =
     [ "VolumeControl.Hotkeys.AudioSessionActions", "class_volume_control_1_1_hotkeys_1_1_audio_session_actions.html", null ],
     [ "VolumeControl.CoreAudio.AudioSessionManager", "class_volume_control_1_1_core_audio_1_1_audio_session_manager.html", null ],
     [ "Behavior", null, [
-      [ "VolumeControl.WPF.MouseWheelListViewBehavior", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_list_view_behavior.html", null ],
-      [ "VolumeControl.WPF.MouseWheelNumericUpDownBehavior", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_numeric_up_down_behavior.html", null ],
-      [ "VolumeControl.WPF.MouseWheelRangeBaseBehavior", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_range_base_behavior.html", null ],
-      [ "VolumeControl.WPF.TextBoxAutocompleteBehavior", "class_volume_control_1_1_w_p_f_1_1_text_box_autocomplete_behavior.html", null ]
+      [ "VolumeControl.WPF.Behaviors.EscapeRemovesFocusBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html", null ],
+      [ "VolumeControl.WPF.Behaviors.MouseWheelListViewBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_list_view_behavior.html", null ],
+      [ "VolumeControl.WPF.Behaviors.MouseWheelNumericUpDownBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_numeric_up_down_behavior.html", null ],
+      [ "VolumeControl.WPF.Behaviors.MouseWheelRangeBaseBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_range_base_behavior.html", null ],
+      [ "VolumeControl.WPF.Behaviors.TextBoxAutocompleteBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_autocomplete_behavior.html", null ],
+      [ "VolumeControl.WPF.Behaviors.TextBoxEnterUpdatesTextSourceBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_enter_updates_text_source_behavior.html", null ]
     ] ],
     [ "VolumeControl.Core.BindableHotkeyConverterExtensions", "class_volume_control_1_1_core_1_1_bindable_hotkey_converter_extensions.html", null ],
     [ "VolumeControl.Core.Input.BindableHotkeyJsonWrapper", "struct_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey_json_wrapper.html", null ],
@@ -151,6 +151,7 @@ var hierarchy =
       [ "VolumeControl.Core.Input.Hotkey", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html", null ],
       [ "VolumeControl.Core.Input.IHotkey", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html", null ],
       [ "VolumeControl.Core.Interfaces.IHotkeyActionManager", "interface_volume_control_1_1_core_1_1_interfaces_1_1_i_hotkey_action_manager.html", null ],
+      [ "VolumeControl.Core.NotificationConfigSection", "class_volume_control_1_1_core_1_1_notification_config_section.html", null ],
       [ "VolumeControl.CoreAudio.AudioDevice", "class_volume_control_1_1_core_audio_1_1_audio_device.html", null ],
       [ "VolumeControl.CoreAudio.AudioDeviceSelector", "class_volume_control_1_1_core_audio_1_1_audio_device_selector.html", null ],
       [ "VolumeControl.CoreAudio.AudioSession", "class_volume_control_1_1_core_audio_1_1_audio_session.html", null ],

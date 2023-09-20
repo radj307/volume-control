@@ -98,7 +98,8 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_type_extensio
 <div class="dynheader">
 Collaboration diagram for VolumeControl.TypeExtensions.CollectionExtensions:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_collection_extensions__coll__graph.svg" width="238" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_collection_extensions__coll__graph.svg" width="238" height="132"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -109,6 +110,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ab1f722d58491bbdd8c63aa0c4dae45f2"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_collection_extensions.html#ab1f722d58491bbdd8c63aa0c4dae45f2">AddRangeIfUnique&lt; T &gt;</a> (this ICollection&lt; T &gt; collection, IEnumerable&lt; T &gt; range)</td></tr>
 <tr class="memdesc:ab1f722d58491bbdd8c63aa0c4dae45f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls AddIfUnique&lt;T&gt;(ICollection&lt;T&gt;, T) on the given <em>range</em>  of objects.  <a href="class_volume_control_1_1_type_extensions_1_1_collection_extensions.html#ab1f722d58491bbdd8c63aa0c4dae45f2">More...</a><br /></td></tr>
 <tr class="separator:ab1f722d58491bbdd8c63aa0c4dae45f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98d501e4dae4700c016b56ed84614606"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_collection_extensions.html#a98d501e4dae4700c016b56ed84614606">ContainsAny&lt; T &gt;</a> (this ICollection&lt; T &gt; collection, params T[] items)</td></tr>
+<tr class="memdesc:a98d501e4dae4700c016b56ed84614606"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether the <em>collection</em>  contains at least one of the specified <em>items</em> .  <a href="class_volume_control_1_1_type_extensions_1_1_collection_extensions.html#a98d501e4dae4700c016b56ed84614606">More...</a><br /></td></tr>
+<tr class="separator:a98d501e4dae4700c016b56ed84614606"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Extension methods for ICollection&lt;T&gt; </p>
@@ -214,6 +218,58 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The number of items from <em>range</em>  that were added to <em>collection</em> .</dd></dl>
+
+</div>
+</div>
+<a id="a98d501e4dae4700c016b56ed84614606"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98d501e4dae4700c016b56ed84614606">&#9670;&nbsp;</a></span>ContainsAny&lt; T &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool VolumeControl.TypeExtensions.CollectionExtensions.ContainsAny&lt; T &gt; </td>
+          <td>(</td>
+          <td class="paramtype">this ICollection&lt; T &gt;&#160;</td>
+          <td class="paramname"><em>collection</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">params T[]&#160;</td>
+          <td class="paramname"><em>items</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determines whether the <em>collection</em>  contains at least one of the specified <em>items</em> . </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Item type contained within the collection.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">collection</td><td>The collection to search.</td></tr>
+    <tr><td class="paramname">items</td><td>The items to search for in the collection.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> when at least one of the specified <em>items</em>  exists in the <em>collection</em> ; otherwise <code>false</code>.</dd></dl>
 
 </div>
 </div>

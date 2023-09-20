@@ -15,5 +15,6 @@ var class_volume_control_1_1_hotkeys_1_1_audio_device_actions =
     [ "DisplayTargetName", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#a3e1098c57d5cc3993a266a4b7f747594", null ],
     [ "AudioDeviceSelector", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#adab2fac020ae990e0e57486527da5bdd", null ],
     [ "SelectedDevice", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#a4a1f430d4a45824162e385415b734ab1", null ],
+    [ "Settings", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#ab3fe9d77433d84e4dfd23dd4af7cb9c7", null ],
     [ "VCAPI", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html#ac6f7baed89c81bd17f8ca6ca4b4bcf53", null ]
 ];

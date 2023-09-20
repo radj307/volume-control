@@ -1,0 +1,4 @@
+<map id="VolumeControl.WPF.Behaviors.TextBoxEnterUpdatesTextSourceBehavior" name="VolumeControl.WPF.Behaviors.TextBoxEnterUpdatesTextSourceBehavior">
+<area shape="rect" id="node1" title="Forces the TextBox.Text property&#39;s data binding to update its source when the Enter key is pressed or..." alt="" coords="5,131,296,252"/>
+<area shape="rect" id="node2" title=" " alt="" coords="53,5,248,83"/>
+</map>

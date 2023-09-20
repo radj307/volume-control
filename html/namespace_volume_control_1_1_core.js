@@ -11,5 +11,6 @@ var namespace_volume_control_1_1_core =
     [ "Config", "class_volume_control_1_1_core_1_1_config.html", "class_volume_control_1_1_core_1_1_config" ],
     [ "HotkeyManager", "class_volume_control_1_1_core_1_1_hotkey_manager.html", "class_volume_control_1_1_core_1_1_hotkey_manager" ],
     [ "InputSimulator", "class_volume_control_1_1_core_1_1_input_simulator.html", "class_volume_control_1_1_core_1_1_input_simulator" ],
+    [ "NotificationConfigSection", "class_volume_control_1_1_core_1_1_notification_config_section.html", "class_volume_control_1_1_core_1_1_notification_config_section" ],
     [ "User32", "class_volume_control_1_1_core_1_1_user32.html", "class_volume_control_1_1_core_1_1_user32" ]
 ];

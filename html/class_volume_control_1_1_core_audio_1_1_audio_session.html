@@ -87,6 +87,7 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_core_audio_1_
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#properties">Properties</a> &#124;
 <a href="#events">Events</a> &#124;
@@ -101,12 +102,14 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_core_audio_1_
 <div class="dynheader">
 Inheritance diagram for VolumeControl.CoreAudio.AudioSession:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_audio_1_1_audio_session__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_audio_1_1_audio_session__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.CoreAudio.AudioSession:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_audio_1_1_audio_session__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_audio_1_1_audio_session__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -123,11 +126,20 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#ac7d080e2d81f450d4177ba7ca2ccd7fa">Dispose</a> ()</td></tr>
 <tr class="separator:ac7d080e2d81f450d4177ba7ca2ccd7fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a881aa8fa47e671a1ca6129a6f25baa26"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a881aa8fa47e671a1ca6129a6f25baa26">TryParseProcessIdentifier</a> (string processIdentifier, out uint? <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#ade41e72408db7e5f2c8c8704723b5a1e">processId</a>, out string? processName)</td></tr>
+<tr class="memdesc:a881aa8fa47e671a1ca6129a6f25baa26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits the given <em>processIdentifier</em>  into its ProcessID &amp; ProcessName components, and converts the ProcessID to an unsigned integer.  <a href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a881aa8fa47e671a1ca6129a6f25baa26">More...</a><br /></td></tr>
+<tr class="separator:a881aa8fa47e671a1ca6129a6f25baa26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a8b1838f61e5a10787ec5477f76c4ff95"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a8b1838f61e5a10787ec5477f76c4ff95">pid</a></td></tr>
-<tr class="memdesc:a8b1838f61e5a10787ec5477f76c4ff95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the given <em>processIdentifier</em>  to retrieve the ProcessId and ProcessName components.  <a href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a8b1838f61e5a10787ec5477f76c4ff95">More...</a><br /></td></tr>
-<tr class="separator:a8b1838f61e5a10787ec5477f76c4ff95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6bbccc8e83e41a1b226a35ad14ae64c"><td class="memItemLeft" align="right" valign="top">const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#ac6bbccc8e83e41a1b226a35ad14ae64c">ProcessIdentifierSeparatorChar</a> = ':'</td></tr>
+<tr class="memdesc:ac6bbccc8e83e41a1b226a35ad14ae64c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The character that separates the PID &amp; ProcessName components of ProcessIdentifier strings.  <a href="class_volume_control_1_1_core_audio_1_1_audio_session.html#ac6bbccc8e83e41a1b226a35ad14ae64c">More...</a><br /></td></tr>
+<tr class="separator:ac6bbccc8e83e41a1b226a35ad14ae64c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade41e72408db7e5f2c8c8704723b5a1e"><td class="memItemLeft" align="right" valign="top">static ? uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#ade41e72408db7e5f2c8c8704723b5a1e">processId</a></td></tr>
+<tr class="memdesc:ade41e72408db7e5f2c8c8704723b5a1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits the given <em>processIdentifier</em>  into its ProcessID and ProcessName components, if they exist.  <a href="class_volume_control_1_1_core_audio_1_1_audio_session.html#ade41e72408db7e5f2c8c8704723b5a1e">More...</a><br /></td></tr>
+<tr class="separator:ade41e72408db7e5f2c8c8704723b5a1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
@@ -146,6 +158,9 @@ Properties</h2></td></tr>
 <tr class="memitem:a85219eef4927bd5ba998c74c4458a75a"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a85219eef4927bd5ba998c74c4458a75a">Name</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a85219eef4927bd5ba998c74c4458a75a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the name of this <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> instance.  <a href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a85219eef4927bd5ba998c74c4458a75a">More...</a><br /></td></tr>
 <tr class="separator:a85219eef4927bd5ba998c74c4458a75a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae257d90f1f62ddc047a7eed7d5d065f4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#ae257d90f1f62ddc047a7eed7d5d065f4">HasCustomName</a><code> [get]</code></td></tr>
+<tr class="memdesc:ae257d90f1f62ddc047a7eed7d5d065f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets whether this session has a Name that differs from its ProcessName.  <a href="class_volume_control_1_1_core_audio_1_1_audio_session.html#ae257d90f1f62ddc047a7eed7d5d065f4">More...</a><br /></td></tr>
+<tr class="separator:ae257d90f1f62ddc047a7eed7d5d065f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a57804167e73fb9451b425587f4278b"><td class="memItemLeft" align="right" valign="top">Process?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a3a57804167e73fb9451b425587f4278b">Process</a><code> [get]</code></td></tr>
 <tr class="memdesc:a3a57804167e73fb9451b425587f4278b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the System.Diagnostics.Process that is controlling this <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> instance.  <a href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a3a57804167e73fb9451b425587f4278b">More...</a><br /></td></tr>
 <tr class="separator:a3a57804167e73fb9451b425587f4278b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -244,7 +259,7 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
 <p>Gets the process that created this audio session. </p>
 <dl class="section return"><dt>Returns</dt><dd>System.Diagnostics.Process instance that created this audio session, or <code>null</code> if an error occurred.</dd></dl>
 
-<p class="reference">References <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7">VolumeControl.Log.LogWriter.Error()</a>, <a class="el" href="#l00096">VolumeControl.CoreAudio.AudioSession.PID</a>, and <a class="el" href="#l00111">VolumeControl.CoreAudio.AudioSession.Process</a>.</p>
+<p class="reference">References <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7">VolumeControl.Log.LogWriter.Error()</a>, <a class="el" href="#l00101">VolumeControl.CoreAudio.AudioSession.PID</a>, and <a class="el" href="#l00144">VolumeControl.CoreAudio.AudioSession.Process</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -275,7 +290,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00096">VolumeControl.CoreAudio.AudioSession.PID</a>, and <a class="el" href="#l00111">VolumeControl.CoreAudio.AudioSession.Process</a>.</p>
+<p class="reference">References <a class="el" href="#l00101">VolumeControl.CoreAudio.AudioSession.PID</a>, and <a class="el" href="#l00144">VolumeControl.CoreAudio.AudioSession.Process</a>.</p>
 
 </div>
 </div>
@@ -297,13 +312,12 @@ Here is the call graph for this function:</div>
 <p>Gets a new TargetInfo object representing this <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> instance. </p>
 <dl class="section return"><dt>Returns</dt><dd>A TargetInfo struct that represents this <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> instance.</dd></dl>
 
-<p class="reference">References <a class="el" href="#l00096">VolumeControl.CoreAudio.AudioSession.PID</a>, <a class="el" href="#l00100">VolumeControl.CoreAudio.AudioSession.ProcessName</a>, and <a class="el" href="#l00128">VolumeControl.CoreAudio.AudioSession.SessionInstanceIdentifier</a>.</p>
+<p class="reference">References <a class="el" href="#l00101">VolumeControl.CoreAudio.AudioSession.PID</a>, <a class="el" href="#l00105">VolumeControl.CoreAudio.AudioSession.ProcessName</a>, and <a class="el" href="#l00167">VolumeControl.CoreAudio.AudioSession.SessionInstanceIdentifier</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a8b1838f61e5a10787ec5477f76c4ff95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b1838f61e5a10787ec5477f76c4ff95">&#9670;&nbsp;</a></span>pid</h2>
+<a id="a881aa8fa47e671a1ca6129a6f25baa26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a881aa8fa47e671a1ca6129a6f25baa26">&#9670;&nbsp;</a></span>TryParseProcessIdentifier()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -312,7 +326,27 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int VolumeControl.CoreAudio.AudioSession.pid</td>
+          <td class="memname">static bool VolumeControl.CoreAudio.AudioSession.TryParseProcessIdentifier </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>processIdentifier</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">out uint?&#160;</td>
+          <td class="paramname"><em>processId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">out string?&#160;</td>
+          <td class="paramname"><em>processName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -322,20 +356,96 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Parses the given <em>processIdentifier</em>  to retrieve the ProcessId and ProcessName components. </p>
+<p>Splits the given <em>processIdentifier</em>  into its ProcessID &amp; ProcessName components, and converts the ProcessID to an unsigned integer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">processIdentifier</td><td>A Process Identifier string. See <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a302e52ab94dd200adc50a5c4522913d7" title="Gets the process identifier of this audio session.">ProcessIdentifier</a>.</td></tr>
+    <tr><td class="paramname">processId</td><td>The ProcessID component of the <em>processIdentifier</em>  when it contains one &amp; the method returned <code>true</code>; otherwise <code>null</code>.</td></tr>
+    <tr><td class="paramname">processName</td><td>The ProcessName component of the <em>processIdentifier</em>  when it contains one &amp; the method returned <code>true</code>; otherwise <code>null</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> when successful and no exceptions were thrown; otherwise <code>false</code>.</dd></dl>
+
+<p class="reference">References <a class="el" href="#l00257">VolumeControl.CoreAudio.AudioSession.processId</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ade41e72408db7e5f2c8c8704723b5a1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade41e72408db7e5f2c8c8704723b5a1e">&#9670;&nbsp;</a></span>processId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">? uint VolumeControl.CoreAudio.AudioSession.processId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Splits the given <em>processIdentifier</em>  into its ProcessID and ProcessName components, if they exist. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">processIdentifier</td><td>A process identifier string.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A tuple that includes the ProcessId as an int and the ProcessName as a string.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">FormatException</td><td><em>processIdentifier</em>  was not in a valid format.</td></tr>
+    <tr><td class="paramname">ArgumentNullException</td><td><dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">FormatException</td><td><dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">OverflowException</td><td><dl class="section return"><dt>Returns</dt><dd>A tuple containing the ProcessID and ProcessName components of the given <em>processIdentifier</em> , if found.</dd></dl>
+</td></tr>
   </table>
   </dd>
 </dl>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="reference">Referenced by <a class="el" href="#l00286">VolumeControl.CoreAudio.AudioSession.TryParseProcessIdentifier()</a>.</p>
+
+</div>
+</div>
+<a id="ac6bbccc8e83e41a1b226a35ad14ae64c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6bbccc8e83e41a1b226a35ad14ae64c">&#9670;&nbsp;</a></span>ProcessIdentifierSeparatorChar</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char VolumeControl.CoreAudio.AudioSession.ProcessIdentifierSeparatorChar = ':'</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The character that separates the PID &amp; ProcessName components of ProcessIdentifier strings. </p>
+
+<p class="reference">Referenced by <a class="el" href="#l00261">VolumeControl.CoreAudio.AudioSessionManager.FindSessionWithSimilarProcessIdentifier()</a>.</p>
 
 </div>
 </div>
@@ -386,7 +496,34 @@ Here is the call graph for this function:</div>
 
 <p>Gets the AudioSessionControl2 controller instance associated with this <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> instance. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00312">VolumeControl.CoreAudio.AudioSession.Dispose()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00385">VolumeControl.CoreAudio.AudioSession.Dispose()</a>.</p>
+
+</div>
+</div>
+<a id="ae257d90f1f62ddc047a7eed7d5d065f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae257d90f1f62ddc047a7eed7d5d065f4">&#9670;&nbsp;</a></span>HasCustomName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VolumeControl.CoreAudio.AudioSession.HasCustomName</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets whether this session has a Name that differs from its ProcessName. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> when the Name is not the same as the ProcessName; otherwise <code>false</code>.</dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="#l00193">VolumeControl.CoreAudio.AudioSessionManager.FindSessionWithName()</a>.</p>
 
 </div>
 </div>
@@ -435,7 +572,9 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Gets or sets the name of this <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> instance. </p>
-<p>This is the internal AudioSessionControl2.DisplayName if available, otherwise it is <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a9233daa574ed29a653f612cfa526e4ab" title="Gets the Process Name of the process associated with this AudioSession instance.">ProcessName</a>. </p>
+<p>This defaults to the internal AudioSessionControl2.DisplayName if available, otherwise it defaults to the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a9233daa574ed29a653f612cfa526e4ab" title="Gets the Process Name of the process associated with this AudioSession instance.">ProcessName</a>. </p>
+
+<p class="reference">Referenced by <a class="el" href="#l00193">VolumeControl.CoreAudio.AudioSessionManager.FindSessionWithName()</a>.</p>
 
 </div>
 </div>
@@ -461,7 +600,7 @@ Here is the call graph for this function:</div>
 
 <p>Gets the process ID of the process associated with this <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> instance. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00155">VolumeControl.CoreAudio.AudioSessionManager.FindSessionWithProcessIdentifier()</a>, <a class="el" href="#l00212">VolumeControl.CoreAudio.AudioSession.GetProcess()</a>, and <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a5a7f0e9a82545ee48b703574258adf70">VolumeControl.CoreAudio.AudioSession.GetTargetInfo()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00133">VolumeControl.CoreAudio.AudioSessionManager.FindSessionWithPID()</a>, <a class="el" href="#l00307">VolumeControl.CoreAudio.AudioSession.GetProcess()</a>, and <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a5a7f0e9a82545ee48b703574258adf70">VolumeControl.CoreAudio.AudioSession.GetTargetInfo()</a>.</p>
 
 </div>
 </div>
@@ -487,7 +626,7 @@ Here is the call graph for this function:</div>
 
 <p>Gets the System.Diagnostics.Process that is controlling this <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> instance. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00212">VolumeControl.CoreAudio.AudioSession.GetProcess()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00307">VolumeControl.CoreAudio.AudioSession.GetProcess()</a>.</p>
 
 </div>
 </div>
@@ -515,6 +654,8 @@ Here is the call graph for this function:</div>
 <p>Process Identifiers are composed of the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#ae6617f95d24f061e1da7cdbbb47b7255" title="Gets the process ID of the process associated with this AudioSession instance.">PID</a> and <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a9233daa574ed29a653f612cfa526e4ab" title="Gets the Process Name of the process associated with this AudioSession instance.">ProcessName</a> of a session, separated by a colon.<br  />
  Example: "1234:SomeProcess" </p>
 
+<p class="reference">Referenced by <a class="el" href="#l00224">VolumeControl.CoreAudio.AudioSessionManager.FindSessionWithExactProcessIdentifier()</a>.</p>
+
 </div>
 </div>
 <a id="a9233daa574ed29a653f612cfa526e4ab"></a>
@@ -539,7 +680,7 @@ Here is the call graph for this function:</div>
 
 <p>Gets the Process Name of the process associated with this <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> instance. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00155">VolumeControl.CoreAudio.AudioSessionManager.FindSessionWithProcessIdentifier()</a>, and <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a5a7f0e9a82545ee48b703574258adf70">VolumeControl.CoreAudio.AudioSession.GetTargetInfo()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00193">VolumeControl.CoreAudio.AudioSessionManager.FindSessionWithName()</a>, <a class="el" href="#l00164">VolumeControl.CoreAudio.AudioSessionManager.FindSessionWithProcessName()</a>, and <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a5a7f0e9a82545ee48b703574258adf70">VolumeControl.CoreAudio.AudioSession.GetTargetInfo()</a>.</p>
 
 </div>
 </div>
@@ -564,6 +705,9 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Gets the session identifier string from the windows API. </p>
+<p>Processes that create multiple audio sessions will create multiple <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> instances with identical SessionIdentifier strings. For an identifier that is unique across all audio sessions, use <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#aefa57c169c1aa8c5d07ef237cf18af15" title="Gets the session instance identifier from the windows API.">SessionInstanceIdentifier</a> or <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a302e52ab94dd200adc50a5c4522913d7" title="Gets the process identifier of this audio session.">ProcessIdentifier</a> instead. </p>
+
+<p class="reference">Referenced by <a class="el" href="#l00304">VolumeControl.CoreAudio.AudioSessionManager.FindSessionWithSessionIdentifier()</a>.</p>
 
 </div>
 </div>
@@ -588,8 +732,9 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Gets the session instance identifier from the windows API. </p>
+<p>Unlike the SessionIdentifier, each SessionInstanceIdentifier is guaranteed to be unique to this <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device.">AudioSession</a> instance. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00185">VolumeControl.CoreAudio.AudioSessionManager.FindSessionWithSessionInstanceIdentifier()</a>, and <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a5a7f0e9a82545ee48b703574258adf70">VolumeControl.CoreAudio.AudioSession.GetTargetInfo()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00333">VolumeControl.CoreAudio.AudioSessionManager.FindSessionWithSessionInstanceIdentifier()</a>, and <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a5a7f0e9a82545ee48b703574258adf70">VolumeControl.CoreAudio.AudioSession.GetTargetInfo()</a>.</p>
 
 </div>
 </div>

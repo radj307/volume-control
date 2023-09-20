@@ -11,5 +11,6 @@ var dir_269c642ea8ba511592b8a0a4f9f45a95 =
     [ "GlobalSuppressions.cs", null, null ],
     [ "HotkeyManager.cs", null, null ],
     [ "InputSimulator.cs", null, null ],
+    [ "NotificationConfigSection.cs", null, null ],
     [ "User32.cs", null, null ]
 ];

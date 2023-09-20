@@ -101,7 +101,8 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_s_d_k_1_1_v_c
 <div class="dynheader">
 Collaboration diagram for VolumeControl.SDK.VCAPI:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i__coll__graph.svg" width="242" height="220"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i__coll__graph.svg" width="242" height="235"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -109,6 +110,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2e895acc70ce4a38af3335e97c479cae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#a2e895acc70ce4a38af3335e97c479cae">ShowSessionListNotification</a> ()</td></tr>
 <tr class="memdesc:a2e895acc70ce4a38af3335e97c479cae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display the SessionListNotification window.  <a href="class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#a2e895acc70ce4a38af3335e97c479cae">More...</a><br /></td></tr>
 <tr class="separator:a2e895acc70ce4a38af3335e97c479cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af51d768d27755155c535713ce6c69806"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#af51d768d27755155c535713ce6c69806">ShowDeviceListNotification</a> ()</td></tr>
+<tr class="memdesc:af51d768d27755155c535713ce6c69806"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display the DeviceListNotification window.  <a href="class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#af51d768d27755155c535713ce6c69806">More...</a><br /></td></tr>
+<tr class="separator:af51d768d27755155c535713ce6c69806"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
@@ -150,6 +154,27 @@ These are saved to the user configuration when the application shuts down.  <a h
 <p>, or by submitting a Pull Request</p>
 <p>. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="af51d768d27755155c535713ce6c69806"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af51d768d27755155c535713ce6c69806">&#9670;&nbsp;</a></span>ShowDeviceListNotification()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void VolumeControl.SDK.VCAPI.ShowDeviceListNotification </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Display the DeviceListNotification window. </p>
+
+<p class="reference">References <a class="el" href="#l00195">VolumeControl.Core.Config.DeviceListNotificationConfig</a>, <a class="el" href="#l00032">VolumeControl.Core.NotificationConfigSection.Enabled</a>, and <a class="el" href="#l00069">VolumeControl.SDK.VCAPI.Settings</a>.</p>
+
+</div>
+</div>
 <a id="a2e895acc70ce4a38af3335e97c479cae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2e895acc70ce4a38af3335e97c479cae">&#9670;&nbsp;</a></span>ShowSessionListNotification()</h2>
 
@@ -167,7 +192,7 @@ These are saved to the user configuration when the application shuts down.  <a h
 
 <p>Display the SessionListNotification window. </p>
 
-<p class="reference">References <a class="el" href="#l00154">VolumeControl.Core.Config.NotificationsEnabled</a>, and <a class="el" href="#l00069">VolumeControl.SDK.VCAPI.Settings</a>.</p>
+<p class="reference">References <a class="el" href="#l00032">VolumeControl.Core.NotificationConfigSection.Enabled</a>, <a class="el" href="#l00191">VolumeControl.Core.Config.SessionListNotificationConfig</a>, and <a class="el" href="#l00069">VolumeControl.SDK.VCAPI.Settings</a>.</p>
 
 </div>
 </div>
@@ -266,8 +291,6 @@ These are saved to the user configuration when the application shuts down.  <a h
 
 <p>Manages the selected AudioSession instance for the <a class="el" href="class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#a62bc7600731c34ac156abe876aee74f8" title="This is the global CoreAudio.AudioSessionManager responsible for managing AudioSession instances.">AudioSessionManager</a>. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00012">VolumeControl.Hotkeys.Helpers.SessionSpecifier.AddNewTarget()</a>.</p>
-
 </div>
 </div>
 <a id="a086eb8a099594ba8a170c1b83c4df939"></a>
@@ -293,7 +316,7 @@ These are saved to the user configuration when the application shuts down.  <a h
 <p>This is the default instance of <a class="el" href="class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html" title="The primary interaction point for the Volume Control API.  See the VCAPI.Default property for more in...">VCAPI</a>.<br  />
 You must use this to access the API. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00012">VolumeControl.Hotkeys.Helpers.SessionSpecifier.AddNewTarget()</a>, and <a class="el" href="#l00026">VolumeControl.SDK.Internal.Initializer.Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00026">VolumeControl.SDK.Internal.Initializer.Initialize()</a>.</p>
 
 </div>
 </div>
@@ -392,7 +415,7 @@ You must use this to access the API. </p>
 <p>This is the object that contains many of the runtime application settings.<br  />
 These are saved to the user configuration when the application shuts down. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00076">VolumeControl.SDK.VCAPI.ShowSessionListNotification()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00086">VolumeControl.SDK.VCAPI.ShowDeviceListNotification()</a>, and <a class="el" href="#l00076">VolumeControl.SDK.VCAPI.ShowSessionListNotification()</a>.</p>
 
 </div>
 </div>

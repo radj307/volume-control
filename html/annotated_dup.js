@@ -41,6 +41,7 @@ var annotated_dup =
         [ "Config", "class_volume_control_1_1_core_1_1_config.html", "class_volume_control_1_1_core_1_1_config" ],
         [ "HotkeyManager", "class_volume_control_1_1_core_1_1_hotkey_manager.html", "class_volume_control_1_1_core_1_1_hotkey_manager" ],
         [ "InputSimulator", "class_volume_control_1_1_core_1_1_input_simulator.html", "class_volume_control_1_1_core_1_1_input_simulator" ],
+        [ "NotificationConfigSection", "class_volume_control_1_1_core_1_1_notification_config_section.html", "class_volume_control_1_1_core_1_1_notification_config_section" ],
         [ "User32", "class_volume_control_1_1_core_1_1_user32.html", "class_volume_control_1_1_core_1_1_user32" ]
       ] ],
       [ "CoreAudio", "namespace_volume_control_1_1_core_audio.html", [
@@ -69,9 +70,6 @@ var annotated_dup =
         [ "AudioSessionSelector", "class_volume_control_1_1_core_audio_1_1_audio_session_selector.html", "class_volume_control_1_1_core_audio_1_1_audio_session_selector" ]
       ] ],
       [ "Hotkeys", "namespace_volume_control_1_1_hotkeys.html", [
-        [ "Helpers", "namespace_volume_control_1_1_hotkeys_1_1_helpers.html", [
-          [ "SessionSpecifier", "class_volume_control_1_1_hotkeys_1_1_helpers_1_1_session_specifier.html", "class_volume_control_1_1_hotkeys_1_1_helpers_1_1_session_specifier" ]
-        ] ],
         [ "ActiveApplicationActions", "class_volume_control_1_1_hotkeys_1_1_active_application_actions.html", "class_volume_control_1_1_hotkeys_1_1_active_application_actions" ],
         [ "ApplicationActions", "class_volume_control_1_1_hotkeys_1_1_application_actions.html", "class_volume_control_1_1_hotkeys_1_1_application_actions" ],
         [ "AudioDeviceActions", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions" ],
@@ -125,6 +123,14 @@ var annotated_dup =
         [ "Animations", "namespace_volume_control_1_1_w_p_f_1_1_animations.html", [
           [ "BrushAnimation", "class_volume_control_1_1_w_p_f_1_1_animations_1_1_brush_animation.html", "class_volume_control_1_1_w_p_f_1_1_animations_1_1_brush_animation" ]
         ] ],
+        [ "Behaviors", "namespace_volume_control_1_1_w_p_f_1_1_behaviors.html", [
+          [ "EscapeRemovesFocusBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior" ],
+          [ "MouseWheelListViewBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_list_view_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_list_view_behavior" ],
+          [ "MouseWheelNumericUpDownBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_numeric_up_down_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_numeric_up_down_behavior" ],
+          [ "MouseWheelRangeBaseBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_range_base_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_range_base_behavior" ],
+          [ "TextBoxAutocompleteBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_autocomplete_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_autocomplete_behavior" ],
+          [ "TextBoxEnterUpdatesTextSourceBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_enter_updates_text_source_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_enter_updates_text_source_behavior" ]
+        ] ],
         [ "Bindings", "namespace_volume_control_1_1_w_p_f_1_1_bindings.html", [
           [ "MultiBinding", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding" ]
         ] ],
@@ -169,10 +175,6 @@ var annotated_dup =
         [ "HWndHookWPFMaximizeBugFix", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix.html", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix" ],
         [ "IconGetter", "class_volume_control_1_1_w_p_f_1_1_icon_getter.html", "class_volume_control_1_1_w_p_f_1_1_icon_getter" ],
         [ "IconPair", "class_volume_control_1_1_w_p_f_1_1_icon_pair.html", "class_volume_control_1_1_w_p_f_1_1_icon_pair" ],
-        [ "MouseWheelListViewBehavior", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_list_view_behavior.html", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_list_view_behavior" ],
-        [ "MouseWheelNumericUpDownBehavior", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_numeric_up_down_behavior.html", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_numeric_up_down_behavior" ],
-        [ "MouseWheelRangeBaseBehavior", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_range_base_behavior.html", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_range_base_behavior" ],
-        [ "TextBoxAutocompleteBehavior", "class_volume_control_1_1_w_p_f_1_1_text_box_autocomplete_behavior.html", "class_volume_control_1_1_w_p_f_1_1_text_box_autocomplete_behavior" ],
         [ "WindowHandleGetter", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter" ]
       ] ]
     ] ]
