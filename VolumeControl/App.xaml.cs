@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using VolumeControl.Controls;
@@ -38,7 +38,7 @@ namespace VolumeControl
             TrayIcon.BringToFrontClicked += (s, e) => this.ActivateMainWindow();
             TrayIcon.OpenLocationClicked += (s, e) =>
             {
-                Process.Start(new ProcessStartInfo("explorer", $" /select, \"{Path.GetFullPath(Assembly.GetEntryAssembly()?.Location ?? AppDomain.CurrentDomain.BaseDirectory).Replace("dll", "exe")}\""));
+                OpenFolderAndSelectItem(Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), Path.ChangeExtension(AppDomain.CurrentDomain.FriendlyName, ".exe"))));
             };
             TrayIcon.CloseClicked += (s, e) => this.Shutdown();
             TrayIcon.Visible = true;
@@ -72,6 +72,51 @@ namespace VolumeControl
             else
                 this.ShowMainWindow();
         }
+        #region OpenFolderAndSelectItem
+        [DllImport("shell32.dll", SetLastError = true)]
+        private static extern int SHOpenFolderAndSelectItems(IntPtr pidlFolder, uint cidl, [In, MarshalAs(UnmanagedType.LPArray)] IntPtr[] apidl, uint dwFlags);
+        [DllImport("shell32.dll", SetLastError = true)]
+        private static extern void SHParseDisplayName([MarshalAs(UnmanagedType.LPWStr)] string name, IntPtr bindingContext, [Out] out IntPtr pidl, uint sfgaoIn, [Out] out uint psfgaoOut);
+        private static void OpenFolderAndSelectItem(string filePath)
+        {
+            if (Path.GetDirectoryName(filePath) is not string directoryPath)
+            {
+                Log.Error($"Cannot get directory from path '{filePath}'!");
+                return;
+            }
+
+            SHParseDisplayName(directoryPath, IntPtr.Zero, out IntPtr nativeFolder, 0, out uint psfgaoOut);
+
+            if (nativeFolder == IntPtr.Zero)
+            {
+                Log.Error($"Cannot locate directory '{directoryPath}'!");
+                return;
+            }
+
+            SHParseDisplayName(filePath, IntPtr.Zero, out IntPtr nativeFile, 0, out psfgaoOut);
+
+            IntPtr[] fileArray;
+            if (nativeFile == IntPtr.Zero)
+            {
+                // Open the folder without the file selected if we can't find the file
+                fileArray = Array.Empty<IntPtr>();
+            }
+            else
+            {
+                fileArray = new IntPtr[] { nativeFile };
+            }
+
+            Log.Debug($"Opening and selecting '{filePath}' in the file explorer.");
+
+            _ = SHOpenFolderAndSelectItems(nativeFolder, (uint)fileArray.Length, fileArray, 0);
+
+            Marshal.FreeCoTaskMem(nativeFolder);
+            if (nativeFile != IntPtr.Zero)
+            {
+                Marshal.FreeCoTaskMem(nativeFile);
+            }
+        }
+        #endregion OpenFolderAndSelectItem
         #endregion Methods
 
         #region EventHandlers
@@ -85,9 +130,12 @@ namespace VolumeControl
         }
         #endregion Application
 
-        #endregion EventHandlers
-
-        private void PART_TextBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        #region PART_TextBox
+        /// <summary>
+        /// Prevents non-numeric or control keys from being received as input by the textbox.<br/>
+        /// This is used within NumericUpDownStyle
+        /// </summary>
+        private void PART_TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)
             {
@@ -124,5 +172,8 @@ namespace VolumeControl
                 break;
             }
         }
+        #endregion PART_TextBox
+
+        #endregion EventHandlers
     }
 }
