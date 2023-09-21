@@ -7,7 +7,7 @@
 
 <p align="center">
 The ultimate Windows Volume Mixer alternative that supports the keybindings you already use.<br/>
-Designed for effortless music volume control *(Spotify, Deezer, Chrome, Firefox, etc.)* without disrupting gaming or VoIP audio.
+Designed for effortless music volume control <i>(Spotify, Deezer, Chrome, Firefox, etc.)</i> without disrupting gaming or VoIP audio.
 </p>
 
 ## What It Does
@@ -27,21 +27,12 @@ Volume Control empowers users with an unlimited array of unique hotkey combinati
 
 # Getting Started
 
-Getting started is simple. Download the [latest release](https://github.com/radj307/volume-control/releases/latest), and proceed to the [installation instructions](#installation).
+Getting started is simple. Download `VolumeControl-Installer.exe` from the [latest release](https://github.com/radj307/volume-control/releases/latest), and run it. It will guide you through the installation process.
 
+## Manual Installation
 
-## Installation
+Download `VolumeControl.exe` from the [latest release](https://github.com/radj307/volume-control/releases/latest) and move it to a location of your choice.
 
-*An installer is available as of version 6.0.0 Preview 9.1*
-
-Because Volume Control is portable, there is no installation required.  
-Simply move `VolumeControl.exe` to a location of your choice, and run it.  
-
-If you're unsure about where to choose as a location, create a directory in your user folder and place it inside of that:  
-`C:\Users\<USERNAME>\VolumeControl\VolumeControl.exe`
-
-
-## Setup
 Before starting the program for the first time, you have to unblock the executable from the properties menu.  
 This is necessary because Windows requires paying *&gt;$300* a year for a [Microsoft-approved publishing certificate](https://docs.microsoft.com/en-us/windows-hardware/drivers/dashboard/get-a-code-signing-certificate) in order to prevent Windows Defender from blocking it.  
 *If you're unsure, you can always run it through [VirusTotal](https://www.virustotal.com/gui/home/upload) first, or check the source code yourself.*
@@ -53,8 +44,7 @@ This is necessary because Windows requires paying *&gt;$300* a year for a [Micro
 
 All that's left now is to run the application.
 
-
-## Usage
+# Usage
 
 First, enable the **Volume Up** & **Volume Down** hotkeys from the **Hotkeys** tab by checking the box to the left of the hotkey name. If you don't have a volume slider, change the key from the dropdown. You can also set a modifier key with the checkboxes to the right of the dropdown. 
 
