@@ -41,7 +41,7 @@ jobs:
         run:    dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
         
       - name:   Stage Binary
-        run:    foreach($file in $((dir "publish" -recurse | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
+        run:    foreach($file in $((dir "publish" | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
 
       - name:   Prepare Installer Prerequisites
         id:     InitInstaller
@@ -59,7 +59,7 @@ jobs:
           options: /dAppVersion="${{ steps.InitInstaller.outputs.AppVersion }}" /Opublish
           
       - name:   Stage Installer
-        run:    foreach($file in $((dir "publish" -recurse | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
+        run:    foreach($file in $((dir "publish" | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
 
       - name:   Upload Executable Artifact
         uses:   actions/upload-artifact@v3
