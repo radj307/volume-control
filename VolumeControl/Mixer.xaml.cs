@@ -68,16 +68,6 @@ namespace VolumeControl
         private HotkeyManager HotkeyAPI => this.VCSettings.HotkeyAPI;
         private static LogWriter Log => FLog.Log;
         private static Config Settings => (AppConfig.Configuration.Default as Config)!;
-        public static bool LogEnabled
-        {
-            get => Settings.EnableLogging;
-            set => Settings.EnableLogging = value;
-        }
-        public static string LogFilePath
-        {
-            get => Settings.LogPath;
-            set => Settings.LogPath = value;
-        }
         #endregion Properties
 
         #region EventHandlers
@@ -140,7 +130,7 @@ namespace VolumeControl
         private void Handle_BrowseForLogFilePathClick(object sender, RoutedEventArgs e)
         {
             string myDir = Path.GetDirectoryName(this.VCSettings.ExecutablePath) ?? string.Empty;
-            if (Path.GetDirectoryName(LogFilePath) is not string initial || initial.Length == 0)
+            if (Path.GetDirectoryName(this.VCSettings.LogFilePath) is not string initial || initial.Length == 0)
             {
                 initial = myDir;
             }
@@ -151,7 +141,7 @@ namespace VolumeControl
                 DefaultExt = "log",
                 InitialDirectory = initial,
                 Title = "Choose a location to save the log file.",
-                FileName = LogFilePath
+                FileName = VCSettings.LogFilePath
             };
             _ = sfd.ShowDialog(this);
             string path = Path.GetRelativePath(myDir, sfd.FileName);

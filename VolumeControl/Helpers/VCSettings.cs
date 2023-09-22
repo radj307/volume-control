@@ -188,6 +188,16 @@ namespace VolumeControl.Helpers
             get => Settings.HiddenSessionProcessNames;
             set => Settings.HiddenSessionProcessNames = value;
         }
+        public bool LogEnabled
+        {
+            get => Settings.EnableLogging;
+            set => Settings.EnableLogging = value;
+        }
+        public string LogFilePath
+        {
+            get => Settings.LogPath;
+            set => Settings.LogPath = value;
+        }
         #endregion Properties
 
         #region Events

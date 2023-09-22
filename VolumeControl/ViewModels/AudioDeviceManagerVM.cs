@@ -116,9 +116,12 @@ namespace VolumeControl.ViewModels
             => Dispatcher.Invoke(() => AllSessions.Add(new AudioSessionVM(e)));
         private void AudioSessionManager_SessionRemovedFromList(object? sender, AudioSession e)
         {
-            var vm = AllSessions.First(svm => svm.AudioSession.Equals(e));
-            AllSessions.Remove(vm);
-            vm.Dispose();
+            // check if the vm actually exists to prevent possible exception in rare cases
+            if (AllSessions.FirstOrDefault(svm => svm.AudioSession.Equals(e)) is AudioSessionVM vm)
+            {
+                AllSessions.Remove(vm);
+                vm.Dispose();
+            }
         }
         private void AudioSessionManager_PreviewSessionName(object sender, PreviewSessionNameEventArgs e)
         {

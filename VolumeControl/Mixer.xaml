@@ -1790,7 +1790,7 @@
                                             d:IsEnabled="True"
                                             Content="{Tr 'VolumeControl.MainWindow.Settings.Log.Enable.Content',
                                                          DefaultText='Enable'}"
-                                            IsChecked="{Binding LogEnabled, ElementName=window, UpdateSourceTrigger=PropertyChanged}"
+                                            IsChecked="{Binding LogEnabled, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                             IsEnabled="{Binding Text.IsEmpty, Mode=OneWay, ElementName=logPath, Converter={StaticResource InvertConverter}}"
                                             Style="{StaticResource CheckBoxStyle}" />
                                         <!--  Log Filter Level Setter  -->
@@ -1849,13 +1849,15 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
+                                                <Border x:Name="logPathTextBoxWidthClamp" />
                                                 <TextBox
                                                     x:Name="logPath"
+                                                    MaxWidth="{Binding ActualWidth, ElementName=logPathTextBoxWidthClamp}"
                                                     Background="#0000"
                                                     BorderThickness="0"
                                                     HorizontalScrollBarVisibility="Auto"
                                                     Style="{StaticResource TextBoxValidIndicatorStyle}"
-                                                    Text="{Binding LogFilePath, ElementName=window, UpdateSourceTrigger=LostFocus}"
+                                                    Text="{Binding LogFilePath, Source={StaticResource Settings}, UpdateSourceTrigger=LostFocus}"
                                                     ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Log.Path.Tooltip',
                                                                  DefaultText='Specifies the location and name of the log file. Relative paths are relative to the location of the executable.'}" />
                                                 <TextBlock

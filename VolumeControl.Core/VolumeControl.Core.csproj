@@ -22,7 +22,7 @@
 		<PackageReference Include="PropertyChanged.Fody" Version="4.0.1">
 			<PrivateAssets>All</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="radj307.AppConfig" Version="1.0.1" />
+		<PackageReference Include="radj307.AppConfig" Version="1.0.2" />
 		<PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
 	</ItemGroup>
 	<ItemGroup>

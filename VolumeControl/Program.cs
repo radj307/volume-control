@@ -35,9 +35,17 @@ namespace VolumeControl
         [STAThread]
         public static void Main(string[] args)
         {
-            // Load VolumeControl.json:
-            Settings = new();
+#if RELEASE_FORINSTALLER // use the application's AppData directory for the config file
+            Settings = new(Path.Combine(PathFinder.ApplicationAppDataPath, "VolumeControl.json"))
+            {
+                LogPath = Path.Combine(PathFinder.ApplicationAppDataPath, "VolumeControl.log"),
+            };
             Settings.Load();
+#else
+            Settings = new("VolumeControl.json");
+            Settings.Load();
+#endif
+
 
             // Get program information:
             string path = GetProgramLocation();
@@ -48,9 +56,9 @@ namespace VolumeControl
             // Check commandline arguments:  
             bool overwriteLanguageConfigs = args.Any(arg => arg.Equals("--overwrite-language-configs", StringComparison.Ordinal));
             bool waitForMutex = args.Any(arg => arg.Equals("--wait-for-mutex", StringComparison.Ordinal));
-#       if DEBUG // DEBUG
+#if DEBUG // DEBUG
             overwriteLanguageConfigs = true; //< always overwrite language configs in DEBUG configuration
-#       endif // DEBUG
+#endif // DEBUG
 
             LocalizationHelper locale = new(overwriteDefaultLangConfigs: doUpdate || overwriteLanguageConfigs);
 

@@ -23,7 +23,7 @@ namespace VolumeControl.Core
         /// Creates a new <see cref="Config"/> instance.
         /// </summary>
         /// <remarks>The first time this is called, the <see cref="AppConfig.Configuration.Default"/> property is set to that instance; all subsequent calls do not update this property.</remarks>
-        public Config() : base(_filePath)
+        public Config(string filePath) : base(filePath)
         {
             // Forward PropertyChanged events for all properties that implement INotifyPropertyChanged
             foreach (var propertyInfo in typeof(Config).GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly))
@@ -86,8 +86,6 @@ namespace VolumeControl.Core
 
         #region Statics
         private static LogWriter Log => FLog.Log;
-        // Default filepath used for the config file:
-        private const string _filePath = "VolumeControl.json";
         #endregion Statics
 
         #region Main

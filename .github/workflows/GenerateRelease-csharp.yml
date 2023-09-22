@@ -33,9 +33,15 @@ jobs:
       - uses: actions/setup-dotnet@main
         with:
           dotnet-version:   6.0.x
+          
+      - name:   Create Staging Directory
+        run:    mkdir "STAGING"
 
       - name:   Build VolumeControl Binary
         run:    dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
+        
+      - name:   Stage Binary
+        run:    foreach($file in $((dir "publish" -recurse | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
 
       - name:   Prepare Installer Prerequisites
         id:     InitInstaller
@@ -43,16 +49,16 @@ jobs:
                 echo AppVersion="$(git describe --tags --abbrev=0)" >> "$GITHUB_OUTPUT"
                 git clone https://github.com/DomGries/InnoDependencyInstaller
 
+      - name:   Build VolumeControl Binary for Installer
+        run:    dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/PublishForInstaller.pubxml"
+
       - name:   Build VolumeControl Installer
         uses:   Minionguyjpro/Inno-Setup-Action@v1.1.0
         with:
           path: vcsetup.iss
           options: /dAppVersion="${{ steps.InitInstaller.outputs.AppVersion }}" /Opublish
-
-      - name:   Create Staging Directory
-        run:    mkdir "STAGING"
-
-      - name:   Stage Files
+          
+      - name:   Stage Installer
         run:    foreach($file in $((dir "publish" -recurse | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
 
       - name:   Upload Executable Artifact

@@ -11,10 +11,11 @@ namespace VolumeControl.Core
     public class NotificationConfigSection : INotifyPropertyChanged
     {
         #region Events
-#       pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        // Fody injects code to call this event:
+        // Fody injects property setters to call this event, so ignore warnings about not using it:
+#   pragma warning disable CS0067 // The event 'NotificationConfigSection.PropertyChanged' is never used
+        /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#   pragma warning restore CS0067 // The event 'NotificationConfigSection.PropertyChanged' is never used
         #endregion Events
 
         #region Fields

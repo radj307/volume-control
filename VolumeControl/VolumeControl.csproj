@@ -26,9 +26,12 @@
     <AnalysisLevel>6.0</AnalysisLevel>
     <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
     <Deterministic>true</Deterministic>
-    <Configurations>Debug;Release</Configurations>
+    <Configurations>Debug;Release;Release-ForInstaller</Configurations>
     <PublishSingleFile>true</PublishSingleFile>
     <ErrorReport>none</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-ForInstaller|AnyCPU'">
+    <DefineConstants>$(DefineConstants)TRACE</DefineConstants>
   </PropertyGroup>
   <!-- VERSIONING ATTRIBUTES -->
   <ItemGroup>
