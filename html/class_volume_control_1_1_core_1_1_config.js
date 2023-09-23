@@ -1,6 +1,6 @@
 var class_volume_control_1_1_core_1_1_config =
 [
-    [ "Config", "class_volume_control_1_1_core_1_1_config.html#aa8f840871d71833a4e209a04e7d28345", null ],
+    [ "Config", "class_volume_control_1_1_core_1_1_config.html#a3f8d7b3d96b474ea9c5a326dd2336be4", null ],
     [ "PauseAutoSave", "class_volume_control_1_1_core_1_1_config.html#a6c890b9f23d737235d707b288ae0899f", null ],
     [ "ResumeAutoSave", "class_volume_control_1_1_core_1_1_config.html#acae4db80be97fb8bad0436613e473a10", null ],
     [ "Hotkeys_Default", "class_volume_control_1_1_core_1_1_config.html#aabc2f606723e6010d5ee104e3c043186", null ],

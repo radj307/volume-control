@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['to_20contribute_20translations_2061',['to Contribute Translations',['../_how.html',1,'']]]
+  ['installation_20for_20users_2061',['Installation for Users',['../_addon.html',1,'']]]
 ];
