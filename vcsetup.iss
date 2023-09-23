@@ -47,7 +47,7 @@ Name: "portuguese"; MessagesFile: "compiler:Languages\Portuguese.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "publish\installer\{#AppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "publish\{#AppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "VolumeControl\Resources\icons\iconSilvered.ico"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
