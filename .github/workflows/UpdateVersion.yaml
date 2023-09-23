@@ -22,7 +22,9 @@ jobs:
           fetch-depth:  0
 
       - name:   Update .csproj Version Numbers
-        run:    .\SetVersion.ps1
+        run:    |
+                .\SetVersion.ps1 -Path VolumeControl/VolumeControl.csproj
+                .\SetVersion.ps1 -Path VolumeControl.SDK/VolumeControl.SDK.csproj
 
       - name:   Push Changes
         run:    |

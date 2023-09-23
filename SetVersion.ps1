@@ -1,59 +1,27 @@
-$SCRIPTVERSION = "4" # The version number of this script file
+# ARGUMENT: FILEPATH
+param([String]$Path="")
 
-#Set-Location -Path '..'
+$Path = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($(Get-Location), $Path))
 
-Write-Host "Running SetVersion.ps1 $SCRIPTVERSION" # LOG
+"Setting Version Attributes in '$Path'"
 
-if ( $args[1] )
-{
-    "Using Argument `"$args[1]`""
-    $global:GIT_TAG_RAW = $args[1]
-}
-else
-{
-    $global:GIT_TAG_RAW = $(git describe --tags --abbrev=0)
-    "Using Git Tag: `"$global:GIT_TAG_RAW`""
-}
+# Get Git Tag
+$TAG = "$(git describe --tags --abbrev=0)"
+$TAG -cmatch '(?<MAJOR>\d+?)\.(?<MINOR>\d+?)\.(?<PATCH>\d+?)(?<EXTRA>.*)' > $null
+$TAG_3_PART = $Matches.MAJOR + '.' + $Matches.MINOR + '.' + $Matches.PATCH
 
-"Latest Git Tag:           `"$global:GIT_TAG_RAW`""
-
-$global:GIT_TAG_RAW -cmatch '(?<MAJOR>\d+?)\.(?<MINOR>\d+?)\.(?<PATCH>\d+?)(?<EXTRA>.*)'
-
-$global:TAG = $Matches.MAJOR + '.' + $Matches.MINOR + '.' + $Matches.PATCH
-
-
-# @brief            Set the version number in the specified csproj file.
-# @param file       Target File Path.
-# @param version    Incoming Version Number.
-function SetVersion
-{
-    param($file)
-
-    "Reading Project File '$file'..."
-
-    [xml]$CONTENT = Get-Content -Path $file
-
-    $oldversion = $CONTENT.Project.PropertyGroup.Version
-    $oldextversion = $CONTENT.Project.PropertyGroup.ExtendedVersion
-
-    if ($oldversion -eq $global:TAG -and $oldextversion -eq $global:GIT_TAG_RAW -and $oldtype -eq $global:TYPE)
-    {
-        "  No changes, skipping."
-        return
-    }
-    
-    "  Outgoing file version:  '$oldversion'`t|   '$oldextversion'"
-    "  Incoming file version:  '$global:TAG'`t|   '$global:GIT_TAG_RAW'"
-
-    $CONTENT.Project.PropertyGroup.FileVersion = "$global:TAG"
-    $CONTENT.Project.PropertyGroup.Version = "$global:GIT_TAG_RAW"
-    $CONTENT.Project.PropertyGroup.Copyright = "Copyright © $((Get-Date).Year) by `$`(Authors`)"
-    $CONTENT.Save("$file")
+"Tag:         '$TAG'"
+if ($TAG -ne $TAG_3_PART) {
+    "3-Part Tag:  '$TAG_3_PART'"
 }
 
-$LOCATION = "$(Get-Location)"
+# Read file
+[xml]$CONTENT = Get-Content -Path "$Path"
 
-SetVersion("$LOCATION\VolumeControl\VolumeControl.csproj")
-SetVersion("$LOCATION\VolumeControl.SDK\VolumeControl.SDK.csproj")
+$CONTENT.Project.PropertyGroup.FileVersion  = $TAG_3_PART
+$CONTENT.Project.PropertyGroup.Version      = $TAG
+$CONTENT.Project.PropertyGroup.Copyright    = "Copyright © $((Get-Date).Year) by `$`(Authors`)"
 
-"SetVersion.ps1 Finished."
+$CONTENT.Save("$Path")
+
+"Saved '$Path'"
