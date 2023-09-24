@@ -11,11 +11,16 @@ using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Helpers.Addon
 {
+    /// <summary>
+    /// <see cref="VCAddon"/> type for hotkey actions.
+    /// </summary>
     public class VCHotkeyAddon : VCAddon
     {
-        public VCHotkeyAddon() : base(new AttributeWrapper(typeof(HotkeyActionAttribute)), new AttributeWrapper(typeof(HotkeyActionGroupAttribute)))
-        { }
+        #region Constructor
+        public VCHotkeyAddon() : base(new AttributeWrapper(typeof(HotkeyActionAttribute)), new AttributeWrapper(typeof(HotkeyActionGroupAttribute))) { }
+        #endregion Constructor
 
+        #region VCAddon Overridden Methods
         protected override void HandleAddonTypes(VCAPI api, IEnumerable<Type> types)
         {
             List<HotkeyAction> actions;
@@ -88,5 +93,6 @@ namespace VolumeControl.Helpers.Addon
                 }
             }
         }
+        #endregion VCAddon Overridden Methods
     }
 }

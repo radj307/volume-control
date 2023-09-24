@@ -551,6 +551,9 @@
       "OpenLocation": {
         "English (US/CA)": "Open Location"
       },
+      "OpenAppData": {
+        "English (US/CA)": "Open AppData"
+      },
       "Close": {
         "English (US/CA)": "Close"
       }

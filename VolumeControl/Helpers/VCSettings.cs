@@ -3,7 +3,6 @@ using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Windows;
 using VolumeControl.Core;
 using VolumeControl.Helpers.Win32;
 using VolumeControl.Log;
@@ -27,7 +26,7 @@ namespace VolumeControl.Helpers
             this.ExecutablePath = GetExecutablePath();
             Log.Debug($"{nameof(VCSettings)}.{nameof(this.ExecutablePath)} = '{this.ExecutablePath}'");
 
-            // Get the current version number & release type
+            // Get the current version number
             this.CurrentVersion = Settings.__VERSION__;
 
 #       if DEBUG // Show 'DEBUG' in the version string when in Debug configuration
@@ -36,9 +35,13 @@ namespace VolumeControl.Helpers
             this.CurrentVersionString = this.CurrentVersion.ToString();
 #       endif
 
-            Log.Debug($"{nameof(VCSettings)}.{nameof(this.CurrentVersion)} = '{this.CurrentVersionString}'");
-
-            this.RunAtStartup = RunAtStartupHelper.ValueEquals(this.ExecutablePath);
+#       if DEBUG // Debug configuration:
+            Log.Debug($"Volume Control version {this.CurrentVersion} (DEBUG)");
+#       elif RELEASE // Release configuration:
+            Log.Debug($"Volume Control version {this.CurrentVersion} (Portable)");
+#       elif RELEASE_FORINSTALLER // Release-ForInstaller configuration:
+            Log.Debug($"Volume Control version {this.CurrentVersion} (Installed)");
+#       endif
 
             Log.Debug($"{nameof(VCSettings)} initialization completed.");
         }

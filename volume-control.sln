@@ -18,16 +18,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GithubActions", "GithubActions", "{FFC976AB-3F90-4DCD-B389-78DC9A459464}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\Format-Code.yml = .github\workflows\Format-Code.yml
 		.github\workflows\GenerateRelease-csharp.yml = .github\workflows\GenerateRelease-csharp.yml
 		.github\workflows\Run-Unit-Tests.yml = .github\workflows\Run-Unit-Tests.yml
 		.github\workflows\update-documentation.yml = .github\workflows\update-documentation.yml
+		.github\workflows\update-referrers.yml = .github\workflows\update-referrers.yml
 		.github\workflows\UpdateVersion.yaml = .github\workflows\UpdateVersion.yaml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.Core", "VolumeControl.Core\VolumeControl.Core.csproj", "{116DECA2-D41D-4D6E-83AD-3D33AA8EFD54}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.UnitTests", "VolumeControl.UnitTests\VolumeControl.UnitTests.csproj", "{43DBEEA7-0175-4E40-B161-69A435E59CE8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.TypeExtensions", "VolumeControl.TypeExtensions\VolumeControl.TypeExtensions.csproj", "{ACF596C4-8598-47AA-A182-5F2253AF885B}"
 EndProject
@@ -122,17 +120,6 @@ Global
 		{116DECA2-D41D-4D6E-83AD-3D33AA8EFD54}.Release-ForInstaller|x64.Build.0 = Release|Any CPU
 		{116DECA2-D41D-4D6E-83AD-3D33AA8EFD54}.Release-ForInstaller|x86.ActiveCfg = Release|Any CPU
 		{116DECA2-D41D-4D6E-83AD-3D33AA8EFD54}.Release-ForInstaller|x86.Build.0 = Release|Any CPU
-		{43DBEEA7-0175-4E40-B161-69A435E59CE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43DBEEA7-0175-4E40-B161-69A435E59CE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43DBEEA7-0175-4E40-B161-69A435E59CE8}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{43DBEEA7-0175-4E40-B161-69A435E59CE8}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{43DBEEA7-0175-4E40-B161-69A435E59CE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43DBEEA7-0175-4E40-B161-69A435E59CE8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{43DBEEA7-0175-4E40-B161-69A435E59CE8}.Release|x64.ActiveCfg = Release|Any CPU
-		{43DBEEA7-0175-4E40-B161-69A435E59CE8}.Release|x86.ActiveCfg = Release|Any CPU
-		{43DBEEA7-0175-4E40-B161-69A435E59CE8}.Release-ForInstaller|Any CPU.ActiveCfg = Release|Any CPU
-		{43DBEEA7-0175-4E40-B161-69A435E59CE8}.Release-ForInstaller|x64.ActiveCfg = Release|Any CPU
-		{43DBEEA7-0175-4E40-B161-69A435E59CE8}.Release-ForInstaller|x86.ActiveCfg = Release|Any CPU
 		{ACF596C4-8598-47AA-A182-5F2253AF885B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ACF596C4-8598-47AA-A182-5F2253AF885B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACF596C4-8598-47AA-A182-5F2253AF885B}.Debug|x64.ActiveCfg = Debug|Any CPU

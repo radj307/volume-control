@@ -7,6 +7,7 @@ namespace VolumeControl.Helpers.Win32
 {
     internal static class RunAtStartupHelper
     {
+        #region Private Constants
         /// <summary>
         /// The friendly registry path prefix shown to users for use in `regedit.msc`
         /// </summary>
@@ -22,6 +23,7 @@ namespace VolumeControl.Helpers.Win32
         /// This name is used by Windows 
         /// </summary>
         private const string RegistryRunAtStartupValueName = "VolumeControl";
+        #endregion Private Constants
 
         #region Properties
         private static LogWriter Log => FLog.Log;

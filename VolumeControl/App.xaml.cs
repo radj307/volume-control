@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using VolumeControl.Controls;
+using VolumeControl.Helpers;
 using VolumeControl.Log;
 using VolumeControl.ViewModels;
 
@@ -39,6 +42,10 @@ namespace VolumeControl
             TrayIcon.OpenLocationClicked += (s, e) =>
             {
                 OpenFolderAndSelectItem(Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), Path.ChangeExtension(AppDomain.CurrentDomain.FriendlyName, ".exe"))));
+            };
+            TrayIcon.OpenAppDataClicked += (s, e) =>
+            {
+                Process.Start("explorer", PathFinder.ApplicationAppDataPath);
             };
             TrayIcon.CloseClicked += (s, e) => this.Shutdown();
             TrayIcon.Visible = true;

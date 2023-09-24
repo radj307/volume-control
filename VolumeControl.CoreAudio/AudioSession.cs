@@ -384,6 +384,7 @@ namespace VolumeControl.CoreAudio
         /// <inheritdoc/>
         public void Dispose()
         {
+            this.Process?.Dispose();
             ((IDisposable)this.AudioSessionControl).Dispose();
             GC.SuppressFinalize(this);
         }

@@ -10,8 +10,9 @@ namespace VolumeControl.Helpers.Addon
     /// </summary>
     public class AttributeWrapper
     {
+        #region Constructor
         /// <summary>
-        /// Creates a new <see cref="Attribute"/> instance.
+        /// Creates a new <see cref="AttributeWrapper"/> instance for the specified <paramref name="attributeType"/>.
         /// </summary>
         /// <param name="attributeType">The <see cref="System.Type"/> of an <see cref="Attribute"/>-derived type.</param>
         /// <param name="checkInheritedAttributes">When <see langword="true"/>, attributes that were inherited are also checked; when <see langword="false"/>, only attributes that were <b>directly</b> applied to the type are checked.</param>
@@ -30,6 +31,7 @@ namespace VolumeControl.Helpers.Addon
 
             CheckInherited = checkInheritedAttributes;
         }
+        #endregion Constructor
 
         /// <summary>
         /// Gets the <see cref="System.Type"/> of the target attribute.
