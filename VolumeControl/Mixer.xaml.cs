@@ -16,6 +16,7 @@ using VolumeControl.Core.Interfaces;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
 using VolumeControl.SDK;
+using VolumeControl.SDK.Internal;
 using VolumeControl.ViewModels;
 using VolumeControl.WPF;
 using VolumeControl.WPF.Collections;
@@ -37,11 +38,14 @@ namespace VolumeControl
             this.Topmost = Settings.AlwaysOnTop;
 
             _currentMultiInstanceState = Settings.AllowMultipleDistinctInstances;
+
+            if (Settings.StartMinimized) Hide();
+
+            // bind to VCAPI show event
+            VCEvents.ShowMixer += (s, e) => Show();
         }
         private void Window_Initialized(object sender, EventArgs e)
         {
-            if (Settings.StartMinimized) this.Hide();
-
             // Initialize secondary windows so they can run their own code to appear:
 
             // SessionListNotification
@@ -50,7 +54,7 @@ namespace VolumeControl
             _ = WindowHandleGetter.GetWindowHandle((this.FindResource("DeviceListNotification") as DeviceListNotification)!);
 
             // Enable auto-saving of the config
-            Settings.ResumeAutoSave(); //< doing this here prevents unnecessary write operations during initialization
+            Settings.ResumeAutoSave(); //< doing this here prevents unnecessary write operations during window initialization
 
             _initialized = true;
         }

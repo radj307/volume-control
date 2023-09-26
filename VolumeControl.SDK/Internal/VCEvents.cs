@@ -20,5 +20,11 @@
         public static event EventHandler? ShowDeviceListNotification;
         internal static void NotifyShowDeviceListNotification(object? sender, EventArgs e)
             => ShowDeviceListNotification?.Invoke(sender, e);
+        /// <summary>
+        /// Indicates that the Mixer window show be shown.
+        /// </summary>
+        public static event EventHandler? ShowMixer;
+        internal static void NotifyShowMixer(object? sender, EventArgs e)
+            => ShowMixer?.Invoke(sender, e);
     }
 }

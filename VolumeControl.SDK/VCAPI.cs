@@ -89,6 +89,13 @@ namespace VolumeControl.SDK
 
             VCEvents.NotifyShowDeviceListNotification(this, EventArgs.Empty);
         }
+        /// <summary>
+        /// Display the Mixer window.
+        /// </summary>
+        public void ShowMixer()
+        {
+            VCEvents.NotifyShowMixer(this, EventArgs.Empty);
+        }
         #endregion Methods
     }
 }

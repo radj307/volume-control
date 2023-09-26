@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Windows;
-using System.Windows.Interop;
 using VolumeControl.Core;
 using VolumeControl.Core.Attributes;
 using VolumeControl.SDK;
@@ -30,29 +28,26 @@ namespace VolumeControl.Hotkeys
         {
             Settings.DeviceListNotificationConfig.Enabled = !Settings.DeviceListNotificationConfig.Enabled;
         }
-        [HotkeyAction(Description = "Moves the VolumeControl window in front of all other windows.")]
+        [HotkeyAction(Description = "Moves the Volume Control window in front of all other windows.")]
         public void BringToForeground(object? sender, HandledEventArgs e)
         {
             User32.SetWindowPos(this.MainHWnd, User32.HWND_TOP, 0, 0, 0, 0, User32.EUFlags.SWP_NOSIZE | User32.EUFlags.SWP_NOMOVE);
         }
-        [HotkeyAction(Description = "Moves the VolumeControl window behind all other windows.")]
+        [HotkeyAction(Description = "Moves the Volume Control window behind all other windows.")]
         public void SendToBackground(object? sender, HandledEventArgs e)
-        { 
+        {
             User32.SetWindowPos(this.MainHWnd, User32.HWND_BOTTOM, 0, 0, 0, 0, User32.EUFlags.SWP_NOSIZE | User32.EUFlags.SWP_NOMOVE);
         }
-        [HotkeyAction(Description = "Hides the VolumeControl window.")]
+        [HotkeyAction(Description = "Hides the Volume Control window.")]
         public void Minimize(object? sender, HandledEventArgs e)
-        { 
-            User32.ShowWindow(this.MainHWnd, User32.ECmdShow.SW_MINIMIZE);
+        {
+            User32.ShowWindow(MainHWnd, User32.ECmdShow.SW_HIDE);
         }
-        [HotkeyAction(Description = "Restores the VolumeControl window after minimizing it.")]
+        [HotkeyAction(Description = "Shows the Volume Control window.")]
         public void Unminimize(object? sender, HandledEventArgs e)
         {
-            if (HwndSource.FromHwnd(this.MainHWnd).RootVisual is Window w)
-            {
-                _ = User32.ShowWindow(this.MainHWnd, User32.ECmdShow.SW_RESTORE);
-                w.Visibility = Visibility.Visible;
-            }
+            User32.ShowWindow(MainHWnd, User32.ECmdShow.SW_RESTORE); //< undo effects from other calls to User32.ShowWindow
+            VCAPI.Default.ShowMixer(); //< show the main window
         }
         #endregion Action Methods
     }
