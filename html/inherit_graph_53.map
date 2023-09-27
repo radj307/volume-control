@@ -1,9 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,177,85,203"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html" title="Removes logical and/or keyboard focus from the attached control when the Escape key is pressed." alt="" coords="167,5,391,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_list_view_behavior.html" title="Behavior&lt;T&gt; that enables the mouse wheel to increment/decrement the selected item in a ListView." alt="" coords="167,71,390,112"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_numeric_up_down_behavior.html" title="Behavior&lt;T&gt; that enables the mouse wheel to change the value of NumericUpDown controls." alt="" coords="141,136,416,177"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_range_base_behavior.html" title="Behavior&lt;T&gt; that enables the mouse wheel to change the value of controls based on RangeBase." alt="" coords="160,201,397,243"/>
-<area shape="rect" id="node6" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_autocomplete_behavior.html" title="Behavior that implements autocomplete suggestions for TextBox controls." alt="" coords="167,267,390,308"/>
-<area shape="rect" id="node7" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_enter_updates_text_source_behavior.html" title="Forces the TextBox.Text property&#39;s data binding to update its source when the Enter key is pressed or..." alt="" coords="133,332,424,373"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,13,152,39"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_animations_1_1_brush_animation.html" title="Animation type that transitions between two arbitrary Brush instances." alt="" coords="200,5,431,47"/>
 </map>

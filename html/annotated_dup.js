@@ -12,6 +12,7 @@ var annotated_dup =
           [ "ModifierExtensions", "class_volume_control_1_1_core_1_1_enum_1_1_modifier_extensions.html", "class_volume_control_1_1_core_1_1_enum_1_1_modifier_extensions" ]
         ] ],
         [ "Helpers", "namespace_volume_control_1_1_core_1_1_helpers.html", [
+          [ "GetWin32Error", "class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error.html", "class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error" ],
           [ "TargetInfo", "struct_volume_control_1_1_core_1_1_helpers_1_1_target_info.html", "struct_volume_control_1_1_core_1_1_helpers_1_1_target_info" ],
           [ "TargetOverrideVM", "class_volume_control_1_1_core_1_1_helpers_1_1_target_override_v_m.html", "class_volume_control_1_1_core_1_1_helpers_1_1_target_override_v_m" ]
         ] ],

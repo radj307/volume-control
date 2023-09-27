@@ -1,7 +1,24 @@
 var searchData=
 [
-  ['listextensions_1078',['ListExtensions',['../class_volume_control_1_1_type_extensions_1_1_list_extensions.html',1,'VolumeControl::TypeExtensions']]],
-  ['listhasitemsbooleanconverter_1079',['ListHasItemsBooleanConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_list_has_items_boolean_converter.html',1,'VolumeControl::WPF::Converters']]],
-  ['logeventtypefilter_1080',['LogEventTypeFilter',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_log_event_type_filter.html',1,'VolumeControl::WPF::Collections']]],
-  ['logwriter_1081',['LogWriter',['../class_volume_control_1_1_log_1_1_log_writer.html',1,'VolumeControl::Log']]]
+  ['iaudiocontrol_1071',['IAudioControl',['../interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_control.html',1,'VolumeControl::CoreAudio::Interfaces']]],
+  ['iaudiocontrolextensions_1072',['IAudioControlExtensions',['../class_volume_control_1_1_core_audio_1_1_helpers_1_1_i_audio_control_extensions.html',1,'VolumeControl::CoreAudio::Helpers']]],
+  ['iaudiopeakmeter_1073',['IAudioPeakMeter',['../interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_peak_meter.html',1,'VolumeControl::CoreAudio::Interfaces']]],
+  ['iaudioselector_1074',['IAudioSelector',['../interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_selector.html',1,'VolumeControl::CoreAudio::Interfaces']]],
+  ['ibindablehotkey_1075',['IBindableHotkey',['../interface_volume_control_1_1_core_1_1_interfaces_1_1_i_bindable_hotkey.html',1,'VolumeControl::Core::Interfaces']]],
+  ['icongetter_1076',['IconGetter',['../class_volume_control_1_1_w_p_f_1_1_icon_getter.html',1,'VolumeControl::WPF']]],
+  ['iconpair_1077',['IconPair',['../class_volume_control_1_1_w_p_f_1_1_icon_pair.html',1,'VolumeControl::WPF']]],
+  ['iendpoint_1078',['IEndpoint',['../interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html',1,'VolumeControl::Log::Endpoints']]],
+  ['ihideableaudiocontrol_1079',['IHideableAudioControl',['../interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_hideable_audio_control.html',1,'VolumeControl::CoreAudio::Interfaces']]],
+  ['ihotkey_1080',['IHotkey',['../interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html',1,'VolumeControl::Core::Input']]],
+  ['ihotkeyaction_1081',['IHotkeyAction',['../interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html',1,'VolumeControl::Core::Input::Actions']]],
+  ['ihotkeyactionmanager_1082',['IHotkeyActionManager',['../interface_volume_control_1_1_core_1_1_interfaces_1_1_i_hotkey_action_manager.html',1,'VolumeControl::Core::Interfaces']]],
+  ['ihotkeyactionsetting_1083',['IHotkeyActionSetting',['../interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action_setting.html',1,'VolumeControl::Core::Input::Actions']]],
+  ['ilistdisplayable_1084',['IListDisplayable',['../interface_volume_control_1_1_core_1_1_interfaces_1_1_i_list_displayable.html',1,'VolumeControl::Core::Interfaces']]],
+  ['ilogwriter_1085',['ILogWriter',['../interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html',1,'VolumeControl::Log::Interfaces']]],
+  ['initializer_1086',['Initializer',['../class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer.html',1,'VolumeControl::SDK::Internal']]],
+  ['inputsimulator_1087',['InputSimulator',['../class_volume_control_1_1_core_1_1_input_simulator.html',1,'VolumeControl::Core']]],
+  ['int32extensions_1088',['Int32Extensions',['../class_volume_control_1_1_type_extensions_1_1_int32_extensions.html',1,'VolumeControl::TypeExtensions']]],
+  ['ireadonlyaudiocontrol_1089',['IReadOnlyAudioControl',['../interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html',1,'VolumeControl::CoreAudio::Interfaces']]],
+  ['ireadonlylistextensions_1090',['IReadOnlyListExtensions',['../class_volume_control_1_1_type_extensions_1_1_i_read_only_list_extensions.html',1,'VolumeControl::TypeExtensions']]],
+  ['itimestamp_1091',['ITimestamp',['../interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp.html',1,'VolumeControl::Log::Interfaces']]]
 ];

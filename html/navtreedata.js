@@ -123,12 +123,12 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_addon.html",
-"class_volume_control_1_1_core_audio_1_1_audio_device.html#a3a5724e247a62d525251cb2d959552a7",
-"class_volume_control_1_1_log_1_1_log_writer.html#a84f2a4a818ded391050345b3962adc90",
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#ab008635aacfc590549eff3a840f5e179",
-"class_volume_control_1_1_w_p_f_1_1_icon_pair.html#a1301c46d03dfc9fa76655e8d9a8cb5ec",
-"namespace_volume_control.html",
-"namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613bea77ee859d232790a420e7d44c280955a3",
+"class_volume_control_1_1_core_1_1_user32.html#aed3be19f965a72c97ac3d73cd63f2724abe727d86fa041bdb6b3b57c6778f275d",
+"class_volume_control_1_1_log_1_1_log_writer.html#a1a923e4492f98675dcedebc61ef0055a",
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a2c22b4da7283387caf416e3ae7615229",
+"class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#a868775e4b7d5ddf507899f279feb7231",
+"md_docs__building_from_source.html#autotoc_md28",
+"namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613bea5dbc98dcc983a70728bd082d1a47546e",
 ""
 ];
 

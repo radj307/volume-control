@@ -261,7 +261,13 @@ CornerRadius&#160;</td><td class="memItemRight" valign="bottom"><b>CornerRadius<
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">            DependencyProperty.Register(<span class="stringliteral">&quot;Value&quot;</span>, typeof(decimal), typeof(NumericUpDown),</div>
-<div class="line">                                        <span class="keyword">new</span> PropertyMetadata(0m, OnValueChanged, CoerceValue))</div>
+<div class="line">                                        <span class="keyword">new</span> FrameworkPropertyMetadata(</div>
+<div class="line">                                            0m,</div>
+<div class="line">                                            FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.Journal,</div>
+<div class="line">                                            OnValueChanged,</div>
+<div class="line">                                            CoerceValue,</div>
+<div class="line">                                            <span class="keyword">false</span>,</div>
+<div class="line">                                            System.Windows.Data.UpdateSourceTrigger.Explicit))</div>
 </div><!-- fragment -->
 </div>
 </div>

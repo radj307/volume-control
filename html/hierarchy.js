@@ -52,6 +52,7 @@ var hierarchy =
     ] ],
     [ "VolumeControl.Core.Enum.EVirtualKeyCodeExtensions", "class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions.html", null ],
     [ "VolumeControl.Log.FLog", "class_volume_control_1_1_log_1_1_f_log.html", null ],
+    [ "VolumeControl.Core.Helpers.GetWin32Error", "class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error.html", null ],
     [ "HandledEventArgs", null, [
       [ "VolumeControl.Core.Input.Actions.HotkeyActionPressedEventArgs", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_pressed_event_args.html", null ]
     ] ],
