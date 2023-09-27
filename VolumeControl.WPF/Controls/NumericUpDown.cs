@@ -20,69 +20,79 @@ namespace VolumeControl.WPF.Controls
 
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register("Value", typeof(decimal), typeof(NumericUpDown),
-                                        new PropertyMetadata(0m, OnValueChanged, CoerceValue));
+                                        new FrameworkPropertyMetadata(
+                                            0m,
+                                            FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.Journal,
+                                            OnValueChanged,
+                                            CoerceValue,
+                                            false,
+                                            System.Windows.Data.UpdateSourceTrigger.Explicit));
 
         public decimal Value
         {
-            get => Convert.ToDecimal(this.GetValue(ValueProperty));
+            get => (decimal)this.GetValue(ValueProperty);
             set => this.SetValue(ValueProperty, value);
         }
 
         private static void OnValueChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
         {
-            if (element is NumericUpDown control && control.TextBox != null)
-            {
-                control.TextBox.UndoLimit = 0;
-                control.TextBox.UndoLimit = 1;
-            }
+            var control = (NumericUpDown)element;
+            if (control.TextBox == null) return;
+
+            control.TextBox.UndoLimit = 0;
+            control.TextBox.UndoLimit = 1;
+
+            var bindingExpression = control.GetBindingExpression(ValueProperty);
+            if (bindingExpression == null) return;
+            bindingExpression.UpdateSource();
         }
 
         private static object CoerceValue(DependencyObject element, object baseValue)
         {
             decimal value = Convert.ToDecimal(baseValue);
-            if (element is NumericUpDown control)
+            var control = (NumericUpDown)element;
+
+            control.CoerceValueToBounds(ref value);
+
+            // Get the text representation of Value
+            string? valueString = value.ToString(control.Culture);
+
+            // Count all decimal places
+            int decimalPlaces = control.GetDecimalPlacesCount(valueString);
+
+            if (decimalPlaces > control.DecimalPlaces)
             {
-                control.CoerceValueToBounds(ref value);
-
-                // Get the text representation of Value
-                string? valueString = value.ToString(control.Culture);
-
-                // Count all decimal places
-                int decimalPlaces = control.GetDecimalPlacesCount(valueString);
-
-                if (decimalPlaces > control.DecimalPlaces)
+                if (control.IsDecimalPointDynamic)
                 {
-                    if (control.IsDecimalPointDynamic)
-                    {
-                        // Assigning DecimalPlaces will coerce the number
-                        control.DecimalPlaces = decimalPlaces;
-
-                        // If the specified number of decimal places is still too much
-                        if (decimalPlaces > control.DecimalPlaces)
-                            value = control.TruncateValue(valueString, control.DecimalPlaces);
-                    }
-                    else
-                    {
-                        // Remove all overflowing decimal places
-                        value = control.TruncateValue(valueString, decimalPlaces);
-                    }
-                }
-                else if (control.IsDecimalPointDynamic)
-                {
+                    // Assigning DecimalPlaces will coerce the number
                     control.DecimalPlaces = decimalPlaces;
-                }
 
-                if (control.IsThousandSeparatorVisible)
-                {
-                    if (control.TextBox != null)
-                        control.TextBox.Text = value.ToString("N", control.Culture);
+                    // If the specified number of decimal places is still too much
+                    if (decimalPlaces > control.DecimalPlaces)
+                        value = control.TruncateValue(valueString, control.DecimalPlaces);
                 }
                 else
                 {
-                    if (control.TextBox != null)
-                        control.TextBox.Text = value.ToString("F", control.Culture);
+                    // Remove all overflowing decimal places
+                    value = control.TruncateValue(valueString, decimalPlaces);
                 }
             }
+            else if (control.IsDecimalPointDynamic)
+            {
+                control.DecimalPlaces = decimalPlaces;
+            }
+
+            if (control.IsThousandSeparatorVisible)
+            {
+                if (control.TextBox != null)
+                    control.TextBox.Text = value.ToString("N", control.Culture);
+            }
+            else
+            {
+                if (control.TextBox != null)
+                    control.TextBox.Text = value.ToString("F", control.Culture);
+            }
+
             return value;
         }
 
