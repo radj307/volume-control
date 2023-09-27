@@ -122,14 +122,14 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_addon.html",
-"class_volume_control_1_1_core_1_1_user32.html#aed3be19f965a72c97ac3d73cd63f2724abe727d86fa041bdb6b3b57c6778f275d",
-"class_volume_control_1_1_log_1_1_log_writer.html#a1a923e4492f98675dcedebc61ef0055a",
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a2c22b4da7283387caf416e3ae7615229",
-"class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#a868775e4b7d5ddf507899f279feb7231",
-"md_docs__building_from_source.html#autotoc_md28",
-"namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613bea5dbc98dcc983a70728bd082d1a47546e",
-""
+"",
+"class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_action_target_specifier.html",
+"class_volume_control_1_1_core_audio_1_1_audio_session_selector.html#ad13713c360729eb72bb6cfb88deb0b34",
+"class_volume_control_1_1_type_extensions_1_1_process_extensions.html#af6cd71cd59de41d928c0e89853f78688",
+"class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down.html#a498c80c7a9dda89685c5523f02c9fa49",
+"functions_prop_o.html",
+"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a8814c87d999b990430c47198d768d49d",
+"namespace_volume_control_1_1_core_audio_1_1_helpers.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
