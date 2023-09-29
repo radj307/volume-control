@@ -78,8 +78,6 @@ namespace VolumeControl.ViewModels
             //  We need to have accessed the Settings propertyInfo at least once by the time we reach this point
             this.HotkeyAPI.LoadHotkeys();
 
-            Log.Info($"Volume Control v{this.CurrentVersionString}");
-
             // attach event to update TargetSessionText & LockTargetSession properties
             VCAPI.Default.AudioSessionSelector.PropertyChanged += this.AudioSessionSelector_PropertyChanged;
 
