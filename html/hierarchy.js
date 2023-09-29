@@ -86,8 +86,7 @@ var hierarchy =
     [ "IComponent", null, [
       [ "VolumeControl.WPF.BindableTimer", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html", null ]
     ] ],
-    [ "VolumeControl.WPF.IconGetter", "class_volume_control_1_1_w_p_f_1_1_icon_getter.html", null ],
-    [ "VolumeControl.WPF.IconPair", "class_volume_control_1_1_w_p_f_1_1_icon_pair.html", null ],
+    [ "VolumeControl.WPF.IconExtractor", "class_volume_control_1_1_w_p_f_1_1_icon_extractor.html", null ],
     [ "IDisposable", null, [
       [ "VolumeControl.Core.HotkeyManager", "class_volume_control_1_1_core_1_1_hotkey_manager.html", null ],
       [ "VolumeControl.Core.Input.Hotkey", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html", null ],

@@ -1,0 +1,4 @@
+<map id="VolumeControl.WPF.IconExtractor.TryExtractFromFile" name="VolumeControl.WPF.IconExtractor.TryExtractFromFile">
+<area shape="rect" id="node1" title="Attempts to get an ImageSource for the icon of a regular file, including executable files (...." alt="" coords="5,5,248,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_icon_extractor.html#a94b8170e8716109a23d06abdb7f89900" title="Gets an ImageSource for the icon of a regular file, including executable files (.exe)." alt="" coords="296,5,539,47"/>
+</map>

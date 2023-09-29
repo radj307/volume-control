@@ -8,9 +8,9 @@
  viewBox="0.00 0.00 375.00 110.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 106)">
 <title>Graphical Class Hierarchy</title>
-<!-- Node138 -->
+<!-- Node137 -->
 <g id="node1" class="node">
-<title>Node138</title>
+<title>Node137</title>
 <g id="a_node1"><a xlink:title=" ">
 <polygon fill="none" stroke="#bfbfbf" points="0,-41.5 0,-60.5 101,-60.5 101,-41.5 0,-41.5"/>
 <text text-anchor="middle" x="50.5" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">RoutedEventArgs</text>
@@ -28,15 +28,15 @@
 </a>
 </g>
 </g>
-<!-- Node138&#45;&gt;Node0 -->
+<!-- Node137&#45;&gt;Node0 -->
 <g id="edge1" class="edge">
-<title>Node138&#45;&gt;Node0</title>
+<title>Node137&#45;&gt;Node0</title>
 <path fill="none" stroke="midnightblue" d="M111.21,-59.98C119.42,-61.21 128.06,-62.51 136.85,-63.83"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="111.48,-56.48 101.07,-58.45 110.44,-63.4 111.48,-56.48"/>
 </g>
-<!-- Node140 -->
+<!-- Node139 -->
 <g id="node3" class="node">
-<title>Node140</title>
+<title>Node139</title>
 <g id="a_node3"><a xlink:href="class_volume_control_1_1_w_p_f_1_1_controls_1_1_text_box_with_completion_options_1_1_suggestion_clicked_event_args.html" target="_top" xlink:title="Event arguments for the SuggestionClickedEventHandler event type.">
 <polygon fill="none" stroke="black" points="137.5,-0.5 137.5,-41.5 366.5,-41.5 366.5,-0.5 137.5,-0.5"/>
 <text text-anchor="start" x="145.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.WPF.Controls.</text>
@@ -45,9 +45,9 @@
 </a>
 </g>
 </g>
-<!-- Node138&#45;&gt;Node140 -->
+<!-- Node137&#45;&gt;Node139 -->
 <g id="edge2" class="edge">
-<title>Node138&#45;&gt;Node140</title>
+<title>Node137&#45;&gt;Node139</title>
 <path fill="none" stroke="midnightblue" d="M111.04,-42.05C119.42,-40.79 128.25,-39.46 137.24,-38.11"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="110.44,-38.6 101.07,-43.55 111.48,-45.52 110.44,-38.6"/>
 </g>

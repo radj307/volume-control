@@ -107,19 +107,18 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:a77b1a677cd94bc51b9b4d775ef67f30d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This fixes a bug that microsoft hasn't fixed since at least Windows Vista that occurs when calling Process.HasExited.<br  />
  <b>DO NOT USE THE Process.HasExited PROPERTY, USE THIS INSTEAD!</b>  <a href="class_volume_control_1_1_type_extensions_1_1_process_extensions.html#a77b1a677cd94bc51b9b4d775ef67f30d">More...</a><br /></td></tr>
 <tr class="separator:a77b1a677cd94bc51b9b4d775ef67f30d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6cd71cd59de41d928c0e89853f78688"><td class="memItemLeft" align="right" valign="top">static ? string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_process_extensions.html#af6cd71cd59de41d928c0e89853f78688">GetMainModulePath</a> (this Process p)</td></tr>
-<tr class="memdesc:af6cd71cd59de41d928c0e89853f78688"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the full path to the specified Process, <em>p</em> .  <a href="class_volume_control_1_1_type_extensions_1_1_process_extensions.html#af6cd71cd59de41d928c0e89853f78688">More...</a><br /></td></tr>
-<tr class="separator:af6cd71cd59de41d928c0e89853f78688"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9833423a228a547a0bec594f671dfb8"><td class="memItemLeft" align="right" valign="top">static ? string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_process_extensions.html#aa9833423a228a547a0bec594f671dfb8">GetMainModulePathWMI</a> (this Process p)</td></tr>
-<tr class="memdesc:aa9833423a228a547a0bec594f671dfb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the full path to the specified Process, <em>p</em> .<br  />
- <b>Note that this method uses WMI to make an SQL query, and as such, is very slow!</b>  <a href="class_volume_control_1_1_type_extensions_1_1_process_extensions.html#aa9833423a228a547a0bec594f671dfb8">More...</a><br /></td></tr>
-<tr class="separator:aa9833423a228a547a0bec594f671dfb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad697984c509220638642fb05f66dd63d"><td class="memItemLeft" align="right" valign="top">static ? string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_process_extensions.html#ad697984c509220638642fb05f66dd63d">GetMainModulePath</a> (this Process process)</td></tr>
+<tr class="memdesc:ad697984c509220638642fb05f66dd63d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the full path to the specified Process, <em>process</em> .  <a href="class_volume_control_1_1_type_extensions_1_1_process_extensions.html#ad697984c509220638642fb05f66dd63d">More...</a><br /></td></tr>
+<tr class="separator:ad697984c509220638642fb05f66dd63d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0419125204f2282f6e77c85d31729e60"><td class="memItemLeft" align="right" valign="top">static ? string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_process_extensions.html#a0419125204f2282f6e77c85d31729e60">GetMainModulePathWMI</a> (this Process process)</td></tr>
+<tr class="memdesc:a0419125204f2282f6e77c85d31729e60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the full path to the specified Process, <em>process</em> .  <a href="class_volume_control_1_1_type_extensions_1_1_process_extensions.html#a0419125204f2282f6e77c85d31729e60">More...</a><br /></td></tr>
+<tr class="separator:a0419125204f2282f6e77c85d31729e60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Extension methods for the Process class. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="af6cd71cd59de41d928c0e89853f78688"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6cd71cd59de41d928c0e89853f78688">&#9670;&nbsp;</a></span>GetMainModulePath()</h2>
+<a id="ad697984c509220638642fb05f66dd63d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad697984c509220638642fb05f66dd63d">&#9670;&nbsp;</a></span>GetMainModulePath()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -131,7 +130,7 @@ Static Public Member Functions</h2></td></tr>
           <td class="memname">static ? string VolumeControl.TypeExtensions.ProcessExtensions.GetMainModulePath </td>
           <td>(</td>
           <td class="paramtype">this Process&#160;</td>
-          <td class="paramname"><em>p</em></td><td>)</td>
+          <td class="paramname"><em>process</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -142,19 +141,20 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Gets the full path to the specified Process, <em>p</em> . </p>
+<p>Gets the full path to the specified Process, <em>process</em> . </p>
+<p>Using this instead of accessing Process.MainModule directly prevents exceptions when accessing a process built for a different architecture (32/64 bit) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">p</td><td>Process</td></tr>
+    <tr><td class="paramname">process</td><td>Process</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The filepath of <em>p</em>  if successful; otherwise <code>null</code>.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The filepath of <em>process</em>  if successful; otherwise <code>null</code>.</dd></dl>
 
 </div>
 </div>
-<a id="aa9833423a228a547a0bec594f671dfb8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9833423a228a547a0bec594f671dfb8">&#9670;&nbsp;</a></span>GetMainModulePathWMI()</h2>
+<a id="a0419125204f2282f6e77c85d31729e60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0419125204f2282f6e77c85d31729e60">&#9670;&nbsp;</a></span>GetMainModulePathWMI()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -166,7 +166,7 @@ Static Public Member Functions</h2></td></tr>
           <td class="memname">static ? string VolumeControl.TypeExtensions.ProcessExtensions.GetMainModulePathWMI </td>
           <td>(</td>
           <td class="paramtype">this Process&#160;</td>
-          <td class="paramname"><em>p</em></td><td>)</td>
+          <td class="paramname"><em>process</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -177,15 +177,15 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Gets the full path to the specified Process, <em>p</em> .<br  />
- <b>Note that this method uses WMI to make an SQL query, and as such, is very slow!</b> </p>
+<p>Gets the full path to the specified Process, <em>process</em> . </p>
+<p>This method uses WMI to make an SQL query, and as such, is very slow! Use GetMainModulePath(Process) instead wherever possible. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">p</td><td>Process</td></tr>
+    <tr><td class="paramname">process</td><td>Process</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The filepath of <em>p</em>  if successful; otherwise <code>null</code>.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The filepath of <em>process</em>  if successful; otherwise <code>null</code>.</dd></dl>
 
 </div>
 </div>

@@ -1,0 +1,7 @@
+<map id="VolumeControl.WPF.IconExtractor.ExtractFromPath" name="VolumeControl.WPF.IconExtractor.ExtractFromPath">
+<area shape="rect" id="node1" title="Gets an ImageSource from the specified iconPath ." alt="" coords="5,104,248,145"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_icon_extractor.html#ab4461a26a9a48953388762f80f1d8549" title="Gets an ImageSource for the specified directory." alt="" coords="296,5,539,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_w_p_f_1_1_icon_extractor.html#ab73ef1f9865f6b6af8089e323a241fa3" title="Gets an ImageSource from an icon in the specified dynamic&#45;link library file (.dll)." alt="" coords="296,71,539,112"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_w_p_f_1_1_icon_extractor.html#a94b8170e8716109a23d06abdb7f89900" title="Gets an ImageSource for the icon of a regular file, including executable files (.exe)." alt="" coords="296,136,539,177"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_w_p_f_1_1_icon_extractor.html#a6e2dd06ef8fba196e0d4c3a0feb58c3e" title="Gets an ImageSource from an icon file (.ico)." alt="" coords="296,201,539,243"/>
+</map>
