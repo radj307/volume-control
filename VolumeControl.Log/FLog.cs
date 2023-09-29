@@ -78,8 +78,8 @@ namespace VolumeControl.Log
             }
 
 #           if DEBUG
-            EventFilter = EventType.ALL;            //< show all log messages
-            endpoint.Enabled = true;                //< force enable logging
+            EventFilter = EventType.ALL | EventType.TRACE;  //< show all log messages
+            endpoint.Enabled = true;                        //< force enable logging
 #           endif
 
             CreateLog(endpoint);
