@@ -116,7 +116,7 @@ namespace VolumeControl.Helpers
         /// <param name="wnd">(Implicit) A <see cref="Window"/> instance.</param>
         /// <returns>The <see cref="System.Windows.Forms.Screen"/> instance that the window's centerpoint is found on.</returns>
         public static System.Windows.Forms.Screen GetCurrentScreen(this Window wnd)
-            => GetScreenFromPoint(wnd.GetPosAtCenterPoint());
+            => GetClosestScreenFromPoint(wnd.GetPosAtCenterPoint());
         #endregion GetCurrentScreen
 
         #region GetCurrentScreenCenterPoint
@@ -139,15 +139,15 @@ namespace VolumeControl.Helpers
             => GetClosestScreenCornerFromPoint(wnd.GetPosAtCenterPoint());
         #endregion GetCurrentScreenCorner
 
-        #region GetScreenFromPoint
+        #region GetClosestScreenFromPoint
         /// <summary>
-        /// Gets the screen that contains the specified point.
+        /// Gets the screen that contains the specified <paramref name="point"/>.
         /// </summary>
         /// <param name="point">A <see cref="Point"/> specifying the x/y coordinate of a point on the desktop.</param>
-        /// <returns>The <see cref="System.Windows.Forms.Screen"/> instance that contains the specified <paramref name="point"/>.</returns>
-        public static System.Windows.Forms.Screen GetScreenFromPoint(Point point)
+        /// <returns>The <see cref="System.Windows.Forms.Screen"/> instance that contains the specified <paramref name="point"/>, or the closest screen to the <paramref name="point"/> if none of the screens actually contain it.</returns>
+        public static System.Windows.Forms.Screen GetClosestScreenFromPoint(Point point)
             => System.Windows.Forms.Screen.FromPoint(new((int)point.X, (int)point.Y));
-        #endregion GetScreenFromPoint
+        #endregion GetClosestScreenFromPoint
 
         #region GetScreenCenterPoint
         /// <summary>
@@ -192,7 +192,18 @@ namespace VolumeControl.Helpers
         /// This calls <see cref="GetClosestScreenCornerFromPoint(System.Windows.Forms.Screen, Point)"/> internally by automatically determining the screen to use based on the given <paramref name="pos"/>.
         /// </remarks>
         public static Core.Helpers.ScreenCorner GetClosestScreenCornerFromPoint(Point pos)
-            => GetClosestScreenCornerFromPoint(GetScreenFromPoint(pos), pos);
+            => GetClosestScreenCornerFromPoint(GetClosestScreenFromPoint(pos), pos);
         #endregion GetClosestScreenCornerFromPoint
+
+        #region ContainsPoint
+        /// <summary>
+        /// Gets whether the <paramref name="screen"/> boundaries contain the specified <paramref name="point"/> or not.
+        /// </summary>
+        /// <param name="screen">The <see cref="System.Windows.Forms.Screen"/> instance to use.</param>
+        /// <param name="point">An x/y coordinate specifying a point on the <paramref name="screen"/>.</param>
+        /// <returns><see langword="true"/> when the <paramref name="screen"/> contains the <paramref name="point"/>; otherwise <see langword="false"/>.</returns>
+        public static bool ContainsPoint(this System.Windows.Forms.Screen screen, Point point)
+            => screen.Bounds.Contains(point.ToFormsPoint());
+        #endregion ContainsPoint
     }
 }
