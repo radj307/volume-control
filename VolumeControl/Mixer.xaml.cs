@@ -32,6 +32,8 @@ namespace VolumeControl
         #region Setup
         public Mixer()
         {
+            this.AllowsTransparency = Settings.AllowTransparency; //< this has to happen prior to initialization
+
             this.InitializeComponent();
 
             this.ShowInTaskbar = Settings.ShowInTaskbar;

@@ -23,7 +23,6 @@
     xmlns:wpfBehaviors="clr-namespace:VolumeControl.WPF.Behaviors;assembly=VolumeControl.WPF"
     x:Name="window"
     Title="Volume Control"
-    AllowsTransparency="True"
     DataContext="{RelativeSource Self}"
     FontFamily="{StaticResource InterFont}"
     FontSize="{StaticResource GlobalFontSize}"
