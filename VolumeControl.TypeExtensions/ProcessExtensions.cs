@@ -90,13 +90,18 @@ namespace VolumeControl.TypeExtensions
         private static extern uint GetModuleFileNameEx(IntPtr hProcess, IntPtr hModule, [Out] StringBuilder lpBaseName, [In][MarshalAs(UnmanagedType.U4)] int nSize);
 
         /// <summary>
-        /// Gets the full path to the specified <see cref="Process"/>, <paramref name="p"/>.
+        /// Gets the full path to the specified <see cref="Process"/>, <paramref name="process"/>.
         /// </summary>
-        /// <param name="p"><see cref="Process"/></param>
-        /// <returns>The filepath of <paramref name="p"/> if successful; otherwise <see langword="null"/>.</returns>
-        public static string? GetMainModulePath(this Process p)
+        /// <remarks>
+        /// Using this instead of accessing <see cref="Process.MainModule"/> directly prevents exceptions when accessing a process built for a different architecture (32/64 bit)
+        /// </remarks>
+        /// <param name="process"><see cref="Process"/></param>
+        /// <returns>The filepath of <paramref name="process"/> if successful; otherwise <see langword="null"/>.</returns>
+        public static string? GetMainModulePath(this Process process)
         {
-            IntPtr hProc = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, 0, p.Id);
+            if (process == null) return null;
+
+            IntPtr hProc = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, 0, process.Id);
 
             if (hProc == IntPtr.Zero)
                 return null;
@@ -114,14 +119,16 @@ namespace VolumeControl.TypeExtensions
         }
 
         /// <summary>
-        /// Gets the full path to the specified <see cref="Process"/>, <paramref name="p"/>.<br/>
-        /// <b>Note that this method uses WMI to make an SQL query, and as such, is very slow!</b>
+        /// Gets the full path to the specified <see cref="Process"/>, <paramref name="process"/>.
         /// </summary>
-        /// <param name="p"><see cref="Process"/></param>
-        /// <returns>The filepath of <paramref name="p"/> if successful; otherwise <see langword="null"/>.</returns>
-        public static string? GetMainModulePathWMI(this Process p)
+        /// <remarks>
+        /// This method uses WMI to make an SQL query, and as such, is very slow! Use <see cref="GetMainModulePath(Process)"/> instead wherever possible.
+        /// </remarks>
+        /// <param name="process"><see cref="Process"/></param>
+        /// <returns>The filepath of <paramref name="process"/> if successful; otherwise <see langword="null"/>.</returns>
+        public static string? GetMainModulePathWMI(this Process process)
         {
-            using var searcher = new ManagementObjectSearcher($"SELECT ProcessId, ExecutablePath FROM Win32_Process WHERE ProcessId = {p.Id}");
+            using var searcher = new ManagementObjectSearcher($"SELECT ProcessId, ExecutablePath FROM Win32_Process WHERE ProcessId = {process.Id}");
             using ManagementObjectCollection? results = searcher.Get();
             return results.Cast<ManagementObject>().FirstOrDefault() is ManagementObject mo ? (string)mo["ExecutablePath"] : null;
         }
