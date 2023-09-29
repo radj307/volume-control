@@ -27,7 +27,7 @@ foreach ($SETTER in $PropertySetters)
     $v = $SETTER -split "=",2
 
     $previousValue = $TARGET_NODE."$($v[0])"
-    if ($previousValue -eq $TARGET_NODE."$($v[0])")
+    if ($v[1] -eq $previousValue)
     {
         "$($v[0]) was already set to $previousValue"
         continue
