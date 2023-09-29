@@ -60,11 +60,16 @@ namespace VolumeControl
 
             _initialized = true;
         }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            _loaded = true;
+        }
         #endregion Setup
 
         #region Fields
         private readonly bool _currentMultiInstanceState;
         private bool _initialized = false;
+        private bool _loaded = false;
         #endregion Fields
 
         #region Properties
@@ -75,6 +80,39 @@ namespace VolumeControl
         private static LogWriter Log => FLog.Log;
         private static Config Settings => (AppConfig.Configuration.Default as Config)!;
         #endregion Properties
+
+        #region Window Method Overrides
+        protected override void OnRenderSizeChanged(SizeChangedInfo e)
+        {
+            base.OnRenderSizeChanged(e);
+
+            // if the window hasn't loaded, or if relative positioning is disabled, don't do anything else.
+            if (!_loaded || !Settings.KeepRelativePosition) return;
+
+            // update the position of the window for the new size of the window
+            switch (this.GetCurrentScreenCorner())
+            {
+            case Core.Helpers.ScreenCorner.TopLeft:
+                break;
+            case Core.Helpers.ScreenCorner.TopRight:
+                if (!e.WidthChanged) return;
+
+                this.Left += e.PreviousSize.Width - e.NewSize.Width;
+                break;
+            case Core.Helpers.ScreenCorner.BottomLeft:
+                if (!e.HeightChanged) return;
+
+                this.Top += e.PreviousSize.Height - e.NewSize.Height;
+                break;
+            case Core.Helpers.ScreenCorner.BottomRight:
+                this.Left += e.PreviousSize.Width - e.NewSize.Width;
+                this.Top += e.PreviousSize.Height - e.NewSize.Height;
+                break;
+            default:
+                throw new InvalidEnumArgumentException(nameof(Settings.SessionListNotificationConfig.PositionOriginCorner), (byte)Settings.SessionListNotificationConfig.PositionOriginCorner, typeof(Core.Helpers.ScreenCorner));
+            }
+        }
+        #endregion Window Method Overrides
 
         #region EventHandlers
         /// <summary>Handles the Select process button's click event.</summary>

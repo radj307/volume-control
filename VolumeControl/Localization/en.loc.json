@@ -376,6 +376,14 @@
             "Tooltip": {
               "English (US/CA)": "When enabled, the program will attempt to display the icon associated with audio devices and sessions. ( Some icons may be missing when running as user. )"
             }
+          },
+          "KeepRelativePosition": {
+            "Content": {
+              "English (US/CA)": "Keep Relative Position"
+            },
+            "Tooltip": {
+              "English (US/CA)": "Keeps the main window in the same position relative to the nearest screen corner when its size changes."
+            }
           }
         },
         "Updates": {

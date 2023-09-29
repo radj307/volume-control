@@ -140,6 +140,11 @@ namespace VolumeControl.Helpers
             get => Settings.AllowMultipleDistinctInstances;
             set => Settings.AllowMultipleDistinctInstances = value;
         }
+        public bool KeepRelativePosition
+        {
+            get => Settings.KeepRelativePosition;
+            set => Settings.KeepRelativePosition = value;
+        }
         public int VolumeStepSize
         {
             get => Settings.VolumeStepSize;

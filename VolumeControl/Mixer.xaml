@@ -28,6 +28,7 @@
     FontSize="{StaticResource GlobalFontSize}"
     Icon="/Resources/icons/iconSilvered.ico"
     Initialized="Window_Initialized"
+    Loaded="Window_Loaded"
     ResizeMode="CanMinimize"
     SizeToContent="WidthAndHeight"
     UseLayoutRounding="True"
@@ -1907,6 +1908,7 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition />
                                             <RowDefinition />
+                                            <RowDefinition />
                                         </Grid.RowDefinitions>
                                         <!--  Row 0-1 ; Column 0  -->
                                         <CheckBox
@@ -1926,6 +1928,14 @@
                                             Style="{StaticResource ApplicationSettingsCheckboxStyle}"
                                             ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.StartMinimized.Tooltip',
                                                          DefaultText='When enabled, Volume Control will minimize itself when it starts up.'}" />
+                                        <CheckBox
+                                            Grid.Row="2"
+                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Application.KeepRelativePosition.Content',
+                                                         DefaultText='Keep Relative Position'}"
+                                            IsChecked="{Binding KeepRelativePosition, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                                            Style="{StaticResource ApplicationSettingsCheckboxStyle}"
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.KeepRelativePosition.Tooltip',
+                                                         DefaultText='Keeps the main window in the same position relative to the nearest screen corner when its size changes.'}" />
 
                                         <!--  Row 0-1 ; Column 1  -->
                                         <CheckBox

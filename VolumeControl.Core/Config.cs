@@ -157,6 +157,11 @@ namespace VolumeControl.Core
         /// </summary>
         /// <remarks><b>Default: <see langword="true"/></b></remarks>
         public bool AllowTransparency { get; set; } = true;
+        /// <summary>
+        /// Gets or sets whether the main window keeps its position relative to the nearest screen corner when its size changes.
+        /// </summary>
+        /// <returns><see langword="true"/> when the main window </returns>
+        public bool KeepRelativePosition { get; set; } = false;
         #endregion Main
 
         #region Notifications
