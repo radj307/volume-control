@@ -3,6 +3,7 @@ using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Management;
 using VolumeControl.Core;
 using VolumeControl.Helpers.Win32;
 using VolumeControl.Log;
@@ -36,12 +37,13 @@ namespace VolumeControl.Helpers
 #       endif
 
 #       if DEBUG // Debug configuration:
-            Log.Debug($"Volume Control version {this.CurrentVersion} (DEBUG)");
+            Log.Info($"Volume Control version {this.CurrentVersion} (DEBUG)");
 #       elif RELEASE // Release configuration:
-            Log.Debug($"Volume Control version {this.CurrentVersion} (Portable)");
+            Log.Info($"Volume Control version {this.CurrentVersion} (Portable)");
 #       elif RELEASE_FORINSTALLER // Release-ForInstaller configuration:
-            Log.Debug($"Volume Control version {this.CurrentVersion} (Installed)");
+            Log.Info($"Volume Control version {this.CurrentVersion} (Installed)");
 #       endif
+            Log.Info(GetWindowsVersion());
 
             Log.Debug($"{nameof(VCSettings)} initialization completed.");
         }
@@ -219,6 +221,19 @@ namespace VolumeControl.Helpers
         private static string GetExecutablePath() => Process.GetCurrentProcess().MainModule?.FileName is string path
                 ? path
                 : throw new Exception($"{nameof(VCSettings)} Error:  Retrieving the current executable path failed!");
+        private static string GetWindowsVersion()
+        {
+            using ManagementObjectSearcher searcher = new("SELECT Caption,OSArchitecture FROM Win32_OperatingSystem");
+            var info = searcher.Get();
+            if (info == null) return string.Empty;
+
+            string version = string.Empty;
+            foreach (var obj in info)
+            {
+                version = $"{obj["Caption"]} ({obj["OSArchitecture"]})";
+            }
+            return version;
+        }
         #endregion Methods
     }
 }
