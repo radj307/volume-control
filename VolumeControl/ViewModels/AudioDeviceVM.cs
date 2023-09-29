@@ -18,8 +18,7 @@ namespace VolumeControl.ViewModels
         {
             AudioDevice = audioDevice;
 
-            IconPair = GetIconPair();
-
+            Icon = IconExtractor.TryExtractFromPath(AudioDevice.IconPath, out ImageSource icon) ? icon : null;
             Sessions = new();
 
             // attach events to add and remove audio sessions from the Sessions list
@@ -48,33 +47,20 @@ namespace VolumeControl.ViewModels
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
 
         public AudioDevice AudioDevice { get; }
-        private IconPair IconPair
+        public ImageSource? Icon
         {
-            get => _iconPair;
+            get => _icon;
             set
             {
-                _iconPair = value;
+                _icon = value;
                 NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(Icon));
             }
         }
-        private IconPair _iconPair = null!;
-        public ImageSource? Icon => IconPair.GetBestFitIcon(preferLarge: false);
+        private ImageSource? _icon = null;
         public string Name => AudioDevice.Name;
         public string DeviceFriendlyName => AudioDevice.FullName;
         public ObservableImmutableList<AudioSessionVM> Sessions { get; }
 
-        private IconPair GetIconPair()
-        {
-            try
-            {
-                return IconGetter.GetIcons(AudioDevice.IconPath);
-            }
-            catch (Exception)
-            {
-                return new();
-            }
-        }
         public void Dispose()
         {
             this.AudioDevice.Dispose();

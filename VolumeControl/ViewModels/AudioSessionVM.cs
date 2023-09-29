@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using VolumeControl.CoreAudio;
@@ -20,26 +19,24 @@ namespace VolumeControl.ViewModels
         {
             AudioSession = audioSession;
 
-            IconPair = GetIconPair();
+            Icon = GetIcon();
 
-            AudioSession.IconPathChanged += (s, e) => IconPair = GetIconPair();
+            AudioSession.IconPathChanged += (s, e) => Icon = GetIcon();
         }
         #endregion Constructor
 
         #region Properties
         public AudioSession AudioSession { get; }
-        private IconPair IconPair
+        public ImageSource? Icon
         {
-            get => _iconPair;
+            get => _icon;
             set
             {
-                _iconPair = value;
+                _icon = value;
                 NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(Icon));
             }
         }
-        private IconPair _iconPair = null!;
-        public ImageSource? Icon => IconPair.GetBestFitIcon(preferLarge: false);
+        private ImageSource? _icon;
         public uint PID => AudioSession.PID;
         public string ProcessName => AudioSession.ProcessName;
         public string ProcessIdentifier => AudioSession.ProcessIdentifier;
@@ -52,27 +49,37 @@ namespace VolumeControl.ViewModels
         #endregion Events
 
         #region Methods
-        private IconPair GetIconPair()
+        private ImageSource? GetIcon()
         {
-            IconPair icons = null!;
-            var iconPath = AudioSession.AudioSessionControl.IconPath;
-            if (iconPath.Length > 0)
-            {
-                icons = IconGetter.GetIcons(iconPath);
-                if (!icons.IsNull)
-                    return icons;
+            if (PID == 0)
+            { // if this is the system idle process (System Sounds), use the icon from the application's resources instead of trying (and failing) to get the icon from the DLL
+                return System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(Properties.Resources.idle.Handle, System.Windows.Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
             }
-            using Process? proc = AudioSession.GetProcess();
+
+            // try getting the icon from WASAPI
+            var iconPath = AudioSession.AudioSessionControl.IconPath;
+            if (iconPath.Length > 0 && IconExtractor.TryExtractFromPath(iconPath, out ImageSource wasapiImageSource))
+            {
+                return wasapiImageSource;
+            }
+
+            // try getting the icon from the process
+            using var proc = AudioSession.GetProcess();
+
+            if (proc == null) return null;
             try
             {
-                if (proc?.GetMainModulePath() is string path)
-                    return IconGetter.GetIcons(path);
+                if (proc.GetMainModulePath() is string path && IconExtractor.TryExtractFromPath(path, out ImageSource processImageSource))
+                {
+                    return processImageSource;
+                }
             }
             catch (Exception ex)
             {
-                FLog.Log.Error($"Failed to query information for process {proc?.Id}", ex);
+                FLog.Log.Error($"Failed to get an icon for session '{Name}' because of an exception:", ex);
             }
-            return icons;
+
+            return null;
         }
 
         public void Dispose()
