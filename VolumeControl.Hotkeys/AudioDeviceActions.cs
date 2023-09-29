@@ -1,5 +1,4 @@
-﻿using CoreAudio;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using VolumeControl.Core;
 using VolumeControl.Core.Attributes;
 using VolumeControl.CoreAudio;
@@ -48,7 +47,7 @@ namespace VolumeControl.Hotkeys
             SelectedDevice.DecreaseVolume(VCAPI.Settings.VolumeStepSize);
 
             if (!Settings.DeviceListNotificationConfig.ShowOnVolumeChanged) return;
-            
+
             VCAPI.ShowDeviceListNotification();
         }
         [HotkeyAction(Description = "Mutes the selected device.")]

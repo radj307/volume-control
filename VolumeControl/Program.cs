@@ -46,7 +46,6 @@ namespace VolumeControl
             Settings.Load();
 #endif
 
-
             // Get program information:
             string path = GetProgramLocation();
             SemVersion version = GetProgramVersion();

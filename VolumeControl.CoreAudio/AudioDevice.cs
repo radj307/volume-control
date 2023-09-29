@@ -114,7 +114,7 @@ namespace VolumeControl.CoreAudio
         /// </summary>
         public string IconPath => MMDevice.IconPath;
 
-        #region Properties (IVolumeControl)
+        #region Properties (IAudioControl)
         /// <inheritdoc/>
         public float NativeVolume
         {
@@ -158,12 +158,12 @@ namespace VolumeControl.CoreAudio
                 NotifyPropertyChanged();
             }
         }
-        #endregion Properties (IVolumeControl)
-        #region Properties (IVolumePeakMeter)
+        #endregion Properties (IAudioControl)
+        #region Properties (IAudioPeakMeter)
         /// <inheritdoc/>
         public float PeakMeterValue
             => AudioMeterInformation.MasterPeakValue;
-        #endregion Properties (IVolumePeakMeter)
+        #endregion Properties (IAudioPeakMeter)
         #endregion Properties
 
         #region EventHandlers

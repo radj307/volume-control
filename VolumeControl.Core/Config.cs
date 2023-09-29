@@ -73,7 +73,7 @@ namespace VolumeControl.Core
         private void PropertyWithPropertyChangedEvents_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (!_autoSaveEnabled) return;
-            
+
             this.Save();
         }
         private void PropertyWithCollectionChangedEvents_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)

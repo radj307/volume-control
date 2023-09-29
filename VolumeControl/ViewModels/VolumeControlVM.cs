@@ -185,11 +185,6 @@ namespace VolumeControl.ViewModels
         #endregion Properties
 
         #region Methods
-        public static string GetExecutablePath()
-        {
-            AppDomain? appDomain = AppDomain.CurrentDomain;
-            return Path.Combine(appDomain.RelativeSearchPath ?? appDomain.BaseDirectory, Path.ChangeExtension(appDomain.FriendlyName, ".exe"));
-        }
         /// <summary>Displays a message box prompting the user for confirmation, and if confirmation is given, resets all hotkeys to their default settings using <see cref="HotkeyManager.ResetHotkeys"/>.</summary>
         public void ResetHotkeySettings()
         {
