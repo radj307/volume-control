@@ -1,6 +1,5 @@
 ﻿using Semver;
 using System;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Management;
@@ -12,7 +11,7 @@ using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Helpers
 {
-    public abstract class VCSettings : INotifyPropertyChanged, INotifyCollectionChanged
+    public abstract class VCSettings : INotifyPropertyChanged
     {
         #region Constructors
         public VCSettings()
@@ -20,14 +19,16 @@ namespace VolumeControl.Helpers
             Log.Debug($"{nameof(VCSettings)} initializing...");
 
             // Initialize the HWndHook
-            this.HWndHook = new(WindowHandleGetter.GetHwndSource(this.MainWindowHandle = WindowHandleGetter.GetWindowHandle()));
+            this.MainWindowHandle = WindowHandleGetter.GetWindowHandle();
+            this.HWndHook = new(WindowHandleGetter.GetHwndSource(this.MainWindowHandle));
             this.HWndHook.AddMaximizeBugFixHandler();
 
             // Get the executable path
             this.ExecutablePath = GetExecutablePath();
-            Log.Debug($"{nameof(VCSettings)}.{nameof(this.ExecutablePath)} = '{this.ExecutablePath}'");
+            Log.Debug($"Executable location: '{this.ExecutablePath}'",
+                      $"Working directory:   '{Environment.CurrentDirectory}'");
 
-            // Get the current version number
+            // Get the current version number (version config property has already been updated)
             this.CurrentVersion = Settings.__VERSION__;
 
 #       if DEBUG // Show 'DEBUG' in the version string when in Debug configuration
@@ -213,7 +214,6 @@ namespace VolumeControl.Helpers
         #region Events
         /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
-        public abstract event NotifyCollectionChangedEventHandler? CollectionChanged;
         protected void ForceNotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new(propertyName));
         #endregion Events
 

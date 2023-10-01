@@ -29,7 +29,6 @@ namespace VolumeControl.ViewModels
             if (Settings.CheckForUpdates) Updater.CheckForUpdateNow();
 
             this.AudioAPI = new();
-            string? i = Loc.Instance.AvailableLanguages[0];
 
             // Hotkey Action Addons:
             HotkeyActionManager actionManager = new();
@@ -40,10 +39,10 @@ namespace VolumeControl.ViewModels
             // Initialize the addon API
             var api = Initializer.Initialize(this.AudioAPI.AudioDeviceManager, this.AudioAPI.AudioDeviceSelector, this.AudioAPI.AudioSessionManager, this.AudioAPI.AudioSessionSelector, this.HotkeyAPI, this.MainWindowHandle, (AppConfig.Configuration.Default as Config)!);
 
-            VCHotkeyAddon vcHkAddon = new();
+            VCHotkeyAddon hotkeyAddonLoader = new();
 
-            // Load default types ; types (action groups) are loaded in order of appearance.
-            vcHkAddon.LoadTypes(
+            // Load default action groups
+            hotkeyAddonLoader.LoadTypes(
                 typeof(AudioDeviceActions),
                 typeof(AudioSessionActions),
                 typeof(ActiveApplicationActions),
@@ -61,7 +60,7 @@ namespace VolumeControl.ViewModels
                         RecurseSubdirectories = false,
                     }))
                     {
-                        vcHkAddon.LoadAssemblyFrom(dll);
+                        hotkeyAddonLoader.LoadAssemblyFrom(dll);
                     }
                 }
             });
@@ -87,24 +86,6 @@ namespace VolumeControl.ViewModels
             AudioAPI.AudioSessionManager.SessionAddedToList += this.AudioSessionManager_SessionAddedOrRemoved;
             AudioAPI.AudioSessionManager.SessionRemovedFromList += this.AudioSessionManager_SessionAddedOrRemoved;
         }
-
-        #region Events
-        public override event NotifyCollectionChangedEventHandler? CollectionChanged
-        {
-            add
-            {
-                this.HotkeyAPI.CollectionChanged += value;
-                this.CustomAddonDirectories.CollectionChanged += value;
-                this.CustomLocalizationDirectories.CollectionChanged += value;
-            }
-            remove
-            {
-                this.HotkeyAPI.CollectionChanged -= value;
-                this.CustomAddonDirectories.CollectionChanged += value;
-                this.CustomLocalizationDirectories.CollectionChanged += value;
-            }
-        }
-        #endregion Events
 
         #region Fields
         #region PrivateFields
