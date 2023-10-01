@@ -11,11 +11,7 @@ defaults:
   run:
     shell:  |
             pwsh -noninteractive -command "try {{ $ErrorActionPreference='Stop'; . '{0}' }} catch {{ Write-Error ""FAILED: $_""; throw; }} if ((Test-Path -LiteralPath variable:\LASTEXITCODE)) {{ exit $LASTEXITCODE }}"
-
-# Configuration Type
-env:
-  BUILD_TYPE: 'Release'
-
+            
 jobs:
   build-release: # Only run on successful version update action
     runs-on:  windows-latest
@@ -38,7 +34,7 @@ jobs:
         run:    mkdir "STAGING"
 
       - name:   Build VolumeControl Binary
-        run:    dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
+        run:    dotnet publish VolumeControl -c Release /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
         
       - name:   Stage Binary
         run:    foreach($file in $((dir "publish" | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
@@ -50,7 +46,7 @@ jobs:
                 git clone https://github.com/DomGries/InnoDependencyInstaller
 
       - name:   Build VolumeControl Binary for Installer
-        run:    dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/PublishForInstaller.pubxml"
+        run:    dotnet publish VolumeControl -c Release-ForInstaller /p:PublishProfile="VolumeControl/Properties/PublishProfiles/PublishForInstaller.pubxml"
 
       - name:   Build VolumeControl Installer
         uses:   Minionguyjpro/Inno-Setup-Action@v1.1.0
