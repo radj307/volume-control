@@ -57,6 +57,9 @@ Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; Tasks: deskto
 [Run]
 Filename: "{app}\{#AppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(AppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
+[UninstallDelete]
+Type: dirifempty; Name: "{app}"
+
 [Code]
 function GetUninstallString(): String;
 var
