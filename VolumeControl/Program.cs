@@ -35,6 +35,14 @@ namespace VolumeControl
         [STAThread]
         public static void Main(string[] args)
         {
+            // make sure the application's working directory isn't System32 (this occurs when run at startup is enabled and the program was started via its registry key)
+            bool changedWorkingDirectory = false;
+            if (Environment.CurrentDirectory.Equals(Environment.SystemDirectory, StringComparison.OrdinalIgnoreCase))
+            { // working directory is System32, change that to the executable directory to prevent problems
+                Environment.CurrentDirectory = Path.GetDirectoryName(GetExecutablePath()) ?? AppDomain.CurrentDomain.RelativeSearchPath ?? AppDomain.CurrentDomain.BaseDirectory; ;
+                changedWorkingDirectory = true;
+            }
+
 #if RELEASE_FORINSTALLER // use the application's AppData directory for the config file
             Settings = new(Path.Combine(PathFinder.ApplicationAppDataPath, "VolumeControl.json"))
             {
@@ -47,7 +55,6 @@ namespace VolumeControl
 #endif
 
             // Get program information:
-            string path = GetProgramLocation();
             SemVersion version = GetProgramVersion();
             int versionCompare = version.CompareSortOrderTo(Settings.__VERSION__);
             bool doUpdate = !versionCompare.Equals(0);
@@ -82,6 +89,19 @@ namespace VolumeControl
                     Log.Fatal($"Failed to acquire a mutex lock using identifier '{mutexId}'; ", Settings.AllowMultipleDistinctInstances ? $"another instance of Volume Control is using the config located at '{Settings.Location}'" : "another instance of Volume Control is already running!");
                     MessageBox.Show(Loc.Tr($"VolumeControl.Dialogs.AnotherInstanceIsRunning.{(Settings.AllowMultipleDistinctInstances ? "MultiInstance" : "SingleInstance")}", "Another instance of Volume Control is already running!").Replace("${PATH}", Settings.Location));
                     return;
+                }
+            }
+
+            if (changedWorkingDirectory)
+            { // write a log message about changing the working directory
+                if (Settings.RunAtStartup)
+                {
+                    Log.Info($"Changed application working directory to '{Environment.CurrentDirectory}' (Was '{Environment.SystemDirectory}').");
+                }
+                else
+                { // warn the user
+                    Log.Warning($"Changed application working directory to '{Environment.CurrentDirectory}' (Was '{Environment.SystemDirectory}').",
+                        "Run at Startup is disabled. The application's working directory should never be set to the system directory under any other circumstances!");
                 }
             }
 
@@ -152,19 +172,15 @@ namespace VolumeControl
 
             return md5.Hash is not null ? BitConverter.ToString(md5.Hash) : path;
         }
-        private static string GetProgramLocation()
-        {
-            // Get the app domain & program location:  
-            AppDomain? appDomain = AppDomain.CurrentDomain;
-            return appDomain.RelativeSearchPath ?? appDomain.BaseDirectory;
-        }
         private static SemVersion GetProgramVersion()
         {
             var asm = Assembly.GetExecutingAssembly();
             string myVersion = asm.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? string.Empty;
             return myVersion.GetSemVer() ?? new(0);
         }
-
+        private static string GetExecutablePath() => System.Diagnostics.Process.GetCurrentProcess().MainModule?.FileName is string path
+                ? path
+                : throw new Exception("Failed to get the location of the current process' executable!");
         /// <summary>
         /// Writes <paramref name="content"/> to an automatically-generated crash dump file.
         /// </summary>
