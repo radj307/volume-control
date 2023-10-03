@@ -29,95 +29,115 @@ namespace VolumeControl.Hotkeys
         [HotkeyActionSetting(ActionTargetSpecifierName, typeof(ActionTargetSpecifier), ActionTargetSpecifierDescription)]
         public void VolumeUp(object? sender, HotkeyActionPressedEventArgs e)
         {
+            bool forceShowNotification = false;
             if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
             {
                 for (int i = 0; i < specifier.Targets.Count; ++i)
                 {
                     if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i].Value) is AudioSession session)
+                    {
                         session.IncreaseVolume(VCAPI.Settings.VolumeStepSize);
+                        forceShowNotification = true;
+                    }
                 }
             }
             else SelectedSession?.IncreaseVolume(VCAPI.Settings.VolumeStepSize);
 
             if (!VCAPI.Settings.SessionListNotificationConfig.ShowOnVolumeChanged) return; //< don't show notifs if they're disabled on volume change
 
-            if (VCAPI.AudioSessionSelector.Selected is not null)
+            if (forceShowNotification || VCAPI.AudioSessionSelector.Selected is not null)
                 VCAPI.ShowSessionListNotification();
         }
         [HotkeyAction(Description = "Decreases the volume of the selected session by the value of VolumeStep.")]
         [HotkeyActionSetting(ActionTargetSpecifierName, typeof(ActionTargetSpecifier), ActionTargetSpecifierDescription)]
         public void VolumeDown(object? sender, HotkeyActionPressedEventArgs e)
         {
+            bool forceShowNotification = false;
             if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
             {
                 for (int i = 0; i < specifier.Targets.Count; ++i)
                 {
                     if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i].Value) is AudioSession session)
+                    {
                         session.DecreaseVolume(VCAPI.Settings.VolumeStepSize);
+                        forceShowNotification = true;
+                    }
                 }
             }
             else SelectedSession?.DecreaseVolume(VCAPI.Settings.VolumeStepSize);
 
             if (!VCAPI.Settings.SessionListNotificationConfig.ShowOnVolumeChanged) return; //< don't show notifs if they're disabled on volume change
 
-            if (VCAPI.AudioSessionSelector.Selected is not null)
+            if (forceShowNotification || VCAPI.AudioSessionSelector.Selected is not null)
                 VCAPI.ShowSessionListNotification();
         }
         [HotkeyAction(Description = "Mutes the selected session.")]
         [HotkeyActionSetting(ActionTargetSpecifierName, typeof(ActionTargetSpecifier), ActionTargetSpecifierDescription)]
         public void Mute(object? sender, HotkeyActionPressedEventArgs e)
         {
+            bool forceShowNotification = false;
             if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
             {
                 for (int i = 0; i < specifier.Targets.Count; ++i)
                 {
                     if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i].Value) is AudioSession session)
+                    {
                         session.SetMute(true);
+                        forceShowNotification = true;
+                    }
                 }
             }
             else SelectedSession?.SetMute(true);
 
             if (!VCAPI.Settings.SessionListNotificationConfig.ShowOnVolumeChanged) return; //< don't show notifs if they're disabled on volume change
 
-            if (VCAPI.AudioSessionSelector.Selected is not null)
+            if (forceShowNotification || VCAPI.AudioSessionSelector.Selected is not null)
                 VCAPI.ShowSessionListNotification();
         }
         [HotkeyAction(Description = "Unmutes the selected session.")]
         [HotkeyActionSetting(ActionTargetSpecifierName, typeof(ActionTargetSpecifier), ActionTargetSpecifierDescription)]
         public void Unmute(object? sender, HotkeyActionPressedEventArgs e)
         {
+            bool forceShowNotification = false;
             if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
             {
                 for (int i = 0; i < specifier.Targets.Count; ++i)
                 {
                     if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i].Value) is AudioSession session)
+                    {
                         session.SetMute(false);
+                        forceShowNotification = true;
+                    }
                 }
             }
             else SelectedSession?.SetMute(false);
 
             if (!VCAPI.Settings.SessionListNotificationConfig.ShowOnVolumeChanged) return; //< don't show notifs if they're disabled on volume change
 
-            if (VCAPI.AudioSessionSelector.Selected is not null)
+            if (forceShowNotification || VCAPI.AudioSessionSelector.Selected is not null)
                 VCAPI.ShowSessionListNotification();
         }
         [HotkeyAction(Description = "Toggles the selected session's mute state.")]
         [HotkeyActionSetting(ActionTargetSpecifierName, typeof(ActionTargetSpecifier), ActionTargetSpecifierDescription)]
         public void ToggleMute(object? sender, HotkeyActionPressedEventArgs e)
         {
+            bool forceShowNotification = false;
             if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
             {
                 for (int i = 0; i < specifier.Targets.Count; ++i)
                 {
                     if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i].Value) is AudioSession session)
+                    {
                         session.ToggleMute();
+                        forceShowNotification = true;
+                    }
                 }
             }
             else SelectedSession?.ToggleMute();
 
             if (!VCAPI.Settings.SessionListNotificationConfig.ShowOnVolumeChanged) return; //< don't show notifs if they're disabled on volume change
 
-            if (VCAPI.AudioSessionSelector.Selected is not null)
+            if (forceShowNotification || VCAPI.AudioSessionSelector.Selected is not null)
                 VCAPI.ShowSessionListNotification();
         }
         [HotkeyAction(Description = "Selects the next session in the list.")]
