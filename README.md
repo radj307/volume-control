@@ -6,7 +6,7 @@
 ***
 
 <p align="center">
-The ultimate Windows Volume Mixer alternative that supports the keybindings you already use.<br/>
+Application-specific volume control that supports the keybindings you already use.<br/>
 Designed for effortless music volume control <i>(Spotify, Deezer, Chrome, Firefox, etc.)</i> without disrupting gaming or VoIP audio.
 </p>
 
