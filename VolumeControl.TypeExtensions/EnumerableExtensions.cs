@@ -34,25 +34,23 @@ namespace VolumeControl.TypeExtensions
             return l.AsEnumerable();
         }
         /// <summary>Performs the specified <paramref name="action"/> on each <paramref name="enumerable"/> element.</summary>
-        public static void ForEach(this IEnumerable enumerable, Action<object?> action)
-        {
-            foreach (object? item in enumerable)
-                action(item);
-        }
-        /// <summary>Performs the specified <paramref name="action"/> on each <paramref name="enumerable"/> element.</summary>
-        public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action) where T : class
+        public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
         {
             foreach (T? item in enumerable)
             {
                 action(item);
             }
         }
-        /// <summary>Performs the specified <paramref name="action"/> on each <paramref name="enumerable"/> element.</summary>
-        public static void ForEach<T1, T2>(this IEnumerable<(T1, T2)> enumerable, Action<T1, T2> action)
+        /// <summary>
+        /// Performs the specified <paramref name="func"/> on each <paramref name="enumerable"/> element.
+        /// </summary>
+        /// <typeparam name="T">The type of object contained by the <paramref name="enumerable"/>.</typeparam>
+        /// <typeparam name="TReturn">The type that is returned by the specified <paramref name="func"/>. Returned values are ignored.</typeparam>
+        public static void ForEach<T, TReturn>(this IEnumerable<T> enumerable, Func<T, TReturn> func)
         {
-            foreach ((T1 one, T2 two) in enumerable)
+            foreach (T? item in enumerable)
             {
-                action(one, two);
+                func(item);
             }
         }
         /// <summary>Performs the specified <paramref name="action"/> on each <paramref name="enumerable"/> element.</summary>
