@@ -219,7 +219,7 @@ namespace VolumeControl.WPF
         {
             if (string.IsNullOrEmpty(iconPath)) return null;
 
-            var (resolvedIconPath, iconIndex) = ParseIconPath(iconPath);
+            ParseIconPath(iconPath, out string resolvedIconPath, out int iconIndex);
 
             if (iconIndex == -1)
             { // path points to a file that isn't a DLL
@@ -269,17 +269,32 @@ namespace VolumeControl.WPF
 
         #region ParseIconPath
         /// <summary>
-        /// Parses the given icon path into a usable path string with an optional icon index number.
+        /// Parses the specified <paramref name="iconPath"/> by separating the filepath and the icon index.
         /// </summary>
-        /// <param name="iconPath">Specifies the imageUri and index number of the target icon.</param>
-        /// <returns>The resolved path as a string, and the index of the icon if one was specified in the <paramref name="iconPath"/>. If no index was specified, the returned index is -1.</returns>
-        public static (string path, int index) ParseIconPath(string iconPath)
+        /// <remarks>
+        /// This is used by <see cref="ExtractFromPath(string, bool)"/> to parse icon paths that point to a specific icon within a DLL that may contain multiple icons.
+        /// </remarks>
+        /// <param name="iconPath">The path to an icon within a file, or the path to an icon file.</param>
+        /// <param name="filePath">The path to the file that contains the target icon.</param>
+        /// <param name="iconIndex">The index of the target icon when the specified <paramref name="iconPath"/> contains one; otherwise -1.</param>
+        public static void ParseIconPath(string iconPath, out string filePath, out int iconIndex)
         {
-            iconPath = iconPath.Trim('"', ' ', '\r', '\n', '\t');
-            int pos = iconPath.LastIndexOf(',');
-            return pos != -1 && int.TryParse(iconPath[(pos + 1)..], out int iconIndex)
-                ? (iconPath[..pos], iconIndex)
-                : (iconPath, -1);
+            // remove invalid preceding/trailing chars
+            iconPath = iconPath.Trim('"', ' ');
+
+            // find the position of the last comma (delimitor) in the path
+            int separatorPos = iconPath.LastIndexOf(',');
+
+            // check if the separator position is valid and try to parse the index
+            if (separatorPos != -1 && int.TryParse(iconPath[(separatorPos + 1)..], out iconIndex))
+            { // icon index is present and valid
+                filePath = iconPath[..separatorPos];
+            }
+            else
+            { // icon index is invalid/not present
+                filePath = iconPath;
+                iconIndex = -1;
+            }
         }
         #endregion ParseIconPath
 
