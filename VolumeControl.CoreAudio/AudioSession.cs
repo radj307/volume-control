@@ -346,6 +346,20 @@ namespace VolumeControl.CoreAudio
         };
         #endregion GetTargetInfo
 
+        #region HasMatchingName
+        /// <summary>
+        /// Determines whether the specified <paramref name="name"/> is equal to this instance's Name or ProcessName.
+        /// </summary>
+        /// <remarks>
+        /// Compares the specified <paramref name="name"/> to the <see cref="ProcessName"/> property and also the <see cref="Name"/> property when <see cref="HasCustomName"/> is <see langword="true"/>.
+        /// </remarks>
+        /// <param name="name">The Name or ProcessName of an audio session.</param>
+        /// <param name="stringComparison">Specifies how strings will be compared.</param>
+        /// <returns><see langword="true"/> when the specified <paramref name="name"/> matches this session; otherwise <see langword="false"/>.</returns>
+        public bool HasMatchingName(string name, StringComparison stringComparison = StringComparison.Ordinal)
+            => (HasCustomName && Name.Equals(name, stringComparison)) || ProcessName.Equals(name, stringComparison);
+        #endregion HasMatchingName
+
         #endregion Methods
 
         #region AudioSessionControl EventHandlers
