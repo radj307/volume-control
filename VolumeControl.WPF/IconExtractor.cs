@@ -13,6 +13,57 @@ namespace VolumeControl.WPF
     /// </summary>
     public static class IconExtractor
     {
+        #region ExtractFromHandle
+        /// <summary>
+        /// Gets an <see cref="ImageSource"/> from the specified <paramref name="iconHandle"/>.
+        /// </summary>
+        /// <remarks>
+        /// Internally, this just calls <see cref="Imaging.CreateBitmapSourceFromHIcon(IntPtr, Int32Rect, BitmapSizeOptions)"/>.
+        /// </remarks>
+        /// <param name="iconHandle">A pointer to the unmanaged icon source.</param>
+        /// <param name="sourceRect">The size of the source image.</param>
+        /// <param name="sizeOptions">The output size of the <see cref="ImageSource"/>.</param>
+        /// <returns>An <see cref="ImageSource"/> for the specified <paramref name="iconHandle"/> if successful; otherwise <see langword="null"/>.</returns>
+        public static ImageSource ExtractFromHandle(IntPtr iconHandle, Int32Rect sourceRect, BitmapSizeOptions sizeOptions)
+        {
+            return Imaging.CreateBitmapSourceFromHIcon(iconHandle, sourceRect, sizeOptions);
+        }
+        /// <inheritdoc cref="ExtractFromHandle(IntPtr, Int32Rect, BitmapSizeOptions)"/>
+        public static ImageSource ExtractFromHandle(IntPtr iconHandle, Int32Rect sourceRect)
+            => ExtractFromHandle(iconHandle, sourceRect, BitmapSizeOptions.FromEmptyOptions());
+        /// <inheritdoc cref="ExtractFromHandle(IntPtr, Int32Rect, BitmapSizeOptions)"/>
+        public static ImageSource ExtractFromHandle(IntPtr iconHandle)
+            => ExtractFromHandle(iconHandle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+        /// <summary>
+        /// Attempts to get an <see cref="ImageSource"/> from the specified <paramref name="iconHandle"/>.
+        /// </summary>
+        /// <param name="iconHandle">A pointer to the unmanaged icon source.</param>
+        /// <param name="sourceRect">The size of the source image.</param>
+        /// <param name="sizeOptions">The output size of the <see cref="ImageSource"/>.</param>
+        /// <param name="imageSource">An <see cref="ImageSource"/> for the specified <paramref name="iconHandle"/> if successful.</param>
+        /// <returns><see langword="true"/> when no exceptions occurred and <paramref name="imageSource"/> is not <see langword="null"/>; otherwise <see langword="false"/>.</returns>
+        /// <inheritdoc cref="ExtractFromHandle(IntPtr, Int32Rect, BitmapSizeOptions)"/>
+        public static bool TryExtractFromHandle(IntPtr iconHandle, Int32Rect sourceRect, BitmapSizeOptions sizeOptions, out ImageSource imageSource)
+        {
+            try
+            {
+                imageSource = ExtractFromHandle(iconHandle, sourceRect, sizeOptions);
+                return imageSource != null;
+            }
+            catch
+            {
+                imageSource = null!;
+                return false;
+            }
+        }
+        /// <inheritdoc cref="TryExtractFromHandle(IntPtr, Int32Rect, BitmapSizeOptions, out ImageSource)"/>
+        public static bool TryExtractFromHandle(IntPtr iconHandle, Int32Rect sourceRect, out ImageSource imageSource)
+            => TryExtractFromHandle(iconHandle, sourceRect, BitmapSizeOptions.FromEmptyOptions(), out imageSource);
+        /// <inheritdoc cref="TryExtractFromHandle(IntPtr, Int32Rect, BitmapSizeOptions, out ImageSource)"/>
+        public static bool TryExtractFromHandle(IntPtr iconHandle, out ImageSource imageSource)
+            => TryExtractFromHandle(iconHandle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions(), out imageSource);
+        #endregion ExtractFromHandle
+
         #region ExtractFromIcoFile
         /// <summary>
         /// Gets an <see cref="ImageSource"/> from an icon file (.ico).
