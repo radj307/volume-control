@@ -167,7 +167,7 @@ namespace VolumeControl.CoreAudio
         public string SessionInstanceIdentifier => AudioSessionControl.SessionInstanceIdentifier;
         #endregion Properties
 
-        #region IAudioControl Properties
+        #region IAudioControl Implementation
         /// <inheritdoc/>
         public float NativeVolume
         {
@@ -211,12 +211,12 @@ namespace VolumeControl.CoreAudio
                 NotifyPropertyChanged();
             }
         }
-        #endregion IAudioControl Properties
+        #endregion IAudioControl Implementation
 
-        #region IVolumePeakMeter Properties
+        #region IVolumePeakMeter Implementation
         /// <inheritdoc/>
         public float PeakMeterValue => AudioMeterInformation.MasterPeakValue;
-        #endregion IVolumePeakMeter Properties
+        #endregion IVolumePeakMeter Implementation
 
         #region IHideableAudioControl Properties
         /// <summary>
@@ -304,7 +304,7 @@ namespace VolumeControl.CoreAudio
         /// Gets the process that created this audio session.
         /// </summary>
         /// <returns><see cref="System.Diagnostics.Process"/> instance that created this audio session, or <see langword="null"/> if an error occurred.</returns>
-        public Process? GetProcess()
+        private Process? GetProcess()
         {
             try
             {
@@ -312,22 +312,7 @@ namespace VolumeControl.CoreAudio
             }
             catch (Exception ex)
             {
-                Log.Error($"Failed to get process with ID '{PID}' because of an exception:", ex);
-                return null;
-            }
-        }
-        /// <inheritdoc cref="GetProcess()"/>
-        /// <param name="exception">When the method returns <see langword="null"/>, this is set to the exception that occurred; otherwise this is <see langword="null"/>.</param>
-        public Process? GetProcess(out Exception? exception)
-        {
-            try
-            {
-                exception = null;
-                return Process.GetProcessById(Convert.ToInt32(PID));
-            }
-            catch (Exception ex)
-            {
-                exception = ex;
+                Log.Error($"Failed to get the Process associated with session '{ProcessIdentifier}' because of an exception:", ex);
                 return null;
             }
         }
@@ -362,7 +347,19 @@ namespace VolumeControl.CoreAudio
 
         #endregion Methods
 
-        #region AudioSessionControl EventHandlers
+        #region IDisposable Implementation
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            this.Process?.Dispose();
+            this.AudioSessionControl.Dispose();
+            GC.SuppressFinalize(this);
+        }
+        #endregion IDisposable Implementation
+
+        #region EventHandlers
+
+        #region AudioSessionControl
         /// <summary>
         /// Triggers the <see cref="DisplayNameChanged"/> event.
         /// </summary>
@@ -392,16 +389,8 @@ namespace VolumeControl.CoreAudio
         /// </summary>
         private void AudioSessionControl_OnStateChanged(object sender, AudioSessionState newState)
             => NotifyStateChanged(newState);
-        #endregion AudioSessionControl EventHandlers
+        #endregion AudioSessionControl
 
-        #region IDisposable Implementation
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            this.Process?.Dispose();
-            ((IDisposable)this.AudioSessionControl).Dispose();
-            GC.SuppressFinalize(this);
-        }
-        #endregion IDisposable Implementation
+        #endregion EventHandlers
     }
 }

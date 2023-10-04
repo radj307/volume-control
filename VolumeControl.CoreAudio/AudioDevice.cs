@@ -4,7 +4,6 @@ using System.Runtime.CompilerServices;
 using VolumeControl.CoreAudio.Events;
 using VolumeControl.CoreAudio.Helpers;
 using VolumeControl.CoreAudio.Interfaces;
-using VolumeControl.Log;
 
 namespace VolumeControl.CoreAudio
 {
@@ -58,7 +57,6 @@ namespace VolumeControl.CoreAudio
         #endregion Fields
 
         #region Properties
-        private static LogWriter Log => FLog.Log;
         /// <summary>
         /// Gets the underlying <see cref="MMDevice"/> for this <see cref="AudioDevice"/> instance.
         /// </summary>
@@ -113,8 +111,9 @@ namespace VolumeControl.CoreAudio
         /// Gets the path to the device's icon file.
         /// </summary>
         public string IconPath => MMDevice.IconPath;
+        #endregion Properties
 
-        #region Properties (IAudioControl)
+        #region IAudioControl Implementation
         /// <inheritdoc/>
         public float NativeVolume
         {
@@ -158,13 +157,22 @@ namespace VolumeControl.CoreAudio
                 NotifyPropertyChanged();
             }
         }
-        #endregion Properties (IAudioControl)
-        #region Properties (IAudioPeakMeter)
+        #endregion IAudioControl Implementation
+
+        #region IAudioPeakMeter Implementation
         /// <inheritdoc/>
         public float PeakMeterValue
             => AudioMeterInformation.MasterPeakValue;
-        #endregion Properties (IAudioPeakMeter)
-        #endregion Properties
+        #endregion IAudioPeakMeter Implementation
+
+        #region IDisposable Implementation
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            ((IDisposable)this.MMDevice).Dispose();
+            GC.SuppressFinalize(this);
+        }
+        #endregion IDisposable Implementation
 
         #region EventHandlers
 
@@ -181,14 +189,5 @@ namespace VolumeControl.CoreAudio
         #endregion AudioEndpointVolume
 
         #endregion EventHandlers
-
-        #region IDisposable Implementation
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            ((IDisposable)this.MMDevice).Dispose();
-            GC.SuppressFinalize(this);
-        }
-        #endregion IDisposable Implementation
     }
 }

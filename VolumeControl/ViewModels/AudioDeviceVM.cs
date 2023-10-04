@@ -14,6 +14,7 @@ namespace VolumeControl.ViewModels
     /// </summary>
     public sealed class AudioDeviceVM : INotifyPropertyChanged, IDisposable
     {
+        #region Constructor
         public AudioDeviceVM(AudioDevice audioDevice)
         {
             AudioDevice = audioDevice;
@@ -31,21 +32,14 @@ namespace VolumeControl.ViewModels
                 Sessions.Add(new AudioSessionVM(session));
             }
         }
+        #endregion Constructor
 
-        private void SessionManager_SessionAddedToList(object? sender, AudioSession e)
-        {
-            Sessions.Add(new AudioSessionVM(e));
-        }
-        private void SessionManager_SessionRemovedFromList(object? sender, AudioSession e)
-        {
-            var vm = Sessions.First(svm => svm.AudioSession.Equals(e));
-            Sessions.Remove(vm);
-            vm.Dispose();
-        }
-
+        #region Events
         public event PropertyChangedEventHandler? PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        #endregion Events
 
+        #region Properties
         public AudioDevice AudioDevice { get; }
         public ImageSource? Icon
         {
@@ -60,11 +54,31 @@ namespace VolumeControl.ViewModels
         public string Name => AudioDevice.Name;
         public string DeviceFriendlyName => AudioDevice.FullName;
         public ObservableImmutableList<AudioSessionVM> Sessions { get; }
+        #endregion Properties
 
+        #region IDisposable Implementation
         public void Dispose()
         {
             this.AudioDevice.Dispose();
             GC.SuppressFinalize(this);
         }
+        #endregion IDisposable Implementation
+
+        #region EventHandlers
+
+        #region SessionManager
+        private void SessionManager_SessionAddedToList(object? sender, AudioSession e)
+        {
+            Sessions.Add(new AudioSessionVM(e));
+        }
+        private void SessionManager_SessionRemovedFromList(object? sender, AudioSession e)
+        {
+            var vm = Sessions.First(svm => svm.AudioSession.Equals(e));
+            Sessions.Remove(vm);
+            vm.Dispose();
+        }
+        #endregion SessionManager
+
+        #endregion EventHandlers
     }
 }

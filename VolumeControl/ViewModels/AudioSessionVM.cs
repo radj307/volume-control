@@ -25,6 +25,11 @@ namespace VolumeControl.ViewModels
         }
         #endregion Constructor
 
+        #region Events
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        #endregion Events
+
         #region Properties
         public AudioSession AudioSession { get; }
         public ImageSource? Icon
@@ -42,11 +47,6 @@ namespace VolumeControl.ViewModels
         public string ProcessIdentifier => AudioSession.ProcessIdentifier;
         public string Name => AudioSession.Name;
         #endregion Properties
-
-        #region Events
-        public event PropertyChangedEventHandler? PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
-        #endregion Events
 
         #region Methods
         private ImageSource? GetIcon()
@@ -81,12 +81,14 @@ namespace VolumeControl.ViewModels
 
             return null;
         }
+        #endregion Methods
 
+        #region IDisposable Implementation
         public void Dispose()
         {
             ((IDisposable)this.AudioSession).Dispose();
             GC.SuppressFinalize(this);
         }
-        #endregion Methods
+        #endregion IDisposable Implementation
     }
 }

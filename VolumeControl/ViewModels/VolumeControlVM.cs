@@ -1,7 +1,5 @@
-﻿using CodingSeb.Localization;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -19,9 +17,15 @@ using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.ViewModels
 {
-    /// <summary>Inherits from the <see cref="VCSettingsContainer"/> object.</summary>
+    /// <summary>
+    /// Viewmodel class for the Volume Control application.
+    /// </summary>
+    /// <remarks>
+    /// Inherits from <see cref="VCSettings"/>.
+    /// </remarks>
     public class VolumeControlVM : VCSettings, IDisposable
     {
+        #region Constructor
         public VolumeControlVM() : base()
         {
             // create the updater & check for updates if enabled
@@ -86,6 +90,7 @@ namespace VolumeControl.ViewModels
             AudioAPI.AudioSessionManager.SessionAddedToList += this.AudioSessionManager_SessionAddedOrRemoved;
             AudioAPI.AudioSessionManager.SessionRemovedFromList += this.AudioSessionManager_SessionAddedOrRemoved;
         }
+        #endregion Constructor
 
         #region Fields
         #region PrivateFields

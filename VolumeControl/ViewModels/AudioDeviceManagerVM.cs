@@ -8,6 +8,7 @@ using VolumeControl.Core;
 using VolumeControl.CoreAudio;
 using VolumeControl.CoreAudio.Events;
 using VolumeControl.Log;
+using VolumeControl.TypeExtensions;
 using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.ViewModels
@@ -43,10 +44,7 @@ namespace VolumeControl.ViewModels
             AudioSessionManager.SessionAddedToList += this.AudioSessionManager_SessionAddedToList;
             AudioSessionManager.SessionRemovedFromList += this.AudioSessionManager_SessionRemovedFromList;
 
-            foreach (var sessionManager in Devices.Select(d => d.AudioDevice.SessionManager))
-            {
-                AudioSessionManager.AddSessionManager(sessionManager);
-            }
+            Devices.Select(d => d.AudioDevice.SessionManager).ForEach(AudioSessionManager.AddSessionManager);
 
             AudioDeviceSelector = new(AudioDeviceManager);
             AudioSessionSelector = new(AudioSessionManager)
