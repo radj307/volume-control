@@ -117,7 +117,7 @@
   <ItemGroup>
     <ProjectReference Include="..\VolumeControl.CoreAudio\VolumeControl.CoreAudio.csproj" />
     <ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
-    <ProjectReference Include="..\VolumeControl.Hotkeys\VolumeControl.Hotkeys.csproj" />
+    <ProjectReference Include="..\VolumeControl.HotkeyActions\VolumeControl.HotkeyActions.csproj" />
     <ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
     <ProjectReference Include="..\VolumeControl.SDK\VolumeControl.SDK.csproj" />
     <ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />
