@@ -36,6 +36,11 @@ namespace VolumeControl.CoreAudio
         }
         #endregion Constructors
 
+        #region Fields
+        // Used to prevent the (Un)HideSession methods from causing sessions to be hidden/unhidden multiple times
+        private bool _isHiddenSessionProcessNamesChanging = false;
+        #endregion Fields
+
         #region Events
         /// <summary>
         /// Occurs before an <see cref="AudioSession"/> is added to the <see cref="Sessions"/> list.
@@ -284,7 +289,7 @@ namespace VolumeControl.CoreAudio
 
                 if (uint.TryParse(s[..delimIndex], out uint pid)
                     && FindSessionWithPID(pid, includeHiddenSessions) is AudioSession session
-                    && (session.ProcessName.Equals(name, stringComparison) || (session.HasCustomName && session.Name.Equals(name, stringComparison))))
+                    && session.HasMatchingName(name, stringComparison))
                 { // found a session with a matching process ID and ProcessName
                     return session;
                 }
@@ -381,7 +386,7 @@ namespace VolumeControl.CoreAudio
         /// <param name="session">An <see cref="AudioSession"/> instance to remove from the list.</param>
         internal void RemoveSession(AudioSession session)
         {
-            // AudioSession.IsHidden is not reliable for this method
+            // AudioSession.IsHidden is not reliable within this method
             if (_hiddenSessions.Remove(session))
             { // remove(d) session from hidden list
                 NotifySessionRemovedFromHiddenList(session);
@@ -442,6 +447,39 @@ namespace VolumeControl.CoreAudio
         }
         #endregion Add/Remove SessionManager
 
+        #region Hide/Unhide Session
+        /// <summary>
+        /// Hides the specified <paramref name="session"/> by moving it from the <see cref="Sessions"/> list to the <see cref="HiddenSessions"/> list.
+        /// </summary>
+        /// <param name="session">The <see cref="AudioSession"/> instance to hide.</param>
+        public void HideSession(AudioSession session)
+        {
+            if (session.IsHidden) return; //< don't do anything if the session is already hidden
+
+            _isHiddenSessionProcessNamesChanging = true; //< don't trigger HiddenSessionProcessNames_CollectionChanged
+            session.IsHidden = true;
+            _isHiddenSessionProcessNamesChanging = false;
+
+            RemoveSession(session); //< remove from the Sessions list
+            AddSession(session); //< add to the HiddenSessions list
+        }
+        /// <summary>
+        /// Unhides the specified <paramref name="session"/> by moving it from the <see cref="HiddenSessions"/> list to the <see cref="Sessions"/> list.
+        /// </summary>
+        /// <param name="session"></param>
+        public void UnhideSession(AudioSession session)
+        {
+            if (!session.IsHidden) return; //< don't do anything if the session isn't hidden
+
+            _isHiddenSessionProcessNamesChanging = true; //< don't trigger HiddenSessionProcessNames_CollectionChanged
+            session.IsHidden = false;
+            _isHiddenSessionProcessNamesChanging = false;
+
+            RemoveSession(session); //< remove from the HiddenSessions list
+            AddSession(session); //< add to the Sessions list
+        }
+        #endregion Hide/Unhide Session
+
         #endregion Methods
 
         #region EventHandlers
@@ -465,6 +503,8 @@ namespace VolumeControl.CoreAudio
         /// </summary>
         private void HiddenSessionProcessNames_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
+            if (_isHiddenSessionProcessNamesChanging) return; //< don't do anything if this event originated as a result of the (Un)HideSession methods
+
             if (e.OldItems is not null)
             { // unhide removed sessions
                 foreach (var item in e.OldItems)
@@ -476,19 +516,11 @@ namespace VolumeControl.CoreAudio
                     for (int i = HiddenSessions.Count - 1; i >= 0; --i)
                     {
                         var hiddenSession = HiddenSessions[i];
-                        if (hiddenSession.ProcessName.Equals(name, StringComparison.Ordinal)
-                            || (hiddenSession.HasCustomName && hiddenSession.Name.Equals(name, StringComparison.Ordinal)))
+                        if (hiddenSession.HasMatchingName(name))
                         {
-                            RemoveSession(hiddenSession); //< remove from hidden sessions list
-                            AddSession(hiddenSession); //< add to sessions list
+                            UnhideSession(hiddenSession);
                         }
                     }
-
-                    //if (HiddenSessions.FirstOrDefault(hiddenSession => hiddenSession.ProcessName.Equals(sessionName, StringComparison.Ordinal)) is AudioSession session)
-                    //{
-                    //    RemoveSession(session); //< remove from hidden sessions list
-                    //    AddSession(session); //< add to sessions list
-                    //}
                 }
             }
             if (e.NewItems is not null)
@@ -502,19 +534,11 @@ namespace VolumeControl.CoreAudio
                     for (int i = Sessions.Count - 1; i >= 0; --i)
                     {
                         var session = Sessions[i];
-                        if (session.ProcessName.Equals(name, StringComparison.Ordinal)
-                            || (session.HasCustomName && session.Name.Equals(name, StringComparison.Ordinal)))
+                        if (session.HasMatchingName(name))
                         {
-                            RemoveSession(session); //< remove from hidden sessions list
-                            AddSession(session); //< add to sessions list
+                            HideSession(session);
                         }
                     }
-
-                    //if (Sessions.FirstOrDefault(hiddenSession => hiddenSession.ProcessName.Equals(sessionName, StringComparison.Ordinal)) is AudioSession session)
-                    //{
-                    //    RemoveSession(session); //< remove from sessions list
-                    //    AddSession(session); //< add to hidden sessions list
-                    //}
                 }
             }
         }
