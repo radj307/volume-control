@@ -53,7 +53,7 @@ namespace VolumeControl.ViewModels
         {
             if (PID == 0)
             { // if this is the system idle process (System Sounds), use the icon from the application's resources instead of trying (and failing) to get the icon from the DLL
-                return System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(Properties.Resources.idle.Handle, System.Windows.Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
+                return IconExtractor.ExtractFromHandle(Properties.Resources.idle.Handle);
             }
 
             // try getting the icon from WASAPI
