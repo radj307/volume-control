@@ -12,12 +12,12 @@ jobs:
     steps:
       # Clone the repository
       - name: Clone the Main Branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref:        main
           
       - name: Clone the Documentation Branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: recursive
           ref:        gh-pages
