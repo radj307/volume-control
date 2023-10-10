@@ -34,17 +34,33 @@ namespace VolumeControl.TypeExtensions
         /// <returns>The resulting <paramref name="list"/>; this can safely be ignored when using this method outside of a pipeline.</returns>
         public static IList<T> ForEach<T>(this IList<T> list, Action<T> action)
         {
-            foreach (T? item in list)
-                action(item);
+            for (int i = 0, max = list.Count; i < max; ++i)
+            {
+                action(list[i]);
+            }
             return list;
         }
         /// <inheritdoc cref="List{T}.ForEach(Action{T})"/>
         /// <returns>The resulting <paramref name="list"/>; this can safely be ignored when using this method outside of a pipeline.</returns>
         public static IList ForEach(this IList list, Action<object?> action)
         {
-            foreach (object? item in list)
-                action(item);
+            for (int i = 0, max = list.Count; i < max; ++i)
+            {
+                action(list[i]);
+            }
             return list;
+        }
+        /// <summary>
+        /// Adds a range of items to the <paramref name="list"/>.
+        /// </summary>
+        /// <param name="list">(implicit) The list to add the items to.</param>
+        /// <param name="enumerable">An <see cref="IEnumerable"/> of items to add.</param>
+        public static void AddRange(this IList list, IEnumerable enumerable)
+        {
+            foreach (var item in enumerable)
+            {
+                list.Add(item);
+            }
         }
         /// <summary>
         /// Adds <paramref name="obj"/> to the <paramref name="list"/> if it isn't a duplicate of any existing elements.
@@ -65,6 +81,61 @@ namespace VolumeControl.TypeExtensions
         {
             foreach (object? item in range)
                 list.AddIfUnique(item);
+        }
+        /// <summary>
+        /// Converts each element in the given <paramref name="enumerable"/> from type <typeparamref name="TIn"/> to type <typeparamref name="TOut"/>, and returns the converted objects as a new list of type <typeparamref name="TList"/>.
+        /// </summary>
+        /// <typeparam name="TList">The type of list to return.</typeparam>
+        /// <typeparam name="TOut">The type to convert each item to.</typeparam>
+        /// <typeparam name="TIn">The type to convert each item from.</typeparam>
+        /// <param name="enumerable">Any type implementing <see cref="IEnumerable{T}"/>.</param>
+        /// <param name="converter">A converter method that accepts <typeparamref name="TIn"/> and returns <typeparamref name="TOut"/>.</param>
+        /// <returns>The converted list of items.</returns>
+        public static TList ConvertEach<TList, TOut, TIn>(this IEnumerable<TIn> enumerable, Func<TIn, TOut> converter) where TList : IList, IEnumerable, IList<TOut>, IEnumerable<TOut>, ICollection, ICollection<TOut>, new()
+        {
+            TList l = new();
+            foreach (TIn? item in enumerable)
+                l.Add(converter(item));
+            return l;
+        }
+        /// <summary>
+        /// Converts each element in the given <paramref name="enumerable"/> from type <typeparamref name="TIn"/> to type <typeparamref name="TOut"/>, and returns the converted objects as a new <see cref="List{T}"/>.
+        /// </summary>
+        /// <typeparam name="TOut">The type to convert each item to.</typeparam>
+        /// <typeparam name="TIn">The type to convert each item from.</typeparam>
+        /// <param name="enumerable">Any type implementing <see cref="IEnumerable{T}"/>.</param>
+        /// <param name="converter">A converter method that accepts <typeparamref name="TIn"/> and returns <typeparamref name="TOut"/>.</param>
+        /// <returns>The converted list of items.</returns>
+        public static IList<TOut> ConvertEach<TOut, TIn>(this IEnumerable<TIn> enumerable, Func<TIn, TOut> converter)
+        {
+            List<TOut> l = new();
+            foreach (TIn? item in enumerable)
+                l.Add(converter(item));
+            return l;
+        }
+        /// <summary>
+        /// Gets the index of the first occurrence of <paramref name="item"/> in this <paramref name="list"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of object in the <see cref="IList{T}"/>.</typeparam>
+        /// <param name="list">(implicit) The <see cref="IList{T}"/> to search.</param>
+        /// <param name="item">The object to locate in the <see cref="IList{T}"/>.</param>
+        /// <param name="index">The index of <paramref name="item"/> if found in the list; otherwise -1.</param>
+        /// <returns><see langword="true"/> when <paramref name="item"/> was found in the list; otherwise <see langword="false"/>.</returns>
+        public static bool IndexOf<T>(this IList<T> list, T item, out int index)
+        {
+            if (item != null)
+            {
+                for (int i = 0, max = list.Count; i < max; ++i)
+                {
+                    if (item.Equals(list[i]))
+                    {
+                        index = i;
+                        return true;
+                    }
+                }
+            }
+            index = -1;
+            return false;
         }
     }
 }

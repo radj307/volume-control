@@ -53,44 +53,15 @@ namespace VolumeControl.TypeExtensions
                 func(item);
             }
         }
-        /// <summary>Performs the specified <paramref name="action"/> on each <paramref name="enumerable"/> element.</summary>
+        /// <summary>
+        /// Performs the specified <paramref name="action"/> on each <paramref name="enumerable"/> element.
+        /// </summary>
         /// <returns><paramref name="enumerable"/>, allowing this method to be used in a pipeline.</returns>
         public static IEnumerable<T> ForwardForEach<T>(this IEnumerable<T> enumerable, Action<T> action) where T : class
         {
             foreach (T? item in enumerable)
                 action(item);
             return enumerable;
-        }
-        /// <summary>
-        /// Converts each element in the given <paramref name="enumerable"/> from type <typeparamref name="TIn"/> to type <typeparamref name="TOut"/>, and returns the converted objects as a new list of type <typeparamref name="TList"/>.
-        /// </summary>
-        /// <typeparam name="TList">The type of list to return.</typeparam>
-        /// <typeparam name="TOut">The type to convert each item to.</typeparam>
-        /// <typeparam name="TIn">The type to convert each item from.</typeparam>
-        /// <param name="enumerable">Any type implementing <see cref="IEnumerable{T}"/>.</param>
-        /// <param name="converter">A converter method that accepts <typeparamref name="TIn"/> and returns <typeparamref name="TOut"/>.</param>
-        /// <returns>The converted list of items.</returns>
-        public static TList ConvertEach<TList, TOut, TIn>(this IEnumerable<TIn> enumerable, Func<TIn, TOut> converter) where TList : IList, IEnumerable, IList<TOut>, IEnumerable<TOut>, ICollection, ICollection<TOut>, new()
-        {
-            TList l = new();
-            foreach (TIn? item in enumerable)
-                l.Add(converter(item));
-            return l;
-        }
-        /// <summary>
-        /// Converts each element in the given <paramref name="enumerable"/> from type <typeparamref name="TIn"/> to type <typeparamref name="TOut"/>, and returns the converted objects as a new <see cref="List{T}"/>.
-        /// </summary>
-        /// <typeparam name="TOut">The type to convert each item to.</typeparam>
-        /// <typeparam name="TIn">The type to convert each item from.</typeparam>
-        /// <param name="enumerable">Any type implementing <see cref="IEnumerable{T}"/>.</param>
-        /// <param name="converter">A converter method that accepts <typeparamref name="TIn"/> and returns <typeparamref name="TOut"/>.</param>
-        /// <returns>The converted list of items.</returns>
-        public static List<TOut> ConvertEach<TOut, TIn>(this IEnumerable<TIn> enumerable, Func<TIn, TOut> converter)
-        {
-            List<TOut> l = new();
-            foreach (TIn? item in enumerable)
-                l.Add(converter(item));
-            return l;
         }
         /// <summary>
         /// Does the same thing as the standard Linq Select() method, except this one uses a <paramref name="predicate"/> and applies the <paramref name="keySelector"/> only when the predicate returns <see langword="true"/>.
