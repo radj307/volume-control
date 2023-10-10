@@ -29,6 +29,11 @@ Volume Control empowers users with an unlimited array of unique hotkey combinati
 
 Getting started is simple. Download `VolumeControl-Installer.exe` from the [latest release](https://github.com/radj307/volume-control/releases/latest), and run it. It will guide you through the installation process.
 
+If you prefer to use a package manager, you can use [Winget](https://learn.microsoft.com/en-us/windows/package-manager/) to install Volume Control:
+```
+winget install radj307.volume-control
+```
+
 ## Manual Installation
 
 Download `VolumeControl.exe` from the [latest release](https://github.com/radj307/volume-control/releases/latest) and move it to a location of your choice.
