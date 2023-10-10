@@ -20,6 +20,7 @@ namespace VolumeControl.ViewModels
             AudioDevice = audioDevice;
 
             Icon = IconExtractor.TryExtractFromPath(AudioDevice.IconPath, out ImageSource icon) ? icon : null;
+            Icon?.Freeze(); //< prevents WPF exceptions in some cases
             Sessions = new();
 
             // attach events to add and remove audio sessions from the Sessions list

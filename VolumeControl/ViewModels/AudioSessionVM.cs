@@ -60,6 +60,7 @@ namespace VolumeControl.ViewModels
             var iconPath = AudioSession.AudioSessionControl.IconPath;
             if (iconPath.Length > 0 && IconExtractor.TryExtractFromPath(iconPath, out ImageSource wasapiImageSource))
             {
+                wasapiImageSource.Freeze();
                 return wasapiImageSource;
             }
 
@@ -71,6 +72,7 @@ namespace VolumeControl.ViewModels
             {
                 if (proc.GetMainModulePath() is string path && IconExtractor.TryExtractFromPath(path, out ImageSource processImageSource))
                 {
+                    processImageSource.Freeze();
                     return processImageSource;
                 }
             }
