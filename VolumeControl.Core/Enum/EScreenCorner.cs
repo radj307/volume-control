@@ -7,7 +7,7 @@ namespace VolumeControl.Core.Helpers
     /// Defines the corners of a screen. (Rectangle)
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum ScreenCorner : byte
+    public enum EScreenCorner : byte
     {
         /// <summary>(⬉) The upper-left corner of the screen.</summary>
         TopLeft = 0,

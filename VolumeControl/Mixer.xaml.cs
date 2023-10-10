@@ -92,24 +92,24 @@ namespace VolumeControl
             // update the position of the window for the new size of the window
             switch (this.GetCurrentScreenCorner())
             {
-            case Core.Helpers.ScreenCorner.TopLeft:
+            case Core.Helpers.EScreenCorner.TopLeft:
                 break;
-            case Core.Helpers.ScreenCorner.TopRight:
+            case Core.Helpers.EScreenCorner.TopRight:
                 if (!e.WidthChanged) return;
 
                 this.Left += e.PreviousSize.Width - e.NewSize.Width;
                 break;
-            case Core.Helpers.ScreenCorner.BottomLeft:
+            case Core.Helpers.EScreenCorner.BottomLeft:
                 if (!e.HeightChanged) return;
 
                 this.Top += e.PreviousSize.Height - e.NewSize.Height;
                 break;
-            case Core.Helpers.ScreenCorner.BottomRight:
+            case Core.Helpers.EScreenCorner.BottomRight:
                 this.Left += e.PreviousSize.Width - e.NewSize.Width;
                 this.Top += e.PreviousSize.Height - e.NewSize.Height;
                 break;
             default:
-                throw new InvalidEnumArgumentException(nameof(Settings.SessionListNotificationConfig.PositionOriginCorner), (byte)Settings.SessionListNotificationConfig.PositionOriginCorner, typeof(Core.Helpers.ScreenCorner));
+                throw new InvalidEnumArgumentException(nameof(Settings.SessionListNotificationConfig.PositionOriginCorner), (byte)Settings.SessionListNotificationConfig.PositionOriginCorner, typeof(Core.Helpers.EScreenCorner));
             }
         }
         #endregion Window Method Overrides

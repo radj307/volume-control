@@ -56,17 +56,17 @@ namespace VolumeControl.Helpers
         /// <param name="wnd">(Implicit) A <see cref="Window"/> instance.</param>
         /// <param name="corner">The corner to check</param>
         /// <returns>The position of the window at the specified <paramref name="corner"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Invalid <see cref="Core.Helpers.ScreenCorner"/> enumeration.</exception>
-        public static Point GetPosAtCorner(this Window wnd, Core.Helpers.ScreenCorner corner)
+        /// <exception cref="InvalidEnumArgumentException">Invalid <see cref="Core.Helpers.EScreenCorner"/> enumeration.</exception>
+        public static Point GetPosAtCorner(this Window wnd, Core.Helpers.EScreenCorner corner)
         {
             var compositionTarget = PresentationSource.FromVisual(wnd)?.CompositionTarget;
             return corner switch
             {
-                Core.Helpers.ScreenCorner.TopLeft => compositionTarget?.TransformToDevice.Transform(new Point(wnd.Left, wnd.Top)) ?? new Point(wnd.Left, wnd.Top),
-                Core.Helpers.ScreenCorner.TopRight => compositionTarget?.TransformToDevice.Transform(new Point(wnd.Left + wnd.ActualWidth, wnd.Top)) ?? new Point(wnd.Left + wnd.ActualWidth, wnd.Top),
-                Core.Helpers.ScreenCorner.BottomLeft => compositionTarget?.TransformToDevice.Transform(new Point(wnd.Left, wnd.Top + wnd.ActualHeight)) ?? new Point(wnd.Left, wnd.Top + wnd.ActualHeight),
-                Core.Helpers.ScreenCorner.BottomRight => compositionTarget?.TransformToDevice.Transform(new Point(wnd.Left + wnd.ActualWidth, wnd.Top + wnd.ActualHeight)) ?? new Point(wnd.Left + wnd.ActualWidth, wnd.Top + wnd.ActualHeight),
-                _ => throw new InvalidEnumArgumentException(nameof(corner), (int)corner, typeof(Core.Helpers.ScreenCorner)),
+                Core.Helpers.EScreenCorner.TopLeft => compositionTarget?.TransformToDevice.Transform(new Point(wnd.Left, wnd.Top)) ?? new Point(wnd.Left, wnd.Top),
+                Core.Helpers.EScreenCorner.TopRight => compositionTarget?.TransformToDevice.Transform(new Point(wnd.Left + wnd.ActualWidth, wnd.Top)) ?? new Point(wnd.Left + wnd.ActualWidth, wnd.Top),
+                Core.Helpers.EScreenCorner.BottomLeft => compositionTarget?.TransformToDevice.Transform(new Point(wnd.Left, wnd.Top + wnd.ActualHeight)) ?? new Point(wnd.Left, wnd.Top + wnd.ActualHeight),
+                Core.Helpers.EScreenCorner.BottomRight => compositionTarget?.TransformToDevice.Transform(new Point(wnd.Left + wnd.ActualWidth, wnd.Top + wnd.ActualHeight)) ?? new Point(wnd.Left + wnd.ActualWidth, wnd.Top + wnd.ActualHeight),
+                _ => throw new InvalidEnumArgumentException(nameof(corner), (int)corner, typeof(Core.Helpers.EScreenCorner)),
             };
         }
         /// <summary>
@@ -75,23 +75,23 @@ namespace VolumeControl.Helpers
         /// <param name="wnd">(Implicit) A <see cref="Window"/> instance.</param>
         /// <param name="corner">The corner of the window to use as an origin point when setting the window's position.</param>
         /// <param name="point">The absolute x/y coordinates of the target position.</param>
-        public static void SetPosAtCorner(this Window wnd, Core.Helpers.ScreenCorner corner, Point point)
+        public static void SetPosAtCorner(this Window wnd, Core.Helpers.EScreenCorner corner, Point point)
         {
             switch (corner)
             {
-            case Core.Helpers.ScreenCorner.TopLeft:
+            case Core.Helpers.EScreenCorner.TopLeft:
                 wnd.Left = point.X;
                 wnd.Top = point.Y;
                 break;
-            case Core.Helpers.ScreenCorner.TopRight:
+            case Core.Helpers.EScreenCorner.TopRight:
                 wnd.Left = point.X - wnd.Width;
                 wnd.Top = point.Y;
                 break;
-            case Core.Helpers.ScreenCorner.BottomLeft:
+            case Core.Helpers.EScreenCorner.BottomLeft:
                 wnd.Left = point.X;
                 wnd.Top = point.Y - wnd.Height;
                 break;
-            case Core.Helpers.ScreenCorner.BottomRight:
+            case Core.Helpers.EScreenCorner.BottomRight:
                 wnd.Left = point.X - wnd.Width;
                 wnd.Top = point.Y - wnd.Height;
                 break;
@@ -131,11 +131,11 @@ namespace VolumeControl.Helpers
 
         #region GetCurrentScreenCorner
         /// <summary>
-        /// Gets the closest <see cref="Core.Helpers.ScreenCorner"/> to the window's centerpoint.
+        /// Gets the closest <see cref="Core.Helpers.EScreenCorner"/> to the window's centerpoint.
         /// </summary>
         /// <param name="wnd">(Implicit) A <see cref="Window"/> instance.</param>
-        /// <returns>The closest <see cref="Core.Helpers.ScreenCorner"/> to the window's centerpoint.</returns>
-        public static Core.Helpers.ScreenCorner GetCurrentScreenCorner(this Window wnd)
+        /// <returns>The closest <see cref="Core.Helpers.EScreenCorner"/> to the window's centerpoint.</returns>
+        public static Core.Helpers.EScreenCorner GetCurrentScreenCorner(this Window wnd)
             => GetClosestScreenCornerFromPoint(wnd.GetPosAtCenterPoint());
         #endregion GetCurrentScreenCorner
 
@@ -165,8 +165,8 @@ namespace VolumeControl.Helpers
         /// </summary>
         /// <param name="screen">The <see cref="System.Windows.Forms.Screen"/> instance to use.</param>
         /// <param name="point">An x/y coordinate specifying a point on the <paramref name="screen"/>.</param>
-        /// <returns>The <see cref="Core.Helpers.ScreenCorner"/> representing the corner of the <paramref name="screen"/> that is closest to the given <paramref name="point"/>.</returns>
-        public static Core.Helpers.ScreenCorner GetClosestScreenCornerFromPoint(System.Windows.Forms.Screen screen, Point point)
+        /// <returns>The <see cref="Core.Helpers.EScreenCorner"/> representing the corner of the <paramref name="screen"/> that is closest to the given <paramref name="point"/>.</returns>
+        public static Core.Helpers.EScreenCorner GetClosestScreenCornerFromPoint(System.Windows.Forms.Screen screen, Point point)
         {
             // automatic corner selection is enabled:
             // get the centerpoint of this window
@@ -177,21 +177,21 @@ namespace VolumeControl.Helpers
             bool top = point.Y < cy;
 
             if (left && top)
-                return Core.Helpers.ScreenCorner.TopLeft;
+                return Core.Helpers.EScreenCorner.TopLeft;
             else if (!left && top)
-                return Core.Helpers.ScreenCorner.TopRight;
+                return Core.Helpers.EScreenCorner.TopRight;
             else if (left && !top)
-                return Core.Helpers.ScreenCorner.BottomLeft;
+                return Core.Helpers.EScreenCorner.BottomLeft;
             else if (!left && !top)
-                return Core.Helpers.ScreenCorner.BottomRight;
+                return Core.Helpers.EScreenCorner.BottomRight;
 
-            return Core.Helpers.ScreenCorner.TopLeft;
+            return Core.Helpers.EScreenCorner.TopLeft;
         }
         /// <inheritdoc cref="GetClosestScreenCornerFromPoint(System.Windows.Forms.Screen, Point)"/>
         /// <remarks>
         /// This calls <see cref="GetClosestScreenCornerFromPoint(System.Windows.Forms.Screen, Point)"/> internally by automatically determining the screen to use based on the given <paramref name="pos"/>.
         /// </remarks>
-        public static Core.Helpers.ScreenCorner GetClosestScreenCornerFromPoint(Point pos)
+        public static Core.Helpers.EScreenCorner GetClosestScreenCornerFromPoint(Point pos)
             => GetClosestScreenCornerFromPoint(GetClosestScreenFromPoint(pos), pos);
         #endregion GetClosestScreenCornerFromPoint
 

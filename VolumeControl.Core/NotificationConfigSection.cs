@@ -50,7 +50,7 @@ namespace VolumeControl.Core
         /// <summary>
         /// Gets or sets the corner from which ListNotification size transform operations are rooted.
         /// </summary>
-        public ScreenCorner PositionOriginCorner { get; set; } = ScreenCorner.TopLeft;
+        public EScreenCorner PositionOriginCorner { get; set; } = EScreenCorner.TopLeft;
         /// <summary>
         /// Gets or sets whether the notification window slowly fades in instead of appearing instantly.
         /// </summary>
