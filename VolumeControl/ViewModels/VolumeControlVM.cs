@@ -72,7 +72,7 @@ namespace VolumeControl.ViewModels
             // Retrieve a list of all loaded action names
             const char sort_last = (char)('z' + 1);
             this.Actions = actionManager
-                .Bindings
+                .Bindings // TODO: see if using ThenBy for secondary sort makes more sense here:
                 .OrderBy(a => a.Data.ActionName.AtIndexOrDefault(0, sort_last))                                           //< sort entries alphabetically
                 .OrderBy(a => a.Data.ActionGroup is null ? sort_last : a.Data.ActionGroup.AtIndexOrDefault(0, sort_last)) //< sort entries by group; null groups are always last.
                 .ToList();
@@ -87,8 +87,8 @@ namespace VolumeControl.ViewModels
             // setup autocomplete
             RefreshSessionAutoCompleteSources();
             // bind to session added/removed events to update the auto complete sources
-            AudioAPI.AudioSessionManager.SessionAddedToList += this.AudioSessionManager_SessionAddedOrRemoved;
-            AudioAPI.AudioSessionManager.SessionRemovedFromList += this.AudioSessionManager_SessionAddedOrRemoved;
+            AudioAPI.AudioSessionManager.AddedSessionToList += this.AudioSessionManager_AddedOrRemovedSession;
+            AudioAPI.AudioSessionManager.RemovedSessionFromList += this.AudioSessionManager_AddedOrRemovedSession;
         }
         #endregion Constructor
 
@@ -259,7 +259,7 @@ namespace VolumeControl.ViewModels
         /// <summary>
         /// Refreshes the <see cref="AudioSessionProcessIdentifierAutocompleteSource"/> list.
         /// </summary>
-        private void AudioSessionManager_SessionAddedOrRemoved(object? sender, AudioSession e)
+        private void AudioSessionManager_AddedOrRemovedSession(object? sender, AudioSession e)
             => RefreshSessionAutoCompleteSources();
         #endregion Methods (EventHandlers)
 

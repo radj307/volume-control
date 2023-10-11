@@ -9,7 +9,7 @@ namespace VolumeControl.CoreAudio
     /// </summary>
     /// <remarks>
     /// This class is highly coupled to <see cref="CoreAudio.AudioDevice"/>, and cannot be constructed externally.<br/>
-    /// If you're looking for a session manager that works with multiple <see cref="CoreAudio.AudioDevice"/> instances, see <see cref="CoreAudio.AudioSessionManager"/>.
+    /// If you're looking for a session manager that works with multiple <see cref="CoreAudio.AudioDevice"/> instances, see <see cref="AudioSessionManager"/>.
     /// </remarks>
     public sealed class AudioDeviceSessionManager
     {
@@ -21,15 +21,15 @@ namespace VolumeControl.CoreAudio
         internal AudioDeviceSessionManager(AudioDevice audioDevice)
         {
             AudioDevice = audioDevice;
-            AudioSessionManager = AudioDevice.AudioSessionManager;
+            AudioSessionManager2 = AudioDevice.AudioSessionManager;
 
             _sessions = new();
 
-            AudioSessionManager.OnSessionCreated += this.AudioSessionManager_OnSessionCreated;
+            AudioSessionManager2.OnSessionCreated += this.AudioSessionManager_OnSessionCreated;
 
-            if (AudioSessionManager.Sessions is not null)
+            if (AudioSessionManager2.Sessions is not null)
             { // populate the sessions list
-                foreach (var audioSessionControl in AudioSessionManager.Sessions)
+                foreach (var audioSessionControl in AudioSessionManager2.Sessions)
                 {
                     CreateAndAddSessionIfUnique(audioSessionControl);
                 }
@@ -56,8 +56,7 @@ namespace VolumeControl.CoreAudio
         /// Gets the <see cref="CoreAudio.AudioDevice"/> instance that this <see cref="AudioDeviceSessionManager"/> instance is managing.
         /// </summary>
         public AudioDevice AudioDevice { get; }
-        internal AudioSessionManager2 AudioSessionManager { get; }
-
+        AudioSessionManager2 AudioSessionManager2 { get; }
         /// <summary>
         /// Gets the list of <see cref="AudioSession"/> instances.
         /// </summary>
@@ -69,7 +68,8 @@ namespace VolumeControl.CoreAudio
         #endregion Properties
 
         #region Methods
-        #region Methods (FindSession)
+
+        #region FindSession
         /// <summary>
         /// Gets the <see cref="AudioSession"/> instance associated with the given <paramref name="sessionInstanceIdentifier"/>. (<see cref="AudioSessionControl2.SessionInstanceIdentifier"/>)
         /// </summary>
@@ -85,8 +85,9 @@ namespace VolumeControl.CoreAudio
         /// <returns>The <see cref="AudioSession"/> associated with the given <paramref name="audioSessionControl"/> if found; otherwise <see langword="null"/>.</returns>
         public AudioSession? FindSessionByAudioSessionControl(AudioSessionControl2 audioSessionControl)
             => FindSessionBySessionInstanceIdentifier(audioSessionControl.SessionInstanceIdentifier);
-        #endregion Methods (FindSession)
+        #endregion FindSession
 
+        #region Add/Remove Session
         /// <summary>
         /// Creates a new <see cref="AudioSession"/> from the given <paramref name="audioSessionControl"/> and adds it to the <see cref="Sessions"/> list, and triggers the <see cref="SessionAddedToList"/> event.
         /// </summary>
@@ -112,7 +113,7 @@ namespace VolumeControl.CoreAudio
         /// Removes the given <paramref name="session"/> from the <see cref="Sessions"/> list and disposes of it.
         /// </summary>
         /// <param name="session">An <see cref="AudioSession"/> instance to delete.</param>
-        private void DeleteSession(AudioSession session)
+        private void RemoveSession(AudioSession session)
         {
             // remove from Sessions list
             _sessions.Remove(session);
@@ -126,19 +127,28 @@ namespace VolumeControl.CoreAudio
             // dispose of the session
             session.Dispose();
         }
+        #endregion Add/Remove Session
 
+        #endregion Methods
+
+        #region EventHandlers
+
+        #region Session
         private void Session_SessionDisconnected(object sender, AudioSessionDisconnectReason disconnectReason)
-            => DeleteSession((AudioSession)sender);
+            => RemoveSession((AudioSession)sender);
         private void Session_StateChanged(object? sender, AudioSessionState e)
         {
             if (e.Equals(AudioSessionState.AudioSessionStateExpired) && sender is AudioSession session)
-                DeleteSession(session);
+                RemoveSession(session);
         }
+        #endregion Session
+
+        #region AudioSessionManager
         private void AudioSessionManager_OnSessionCreated(object sender, IAudioSessionControl2 newSessionControl)
         {
             newSessionControl.GetSessionInstanceIdentifier(out string newSessionInstanceIdentifier);
-            AudioSessionManager.RefreshSessions();
-            if (AudioSessionManager.Sessions?.FirstOrDefault(session => session.SessionInstanceIdentifier.Equals(newSessionInstanceIdentifier, StringComparison.Ordinal)) is AudioSessionControl2 audioSessionControl)
+            AudioSessionManager2.RefreshSessions();
+            if (AudioSessionManager2.Sessions?.FirstOrDefault(session => session.SessionInstanceIdentifier.Equals(newSessionInstanceIdentifier, StringComparison.Ordinal)) is AudioSessionControl2 audioSessionControl)
             {
                 if (CreateAndAddSessionIfUnique(audioSessionControl) is AudioSession newAudioSession)
                     Log.Debug($"New {nameof(AudioSession)} '{newAudioSession.ProcessName}' ({newAudioSession.PID}) created; successfully added it to the list.");
@@ -152,6 +162,8 @@ namespace VolumeControl.CoreAudio
                 Log.Error($"New {nameof(AudioSession)} created, but no new session was found!");
             }
         }
-        #endregion Methods
+        #endregion AudioSessionManager
+
+        #endregion EventHandlers
     }
 }

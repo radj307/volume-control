@@ -1,5 +1,4 @@
-﻿using PropertyChanged;
-using System;
+﻿using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -8,7 +7,6 @@ using System.Windows.Threading;
 
 namespace VolumeControl.WPF.Collections
 {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public abstract class ObservableCollectionObject : INotifyCollectionChanged, INotifyPropertyChanged
     {
         #region Private
@@ -151,7 +149,6 @@ namespace VolumeControl.WPF.Collections
         #region INotifyCollectionChanged
 
         public virtual event NotifyCollectionChangedEventHandler? CollectionChanged;
-        [SuppressPropertyChangedWarnings]
         protected virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
         {
             NotifyCollectionChangedEventHandler? notifyCollectionChangedEventHandler = CollectionChanged;
@@ -162,9 +159,7 @@ namespace VolumeControl.WPF.Collections
             foreach (NotifyCollectionChangedEventHandler handler in notifyCollectionChangedEventHandler.GetInvocationList())
             {
                 if (handler.Target is DispatcherObject dispatcherObject && !dispatcherObject.CheckAccess())
-                {
                     _ = dispatcherObject.Dispatcher.Invoke(DispatcherPriority.DataBind, handler, this, args);
-                }
                 else
                 {
                     handler(this, args);
@@ -201,5 +196,4 @@ namespace VolumeControl.WPF.Collections
 
         #endregion Nested Types
     }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

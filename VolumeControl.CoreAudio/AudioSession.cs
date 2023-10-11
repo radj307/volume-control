@@ -7,7 +7,6 @@ using VolumeControl.CoreAudio.Events;
 using VolumeControl.CoreAudio.Helpers;
 using VolumeControl.CoreAudio.Interfaces;
 using VolumeControl.Log;
-using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.CoreAudio
 {
@@ -118,9 +117,7 @@ namespace VolumeControl.CoreAudio
                 NotifyPropertyChanged();
                 // update HasCustomName:
                 if (!value.Equals(ProcessName, StringComparison.Ordinal))
-                { // Name != ProcessName
                     HasCustomName = true;
-                }
             }
         }
         private string _name = string.Empty;
@@ -224,23 +221,14 @@ namespace VolumeControl.CoreAudio
         /// </summary>
         public bool IsHidden
         {
-            get => (Core.Config.Default as Core.Config)!.HiddenSessionProcessNames.ContainsAny(this.ProcessName, this.Name);
+            get => _isHidden;
             set
             {
-                if (value)
-                { // hide this session
-                    if (IsHidden) return; //< already hidden
-
-                    (Core.Config.Default as Core.Config)!.HiddenSessionProcessNames.Add(this.ProcessName);
-                }
-                else
-                { // unhide this session
-                    if (!IsHidden) return; //< already not hidden
-
-                    (Core.Config.Default as Core.Config)!.HiddenSessionProcessNames.RemoveAll(pname => pname.Equals(this.ProcessName, StringComparison.Ordinal));
-                }
+                _isHidden = value;
+                NotifyPropertyChanged();
             }
         }
+        private bool _isHidden;
         #endregion IHideableAudioControl Properties
 
         #region Methods
@@ -266,9 +254,7 @@ namespace VolumeControl.CoreAudio
             if (separatorIndex == -1)
             { // separator character not found; one of the components is missing
                 if (s.All(char.IsNumber))
-                { // only the PID component is present:
                     return (uint.Parse(s), null);
-                }
                 else
                 { // only the ProcessName component is present:
                     return (null, s);
@@ -323,7 +309,7 @@ namespace VolumeControl.CoreAudio
         /// Gets a new TargetInfo object representing this AudioSession instance.
         /// </summary>
         /// <returns>A <see cref="TargetInfo"/> struct that represents this <see cref="AudioSession"/> instance.</returns>
-        public TargetInfo GetTargetInfo() => new TargetInfo()
+        public TargetInfo GetTargetInfo() => new()
         {
             PID = this.PID,
             ProcessName = this.ProcessName,
@@ -342,7 +328,7 @@ namespace VolumeControl.CoreAudio
         /// <param name="stringComparison">Specifies how strings will be compared.</param>
         /// <returns><see langword="true"/> when the specified <paramref name="name"/> matches this session; otherwise <see langword="false"/>.</returns>
         public bool HasMatchingName(string name, StringComparison stringComparison = StringComparison.Ordinal)
-            => (HasCustomName && Name.Equals(name, stringComparison)) || ProcessName.Equals(name, stringComparison);
+            => HasCustomName && Name.Equals(name, stringComparison) || ProcessName.Equals(name, stringComparison);
         #endregion HasMatchingName
 
         #endregion Methods

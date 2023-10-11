@@ -59,9 +59,7 @@ namespace VolumeControl.CoreAudio
                 if (_selected == null)
                 {
                     if (!_updatingSelectedFromSettingsPropertyChanged)
-                    {
                         Settings.TargetDeviceID = string.Empty;
-                    }
                 }
                 else
                 {

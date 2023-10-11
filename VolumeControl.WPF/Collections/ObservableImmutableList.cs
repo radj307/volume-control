@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using PropertyChanged;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -8,22 +6,16 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.WPF.Collections
 {
-#   pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-    [JsonArray]
     public class ObservableImmutableList<T> : ObservableCollectionObject, IList, ICollection, IEnumerable, IList<T>, IImmutableList<T>, ICollection<T>, IEnumerable<T>, IReadOnlyList<T>, IReadOnlyCollection<T>, INotifyCollectionChanged, INotifyPropertyChanged
     {
         #region Private
-        [JsonExtensionData]
         private ImmutableList<T> _items;
-
         #endregion Private
 
         #region Constructors
-        [JsonConstructor]
         public ObservableImmutableList() : this(Array.Empty<T>(), LockTypeEnum.SpinWait)
         {
         }
@@ -350,7 +342,6 @@ namespace VolumeControl.WPF.Collections
         void IList.RemoveAt(int index) => this.RemoveAt(index);
 
         /// <inheritdoc/>
-        [SuppressPropertyChangedWarnings]
         object IList.this[int index]
         {
 #           pragma warning disable CS8603 // Possible null reference return.
@@ -384,7 +375,6 @@ namespace VolumeControl.WPF.Collections
         void IList<T>.RemoveAt(int index) => this.RemoveAt(index);
 
         /// <inheritdoc/>
-        [SuppressPropertyChangedWarnings]
         public T this[int index]
         {
             get => _items[index];
@@ -511,7 +501,10 @@ namespace VolumeControl.WPF.Collections
         /// <inheritdoc/>
         public IImmutableList<T> RemoveRange(IEnumerable<T> items, IEqualityComparer<T>? equalityComparer)
         {
-            items.ForEach(item => this.Remove(item));
+            foreach (var item in items)
+            {
+                Remove(item);
+            }
             return this;
         }
 
@@ -540,7 +533,58 @@ namespace VolumeControl.WPF.Collections
 
         #endregion IImmutableList<T>
 
+        /// <summary>
+        /// Moves the item at the specified <paramref name="oldIndex"/> to a new location specified by <paramref name="newIndex"/>.
+        /// </summary>
+        /// <param name="oldIndex">The zero-based index specifying the location of the item to be moved.</param>
+        /// <param name="newIndex">The zero-based index specifying the new location of the item.</param>
+        /// <returns>This <see cref="ObservableImmutableList{T}"/> instance as a <see cref="IImmutableList{T}"/>.</returns>
+        public IImmutableList<T> Move(int oldIndex, int newIndex)
+        {
+            T removedItem = this[oldIndex];
+
+            // remove & insert the item without triggering CollectionChanged event:
+            _items = _items
+                .RemoveAt(oldIndex)
+                .Insert(newIndex, removedItem);
+
+            RaiseNotifyCollectionChanged(new(NotifyCollectionChangedAction.Move, removedItem, newIndex, oldIndex));
+            return this;
+        }
+
         #endregion Non Thead-Safe Methods
     }
-#   pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+    /// <summary>
+    /// Extends the <see cref="ObservableImmutableList{T}"/> class with sorting methods.
+    /// </summary>
+    public static class ObservableImmutableListExtension_Sort
+    {
+        /// <summary>
+        /// Sorts the list using the <see cref="IComparable.CompareTo(object?)"/> method.
+        /// </summary>
+        /// <typeparam name="T">Type of object contained by the list. It must implement <see cref="IComparable{T}"/>.</typeparam>
+        /// <param name="observableImmutableList">(implicit) The <see cref="ObservableImmutableList{T}"/> instance to sort.</param>
+        public static void Sort<T>(this ObservableImmutableList<T> observableImmutableList) where T : IComparable
+        {
+            var sorted = observableImmutableList.OrderBy(x => x).ToList();
+            for (int i = 0, max = sorted.Count; i < max; ++i)
+            {
+                observableImmutableList.Move(observableImmutableList.IndexOf(sorted[i]), i);
+            }
+        }
+        /// <summary>
+        /// Sorts the list using the specified <paramref name="comparer"/>.
+        /// </summary>
+        /// <typeparam name="T">Type of object contained by the list.</typeparam>
+        /// <param name="observableImmutableList">(implicit) The <see cref="ObservableImmutableList{T}"/> instance to sort.</param>
+        /// <param name="comparer">A comparer object to use when sorting the list.</param>
+        public static void Sort<T>(this ObservableImmutableList<T> observableImmutableList, IComparer<T> comparer)
+        {
+            var sorted = observableImmutableList.OrderBy(x => x, comparer).ToList();
+            for (int i = 0, max = sorted.Count; i < max; ++i)
+            {
+                observableImmutableList.Move(observableImmutableList.IndexOf(sorted[i]), i);
+            }
+        }
+    }
 }

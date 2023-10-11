@@ -1,5 +1,6 @@
 ﻿using CoreAudio;
 using VolumeControl.CoreAudio.Helpers;
+using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.CoreAudio
@@ -71,7 +72,7 @@ namespace VolumeControl.CoreAudio
         #endregion Fields
 
         #region Properties
-        private static Log.LogWriter Log => VolumeControl.Log.FLog.Log;
+        private static LogWriter Log => FLog.Log;
         /// <summary>
         /// Gets the list of <see cref="AudioDevice"/> instances.
         /// </summary>

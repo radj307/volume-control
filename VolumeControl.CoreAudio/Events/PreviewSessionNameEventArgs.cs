@@ -6,13 +6,18 @@
     public sealed class PreviewSessionNameEventArgs : EventArgs
     {
         #region Initializer
-        internal PreviewSessionNameEventArgs(string sessionName)
+        internal PreviewSessionNameEventArgs(AudioSession audioSession, string sessionName)
         {
+            AudioSession = audioSession;
             SessionName = sessionName;
         }
         #endregion Initializer
 
         #region Properties
+        /// <summary>
+        /// Gets the AudioSession instance that this event was triggered for.
+        /// </summary>
+        public AudioSession AudioSession { get; }
         /// <summary>
         /// Gets or sets the initial name that will be used for the new audio session instance.
         /// </summary>

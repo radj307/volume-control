@@ -1,4 +1,6 @@
 ﻿using CoreAudio;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -15,6 +17,7 @@ namespace VolumeControl.ViewModels
 {
     /// <summary>
     /// ViewModel for the <see cref="CoreAudio.AudioDeviceManager"/> class.
+    /// Implements all of the VolumeControl.CoreAudio assembly for the view.
     /// </summary>
     public sealed class AudioDeviceManagerVM : DependencyObject, INotifyPropertyChanged
     {
@@ -41,9 +44,15 @@ namespace VolumeControl.ViewModels
             AudioSessionManager = new();
 
             AudioSessionManager.PreviewSessionName += this.AudioSessionManager_PreviewSessionName;
-            AudioSessionManager.SessionAddedToList += this.AudioSessionManager_SessionAddedToList;
-            AudioSessionManager.SessionRemovedFromList += this.AudioSessionManager_SessionRemovedFromList;
+            AudioSessionManager.AddedSessionToList += this.AudioSessionManager_AddedSessionToList;
+            AudioSessionManager.RemovedSessionFromList += this.AudioSessionManager_RemovedSessionFromList;
 
+            // hide sessions when started if their name is in the hidden sessions list
+            AudioSessionManager.PreviewSessionIsHidden += this.AudioSessionManager_PreviewSessionIsHidden;
+            // hide/unhide sessions when added/removed from the hidden sessions list
+            Settings.HiddenSessionProcessNames.CollectionChanged += this.HiddenSessionProcessNames_CollectionChanged;
+
+            // populate the AudioSessionManager with AudioDeviceSessionManager instances, which also populates the lists of sessions
             Devices.Select(d => d.AudioDevice.SessionManager).ForEach(AudioSessionManager.AddSessionManager);
 
             AudioDeviceSelector = new(AudioDeviceManager);
@@ -91,7 +100,9 @@ namespace VolumeControl.ViewModels
             => AllSessions.FirstOrDefault(audioSessionVM => audioSessionVM!.AudioSession.Equals(audioSession), null);
         #endregion Methods
 
-        #region AudioDeviceManager EventHandler Methods
+        #region EventHandlers
+
+        #region AudioDeviceManager
         private void AudioDeviceManager_DeviceAddedToList(object? sender, AudioDevice e)
         {
             var vm = new AudioDeviceVM(e);
@@ -107,12 +118,12 @@ namespace VolumeControl.ViewModels
             AudioSessionManager.RemoveSessionManager(vm.AudioDevice.SessionManager);
             vm.Dispose();
         }
-        #endregion AudioDeviceManager EventHandler Methods
+        #endregion AudioDeviceManager
 
-        #region AudioSessionManager EventHandler Methods
-        private void AudioSessionManager_SessionAddedToList(object? sender, AudioSession e)
+        #region AudioSessionManager
+        private void AudioSessionManager_AddedSessionToList(object? sender, AudioSession e)
             => Dispatcher.Invoke(() => AllSessions.Add(new AudioSessionVM(e)));
-        private void AudioSessionManager_SessionRemovedFromList(object? sender, AudioSession e)
+        private void AudioSessionManager_RemovedSessionFromList(object? sender, AudioSession e)
         {
             // check if the vm actually exists to prevent possible exception in rare cases
             if (AllSessions.FirstOrDefault(svm => svm.AudioSession.Equals(e)) is AudioSessionVM vm)
@@ -128,6 +139,50 @@ namespace VolumeControl.ViewModels
                 e.SessionName = "System Sounds";
             }
         }
-        #endregion AudioSessionManager EventHandler Methods
+        private void AudioSessionManager_PreviewSessionIsHidden(object sender, PreviewSessionIsHiddenEventArgs e)
+        {
+            e.SessionIsHidden = Settings.HiddenSessionProcessNames.Any(name => e.AudioSession.HasMatchingName(name, System.StringComparison.OrdinalIgnoreCase));
+        }
+        #endregion AudioSessionManager
+
+        #region HiddenSessionProcessNames
+        /// <summary>
+        /// hides and unhides sessions when added/removed from the hidden sessions list.
+        /// </summary>
+        private void HiddenSessionProcessNames_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.OldItems != null)
+            { // unhide removed items
+                for (int i = 0, max = e.OldItems.Count; i < max; ++i)
+                {
+                    if (e.OldItems[i] is not string name)
+                        continue;
+
+                    if (AudioSessionManager.HiddenSessions.FirstOrDefault(hiddenSession => hiddenSession.HasMatchingName(name, StringComparison.OrdinalIgnoreCase))
+                        is AudioSession session)
+                    {
+                        AudioSessionManager.UnhideSession(session);
+                    }
+                }
+            }
+
+            if (e.NewItems != null)
+            { // hide added items
+                for (int i = 0, max = e.NewItems.Count; i < max; ++i)
+                {
+                    if (e.NewItems[i] is not string name)
+                        continue;
+
+                    if (AudioSessionManager.Sessions.FirstOrDefault(session => session.HasMatchingName(name, StringComparison.OrdinalIgnoreCase))
+                        is AudioSession session)
+                    {
+                        AudioSessionManager.HideSession(session);
+                    }
+                }
+            }
+        }
+        #endregion HiddenSessionProcessNames
+
+        #endregion EventHandlers
     }
 }

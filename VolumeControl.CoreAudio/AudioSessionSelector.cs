@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using VolumeControl.Core;
+using VolumeControl.Core.Helpers;
 using VolumeControl.CoreAudio.Interfaces;
 using VolumeControl.TypeExtensions;
 
@@ -21,7 +22,7 @@ namespace VolumeControl.CoreAudio
             AudioSessionManager = audioSessionManager;
 
             // attach event to remove previously-selected session.
-            AudioSessionManager.SessionRemovedFromList += this.AudioSessionManager_SessionRemovedFromList;
+            AudioSessionManager.RemovedSessionFromList += this.AudioSessionManager_SessionRemovedFromList;
 
             // attach event to update the selected item when the target changes from another source
             Settings.PropertyChanged += this.Settings_PropertyChanged;
@@ -62,9 +63,7 @@ namespace VolumeControl.CoreAudio
                     //  This allows invalid strings to remain in the targetbox without them
                     //  being overwritten when they don't resolve to a valid session.
                     if (!_updatingSelectedFromSettingsPropertyChanged)
-                    { // Selected is being set to null from a source other than the Settings.TargetSession property:
-                        Settings.TargetSession = Core.Helpers.TargetInfo.Empty;
-                    }
+                        Settings.TargetSession = TargetInfo.Empty;
                 }
                 else
                 {

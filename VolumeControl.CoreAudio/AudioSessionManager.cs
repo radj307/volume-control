@@ -1,5 +1,5 @@
-﻿using VolumeControl.Core;
-using VolumeControl.CoreAudio.Events;
+﻿using VolumeControl.CoreAudio.Events;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.CoreAudio
 {
@@ -20,8 +20,6 @@ namespace VolumeControl.CoreAudio
             _sessionManagers = new();
             _sessions = new();
             _hiddenSessions = new();
-
-            Settings.HiddenSessionProcessNames.CollectionChanged += this.HiddenSessionProcessNames_CollectionChanged;
         }
         /// <summary>
         /// Creates a new <see cref="AudioSessionManager"/> instance with the given <paramref name="sessionManagers"/>.
@@ -36,45 +34,81 @@ namespace VolumeControl.CoreAudio
         }
         #endregion Constructors
 
-        #region Fields
-        // Used to prevent the (Un)HideSession methods from causing sessions to be hidden/unhidden multiple times
-        private bool _isHiddenSessionProcessNamesChanging = false;
-        #endregion Fields
-
         #region Events
         /// <summary>
-        /// Occurs before an <see cref="AudioSession"/> is added to the <see cref="Sessions"/> list.
+        /// Occurs before an <see cref="AudioSession"/> is added to the Sessions list to get its initial name.
         /// </summary>
         /// <remarks>
         /// This allows the name of the audio session to be changed by setting the <see cref="PreviewSessionNameEventArgs.SessionName"/> property in a handler method.
         /// </remarks>
         public event PreviewSessionNameEventHandler? PreviewSessionName;
-        private PreviewSessionNameEventArgs NotifyPreviewSessionName(string sessionName)
+        private PreviewSessionNameEventArgs NotifyPreviewSessionName(AudioSession audioSession)
         {
-            var args = new PreviewSessionNameEventArgs(sessionName);
+            var args = new PreviewSessionNameEventArgs(audioSession, audioSession.Name);
             PreviewSessionName?.Invoke(this, args);
             return args;
         }
         /// <summary>
+        /// Occurs before an <see cref="AudioSession"/> is added to the Sessions list to get its initial hidden state.
+        /// </summary>
+        /// <remarks>
+        /// This allows handler methods to set whether the audio session is hidden by default.
+        /// </remarks>
+        public event PreviewSessionIsHiddenEventHandler? PreviewSessionIsHidden;
+        private PreviewSessionIsHiddenEventArgs NotifyPreviewSessionIsHidden(AudioSession audioSession)
+        {
+            var args = new PreviewSessionIsHiddenEventArgs(audioSession, audioSession.IsHidden);
+            PreviewSessionIsHidden?.Invoke(this, args);
+            return args;
+        }
+
+        #region List
+        /// <summary>
+        /// Occurs prior to an <see cref="AudioSession"/> being added to the <see cref="Sessions"/> list for any reason.
+        /// </summary>
+        public event EventHandler<AudioSession>? AddingSessionToList;
+        private void NotifyAddingSessionToList(AudioSession session) => AddingSessionToList?.Invoke(this, session);
+        /// <summary>
         /// Occurs when an <see cref="AudioSession"/> is added to the <see cref="Sessions"/> list for any reason.
         /// </summary>
-        public event EventHandler<AudioSession>? SessionAddedToList;
-        private void NotifySessionAddedToList(AudioSession session) => SessionAddedToList?.Invoke(this, session);
+        public event EventHandler<AudioSession>? AddedSessionToList;
+        private void NotifyAddedSessionToList(AudioSession session) => AddedSessionToList?.Invoke(this, session);
+        /// <summary>
+        /// Occurs prior to an <see cref="AudioSession"/> being removed from the <see cref="Sessions"/> list for any reason.
+        /// </summary>
+        public event EventHandler<AudioSession>? RemovingSessionFromList;
+        private void NotifyRemovingSessionFromList(AudioSession session) => RemovingSessionFromList?.Invoke(this, session);
         /// <summary>
         /// Occurs when an <see cref="AudioSession"/> is removed from the <see cref="Sessions"/> list for any reason.
         /// </summary>
-        public event EventHandler<AudioSession>? SessionRemovedFromList;
-        private void NotifySessionRemovedFromList(AudioSession session) => SessionRemovedFromList?.Invoke(this, session);
+        public event EventHandler<AudioSession>? RemovedSessionFromList;
+        private void NotifyRemovedSessionFromList(AudioSession session) => RemovedSessionFromList?.Invoke(this, session);
+        #endregion List
+
+        #region HiddenList
+        /// <summary>
+        /// Occurs prior to an <see cref="AudioSession"/> being added to the <see cref="HiddenSessions"/> list for any reason.
+        /// </summary>
+        public event EventHandler<AudioSession>? AddingSessionToHiddenList;
+        private void NotifyAddingSessionToHiddenList(AudioSession session) => AddingSessionToHiddenList?.Invoke(this, session);
         /// <summary>
         /// Occurs when an <see cref="AudioSession"/> is added to the <see cref="HiddenSessions"/> list for any reason.
         /// </summary>
-        public event EventHandler<AudioSession>? SessionAddedToHiddenList;
-        private void NotifySessionAddedToHiddenList(AudioSession session) => SessionAddedToHiddenList?.Invoke(this, session);
+        public event EventHandler<AudioSession>? AddedSessionToHiddenList;
+        private void NotifyAddedSessionToHiddenList(AudioSession session) => AddedSessionToHiddenList?.Invoke(this, session);
+        /// <summary>
+        /// Occurs prior to an <see cref="AudioSession"/> being removed from the <see cref="HiddenSessions"/> list for any reason.
+        /// </summary>
+        public event EventHandler<AudioSession>? RemovingSessionFromHiddenList;
+        private void NotifyRemovingSessionFromHiddenList(AudioSession session) => RemovingSessionFromHiddenList?.Invoke(this, session);
         /// <summary>
         /// Occurs when an <see cref="AudioSession"/> is removed from the <see cref="HiddenSessions"/> list for any reason.
         /// </summary>
-        public event EventHandler<AudioSession>? SessionRemovedFromHiddenList;
-        private void NotifySessionRemovedFromHiddenList(AudioSession session) => SessionRemovedFromHiddenList?.Invoke(this, session);
+        public event EventHandler<AudioSession>? RemovedSessionFromHiddenList;
+        private void NotifyRemovedSessionFromHiddenList(AudioSession session) => RemovedSessionFromHiddenList?.Invoke(this, session);
+        #endregion HiddenList
+
+        #region SessionManager
         /// <summary>
         /// Occurs when an <see cref="AudioDeviceSessionManager"/> is added to the <see cref="SessionManagers"/> list for any reason.
         /// </summary>
@@ -85,10 +119,11 @@ namespace VolumeControl.CoreAudio
         /// </summary>
         public event EventHandler<AudioDeviceSessionManager>? SessionManagerRemovedFromList;
         private void NotifySessionManagerRemovedFromList(AudioDeviceSessionManager sessionManager) => SessionManagerRemovedFromList?.Invoke(this, sessionManager);
+        #endregion SessionManager
+
         #endregion Events
 
         #region Properties
-        private static Config Settings => (Config.Default as Config)!;
         /// <summary>
         /// Gets the list of <see cref="AudioDeviceSessionManager"/> instances currently being managed by this <see cref="AudioSessionManager"/> instance.
         /// </summary>
@@ -202,16 +237,16 @@ namespace VolumeControl.CoreAudio
             for (int i = 0; i < Sessions.Count; ++i)
             {
                 AudioSession session = Sessions[i];
-                if ((session.HasCustomName && session.Name.Equals(sessionName, stringComparison))
-                    || session.ProcessName.Equals(sessionName, stringComparison)) return session;
+                if (session.HasMatchingName(sessionName, stringComparison))
+                    return session;
             }
             if (includeHiddenSessions)
             {
                 for (int i = 0; i < HiddenSessions.Count; ++i)
                 {
                     AudioSession session = HiddenSessions[i];
-                    if ((session.HasCustomName && session.Name.Equals(sessionName, stringComparison))
-                        || session.ProcessName.Equals(sessionName, stringComparison)) return session;
+                    if (session.HasMatchingName(sessionName, stringComparison))
+                        return session;
                 }
             }
             return null;
@@ -275,9 +310,7 @@ namespace VolumeControl.CoreAudio
             if (delimIndex == -1)
             { // no separator; only 1 segment is present:
                 if (s.All(char.IsNumber))
-                { // PID segment is present:
                     return FindSessionWithPID(uint.Parse(s), includeHiddenSessions);
-                }
                 else
                 { // ProcessName segment is present:
                     return FindSessionWithName(s, stringComparison, includeHiddenSessions); //< check both Name & ProcessName
@@ -364,20 +397,24 @@ namespace VolumeControl.CoreAudio
         internal void AddSession(AudioSession session)
         {
             if (_sessions.Any(s => s.PID.Equals(session.PID)))
-                return;
+                return; // don't add duplicate sessions
 
             // allow handlers to edit the session's initial name:
-            session.Name = NotifyPreviewSessionName(session.Name).SessionName;
+            session.Name = NotifyPreviewSessionName(session).SessionName;
+            // allow handlers to edit the session's initial hidden state:
+            session.IsHidden = NotifyPreviewSessionIsHidden(session).SessionIsHidden;
 
             if (session.IsHidden)
             { // add session to hidden list
+                NotifyAddingSessionToHiddenList(session);
                 _hiddenSessions.Add(session);
-                NotifySessionAddedToHiddenList(session);
+                NotifyAddedSessionToHiddenList(session);
             }
             else
             { // add session to visible list
+                NotifyAddingSessionToList(session);
                 _sessions.Add(session);
-                NotifySessionAddedToList(session);
+                NotifyAddedSessionToList(session);
             }
         }
         /// <summary>
@@ -387,14 +424,17 @@ namespace VolumeControl.CoreAudio
         internal void RemoveSession(AudioSession session)
         {
             // AudioSession.IsHidden is not reliable within this method
-            if (_hiddenSessions.Remove(session))
-            { // remove(d) session from hidden list
-                NotifySessionRemovedFromHiddenList(session);
+            if (HiddenSessions.IndexOf(session, out int hiddenIndex))
+            {
+                NotifyRemovingSessionFromHiddenList(session);
+                _hiddenSessions.RemoveAt(hiddenIndex);
+                NotifyRemovedSessionFromHiddenList(session);
             }
-            else
-            { // remove session from visible list
-                _sessions.Remove(session);
-                NotifySessionRemovedFromList(session);
+            else if (Sessions.IndexOf(session, out int index))
+            {
+                NotifyRemovingSessionFromList(session);
+                _sessions.RemoveAt(index);
+                NotifyRemovedSessionFromList(session);
             }
         }
         #endregion Add/Remove Session
@@ -456,9 +496,7 @@ namespace VolumeControl.CoreAudio
         {
             if (session.IsHidden) return; //< don't do anything if the session is already hidden
 
-            _isHiddenSessionProcessNamesChanging = true; //< don't trigger HiddenSessionProcessNames_CollectionChanged
             session.IsHidden = true;
-            _isHiddenSessionProcessNamesChanging = false;
 
             RemoveSession(session); //< remove from the Sessions list
             AddSession(session); //< add to the HiddenSessions list
@@ -471,9 +509,7 @@ namespace VolumeControl.CoreAudio
         {
             if (!session.IsHidden) return; //< don't do anything if the session isn't hidden
 
-            _isHiddenSessionProcessNamesChanging = true; //< don't trigger HiddenSessionProcessNames_CollectionChanged
             session.IsHidden = false;
-            _isHiddenSessionProcessNamesChanging = false;
 
             RemoveSession(session); //< remove from the HiddenSessions list
             AddSession(session); //< add to the Sessions list
@@ -496,53 +532,6 @@ namespace VolumeControl.CoreAudio
         private void SessionManager_SessionRemovedFromList(object? sender, AudioSession e)
             => RemoveSession(e);
         #endregion SessionManager
-
-        #region HiddenSessionProcessNames
-        /// <summary>
-        /// Moves sessions between the <see cref="HiddenSessions"/> and <see cref="Sessions"/> lists.
-        /// </summary>
-        private void HiddenSessionProcessNames_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            if (_isHiddenSessionProcessNamesChanging) return; //< don't do anything if this event originated as a result of the (Un)HideSession methods
-
-            if (e.OldItems is not null)
-            { // unhide removed sessions
-                foreach (var item in e.OldItems)
-                {
-                    var name = (string)item;
-
-                    // we have to enumerate the entire list here because of applications 
-                    //  like Discord that have multiple identically-named audio sessions:
-                    for (int i = HiddenSessions.Count - 1; i >= 0; --i)
-                    {
-                        var hiddenSession = HiddenSessions[i];
-                        if (hiddenSession.HasMatchingName(name))
-                        {
-                            UnhideSession(hiddenSession);
-                        }
-                    }
-                }
-            }
-            if (e.NewItems is not null)
-            { // hide added sessions
-                foreach (var item in e.NewItems)
-                {
-                    var name = (string)item;
-
-                    // we have to enumerate the entire list here because of applications 
-                    //  like Discord that have multiple identically-named audio sessions:
-                    for (int i = Sessions.Count - 1; i >= 0; --i)
-                    {
-                        var session = Sessions[i];
-                        if (session.HasMatchingName(name))
-                        {
-                            HideSession(session);
-                        }
-                    }
-                }
-            }
-        }
-        #endregion HiddenSessionProcessNames
 
         #endregion EventHandlers
     }
