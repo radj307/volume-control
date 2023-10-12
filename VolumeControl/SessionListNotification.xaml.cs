@@ -1,13 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using VolumeControl.Core;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
-using VolumeControl.SDK;
 using VolumeControl.SDK.Internal;
 using VolumeControl.ViewModels;
 using VolumeControl.WPF;
@@ -334,13 +334,13 @@ namespace VolumeControl
             {
                 if (e.ChangedButton.Equals(MouseButton.Middle))
                 { // middle mouse toggles session lock
-                    VCSettings.AudioAPI.AudioSessionSelector.LockSelection = !VCSettings.AudioAPI.AudioSessionSelector.LockSelection;
+                    VCSettings.AudioAPI.AudioSessionMultiSelector.LockSelection = !VCSettings.AudioAPI.AudioSessionMultiSelector.LockSelection;
                     e.Handled = true;
                     return;
                 }
                 else if (!Settings.LockTargetSession && e.ChangedButton.Equals(MouseButton.Right))
                 { // right mouse deselects
-                    VCSettings.AudioAPI.AudioSessionSelector.DeselectSession();
+                    VCSettings.AudioAPI.AudioSessionMultiSelector.UnsetCurrentIndex();
                     e.Handled = true;
                     return;
                 }
@@ -359,10 +359,7 @@ namespace VolumeControl
         /// </summary>
         private void ListViewItem_Selected(object sender, RoutedEventArgs e)
         {
-            if (VCAPI.Default.AudioSessionSelector.Selected is null)
-            { // only release mouse capture when there was no select
-                ListView.ReleaseMouseCapture();
-            }
+            ListView.ReleaseMouseCapture();
         }
         #endregion ListViewItem
 

@@ -21,11 +21,10 @@ namespace VolumeControl.CoreAudio
             AudioSessionManager = audioSessionManager;
 
             CurrentIndex = -1;
+            _selectedSessions = new();
             _selectionStates = new();
-            foreach (var session in Sessions) // populate the selection states list
-            {
-                _selectionStates.Add(NotifyPreviewSessionIsSelected(session, defaultIsSelected: false).IsSelected);
-            }
+            // populate the lists:
+            Sessions.ForEach(AddSession);
 
             AudioSessionManager.AddedSessionToList += this.AudioSessionManager_SessionAddedToList;
             AudioSessionManager.RemovingSessionFromList += this.AudioSessionManager_RemovingSessionFromList; ;
@@ -46,12 +45,12 @@ namespace VolumeControl.CoreAudio
 
                 if (LockSelection) return;
 
-                var previouslySelectedItems = SelectedItems;
+                var previouslySelectedItems = SelectedSessions;
 
-                _selectionStates = (List<bool>)value;
+                _selectionStates = value.ToList();
                 NotifyPropertyChanged();
 
-                var selectedItems = SelectedItems;
+                var selectedItems = SelectedSessions;
 
                 // trigger selection changed notifications
                 for (int i = 0, max = SelectionStates.Count; i < max; ++i)
@@ -60,9 +59,13 @@ namespace VolumeControl.CoreAudio
                     var wasSelectedBefore = previouslySelectedItems.Contains(session);
                     var isSelectedNow = selectedItems.Contains(session);
                     if (wasSelectedBefore && !isSelectedNow)
+                    {
+                        AddSelectedSession(session);
                         NotifySessionDeselected(session);
+                    }
                     else if (!wasSelectedBefore && isSelectedNow)
                     {
+                        RemoveSelectedSession(session);
                         NotifySessionSelected(session);
                     }
                 }
@@ -73,27 +76,38 @@ namespace VolumeControl.CoreAudio
         /// Gets or sets the list of selected AudioSession instances.
         /// </summary>
         /// <returns>An array of all selected AudioSessions in the order that they appear in the Sessions list.</returns>
-        public AudioSession[] SelectedItems
+        public IReadOnlyList<AudioSession> SelectedSessions
         {
-            get
-            {
-                List<AudioSession> l = new();
-                for (int i = 0; i < SelectionStates.Count; ++i)
-                {
-                    if (SelectionStates[i])
-                        l.Add(Sessions[i]);
-                }
-                return l.ToArray();
-            }
+            get => _selectedSessions;
             set
             {
-                for (int i = 0; i < SelectionStates.Count; ++i)
+                for (int i = 0, max = SelectionStates.Count; i < max; ++i)
                 {
-                    _selectionStates[i] = value.Contains(Sessions[i]);
+                    var session = Sessions[i];
+                    var newState = value.Contains(session);
+
+                    if (_selectionStates[i] == newState) continue; //< no changes to make
+
+                    if (_selectionStates[i] = newState)
+                    {
+                        AddSelectedSession(session);
+                        NotifySessionSelected(session);
+                    }
+                    else
+                    {
+                        RemoveSelectedSession(session);
+                        NotifySessionDeselected(session);
+                    }
                 }
                 NotifyPropertyChanged();
             }
         }
+        private readonly List<AudioSession> _selectedSessions;
+        /// <summary>
+        /// Gets whether there are any selected sessions or not.
+        /// </summary>
+        /// <returns><see langword="true"/> when there is at least one selected session; otherwise <see langword="false"/>.</returns>
+        public bool HasSelectedSessions => SelectedSessions.Count > 0;
         /// <inheritdoc/>
         public int CurrentIndex
         {
@@ -104,7 +118,7 @@ namespace VolumeControl.CoreAudio
 
                 _currentIndex = value;
                 NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(CurrentItem));
+                NotifyPropertyChanged(nameof(CurrentSession));
                 if (_currentIndex != -1)
                     NotifyCurrentItemChanged(Sessions[_currentIndex]);
             }
@@ -122,9 +136,9 @@ namespace VolumeControl.CoreAudio
         }
         private bool _lockCurrentIndex;
         /// <summary>
-        /// Gets or sets the item that the selector is currently at.
+        /// Gets or sets the session that the selector is currently pointing at.
         /// </summary>
-        public AudioSession? CurrentItem
+        public AudioSession? CurrentSession
         {
             get => CurrentIndex == -1 ? null : Sessions[CurrentIndex];
             set
@@ -153,9 +167,24 @@ namespace VolumeControl.CoreAudio
             {
                 _lockSelection = value;
                 NotifyPropertyChanged();
+                if (LockCurrentIndexOnLockSelection)
+                    LockCurrentIndex = value;
             }
         }
         private bool _lockSelection;
+        /// <summary>
+        /// Gets or sets whether the LockCurrentIndex property is also set when LockSelection is changed.
+        /// </summary>
+        public bool LockCurrentIndexOnLockSelection
+        {
+            get => _lockCurrentIndexOnLockSelection;
+            set
+            {
+                _lockCurrentIndexOnLockSelection = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private bool _lockCurrentIndexOnLockSelection;
         #endregion Properties
 
         #region Events
@@ -191,6 +220,45 @@ namespace VolumeControl.CoreAudio
 
         #region Methods
 
+        private void AddSelectedSession(AudioSession audioSession)
+        {
+            var hadSelectedSessions = HasSelectedSessions;
+            _selectedSessions.Add(audioSession);
+            if (!hadSelectedSessions)
+                NotifyPropertyChanged(nameof(HasSelectedSessions));
+        }
+        private void RemoveSelectedSession(AudioSession audioSession)
+        {
+            if (_selectedSessions.Remove(audioSession) && _selectedSessions.Count == 0)
+            {
+                NotifyPropertyChanged(nameof(HasSelectedSessions));
+            }
+        }
+
+        #region Add/Remove Session
+        private void AddSession(AudioSession session)
+        {
+            var isSelected = NotifyPreviewSessionIsSelected(session, defaultIsSelected: false).IsSelected;
+            _selectionStates.Insert(Sessions.IndexOf(session), isSelected);
+            if (isSelected)
+            {
+                AddSelectedSession(session);
+                NotifySessionSelected(session);
+            }
+        }
+        private void RemoveSession(AudioSession session)
+        {
+            var index = Sessions.IndexOf(session); //< we can get the index here because the session hasn't been removed yet
+            var wasSelected = _selectionStates[index];
+            _selectionStates.RemoveAt(index);
+            if (wasSelected)
+            {
+                RemoveSelectedSession(session);
+                NotifySessionDeselected(session);
+            }
+        }
+        #endregion Add/Remove Session
+
         #region Get/Set SessionIsSelected
         /// <summary>
         /// Gets whether the specified <paramref name="audioSession"/> is selected or not.
@@ -221,9 +289,13 @@ namespace VolumeControl.CoreAudio
             if (_selectionStates[index] == isSelected) return; //< don't do anything if nothing is changing
 
             if (_selectionStates[index] = isSelected)
+            {
+                AddSelectedSession(audioSession);
                 NotifySessionSelected(audioSession);
+            }
             else
             {
+                RemoveSelectedSession(audioSession);
                 NotifySessionDeselected(audioSession);
             }
         }
@@ -240,11 +312,16 @@ namespace VolumeControl.CoreAudio
 
             if (_selectionStates[index] == isSelected) return; //< don't do anything if nothing is changing
 
+            var session = Sessions[index];
             if (_selectionStates[index] = isSelected)
-                NotifySessionSelected(Sessions[index]);
+            {
+                AddSelectedSession(session);
+                NotifySessionSelected(session);
+            }
             else
             {
-                NotifySessionDeselected(Sessions[index]);
+                RemoveSelectedSession(session);
+                NotifySessionDeselected(session);
             }
         }
         #endregion Get/Set SessionIsSelected
@@ -275,7 +352,8 @@ namespace VolumeControl.CoreAudio
             if (LockSelection || CurrentIndex == -1) return;
 
             _selectionStates[CurrentIndex] = true;
-            NotifySessionSelected(CurrentItem!);
+            AddSelectedSession(CurrentSession!);
+            NotifySessionSelected(CurrentSession!);
         }
         /// <summary>
         /// Deselects the CurrentItem.
@@ -288,7 +366,8 @@ namespace VolumeControl.CoreAudio
             if (LockSelection || CurrentIndex == -1) return;
 
             _selectionStates[CurrentIndex] = false;
-            NotifySessionDeselected(CurrentItem!);
+            RemoveSelectedSession(CurrentSession!);
+            NotifySessionDeselected(CurrentSession!);
         }
         /// <summary>
         /// Toggles whether the CurrentItem is selected.
@@ -301,10 +380,14 @@ namespace VolumeControl.CoreAudio
             if (LockSelection || CurrentIndex == -1) return;
 
             if (_selectionStates[CurrentIndex] = !SelectionStates[CurrentIndex])
-                NotifySessionSelected(CurrentItem!);
+            {
+                AddSelectedSession(CurrentSession!);
+                NotifySessionSelected(CurrentSession!);
+            }
             else
             {
-                NotifySessionDeselected(CurrentItem!);
+                RemoveSelectedSession(CurrentSession!);
+                NotifySessionDeselected(CurrentSession!);
             }
         }
         #endregion Select/Deselect/ToggleSelect CurrentItem
@@ -320,7 +403,7 @@ namespace VolumeControl.CoreAudio
         {
             if (LockCurrentIndex) return;
 
-            if (CurrentIndex + 1 < SelectionStates.Count)
+            if (CurrentIndex < SelectionStates.Count - 1)
                 ++CurrentIndex;
             else
             { // loopback:
@@ -341,7 +424,7 @@ namespace VolumeControl.CoreAudio
                 --CurrentIndex;
             else
             { // loopback:
-                CurrentIndex = SelectionStates.Count;
+                CurrentIndex = SelectionStates.Count - 1;
             }
         }
         /// <summary>
@@ -364,20 +447,9 @@ namespace VolumeControl.CoreAudio
 
         #region AudioSessionManager
         private void AudioSessionManager_SessionAddedToList(object? sender, AudioSession e)
-        {
-            var isSelected = NotifyPreviewSessionIsSelected(e, defaultIsSelected: false).IsSelected;
-            _selectionStates.Insert(Sessions.IndexOf(e), isSelected);
-            if (isSelected)
-                NotifySessionSelected(e);
-        }
+            => AddSession(e);
         private void AudioSessionManager_RemovingSessionFromList(object? sender, AudioSession e)
-        {
-            var index = Sessions.IndexOf(e); //< we can get the index here because the session hasn't been removed yet
-            var wasSelected = _selectionStates[index];
-            _selectionStates.RemoveAt(index);
-            if (wasSelected)
-                NotifySessionDeselected(e);
-        }
+            => RemoveSession(e);
         #endregion AudioSessionManager
 
         #endregion EventHandlers

@@ -35,6 +35,51 @@ namespace VolumeControl
         [STAThread]
         public static void Main(string[] args)
         {
+            //var t = new Stopwatch();
+            //var profile = (Action action) =>
+            //{
+            //    t.Start();
+            //    action.Invoke();
+            //    t.Stop();
+
+            //    var elapsed = t.Elapsed;
+            //    t.Reset();
+            //    return elapsed;
+            //};
+            //var coinflip = () => Random.Shared.Next(0, 2) == 0;
+
+            //List<string?> l = new();
+            //for (int i = 0; i < 100; ++i)
+            //{
+            //    string? s = null;
+            //    if (coinflip())
+            //    {
+            //        s = string.Empty;
+            //        while (Random.Shared.Next(0, 10) <= 7)
+            //        {
+            //            s += coinflip() ? ' ' : (char)Random.Shared.Next('A', 'Z');
+            //        }
+            //    }
+            //    l.Add(s);
+            //}
+
+            //var elapsed1 = profile(() =>
+            //{
+            //    for (int i = 0, max = l.Count; i < max; ++i)
+            //    {
+
+            //    }
+            //});
+            //var elapsed2 = profile(() =>
+            //{
+            //    for (int i = 0, max = l.Count; i < max; i++)
+            //    {
+
+            //    }
+            //});
+
+            //return;
+
             // make sure the application's working directory isn't System32 (this occurs when run at startup is enabled and the program was started via its registry key)
             bool changedWorkingDirectory = false;
             if (Environment.CurrentDirectory.Equals(Environment.SystemDirectory, StringComparison.OrdinalIgnoreCase))

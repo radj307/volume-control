@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Threading;
 using VolumeControl.Core;
+using VolumeControl.Core.Helpers;
 using VolumeControl.CoreAudio;
 using VolumeControl.CoreAudio.Events;
 using VolumeControl.Log;
@@ -23,45 +24,85 @@ namespace VolumeControl.ViewModels
     {
         public AudioDeviceManagerVM()
         {
+            var doDebugLogging = Log.IsEventVisible(VolumeControl.Log.Enum.EventType.DEBUG);
+            if (doDebugLogging) Log.Debug("Started initializing CoreAudio APIs.");
+
+            // # INIT DEVICES #
+            // setup the device manager
             AudioDeviceManager = new(DataFlow.Render);
 
-            Log.Debug("Initializing Audio Devices.");
-
+            // setup the devices list
             Devices = new();
 
+            // attach handlers for devices being added/removed at runtime
             AudioDeviceManager.DeviceAddedToList += AudioDeviceManager_DeviceAddedToList;
             AudioDeviceManager.DeviceRemovedFromList += AudioDeviceManager_DeviceRemovedFromList;
 
-            foreach (var device in AudioDeviceManager.Devices)
+            // populate the devices list
+            for (int i = 0, max = AudioDeviceManager.Devices.Count; i < max; ++i)
             {
-                Devices.Add(new(device));
+                Devices.Add(new AudioDeviceVM(AudioDeviceManager.Devices[i]));
             }
 
-            Log.Debug("Finished initializing Audio Devices, started initializing Audio Sessions.");
+            // setup the device selection manager
+            AudioDeviceSelector = new(AudioDeviceManager);
 
-            AllSessions = new();
+            if (doDebugLogging) Log.Debug($"Successfully initialized {AudioDeviceManager.Devices.Count} audio devices.");
 
+            // # INIT SESSIONS #
+            // setup the session manager
             AudioSessionManager = new();
 
-            AudioSessionManager.PreviewSessionName += this.AudioSessionManager_PreviewSessionName;
+            // setup the sessions list
+            AllSessions = new();
+
+            // attach handlers for sessions being added/removed at runtime
             AudioSessionManager.AddedSessionToList += this.AudioSessionManager_AddedSessionToList;
             AudioSessionManager.RemovedSessionFromList += this.AudioSessionManager_RemovedSessionFromList;
 
-            // hide sessions when started if their name is in the hidden sessions list
+            // attach handler to override session names
+            AudioSessionManager.PreviewSessionName += this.AudioSessionManager_PreviewSessionName;
+
+            // attach handler to set session hidden state when added
             AudioSessionManager.PreviewSessionIsHidden += this.AudioSessionManager_PreviewSessionIsHidden;
-            // hide/unhide sessions when added/removed from the hidden sessions list
+            // attach handler to hide/unhide sessions when the hidden sessions names list is changed
             Settings.HiddenSessionProcessNames.CollectionChanged += this.HiddenSessionProcessNames_CollectionChanged;
 
-            // populate the AudioSessionManager with AudioDeviceSessionManager instances, which also populates the lists of sessions
-            Devices.Select(d => d.AudioDevice.SessionManager).ForEach(AudioSessionManager.AddSessionManager);
-
-            AudioDeviceSelector = new(AudioDeviceManager);
-            AudioSessionSelector = new(AudioSessionManager)
+            // setup the session selection manager
+            SelectedSessions = new();
+            SelectedSessionsComparer = Comparer<AudioSessionVM>.Create((a, b) => AllSessions.IndexOf(a) - AllSessions.IndexOf(b));
+            AudioSessionMultiSelector = new(AudioSessionManager)
             {
                 LockSelection = Settings.LockTargetSession,
+                LockCurrentIndex = Settings.LockTargetSession,
+                LockCurrentIndexOnLockSelection = true
             };
 
-            Log.Debug("Finished initializing Audio Sessions.");
+            // populate the sessions lists
+            Devices.Select(d => d.AudioDevice.SessionManager).ForEach(AudioSessionManager.AddSessionManager);
+
+            // select all previously-selected sessions
+            foreach (var item in Settings.SelectedSessions)
+            {
+                if (AudioSessionManager.FindSessionWithSimilarProcessIdentifier(item.ProcessIdentifier, StringComparison.OrdinalIgnoreCase) is AudioSession session)
+                {
+                    AudioSessionMultiSelector.SetSessionIsSelected(session, true);
+                    this.SelectedSessions.Add(GetAudioSessionVM(session)!);
+                }
+            }
+            // set the current session
+            var currentSession = AudioSessionManager.FindSessionWithSimilarProcessIdentifier(Settings.TargetSession.ProcessIdentifier, StringComparison.OrdinalIgnoreCase);
+            AudioSessionMultiSelector.CurrentSession = currentSession;
+            this.CurrentSession = currentSession == null ? null : GetAudioSessionVM(currentSession);
+
+            // attach handlers to session selection events
+            AudioSessionMultiSelector.SessionSelected += this.AudioSessionMultiSelector_SessionSelected;
+            AudioSessionMultiSelector.SessionDeselected += this.AudioSessionMultiSelector_SessionDeselected;
+            AudioSessionMultiSelector.CurrentItemChanged += this.AudioSessionMultiSelector_CurrentItemChanged;
+
+            if (doDebugLogging) Log.Debug($"Successfully initialized {AudioSessionManager.Sessions.Count + AudioSessionManager.HiddenSessions.Count} {(AudioSessionManager.HiddenSessions.Count == 0 ? "" : $"({AudioSessionManager.HiddenSessions.Count} hidden)")} audio sessions.");
+
+            if (doDebugLogging) Log.Debug("Finished initializing CoreAudio APIs.");
         }
 
         #region Events
@@ -79,8 +120,24 @@ namespace VolumeControl.ViewModels
         public ObservableImmutableList<AudioDeviceVM> Devices { get; }
         public CoreAudio.AudioSessionManager AudioSessionManager { get; }
         public ObservableImmutableList<AudioSessionVM> AllSessions { get; }
+        public ObservableImmutableList<AudioSessionVM> SelectedSessions { get; }
+        public Comparer<AudioSessionVM> SelectedSessionsComparer { get; }
+        public AudioSessionVM? CurrentSession { get; set; }
         public AudioDeviceSelector AudioDeviceSelector { get; }
-        public AudioSessionSelector AudioSessionSelector { get; }
+        public AudioSessionMultiSelector AudioSessionMultiSelector { get; }
+        public bool? AllSessionsSelected
+        {
+            get
+            {
+                var selected = SelectedSessions.Count;
+                var total = AllSessions.Count;
+
+                if (selected == total) return true;
+                else if (selected == 0) return false;
+                else return null;
+            }
+            set => AudioSessionMultiSelector.SetAllSessionSelectionStates(value == true);
+        }
         #endregion Properties
 
         #region Methods
@@ -122,7 +179,7 @@ namespace VolumeControl.ViewModels
 
         #region AudioSessionManager
         private void AudioSessionManager_AddedSessionToList(object? sender, AudioSession e)
-            => Dispatcher.Invoke(() => AllSessions.Add(new AudioSessionVM(e)));
+            => Dispatcher.Invoke(() => AllSessions.Add(new AudioSessionVM(this, e)));
         private void AudioSessionManager_RemovedSessionFromList(object? sender, AudioSession e)
         {
             // check if the vm actually exists to prevent possible exception in rare cases
@@ -182,6 +239,29 @@ namespace VolumeControl.ViewModels
             }
         }
         #endregion HiddenSessionProcessNames
+
+        #region AudioSessionMultiSelector
+        private void AudioSessionMultiSelector_SessionSelected(object? sender, AudioSession e)
+        {
+            Settings.SelectedSessions.AddIfUnique(e.GetTargetInfo());
+            this.SelectedSessions.Add(GetAudioSessionVM(e)!);
+            this.SelectedSessions.Sort(SelectedSessionsComparer);
+            // update the all selected checkbox
+            NotifyPropertyChanged(nameof(AllSessionsSelected));
+        }
+        private void AudioSessionMultiSelector_SessionDeselected(object? sender, AudioSession e)
+        {
+            Settings.SelectedSessions.Remove(e.GetTargetInfo());
+            this.SelectedSessions.Remove(GetAudioSessionVM(e)!);
+            // update the all selected checkbox
+            NotifyPropertyChanged(nameof(AllSessionsSelected));
+        }
+        private void AudioSessionMultiSelector_CurrentItemChanged(object? sender, AudioSession? e)
+        {
+            Settings.TargetSession = e?.GetTargetInfo() ?? TargetInfo.Empty;
+            CurrentSession = e == null ? null : GetAudioSessionVM(e);
+        }
+        #endregion AudioSessionMultiSelector
 
         #endregion EventHandlers
     }

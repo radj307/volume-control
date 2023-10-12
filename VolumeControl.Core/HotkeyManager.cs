@@ -262,7 +262,7 @@ namespace VolumeControl.Core
                 {
                     bool prev = this.Hotkeys.First().Registered;
                     bool fullLoop = true;
-                    for (int i = 1; i < this.Hotkeys.Count; ++i)
+                    for (int i = 1, max = this.Hotkeys.Count; i < max; ++i)
                     {
                         if (this.Hotkeys[i].Registered != prev)
                         {

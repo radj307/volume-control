@@ -15,12 +15,12 @@ namespace VolumeControl.SDK
     public class VCAPI
     {
         #region Initializer
-        internal VCAPI(AudioDeviceManager audioDeviceManager, AudioDeviceSelector audioDeviceSelector, AudioSessionManager audioSessionManager, AudioSessionSelector audioSessionSelector, HotkeyManager hkManager, IntPtr MainHWnd, Config settings)
+        internal VCAPI(AudioDeviceManager audioDeviceManager, AudioDeviceSelector audioDeviceSelector, AudioSessionManager audioSessionManager, AudioSessionMultiSelector audioSessionMultiSelector, HotkeyManager hkManager, IntPtr MainHWnd, Config settings)
         {
             AudioDeviceManager = audioDeviceManager;
             AudioDeviceSelector = audioDeviceSelector;
             AudioSessionManager = audioSessionManager;
-            AudioSessionSelector = audioSessionSelector;
+            AudioSessionMultiSelector = audioSessionMultiSelector;
             HotkeyManager = hkManager;
             MainWindowHWnd = MainHWnd;
             Settings = settings;
@@ -54,7 +54,7 @@ namespace VolumeControl.SDK
         /// <summary>
         /// Manages the selected <see cref="AudioSession"/> instance for the <see cref="AudioSessionManager"/>.
         /// </summary>
-        public AudioSessionSelector AudioSessionSelector { get; }
+        public AudioSessionMultiSelector AudioSessionMultiSelector { get; }
         /// <summary>
         /// This is the global <see cref="Core.HotkeyManager"/> responsible for managing hotkeys.
         /// </summary>

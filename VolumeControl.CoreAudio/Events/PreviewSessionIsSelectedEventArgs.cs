@@ -1,6 +1,4 @@
-﻿using VolumeControl.CoreAudio;
-
-namespace VolumeControl.CoreAudio.Events
+﻿namespace VolumeControl.CoreAudio.Events
 {
     /// <summary>
     /// Event arguments object for the <see cref="PreviewSessionIsSelectedEventHandler"/> event type.

@@ -291,6 +291,10 @@ namespace VolumeControl.Core
         /// </summary>
         public TargetInfo TargetSession { get; set; } = TargetInfo.Empty;
         /// <summary>
+        /// Gets or sets the list of selected sessions.
+        /// </summary>
+        public ObservableImmutableList<TargetInfo> SelectedSessions { get; set; } = new();
+        /// <summary>
         /// Gets or sets whether the target session is locked.
         /// </summary>
         public bool LockTargetSession { get; set; } = false;

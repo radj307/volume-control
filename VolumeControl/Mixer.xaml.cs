@@ -120,7 +120,7 @@ namespace VolumeControl
         {
             if (MixerGrid.CurrentCell.Item is AudioSessionVM session)
             {
-                VCAPI.Default.AudioSessionSelector.Selected = session.AudioSession;
+                VCAPI.Default.AudioSessionMultiSelector.SetSessionIsSelected(session.AudioSession, !VCAPI.Default.AudioSessionMultiSelector.GetSessionIsSelected(session.AudioSession));
             }
         }
         /// <summary>Handles the create new hotkey button's click event.</summary>

@@ -172,14 +172,14 @@ namespace VolumeControl.CoreAudio
         /// <returns>The <see cref="AudioSession"/> with the given <paramref name="processId"/> if found; otherwise <see langword="null"/>.</returns>
         public AudioSession? FindSessionWithPID(uint processId, bool includeHiddenSessions = false)
         { // don't use FindSession here, this way is more than 2x faster:
-            for (int i = 0; i < Sessions.Count; ++i)
+            for (int i = 0, max = Sessions.Count; i < max; ++i)
             {
                 AudioSession session = Sessions[i];
                 if (session.PID == processId) return session;
             }
             if (includeHiddenSessions)
             {
-                for (int i = 0; i < HiddenSessions.Count; ++i)
+                for (int i = 0, max = HiddenSessions.Count; i < max; ++i)
                 {
                     AudioSession session = HiddenSessions[i];
                     if (session.PID == processId) return session;
@@ -205,14 +205,14 @@ namespace VolumeControl.CoreAudio
         {
             if (processName.Length == 0) return null;
 
-            for (int i = 0; i < Sessions.Count; ++i)
+            for (int i = 0, max = Sessions.Count; i < max; ++i)
             {
                 AudioSession session = Sessions[i];
                 if (session.ProcessName.Equals(processName, stringComparison)) return session;
             }
             if (includeHiddenSessions)
             {
-                for (int i = 0; i < HiddenSessions.Count; ++i)
+                for (int i = 0, max = HiddenSessions.Count; i < max; ++i)
                 {
                     AudioSession session = HiddenSessions[i];
                     if (session.ProcessName.Equals(processName, stringComparison)) return session;
@@ -234,7 +234,7 @@ namespace VolumeControl.CoreAudio
         {
             if (sessionName.Length == 0) return null;
 
-            for (int i = 0; i < Sessions.Count; ++i)
+            for (int i = 0, max = Sessions.Count; i < max; ++i)
             {
                 AudioSession session = Sessions[i];
                 if (session.HasMatchingName(sessionName, stringComparison))
@@ -242,7 +242,7 @@ namespace VolumeControl.CoreAudio
             }
             if (includeHiddenSessions)
             {
-                for (int i = 0; i < HiddenSessions.Count; ++i)
+                for (int i = 0, max = HiddenSessions.Count; i < max; ++i)
                 {
                     AudioSession session = HiddenSessions[i];
                     if (session.HasMatchingName(sessionName, stringComparison))
@@ -265,14 +265,14 @@ namespace VolumeControl.CoreAudio
         {
             if (processIdentifier.Length == 0) return null;
 
-            for (int i = 0; i < Sessions.Count; ++i)
+            for (int i = 0, max = Sessions.Count; i < max; ++i)
             {
                 AudioSession session = Sessions[i];
                 if (session.ProcessIdentifier.Equals(processIdentifier, stringComparison)) return session;
             }
             if (includeHiddenSessions)
             {
-                for (int i = 0; i < HiddenSessions.Count; ++i)
+                for (int i = 0, max = HiddenSessions.Count; i < max; ++i)
                 {
                     AudioSession session = HiddenSessions[i];
                     if (session.ProcessIdentifier.Equals(processIdentifier, stringComparison)) return session;
@@ -343,14 +343,14 @@ namespace VolumeControl.CoreAudio
         {
             if (sessionIdentifier.Length == 0) return null;
 
-            for (int i = 0; i < Sessions.Count; ++i)
+            for (int i = 0, max = Sessions.Count; i < max; ++i)
             {
                 AudioSession session = Sessions[i];
                 if (session.SessionIdentifier.Equals(sessionIdentifier, stringComparison)) return session;
             }
             if (includeHiddenSessions)
             {
-                for (int i = 0; i < HiddenSessions.Count; ++i)
+                for (int i = 0, max = HiddenSessions.Count; i < max; ++i)
                 {
                     AudioSession session = HiddenSessions[i];
                     if (session.SessionIdentifier.Equals(sessionIdentifier, stringComparison)) return session;
@@ -372,14 +372,14 @@ namespace VolumeControl.CoreAudio
         {
             if (sessionInstanceIdentifier.Length == 0) return null;
 
-            for (int i = 0; i < Sessions.Count; ++i)
+            for (int i = 0, max = Sessions.Count; i < max; ++i)
             {
                 AudioSession session = Sessions[i];
                 if (session.SessionInstanceIdentifier.Equals(sessionInstanceIdentifier, stringComparison)) return session;
             }
             if (includeHiddenSessions)
             {
-                for (int i = 0; i < HiddenSessions.Count; ++i)
+                for (int i = 0, max = HiddenSessions.Count; i < max; ++i)
                 {
                     AudioSession session = HiddenSessions[i];
                     if (session.SessionInstanceIdentifier.Equals(sessionInstanceIdentifier, stringComparison)) return session;

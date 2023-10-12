@@ -15,13 +15,18 @@ namespace VolumeControl.ViewModels
     public sealed class AudioSessionVM : INotifyPropertyChanged, IDisposable
     {
         #region Constructor
-        public AudioSessionVM(AudioSession audioSession)
+        public AudioSessionVM(AudioDeviceManagerVM manager, AudioSession audioSession)
         {
+            AudioDeviceManagerVM = manager;
             AudioSession = audioSession;
 
             Icon = GetIcon();
 
             AudioSession.IconPathChanged += (s, e) => Icon = GetIcon();
+
+            // update bindings on the IsSelected property when this session is selected or deselected
+            manager.AudioSessionMultiSelector.SessionSelected += this.AudioSessionMultiSelector_SessionSelected_SessionDeselected;
+            manager.AudioSessionMultiSelector.SessionDeselected += this.AudioSessionMultiSelector_SessionSelected_SessionDeselected;
         }
         #endregion Constructor
 
@@ -31,6 +36,7 @@ namespace VolumeControl.ViewModels
         #endregion Events
 
         #region Properties
+        AudioDeviceManagerVM AudioDeviceManagerVM { get; }
         public AudioSession AudioSession { get; }
         public ImageSource? Icon
         {
@@ -46,6 +52,17 @@ namespace VolumeControl.ViewModels
         public string ProcessName => AudioSession.ProcessName;
         public string ProcessIdentifier => AudioSession.ProcessIdentifier;
         public string Name => AudioSession.Name;
+        public bool IsSelected
+        {
+            get => SDK.VCAPI.Default.AudioSessionMultiSelector.GetSessionIsSelected(this.AudioSession);
+            set
+            {
+                _isSelectedChanging = true;
+                SDK.VCAPI.Default.AudioSessionMultiSelector.SetSessionIsSelected(this.AudioSession, value);
+                _isSelectedChanging = false;
+                NotifyPropertyChanged();
+            }
+        }
         #endregion Properties
 
         #region Methods
@@ -92,5 +109,16 @@ namespace VolumeControl.ViewModels
             GC.SuppressFinalize(this);
         }
         #endregion IDisposable Implementation
+
+        private bool _isSelectedChanging;
+        private void AudioSessionMultiSelector_SessionSelected_SessionDeselected(object? sender, AudioSession e)
+        {
+            if (_isSelectedChanging) return; //< don't update if the source is this object
+
+            if (e.Equals(this.AudioSession))
+            {
+                NotifyPropertyChanged(nameof(IsSelected));
+            }
+        }
     }
 }

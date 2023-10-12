@@ -227,14 +227,14 @@
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                 <Setter Property="Padding" Value="1" />
                 <Setter Property="FontSize" Value="{StaticResource GlobalFontSize}" />
-                <Setter Property="FocusVisualStyle" Value="{StaticResource CustomFocusVisualStyle}" />
+                <Setter Property="Focusable" Value="False" />
             </Style>
             <Style TargetType="{x:Type DataGridRow}">
                 <Setter Property="BorderThickness" Value="0" />
             </Style>
             <!--  DataGridStyle  -->
             <Style x:Key="DataGridStyle" TargetType="DataGrid">
-                <Setter Property="Background" Value="#00000000" />
+                <Setter Property="Background" Value="#0000" />
                 <Setter Property="RowBackground" Value="{StaticResource GridRowBrush}" />
                 <Setter Property="AlternatingRowBackground" Value="{StaticResource GridRowAltBrush}" />
                 <Setter Property="ColumnHeaderStyle" Value="{StaticResource MixerHeadersStyle}" />
@@ -838,6 +838,7 @@
                                         x:Name="MixerGrid"
                                         d:ItemsSource="{x:Null}"
                                         AutoGenerateColumns="False"
+                                        CanUserResizeColumns="False"
                                         DataContext="{StaticResource Settings}"
                                         ItemsSource="{Binding AudioAPI.AllSessions}"
                                         Style="{StaticResource DataGridStyle}">
@@ -845,6 +846,21 @@
                                             <VisualBrush Visual="{Binding ElementName=MixerGridMask}" />
                                         </DataGrid.OpacityMask>
                                         <DataGrid.Columns>
+                                            <!--  Selected  -->
+                                            <DataGridTemplateColumn Width="26">
+                                                <DataGridTemplateColumn.Header>
+                                                    <CheckBox
+                                                        Click="Handle_ThreeStateCheckboxClick"
+                                                        IsChecked="{Binding AudioAPI.AllSessionsSelected, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                                                        IsThreeState="True"
+                                                        Style="{StaticResource CheckBoxStyle}" />
+                                                </DataGridTemplateColumn.Header>
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate DataType="{x:Type vm:AudioSessionVM}">
+                                                        <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
                                             <!--  PID  -->
                                             <DataGridTemplateColumn
                                                 Width="Auto"
@@ -944,22 +960,6 @@
                                                                 Style="{StaticResource TextBoxStyle}"
                                                                 Text="{Binding AudioSession.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                         </Grid>
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
-                                            <!--  Select  -->
-                                            <DataGridTemplateColumn
-                                                Width="Auto"
-                                                Header=""
-                                                IsReadOnly="True">
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate DataType="{x:Type vm:AudioSessionVM}">
-                                                        <Button
-                                                            Padding="6,0"
-                                                            Click="Handle_ProcessSelectClick"
-                                                            Content="{Tr 'VolumeControl.MainWindow.Mixer.MixerGrid.Select.Button',
-                                                                         DefaultText='Select'}"
-                                                            IsEnabled="{Binding IsChecked, ElementName=cbLockTargetSelection, Converter={StaticResource InvertConverter}}" />
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>

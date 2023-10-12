@@ -41,7 +41,7 @@ namespace VolumeControl.ViewModels
             this.HotkeyAPI = new(actionManager);
 
             // Initialize the addon API
-            var api = Initializer.Initialize(this.AudioAPI.AudioDeviceManager, this.AudioAPI.AudioDeviceSelector, this.AudioAPI.AudioSessionManager, this.AudioAPI.AudioSessionSelector, this.HotkeyAPI, this.MainWindowHandle, (AppConfig.Configuration.Default as Config)!);
+            var api = Initializer.Initialize(this.AudioAPI.AudioDeviceManager, this.AudioAPI.AudioDeviceSelector, this.AudioAPI.AudioSessionManager, this.AudioAPI.AudioSessionMultiSelector, this.HotkeyAPI, this.MainWindowHandle, (AppConfig.Configuration.Default as Config)!);
 
             VCHotkeyAddon hotkeyAddonLoader = new();
 
@@ -82,7 +82,7 @@ namespace VolumeControl.ViewModels
             this.HotkeyAPI.LoadHotkeys();
 
             // attach event to update TargetSessionText & LockTargetSession properties
-            VCAPI.Default.AudioSessionSelector.PropertyChanged += this.AudioSessionSelector_PropertyChanged;
+            VCAPI.Default.AudioSessionMultiSelector.PropertyChanged += this.AudioSessionSelector_PropertyChanged;
 
             // setup autocomplete
             RefreshSessionAutoCompleteSources();
@@ -139,7 +139,7 @@ namespace VolumeControl.ViewModels
         /// </summary>
         public string TargetSessionText
         {
-            get => AudioAPI.AudioSessionSelector.Selected?.ProcessIdentifier ?? Settings.TargetSession.ProcessIdentifier;
+            get => AudioAPI.AudioSessionMultiSelector.CurrentSession?.ProcessIdentifier ?? Settings.TargetSession.ProcessIdentifier;
             set
             {
                 value = value.Trim();
@@ -150,7 +150,7 @@ namespace VolumeControl.ViewModels
                 {
                     if (AudioAPI.AudioSessionManager.FindSessionWithSimilarProcessIdentifier(value) is AudioSession session)
                     { // text resolves to a valid AudioSession, select it:
-                        AudioAPI.AudioSessionSelector.Selected = session;
+                        AudioAPI.AudioSessionMultiSelector.CurrentSession = session;
                     }
                     else
                     { // text does not resolve to a valid AudioSession:
@@ -162,7 +162,7 @@ namespace VolumeControl.ViewModels
                 }
                 else
                 {
-                    AudioAPI.AudioSessionSelector.Selected = null;
+                    AudioAPI.AudioSessionMultiSelector.CurrentSession = null;
                 }
 
                 _updatingAudioSessionSelectorFromTargetSessionText = false;
@@ -244,7 +244,7 @@ namespace VolumeControl.ViewModels
         {
             if (e.PropertyName is null) return;
 
-            if (e.PropertyName.Equals(nameof(AudioSessionSelector.Selected)))
+            if (e.PropertyName.Equals(nameof(AudioSessionMultiSelector.CurrentIndex)))
             {
                 if (!_updatingAudioSessionSelectorFromTargetSessionText)
                 {
@@ -253,7 +253,7 @@ namespace VolumeControl.ViewModels
             }
             else if (e.PropertyName.Equals(nameof(AudioSessionSelector.LockSelection)))
             {
-                LockTargetSession = VCAPI.Default.AudioSessionSelector.LockSelection;
+                LockTargetSession = VCAPI.Default.AudioSessionMultiSelector.LockSelection;
             }
         }
         /// <summary>

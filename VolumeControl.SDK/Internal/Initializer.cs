@@ -18,12 +18,19 @@ namespace VolumeControl.SDK.Internal
         /// <param name="audioDeviceManager">The audio device manager object.</param>
         /// <param name="audioDeviceSelector">The audio device selection manager object.</param>
         /// <param name="audioSessionManager">The audio session manager object.</param>
-        /// <param name="audioSessionSelector">The audio session selection manager object.</param>
+        /// <param name="audioSessionMultiSelector">The audio session selection manager object.</param>
         /// <param name="mgr">The hotkey manager object.</param>
         /// <param name="mainWindowHWnd">The mixer window's handle</param>
         /// <param name="settings">The program settings container object.</param>
         /// <exception cref="InvalidOperationException">Initialize was already called previously.</exception>
-        public static VCAPI Initialize(AudioDeviceManager audioDeviceManager, AudioDeviceSelector audioDeviceSelector, AudioSessionManager audioSessionManager, AudioSessionSelector audioSessionSelector, HotkeyManager mgr, IntPtr mainWindowHWnd, Config settings)
+        public static VCAPI Initialize(
+            AudioDeviceManager audioDeviceManager,
+            AudioDeviceSelector audioDeviceSelector,
+            AudioSessionManager audioSessionManager,
+            AudioSessionMultiSelector audioSessionMultiSelector,
+            HotkeyManager mgr,
+            IntPtr mainWindowHWnd,
+            Config settings)
         {
             if (_initialized)
             {
@@ -32,7 +39,14 @@ namespace VolumeControl.SDK.Internal
             }
             _initialized = true;
 
-            return VCAPI.Default = new(audioDeviceManager, audioDeviceSelector, audioSessionManager, audioSessionSelector, mgr, mainWindowHWnd, settings);
+            return VCAPI.Default = new(
+                audioDeviceManager, 
+                audioDeviceSelector, 
+                audioSessionManager,
+                audioSessionMultiSelector, 
+                mgr, 
+                mainWindowHWnd, 
+                settings);
         }
     }
 }
