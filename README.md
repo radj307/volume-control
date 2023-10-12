@@ -1,6 +1,6 @@
 <p align="center">
 <a href="https://radj307.github.io/volume-control"><img alt="[Volume Control Banner]" src="https://i.imgur.com/rMbNIhU.png"></a><br/>
-<a href="https://github.com/radj307/volume-control/releases/latest"><img alt="GitHub tag (latest SemVer)" src="https://img.shields.io/github/v/tag/radj307/volume-control?color=e8e8e7&label=Latest%20Release&logo=github&logoColor=e8e8e7&sort=semver&style=flat-square"></a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/radj307/volume-control/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/radj307/volume-control/total?color=e8e8e7&logo=github&logoColor=e8e8e7&style=flat-square"></a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/radj307/volume-control-cli"><img alt="Volume Control CLI Latest Version" src="https://img.shields.io/github/v/tag/radj307/volume-control-cli?color=e8e8e7&logo=github&logoColor=e8e8e7&label=Latest%20VCCLI%20Version&style=flat-square"></a>
+<a href="https://github.com/radj307/volume-control/releases/latest"><img alt="GitHub tag (latest SemVer)" src="https://img.shields.io/github/v/tag/radj307/volume-control?color=e8e8e7&label=Latest%20Release&logo=github&logoColor=e8e8e7&sort=semver&style=flat-square"></a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/radj307/volume-control/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/radj307/volume-control/total?label=Downloads&color=e8e8e7&logo=github&logoColor=e8e8e7&style=flat-square"></a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/radj307/volume-control-cli"><img alt="Volume Control CLI Latest Version" src="https://img.shields.io/github/v/tag/radj307/volume-control-cli?color=e8e8e7&logo=github&logoColor=e8e8e7&label=Latest%20VCCLI%20Version&style=flat-square"></a>
 </p>
 
 ***
@@ -28,6 +28,11 @@ Volume Control empowers users with an unlimited array of unique hotkey combinati
 # Getting Started
 
 Getting started is simple. Download `VolumeControl-Installer.exe` from the [latest release](https://github.com/radj307/volume-control/releases/latest), and run it. It will guide you through the installation process.
+
+If you prefer to use a package manager, you can use [Winget](https://learn.microsoft.com/en-us/windows/package-manager/) to install Volume Control:
+```
+winget install radj307.volume-control
+```
 
 ## Manual Installation
 
