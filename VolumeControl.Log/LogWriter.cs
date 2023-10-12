@@ -55,6 +55,17 @@ namespace VolumeControl.Log
         #endregion InterfaceImplementation
 
         #region Methods
+        /// <summary>
+        /// Determine if messages with the specified <paramref name="eventType"/> will be printed to the log.
+        /// </summary>
+        /// <remarks>
+        /// This method is equivalent to calling <see cref="System.Enum.HasFlag(System.Enum)"/> on the <see cref="EventTypeFilter"/> property.
+        /// </remarks>
+        /// <param name="eventType">An EventType value to check for in the EventTypeFilter.</param>
+        /// <returns><see langword="true"/> when the specified <paramref name="eventType"/> is visible; otherwise <see langword="false"/>.</returns>
+        public bool IsEventVisible(EventType eventType)
+            => EventTypeFilter.HasFlag(eventType);
+
         #region WriteRaw
         /// <summary>Writes some text to the log file.</summary>
         /// <remarks>Using this method is very inefficient as it re-creates a <see cref="StreamWriter"/> each time; see the obsoletion warning.</remarks>
