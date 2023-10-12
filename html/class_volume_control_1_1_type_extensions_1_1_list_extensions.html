@@ -98,7 +98,8 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_type_extensio
 <div class="dynheader">
 Collaboration diagram for VolumeControl.TypeExtensions.ListExtensions:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_list_extensions__coll__graph.svg" width="238" height="162"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_list_extensions__coll__graph.svg" width="238" height="250"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -113,12 +114,24 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:ab8078726a66eecb7feec849be34fb8af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4223d06a8d2ef81d37f805feb0db7e8a"><td class="memItemLeft" align="right" valign="top">static IList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_list_extensions.html#a4223d06a8d2ef81d37f805feb0db7e8a">ForEach</a> (this IList list, Action&lt; object?&gt; action)</td></tr>
 <tr class="separator:a4223d06a8d2ef81d37f805feb0db7e8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e9b39f26fab19aba01fbc2dfbaa1d1f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_list_extensions.html#a6e9b39f26fab19aba01fbc2dfbaa1d1f">AddRange</a> (this IList list, IEnumerable enumerable)</td></tr>
+<tr class="memdesc:a6e9b39f26fab19aba01fbc2dfbaa1d1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a range of items to the <em>list</em> .  <a href="class_volume_control_1_1_type_extensions_1_1_list_extensions.html#a6e9b39f26fab19aba01fbc2dfbaa1d1f">More...</a><br /></td></tr>
+<tr class="separator:a6e9b39f26fab19aba01fbc2dfbaa1d1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5df1f9d82ef937c190f9559532ccec79"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_list_extensions.html#a5df1f9d82ef937c190f9559532ccec79">AddIfUnique</a> (this IList list, object obj)</td></tr>
 <tr class="memdesc:a5df1f9d82ef937c190f9559532ccec79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds <em>obj</em>  to the <em>list</em>  if it isn't a duplicate of any existing elements.  <a href="class_volume_control_1_1_type_extensions_1_1_list_extensions.html#a5df1f9d82ef937c190f9559532ccec79">More...</a><br /></td></tr>
 <tr class="separator:a5df1f9d82ef937c190f9559532ccec79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c41a634cbd3f14c4436613353d8806c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_list_extensions.html#a7c41a634cbd3f14c4436613353d8806c">AddRangeIfUnique</a> (this IList list, IEnumerable range)</td></tr>
 <tr class="memdesc:a7c41a634cbd3f14c4436613353d8806c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls AddIfUnique(IList, object) on the given <em>range</em>  of objects.  <a href="class_volume_control_1_1_type_extensions_1_1_list_extensions.html#a7c41a634cbd3f14c4436613353d8806c">More...</a><br /></td></tr>
 <tr class="separator:a7c41a634cbd3f14c4436613353d8806c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0bfa48da90bcd13451b0bd6b46a7339"><td class="memItemLeft" align="right" valign="top">static TList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_list_extensions.html#ab0bfa48da90bcd13451b0bd6b46a7339">ConvertEach&lt; TList, TOut, TIn &gt;</a> (this IEnumerable&lt; TIn &gt; enumerable, Func&lt; TIn, TOut &gt; converter)</td></tr>
+<tr class="memdesc:ab0bfa48da90bcd13451b0bd6b46a7339"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts each element in the given <em>enumerable</em>  from type <em>TIn</em>  to type <em>TOut</em> , and returns the converted objects as a new list of type <em>TList</em> .  <a href="class_volume_control_1_1_type_extensions_1_1_list_extensions.html#ab0bfa48da90bcd13451b0bd6b46a7339">More...</a><br /></td></tr>
+<tr class="separator:ab0bfa48da90bcd13451b0bd6b46a7339"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f667f63c710d22dabace38931636a54"><td class="memItemLeft" align="right" valign="top">static IList&lt; TOut &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_list_extensions.html#a4f667f63c710d22dabace38931636a54">ConvertEach&lt; TOut, TIn &gt;</a> (this IEnumerable&lt; TIn &gt; enumerable, Func&lt; TIn, TOut &gt; converter)</td></tr>
+<tr class="memdesc:a4f667f63c710d22dabace38931636a54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts each element in the given <em>enumerable</em>  from type <em>TIn</em>  to type <em>TOut</em> , and returns the converted objects as a new List&lt;T&gt;.  <a href="class_volume_control_1_1_type_extensions_1_1_list_extensions.html#a4f667f63c710d22dabace38931636a54">More...</a><br /></td></tr>
+<tr class="separator:a4f667f63c710d22dabace38931636a54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a98afc6b08d689b171519b0a9e5fb29"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_list_extensions.html#a7a98afc6b08d689b171519b0a9e5fb29">IndexOf&lt; T &gt;</a> (this IList&lt; T &gt; list, T item, out int index)</td></tr>
+<tr class="memdesc:a7a98afc6b08d689b171519b0a9e5fb29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the index of the first occurrence of <em>item</em>  in this <em>list</em> .  <a href="class_volume_control_1_1_type_extensions_1_1_list_extensions.html#a7a98afc6b08d689b171519b0a9e5fb29">More...</a><br /></td></tr>
+<tr class="separator:a7a98afc6b08d689b171519b0a9e5fb29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Extensions for the generic List&lt;T&gt; object. </p>
@@ -168,6 +181,51 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a6e9b39f26fab19aba01fbc2dfbaa1d1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e9b39f26fab19aba01fbc2dfbaa1d1f">&#9670;&nbsp;</a></span>AddRange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void VolumeControl.TypeExtensions.ListExtensions.AddRange </td>
+          <td>(</td>
+          <td class="paramtype">this IList&#160;</td>
+          <td class="paramname"><em>list</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IEnumerable&#160;</td>
+          <td class="paramname"><em>enumerable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds a range of items to the <em>list</em> . </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">list</td><td>(implicit) The list to add the items to.</td></tr>
+    <tr><td class="paramname">enumerable</td><td>An IEnumerable of items to add.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a7c41a634cbd3f14c4436613353d8806c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7c41a634cbd3f14c4436613353d8806c">&#9670;&nbsp;</a></span>AddRangeIfUnique()</h2>
 
@@ -210,6 +268,127 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ab0bfa48da90bcd13451b0bd6b46a7339"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0bfa48da90bcd13451b0bd6b46a7339">&#9670;&nbsp;</a></span>ConvertEach&lt; TList, TOut, TIn &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static TList VolumeControl.TypeExtensions.ListExtensions.ConvertEach&lt; TList, TOut, TIn &gt; </td>
+          <td>(</td>
+          <td class="paramtype">this IEnumerable&lt; TIn &gt;&#160;</td>
+          <td class="paramname"><em>enumerable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Func&lt; TIn, TOut &gt;&#160;</td>
+          <td class="paramname"><em>converter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts each element in the given <em>enumerable</em>  from type <em>TIn</em>  to type <em>TOut</em> , and returns the converted objects as a new list of type <em>TList</em> . </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TList</td><td>The type of list to return.</td></tr>
+    <tr><td class="paramname">TOut</td><td>The type to convert each item to.</td></tr>
+    <tr><td class="paramname">TIn</td><td>The type to convert each item from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enumerable</td><td>Any type implementing IEnumerable&lt;T&gt;.</td></tr>
+    <tr><td class="paramname">converter</td><td>A converter method that accepts <em>TIn</em>  and returns <em>TOut</em> .</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The converted list of items.</dd></dl>
+<div class="typeconstraint">
+<dl><dt><b>Type Constraints</b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em>TList</em></td><td>&#160;:</td><td valign="top"><em>IList</em></td><td>&#160;</td></tr>
+<tr><td valign="top"><em>TList</em></td><td>&#160;:</td><td valign="top"><em>IEnumerable</em></td><td>&#160;</td></tr>
+<tr><td valign="top"><em>TList</em></td><td>&#160;:</td><td valign="top"><em>IList&lt;TOut&gt;</em></td><td>&#160;</td></tr>
+<tr><td valign="top"><em>TList</em></td><td>&#160;:</td><td valign="top"><em>IEnumerable&lt;TOut&gt;</em></td><td>&#160;</td></tr>
+<tr><td valign="top"><em>TList</em></td><td>&#160;:</td><td valign="top"><em>ICollection</em></td><td>&#160;</td></tr>
+<tr><td valign="top"><em>TList</em></td><td>&#160;:</td><td valign="top"><em>ICollection&lt;TOut&gt;</em></td><td>&#160;</td></tr>
+<tr><td valign="top"><em>TList</em></td><td>&#160;:</td><td valign="top"><em>new()</em></td><td>&#160;</td></tr>
+</table>
+</dd>
+</dl>
+</div>
+
+</div>
+</div>
+<a id="a4f667f63c710d22dabace38931636a54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f667f63c710d22dabace38931636a54">&#9670;&nbsp;</a></span>ConvertEach&lt; TOut, TIn &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static IList&lt;TOut&gt; VolumeControl.TypeExtensions.ListExtensions.ConvertEach&lt; TOut, TIn &gt; </td>
+          <td>(</td>
+          <td class="paramtype">this IEnumerable&lt; TIn &gt;&#160;</td>
+          <td class="paramname"><em>enumerable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Func&lt; TIn, TOut &gt;&#160;</td>
+          <td class="paramname"><em>converter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts each element in the given <em>enumerable</em>  from type <em>TIn</em>  to type <em>TOut</em> , and returns the converted objects as a new List&lt;T&gt;. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TOut</td><td>The type to convert each item to.</td></tr>
+    <tr><td class="paramname">TIn</td><td>The type to convert each item from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enumerable</td><td>Any type implementing IEnumerable&lt;T&gt;.</td></tr>
+    <tr><td class="paramname">converter</td><td>A converter method that accepts <em>TIn</em>  and returns <em>TOut</em> .</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The converted list of items.</dd></dl>
 
 </div>
 </div>
@@ -284,6 +463,65 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>The resulting <em>list</em> ; this can safely be ignored when using this method outside of a pipeline.</dd></dl>
+
+</div>
+</div>
+<a id="a7a98afc6b08d689b171519b0a9e5fb29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a98afc6b08d689b171519b0a9e5fb29">&#9670;&nbsp;</a></span>IndexOf&lt; T &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool VolumeControl.TypeExtensions.ListExtensions.IndexOf&lt; T &gt; </td>
+          <td>(</td>
+          <td class="paramtype">this IList&lt; T &gt;&#160;</td>
+          <td class="paramname"><em>list</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">out int&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the index of the first occurrence of <em>item</em>  in this <em>list</em> . </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of object in the IList&lt;T&gt;.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">list</td><td>(implicit) The IList&lt;T&gt; to search.</td></tr>
+    <tr><td class="paramname">item</td><td>The object to locate in the IList&lt;T&gt;.</td></tr>
+    <tr><td class="paramname">index</td><td>The index of <em>item</em>  if found in the list; otherwise -1.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> when <em>item</em>  was found in the list; otherwise <code>false</code>.</dd></dl>
 
 </div>
 </div>

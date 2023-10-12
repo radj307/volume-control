@@ -9,5 +9,6 @@ var namespace_volume_control_1_1_core_audio =
     [ "AudioDeviceSessionManager", "class_volume_control_1_1_core_audio_1_1_audio_device_session_manager.html", "class_volume_control_1_1_core_audio_1_1_audio_device_session_manager" ],
     [ "AudioSession", "class_volume_control_1_1_core_audio_1_1_audio_session.html", "class_volume_control_1_1_core_audio_1_1_audio_session" ],
     [ "AudioSessionManager", "class_volume_control_1_1_core_audio_1_1_audio_session_manager.html", "class_volume_control_1_1_core_audio_1_1_audio_session_manager" ],
+    [ "AudioSessionMultiSelector", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector" ],
     [ "AudioSessionSelector", "class_volume_control_1_1_core_audio_1_1_audio_session_selector.html", "class_volume_control_1_1_core_audio_1_1_audio_session_selector" ]
 ];

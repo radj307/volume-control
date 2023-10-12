@@ -100,12 +100,14 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_core_1_1_conf
 <div class="dynheader">
 Inheritance diagram for VolumeControl.Core.Config:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_config__inherit__graph.svg" width="250" height="492"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_config__inherit__graph.svg" width="250" height="492"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Core.Config:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_config__coll__graph.svg" width="475" height="580"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_config__coll__graph.svg" width="475" height="580"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -225,6 +227,9 @@ only controls <em>within</em> the window may use transparent background effects.
 <tr class="memitem:aea3d84b9e3426900325dd43a356038d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_volume_control_1_1_core_1_1_helpers_1_1_target_info.html">TargetInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#aea3d84b9e3426900325dd43a356038d7">TargetSession</a> = TargetInfo.Empty<code> [get, set]</code></td></tr>
 <tr class="memdesc:aea3d84b9e3426900325dd43a356038d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the last target session.  <a href="class_volume_control_1_1_core_1_1_config.html#aea3d84b9e3426900325dd43a356038d7">More...</a><br /></td></tr>
 <tr class="separator:aea3d84b9e3426900325dd43a356038d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bf850e7773ac3346a52efecb79f8eb7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html">ObservableImmutableList</a>&lt; <a class="el" href="struct_volume_control_1_1_core_1_1_helpers_1_1_target_info.html">TargetInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#a1bf850e7773ac3346a52efecb79f8eb7">SelectedSessions</a> = new()<code> [get, set]</code></td></tr>
+<tr class="memdesc:a1bf850e7773ac3346a52efecb79f8eb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the list of selected sessions.  <a href="class_volume_control_1_1_core_1_1_config.html#a1bf850e7773ac3346a52efecb79f8eb7">More...</a><br /></td></tr>
+<tr class="separator:a1bf850e7773ac3346a52efecb79f8eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc145bdcd9e96bb185cd648973619261"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#acc145bdcd9e96bb185cd648973619261">LockTargetSession</a> = false<code> [get, set]</code></td></tr>
 <tr class="memdesc:acc145bdcd9e96bb185cd648973619261"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets whether the target session is locked.  <a href="class_volume_control_1_1_core_1_1_config.html#acc145bdcd9e96bb185cd648973619261">More...</a><br /></td></tr>
 <tr class="separator:acc145bdcd9e96bb185cd648973619261"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -832,8 +837,6 @@ only controls <em>within</em> the window may use transparent background effects.
 
 <p>Gets or sets the list of (process names of) hidden audio sessions. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00018">VolumeControl.CoreAudio.AudioSessionManager.AudioSessionManager()</a>.</p>
-
 </div>
 </div>
 <a id="a075d5081c56f2dec4a285691f41cad3d"></a>
@@ -1236,6 +1239,30 @@ only controls <em>within</em> the window may use transparent background effects.
 <p>Gets or sets whether the application should run when Windows starts.<br  />
  Creates/deletes a registry value in <b>HKEY_CURRENT_USER =&gt; SOFTWARE\Microsoft\Windows\CurrentVersion\Run</b> </p>
 <p><b>Default: <code>false</code></b></p>
+
+</div>
+</div>
+<a id="a1bf850e7773ac3346a52efecb79f8eb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bf850e7773ac3346a52efecb79f8eb7">&#9670;&nbsp;</a></span>SelectedSessions</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html">ObservableImmutableList</a>&lt;<a class="el" href="struct_volume_control_1_1_core_1_1_helpers_1_1_target_info.html">TargetInfo</a>&gt; VolumeControl.Core.Config.SelectedSessions = new()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets or sets the list of selected sessions. </p>
 
 </div>
 </div>

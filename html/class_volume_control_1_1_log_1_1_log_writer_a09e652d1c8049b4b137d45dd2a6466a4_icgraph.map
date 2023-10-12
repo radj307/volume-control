@@ -1,6 +1,7 @@
 <map id="VolumeControl.Log.LogWriter.Debug" name="VolumeControl.Log.LogWriter.Debug">
-<area shape="rect" id="node1" title="Write a formatted EventType.DEBUG message to the log endpoint." alt="" coords="284,71,499,112"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#ac375922fcbe751d605d86b2fab01b17d" title="Adds a message handler." alt="" coords="5,5,236,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#af0585367ed6c7c839158d03f4fd73830" title="Removes a message handler." alt="" coords="5,71,236,112"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#a868775e4b7d5ddf507899f279feb7231" title="Sets the HwndSource used to add and remove hooks." alt="" coords="5,136,236,177"/>
+<area shape="rect" id="node1" title="Write a formatted EventType.DEBUG message to the log endpoint." alt="" coords="300,116,515,157"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#ac375922fcbe751d605d86b2fab01b17d" title="Adds a message handler." alt="" coords="13,5,244,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#ae1b209f85acd4384c68675e654150c24" title="Creates a new AudioDeviceManager instance." alt="" coords="5,71,252,127"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#af0585367ed6c7c839158d03f4fd73830" title="Removes a message handler." alt="" coords="13,152,244,193"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#a868775e4b7d5ddf507899f279feb7231" title="Sets the HwndSource used to add and remove hooks." alt="" coords="13,217,244,259"/>
 </map>

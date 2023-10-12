@@ -17,6 +17,7 @@ var class_volume_control_1_1_log_1_1_log_writer =
     [ "FormatExceptionMessage", "class_volume_control_1_1_log_1_1_log_writer.html#aa218706b15bfbbe5d51daa760c7e4b24", null ],
     [ "GetTrace", "class_volume_control_1_1_log_1_1_log_writer.html#a1a923e4492f98675dcedebc61ef0055a", null ],
     [ "Info", "class_volume_control_1_1_log_1_1_log_writer.html#adf2532f0598cac3dfe9a3660f4fb7362", null ],
+    [ "IsEventVisible", "class_volume_control_1_1_log_1_1_log_writer.html#ad7c6f08b1a224873c59ee65d7a82c44e", null ],
     [ "MakeBlankTimestamp", "class_volume_control_1_1_log_1_1_log_writer.html#a41f1ff6d9d62eec9077a3c608ca36b5e", null ],
     [ "MakeTimestamp", "class_volume_control_1_1_log_1_1_log_writer.html#ac1a570a8d00bacba3a71dd8e442cfd31", null ],
     [ "Trace", "class_volume_control_1_1_log_1_1_log_writer.html#af0f88b0317ce8060aa063802c6742068", null ],

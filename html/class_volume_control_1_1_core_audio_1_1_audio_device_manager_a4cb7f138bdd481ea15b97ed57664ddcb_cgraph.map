@@ -1,4 +1,5 @@
 <map id="VolumeControl.CoreAudio.AudioDeviceManager.GetDefaultDevice" name="VolumeControl.CoreAudio.AudioDeviceManager.GetDefaultDevice">
-<area shape="rect" id="node1" title="Gets the default device for the specified deviceRole ." alt="" coords="5,5,240,61"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#ae55cdb8375a591e11e444aa62dd355a9" title="Gets the AudioDevice instance associated with the given deviceID &#160;string. (MMDevice...." alt="" coords="288,13,555,54"/>
+<area shape="rect" id="node1" title="Gets the default device for the specified deviceRole ." alt="" coords="5,31,240,87"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7" title="Write a formatted EventType.ERROR message to the log endpoint." alt="" coords="314,5,529,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#ae55cdb8375a591e11e444aa62dd355a9" title="Gets the AudioDevice instance associated with the given deviceID &#160;string. (MMDevice...." alt="" coords="288,71,555,112"/>
 </map>

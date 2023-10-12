@@ -1,4 +1,4 @@
 <map id="VolumeControl.CoreAudio.Events.PreviewSessionNameEventArgs" name="VolumeControl.CoreAudio.Events.PreviewSessionNameEventArgs">
-<area shape="rect" id="node1" title="Event arguments for the preview session name event, which allows session display names to be changed ..." alt="" coords="5,131,283,223"/>
+<area shape="rect" id="node1" title="Event arguments for the preview session name event, which allows session display names to be changed ..." alt="" coords="5,131,283,237"/>
 <area shape="rect" id="node2" title=" " alt="" coords="100,5,188,83"/>
 </map>

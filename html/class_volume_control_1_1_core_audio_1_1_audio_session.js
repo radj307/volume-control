@@ -1,9 +1,8 @@
 var class_volume_control_1_1_core_audio_1_1_audio_session =
 [
     [ "Dispose", "class_volume_control_1_1_core_audio_1_1_audio_session.html#ac7d080e2d81f450d4177ba7ca2ccd7fa", null ],
-    [ "GetProcess", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a41c715c15797053d56b0f3e3722c5093", null ],
-    [ "GetProcess", "class_volume_control_1_1_core_audio_1_1_audio_session.html#ad7c04f47c7c13fec0492598ee977e157", null ],
     [ "GetTargetInfo", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a5a7f0e9a82545ee48b703574258adf70", null ],
+    [ "HasMatchingName", "class_volume_control_1_1_core_audio_1_1_audio_session.html#aaf7a37b3dc9484a667cc5222180ecbd2", null ],
     [ "TryParseProcessIdentifier", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a881aa8fa47e671a1ca6129a6f25baa26", null ],
     [ "processId", "class_volume_control_1_1_core_audio_1_1_audio_session.html#ade41e72408db7e5f2c8c8704723b5a1e", null ],
     [ "ProcessIdentifierSeparatorChar", "class_volume_control_1_1_core_audio_1_1_audio_session.html#ac6bbccc8e83e41a1b226a35ad14ae64c", null ],

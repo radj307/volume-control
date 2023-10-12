@@ -8,7 +8,6 @@ var class_volume_control_1_1_core_audio_1_1_audio_device =
     [ "IconPath", "class_volume_control_1_1_core_audio_1_1_audio_device.html#aff0c4ad61cf01b69222513d863baed85", null ],
     [ "ID", "class_volume_control_1_1_core_audio_1_1_audio_device.html#a4f1471f7aeb1a36d10f6988c103f9e6d", null ],
     [ "IsDefault", "class_volume_control_1_1_core_audio_1_1_audio_device.html#a6dc8e8769c8323854c30de6a8e99d17a", null ],
-    [ "Log", "class_volume_control_1_1_core_audio_1_1_audio_device.html#a49ab1fe6d7af099b0a99b73fd727b2cb", null ],
     [ "MMDevice", "class_volume_control_1_1_core_audio_1_1_audio_device.html#ad14b661c771b24d3f78378dd9ccd6e0b", null ],
     [ "Mute", "class_volume_control_1_1_core_audio_1_1_audio_device.html#a13d34b01925daf53afd1d72febe7f3e6", null ],
     [ "Name", "class_volume_control_1_1_core_audio_1_1_audio_device.html#a02384a5d090ab6d5162508e16ab43f74", null ],

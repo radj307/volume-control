@@ -22,14 +22,14 @@
 <text text-anchor="start" x="137" y="-161.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LogWriter()</text>
 <text text-anchor="start" x="137" y="-150.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FilterEventType()</text>
 <text text-anchor="start" x="137" y="-139.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ MakeTimestamp()</text>
-<text text-anchor="start" x="137" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Write()</text>
-<text text-anchor="start" x="137" y="-117.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ WriteLine()</text>
-<text text-anchor="start" x="137" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ WriteWithTimestamp()</text>
+<text text-anchor="start" x="137" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IsEventVisible()</text>
+<text text-anchor="start" x="137" y="-117.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Write()</text>
+<text text-anchor="start" x="137" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ WriteLine()</text>
 <text text-anchor="start" x="137" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ WriteWithTimestamp()</text>
-<text text-anchor="start" x="137" y="-84.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Conditional()</text>
-<text text-anchor="start" x="137" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ WriteEvent()</text>
+<text text-anchor="start" x="137" y="-84.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ WriteWithTimestamp()</text>
+<text text-anchor="start" x="137" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Conditional()</text>
 <text text-anchor="start" x="137" y="-62.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ WriteEvent()</text>
-<text text-anchor="start" x="137" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">and 13 more...</text>
+<text text-anchor="start" x="137" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">and 14 more...</text>
 <text text-anchor="start" x="137" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ MakeBlankTimestamp()</text>
 <text text-anchor="start" x="137" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FormatExceptionMessage()</text>
 <text text-anchor="start" x="137" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GetTrace()</text>

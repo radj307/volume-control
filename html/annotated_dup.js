@@ -13,8 +13,8 @@ var annotated_dup =
         ] ],
         [ "Helpers", "namespace_volume_control_1_1_core_1_1_helpers.html", [
           [ "GetWin32Error", "class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error.html", "class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error" ],
-          [ "TargetInfo", "struct_volume_control_1_1_core_1_1_helpers_1_1_target_info.html", "struct_volume_control_1_1_core_1_1_helpers_1_1_target_info" ],
-          [ "TargetOverrideVM", "class_volume_control_1_1_core_1_1_helpers_1_1_target_override_v_m.html", "class_volume_control_1_1_core_1_1_helpers_1_1_target_override_v_m" ]
+          [ "TargetOverrideVM", "class_volume_control_1_1_core_1_1_helpers_1_1_target_override_v_m.html", "class_volume_control_1_1_core_1_1_helpers_1_1_target_override_v_m" ],
+          [ "TargetInfo", "struct_volume_control_1_1_core_1_1_helpers_1_1_target_info.html", "struct_volume_control_1_1_core_1_1_helpers_1_1_target_info" ]
         ] ],
         [ "Input", "namespace_volume_control_1_1_core_1_1_input.html", [
           [ "Actions", "namespace_volume_control_1_1_core_1_1_input_1_1_actions.html", [
@@ -47,20 +47,27 @@ var annotated_dup =
       ] ],
       [ "CoreAudio", "namespace_volume_control_1_1_core_audio.html", [
         [ "Events", "namespace_volume_control_1_1_core_audio_1_1_events.html", [
+          [ "PreviewSessionIsHiddenEventArgs", "class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_is_hidden_event_args.html", "class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_is_hidden_event_args" ],
+          [ "PreviewSessionIsSelectedEventArgs", "class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_is_selected_event_args.html", "class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_is_selected_event_args" ],
           [ "PreviewSessionNameEventArgs", "class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_name_event_args.html", "class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_name_event_args" ],
           [ "VolumeChangedEventArgs", "class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args.html", "class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args" ]
         ] ],
         [ "Helpers", "namespace_volume_control_1_1_core_audio_1_1_helpers.html", [
           [ "IAudioControlExtensions", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_i_audio_control_extensions.html", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_i_audio_control_extensions" ],
           [ "MMDeviceExtensions", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_m_m_device_extensions.html", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_m_m_device_extensions" ],
+          [ "VolumeControlExtensions", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_volume_control_extensions.html", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_volume_control_extensions" ],
           [ "VolumeLevelConverter", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_volume_level_converter.html", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_volume_level_converter" ]
         ] ],
         [ "Interfaces", "namespace_volume_control_1_1_core_audio_1_1_interfaces.html", [
           [ "IAudioControl", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_control.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_control" ],
+          [ "IAudioMultiSelector", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_multi_selector.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_multi_selector" ],
           [ "IAudioPeakMeter", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_peak_meter.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_peak_meter" ],
           [ "IAudioSelector", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_selector.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_selector" ],
           [ "IHideableAudioControl", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_hideable_audio_control.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_hideable_audio_control" ],
-          [ "IReadOnlyAudioControl", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control" ]
+          [ "IReadOnlyAudioControl", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control" ],
+          [ "IReadOnlyVolumeControl", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_volume_control.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_volume_control" ],
+          [ "IVolumeControl", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_volume_control.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_volume_control" ],
+          [ "IVolumePeakMeter", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_volume_peak_meter.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_volume_peak_meter" ]
         ] ],
         [ "AudioDevice", "class_volume_control_1_1_core_audio_1_1_audio_device.html", "class_volume_control_1_1_core_audio_1_1_audio_device" ],
         [ "AudioDeviceManager", "class_volume_control_1_1_core_audio_1_1_audio_device_manager.html", "class_volume_control_1_1_core_audio_1_1_audio_device_manager" ],
@@ -68,6 +75,7 @@ var annotated_dup =
         [ "AudioDeviceSessionManager", "class_volume_control_1_1_core_audio_1_1_audio_device_session_manager.html", "class_volume_control_1_1_core_audio_1_1_audio_device_session_manager" ],
         [ "AudioSession", "class_volume_control_1_1_core_audio_1_1_audio_session.html", "class_volume_control_1_1_core_audio_1_1_audio_session" ],
         [ "AudioSessionManager", "class_volume_control_1_1_core_audio_1_1_audio_session_manager.html", "class_volume_control_1_1_core_audio_1_1_audio_session_manager" ],
+        [ "AudioSessionMultiSelector", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector" ],
         [ "AudioSessionSelector", "class_volume_control_1_1_core_audio_1_1_audio_session_selector.html", "class_volume_control_1_1_core_audio_1_1_audio_session_selector" ]
       ] ],
       [ "Hotkeys", "namespace_volume_control_1_1_hotkeys.html", [
@@ -140,6 +148,7 @@ var annotated_dup =
           [ "LogEventTypeFilter", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_log_event_type_filter.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_log_event_type_filter" ],
           [ "ObservableCollectionObject", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object" ],
           [ "ObservableImmutableList", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list" ],
+          [ "ObservableImmutableListExtension_Sort", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list_extension___sort.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list_extension___sort" ],
           [ "ObservableList", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list" ]
         ] ],
         [ "Controls", "namespace_volume_control_1_1_w_p_f_1_1_controls.html", [
@@ -160,6 +169,7 @@ var annotated_dup =
           [ "TagDoubleConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_tag_double_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_tag_double_converter" ]
         ] ],
         [ "Extensions", "namespace_volume_control_1_1_w_p_f_1_1_extensions.html", [
+          [ "EnumValuesExtension", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_enum_values_extension.html", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_enum_values_extension" ],
           [ "HyperlinkExtensions", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_hyperlink_extensions.html", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_hyperlink_extensions" ]
         ] ],
         [ "PInvoke", "namespace_volume_control_1_1_w_p_f_1_1_p_invoke.html", [

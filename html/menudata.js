@@ -127,10 +127,12 @@ var menudata={children:[
 {text:"v",url:"functions_prop_v.html#index_v"},
 {text:"w",url:"functions_prop_w.html#index_w"}]},
 {text:"Events",url:"functions_evnt.html",children:[
+{text:"a",url:"functions_evnt.html#index_a"},
 {text:"c",url:"functions_evnt.html#index_c"},
 {text:"d",url:"functions_evnt.html#index_d"},
 {text:"i",url:"functions_evnt.html#index_i"},
 {text:"p",url:"functions_evnt.html#index_p"},
+{text:"r",url:"functions_evnt.html#index_r"},
 {text:"s",url:"functions_evnt.html#index_s"},
 {text:"v",url:"functions_evnt.html#index_v"}]}]}]},
 {text:"Files",url:"files.html",children:[

@@ -9,5 +9,6 @@ var dir_3c6838849607e203fe924ef654e420b1 =
     [ "AudioDeviceSessionManager.cs", null, null ],
     [ "AudioSession.cs", null, null ],
     [ "AudioSessionManager.cs", null, null ],
+    [ "AudioSessionMultiSelector.cs", null, null ],
     [ "AudioSessionSelector.cs", null, null ]
 ];

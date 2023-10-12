@@ -11,10 +11,10 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="class_volume_control_1_1_type_extensions_1_1_i_read_only_list_extensions.html" target="_top" xlink:title="Extension methods for the IReadOnlyList&lt;T&gt; interface.">
+<g id="a_node1"><a xlink:href="class_volume_control_1_1_type_extensions_1_1_collection_extensions.html" target="_top" xlink:title="Extension methods for ICollection&lt;T&gt;">
 <polygon fill="none" stroke="black" points="0,-0.5 0,-30.5 170,-30.5 170,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.TypeExtensions.</text>
-<text text-anchor="middle" x="85" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">IReadOnlyListExtensions</text>
+<text text-anchor="middle" x="85" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">CollectionExtensions</text>
 </a>
 </g>
 </g>

@@ -39,6 +39,7 @@ var class_volume_control_1_1_core_1_1_config =
     [ "NotificationSavePos", "class_volume_control_1_1_core_1_1_config.html#a4b5fa17af0f6ee1cd28a53c0d2874ed1", null ],
     [ "PeakMeterUpdateIntervalMs", "class_volume_control_1_1_core_1_1_config.html#aff55fb1f37f366549982b09dafe60fd4", null ],
     [ "RunAtStartup", "class_volume_control_1_1_core_1_1_config.html#ae5efc7fbc66e99e7157cfbcd6ac63f0e", null ],
+    [ "SelectedSessions", "class_volume_control_1_1_core_1_1_config.html#a1bf850e7773ac3346a52efecb79f8eb7", null ],
     [ "SessionListNotificationConfig", "class_volume_control_1_1_core_1_1_config.html#a0ee688b4da42d8a4da308a2844e09401", null ],
     [ "ShowIcons", "class_volume_control_1_1_core_1_1_config.html#a2895993c8c084fcfded5fa92c423adfc", null ],
     [ "ShowInTaskbar", "class_volume_control_1_1_core_1_1_config.html#a58e0ad0329c5f05eba72586455cf47bf", null ],

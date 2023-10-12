@@ -28,6 +28,7 @@ var class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list
     [ "Insert", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#ac5c0e959df537777d97c0db194307801", null ],
     [ "InsertRange", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#aae61476ed01f73d56619a2a91e05a3b9", null ],
     [ "LastIndexOf", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#abaf8f888dfcd30355f0b588b408e5104", null ],
+    [ "Move", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#ae78dc15b22cfd309fae3c1c61931cbec", null ],
     [ "Remove", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1474b2e4fa19f5f6ac07a63614d5d0cb", null ],
     [ "Remove", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a4ac212a326da581a5fa3f39a3ebab575", null ],
     [ "Remove", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a7e7c0eaa11847566fb4d2b45c9e6955d", null ],
