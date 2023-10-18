@@ -506,6 +506,8 @@ namespace VolumeControl.WPF.Controls
             if (e.AddedItems.Count == 0) return;
 
             NotifySuggestionClicked((string)e.AddedItems[0]!);
+
+            ((ListView)sender).SelectedIndex = -1; //< deselect the item(s)
         }
         #endregion OptionsListView
 
