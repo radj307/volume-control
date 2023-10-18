@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>gh-pages/doxygen-awesome-css/include/MyLibrary/example.hpp</title>
+<meta name='robots' content='noindex,nofollow' />
+<meta name='generator' content='GLOBAL-6.6.7' />
+<meta http-equiv='Content-Style-Type' content='text/css' />
+<link rel='stylesheet' type='text/css' href='../style.css' />
+</head>
+<body>
+<a id='TOP' name='TOP'></a><h2 class='header'><a href='../mains.html'>root</a>/<a href='../files/5518.html'>gh-pages</a>/<a href='../files/5519.html'>doxygen-awesome-css</a>/<a href='../files/5520.html'>include</a>/<a href='../files/5521.html'>MyLibrary</a>/example.hpp</h2>
+<em class='comment'>/* [&lt;][&gt;][^][v][top]<a href='#BOTTOM'>[bottom]</a><a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</em>
+<hr />
+<h2 class='header'><a href='5321.html#L3' title='Included from 3 in gh-pages/doxygen-awesome-css/include/MyLibrary/subclass-example.hpp.'>INCLUDED FROM</a></h2>
+<hr />
+<pre>
+<a id='L1' name='L1'></a>   1 <em class='sharp'>#pragma</em> once
+<a id='L2' name='L2'></a>   2 <em class='sharp'>#include</em> &lt;string&gt;
+<a id='L3' name='L3'></a>   3 
+<a id='L4' name='L4'></a>   4 <strong class='reserved'>namespace</strong> MyLibrary <em class='brace'>{</em>
+<a id='L5' name='L5'></a>   5 
+<a id='L6' name='L6'></a>   6 <strong class='reserved'>enum</strong> Color <em class='brace'>{</em> red, green, blue <em class='brace'>}</em>;
+<a id='L7' name='L7'></a>   7 
+<a id='L8' name='L8'></a>   8 <em class='comment'>/**</em>
+<a id='L9' name='L9'></a>   9 <em class='comment'> * @brief Example class to demonstrate the features of the custom CSS.</em>
+<a id='L10' name='L10'></a>  10 <em class='comment'> *</em>
+<a id='L11' name='L11'></a>  11 <em class='comment'> * @author jothepro</em>
+<a id='L12' name='L12'></a>  12 <em class='comment'> *</em>
+<a id='L13' name='L13'></a>  13 <em class='comment'> */</em>
+<a id='L14' name='L14'></a>  14 <strong class='reserved'>class</strong> <a href='../S/5321.html#L11' title='Referred from 11 in gh-pages/doxygen-awesome-css/include/MyLibrary/subclass-example.hpp.'>Example</a> <em class='brace'>{</em>
+<a id='L15' name='L15'></a>  15 <strong class='reserved'>public</strong>:
+<a id='L16' name='L16'></a>  16     <em class='comment'>/**</em>
+<a id='L17' name='L17'></a>  17 <em class='comment'>     * @brief brief summary</em>
+<a id='L18' name='L18'></a>  18 <em class='comment'>     *</em>
+<a id='L19' name='L19'></a>  19 <em class='comment'>     * doxygen test documentation</em>
+<a id='L20' name='L20'></a>  20 <em class='comment'>     *</em>
+<a id='L21' name='L21'></a>  21 <em class='comment'>     * @param test this is the only parameter of this test function. It does nothing!</em>
+<a id='L22' name='L22'></a>  22 <em class='comment'>     *</em>
+<a id='L23' name='L23'></a>  23 <em class='comment'>     * # Supported elements</em>
+<a id='L24' name='L24'></a>  24 <em class='comment'>     *</em>
+<a id='L25' name='L25'></a>  25 <em class='comment'>     * These elements have been tested with the custom CSS.</em>
+<a id='L26' name='L26'></a>  26 <em class='comment'>     *</em>
+<a id='L27' name='L27'></a>  27 <em class='comment'>     * ## Tables</em>
+<a id='L28' name='L28'></a>  28 <em class='comment'>     *</em>
+<a id='L29' name='L29'></a>  29 <em class='comment'>     * The table content is scrollable if the table gets too wide.</em>
+<a id='L30' name='L30'></a>  30 <em class='comment'>     * </em>
+<a id='L31' name='L31'></a>  31 <em class='comment'>     * | first_column | second_column | third_column | fourth_column | fifth_column | sixth_column | seventh_column | eighth_column | ninth_column |</em>
+<a id='L32' name='L32'></a>  32 <em class='comment'>     * |--------------|---------------|--------------|---------------|--------------|--------------|----------------|---------------|--------------|</em>
+<a id='L33' name='L33'></a>  33 <em class='comment'>     * | 1            | 2             | 3            | 4             | 5            | 6            | 7              | 8             | 9            |</em>
+<a id='L34' name='L34'></a>  34 <em class='comment'>     *</em>
+<a id='L35' name='L35'></a>  35 <em class='comment'>     *</em>
+<a id='L36' name='L36'></a>  36 <em class='comment'>     * ## Lists</em>
+<a id='L37' name='L37'></a>  37 <em class='comment'>     *</em>
+<a id='L38' name='L38'></a>  38 <em class='comment'>     * - element 1</em>
+<a id='L39' name='L39'></a>  39 <em class='comment'>     * - element 2</em>
+<a id='L40' name='L40'></a>  40 <em class='comment'>     *</em>
+<a id='L41' name='L41'></a>  41 <em class='comment'>     * 1. element 1</em>
+<a id='L42' name='L42'></a>  42 <em class='comment'>     *    ```</em>
+<a id='L43' name='L43'></a>  43 <em class='comment'>     *    code in lists</em>
+<a id='L44' name='L44'></a>  44 <em class='comment'>     *    ```</em>
+<a id='L45' name='L45'></a>  45 <em class='comment'>     * 2. element 2</em>
+<a id='L46' name='L46'></a>  46 <em class='comment'>     *</em>
+<a id='L47' name='L47'></a>  47 <em class='comment'>     * ## Quotes</em>
+<a id='L48' name='L48'></a>  48 <em class='comment'>     *</em>
+<a id='L49' name='L49'></a>  49 <em class='comment'>     * &gt; Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt </em>
+<a id='L50' name='L50'></a>  50 <em class='comment'>     * &gt; ut labore et dolore magna aliqua. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra. </em>
+<a id='L51' name='L51'></a>  51 <em class='comment'>     * &gt; Velit sed ullamcorper morbi tincidunt ornare. </em>
+<a id='L52' name='L52'></a>  52 <em class='comment'>     * &gt; </em>
+<a id='L53' name='L53'></a>  53 <em class='comment'>     * &gt; Lorem ipsum dolor sit amet consectetur adipiscing elit duis.</em>
+<a id='L54' name='L54'></a>  54 <em class='comment'>     * *- jothepro*</em>
+<a id='L55' name='L55'></a>  55 <em class='comment'>     *</em>
+<a id='L56' name='L56'></a>  56 <em class='comment'>     * ## Code block</em>
+<a id='L57' name='L57'></a>  57 <em class='comment'>     *</em>
+<a id='L58' name='L58'></a>  58 <em class='comment'>     * ```cpp</em>
+<a id='L59' name='L59'></a>  59 <em class='comment'>     * auto x = "code within md fences (```)";</em>
+<a id='L60' name='L60'></a>  60 <em class='comment'>     * ```</em>
+<a id='L61' name='L61'></a>  61 <em class='comment'>     *</em>
+<a id='L62' name='L62'></a>  62 <em class='comment'>     * @code{.cpp}</em>
+<a id='L63' name='L63'></a>  63 <em class='comment'>     * // code within @code block</em>
+<a id='L64' name='L64'></a>  64 <em class='comment'>     * while(true) {</em>
+<a id='L65' name='L65'></a>  65 <em class='comment'>     *    auto example = std::make_shared&lt;Example&gt;(5);</em>
+<a id='L66' name='L66'></a>  66 <em class='comment'>     *    example-&gt;test("test");</em>
+<a id='L67' name='L67'></a>  67 <em class='comment'>     * }</em>
+<a id='L68' name='L68'></a>  68 <em class='comment'>     * </em>
+<a id='L69' name='L69'></a>  69 <em class='comment'>     * @endcode</em>
+<a id='L70' name='L70'></a>  70 <em class='comment'>     *</em>
+<a id='L71' name='L71'></a>  71 <em class='comment'>     *     // code within indented code block</em>
+<a id='L72' name='L72'></a>  72 <em class='comment'>     *     auto test = std::shared_ptr&lt;Example(5);</em>
+<a id='L73' name='L73'></a>  73 <em class='comment'>     *</em>
+<a id='L74' name='L74'></a>  74 <em class='comment'>     *</em>
+<a id='L75' name='L75'></a>  75 <em class='comment'>     * Inline `code` elements in a text. *Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.* This also works within multiline text and does not break the `layout`.</em>
+<a id='L76' name='L76'></a>  76 <em class='comment'>     *</em>
+<a id='L77' name='L77'></a>  77 <em class='comment'>     *</em>
+<a id='L78' name='L78'></a>  78 <em class='comment'>     * ## Special hints</em>
+<a id='L79' name='L79'></a>  79 <em class='comment'>     *</em>
+<a id='L80' name='L80'></a>  80 <em class='comment'>     * @warning this is a warning only for demonstration purposes</em>
+<a id='L81' name='L81'></a>  81 <em class='comment'>     *</em>
+<a id='L82' name='L82'></a>  82 <em class='comment'>     * @note this is a note to show that notes work. They can also include `code`:</em>
+<a id='L83' name='L83'></a>  83 <em class='comment'>     * @code{.c}</em>
+<a id='L84' name='L84'></a>  84 <em class='comment'>     * void this_looks_awesome();</em>
+<a id='L85' name='L85'></a>  85 <em class='comment'>     * @endcode</em>
+<a id='L86' name='L86'></a>  86 <em class='comment'>     *</em>
+<a id='L87' name='L87'></a>  87 <em class='comment'>     * @bug example bug</em>
+<a id='L88' name='L88'></a>  88 <em class='comment'>     *</em>
+<a id='L89' name='L89'></a>  89 <em class='comment'>     * @deprecated None of this will be deprecated, because it's beautiful!</em>
+<a id='L90' name='L90'></a>  90 <em class='comment'>     *</em>
+<a id='L91' name='L91'></a>  91 <em class='comment'>     * @invariant This is an invariant</em>
+<a id='L92' name='L92'></a>  92 <em class='comment'>     *</em>
+<a id='L93' name='L93'></a>  93 <em class='comment'>     * @pre This is a precondition</em>
+<a id='L94' name='L94'></a>  94 <em class='comment'>     *</em>
+<a id='L95' name='L95'></a>  95 <em class='comment'>     * @todo This theme is never finished!</em>
+<a id='L96' name='L96'></a>  96 <em class='comment'>     *</em>
+<a id='L97' name='L97'></a>  97 <em class='comment'>     * @remark This is awesome!</em>
+<a id='L98' name='L98'></a>  98 <em class='comment'>     *</em>
+<a id='L99' name='L99'></a>  99 <em class='comment'>     */</em>
+<a id='L100' name='L100'></a> 100     <a href='../Y/10.html' title='Multiple used in 3 places.'>std</a>::<a href='../Y/11.html' title='Multiple used in 2 places.'>string</a> test(<strong class='reserved'>const</strong> <a href='../Y/10.html' title='Multiple used in 3 places.'>std</a>::<a href='../Y/11.html' title='Multiple used in 2 places.'>string</a>&amp; test);
+<a id='L101' name='L101'></a> 101 
+<a id='L102' name='L102'></a> 102     <strong class='reserved'>virtual</strong> <strong class='reserved'>int</strong> <a href='../Y/13.html' title='Multiple used in 2 places.'>virtualfunc</a>() = 0;
+<a id='L103' name='L103'></a> 103 
+<a id='L104' name='L104'></a> 104     <strong class='reserved'>static</strong> <strong class='reserved'>bool</strong> staticfunc();
+<a id='L105' name='L105'></a> 105 
+<a id='L106' name='L106'></a> 106 
+<a id='L107' name='L107'></a> 107 <em class='brace'>}</em>;
+<a id='L108' name='L108'></a> 108 
+<a id='L109' name='L109'></a> 109 <em class='brace'>}</em>
+<a id='L110' name='L110'></a> 110 
+</pre>
+<hr />
+<a id='BOTTOM' name='BOTTOM'></a>
+<em class='comment'>/* [&lt;][&gt;][^][v]<a href='#TOP'>[top]</a>[bottom]<a href='../mains.html'>[index]</a><a href='../help.html'>[help]</a> */</em>
+</body>
+</html>
