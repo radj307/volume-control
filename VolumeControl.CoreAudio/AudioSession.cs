@@ -36,6 +36,9 @@ namespace VolumeControl.CoreAudio
             AudioSessionControl.OnSessionDisconnected += this.AudioSessionControl_OnSessionDisconnected;
             AudioSessionControl.OnSimpleVolumeChanged += this.AudioSessionControl_OnSimpleVolumeChanged;
             AudioSessionControl.OnStateChanged += this.AudioSessionControl_OnStateChanged;
+
+            if (FLog.Log.FilterEventType(VolumeControl.Log.Enum.EventType.TRACE))
+                FLog.Log.Trace($"Created {nameof(AudioSession)} instance \"{ProcessIdentifier}\"");
         }
         #endregion Constructor
 
@@ -337,6 +340,8 @@ namespace VolumeControl.CoreAudio
         /// <inheritdoc/>
         public void Dispose()
         {
+            if (FLog.Log.FilterEventType(VolumeControl.Log.Enum.EventType.TRACE))
+                FLog.Log.Trace($"Disposing of {nameof(AudioSession)} instance \"{ProcessIdentifier}\"");
             this.Process?.Dispose();
             this.AudioSessionControl.Dispose();
             GC.SuppressFinalize(this);

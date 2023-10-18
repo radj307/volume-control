@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using VolumeControl.CoreAudio.Events;
 using VolumeControl.CoreAudio.Helpers;
 using VolumeControl.CoreAudio.Interfaces;
+using VolumeControl.Log;
 
 namespace VolumeControl.CoreAudio
 {
@@ -31,6 +32,9 @@ namespace VolumeControl.CoreAudio
             SessionManager = new(this);
 
             AudioEndpointVolume.OnVolumeNotification += AudioEndpointVolume_OnVolumeNotification;
+
+            if (FLog.Log.FilterEventType(Log.Enum.EventType.TRACE))
+                FLog.Log.Trace($"Created {nameof(AudioDevice)} instance \"{FullName}\"");
         }
         #endregion Constructor
 
@@ -61,7 +65,7 @@ namespace VolumeControl.CoreAudio
         /// Gets the underlying <see cref="MMDevice"/> for this <see cref="AudioDevice"/> instance.
         /// </summary>
         internal MMDevice MMDevice { get; }
-        internal AudioEndpointVolume AudioEndpointVolume
+        internal AudioEndpointVolume AudioEndpointVolume //< disposed of by MMDevice
         {
             get
             {
@@ -72,7 +76,7 @@ namespace VolumeControl.CoreAudio
                 }
             }
         }
-        internal AudioSessionManager2 AudioSessionManager
+        internal AudioSessionManager2 AudioSessionManager //< disposed of by MMDevice
             => MMDevice.AudioSessionManager2!;
         internal AudioMeterInformation AudioMeterInformation
             => MMDevice.AudioMeterInformation!;
@@ -169,6 +173,8 @@ namespace VolumeControl.CoreAudio
         /// <inheritdoc/>
         public void Dispose()
         {
+            if (FLog.Log.FilterEventType(Log.Enum.EventType.TRACE))
+                FLog.Log.Trace($"Disposing of {nameof(AudioDevice)} instance \"{FullName}\"");
             ((IDisposable)this.MMDevice).Dispose();
             GC.SuppressFinalize(this);
         }
