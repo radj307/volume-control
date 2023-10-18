@@ -38,7 +38,8 @@ namespace VolumeControl.Core.Input.Actions.Settings
                 }
                 catch (Exception ex) // DataTemplateProvider instantiation failed
                 {
-                    FLog.Log.Error($"{dataTemplateProviderType.FullName} instantiation failed due to an exception:", ex);
+                    if (FLog.Log.FilterEventType(Log.Enum.EventType.ERROR))
+                        FLog.Log.Error($"{dataTemplateProviderType.FullName} instantiation failed due to an exception:", ex);
                 }
                 if (provider == null) return;
                 try
@@ -47,7 +48,8 @@ namespace VolumeControl.Core.Input.Actions.Settings
                 }
                 catch (Exception ex) // ProvideDataTemplate() failed
                 {
-                    FLog.Log.Error($"{dataTemplateProviderType.FullName}.{nameof(DataTemplateProvider.ProvideDataTemplate)}() failed due to an exception:", ex);
+                    if (FLog.Log.FilterEventType(Log.Enum.EventType.ERROR))
+                        FLog.Log.Error($"{dataTemplateProviderType.FullName}.{nameof(DataTemplateProvider.ProvideDataTemplate)}() failed due to an exception:", ex);
                 }
             }
         }

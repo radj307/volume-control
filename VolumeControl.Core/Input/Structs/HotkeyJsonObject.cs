@@ -75,8 +75,8 @@ namespace VolumeControl.Core.Input.Structs
                     }
                     else
                     {
-                        // TODO: Log error
-                        //        HotkeyActionManager instance doesn't contain an action with this identifier!
+                        if (FLog.Log.FilterEventType(Log.Enum.EventType.ERROR))
+                            FLog.Log.Error($"Couldn't find an action with identifier \"{ActionIdentifier}\"!");
                     }
                 }
                 return hotkey;
@@ -105,8 +105,6 @@ namespace VolumeControl.Core.Input.Structs
 
                 if (settingDefinition == null)
                 {
-                    // TODO: Log warning
-                    //        There is no action setting definition for JSON key (name), so it was skipped.
                     if (FLog.Log.FilterEventType(Log.Enum.EventType.WARN))
                         FLog.Log.Warning($"There is no action setting definition associated with JSON key '{name}'.");
                     continue;
@@ -115,9 +113,11 @@ namespace VolumeControl.Core.Input.Structs
                 var settingInstance = settingDefinition.CreateInstance(value);
 
                 if (settingInstance == null)
-                    // TODO: Log error
-                    //        Failed to create an action setting instance with JSON value (value), so it was skipped.
+                {
+                    if (FLog.Log.FilterEventType(Log.Enum.EventType.ERROR))
+                        FLog.Log.Error($"Failed to create an instance of action setting \"{name}\" with value \"{value}\"!");
                     continue;
+                }
 
                 l.Add(settingInstance);
             }

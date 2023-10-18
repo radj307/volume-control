@@ -1,8 +1,7 @@
 ﻿using System.Reflection;
-using System.Windows.Markup;
 using System.Windows.Media;
 using VolumeControl.Core.Input.Actions.Settings;
-using VolumeControl.TypeExtensions;
+using VolumeControl.Log;
 
 namespace VolumeControl.Core.Input.Actions
 {
@@ -125,8 +124,8 @@ namespace VolumeControl.Core.Input.Actions
                 }
                 catch (Exception ex)
                 {
-                    // TODO: Log error
-                    //        Failed to instantiate action setting due to exception (ex)
+                    if (FLog.Log.FilterEventType(Log.Enum.EventType.ERROR))
+                        FLog.Log.Error($"Failed to instantiate action setting \"{Name}\" due to an exception:", ex);
                 }
             }
 

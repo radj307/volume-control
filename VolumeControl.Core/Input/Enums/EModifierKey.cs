@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using VolumeControl.Core.Input.Enums;
 
 namespace VolumeControl.Core.Input.Enums
 {
@@ -105,7 +104,7 @@ namespace VolumeControl.Core.Input.Enums
 
             foreach (var mod in System.Enum.GetValues<EModifierKey>().OrderBy(m => m, comparer))
             {
-                m.BuildStringRepresentation(ref sb, ref hasPrev, (EModifierKey)mod!);
+                m.BuildStringRepresentation(ref sb, ref hasPrev, mod!);
             }
 
             return sb.ToString();

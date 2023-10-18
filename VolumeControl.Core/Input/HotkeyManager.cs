@@ -1,6 +1,5 @@
 ﻿using VolumeControl.Core.Input.Actions;
 using VolumeControl.Core.Input.Structs;
-using VolumeControl.Log;
 
 namespace VolumeControl.Core.Input
 {

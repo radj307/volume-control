@@ -1,5 +1,6 @@
 ﻿using System.Windows.Media;
 using VolumeControl.Core.Input.Actions.Settings;
+using VolumeControl.Log;
 
 namespace VolumeControl.Core.Input.Actions
 {
@@ -49,9 +50,10 @@ namespace VolumeControl.Core.Input.Actions
             {
                 HotkeyActionDefinition.Invoke_Unsafe(sender, e);
             }
-            catch
+            catch (Exception ex)
             {
-                // TODO: log error (exception occurred within action method)
+                if (FLog.Log.FilterEventType(Log.Enum.EventType.ERROR))
+                    FLog.Log.Error($"Action \"{Name}\" triggered an exception:", ex);
             }
         }
         /// <summary>

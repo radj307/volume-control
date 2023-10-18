@@ -4,8 +4,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
-using VolumeControl.Core.Enum;
-using VolumeControl.Core.Input;
 using VolumeControl.Core.Input.Enums;
 using VolumeControl.Core.Input.Structs;
 using VolumeControl.Core.Structs;

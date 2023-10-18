@@ -219,7 +219,11 @@ namespace VolumeControl.CoreAudio
         }
         private void DeviceNotificationClient_DefaultDeviceChanged(object? sender, DefaultDeviceChangedEventArgs e)
         {
-            Devices.ForEach(device => device.IsDefault = false);
+            Devices.ForEach(device =>
+            {
+                if (device.IsDefault)
+                    device.IsDefault = false;
+            });
             if (FindDeviceByID(e.DeviceId) is AudioDevice audioDevice)
                 audioDevice.IsDefault = true;
         }

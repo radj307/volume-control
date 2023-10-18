@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.Core.Input.Actions.Settings;
