@@ -1,0 +1,4 @@
+var class_volume_control_1_1_hotkey_actions_1_1_volume_level___numeric_up_down___data_template_provider =
+[
+    [ "ProvideDataTemplate", "class_volume_control_1_1_hotkey_actions_1_1_volume_level___numeric_up_down___data_template_provider.html#abb024bb7dd612ba1448589ea2c33099c", null ]
+];

@@ -1,0 +1,5 @@
+<map id="VolumeControl.HotkeyActions.VolumeStep_NumericUpDown_DataTemplateProvider" name="VolumeControl.HotkeyActions.VolumeStep_NumericUpDown_DataTemplateProvider">
+<area shape="rect" id="node1" title="NumericUpDown_DataTemplateProvider with MinValue 1 and MaxValue 100" alt="" coords="16,315,236,421"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkey_actions_1_1_numeric_up_down___data_template_provider.html" title=" " alt="" coords="11,175,241,267"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_data_template_provider.html" title="Provides a DataTemplate for some hardcoded type. &#160;The Type of a derived class can be specified for th..." alt="" coords="5,5,247,127"/>
+</map>

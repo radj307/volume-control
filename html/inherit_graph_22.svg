@@ -11,10 +11,10 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="class_volume_control_1_1_core_audio_1_1_audio_device_manager.html" target="_top" xlink:title="Manages a list of AudioDevice instances and related events.">
+<g id="a_node1"><a xlink:href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html" target="_top" xlink:title="Manages a list of AudioSession instances and their related events for any number of AudioDeviceSessio...">
 <polygon fill="none" stroke="black" points="0,-0.5 0,-30.5 145,-30.5 145,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.CoreAudio.</text>
-<text text-anchor="middle" x="72.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">AudioDeviceManager</text>
+<text text-anchor="middle" x="72.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">AudioSessionManager</text>
 </a>
 </g>
 </g>

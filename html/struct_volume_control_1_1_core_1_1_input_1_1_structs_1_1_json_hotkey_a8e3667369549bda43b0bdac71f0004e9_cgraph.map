@@ -1,0 +1,5 @@
+<map id="VolumeControl.Core.Input.Structs.JsonHotkey.CreateInstance&lt; THotkey &gt;" name="VolumeControl.Core.Input.Structs.JsonHotkey.CreateInstance&lt; THotkey &gt;">
+<area shape="rect" id="node1" title="Creates a new THotkey &#160;instance from this JsonHotkey struct, using the specified actionManager &#160;to re..." alt="" coords="5,31,249,87"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7" title="Write a formatted EventType.ERROR message to the log endpoint." alt="" coords="297,5,512,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_log_writer.html#a927e2b5b79ae2c3a0b243246bb2e5a3d" title="Determines whether the given EventType should be written to the Endpoint or not." alt="" coords="297,71,512,112"/>
+</map>

@@ -9,6 +9,7 @@ var namespace_volume_control_1_1_core =
     [ "ActionTargetSpecifier", "class_volume_control_1_1_core_1_1_action_target_specifier.html", "class_volume_control_1_1_core_1_1_action_target_specifier" ],
     [ "Config", "class_volume_control_1_1_core_1_1_config.html", "class_volume_control_1_1_core_1_1_config" ],
     [ "DataTemplateProvider", "class_volume_control_1_1_core_1_1_data_template_provider.html", "class_volume_control_1_1_core_1_1_data_template_provider" ],
+    [ "EmbeddedResourceNotFoundException", "class_volume_control_1_1_core_1_1_embedded_resource_not_found_exception.html", "class_volume_control_1_1_core_1_1_embedded_resource_not_found_exception" ],
     [ "InputSimulator", "class_volume_control_1_1_core_1_1_input_simulator.html", "class_volume_control_1_1_core_1_1_input_simulator" ],
     [ "NotificationConfigSection", "class_volume_control_1_1_core_1_1_notification_config_section.html", "class_volume_control_1_1_core_1_1_notification_config_section" ],
     [ "User32", "class_volume_control_1_1_core_1_1_user32.html", "class_volume_control_1_1_core_1_1_user32" ]

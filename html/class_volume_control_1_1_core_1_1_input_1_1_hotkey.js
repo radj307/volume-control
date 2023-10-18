@@ -15,7 +15,7 @@ var class_volume_control_1_1_core_1_1_input_1_1_hotkey =
     [ "Alt", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a6c779b721eb6b96e9e801bbe5318fb09", null ],
     [ "Ctrl", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#ab3df6e51ed7f59cd8411e90d65ac3978", null ],
     [ "ID", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a90f93567ca697a1c45504c2bc3314e78", null ],
-    [ "IsRegistered", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a752c7d492afe7a334321b9dbf732674b", null ],
+    [ "IsRegistered", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a911029482596e197621bc5c109ffa552", null ],
     [ "Key", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a8214f694bb10b35a9d9c3b3f0db96aad", null ],
     [ "MessageHook", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a8e0406194177656838c34fb7705e02c7", null ],
     [ "Modifiers", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#aeae19b1536fba22a503678f10db91d12", null ],

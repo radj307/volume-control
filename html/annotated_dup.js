@@ -11,8 +11,7 @@ var annotated_dup =
           [ "EVirtualKeyCodeExtensions", "class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions.html", "class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions" ]
         ] ],
         [ "Helpers", "namespace_volume_control_1_1_core_1_1_helpers.html", [
-          [ "GetWin32Error", "class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error.html", "class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error" ],
-          [ "TargetOverrideVM", "class_volume_control_1_1_core_1_1_helpers_1_1_target_override_v_m.html", "class_volume_control_1_1_core_1_1_helpers_1_1_target_override_v_m" ]
+          [ "GetWin32Error", "class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error.html", "class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error" ]
         ] ],
         [ "Input", "namespace_volume_control_1_1_core_1_1_input.html", [
           [ "Actions", "namespace_volume_control_1_1_core_1_1_input_1_1_actions.html", [
@@ -51,6 +50,7 @@ var annotated_dup =
         [ "ActionTargetSpecifier", "class_volume_control_1_1_core_1_1_action_target_specifier.html", "class_volume_control_1_1_core_1_1_action_target_specifier" ],
         [ "Config", "class_volume_control_1_1_core_1_1_config.html", "class_volume_control_1_1_core_1_1_config" ],
         [ "DataTemplateProvider", "class_volume_control_1_1_core_1_1_data_template_provider.html", "class_volume_control_1_1_core_1_1_data_template_provider" ],
+        [ "EmbeddedResourceNotFoundException", "class_volume_control_1_1_core_1_1_embedded_resource_not_found_exception.html", "class_volume_control_1_1_core_1_1_embedded_resource_not_found_exception" ],
         [ "InputSimulator", "class_volume_control_1_1_core_1_1_input_simulator.html", "class_volume_control_1_1_core_1_1_input_simulator" ],
         [ "NotificationConfigSection", "class_volume_control_1_1_core_1_1_notification_config_section.html", "class_volume_control_1_1_core_1_1_notification_config_section" ],
         [ "User32", "class_volume_control_1_1_core_1_1_user32.html", "class_volume_control_1_1_core_1_1_user32" ]
@@ -88,15 +88,15 @@ var annotated_dup =
         [ "AudioSessionMultiSelector", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector" ],
         [ "AudioSessionSelector", "class_volume_control_1_1_core_audio_1_1_audio_session_selector.html", "class_volume_control_1_1_core_audio_1_1_audio_session_selector" ]
       ] ],
-      [ "Hotkeys", "namespace_volume_control_1_1_hotkeys.html", [
-        [ "ActiveApplicationActions", "class_volume_control_1_1_hotkeys_1_1_active_application_actions.html", "class_volume_control_1_1_hotkeys_1_1_active_application_actions" ],
-        [ "ApplicationActions", "class_volume_control_1_1_hotkeys_1_1_application_actions.html", "class_volume_control_1_1_hotkeys_1_1_application_actions" ],
-        [ "AudioDeviceActions", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions.html", "class_volume_control_1_1_hotkeys_1_1_audio_device_actions" ],
-        [ "NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_hotkeys_1_1_numeric_up_down___data_template_provider.html", "class_volume_control_1_1_hotkeys_1_1_numeric_up_down___data_template_provider" ],
-        [ "VolumeStep_NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_hotkeys_1_1_volume_step___numeric_up_down___data_template_provider.html", "class_volume_control_1_1_hotkeys_1_1_volume_step___numeric_up_down___data_template_provider" ],
-        [ "VolumeLevel_NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_hotkeys_1_1_volume_level___numeric_up_down___data_template_provider.html", "class_volume_control_1_1_hotkeys_1_1_volume_level___numeric_up_down___data_template_provider" ],
-        [ "AudioSessionActions", "class_volume_control_1_1_hotkeys_1_1_audio_session_actions.html", "class_volume_control_1_1_hotkeys_1_1_audio_session_actions" ],
-        [ "MediaActions", "class_volume_control_1_1_hotkeys_1_1_media_actions.html", "class_volume_control_1_1_hotkeys_1_1_media_actions" ]
+      [ "HotkeyActions", "namespace_volume_control_1_1_hotkey_actions.html", [
+        [ "ActiveApplicationActions", "class_volume_control_1_1_hotkey_actions_1_1_active_application_actions.html", "class_volume_control_1_1_hotkey_actions_1_1_active_application_actions" ],
+        [ "ApplicationActions", "class_volume_control_1_1_hotkey_actions_1_1_application_actions.html", "class_volume_control_1_1_hotkey_actions_1_1_application_actions" ],
+        [ "AudioDeviceActions", "class_volume_control_1_1_hotkey_actions_1_1_audio_device_actions.html", "class_volume_control_1_1_hotkey_actions_1_1_audio_device_actions" ],
+        [ "NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_hotkey_actions_1_1_numeric_up_down___data_template_provider.html", "class_volume_control_1_1_hotkey_actions_1_1_numeric_up_down___data_template_provider" ],
+        [ "VolumeStep_NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_hotkey_actions_1_1_volume_step___numeric_up_down___data_template_provider.html", "class_volume_control_1_1_hotkey_actions_1_1_volume_step___numeric_up_down___data_template_provider" ],
+        [ "VolumeLevel_NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_hotkey_actions_1_1_volume_level___numeric_up_down___data_template_provider.html", "class_volume_control_1_1_hotkey_actions_1_1_volume_level___numeric_up_down___data_template_provider" ],
+        [ "AudioSessionActions", "class_volume_control_1_1_hotkey_actions_1_1_audio_session_actions.html", "class_volume_control_1_1_hotkey_actions_1_1_audio_session_actions" ],
+        [ "MediaActions", "class_volume_control_1_1_hotkey_actions_1_1_media_actions.html", "class_volume_control_1_1_hotkey_actions_1_1_media_actions" ]
       ] ],
       [ "Log", "namespace_volume_control_1_1_log.html", [
         [ "Endpoints", "namespace_volume_control_1_1_log_1_1_endpoints.html", [

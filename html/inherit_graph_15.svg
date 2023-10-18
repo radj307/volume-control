@@ -11,10 +11,10 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html" target="_top" xlink:title="Manages a list of Hotkey instances.">
+<g id="a_node1"><a xlink:href="struct_volume_control_1_1_core_1_1_input_1_1_structs_1_1_json_hotkey.html" target="_top" xlink:title="Contains the JSON object representation of a Hotkey instance.">
 <polygon fill="none" stroke="black" points="0,-0.5 0,-30.5 145,-30.5 145,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
-<text text-anchor="middle" x="72.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">HotkeyManager</text>
+<text text-anchor="middle" x="72.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Structs.JsonHotkey</text>
 </a>
 </g>
 </g>

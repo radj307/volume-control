@@ -8,6 +8,7 @@ var dir_269c642ea8ba511592b8a0a4f9f45a95 =
     [ "ActionTargetSpecifier.cs", null, null ],
     [ "Config.cs", null, null ],
     [ "DataTemplateProvider.cs", null, null ],
+    [ "EmbeddedResourceNotFoundException.cs", null, null ],
     [ "GlobalSuppressions.cs", null, null ],
     [ "InputSimulator.cs", null, null ],
     [ "NotificationConfigSection.cs", null, null ],
