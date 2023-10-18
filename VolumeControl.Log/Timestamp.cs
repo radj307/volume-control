@@ -43,7 +43,7 @@ namespace VolumeControl.Log
         /// <summary>The length of the time/date segment of the haeder.</summary>
         public static int LineSegmentLengthDateTime => 14;
         /// <summary>The length of the event type segment of the header.</summary>
-        public static int LineSegmentLengthEventType => 8;
+        public static int LineSegmentLengthEventType => 10;
         /// <summary>The length of the margin segment of the header.</summary>
         public static int LineSegmentLengthMargin => 1;
         /// <summary><see cref="LineSegmentLengthDateTime"/> + <see cref="LineSegmentLengthEventType"/></summary>

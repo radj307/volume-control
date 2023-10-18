@@ -56,7 +56,9 @@ namespace VolumeControl.Log.Interfaces
             //    EventType.CRITICAL => "[CRITICAL]",
             //    _ => "[????]",
             //};
-            return $"{head}{new string(' ', this.EventTypeSegmentLength - head.Length)}";
+            var length = this.EventTypeSegmentLength - head.Length;
+            if (length < 0) length = 0;
+            return $"{head}{new string(' ', length)}";
         }
         private string GetMargin() => $"{(this.MarginSegmentLength > 0 ? new string(' ', this.MarginSegmentLength) : "")}";
 
