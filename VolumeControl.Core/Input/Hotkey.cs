@@ -72,6 +72,8 @@ namespace VolumeControl.Core.Input
             get => _key;
             set
             {
+                if (value == _key) return;
+
                 _key = value;
                 Reregister(); //< reregister the hotkey
                 NotifyPropertyChanged();
@@ -84,6 +86,8 @@ namespace VolumeControl.Core.Input
             get => _modifiers;
             set
             {
+                if (value == _modifiers) return;
+
                 var changedFlags = _modifiers ^ value; //< XOR
                 _modifiers = value;
                 Reregister(); //< reregister the hotkey
@@ -136,12 +140,12 @@ namespace VolumeControl.Core.Input
         /// <inheritdoc/>
         public HwndSourceHook MessageHook => MessageHookImpl;
         /// <inheritdoc/>
-        public bool IsRegistered
+        public virtual bool IsRegistered
         {
             get => _isRegistered;
             set
             {
-                if (_isRegistered == value) return; //< don't re-register if nothing changed
+                if (value == _isRegistered) return; //< don't re-register if nothing changed
 
                 if (value)
                 { // register
@@ -215,9 +219,19 @@ namespace VolumeControl.Core.Input
         /// <returns><see langword="true"/> when successful; otherwise <see langword="false"/>.</returns>
         protected virtual bool Reregister()
         {
-            if (!IsRegistered) return false;
-
-            return Register() && Unregister();
+            if (Unregister()) //< no need to check if we're registered since this does it for us
+            {
+                _isRegistered = false;
+                if (Register())
+                {
+                    _isRegistered = true;
+                    NotifyPropertyChanged(nameof(IsRegistered));
+                    return true;
+                }
+                // else Register() failed & IsRegistered is false; notify of the change
+                NotifyPropertyChanged(nameof(IsRegistered));
+            }
+            return false;
         }
         #endregion Registration
 

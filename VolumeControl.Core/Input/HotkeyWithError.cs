@@ -59,6 +59,8 @@ namespace VolumeControl.Core.Input
         /// <inheritdoc/>
         protected override bool Register()
         {
+            if (IsRegistered) return false;
+
             UnsetError();
             try
             {
@@ -74,26 +76,12 @@ namespace VolumeControl.Core.Input
         /// <inheritdoc/>
         protected override bool Unregister()
         {
+            if (!IsRegistered) return false;
+
             UnsetError();
             try
             {
                 WindowsHotkeyAPI.Unregister(this);
-                return true;
-            }
-            catch (HotkeyRegistrationException ex)
-            {
-                ErrorMessage = ex.Message;
-                return false;
-            }
-        }
-        /// <inheritdoc/>
-        protected override bool Reregister()
-        {
-            UnsetError();
-            try
-            {
-                WindowsHotkeyAPI.Unregister(this);
-                WindowsHotkeyAPI.Register(this);
                 return true;
             }
             catch (HotkeyRegistrationException ex)
