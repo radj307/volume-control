@@ -45,17 +45,6 @@ namespace VolumeControl.Log.Interfaces
                 eventType &= ~EventType.CRITICAL; //< remove the critical flag if present
 
             string head = $"[{System.Enum.GetName(eventType)}]";
-            //    eventType switch
-            //{
-            //    EventType.TRACE => "[TRACE]",
-            //    EventType.DEBUG => "[DEBUG]",
-            //    EventType.INFO => "[INFO]",
-            //    EventType.WARN => "[WARN]",
-            //    EventType.ERROR => "[ERROR]",
-            //    EventType.FATAL => "[FATAL]",
-            //    EventType.CRITICAL => "[CRITICAL]",
-            //    _ => "[????]",
-            //};
             var length = this.EventTypeSegmentLength - head.Length;
             if (length < 0) length = 0;
             return $"{head}{new string(' ', length)}";
