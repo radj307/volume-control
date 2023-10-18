@@ -92,7 +92,7 @@
           "Active": {
             "Header": {
               "Tooltip": {
-                "English (US/CA)": "This (un)registers all hotkeys in the list."
+                "English (US/CA)": "(Un)registers all hotkeys in the list."
               }
             }
           },

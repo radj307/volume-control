@@ -850,7 +850,6 @@
                                             <DataGridTemplateColumn Width="26">
                                                 <DataGridTemplateColumn.Header>
                                                     <CheckBox
-                                                        Click="Handle_ThreeStateCheckboxClick"
                                                         IsChecked="{Binding AudioAPI.AllSessionsSelected, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                                         IsThreeState="True"
                                                         Style="{StaticResource CheckBoxStyle}"
@@ -1026,26 +1025,25 @@
                                             <DataGridTemplateColumn.Header>
                                                 <CheckBox
                                                     Margin="3,0,0,0"
-                                                    d:IsChecked="{x:Null}"
-                                                    Click="Handle_ThreeStateCheckboxClick"
                                                     IsChecked="{Binding HotkeyAPI.AllSelected, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                                     IsThreeState="True"
                                                     Style="{StaticResource CheckBoxStyle}"
                                                     ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Active.Header.Tooltip',
-                                                                 DefaultText='This (un)registers all hotkeys in the list.'}" />
+                                                                 DefaultText='(Un)registers all hotkeys in the list.'}" />
                                             </DataGridTemplateColumn.Header>
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate DataType="{x:Type vm:HotkeyVM}">
-                                                    <CheckBox Margin="3,0,0,0" IsChecked="{Binding Hotkey.IsRegistered, UpdateSourceTrigger=PropertyChanged}">
+                                                    <CheckBox
+                                                        Margin="3,0,0,0"
+                                                        IsChecked="{Binding Hotkey.IsRegistered, UpdateSourceTrigger=PropertyChanged}"
+                                                        ToolTip="{Binding Hotkey.ErrorMessage}"
+                                                        ToolTipService.InitialShowDelay="100">
                                                         <CheckBox.Style>
                                                             <Style BasedOn="{StaticResource CheckBoxStyle}" TargetType="{x:Type CheckBox}">
                                                                 <Style.Triggers>
-                                                                    <DataTrigger Binding="{Binding Hotkey.HasError, Mode=OneWay}" Value="True">
+                                                                    <DataTrigger Binding="{Binding Hotkey.HasError}" Value="True">
                                                                         <Setter Property="BorderBrush" Value="{StaticResource CancelRed}" />
-                                                                        <Setter Property="ToolTip" Value="{Binding ErrorMessage, Mode=OneWay}" />
-                                                                        <Setter Property="ToolTipService.InitialShowDelay" Value="100" />
                                                                     </DataTrigger>
-                                                                    <DataTrigger Binding="{Binding Hotkey.HasError, Mode=OneWay}" Value="False" />
                                                                 </Style.Triggers>
                                                             </Style>
                                                         </CheckBox.Style>
@@ -1930,14 +1928,22 @@
                                         </Grid.RowDefinitions>
                                         <!--  Row 0-1 ; Column 0  -->
                                         <CheckBox
-                                            Click="Handle_ThreeStateCheckboxClick"
                                             Content="{Tr 'VolumeControl.MainWindow.Settings.Application.RunAtStartup.Content',
                                                          DefaultText='Run at Startup'}"
                                             IsChecked="{Binding RunAtStartup, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                                            IsThreeState="True"
-                                            Style="{StaticResource ApplicationSettingsCheckboxStyle}"
-                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.RunAtStartup.Tooltip',
-                                                         DefaultText='When enabled, Volume Control will start when you log in.'}" />
+                                            IsThreeState="True">
+                                            <!--  Change ToolTip based on IsChecked  -->
+                                            <CheckBox.Style>
+                                                <Style BasedOn="{StaticResource ApplicationSettingsCheckboxStyle}" TargetType="{x:Type CheckBox}">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsChecked" Value="{x:Null}">
+                                                            <Setter Property="ToolTip" Value="{Tr 'VolumeControl.MainWindow.Settings.Application.RunAtStartup.AltTooltip', DefaultText='Another Volume Control instance is set to run at startup. Changing this will replace it.'}" />
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                    <Setter Property="ToolTip" Value="{Tr 'VolumeControl.MainWindow.Settings.Application.RunAtStartup.Tooltip', DefaultText='When enabled, Volume Control will start when you log in.'}" />
+                                                </Style>
+                                            </CheckBox.Style>
+                                        </CheckBox>
                                         <CheckBox
                                             Grid.Row="1"
                                             Content="{Tr 'VolumeControl.MainWindow.Settings.Application.StartMinimized.Content',

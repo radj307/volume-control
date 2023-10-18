@@ -125,7 +125,7 @@ namespace VolumeControl
         }
         /// <summary>Handles the create new hotkey button's click event.</summary>
         private void Handle_CreateNewHotkeyClick(object sender, RoutedEventArgs e)
-            => this.HotkeyAPI.HotkeyManager.AddHotkey(new HotkeyWithError(Core.Input.Enums.EFriendlyKey.None, Core.Input.Enums.EModifierKey.None, false));
+            => this.HotkeyAPI.HotkeyManager.AddHotkey(new HotkeyWithError(EFriendlyKey.None, EModifierKey.None, false));
         /// <summary>Handles the remove hotkey button's click event.</summary>
         private void Handle_hotkeyGridRemoveClick(object sender, RoutedEventArgs e)
         {
@@ -151,7 +151,7 @@ namespace VolumeControl
                         )
                     {
                     case MessageBoxResult.Yes:
-                        break;// continue
+                        break; // continue
                     case MessageBoxResult.No:
                         return;
                     case MessageBoxResult.Cancel:
@@ -205,14 +205,6 @@ namespace VolumeControl
         {
             targetbox.SelectionStart = 0;
             targetbox.SelectionLength = targetbox.Text.Length;
-        }
-        private void Handle_ThreeStateCheckboxClick(object sender, RoutedEventArgs e)
-        { // this prevents the user from being able to set the checkbox to indeterminate directly
-            if (e.Source is CheckBox cb)
-            {
-                if (!cb.IsChecked.HasValue)
-                    cb.IsChecked = false;
-            }
         }
         private void Handle_MinimizeClick(object sender, RoutedEventArgs e) => this.Hide();
         private void Handle_MaximizeClick(object sender, RoutedEventArgs e) => this.WindowState = WindowState.Maximized;
