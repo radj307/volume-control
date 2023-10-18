@@ -1,5 +1,7 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using VolumeControl.Core;
 using VolumeControl.Core.Input;
 using VolumeControl.Log;
@@ -7,7 +9,7 @@ using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.ViewModels
 {
-    public class HotkeyManagerVM : IDisposable
+    public class HotkeyManagerVM : INotifyPropertyChanged, IDisposable
     {
         #region Constructor
         public HotkeyManagerVM()
@@ -40,9 +42,15 @@ namespace VolumeControl.ViewModels
             {
                 var newState = value == true;
                 Hotkeys.ForEach(hkvm => hkvm.Hotkey.IsRegistered = newState);
+                NotifyPropertyChanged();
             }
         }
         #endregion Properties
+
+        #region Events
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        #endregion Events
 
         #region Methods
 
@@ -89,6 +97,7 @@ namespace VolumeControl.ViewModels
         }
         private void HotkeyManager_RemovedHotkey(object? sender, Hotkey e)
         {
+            //< GetHotkeyVM is not reliable here
             if (Hotkeys.FirstOrDefault(hk => hk.Hotkey.Equals(e)) is HotkeyVM vm)
             {
                 vm.Hotkey.PropertyChanged -= this.Hotkey_PropertyChanged;
@@ -101,6 +110,10 @@ namespace VolumeControl.ViewModels
         private void Hotkey_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             SaveHotkeys();
+            if (e.PropertyName?.Equals(nameof(Hotkey.IsRegistered), StringComparison.Ordinal) ?? false)
+            {
+                NotifyPropertyChanged(nameof(AllSelected));
+            }
         }
         #endregion Hotkey
 
