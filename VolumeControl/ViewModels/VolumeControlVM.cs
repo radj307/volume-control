@@ -9,7 +9,7 @@ using VolumeControl.CoreAudio;
 using VolumeControl.Helpers;
 using VolumeControl.Helpers.Addon;
 using VolumeControl.Helpers.Update;
-using VolumeControl.Hotkeys;
+using VolumeControl.HotkeyActions;
 using VolumeControl.Log;
 using VolumeControl.SDK;
 using VolumeControl.SDK.Internal;

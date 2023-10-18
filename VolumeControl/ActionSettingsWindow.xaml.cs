@@ -109,7 +109,7 @@ namespace VolumeControl
 
             if (((IActionSettingInstance)listBox.DataContext)?.Value is not ActionTargetSpecifier list) return;
 
-            list.Targets.Add(new() { Value = e.SuggestionText });
+            list.Targets.Add(e.SuggestionText);
         }
         /// <summary>
         /// Adds (and attempts to resolve) the committed text to the list of target overrides.
@@ -130,11 +130,11 @@ namespace VolumeControl
 
             if (VCAPI.Default.AudioSessionManager.FindSessionWithProcessName(box.Text, StringComparison.OrdinalIgnoreCase) is CoreAudio.AudioSession session)
             {
-                list.Targets.Add(new() { Value = session.ProcessName });
+                list.Targets.Add(session.ProcessName);
             }
             else
             {
-                list.Targets.Add(new() { Value = box.Text });
+                list.Targets.Add(box.Text);
             }
 
             box.Text = string.Empty;

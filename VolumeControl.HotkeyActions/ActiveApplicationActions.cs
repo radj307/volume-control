@@ -1,11 +1,10 @@
 ﻿using System.Runtime.InteropServices;
 using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Input;
-using VolumeControl.Core.Input.Actions;
 using VolumeControl.CoreAudio;
 using VolumeControl.SDK;
 
-namespace VolumeControl.Hotkeys
+namespace VolumeControl.HotkeyActions
 {
     /// <summary>
     /// Defines actions that affect the current foreground application.
@@ -51,41 +50,31 @@ namespace VolumeControl.Hotkeys
         public void VolumeUp(object? sender, HotkeyActionPressedEventArgs e)
         {
             if (GetActiveSession() is AudioSession session)
-            {
                 session.Volume += VCAPI.Settings.VolumeStepSize;
-            }
         }
         [HotkeyAction(Description = "Decreases the volume of the current foreground application.")]
         public void VolumeDown(object? sender, HotkeyActionPressedEventArgs e)
         {
             if (GetActiveSession() is AudioSession session)
-            {
                 session.Volume -= VCAPI.Settings.VolumeStepSize;
-            }
         }
         [HotkeyAction(Description = "Mutes the current foreground application.")]
         public void Mute(object? sender, HotkeyActionPressedEventArgs e)
         {
             if (GetActiveSession() is AudioSession session)
-            {
                 session.Mute = true;
-            }
         }
         [HotkeyAction(Description = "Unmutes the current foreground application.")]
         public void Unmute(object? sender, HotkeyActionPressedEventArgs e)
         {
             if (GetActiveSession() is AudioSession session)
-            {
                 session.Mute = false;
-            }
         }
         [HotkeyAction(Description = "(Un)Mutes the current foreground application.")]
         public void ToggleMute(object? sender, HotkeyActionPressedEventArgs e)
         {
             if (GetActiveSession() is AudioSession session)
-            {
                 session.Mute = !session.Mute;
-            }
         }
         #endregion Methods
     }

@@ -11,7 +11,7 @@ using VolumeControl.SDK;
 using VolumeControl.WPF.Behaviors;
 using VolumeControl.WPF.Controls;
 
-namespace VolumeControl.Hotkeys
+namespace VolumeControl.HotkeyActions
 {
     #region DataTemplateProviders
     public abstract class NumericUpDown_DataTemplateProvider : DataTemplateProvider
@@ -21,14 +21,14 @@ namespace VolumeControl.Hotkeys
             var numericUpDownFactory = new FrameworkElementFactory(typeof(NumericUpDown));
 
             // Set appearance-related values
-            numericUpDownFactory.SetValue(NumericUpDown.HorizontalAlignmentProperty, HorizontalAlignment.Stretch);
-            numericUpDownFactory.SetValue(NumericUpDown.MarginProperty, new Thickness(3, 1, 3, 1));
+            numericUpDownFactory.SetValue(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Stretch);
+            numericUpDownFactory.SetValue(FrameworkElement.MarginProperty, new Thickness(3, 1, 3, 1));
 
             // Bind NumericUpDown.Value => IActionSettingInstance.Value
             numericUpDownFactory.SetBinding(NumericUpDown.ValueProperty, new Binding(nameof(IActionSettingInstance.Value)));
 
             // Attach behaviors through the Loaded event
-            numericUpDownFactory.AddHandler(NumericUpDown.LoadedEvent, new RoutedEventHandler((sender, e) =>
+            numericUpDownFactory.AddHandler(FrameworkElement.LoadedEvent, new RoutedEventHandler((sender, e) =>
             {
                 Interaction.GetBehaviors((NumericUpDown)sender).Add(new MouseWheelNumericUpDownBehavior());
             }));
@@ -120,7 +120,7 @@ namespace VolumeControl.Hotkeys
                 List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
-                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i].Value) is AudioSession session)
+                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i]) is AudioSession session)
                     {
                         session.IncreaseVolume(volumeStepSize);
                         sessions.Add(session);
@@ -128,9 +128,7 @@ namespace VolumeControl.Hotkeys
                     }
                 }
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
-                { // set the selected sessions, or the current session if there is only 1 target override
                     MultiSelector.SetSelectedSessionsOrCurrentSession(sessions.ToArray());
-                }
             }
             else if (SelectedSessions.Count > 0)
             { // operate on selected sessions:
@@ -171,7 +169,7 @@ namespace VolumeControl.Hotkeys
                 List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
-                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i].Value) is AudioSession session)
+                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i]) is AudioSession session)
                     {
                         session.DecreaseVolume(volumeStepSize);
                         sessions.Add(session);
@@ -179,9 +177,7 @@ namespace VolumeControl.Hotkeys
                     }
                 }
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
-                { // set the selected sessions, or the current session if there is only 1 target override
                     MultiSelector.SetSelectedSessionsOrCurrentSession(sessions.ToArray());
-                }
             }
             else if (SelectedSessions.Count > 0)
             { // operate on selected sessions:
@@ -218,7 +214,7 @@ namespace VolumeControl.Hotkeys
                 List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
-                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i].Value) is AudioSession session)
+                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i]) is AudioSession session)
                     {
                         session.Volume = volumeLevel;
                         sessions.Add(session);
@@ -226,9 +222,7 @@ namespace VolumeControl.Hotkeys
                     }
                 }
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
-                { // set the selected sessions, or the current session if there is only 1 target override
                     MultiSelector.SetSelectedSessionsOrCurrentSession(sessions.ToArray());
-                }
             }
             else if (SelectedSessions.Count > 0)
             { // operate on selected sessions:
@@ -261,7 +255,7 @@ namespace VolumeControl.Hotkeys
                 List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
-                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i].Value) is AudioSession session)
+                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i]) is AudioSession session)
                     {
                         session.SetMute(true);
                         sessions.Add(session);
@@ -269,9 +263,7 @@ namespace VolumeControl.Hotkeys
                     }
                 }
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
-                { // set the selected sessions, or the current session if there is only 1 target override
                     MultiSelector.SetSelectedSessionsOrCurrentSession(sessions.ToArray());
-                }
             }
             else if (SelectedSessions.Count > 0)
             { // operate on selected sessions:
@@ -304,7 +296,7 @@ namespace VolumeControl.Hotkeys
                 List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
-                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i].Value) is AudioSession session)
+                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i]) is AudioSession session)
                     {
                         session.SetMute(false);
                         sessions.Add(session);
@@ -312,9 +304,7 @@ namespace VolumeControl.Hotkeys
                     }
                 }
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
-                { // set the selected sessions, or the current session if there is only 1 target override
                     MultiSelector.SetSelectedSessionsOrCurrentSession(sessions.ToArray());
-                }
             }
             else if (SelectedSessions.Count > 0)
             { // operate on selected sessions:
@@ -347,7 +337,7 @@ namespace VolumeControl.Hotkeys
                 List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
-                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i].Value) is AudioSession session)
+                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i]) is AudioSession session)
                     {
                         session.ToggleMute();
                         sessions.Add(session);
@@ -355,9 +345,7 @@ namespace VolumeControl.Hotkeys
                     }
                 }
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
-                { // set the selected sessions, or the current session if there is only 1 target override
                     MultiSelector.SetSelectedSessionsOrCurrentSession(sessions.ToArray());
-                }
             }
             else if (SelectedSessions.Count > 0)
             { // operate on selected sessions:

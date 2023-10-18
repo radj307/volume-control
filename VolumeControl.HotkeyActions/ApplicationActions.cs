@@ -3,7 +3,7 @@ using VolumeControl.Core;
 using VolumeControl.Core.Attributes;
 using VolumeControl.SDK;
 
-namespace VolumeControl.Hotkeys
+namespace VolumeControl.HotkeyActions
 {
     [HotkeyActionGroup("Application", GroupColor = "#F2B2FF")]
     public sealed class ApplicationActions
