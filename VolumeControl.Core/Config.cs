@@ -283,6 +283,14 @@ namespace VolumeControl.Core
                 Modifiers = EModifierKey.Alt | EModifierKey.Shift | EModifierKey.Ctrl,
                 ActionIdentifier = "Session:Toggle Lock",
                 IsRegistered = true,
+            },
+            new()
+            {
+                Name = "Toggle Selected",
+                Key = EFriendlyKey.W,
+                Modifiers = EModifierKey.Alt | EModifierKey.Shift | EModifierKey.Ctrl,
+                ActionIdentifier = "Session:Toggle Selected",
+                IsRegistered = true,
             }
         };
         #endregion Hotkeys

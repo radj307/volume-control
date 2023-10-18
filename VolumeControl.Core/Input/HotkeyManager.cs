@@ -1,5 +1,6 @@
 ﻿using VolumeControl.Core.Input.Actions;
 using VolumeControl.Core.Input.Structs;
+using VolumeControl.Log;
 
 namespace VolumeControl.Core.Input
 {
@@ -83,14 +84,10 @@ namespace VolumeControl.Core.Input
             if (!Hotkeys.Contains(hotkey))
                 throw new InvalidOperationException($"Hotkey instance '{hotkey.Name}' ({hotkey.GetStringRepresentation()}) is not being managed by this {nameof(HotkeyManager)} instance!");
 
-            if (_hotkeys.Remove(hotkey))
-            {
-                NotifyRemovedHotkey(hotkey);
-
-                hotkey.Dispose(); //< dispose of the hotkey
-                return true;
-            }
-            return false;
+            _hotkeys.Remove(hotkey);
+            NotifyRemovedHotkey(hotkey);
+            hotkey.Dispose(); //< dispose of the hotkey
+            return true;
         }
         /// <summary>
         /// Removes the hotkey with the specified <paramref name="id"/> from the manager.

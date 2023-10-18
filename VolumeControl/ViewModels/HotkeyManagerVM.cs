@@ -2,6 +2,7 @@
 using System.Linq;
 using VolumeControl.Core;
 using VolumeControl.Core.Input;
+using VolumeControl.Log;
 using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.ViewModels
@@ -58,6 +59,11 @@ namespace VolumeControl.ViewModels
         #region Save/Load/Reset Hotkeys
         public void LoadHotkeys()
         {
+            if (Settings.Hotkeys == null)
+            {
+                FLog.Log.Critical("There was a problem with the hotkeys provided by the previous configuration. Attempting to load default hotkeys instead.");
+                Settings.Hotkeys = Config.Hotkeys_Default;
+            }
             HotkeyManager.SetHotkeysFromJsonHotkeys<HotkeyWithError>(Settings.Hotkeys);
         }
         public void SaveHotkeys()
@@ -83,9 +89,11 @@ namespace VolumeControl.ViewModels
         }
         private void HotkeyManager_RemovedHotkey(object? sender, Hotkey e)
         {
-            var vm = GetHotkeyVM(e);
-            vm.Hotkey.PropertyChanged -= this.Hotkey_PropertyChanged;
-            Hotkeys.Remove(vm);
+            if (Hotkeys.FirstOrDefault(hk => hk.Hotkey.Equals(e)) is HotkeyVM vm)
+            {
+                vm.Hotkey.PropertyChanged -= this.Hotkey_PropertyChanged;
+                Hotkeys.Remove(vm);
+            }
         }
         #endregion HotkeyManager
 
