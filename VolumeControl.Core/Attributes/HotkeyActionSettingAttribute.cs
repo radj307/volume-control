@@ -1,59 +1,76 @@
-﻿using VolumeControl.Core.Input.Actions;
-
-namespace VolumeControl.Core.Attributes
+﻿namespace VolumeControl.Core.Attributes
 {
     /// <summary>
-    /// Attribute that specifies a hotkey action setting. This can be applied to methods, or directly to parameters to override automatic label/type deduction.
+    /// Specifies an action setting for the associated hotkey action method.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method, AllowMultiple = true, Inherited = false)]
-    public class HotkeyActionSettingAttribute : Attribute
+    /// <remarks>
+    /// This attribute can only be used on methods that are also marked with <see cref="HotkeyActionAttribute"/>.
+    /// </remarks>
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = false)]
+    public sealed class HotkeyActionSettingAttribute : Attribute
     {
         #region Constructor
         /// <summary>
-        /// Creates a new <see cref="HotkeyActionSettingAttribute"/> instance with an explicit type.
+        /// Creates a new <see cref="HotkeyActionSettingAttribute"/> instance with the specified <paramref name="name"/> and <paramref name="valueType"/>.
         /// </summary>
-        /// <param name="label">The label to show next to the setting. Defaults to the name of the parameter.</param>
-        /// <param name="valueType">The <see cref="Type"/> of value used by this setting.</param>
-        public HotkeyActionSettingAttribute(string label, Type? valueType = null)
+        /// <param name="name">The name of this action setting.</param>
+        /// <param name="valueType">The type of value that this action setting contains.</param>
+        public HotkeyActionSettingAttribute(string name, Type valueType)
         {
-            Label = label;
+            Name = name;
             ValueType = valueType;
         }
         /// <summary>
-        /// Creates a new <see cref="HotkeyActionSettingAttribute"/> instance with an explicit type.
+        /// Creates a new <see cref="HotkeyActionSettingAttribute"/> instance with the specified <paramref name="name"/>, <paramref name="valueType"/>, and <paramref name="dataTemplateProviderType"/>.
         /// </summary>
-        /// <param name="label">The label to show next to the setting. Defaults to the name of the parameter.</param>
-        /// <param name="valueType">The <see cref="Type"/> of value used by this setting.</param>
-        /// <param name="description">A brief description of this setting to show in a tooltip.</param>
-        public HotkeyActionSettingAttribute(string label, Type? valueType, string description)
+        /// <param name="name">The name of this action setting.</param>
+        /// <param name="valueType">The type of value that this action setting contains.</param>
+        /// <param name="dataTemplateProviderType">The type of the WPF DataTemplate to use for providing an editor control for the GUI.<br/>
+        /// See <see cref="DataTemplateProviderType"/> for more information.</param>
+        public HotkeyActionSettingAttribute(string name, Type valueType, Type dataTemplateProviderType)
         {
-            Label = label;
+            Name = name;
             ValueType = valueType;
-            Description = description;
+            DataTemplateProviderType = dataTemplateProviderType;
         }
         #endregion Constructor
 
         #region Properties
         /// <summary>
-        /// Gets or sets the label shown in the action settings menu.
+        /// Gets or sets the name of this action setting.
         /// </summary>
-        public string Label { get; set; }
+        public string Name { get; set; }
         /// <summary>
-        /// Gets or sets the <see cref="Type"/> of value that this setting holds.
-        /// </summary>
-        public Type? ValueType { get; set; }
-        /// <summary>
-        /// Gets or sets the description that is shown in a tooltip in the action settings menu.
+        /// Gets or sets the description string for this action setting.
         /// </summary>
         public string? Description { get; set; }
-        #endregion Properties
-
-        #region Methods
         /// <summary>
-        /// Creates a new <see cref="HotkeyActionSetting"/> using this <see cref="HotkeyActionSettingAttribute"/>'s properties.
+        /// Gets or sets the type of this action setting.
         /// </summary>
-        /// <returns>A new <see cref="HotkeyActionSetting"/> instance.</returns>
-        public HotkeyActionSetting ToHotkeyActionSetting() => new(this);
-        #endregion Methods
+        public Type ValueType { get; set; }
+        public object? DefaultValue { get; set; }
+        /// <summary>
+        /// Gets or sets the type of <see cref="DataTemplateProvider"/> used to provide a UI editor control specific to this action setting's ValueType.<br/>
+        /// Only types that derive from <see cref="DataTemplateProvider"/> are allowed.
+        /// </summary>
+        /// <remarks>
+        /// When this is <see langword="null"/>, the default DataTemplate for the specified ValueType is used instead, if one is available.<br/>
+        /// See the documentation for <see cref="DataTemplateProvider"/> for more information.
+        /// </remarks>
+        /// <exception cref="ArgumentException">The specified type is not a subclass of <see cref="DataTemplateProvider"/>!</exception>
+        public Type? DataTemplateProviderType
+        {
+            get => _dataTemplateProviderType;
+            set
+            {
+                // check if the incoming type is derived from DataTemplateProvider:
+                if (value != null && !value.IsSubclassOf(typeof(DataTemplateProvider)))
+                    throw new ArgumentException($"{value.FullName} is not a valid {nameof(DataTemplateProviderType)} because it does not inherit from {typeof(DataTemplateProvider).FullName}!", nameof(value));
+
+                _dataTemplateProviderType = value;
+            }
+        }
+        private Type? _dataTemplateProviderType;
+        #endregion Properties
     }
 }

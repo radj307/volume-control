@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using VolumeControl.Core.Enum;
+using VolumeControl.Core.Input.Enums;
 
 namespace VolumeControl.Helpers
 {

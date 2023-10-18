@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using VolumeControl.Core.Helpers;
+using VolumeControl.Core.Structs;
 using VolumeControl.CoreAudio.Events;
 using VolumeControl.CoreAudio.Helpers;
 using VolumeControl.CoreAudio.Interfaces;

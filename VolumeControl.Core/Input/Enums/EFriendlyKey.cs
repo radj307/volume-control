@@ -1,4 +1,4 @@
-﻿namespace VolumeControl.Core.Enum
+﻿namespace VolumeControl.Core.Input.Enums
 {
     /// <Summary>
     /// Specifies the possible key values on a keyboard. 
@@ -38,7 +38,15 @@
         /// ENTER key.
         /// Applies to both the Enter key and the numpad Enter key.
         /// </Summary>
+        Return = 6,
+        /// <Summary>
+        /// <b>VK_RETURN</b>
+        /// ENTER key.
+        /// Applies to both the Enter key and the numpad Enter key.
+        /// </Summary>
+#pragma warning disable CA1069 // Enums values should not be duplicated
         Enter = 6,
+#pragma warning restore CA1069 // Enums values should not be duplicated
         /// <Summary>
         /// <b>VK_PAUSE</b>
         /// PAUSE key
@@ -57,6 +65,7 @@
         /// ESC key
         /// </Summary>
         Escape = 13,
+        #region IME Keys
         /// <Summary>
         /// <b>VK_KANA</b>
         /// IME Kana mode
@@ -97,6 +106,7 @@
         /// IME mode change request
         /// </Summary>
         ImeModeChange = 17,
+        #endregion IME Keys
         /// <Summary>
         /// <b>VK_SPACE</b>
         /// SPACEBAR
@@ -732,6 +742,11 @@
         /// Used for miscellaneous characters; it can vary by keyboard.
         /// </Summary>
         Oem8 = 153,
+        /// <Summary>
+        /// <b>VK_OEM_102</b>
+        /// The <> keys on the US standard keyboard, or the \\| key on the non-US 102-key keyboard
+        /// </Summary>
+        OemBackslash = 154,
         /// <Summary>
         /// <b>VK_PROCESSKEY</b>
         /// IME PROCESS key

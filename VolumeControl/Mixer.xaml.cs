@@ -12,7 +12,7 @@ using System.Windows.Input;
 using VolumeControl.Core;
 using VolumeControl.Core.Enum;
 using VolumeControl.Core.Input;
-using VolumeControl.Core.Interfaces;
+using VolumeControl.Core.Input.Enums;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
 using VolumeControl.SDK;
@@ -76,7 +76,7 @@ namespace VolumeControl
         //private ListNotification ListNotification => (this.FindResource("Notification") as ListNotification)!;
         private VolumeControlVM VCSettings => (this.FindResource("Settings") as VolumeControlVM)!;
         private AudioDeviceManagerVM AudioAPI => this.VCSettings.AudioAPI;
-        private HotkeyManager HotkeyAPI => this.VCSettings.HotkeyAPI;
+        private HotkeyManagerVM HotkeyAPI => this.VCSettings.HotkeyAPI;
         private static LogWriter Log => FLog.Log;
         private static Config Settings => (AppConfig.Configuration.Default as Config)!;
         #endregion Properties
@@ -92,24 +92,24 @@ namespace VolumeControl
             // update the position of the window for the new size of the window
             switch (this.GetCurrentScreenCorner())
             {
-            case Core.Helpers.EScreenCorner.TopLeft:
+            case EScreenCorner.TopLeft:
                 break;
-            case Core.Helpers.EScreenCorner.TopRight:
+            case EScreenCorner.TopRight:
                 if (!e.WidthChanged) return;
 
                 this.Left += e.PreviousSize.Width - e.NewSize.Width;
                 break;
-            case Core.Helpers.EScreenCorner.BottomLeft:
+            case EScreenCorner.BottomLeft:
                 if (!e.HeightChanged) return;
 
                 this.Top += e.PreviousSize.Height - e.NewSize.Height;
                 break;
-            case Core.Helpers.EScreenCorner.BottomRight:
+            case EScreenCorner.BottomRight:
                 this.Left += e.PreviousSize.Width - e.NewSize.Width;
                 this.Top += e.PreviousSize.Height - e.NewSize.Height;
                 break;
             default:
-                throw new InvalidEnumArgumentException(nameof(Settings.SessionListNotificationConfig.PositionOriginCorner), (byte)Settings.SessionListNotificationConfig.PositionOriginCorner, typeof(Core.Helpers.EScreenCorner));
+                throw new InvalidEnumArgumentException(nameof(Settings.SessionListNotificationConfig.PositionOriginCorner), (byte)Settings.SessionListNotificationConfig.PositionOriginCorner, typeof(EScreenCorner));
             }
         }
         #endregion Window Method Overrides
@@ -120,18 +120,18 @@ namespace VolumeControl
         {
             if (MixerGrid.CurrentCell.Item is AudioSessionVM session)
             {
-                VCAPI.Default.AudioSessionMultiSelector.SetSessionIsSelected(session.AudioSession, !VCAPI.Default.AudioSessionMultiSelector.GetSessionIsSelected(session.AudioSession));
+                VCAPI.Default.AudioSessionMultiSelector.CurrentSession = session.AudioSession;
             }
         }
         /// <summary>Handles the create new hotkey button's click event.</summary>
         private void Handle_CreateNewHotkeyClick(object sender, RoutedEventArgs e)
-            => this.HotkeyAPI.AddHotkey();
+            => this.HotkeyAPI.HotkeyManager.AddHotkey(new HotkeyWithError(Core.Input.Enums.EFriendlyKey.None, Core.Input.Enums.EModifierKey.None, false));
         /// <summary>Handles the remove hotkey button's click event.</summary>
         private void Handle_hotkeyGridRemoveClick(object sender, RoutedEventArgs e)
         {
             if (sender is Button hotkeyGridRemove && hotkeyGridRemove.CommandParameter is int id)
             {
-                if (!this.HotkeyAPI.Hotkeys.Any(hk => hk.ID.Equals(id)))
+                if (!this.HotkeyAPI.Hotkeys.Any(hk => hk.Hotkey.ID.Equals(id)))
                     return;
 
                 if (Settings.DeleteHotkeyConfirmation)
@@ -161,9 +161,9 @@ namespace VolumeControl
                     }
                 }
 
-                Log.Debug($"User is removing hotkey {id} ({(this.HotkeyAPI.GetHotkey(id) as Hotkey)?.GetStringRepresentation()})");
+                Log.Debug($"User is removing hotkey {id} ({this.HotkeyAPI.HotkeyManager.GetHotkey(id)?.GetStringRepresentation()})");
 
-                this.HotkeyAPI.DelHotkey(id);
+                this.HotkeyAPI.HotkeyManager.RemoveHotkey(id);
             }
         }
         /// <inheritdoc cref="VolumeControlVM.ResetHotkeySettings"/>
@@ -246,7 +246,7 @@ namespace VolumeControl
 
         private void Handle_HotkeyActionSettingsClick(object sender, RoutedEventArgs e)
         {
-            if (sender is Button b && b.CommandParameter is int hkid && HotkeyAPI.Hotkeys.FirstOrDefault(hk => hk.ID.Equals(hkid)) is IBindableHotkey hk)
+            if (sender is Button b && b.CommandParameter is int hkid && HotkeyAPI.Hotkeys.FirstOrDefault(hk => hk.Hotkey.ID.Equals(hkid)) is HotkeyVM hk)
             {
                 ActionSettingsWindow settingsWindow = new(owner: this, hotkey: hk);
                 settingsWindow.ShowDialog();

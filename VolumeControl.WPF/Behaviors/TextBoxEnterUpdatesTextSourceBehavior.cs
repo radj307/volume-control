@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace VolumeControl.WPF.Behaviors
 {
@@ -96,7 +97,7 @@ namespace VolumeControl.WPF.Behaviors
         {
             switch (e.Key)
             {
-            case System.Windows.Input.Key.Enter:
+            case Key.Enter:
                 { // Enter key was pressed:
                     // GetBindingExpression returns null if the property isn't bound
                     if (BindingOperations.GetBindingExpression(this.AssociatedObject, TextBox.TextProperty) is BindingExpression expr)

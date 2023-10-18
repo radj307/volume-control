@@ -1,7 +1,7 @@
 ﻿using VolumeControl.Core.Helpers;
 using VolumeControl.WPF.Collections;
 
-namespace VolumeControl.Core.Input.Actions
+namespace VolumeControl.Core
 {
     /// <summary>
     /// Specifies the target(s) of a hotkey action.

@@ -220,6 +220,7 @@ namespace VolumeControl.CoreAudio
 
         #region Methods
 
+        #region Add/Remove SelectedSession
         private void AddSelectedSession(AudioSession audioSession)
         {
             var hadSelectedSessions = HasSelectedSessions;
@@ -234,6 +235,7 @@ namespace VolumeControl.CoreAudio
                 NotifyPropertyChanged(nameof(HasSelectedSessions));
             }
         }
+        #endregion Add/Remove SelectedSession
 
         #region Add/Remove Session
         private void AddSession(AudioSession session)
@@ -339,6 +341,42 @@ namespace VolumeControl.CoreAudio
             }
         }
         #endregion SetAllSessionSelectionStates
+
+        #region SetSelectedSessions
+        /// <summary>
+        /// Sets only the specified <paramref name="sessions"/> as selected.
+        /// </summary>
+        /// <param name="sessions">Any number of audio sessions.</param>
+        public void SetSelectedSessions(params AudioSession[] sessions)
+        {
+            for (int i = 0, max = SelectionStates.Count; i < max; ++i)
+            {
+                SetSessionIsSelected(i, sessions.Contains(Sessions[i]));
+            }
+        }
+        /// <inheritdoc cref="SetSelectedSessions(AudioSession[])"/>
+        public void SetSelectedSessions(IEnumerable<AudioSession> sessions)
+            => SetSelectedSessions(sessions.ToArray());
+        #endregion SetSelectedSessions
+
+        #region SetSelectedSessionsOrCurrentSession
+        /// <summary>
+        /// Sets only the specified <paramref name="sessions"/> as selected, unless <paramref name="sessions"/> contains exactly 1 session in which case the CurrentSession is set and all sessions are deselected.
+        /// </summary>
+        /// <param name="sessions">Any number of audio sessions.</param>
+        public void SetSelectedSessionsOrCurrentSession(params AudioSession[] sessions)
+        {
+            if (sessions.Length == 1)
+            { // set the current session
+                SetAllSessionSelectionStates(false);
+                CurrentSession = sessions[0];
+            }
+            else SetSelectedSessions(sessions);
+        }
+        /// <inheritdoc cref="SetSelectedSessionsOrCurrentSession(AudioSession[])"/>
+        public void SetSelectedSessionsOrCurrentSession(IEnumerable<AudioSession> sessions)
+            => SetSelectedSessionsOrCurrentSession(sessions.ToArray());
+        #endregion SetSelectedSessionsOrCurrentSession
 
         #region Select/Deselect/ToggleSelect CurrentItem
         /// <summary>

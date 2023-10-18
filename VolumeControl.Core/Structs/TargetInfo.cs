@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace VolumeControl.Core.Helpers
+namespace VolumeControl.Core.Structs
 {
     /// <summary>
     /// Contains metadata for saving audio sessions to and from the config

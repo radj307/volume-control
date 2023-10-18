@@ -5,6 +5,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using VolumeControl.Core;
+using VolumeControl.Core.Enum;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
 using VolumeControl.SDK;
@@ -262,24 +263,24 @@ namespace VolumeControl
             // update the position of the window for the new size of the window
             switch (this.GetCurrentScreenCorner())
             {
-            case Core.Helpers.EScreenCorner.TopLeft:
+            case EScreenCorner.TopLeft:
                 break;
-            case Core.Helpers.EScreenCorner.TopRight:
+            case EScreenCorner.TopRight:
                 if (!e.WidthChanged) return;
 
                 this.Left += e.PreviousSize.Width - e.NewSize.Width;
                 break;
-            case Core.Helpers.EScreenCorner.BottomLeft:
+            case EScreenCorner.BottomLeft:
                 if (!e.HeightChanged) return;
 
                 this.Top += e.PreviousSize.Height - e.NewSize.Height;
                 break;
-            case Core.Helpers.EScreenCorner.BottomRight:
+            case EScreenCorner.BottomRight:
                 this.Left += e.PreviousSize.Width - e.NewSize.Width;
                 this.Top += e.PreviousSize.Height - e.NewSize.Height;
                 break;
             default:
-                throw new InvalidEnumArgumentException(nameof(Settings.DeviceListNotificationConfig.PositionOriginCorner), (byte)Settings.DeviceListNotificationConfig.PositionOriginCorner, typeof(Core.Helpers.EScreenCorner));
+                throw new InvalidEnumArgumentException(nameof(Settings.DeviceListNotificationConfig.PositionOriginCorner), (byte)Settings.DeviceListNotificationConfig.PositionOriginCorner, typeof(EScreenCorner));
             }
         }
         #endregion Window Method Overrides

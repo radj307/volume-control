@@ -1,11 +1,75 @@
-﻿using VolumeControl.Core.Attributes;
-using VolumeControl.Core.Input.Actions;
+﻿using Microsoft.Xaml.Behaviors;
+using System.Windows;
+using System.Windows.Data;
+using VolumeControl.Core;
+using VolumeControl.Core.Attributes;
+using VolumeControl.Core.Input;
+using VolumeControl.Core.Input.Actions.Settings;
 using VolumeControl.CoreAudio;
 using VolumeControl.CoreAudio.Helpers;
 using VolumeControl.SDK;
+using VolumeControl.WPF.Behaviors;
+using VolumeControl.WPF.Controls;
 
 namespace VolumeControl.Hotkeys
 {
+    #region DataTemplateProviders
+    public abstract class NumericUpDown_DataTemplateProvider : DataTemplateProvider
+    {
+        protected FrameworkElementFactory GetNumericUpDownFactory()
+        {
+            var numericUpDownFactory = new FrameworkElementFactory(typeof(NumericUpDown));
+
+            // Set appearance-related values
+            numericUpDownFactory.SetValue(NumericUpDown.HorizontalAlignmentProperty, HorizontalAlignment.Stretch);
+            numericUpDownFactory.SetValue(NumericUpDown.MarginProperty, new Thickness(3, 1, 3, 1));
+
+            // Bind NumericUpDown.Value => IActionSettingInstance.Value
+            numericUpDownFactory.SetBinding(NumericUpDown.ValueProperty, new Binding(nameof(IActionSettingInstance.Value)));
+
+            // Attach behaviors through the Loaded event
+            numericUpDownFactory.AddHandler(NumericUpDown.LoadedEvent, new RoutedEventHandler((sender, e) =>
+            {
+                Interaction.GetBehaviors((NumericUpDown)sender).Add(new MouseWheelNumericUpDownBehavior());
+            }));
+
+            return numericUpDownFactory;
+        }
+    }
+    /// <summary>
+    /// <see cref="NumericUpDown_DataTemplateProvider"/> with MinValue 1 and MaxValue 100
+    /// </summary>
+    public class VolumeStep_NumericUpDown_DataTemplateProvider : NumericUpDown_DataTemplateProvider
+    {
+        public override DataTemplate ProvideDataTemplate()
+        {
+            var numericUpDownFactory = GetNumericUpDownFactory();
+
+            // Set Min/Max values
+            numericUpDownFactory.SetValue(NumericUpDown.MinValueProperty, 1m);
+            numericUpDownFactory.SetValue(NumericUpDown.MaxValueProperty, 100m);
+
+            return new DataTemplate(typeof(int)) { VisualTree = numericUpDownFactory };
+        }
+    }
+    /// <summary>
+    /// <see cref="NumericUpDown_DataTemplateProvider"/> with MinValue 0 and MaxValue 100
+    /// </summary>
+    public class VolumeLevel_NumericUpDown_DataTemplateProvider : NumericUpDown_DataTemplateProvider
+    {
+        public override DataTemplate ProvideDataTemplate()
+        {
+            var numericUpDownFactory = GetNumericUpDownFactory();
+
+            // Set Min/Max values
+            numericUpDownFactory.SetValue(NumericUpDown.MinValueProperty, 0m);
+            numericUpDownFactory.SetValue(NumericUpDown.MaxValueProperty, 100m);
+
+            return new DataTemplate(typeof(int)) { VisualTree = numericUpDownFactory };
+        }
+    }
+    #endregion DataTemplateProviders
+
     /// <summary>
     /// Contains hotkey action handlers that interact with AudioSessions in the AudioDeviceManager object.
     /// </summary>
@@ -13,9 +77,19 @@ namespace VolumeControl.Hotkeys
     public sealed class AudioSessionActions
     {
         #region Fields
-        private const string ActionTargetSpecifierName = "Target Override";
-        private const string ActionTargetSpecifierDescription = "Overrides the target audio session so that this action only affects the specified audio session(s).";
-        public const string DisplayTargetName = "Audio Sessions";
+        private const string Setting_TargetOverride_Name = "Target Override(s)";
+        private const string Setting_TargetOverride_Description = "Causes this action to only affect the specified audio sessions.";
+
+        private const string Setting_SelectTarget_Name = "Select Target Override(s)";
+        private const string Setting_SelectTarget_Description = "Selects the target override sessions when the action is triggered.";
+
+        private const string Setting_OverrideVolumeStep_Name = "Override Volume Step";
+        private const string Setting_OverrideVolumeStep_Description = "Uses the volume step specified below instead of the default global volume step.";
+
+        private const string Setting_VolumeStep_Name = "Volume Step";
+        private const string Setting_VolumeStep_Description = "Overrides the default volume step.";
+
+        private const string Setting_VolumeLevel_Name = "Volume Level";
         #endregion Fields
 
         #region Properties
@@ -26,33 +100,48 @@ namespace VolumeControl.Hotkeys
         #endregion Properties
 
         #region Action Methods
-        [HotkeyAction(Description = "Increases the volume of the selected session by the value of VolumeStep.")]
-        [HotkeyActionSetting(ActionTargetSpecifierName, typeof(ActionTargetSpecifier), ActionTargetSpecifierDescription)]
+        [HotkeyAction(Description = "Increases the volume of the selected session(s).")]
+        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), Description = Setting_TargetOverride_Description)]
+        [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
+        [HotkeyActionSetting(Setting_OverrideVolumeStep_Name, typeof(bool), Description = Setting_OverrideVolumeStep_Description)]
+        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), typeof(VolumeStep_NumericUpDown_DataTemplateProvider), DefaultValue = 2, Description = Setting_VolumeStep_Description)]
         public void VolumeUp(object? sender, HotkeyActionPressedEventArgs e)
         {
             bool showNotification = false;
-            if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
+
+            // get the volume step size
+            int volumeStepSize = e.GetValue<bool>(Setting_OverrideVolumeStep_Name)
+                ? e.GetValue<int>(Setting_VolumeStep_Name)
+                : VCAPI.Settings.VolumeStepSize;
+
+            if (e.GetValue<ActionTargetSpecifier>(Setting_TargetOverride_Name) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
             { // operate on target overrides:
+                List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
                     if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i].Value) is AudioSession session)
                     {
-                        session.IncreaseVolume(VCAPI.Settings.VolumeStepSize);
+                        session.IncreaseVolume(volumeStepSize);
+                        sessions.Add(session);
                         showNotification = true;
                     }
+                }
+                if (e.GetValue<bool>(Setting_SelectTarget_Name))
+                { // set the selected sessions, or the current session if there is only 1 target override
+                    MultiSelector.SetSelectedSessionsOrCurrentSession(sessions.ToArray());
                 }
             }
             else if (SelectedSessions.Count > 0)
             { // operate on selected sessions:
                 for (int i = 0, max = SelectedSessions.Count; i < max; ++i)
                 {
-                    SelectedSessions[i].IncreaseVolume(VCAPI.Settings.VolumeStepSize);
+                    SelectedSessions[i].IncreaseVolume(volumeStepSize);
                     showNotification = true;
                 }
             }
             else if (CurrentSession != null)
             { // operate on current item:
-                CurrentSession.IncreaseVolume(VCAPI.Settings.VolumeStepSize);
+                CurrentSession.IncreaseVolume(volumeStepSize);
                 showNotification = true;
             }
 
@@ -62,33 +151,95 @@ namespace VolumeControl.Hotkeys
             if (showNotification)
                 VCAPI.ShowSessionListNotification();
         }
-        [HotkeyAction(Description = "Decreases the volume of the selected session by the value of VolumeStep.")]
-        [HotkeyActionSetting(ActionTargetSpecifierName, typeof(ActionTargetSpecifier), ActionTargetSpecifierDescription)]
+        [HotkeyAction(Description = "Decreases the volume of the selected session(s).")]
+        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), Description = Setting_TargetOverride_Description)]
+        [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
+        [HotkeyActionSetting(Setting_OverrideVolumeStep_Name, typeof(bool), Description = Setting_OverrideVolumeStep_Description)]
+        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), typeof(VolumeStep_NumericUpDown_DataTemplateProvider), DefaultValue = 2, Description = Setting_VolumeStep_Description)]
         public void VolumeDown(object? sender, HotkeyActionPressedEventArgs e)
         {
             bool showNotification = false;
-            if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
+
+            // get the volume step size
+            int volumeStepSize = e.GetValue<bool>(Setting_OverrideVolumeStep_Name)
+                ? e.GetValue<int>(Setting_VolumeStep_Name)
+                : VCAPI.Settings.VolumeStepSize;
+
+            if (e.GetValue<ActionTargetSpecifier>(Setting_TargetOverride_Name) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
             { // operate on target overrides:
+                List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
                     if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i].Value) is AudioSession session)
                     {
-                        session.DecreaseVolume(VCAPI.Settings.VolumeStepSize);
+                        session.DecreaseVolume(volumeStepSize);
+                        sessions.Add(session);
                         showNotification = true;
                     }
+                }
+                if (e.GetValue<bool>(Setting_SelectTarget_Name))
+                { // set the selected sessions, or the current session if there is only 1 target override
+                    MultiSelector.SetSelectedSessionsOrCurrentSession(sessions.ToArray());
                 }
             }
             else if (SelectedSessions.Count > 0)
             { // operate on selected sessions:
                 for (int i = 0, max = SelectedSessions.Count; i < max; ++i)
                 {
-                    SelectedSessions[i].DecreaseVolume(VCAPI.Settings.VolumeStepSize);
+                    SelectedSessions[i].DecreaseVolume(volumeStepSize);
                     showNotification = true;
                 }
             }
             else if (CurrentSession != null)
             { // operate on current item:
-                CurrentSession.DecreaseVolume(VCAPI.Settings.VolumeStepSize);
+                CurrentSession.DecreaseVolume(volumeStepSize);
+                showNotification = true;
+            }
+
+            if (!VCAPI.Settings.SessionListNotificationConfig.ShowOnVolumeChanged)
+                return; //< don't show notifs if they're disabled on volume change
+
+            if (showNotification)
+                VCAPI.ShowSessionListNotification();
+        }
+        [HotkeyAction(Description = "Sets the volume level of the specified session(s) to a pre-configured level.")]
+        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), Description = Setting_TargetOverride_Description)]
+        [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
+        [HotkeyActionSetting(Setting_VolumeLevel_Name, typeof(int), typeof(VolumeLevel_NumericUpDown_DataTemplateProvider), DefaultValue = 50)]
+        public void SetVolume(object? sender, HotkeyActionPressedEventArgs e)
+        {
+            bool showNotification = false;
+
+            var volumeLevel = e.GetValue<int>(Setting_VolumeLevel_Name);
+
+            if (e.GetValue<ActionTargetSpecifier>(Setting_TargetOverride_Name) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
+            { // operate on target overrides:
+                List<AudioSession> sessions = new();
+                for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
+                {
+                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i].Value) is AudioSession session)
+                    {
+                        session.Volume = volumeLevel;
+                        sessions.Add(session);
+                        showNotification = true;
+                    }
+                }
+                if (e.GetValue<bool>(Setting_SelectTarget_Name))
+                { // set the selected sessions, or the current session if there is only 1 target override
+                    MultiSelector.SetSelectedSessionsOrCurrentSession(sessions.ToArray());
+                }
+            }
+            else if (SelectedSessions.Count > 0)
+            { // operate on selected sessions:
+                for (int i = 0, max = SelectedSessions.Count; i < max; ++i)
+                {
+                    SelectedSessions[i].Volume = volumeLevel;
+                    showNotification = true;
+                }
+            }
+            else if (CurrentSession != null)
+            {
+                CurrentSession.Volume = volumeLevel;
                 showNotification = true;
             }
 
@@ -99,19 +250,26 @@ namespace VolumeControl.Hotkeys
                 VCAPI.ShowSessionListNotification();
         }
         [HotkeyAction(Description = "Mutes the selected session.")]
-        [HotkeyActionSetting(ActionTargetSpecifierName, typeof(ActionTargetSpecifier), ActionTargetSpecifierDescription)]
+        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), Description = Setting_TargetOverride_Description)]
+        [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         public void Mute(object? sender, HotkeyActionPressedEventArgs e)
         {
             bool showNotification = false;
-            if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
+            if (e.GetValue<ActionTargetSpecifier>(Setting_TargetOverride_Name) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
             { // operate on target overrides:
+                List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
                     if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i].Value) is AudioSession session)
                     {
                         session.SetMute(true);
+                        sessions.Add(session);
                         showNotification = true;
                     }
+                }
+                if (e.GetValue<bool>(Setting_SelectTarget_Name))
+                { // set the selected sessions, or the current session if there is only 1 target override
+                    MultiSelector.SetSelectedSessionsOrCurrentSession(sessions.ToArray());
                 }
             }
             else if (SelectedSessions.Count > 0)
@@ -135,19 +293,26 @@ namespace VolumeControl.Hotkeys
                 VCAPI.ShowSessionListNotification();
         }
         [HotkeyAction(Description = "Unmutes the selected session.")]
-        [HotkeyActionSetting(ActionTargetSpecifierName, typeof(ActionTargetSpecifier), ActionTargetSpecifierDescription)]
+        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), Description = Setting_TargetOverride_Description)]
+        [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         public void Unmute(object? sender, HotkeyActionPressedEventArgs e)
         {
             bool showNotification = false;
-            if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
+            if (e.GetValue<ActionTargetSpecifier>(Setting_TargetOverride_Name) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
             { // operate on target overrides:
+                List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
                     if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i].Value) is AudioSession session)
                     {
                         session.SetMute(false);
+                        sessions.Add(session);
                         showNotification = true;
                     }
+                }
+                if (e.GetValue<bool>(Setting_SelectTarget_Name))
+                { // set the selected sessions, or the current session if there is only 1 target override
+                    MultiSelector.SetSelectedSessionsOrCurrentSession(sessions.ToArray());
                 }
             }
             else if (SelectedSessions.Count > 0)
@@ -171,19 +336,26 @@ namespace VolumeControl.Hotkeys
                 VCAPI.ShowSessionListNotification();
         }
         [HotkeyAction(Description = "Toggles the selected session's mute state.")]
-        [HotkeyActionSetting(ActionTargetSpecifierName, typeof(ActionTargetSpecifier), ActionTargetSpecifierDescription)]
+        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), Description = Setting_TargetOverride_Description)]
+        [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         public void ToggleMute(object? sender, HotkeyActionPressedEventArgs e)
         {
             bool showNotification = false;
-            if (e.GetActionSettingValue<ActionTargetSpecifier>(ActionTargetSpecifierName) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
+            if (e.GetValue<ActionTargetSpecifier>(Setting_TargetOverride_Name) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
             { // operate on target overrides:
+                List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
                     if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i].Value) is AudioSession session)
                     {
                         session.ToggleMute();
+                        sessions.Add(session);
                         showNotification = true;
                     }
+                }
+                if (e.GetValue<bool>(Setting_SelectTarget_Name))
+                { // set the selected sessions, or the current session if there is only 1 target override
+                    MultiSelector.SetSelectedSessionsOrCurrentSession(sessions.ToArray());
                 }
             }
             else if (SelectedSessions.Count > 0)

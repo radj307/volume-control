@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Media;
 using VolumeControl.Core.Attributes;
-using VolumeControl.Core.Structs;
+using VolumeControl.Core.Input;
 using VolumeControl.SDK;
 using VolumeControl.SDK.Delegates;
 using VolumeControl.TypeExtensions;
@@ -23,7 +23,19 @@ namespace VolumeControl.Helpers.Addon
         #region VCAddon Overridden Methods
         protected override void HandleAddonTypes(VCAPI api, IEnumerable<Type> types)
         {
-            List<HotkeyAction> actions;
+            var actions = HotkeyActionAddonLoader.Load(types.ToArray());
+
+            if (actions.Length > 0)
+            {
+                api.HotkeyManager.HotkeyActionManager.AddActionDefinitions(actions);
+                Log.Debug($"Found {actions.Length} addon actions.");
+            }
+            else
+            {
+                Log.Debug("No addon actions were found!");
+            }
+
+            /*List<HotkeyAction> actions;
             foreach (Type t in types) //< enumerate through all of the received types
             {
                 actions = new(); // start collecting action methods
@@ -91,7 +103,7 @@ namespace VolumeControl.Helpers.Addon
                 {
                     Log.Debug($"No addon methods found in type \"{t.FullName}\".");
                 }
-            }
+            }*/
         }
         #endregion VCAddon Overridden Methods
     }

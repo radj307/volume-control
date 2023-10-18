@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Windows;
-using VolumeControl.Core.Helpers;
+using VolumeControl.Core.Enum;
 
 namespace VolumeControl.Core
 {

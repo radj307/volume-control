@@ -73,6 +73,5 @@ namespace VolumeControl.Core.Helpers
             return (err, FormatError(err));
         }
         #endregion GetLastError
-
     }
 }

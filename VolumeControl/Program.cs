@@ -1,6 +1,9 @@
 ﻿using CodingSeb.Localization;
 using Semver;
 using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -10,12 +13,88 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using VolumeControl.Core;
+using VolumeControl.Core.Input;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
 
 namespace VolumeControl
 {
+    public class DebugProfiler
+    {
+        #region Fields
+        private readonly Stopwatch _stopwatch = new();
+        private readonly Random _random = Random.Shared;
+        #endregion Fields
+
+        #region Methods
+
+        #region Profile
+        /// <summary>
+        /// Profiles the specified <paramref name="action"/> and returns the elapsed time.
+        /// </summary>
+        /// <param name="action">A delegate containing the code to profile.</param>
+        /// <returns>A <see cref="TimeSpan"/> containing the elapsed time.</returns>
+        public TimeSpan Profile(Action action)
+        {
+            _stopwatch.Reset();
+
+            _stopwatch.Start();
+            action.Invoke();
+            _stopwatch.Stop();
+
+            return _stopwatch.Elapsed;
+        }
+        /// <summary>
+        /// Profiles the specified <paramref name="action"/> and returns the average elapsed time.
+        /// </summary>
+        /// <param name="action">A delegate containing the code to profile.</param>
+        /// <param name="count">The number of times to profile the <paramref name="action"/>.</param>
+        /// <returns>The average amount of elapsed time, as a <see cref="TimeSpan"/> instance.</returns>
+        public TimeSpan Profile(Action action, int count)
+        {
+            TimeSpan[] t = new TimeSpan[count];
+
+            for (int i = 0; i < count; ++i)
+            {
+                t[i] = Profile(action);
+            }
+
+            return new TimeSpan((long)Math.Round(t.Select(ts => ts.Ticks).Average(), 0));
+        }
+        #endregion Profile
+
+        #region Next
+        /// <summary>
+        /// Inclusive version of the <see cref="Random.Next"/> method.
+        /// </summary>
+        /// <param name="min">The minimum value that can be returned.</param>
+        /// <param name="max">The maximum value that can be returned.</param>
+        /// <returns>A random value from <paramref name="min"/> up to and including <paramref name="max"/>.</returns>
+        public int Next(int min, int max)
+            => _random.Next(min, max + 1);
+        /// <summary>
+        /// Inclusive version of the <see cref="Random.Next"/> method.
+        /// </summary>
+        /// <param name="max">The maximum value that can be returned.</param>
+        /// <returns>A random value from 0 up to and including <paramref name="max"/>.</returns>
+        public int Next(int max)
+            => _random.Next(max + 1);
+        #endregion Next
+
+        #region NextBool
+        public bool NextBool()
+            => Next(0, 1) == 0;
+        #endregion NextBool
+
+        #endregion Methods
+
+        public void TestGeneric<T1, T2>()
+        {
+
+        }
+    }
+
     internal static class Program
     {
         #region Statics
@@ -35,51 +114,6 @@ namespace VolumeControl
         [STAThread]
         public static void Main(string[] args)
         {
-            //var t = new Stopwatch();
-            //var profile = (Action action) =>
-            //{
-            //    t.Start();
-            //    action.Invoke();
-            //    t.Stop();
-
-            //    var elapsed = t.Elapsed;
-            //    t.Reset();
-            //    return elapsed;
-            //};
-            //var coinflip = () => Random.Shared.Next(0, 2) == 0;
-
-            //List<string?> l = new();
-            //for (int i = 0; i < 100; ++i)
-            //{
-            //    string? s = null;
-            //    if (coinflip())
-            //    {
-            //        s = string.Empty;
-            //        while (Random.Shared.Next(0, 10) <= 7)
-            //        {
-            //            s += coinflip() ? ' ' : (char)Random.Shared.Next('A', 'Z');
-            //        }
-            //    }
-            //    l.Add(s);
-            //}
-
-            //var elapsed1 = profile(() =>
-            //{
-            //    for (int i = 0, max = l.Count; i < max; ++i)
-            //    {
-
-            //    }
-            //});
-            //var elapsed2 = profile(() =>
-            //{
-            //    for (int i = 0, max = l.Count; i < max; i++)
-            //    {
-
-            //    }
-            //});
-
-            //return;
-
             // make sure the application's working directory isn't System32 (this occurs when run at startup is enabled and the program was started via its registry key)
             bool changedWorkingDirectory = false;
             if (Environment.CurrentDirectory.Equals(Environment.SystemDirectory, StringComparison.OrdinalIgnoreCase))

@@ -5,8 +5,10 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 using VolumeControl.Core.Enum;
-using VolumeControl.Core.Helpers;
 using VolumeControl.Core.Input;
+using VolumeControl.Core.Input.Enums;
+using VolumeControl.Core.Input.Structs;
+using VolumeControl.Core.Structs;
 using VolumeControl.Log;
 using VolumeControl.WPF.Collections;
 
@@ -227,60 +229,60 @@ namespace VolumeControl.Core
         /// <summary>
         /// The current hotkey configuration, or <see langword="null"/> if the default configuration should be used instead.
         /// </summary>
-        public BindableHotkeyJsonWrapper[] Hotkeys { get; set; } = null!;
+        public JsonHotkey[] Hotkeys { get; set; } = null!;
         /// <summary>
         /// Default hotkey configuration.
         /// </summary>
         [JsonIgnore]
-        public static readonly BindableHotkeyJsonWrapper[] Hotkeys_Default = new BindableHotkeyJsonWrapper[]
+        public static readonly JsonHotkey[] Hotkeys_Default = new JsonHotkey[]
         {
             new ()
             {
                 Name = "Volume Up",
                 Key = EFriendlyKey.VolumeUp,
-                Modifier = Modifier.None,
+                Modifiers = EModifierKey.None,
                 ActionIdentifier = "Session:Volume Up",
-                Registered = true,
+                IsRegistered = true,
             },
             new()
             {
                 Name = "Volume Down",
                 Key = EFriendlyKey.VolumeDown,
-                Modifier = Modifier.None,
+                Modifiers = EModifierKey.None,
                 ActionIdentifier = "Session:Volume Down",
-                Registered = true,
+                IsRegistered = true,
             },
             new()
             {
                 Name = "Toggle Mute",
                 Key = EFriendlyKey.VolumeMute,
-                Modifier = Modifier.None,
+                Modifiers = EModifierKey.None,
                 ActionIdentifier = "Session:Toggle Mute",
-                Registered = true,
+                IsRegistered = true,
             },
             new()
             {
                 Name = "Next Session",
                 Key = EFriendlyKey.E,
-                Modifier = Modifier.Alt | Modifier.Shift | Modifier.Ctrl,
+                Modifiers = EModifierKey.Alt | EModifierKey.Shift | EModifierKey.Ctrl,
                 ActionIdentifier = "Session:Select Next",
-                Registered = true,
+                IsRegistered = true,
             },
             new()
             {
                 Name = "Previous Session",
                 Key = EFriendlyKey.Q,
-                Modifier = Modifier.Alt | Modifier.Shift | Modifier.Ctrl,
+                Modifiers = EModifierKey.Alt | EModifierKey.Shift | EModifierKey.Ctrl,
                 ActionIdentifier = "Session:Select Previous",
-                Registered = true,
+                IsRegistered = true,
             },
             new()
             {
                 Name = "Un/Lock Session",
                 Key = EFriendlyKey.S,
-                Modifier = Modifier.Alt | Modifier.Shift | Modifier.Ctrl,
+                Modifiers = EModifierKey.Alt | EModifierKey.Shift | EModifierKey.Ctrl,
                 ActionIdentifier = "Session:Toggle Lock",
-                Registered = true,
+                IsRegistered = true,
             }
         };
         #endregion Hotkeys

@@ -1,4 +1,5 @@
 ﻿using VolumeControl.Core;
+using VolumeControl.Core.Input;
 using VolumeControl.CoreAudio;
 using VolumeControl.Log;
 using VolumeControl.SDK.Internal;

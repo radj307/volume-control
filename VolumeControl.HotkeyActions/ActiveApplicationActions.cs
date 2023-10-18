@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using VolumeControl.Core.Attributes;
+using VolumeControl.Core.Input;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.CoreAudio;
 using VolumeControl.SDK;

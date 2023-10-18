@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace VolumeControl.Core.Helpers
+namespace VolumeControl.Core.Enum
 {
     /// <summary>
     /// Defines the corners of a screen. (Rectangle)

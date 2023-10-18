@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Threading;
 using VolumeControl.Core;
-using VolumeControl.Core.Helpers;
+using VolumeControl.Core.Structs;
 using VolumeControl.CoreAudio;
 using VolumeControl.CoreAudio.Events;
 using VolumeControl.Log;

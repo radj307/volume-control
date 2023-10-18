@@ -411,6 +411,7 @@ namespace VolumeControl.WPF.Collections
 
             _items = _items.Remove(item);
             this.RaiseNotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
+            this.RaisePropertyChanged(nameof(Count));
             return true;
         }
 

@@ -32,6 +32,13 @@
           }
         },
         "MixerGrid": {
+          "Selected": {
+            "Header": {
+              "Tooltip": {
+                "English (US/CA)": "(De)selects all sessions."
+              }
+            }
+          },
           "PID": {
             "Header": {
               "English (US/CA)": "PID"
@@ -64,14 +71,6 @@
           "English (US/CA)": "Hotkeys"
         },
         "ControlRow": {
-          "EditMode": {
-            "Content": {
-              "English (US/CA)": "Edit Mode"
-            },
-            "Tooltip": {
-              "English (US/CA)": "Allows you to edit, create, and delete hotkey bindings."
-            }
-          },
           "VolumeStep": {
             "Content": {
               "English (US/CA)": "Volume Step"

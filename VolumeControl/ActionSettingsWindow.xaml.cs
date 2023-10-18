@@ -4,11 +4,13 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using VolumeControl.Core.Input.Actions;
-using VolumeControl.Core.Interfaces;
+using VolumeControl.Core;
+using VolumeControl.Core.Input;
+using VolumeControl.Core.Input.Actions.Settings;
+using VolumeControl.Helpers;
 using VolumeControl.SDK;
 using VolumeControl.TypeExtensions;
-using VolumeControl.WPF.Collections;
+using VolumeControl.ViewModels;
 
 namespace VolumeControl
 {
@@ -22,10 +24,10 @@ namespace VolumeControl
         {
             InitializeComponent();
         }
-        public ActionSettingsWindow(Window owner, IBindableHotkey hotkey) : this()
+        public ActionSettingsWindow(Window owner, HotkeyVM hotkey) : this()
         {
             Owner = owner;
-            Title = hotkey.Name;
+            Title = hotkey.Hotkey.Name;
             Hotkey = hotkey;
         }
         #endregion Initializers
@@ -35,7 +37,8 @@ namespace VolumeControl
         #endregion Events
 
         #region Properties
-        public IBindableHotkey? Hotkey
+        private VolumeControlVM VCSettings => (FindResource("Settings") as VolumeControlVM)!;
+        public HotkeyVM? Hotkey
         {
             get => _hotkey;
             set
@@ -45,8 +48,8 @@ namespace VolumeControl
                 NotifyPropertyChanged(nameof(ActionSettings));
             }
         }
-        private IBindableHotkey? _hotkey;
-        public ObservableImmutableList<IHotkeyActionSetting>? ActionSettings => this.Hotkey?.ActionSettings;
+        private HotkeyVM? _hotkey;
+        public IActionSettingInstance[]? ActionSettings => this.Hotkey?.Hotkey.Action?.ActionSettings;
         #endregion Properties
 
         #region EventHandlers
@@ -61,7 +64,7 @@ namespace VolumeControl
         }
         private void Window_Closed(object sender, EventArgs e)
         {
-            VCAPI.Default.Settings.Save();
+            VCSettings.HotkeyAPI.SaveHotkeys();
         }
         #endregion Window
 
@@ -71,7 +74,7 @@ namespace VolumeControl
             var button = (Button)sender;
             var listBox = (ListBox)button.Tag;
 
-            var setting = (HotkeyActionSetting)listBox.DataContext;
+            var setting = (IActionSettingInstance)listBox.DataContext;
 
             if (setting?.Value is not ActionTargetSpecifier list) return;
 
@@ -104,7 +107,7 @@ namespace VolumeControl
             var box = (WPF.Controls.TextBoxWithCompletionOptions)sender;
             var listBox = (ListBox)box.Tag;
 
-            if (((HotkeyActionSetting)listBox.DataContext)?.Value is not ActionTargetSpecifier list) return;
+            if (((IActionSettingInstance)listBox.DataContext)?.Value is not ActionTargetSpecifier list) return;
 
             list.Targets.Add(new() { Value = e.SuggestionText });
         }
@@ -123,7 +126,7 @@ namespace VolumeControl
 
             var listBox = (ListBox)box.Tag;
 
-            if (((HotkeyActionSetting)listBox.DataContext)?.Value is not ActionTargetSpecifier list) return;
+            if (((IActionSettingInstance)listBox.DataContext)?.Value is not ActionTargetSpecifier list) return;
 
             if (VCAPI.Default.AudioSessionManager.FindSessionWithProcessName(box.Text, StringComparison.OrdinalIgnoreCase) is CoreAudio.AudioSession session)
             {
@@ -147,12 +150,41 @@ namespace VolumeControl
 
             if (listBox.Items.Count == 0) return;
 
-            if (((HotkeyActionSetting)listBox.DataContext)?.Value is not ActionTargetSpecifier list) return;
+            if (((IActionSettingInstance)listBox.DataContext)?.Value is not ActionTargetSpecifier list) return;
 
             list.Targets.RemoveAt(listBox.Items.Count - 1);//< remove the last item in the list
         }
         #endregion AddTargetBox
 
         #endregion EventHandlers
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (Hotkey == null || Hotkey.Hotkey.Action == null) return;
+
+            var hk = Hotkey.Hotkey;
+            var actionDefinition = hk.Action.HotkeyActionDefinition;
+
+            for (int i = 0, max = hk.Action.ActionSettings.Length; i < max; ++i)
+            {
+                var currentSetting = hk.Action.ActionSettings[i];
+                var defaultSetting = actionDefinition.GetActionSettingDefinition(currentSetting.Name)?.CreateInstance();
+
+                if (defaultSetting == null) continue; //< skip settings that we can't get a default value for
+
+                if (currentSetting.Value is ActionTargetSpecifier currentTargetSpecifier)
+                {
+                    currentTargetSpecifier.Targets.Clear();
+                    if (defaultSetting.Value is ActionTargetSpecifier defaultTargetSpecifier && defaultTargetSpecifier.Targets.Count > 0)
+                    { // this will probably never be triggered
+                        currentTargetSpecifier.Targets.AddRange(defaultTargetSpecifier.Targets);
+                    }
+                }
+                else
+                {
+                    currentSetting.Value = defaultSetting.Value;
+                }
+            }
+        }
     }
 }

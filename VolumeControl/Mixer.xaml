@@ -853,7 +853,9 @@
                                                         Click="Handle_ThreeStateCheckboxClick"
                                                         IsChecked="{Binding AudioAPI.AllSessionsSelected, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                                         IsThreeState="True"
-                                                        Style="{StaticResource CheckBoxStyle}" />
+                                                        Style="{StaticResource CheckBoxStyle}"
+                                                        ToolTip="{Tr 'VolumeControl.MainWindow.Mixer.MixerGrid.Selected.Header.Tooltip',
+                                                                     DefaultText='(De)selects all sessions.'}" />
                                                 </DataGridTemplateColumn.Header>
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate DataType="{x:Type vm:AudioSessionVM}">
@@ -963,6 +965,22 @@
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
+                                            <!--  Select  -->
+                                            <DataGridTemplateColumn
+                                                Width="Auto"
+                                                Header=""
+                                                IsReadOnly="True">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate DataType="{x:Type vm:AudioSessionVM}">
+                                                        <Button
+                                                            Padding="6,0"
+                                                            Click="Handle_ProcessSelectClick"
+                                                            Content="{Tr 'VolumeControl.MainWindow.Mixer.MixerGrid.Select.Button',
+                                                                         DefaultText='Select'}"
+                                                            IsEnabled="{Binding IsChecked, ElementName=cbLockTargetSelection, Converter={StaticResource InvertConverter}}" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </Grid>
@@ -1017,17 +1035,17 @@
                                                                  DefaultText='This (un)registers all hotkeys in the list.'}" />
                                             </DataGridTemplateColumn.Header>
                                             <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate DataType="{x:Type input:BindableHotkey}">
-                                                    <CheckBox Margin="3,0,0,0" IsChecked="{Binding Registered, UpdateSourceTrigger=PropertyChanged}">
+                                                <DataTemplate DataType="{x:Type vm:HotkeyVM}">
+                                                    <CheckBox Margin="3,0,0,0" IsChecked="{Binding Hotkey.IsRegistered, UpdateSourceTrigger=PropertyChanged}">
                                                         <CheckBox.Style>
                                                             <Style BasedOn="{StaticResource CheckBoxStyle}" TargetType="{x:Type CheckBox}">
                                                                 <Style.Triggers>
-                                                                    <DataTrigger Binding="{Binding HasError, Mode=OneWay}" Value="True">
+                                                                    <DataTrigger Binding="{Binding Hotkey.HasError, Mode=OneWay}" Value="True">
                                                                         <Setter Property="BorderBrush" Value="{StaticResource CancelRed}" />
                                                                         <Setter Property="ToolTip" Value="{Binding ErrorMessage, Mode=OneWay}" />
                                                                         <Setter Property="ToolTipService.InitialShowDelay" Value="100" />
                                                                     </DataTrigger>
-                                                                    <DataTrigger Binding="{Binding HasError, Mode=OneWay}" Value="False" />
+                                                                    <DataTrigger Binding="{Binding Hotkey.HasError, Mode=OneWay}" Value="False" />
                                                                 </Style.Triggers>
                                                             </Style>
                                                         </CheckBox.Style>
@@ -1042,13 +1060,13 @@
                                             Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Name.Header',
                                                         DefaultText='Name'}">
                                             <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate DataType="{x:Type input:BindableHotkey}">
+                                                <DataTemplate DataType="{x:Type vm:HotkeyVM}">
                                                     <TextBox
                                                         VerticalAlignment="Center"
                                                         Background="#00000000"
                                                         BorderThickness="0"
                                                         Style="{StaticResource TextBoxStyle}"
-                                                        Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                                                        Text="{Binding Hotkey.Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -1059,11 +1077,11 @@
                                             Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Key.Header',
                                                         DefaultText='Key'}">
                                             <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate DataType="{x:Type input:BindableHotkey}">
+                                                <DataTemplate DataType="{x:Type vm:HotkeyVM}">
                                                     <ComboBox
                                                         ItemsSource="{StaticResource KeyOptions}"
                                                         KeyDown="Handle_KeySelectorKeyDown"
-                                                        SelectedValue="{Binding Key, UpdateSourceTrigger=PropertyChanged}"
+                                                        SelectedValue="{Binding Hotkey.Key, UpdateSourceTrigger=PropertyChanged}"
                                                         Style="{StaticResource ComboBoxStyle}" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
@@ -1076,8 +1094,8 @@
                                             Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Alt.Header',
                                                         DefaultText='Alt'}">
                                             <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate DataType="{x:Type input:BindableHotkey}">
-                                                    <CheckBox IsChecked="{Binding Alt, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
+                                                <DataTemplate DataType="{x:Type vm:HotkeyVM}">
+                                                    <CheckBox IsChecked="{Binding Hotkey.Alt, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -1089,8 +1107,8 @@
                                             Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Ctrl.Header',
                                                         DefaultText='Ctrl'}">
                                             <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate DataType="{x:Type input:BindableHotkey}">
-                                                    <CheckBox IsChecked="{Binding Ctrl, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
+                                                <DataTemplate DataType="{x:Type vm:HotkeyVM}">
+                                                    <CheckBox IsChecked="{Binding Hotkey.Ctrl, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -1102,8 +1120,8 @@
                                             Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Shift.Header',
                                                         DefaultText='Shift'}">
                                             <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate DataType="{x:Type input:BindableHotkey}">
-                                                    <CheckBox IsChecked="{Binding Shift, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
+                                                <DataTemplate DataType="{x:Type vm:HotkeyVM}">
+                                                    <CheckBox IsChecked="{Binding Hotkey.Shift, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -1115,8 +1133,8 @@
                                             Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Windows.Header',
                                                         DefaultText='Win'}">
                                             <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate DataType="{x:Type input:BindableHotkey}">
-                                                    <CheckBox IsChecked="{Binding Win, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
+                                                <DataTemplate DataType="{x:Type vm:HotkeyVM}">
+                                                    <CheckBox IsChecked="{Binding Hotkey.Win, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -1127,16 +1145,16 @@
                                             Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Action.Header',
                                                         DefaultText='Action'}">
                                             <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate DataType="{x:Type input:BindableHotkey}">
+                                                <DataTemplate DataType="{x:Type vm:HotkeyVM}">
                                                     <ComboBox
                                                         IsEditable="False"
-                                                        ItemsSource="{Binding HotkeyAPI.Actions.Bindings, Source={StaticResource Settings}}"
-                                                        SelectedItem="{Binding Action, UpdateSourceTrigger=PropertyChanged}"
+                                                        ItemsSource="{Binding Actions, Source={StaticResource Settings}}"
+                                                        SelectedItem="{Binding ActionDefinition, UpdateSourceTrigger=PropertyChanged}"
                                                         Style="{StaticResource ComboBoxStyle}">
                                                         <ComboBox.ItemContainerStyle>
                                                             <Style TargetType="{x:Type ComboBoxItem}">
                                                                 <Setter Property="ToolTipService.ShowsToolTipOnKeyboardFocus" Value="True" />
-                                                                <Setter Property="ToolTipService.ToolTip" Value="{Binding Data.ActionDescription}" />
+                                                                <Setter Property="ToolTipService.ToolTip" Value="{Binding Description}" />
                                                                 <Setter Property="ToolTipService.Placement" Value="Left" />
                                                                 <Setter Property="ToolTipService.InitialShowDelay" Value="0" />
                                                                 <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
@@ -1144,7 +1162,7 @@
                                                         </ComboBox.ItemContainerStyle>
                                                         <ComboBox.ItemTemplate>
                                                             <DataTemplate>
-                                                                <StackPanel DataContext="{Binding Data}" Orientation="Horizontal">
+                                                                <StackPanel Orientation="Horizontal">
                                                                     <StackPanel.Resources>
                                                                         <conv:ConverterChain x:Key="NullToVisibilityConverter">
                                                                             <conv:NullToBooleanConverter />
@@ -1155,18 +1173,18 @@
                                                                     <TextBlock
                                                                         Name="GroupNameTextBlock"
                                                                         FontWeight="SemiBold"
-                                                                        Foreground="{Binding ActionGroupBrush, TargetNullValue={StaticResource TextBoxForeground}}"
-                                                                        Text="{Binding ActionGroup}" />
+                                                                        Foreground="{Binding GroupBrush, TargetNullValue={StaticResource TextBoxForeground}}"
+                                                                        Text="{Binding GroupName}" />
                                                                     <TextBlock
                                                                         FontWeight="{Binding FontWeight, ElementName=GroupNameTextBlock}"
                                                                         Foreground="{Binding Foreground, ElementName=GroupNameTextBlock}"
                                                                         Style="{StaticResource TextBlockStyle}"
                                                                         Text=": "
-                                                                        Visibility="{Binding ActionGroup, Converter={StaticResource NullToVisibilityConverter}}" />
+                                                                        Visibility="{Binding GroupName, Converter={StaticResource NullToVisibilityConverter}}" />
                                                                     <TextBlock
                                                                         Margin="2,0"
                                                                         Style="{StaticResource TextBlockStyle}"
-                                                                        Text="{Binding ActionName}" />
+                                                                        Text="{Binding Name}" />
                                                                 </StackPanel>
                                                             </DataTemplate>
                                                         </ComboBox.ItemTemplate>
@@ -1182,13 +1200,13 @@
                                         <!--  Action Settings  -->
                                         <DataGridTemplateColumn Width="Auto" CanUserResize="False">
                                             <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate DataType="{x:Type input:BindableHotkey}">
+                                                <DataTemplate DataType="{x:Type vm:HotkeyVM}">
                                                     <Button
                                                         Width="{Binding Height, RelativeSource={RelativeSource Self}, UpdateSourceTrigger=PropertyChanged}"
                                                         Click="Handle_HotkeyActionSettingsClick"
-                                                        CommandParameter="{Binding ID}"
+                                                        CommandParameter="{Binding Hotkey.ID}"
                                                         Content="🛠"
-                                                        IsEnabled="{Binding Action.UsesActionSettings}" />
+                                                        IsEnabled="{Binding UsesActionSettings}" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -1205,12 +1223,12 @@
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.HeaderTemplate>
                                             <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate DataType="{x:Type input:BindableHotkey}">
+                                                <DataTemplate DataType="{x:Type vm:HotkeyVM}">
                                                     <Button
                                                         Name="hotkeyGridRemove"
                                                         Width="{Binding Height, RelativeSource={RelativeSource Self}, UpdateSourceTrigger=PropertyChanged}"
                                                         Click="Handle_hotkeyGridRemoveClick"
-                                                        CommandParameter="{Binding ID}"
+                                                        CommandParameter="{Binding Hotkey.ID}"
                                                         Content="❌"
                                                         Foreground="{StaticResource CancelRed}" />
                                                 </DataTemplate>

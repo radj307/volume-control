@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using VolumeControl.Core;
-using VolumeControl.Core.Helpers;
+using VolumeControl.Core.Structs;
 using VolumeControl.CoreAudio.Interfaces;
 using VolumeControl.TypeExtensions;
 

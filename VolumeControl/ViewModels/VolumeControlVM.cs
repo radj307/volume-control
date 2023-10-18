@@ -34,14 +34,11 @@ namespace VolumeControl.ViewModels
 
             this.AudioAPI = new();
 
-            // Hotkey Action Addons:
-            HotkeyActionManager actionManager = new();
-
             // Create the hotkey manager
-            this.HotkeyAPI = new(actionManager);
+            this.HotkeyAPI = new();
 
             // Initialize the addon API
-            var api = Initializer.Initialize(this.AudioAPI.AudioDeviceManager, this.AudioAPI.AudioDeviceSelector, this.AudioAPI.AudioSessionManager, this.AudioAPI.AudioSessionMultiSelector, this.HotkeyAPI, this.MainWindowHandle, (AppConfig.Configuration.Default as Config)!);
+            var api = Initializer.Initialize(this.AudioAPI.AudioDeviceManager, this.AudioAPI.AudioDeviceSelector, this.AudioAPI.AudioSessionManager, this.AudioAPI.AudioSessionMultiSelector, this.HotkeyAPI.HotkeyManager, this.MainWindowHandle, (AppConfig.Configuration.Default as Config)!);
 
             VCHotkeyAddon hotkeyAddonLoader = new();
 
@@ -70,11 +67,9 @@ namespace VolumeControl.ViewModels
             });
 
             // Retrieve a list of all loaded action names
-            const char sort_last = (char)('z' + 1);
-            this.Actions = actionManager
-                .Bindings // TODO: see if using ThenBy for secondary sort makes more sense here:
-                .OrderBy(a => a.Data.ActionName.AtIndexOrDefault(0, sort_last))                                           //< sort entries alphabetically
-                .OrderBy(a => a.Data.ActionGroup is null ? sort_last : a.Data.ActionGroup.AtIndexOrDefault(0, sort_last)) //< sort entries by group; null groups are always last.
+            this.Actions = HotkeyAPI.HotkeyManager.HotkeyActionManager.ActionDefinitions
+                .OrderBy(a => a.GroupName)
+                .ThenBy(a => a.Name)
                 .ToList();
 
             // load saved hotkeys
@@ -107,7 +102,7 @@ namespace VolumeControl.ViewModels
         /// </summary>
         public IEnumerable<string> AudioSessionProcessIdentifierAutocompleteSource { get; private set; } = null!;
         public IEnumerable<string> AudioSessionProcessNameAutocompleteSource { get; private set; } = null!;
-        public IEnumerable<IHotkeyAction> Actions { get; internal set; } = null!;
+        public IEnumerable<HotkeyActionDefinition> Actions { get; internal set; } = null!;
         public IEnumerable<string> AddonDirectories { get; set; } = GetAddonDirectories();
         #endregion Other
 
@@ -130,7 +125,7 @@ namespace VolumeControl.ViewModels
         #region ParentObjects
         //public AudioDeviceManagerVM AudioDeviceManagerVM { get; }
         public AudioDeviceManagerVM AudioAPI { get; }
-        public HotkeyManager HotkeyAPI { get; }
+        public HotkeyManagerVM HotkeyAPI { get; }
         //public ListNotificationVM ListNotificationVM { get; }
         #endregion ParentObjects
 
