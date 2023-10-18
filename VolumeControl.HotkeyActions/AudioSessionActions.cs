@@ -77,19 +77,20 @@ namespace VolumeControl.Hotkeys
     public sealed class AudioSessionActions
     {
         #region Fields
+        // Target Override(s)
         private const string Setting_TargetOverride_Name = "Target Override(s)";
         private const string Setting_TargetOverride_Description = "Causes this action to only affect the specified audio sessions.";
-
+        // Select Target Override(s)
         private const string Setting_SelectTarget_Name = "Select Target Override(s)";
         private const string Setting_SelectTarget_Description = "Selects the target override sessions when the action is triggered.";
-
+        // Volume Step
         private const string Setting_OverrideVolumeStep_Name = "Override Volume Step";
         private const string Setting_OverrideVolumeStep_Description = "Uses the volume step specified below instead of the default global volume step.";
-
         private const string Setting_VolumeStep_Name = "Volume Step";
         private const string Setting_VolumeStep_Description = "Overrides the default volume step.";
-
+        // Volume Level
         private const string Setting_VolumeLevel_Name = "Volume Level";
+        private const string Setting_VolumeLevel_Description = "The volume level to set the target sessions to.";
         #endregion Fields
 
         #region Properties
@@ -205,7 +206,7 @@ namespace VolumeControl.Hotkeys
         [HotkeyAction(Description = "Sets the volume level of the specified session(s) to a pre-configured level.")]
         [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), Description = Setting_TargetOverride_Description)]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
-        [HotkeyActionSetting(Setting_VolumeLevel_Name, typeof(int), typeof(VolumeLevel_NumericUpDown_DataTemplateProvider), DefaultValue = 50)]
+        [HotkeyActionSetting(Setting_VolumeLevel_Name, typeof(int), typeof(VolumeLevel_NumericUpDown_DataTemplateProvider), DefaultValue = 50, Description = Setting_VolumeLevel_Description)]
         public void SetVolume(object? sender, HotkeyActionPressedEventArgs e)
         {
             bool showNotification = false;
