@@ -1,0 +1,4 @@
+<map id="VolumeControl.Core.Input.HotkeyManager.AddJsonHotkeys&lt; THotkey &gt;" name="VolumeControl.Core.Input.HotkeyManager.AddJsonHotkeys&lt; THotkey &gt;">
+<area shape="rect" id="node1" title="Creates and adds a Hotkey for each element of the specified hotkeyJsonObjects ." alt="" coords="5,5,239,61"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#a8341c348e8787a903fde69522d3ce107" title="Adds the specified hotkey &#160;to the manager." alt="" coords="287,13,485,54"/>
+</map>

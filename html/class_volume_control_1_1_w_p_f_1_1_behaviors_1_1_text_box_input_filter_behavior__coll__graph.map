@@ -1,0 +1,4 @@
+<map id="VolumeControl.WPF.Behaviors.TextBoxInputFilterBehavior" name="VolumeControl.WPF.Behaviors.TextBoxInputFilterBehavior">
+<area shape="rect" id="node1" title="TextBox behavior that uses regular expressions to only allow certain types of input." alt="" coords="5,131,228,237"/>
+<area shape="rect" id="node2" title=" " alt="" coords="19,5,214,83"/>
+</map>

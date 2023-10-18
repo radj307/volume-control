@@ -1,0 +1,6 @@
+var namespace_volume_control_1_1_core_1_1_input_1_1_actions_1_1_settings =
+[
+    [ "ActionSettingDefinition", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_settings_1_1_action_setting_definition.html", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_settings_1_1_action_setting_definition" ],
+    [ "ActionSettingInstance", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_settings_1_1_action_setting_instance.html", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_settings_1_1_action_setting_instance" ],
+    [ "IActionSettingInstance", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_settings_1_1_i_action_setting_instance.html", "interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_settings_1_1_i_action_setting_instance" ]
+];

@@ -1,0 +1,4 @@
+<map id="VolumeControl.Core.Input.Actions.HotkeyActionInstance.Invoke" name="VolumeControl.Core.Input.Actions.HotkeyActionInstance.Invoke">
+<area shape="rect" id="node1" title="Invokes the method specified by the HotkeyActionDefinition" alt="" coords="5,13,268,54"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_definition.html#ad2bd456f883ab4794fd4d81a3d92a773" title="Directly invokes the method specified by ActionMethodInfo with the specified parameters ." alt="" coords="316,5,544,61"/>
+</map>

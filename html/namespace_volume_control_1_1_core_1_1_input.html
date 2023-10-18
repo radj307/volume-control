@@ -87,7 +87,8 @@ $(document).ready(function(){initNavTree('namespace_volume_control_1_1_core_1_1_
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">VolumeControl.Core.Input Namespace Reference</div>  </div>
 </div><!--header-->
@@ -95,21 +96,75 @@ $(document).ready(function(){initNavTree('namespace_volume_control_1_1_core_1_1_
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html">BindableHotkey</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wraps a <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html" title="A Hotkey that may be registered with the windows API.">Input.Hotkey</a> instance and exposes an action binding point. <em>(see <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#a5058586d5cfb6438691e67eaa7651429" title="Gets or sets the IHotkeyAction associated with this hotkey instance.">Action</a>)</em>  <a href="class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey_json_wrapper.html">BindableHotkeyJsonWrapper</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acts as a temporary wrapper for the <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey.html" title="Wraps a Input.Hotkey instance and exposes an action binding point. (see Action)">BindableHotkey</a> class so that the JSON parser can read and write it without attempting to register hotkeys before the API is initialized.  <a href="struct_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey_json_wrapper.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html">Hotkey</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html" title="A Hotkey that may be registered with the windows API.">Hotkey</a> that may be registered with the windows API.  <a href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A hotkey that executes an action when pressed.  <a href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html">HotkeyActionAddonLoader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides methods to load HotkeyActionDefinition instances from types or assemblies using reflection.  <a href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_pressed_event_args.html">HotkeyActionPressedEventArgs</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event arguments for hotkey action events.  <a href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_pressed_event_args.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html">HotkeyManager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages a list of <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html" title="A hotkey that executes an action when pressed.">Hotkey</a> instances.  <a href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html">HotkeyWithError</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html" title="A hotkey that executes an action when pressed.">Hotkey</a> that also tracks and reports registration errors.  <a href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html">IHotkey</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a hotkey instance.  <a href="interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a Win32 global hotkey.  <a href="interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><b>WindowsHotkeyAPI</b></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_i_hotkey___extensions.html">IHotkey_Extensions</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines extension methods for the <a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html" title="Represents a Win32 global hotkey.">IHotkey</a> interface.  <a href="class_volume_control_1_1_core_1_1_input_1_1_i_hotkey___extensions.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_windows_hotkey_a_p_i.html">WindowsHotkeyAPI</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">API for interacting with the global hotkey functionality exposed in the Win32 API.  <a href="class_volume_control_1_1_core_1_1_input_1_1_windows_hotkey_a_p_i.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a0662c29737d8e14f05e82dd128d91733"><td class="memItemLeft" align="right" valign="top">delegate void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_volume_control_1_1_core_1_1_input.html#a0662c29737d8e14f05e82dd128d91733">HotkeyActionPressedEventHandler</a> (object? sender, <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_pressed_event_args.html">HotkeyActionPressedEventArgs</a> e)</td></tr>
+<tr class="memdesc:a0662c29737d8e14f05e82dd128d91733"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event handler type for hotkey action events.  <a href="namespace_volume_control_1_1_core_1_1_input.html#a0662c29737d8e14f05e82dd128d91733">More...</a><br /></td></tr>
+<tr class="separator:a0662c29737d8e14f05e82dd128d91733"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a0662c29737d8e14f05e82dd128d91733"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0662c29737d8e14f05e82dd128d91733">&#9670;&nbsp;</a></span>HotkeyActionPressedEventHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">delegate void VolumeControl.Core.Input.HotkeyActionPressedEventHandler </td>
+          <td>(</td>
+          <td class="paramtype">object?&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_pressed_event_args.html">HotkeyActionPressedEventArgs</a>&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Event handler type for hotkey action events. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html" title="A hotkey that executes an action when pressed.">Hotkey</a> that was pressed.</td></tr>
+    <tr><td class="paramname">e</td><td>The event arguments and action settings for the event.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

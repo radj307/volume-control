@@ -1,0 +1,13 @@
+<map id="VolumeControl.Core.Input.WindowsHotkeyAPI.Unregister" name="VolumeControl.Core.Input.WindowsHotkeyAPI.Unregister">
+<area shape="rect" id="node1" title="Unregisters the specified hotkey ." alt="" coords="1624,78,1844,119"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html#a1c325ede05a7cab87b6ff07dbe1c4148" title="Re&#45;registers the hotkey with the Win32 API." alt="" coords="1357,13,1556,54"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_input_1_1_windows_hotkey_a_p_i.html#ac001f386c8766c5af77db645f9aea101" title="Attempts to unregister the specified hotkey ." alt="" coords="1337,78,1576,119"/>
+<area shape="rect" id="node11" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html#abba6c50b49f5445c4cb889124a5def9f" title="Unregisters the hotkey with the Win32 API." alt="" coords="1357,143,1557,185"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a9cdb123b8b415f401289241b2bfa6d6c" title="Unregisters the hotkey with the Win32 API." alt="" coords="1096,78,1289,119"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a32d7855fa82b1806411aa54d64e4c099" title=" " alt="" coords="855,13,1048,54"/>
+<area shape="rect" id="node9" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a1fd7fba5f867f685108e249ff892df77" title="Gets a new ID from the WindowsHotkeyAPI." alt="" coords="855,78,1048,119"/>
+<area shape="rect" id="node10" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#adaa021dd26938a28ed57c3f558d68668" title="Re&#45;registers the hotkey with the Win32 API." alt="" coords="855,143,1048,185"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#a8c582a292d4a72ef3caada32eff31cfe" title="Removes the specified hotkey &#160;from the manager." alt="" coords="579,13,807,54"/>
+<area shape="rect" id="node7" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#a8c873d37958d80a9ebbbe1887bd0c2d0" title="Removes all hotkeys from the manager." alt="" coords="316,13,531,54"/>
+<area shape="rect" id="node8" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#afe1c1e67278a9ec7562b37b514bc0998" title="Sets the list of managed hotkeys from the specified hotkeyJsonObjects ." alt="" coords="5,5,268,61"/>
+</map>

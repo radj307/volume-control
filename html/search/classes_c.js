@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['observablecollectionobject_1175',['ObservableCollectionObject',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object.html',1,'VolumeControl::WPF::Collections']]],
-  ['observableimmutablelist_1176',['ObservableImmutableList',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html',1,'VolumeControl::WPF::Collections']]],
-  ['observableimmutablelistextension_5fsort_1177',['ObservableImmutableListExtension_Sort',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list_extension___sort.html',1,'VolumeControl::WPF::Collections']]],
-  ['observablelist_1178',['ObservableList',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list.html',1,'VolumeControl::WPF::Collections']]]
+  ['notificationconfigsection_1211',['NotificationConfigSection',['../class_volume_control_1_1_core_1_1_notification_config_section.html',1,'VolumeControl::Core']]],
+  ['nullableboolextensions_1212',['NullableBoolExtensions',['../class_volume_control_1_1_type_extensions_1_1_nullable_bool_extensions.html',1,'VolumeControl::TypeExtensions']]],
+  ['nulltobooleanconverter_1213',['NullToBooleanConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html',1,'VolumeControl::WPF::Converters']]],
+  ['numericupdown_1214',['NumericUpDown',['../class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down.html',1,'VolumeControl::WPF::Controls']]],
+  ['numericupdown_5fdatatemplateprovider_1215',['NumericUpDown_DataTemplateProvider',['../class_volume_control_1_1_hotkeys_1_1_numeric_up_down___data_template_provider.html',1,'VolumeControl::Hotkeys']]]
 ];

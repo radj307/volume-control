@@ -1,6 +1,6 @@
 <map id="VolumeControl.Core.Input.Hotkey" name="VolumeControl.Core.Input.Hotkey">
-<area shape="rect" id="node1" title="A Hotkey that may be registered with the windows API." alt="" coords="72,315,279,583"/>
-<area shape="rect" id="node2" href="$interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html" title="Represents a hotkey instance." alt="" coords="110,131,241,267"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,5,183,83"/>
-<area shape="rect" id="node4" title=" " alt="" coords="218,5,317,83"/>
+<area shape="rect" id="node1" title="A hotkey that executes an action when pressed." alt="" coords="148,292,347,692"/>
+<area shape="rect" id="node2" href="$interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html" title="Represents a Win32 global hotkey." alt="" coords="5,5,135,244"/>
+<area shape="rect" id="node3" title=" " alt="" coords="159,86,336,163"/>
+<area shape="rect" id="node4" title=" " alt="" coords="361,86,459,163"/>
 </map>

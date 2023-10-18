@@ -1,0 +1,4 @@
+<map id="VolumeControl.Core.Input.Actions.HotkeyActionManager.AddActionDefinition" name="VolumeControl.Core.Input.Actions.HotkeyActionManager.AddActionDefinition">
+<area shape="rect" id="node1" title="Adds the specified actionDefinition &#160;to the manager." alt="" coords="300,5,547,61"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_manager.html#ab6943ec3b1f6e386376565adb5e9dbbd" title="Adds the specified actionDefinitions &#160;to the manager." alt="" coords="5,5,252,61"/>
+</map>

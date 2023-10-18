@@ -1,7 +1,8 @@
 <map id="VolumeControl.Log.LogWriter.Error" name="VolumeControl.Log.LogWriter.Error">
-<area shape="rect" id="node1" title="Write a formatted EventType.ERROR message to the log endpoint." alt="" coords="875,50,1089,91"/>
+<area shape="rect" id="node1" title="Write a formatted EventType.ERROR message to the log endpoint." alt="" coords="875,86,1089,127"/>
 <area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#a4cb7f138bdd481ea15b97ed57664ddcb" title="Gets the default device for the specified deviceRole ." alt="" coords="592,5,827,61"/>
 <area shape="rect" id="node5" href="$class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer.html#ad14db55893cfb34948ed62a314a9e8ce" title=" " alt="" coords="606,86,813,127"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html#a037e4a9483554fd7e6ed40f89e2be559" title="Loads hotkey actions from the specified types ." alt="" coords="595,151,823,193"/>
 <area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#aa034046c08eabe307454d98622e9a3b8" title="Changes the Selected item to the default Multimedia audio device." alt="" coords="296,5,544,61"/>
 <area shape="rect" id="node4" href="$class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a139e061b6f96ab63535b4ad5f18cc7ce" title="Creates a new AudioDeviceSelector instance bound to the given audioDeviceManager ." alt="" coords="5,5,248,61"/>
 </map>

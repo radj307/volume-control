@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['listextensions_1154',['ListExtensions',['../class_volume_control_1_1_type_extensions_1_1_list_extensions.html',1,'VolumeControl::TypeExtensions']]],
-  ['listhasitemsbooleanconverter_1155',['ListHasItemsBooleanConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_list_has_items_boolean_converter.html',1,'VolumeControl::WPF::Converters']]],
-  ['logeventtypefilter_1156',['LogEventTypeFilter',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_log_event_type_filter.html',1,'VolumeControl::WPF::Collections']]],
-  ['logwriter_1157',['LogWriter',['../class_volume_control_1_1_log_1_1_log_writer.html',1,'VolumeControl::Log']]]
+  ['jsonhotkey_1193',['JsonHotkey',['../struct_volume_control_1_1_core_1_1_input_1_1_structs_1_1_json_hotkey.html',1,'VolumeControl::Core::Input::Structs']]]
 ];

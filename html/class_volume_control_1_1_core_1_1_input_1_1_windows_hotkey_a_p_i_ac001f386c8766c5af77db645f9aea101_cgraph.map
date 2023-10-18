@@ -1,0 +1,4 @@
+<map id="VolumeControl.Core.Input.WindowsHotkeyAPI.TryUnregister" name="VolumeControl.Core.Input.WindowsHotkeyAPI.TryUnregister">
+<area shape="rect" id="node1" title="Attempts to unregister the specified hotkey ." alt="" coords="5,5,244,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_windows_hotkey_a_p_i.html#a07ed6bb5aaebdc268b01ac666511d1e6" title="Unregisters the specified hotkey ." alt="" coords="292,5,512,47"/>
+</map>

@@ -88,14 +88,11 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 <div class="textblock">Here is a list of all documented class members with links to the class documentation for each member:</div>
 
 <h3><a id="index_g"></a>- g -</h3><ul>
-<li>GetActionData()
-: <a class="el" href="class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_attribute.html#a6c5299fafbfdb8b9732b3259b936b089">VolumeControl.Core.Attributes.HotkeyActionAttribute</a>
-</li>
-<li>GetActionSettingValue&lt; T &gt;()
-: <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_pressed_event_args.html#a0e03d9918c0e09d5ea1d6334603852a0">VolumeControl.Core.Input.Actions.HotkeyActionPressedEventArgs</a>
+<li>GetActionSettingDefinition()
+: <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_definition.html#a54e7bea1123066b69b9a3d9f4cd5b035">VolumeControl.Core.Input.Actions.HotkeyActionDefinition</a>
 </li>
 <li>GetAllDerivedTypes()
-: <a class="el" href="class_volume_control_1_1_type_extensions_1_1_type_extensions.html#a6c9845f1d38aaf4bc0fdaea2f0e90fe5">VolumeControl.TypeExtensions.TypeExtensions</a>
+: <a class="el" href="class_volume_control_1_1_type_extensions_1_1_type_extensions.html#ab3091bd6ae6b0cc078c2688f52307410">VolumeControl.TypeExtensions.TypeExtensions</a>
 </li>
 <li>GetCurrentFileName()
 : <a class="el" href="class_volume_control_1_1_log_1_1_debug_utils.html#a5a20bd262520d0c921161b80241e35ca">VolumeControl.Log.DebugUtils</a>
@@ -108,10 +105,6 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 </li>
 <li>GetCurrentValue()
 : <a class="el" href="class_volume_control_1_1_w_p_f_1_1_animations_1_1_brush_animation.html#a6170fb78c5073f05a8bbe76e8d3e0525">VolumeControl.WPF.Animations.BrushAnimation</a>
-</li>
-<li>GetDefaultActionSettings()
-: <a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#ab9a7f145ee2c0a66168442adc7071368">VolumeControl.Core.Input.Actions.IHotkeyAction</a>
-, <a class="el" href="class_volume_control_1_1_core_1_1_structs_1_1_hotkey_action.html#a14025be9561d15a08ea8fc13bbedf8a5">VolumeControl.Core.Structs.HotkeyAction</a>
 </li>
 <li>GetDefaultDevice()
 : <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#a4cb7f138bdd481ea15b97ed57664ddcb">VolumeControl.CoreAudio.AudioDeviceManager</a>
@@ -130,10 +123,13 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 : <a class="el" href="struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html#aeb1ab675cbc6505cbad68739c0430548">VolumeControl.WPF.PInvoke.RECT</a>
 </li>
 <li>GetHotkey()
-: <a class="el" href="class_volume_control_1_1_core_1_1_hotkey_manager.html#a55b01e61360792919027d2399975cb8a">VolumeControl.Core.HotkeyManager</a>
+: <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#a518e6d30d6f2eddb75da64541bd66e06">VolumeControl.Core.Input.HotkeyManager</a>
 </li>
 <li>GetHwndSource()
 : <a class="el" href="class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html#ae1d05b0322c8ff6efcef70a2538ba1fb">VolumeControl.WPF.WindowHandleGetter</a>
+</li>
+<li>GetJsonHotkeys()
+: <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#ab1065ffacce94512503c0e0dd3a27508">VolumeControl.Core.Input.HotkeyManager</a>
 </li>
 <li>GetLastError()
 : <a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error.html#aa7dd78a061a084a4c0957faf837bf96b">VolumeControl.Core.Helpers.GetWin32Error</a>
@@ -146,6 +142,9 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 </li>
 <li>GetMainModulePathWMI()
 : <a class="el" href="class_volume_control_1_1_type_extensions_1_1_process_extensions.html#a0419125204f2282f6e77c85d31729e60">VolumeControl.TypeExtensions.ProcessExtensions</a>
+</li>
+<li>GetNewID()
+: <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a1fd7fba5f867f685108e249ff892df77">VolumeControl.Core.Input.Hotkey</a>
 </li>
 <li>GetOpensInBrowser()
 : <a class="el" href="class_volume_control_1_1_w_p_f_1_1_extensions_1_1_hyperlink_extensions.html#a3f6161c2b47a8ac99cc96cc26ba45732">VolumeControl.WPF.Extensions.HyperlinkExtensions</a>
@@ -162,12 +161,18 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 <li>GetSessionIsSelected()
 : <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#aea3b7db78f1a3954292c66739fad2987">VolumeControl.CoreAudio.AudioSessionMultiSelector</a>
 </li>
+<li>GetSetting()
+: <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_pressed_event_args.html#a6fdfa0f4a0d888e02529b91ec9cf57fd">VolumeControl.Core.Input.HotkeyActionPressedEventArgs</a>
+</li>
+<li>GetSetting&lt; TValue &gt;()
+: <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_pressed_event_args.html#a19a837817b6c528f372164bc1bef7dfd">VolumeControl.Core.Input.HotkeyActionPressedEventArgs</a>
+</li>
 <li>GetStringRepresentation()
-: <a class="el" href="class_volume_control_1_1_core_1_1_enum_1_1_modifier_extensions.html#ad3c2175ea9366c72db8be82b394779d8">VolumeControl.Core.Enum.ModifierExtensions</a>
-, <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a60a5a2bb58af528c7780038501b95515">VolumeControl.Core.Input.Hotkey</a>
+: <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_enums_1_1_modifier_key_extensions.html#af8b4eabf9b32bc1f457d6a30a15f8f0b">VolumeControl.Core.Input.Enums.ModifierKeyExtensions</a>
+, <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_i_hotkey___extensions.html#a7690e700ae0481b17ca10c195cf4951a">VolumeControl.Core.Input.IHotkey_Extensions</a>
 </li>
 <li>GetStringRepresentation&lt; TKey &gt;()
-: <a class="el" href="class_volume_control_1_1_core_1_1_enum_1_1_modifier_extensions.html#a3f0eda2ca1d0d42cd990261007815e0e">VolumeControl.Core.Enum.ModifierExtensions</a>
+: <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_enums_1_1_modifier_key_extensions.html#a54083097965b06809ebd4ab0220946d8">VolumeControl.Core.Input.Enums.ModifierKeyExtensions</a>
 </li>
 <li>GetTargetInfo()
 : <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a5a7f0e9a82545ee48b703574258adf70">VolumeControl.CoreAudio.AudioSession</a>
@@ -176,7 +181,14 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 : <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#a1a923e4492f98675dcedebc61ef0055a">VolumeControl.Log.LogWriter</a>
 </li>
 <li>GetValue()
-: <a class="el" href="class_volume_control_1_1_type_extensions_1_1_member_info_extensions.html#a4dc375bc30636a547a4e813845b67cfc">VolumeControl.TypeExtensions.MemberInfoExtensions</a>
+: <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_pressed_event_args.html#adf13cb9fc6a22f50d3d4f906a13e79fa">VolumeControl.Core.Input.HotkeyActionPressedEventArgs</a>
+, <a class="el" href="class_volume_control_1_1_type_extensions_1_1_member_info_extensions.html#a4dc375bc30636a547a4e813845b67cfc">VolumeControl.TypeExtensions.MemberInfoExtensions</a>
+</li>
+<li>GetValue&lt; TValue &gt;()
+: <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_pressed_event_args.html#a90eb58253a1ccef7d5289c8b388395b7">VolumeControl.Core.Input.HotkeyActionPressedEventArgs</a>
+</li>
+<li>GetValueOrDefault&lt; TValue &gt;()
+: <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_pressed_event_args.html#a5c16dc8b2fc7cd43a5f9f29f547f7611">VolumeControl.Core.Input.HotkeyActionPressedEventArgs</a>
 </li>
 <li>GetVirtualKeyCodeEx()
 : <a class="el" href="class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions.html#a35ebe8b742f63b0c612440efdbcc32ef">VolumeControl.Core.Enum.EVirtualKeyCodeExtensions</a>
@@ -191,18 +203,22 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 , <a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#aa93393608ae22f701eae706272b9c0f8">VolumeControl.Log.Endpoints.MemoryEndpoint</a>
 </li>
 <li>GroupBrush
-: <a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#a846ee7a1447ac73349017c067f61e397">VolumeControl.Core.Input.Actions.IHotkeyAction</a>
-, <a class="el" href="class_volume_control_1_1_core_1_1_structs_1_1_hotkey_action.html#a1945dbe5819d01128107eab2e2504f7d">VolumeControl.Core.Structs.HotkeyAction</a>
+: <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_definition.html#ab2c6ee79a83107929dae827fc32c8835">VolumeControl.Core.Input.Actions.HotkeyActionDefinition</a>
+, <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html#ab17c4a4bfa628504279863b0ef90958e">VolumeControl.Core.Input.Actions.HotkeyActionInstance</a>
 </li>
 <li>GroupColor
-: <a class="el" href="class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_attribute.html#ae1bad7a34452302ccaf3ec5d6623a24a">VolumeControl.Core.Attributes.HotkeyActionAttribute</a>
-, <a class="el" href="class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_group_attribute.html#a58961f4111ccd1211c596c5397c03129">VolumeControl.Core.Attributes.HotkeyActionGroupAttribute</a>
+: <a class="el" href="class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_group_attribute.html#a58961f4111ccd1211c596c5397c03129">VolumeControl.Core.Attributes.HotkeyActionGroupAttribute</a>
+</li>
+<li>GroupColorOverride
+: <a class="el" href="class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_attribute.html#ae10a10f6e4b6d226b49206cb4acdc0db">VolumeControl.Core.Attributes.HotkeyActionAttribute</a>
 </li>
 <li>GroupName
-: <a class="el" href="class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_attribute.html#a43d1b0f52d9db497454bfa0854b63b62">VolumeControl.Core.Attributes.HotkeyActionAttribute</a>
-, <a class="el" href="class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_group_attribute.html#a74132e07111f1a80d3bf4475d5791ea1">VolumeControl.Core.Attributes.HotkeyActionGroupAttribute</a>
-, <a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#a83c944c3d217644d72cdcc5a7dd601d2">VolumeControl.Core.Input.Actions.IHotkeyAction</a>
-, <a class="el" href="class_volume_control_1_1_core_1_1_structs_1_1_hotkey_action.html#a9920f355ae61b7ef77e3d034b5e6e5d0">VolumeControl.Core.Structs.HotkeyAction</a>
+: <a class="el" href="class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_group_attribute.html#ae7fb88309e8ae0a9aebccf406410d80c">VolumeControl.Core.Attributes.HotkeyActionGroupAttribute</a>
+, <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_definition.html#a913c98dcfc074f9fc4b724e45602935f">VolumeControl.Core.Input.Actions.HotkeyActionDefinition</a>
+, <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html#ab0a574adc632d34d5217beee570b5901">VolumeControl.Core.Input.Actions.HotkeyActionInstance</a>
+</li>
+<li>GroupNameOverride
+: <a class="el" href="class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_attribute.html#ad075dab60827898aa4a3defa7c983ae3">VolumeControl.Core.Attributes.HotkeyActionAttribute</a>
 </li>
 </ul>
 </div><!-- contents -->

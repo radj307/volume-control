@@ -1,0 +1,4 @@
+<map id="VolumeControl.Core.Input.Actions.HotkeyActionDefinition.Invoke_Unsafe" name="VolumeControl.Core.Input.Actions.HotkeyActionDefinition.Invoke_Unsafe">
+<area shape="rect" id="node1" title="Directly invokes the method specified by ActionMethodInfo with the specified parameters ." alt="" coords="316,5,544,61"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html#a5f9ed283ca3d13a3c3e7220a23627c47" title="Invokes the method specified by the HotkeyActionDefinition" alt="" coords="5,13,268,54"/>
+</map>

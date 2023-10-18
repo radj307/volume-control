@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="Indicates that a class contains hotkey action definitions.">
+<g id="a_node1"><a xlink:title="Indicates that the associated class contains hotkey action methods marked with HotkeyActionAttribute.">
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-79.5 173,-79.5 173,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Attributes.</text>
 <text text-anchor="middle" x="86.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">HotkeyActionGroupAttribute</text>

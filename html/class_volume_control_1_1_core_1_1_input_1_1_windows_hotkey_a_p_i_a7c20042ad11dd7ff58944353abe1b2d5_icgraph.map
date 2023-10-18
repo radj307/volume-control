@@ -1,0 +1,9 @@
+<map id="VolumeControl.Core.Input.WindowsHotkeyAPI.Register" name="VolumeControl.Core.Input.WindowsHotkeyAPI.Register">
+<area shape="rect" id="node1" title="Registers the specified hotkey ." alt="" coords="761,71,968,112"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html#ab714b40b19f008c8b92890eed7e7b8cd" title="Registers the hotkey with the Win32 API." alt="" coords="504,5,697,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html#a1c325ede05a7cab87b6ff07dbe1c4148" title="Re&#45;registers the hotkey with the Win32 API." alt="" coords="501,71,700,112"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_core_1_1_input_1_1_windows_hotkey_a_p_i.html#af8c24312d3cae1e662904a58b65a92f0" title="Attempts to register the specified hotkey ." alt="" coords="488,136,713,177"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a5e045269416e451b3493230fc43fb161" title="Registers the hotkey with the Win32 API." alt="" coords="247,136,440,177"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a1fd7fba5f867f685108e249ff892df77" title="Gets a new ID from the WindowsHotkeyAPI." alt="" coords="5,103,199,144"/>
+<area shape="rect" id="node7" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#adaa021dd26938a28ed57c3f558d68668" title="Re&#45;registers the hotkey with the Win32 API." alt="" coords="5,168,199,209"/>
+</map>

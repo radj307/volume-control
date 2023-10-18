@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['u_1793',['U',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613bea4c614360da93c0a041b22e537de151eb',1,'VolumeControl.Core.Enum.U()'],['../namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a4c614360da93c0a041b22e537de151eb',1,'VolumeControl.Core.Enum.U()']]],
-  ['uparrow_1794',['UpArrow',['../namespace_volume_control_1_1_core_1_1_enum.html#a8ad3704085e4dd13832369a12cf613bea0b513090f0a012194da83d5515882b13',1,'VolumeControl::Core::Enum']]]
+  ['u_1869',['U',['../namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a4c614360da93c0a041b22e537de151eb',1,'VolumeControl.Core.Enum.U()'],['../namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca4c614360da93c0a041b22e537de151eb',1,'VolumeControl.Core.Input.Enums.U()']]],
+  ['uparrow_1870',['UpArrow',['../namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca0b513090f0a012194da83d5515882b13',1,'VolumeControl::Core::Input::Enums']]]
 ];

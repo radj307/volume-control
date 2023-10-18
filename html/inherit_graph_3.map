@@ -1,3 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions.html" title="Extends the EVirtualKeyCode enumeration." alt="" coords="5,5,207,47"/>
+<area shape="rect" id="node1" href="$class_volume_control_1_1_core_1_1_data_template_provider.html" title="Provides a DataTemplate for some hardcoded type. &#160;The Type of a derived class can be specified for th..." alt="" coords="5,53,252,94"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_numeric_up_down___data_template_provider.html" title=" " alt="" coords="300,53,535,94"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_hotkeys_1_1_volume_level___numeric_up_down___data_template_provider.html" title="NumericUpDown_DataTemplateProvider with MinValue 0 and MaxValue 100" alt="" coords="583,5,855,61"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_hotkeys_1_1_volume_step___numeric_up_down___data_template_provider.html" title="NumericUpDown_DataTemplateProvider with MinValue 1 and MaxValue 100" alt="" coords="585,85,852,141"/>
 </map>

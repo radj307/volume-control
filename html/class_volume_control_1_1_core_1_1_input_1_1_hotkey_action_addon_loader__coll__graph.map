@@ -1,0 +1,3 @@
+<map id="VolumeControl.Core.Input.HotkeyActionAddonLoader" name="VolumeControl.Core.Input.HotkeyActionAddonLoader">
+<area shape="rect" id="node1" title="Provides methods to load HotkeyActionDefinition instances from types or assemblies using reflection." alt="" coords="5,5,200,127"/>
+</map>

@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['makeblanktimestamp_1402',['MakeBlankTimestamp',['../class_volume_control_1_1_log_1_1_log_writer.html#a41f1ff6d9d62eec9077a3c608ca36b5e',1,'VolumeControl::Log::LogWriter']]],
-  ['makeheader_1403',['MakeHeader',['../interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp.html#a00f0833bfb8f8ca3e9bcdf6db4fd669b',1,'VolumeControl::Log::Interfaces::ITimestamp']]],
-  ['maketimestamp_1404',['MakeTimestamp',['../interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a423b396eec8b2c8d57881414daae8f86',1,'VolumeControl.Log.Interfaces.ILogWriter.MakeTimestamp()'],['../class_volume_control_1_1_log_1_1_log_writer.html#ac1a570a8d00bacba3a71dd8e442cfd31',1,'VolumeControl.Log.LogWriter.MakeTimestamp()']]],
-  ['memoryendpoint_1405',['MemoryEndpoint',['../class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#a6b9ae3daea499586fefb89c4bd08eaf6',1,'VolumeControl::Log::Endpoints::MemoryEndpoint']]],
-  ['move_1406',['Move',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#ae78dc15b22cfd309fae3c1c61931cbec',1,'VolumeControl::WPF::Collections::ObservableImmutableList']]],
-  ['multibinding_1407',['MultiBinding',['../class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#a6fefb367c204032bff80fe2e6f28534c',1,'VolumeControl.WPF.Bindings.MultiBinding.MultiBinding()'],['../class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#a6ea73dae659fee86898cd8751e9eac3a',1,'VolumeControl.WPF.Bindings.MultiBinding.MultiBinding(BindingBase b1)']]]
+  ['lastindexof_1455',['LastIndexOf',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#abaf8f888dfcd30355f0b588b408e5104',1,'VolumeControl::WPF::Collections::ObservableImmutableList']]],
+  ['load_1456',['Load',['../class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html#a037e4a9483554fd7e6ed40f89e2be559',1,'VolumeControl::Core::Input::HotkeyActionAddonLoader']]],
+  ['logeventtypefilter_1457',['LogEventTypeFilter',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_log_event_type_filter.html#afecd9c8f7a6edf273f96f6635522f777',1,'VolumeControl::WPF::Collections::LogEventTypeFilter']]],
+  ['logwriter_1458',['LogWriter',['../class_volume_control_1_1_log_1_1_log_writer.html#aecfc7d86fb35f9bb5e0803755f0040c8',1,'VolumeControl::Log::LogWriter']]]
 ];

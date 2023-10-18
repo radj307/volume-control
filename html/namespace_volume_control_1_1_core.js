@@ -5,11 +5,10 @@ var namespace_volume_control_1_1_core =
     [ "Enum", "namespace_volume_control_1_1_core_1_1_enum.html", "namespace_volume_control_1_1_core_1_1_enum" ],
     [ "Helpers", "namespace_volume_control_1_1_core_1_1_helpers.html", "namespace_volume_control_1_1_core_1_1_helpers" ],
     [ "Input", "namespace_volume_control_1_1_core_1_1_input.html", "namespace_volume_control_1_1_core_1_1_input" ],
-    [ "Interfaces", "namespace_volume_control_1_1_core_1_1_interfaces.html", "namespace_volume_control_1_1_core_1_1_interfaces" ],
     [ "Structs", "namespace_volume_control_1_1_core_1_1_structs.html", "namespace_volume_control_1_1_core_1_1_structs" ],
-    [ "BindableHotkeyConverterExtensions", "class_volume_control_1_1_core_1_1_bindable_hotkey_converter_extensions.html", "class_volume_control_1_1_core_1_1_bindable_hotkey_converter_extensions" ],
+    [ "ActionTargetSpecifier", "class_volume_control_1_1_core_1_1_action_target_specifier.html", "class_volume_control_1_1_core_1_1_action_target_specifier" ],
     [ "Config", "class_volume_control_1_1_core_1_1_config.html", "class_volume_control_1_1_core_1_1_config" ],
-    [ "HotkeyManager", "class_volume_control_1_1_core_1_1_hotkey_manager.html", "class_volume_control_1_1_core_1_1_hotkey_manager" ],
+    [ "DataTemplateProvider", "class_volume_control_1_1_core_1_1_data_template_provider.html", "class_volume_control_1_1_core_1_1_data_template_provider" ],
     [ "InputSimulator", "class_volume_control_1_1_core_1_1_input_simulator.html", "class_volume_control_1_1_core_1_1_input_simulator" ],
     [ "NotificationConfigSection", "class_volume_control_1_1_core_1_1_notification_config_section.html", "class_volume_control_1_1_core_1_1_notification_config_section" ],
     [ "User32", "class_volume_control_1_1_core_1_1_user32.html", "class_volume_control_1_1_core_1_1_user32" ]

@@ -16,14 +16,14 @@
 <text text-anchor="start" x="8" y="-221.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Hotkeys.Audio</text>
 <text text-anchor="middle" x="81" y="-210.5" font-family="Helvetica,sans-Serif" font-size="10.00">SessionActions</text>
 <polyline fill="none" stroke="black" points="0,-203.5 162,-203.5 "/>
-<text text-anchor="start" x="8" y="-191.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DisplayTargetName</text>
-<text text-anchor="start" x="8" y="-180.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ VCAPI</text>
-<text text-anchor="start" x="8" y="-169.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ MultiSelector</text>
-<text text-anchor="start" x="8" y="-158.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SelectedSessions</text>
-<text text-anchor="start" x="8" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ CurrentSession</text>
-<polyline fill="none" stroke="black" points="0,-140.5 162,-140.5 "/>
-<text text-anchor="start" x="8" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ VolumeUp()</text>
-<text text-anchor="start" x="8" y="-117.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ VolumeDown()</text>
+<text text-anchor="start" x="8" y="-191.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ VCAPI</text>
+<text text-anchor="start" x="8" y="-180.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ MultiSelector</text>
+<text text-anchor="start" x="8" y="-169.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SelectedSessions</text>
+<text text-anchor="start" x="8" y="-158.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ CurrentSession</text>
+<polyline fill="none" stroke="black" points="0,-151.5 162,-151.5 "/>
+<text text-anchor="start" x="8" y="-139.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ VolumeUp()</text>
+<text text-anchor="start" x="8" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ VolumeDown()</text>
+<text text-anchor="start" x="8" y="-117.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SetVolume()</text>
 <text text-anchor="start" x="8" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Mute()</text>
 <text text-anchor="start" x="8" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Unmute()</text>
 <text text-anchor="start" x="8" y="-84.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ToggleMute()</text>

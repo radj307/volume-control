@@ -1,6 +1,9 @@
 var searchData=
 [
-  ['notifycollectionchanged_1408',['NotifyCollectionChanged',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a6385cd88de966cfb56036769aae2a0dd',1,'VolumeControl::WPF::Collections::BindableEventType']]],
-  ['notifypropertychanged_1409',['NotifyPropertyChanged',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type_1_1_bindable_event_type_flag.html#a0b7427d886a9a30390dc101dda4b80e3',1,'VolumeControl.WPF.Collections.BindableEventType.BindableEventTypeFlag.NotifyPropertyChanged()'],['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a99e44a1be42eb3f45f98dcb96eea823a',1,'VolumeControl.WPF.Collections.BindableEventType.NotifyPropertyChanged()']]],
-  ['now_1410',['Now',['../class_volume_control_1_1_log_1_1_timestamp.html#aa61e2bb487aa250e2c1d290ec0e3d981',1,'VolumeControl::Log::Timestamp']]]
+  ['makeblanktimestamp_1459',['MakeBlankTimestamp',['../class_volume_control_1_1_log_1_1_log_writer.html#a41f1ff6d9d62eec9077a3c608ca36b5e',1,'VolumeControl::Log::LogWriter']]],
+  ['makeheader_1460',['MakeHeader',['../interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp.html#a00f0833bfb8f8ca3e9bcdf6db4fd669b',1,'VolumeControl::Log::Interfaces::ITimestamp']]],
+  ['maketimestamp_1461',['MakeTimestamp',['../interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a423b396eec8b2c8d57881414daae8f86',1,'VolumeControl.Log.Interfaces.ILogWriter.MakeTimestamp()'],['../class_volume_control_1_1_log_1_1_log_writer.html#ac1a570a8d00bacba3a71dd8e442cfd31',1,'VolumeControl.Log.LogWriter.MakeTimestamp()']]],
+  ['memoryendpoint_1462',['MemoryEndpoint',['../class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#a6b9ae3daea499586fefb89c4bd08eaf6',1,'VolumeControl::Log::Endpoints::MemoryEndpoint']]],
+  ['move_1463',['Move',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#ae78dc15b22cfd309fae3c1c61931cbec',1,'VolumeControl::WPF::Collections::ObservableImmutableList']]],
+  ['multibinding_1464',['MultiBinding',['../class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#a6fefb367c204032bff80fe2e6f28534c',1,'VolumeControl.WPF.Bindings.MultiBinding.MultiBinding()'],['../class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#a6ea73dae659fee86898cd8751e9eac3a',1,'VolumeControl.WPF.Bindings.MultiBinding.MultiBinding(BindingBase b1)']]]
 ];

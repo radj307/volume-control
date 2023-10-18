@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('functions_t.html',''); initResizable()
 : <a class="el" href="class_volume_control_1_1_core_1_1_config.html#a86358232b4c1a58f1e6028e2057edcfa">VolumeControl.Core.Config</a>
 </li>
 <li>TargetInfo()
-: <a class="el" href="struct_volume_control_1_1_core_1_1_helpers_1_1_target_info.html#a609e0603be7653b1885fb6f347923885">VolumeControl.Core.Helpers.TargetInfo</a>
+: <a class="el" href="struct_volume_control_1_1_core_1_1_structs_1_1_target_info.html#abf9ec05e21d228c1569b7349dc7ebda6">VolumeControl.Core.Structs.TargetInfo</a>
 </li>
 <li>TargetOverrideVM()
 : <a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_target_override_v_m.html#a89c9689b9b1d3d9a2f00a1e5855f4cbe">VolumeControl.Core.Helpers.TargetOverrideVM</a>
@@ -104,7 +104,7 @@ $(document).ready(function(){initNavTree('functions_t.html',''); initResizable()
 : <a class="el" href="class_volume_control_1_1_w_p_f_1_1_animations_1_1_brush_animation.html#ad4e1008c862aebb17874acfdea1e37b3">VolumeControl.WPF.Animations.BrushAnimation</a>
 </li>
 <li>Targets
-: <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_action_target_specifier.html#a44beda49b7865f7b7d52fef97886b1ca">VolumeControl.Core.Input.Actions.ActionTargetSpecifier</a>
+: <a class="el" href="class_volume_control_1_1_core_1_1_action_target_specifier.html#a0d307ef6bd1dcaa05d2755e5f40edc71">VolumeControl.Core.ActionTargetSpecifier</a>
 </li>
 <li>TargetSession
 : <a class="el" href="class_volume_control_1_1_core_1_1_config.html#aea3d84b9e3426900325dd43a356038d7">VolumeControl.Core.Config</a>
@@ -159,9 +159,6 @@ $(document).ready(function(){initNavTree('functions_t.html',''); initResizable()
 : <a class="el" href="class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a5ffe14275abce96a41ce1d7f58b266a3">VolumeControl.WPF.Collections.BindableEventType</a>
 , <a class="el" href="class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#ab5b6a325ff4753e7e7a808ea493a007c">VolumeControl.WPF.Collections.ObservableImmutableList&lt; T &gt;</a>
 </li>
-<li>this[string identifier]
-: <a class="el" href="interface_volume_control_1_1_core_1_1_interfaces_1_1_i_hotkey_action_manager.html#a7f77012e76e0113531a181a1f844c7c5">VolumeControl.Core.Interfaces.IHotkeyActionManager</a>
-</li>
 <li>TimeoutEnabled
 : <a class="el" href="class_volume_control_1_1_core_1_1_notification_config_section.html#afec50b3a06a69285a563b62f9c70d3c2">VolumeControl.Core.NotificationConfigSection</a>
 </li>
@@ -182,12 +179,6 @@ $(document).ready(function(){initNavTree('functions_t.html',''); initResizable()
 <li>To
 : <a class="el" href="class_volume_control_1_1_w_p_f_1_1_animations_1_1_brush_animation.html#a19ce1a467956d3c2e6416259936581f0">VolumeControl.WPF.Animations.BrushAnimation</a>
 </li>
-<li>ToBindableHotkey()
-: <a class="el" href="class_volume_control_1_1_core_1_1_bindable_hotkey_converter_extensions.html#ab5d1170c3cd19a0534bada7369c6de36">VolumeControl.Core.BindableHotkeyConverterExtensions</a>
-</li>
-<li>ToBindableHotkeyJsonWrapper()
-: <a class="el" href="class_volume_control_1_1_core_1_1_bindable_hotkey_converter_extensions.html#ad7e8e1381333ecb63b38cd7458f1dbc4">VolumeControl.Core.BindableHotkeyConverterExtensions</a>
-</li>
 <li>ToBoolean()
 : <a class="el" href="class_volume_control_1_1_type_extensions_1_1_nullable_bool_extensions.html#a36b104ca3f62875e15c301e15d5623a6">VolumeControl.TypeExtensions.NullableBoolExtensions</a>
 </li>
@@ -200,9 +191,6 @@ $(document).ready(function(){initNavTree('functions_t.html',''); initResizable()
 </li>
 <li>ToggleSelectCurrentItem()
 : <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#af61fe48f5b2318f73923f2eac8f01ba5">VolumeControl.CoreAudio.AudioSessionMultiSelector</a>
-</li>
-<li>ToHotkeyActionSetting()
-: <a class="el" href="class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_setting_attribute.html#a4187b0d840f7683ac2ccfeefba4cf8e5">VolumeControl.Core.Attributes.HotkeyActionSettingAttribute</a>
 </li>
 <li>ToNativeVolume()
 : <a class="el" href="class_volume_control_1_1_core_audio_1_1_helpers_1_1_volume_level_converter.html#a55a215e7bc1d4e19a0166da32c359816">VolumeControl.CoreAudio.Helpers.VolumeLevelConverter</a>
@@ -250,13 +238,20 @@ $(document).ready(function(){initNavTree('functions_t.html',''); initResizable()
 <li>TryExtractFromPath()
 : <a class="el" href="class_volume_control_1_1_w_p_f_1_1_icon_extractor.html#ae445c5f5e403b12ae40e9c196e8af6ac">VolumeControl.WPF.IconExtractor</a>
 </li>
+<li>TryGetSetting&lt; TValue &gt;()
+: <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_pressed_event_args.html#ab2ef4f195d2c49b7c1efef85e8b02347">VolumeControl.Core.Input.HotkeyActionPressedEventArgs</a>
+</li>
 <li>TryParseProcessIdentifier()
 : <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html#a881aa8fa47e671a1ca6129a6f25baa26">VolumeControl.CoreAudio.AudioSession</a>
 </li>
+<li>TryRegister()
+: <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_windows_hotkey_a_p_i.html#af8c24312d3cae1e662904a58b65a92f0">VolumeControl.Core.Input.WindowsHotkeyAPI</a>
+</li>
+<li>TryUnregister()
+: <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_windows_hotkey_a_p_i.html#ac001f386c8766c5af77db645f9aea101">VolumeControl.Core.Input.WindowsHotkeyAPI</a>
+</li>
 <li>Type
-: <a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_i_hotkey_action.html#a0ea1824871d7e9136c6cd1b2bf87d6ca">VolumeControl.Core.Input.Actions.IHotkeyAction</a>
-, <a class="el" href="class_volume_control_1_1_core_1_1_structs_1_1_hotkey_action.html#afbd8271c84d09dffe3b94b9ff36f0c62">VolumeControl.Core.Structs.HotkeyAction</a>
-, <a class="el" href="class_volume_control_1_1_w_p_f_1_1_data_template_type_binding.html#a9760e8c8790fb44703a24ce4fbec85d9">VolumeControl.WPF.DataTemplateTypeBinding</a>
+: <a class="el" href="class_volume_control_1_1_w_p_f_1_1_data_template_type_binding.html#a9760e8c8790fb44703a24ce4fbec85d9">VolumeControl.WPF.DataTemplateTypeBinding</a>
 </li>
 </ul>
 </div><!-- contents -->

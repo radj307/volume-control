@@ -11,10 +11,10 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="struct_volume_control_1_1_core_1_1_helpers_1_1_target_info.html" target="_top" xlink:title="Contains metadata for saving audio sessions to and from the config">
+<g id="a_node1"><a xlink:href="class_volume_control_1_1_core_1_1_helpers_1_1_target_override_v_m.html" target="_top" xlink:title="Viewmodel object for a single target override entry.">
 <polygon fill="none" stroke="black" points="0,-0.5 0,-30.5 158,-30.5 158,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Helpers.</text>
-<text text-anchor="middle" x="79" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">TargetInfo</text>
+<text text-anchor="middle" x="79" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">TargetOverrideVM</text>
 </a>
 </g>
 </g>

@@ -1,5 +1,5 @@
 <map id="VolumeControl.Core.Config" name="VolumeControl.Core.Config">
-<area shape="rect" id="node1" title="Contains the application configuration and logic to read from and write to JSON files." alt="" coords="111,233,349,575"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,49,212,127"/>
-<area shape="rect" id="node3" href="$struct_volume_control_1_1_core_1_1_input_1_1_bindable_hotkey_json_wrapper.html" title="Acts as a temporary wrapper for the BindableHotkey class so that the JSON parser can read and write i..." alt="" coords="237,5,469,171"/>
+<area shape="rect" id="node1" title="Contains the application configuration and logic to read from and write to JSON files." alt="" coords="111,277,349,619"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,71,212,149"/>
+<area shape="rect" id="node3" href="$struct_volume_control_1_1_core_1_1_input_1_1_structs_1_1_json_hotkey.html" title="Contains the JSON object representation of a Hotkey instance." alt="" coords="237,5,466,215"/>
 </map>

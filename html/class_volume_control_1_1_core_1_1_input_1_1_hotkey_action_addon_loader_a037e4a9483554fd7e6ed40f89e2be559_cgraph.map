@@ -1,0 +1,8 @@
+<map id="VolumeControl.Core.Input.HotkeyActionAddonLoader.Load" name="VolumeControl.Core.Input.HotkeyActionAddonLoader.Load">
+<area shape="rect" id="node1" title="Loads hotkey actions from the specified types ." alt="" coords="5,151,233,193"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_definition.html#aabbaa28f08c319d4d3af5d19c2e9ef17" title="Creates a new HotkeyActionInstance instance from this definition." alt="" coords="281,5,509,61"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_log_writer.html#a09e652d1c8049b4b137d45dd2a6466a4" title="Write a formatted EventType.DEBUG message to the log endpoint." alt="" coords="288,86,503,127"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7" title="Write a formatted EventType.ERROR message to the log endpoint." alt="" coords="288,151,503,193"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_log_1_1_log_writer.html#a927e2b5b79ae2c3a0b243246bb2e5a3d" title="Determines whether the given EventType should be written to the Endpoint or not." alt="" coords="288,217,503,258"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_log_1_1_log_writer.html#af0f88b0317ce8060aa063802c6742068" title="Write a formatted EventType.TRACE message to the log endpoint." alt="" coords="288,282,503,323"/>
+</map>

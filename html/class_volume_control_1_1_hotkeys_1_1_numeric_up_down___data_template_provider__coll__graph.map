@@ -1,0 +1,4 @@
+<map id="VolumeControl.Hotkeys.NumericUpDown_DataTemplateProvider" name="VolumeControl.Hotkeys.NumericUpDown_DataTemplateProvider">
+<area shape="rect" id="node1" title=" " alt="" coords="5,131,240,223"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_data_template_provider.html" title="Provides a DataTemplate for some hardcoded type. &#160;The Type of a derived class can be specified for th..." alt="" coords="29,5,216,83"/>
+</map>

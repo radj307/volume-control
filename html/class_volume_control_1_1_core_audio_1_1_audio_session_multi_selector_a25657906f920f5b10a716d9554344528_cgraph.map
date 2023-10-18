@@ -1,0 +1,6 @@
+<map id="VolumeControl.CoreAudio.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession" name="VolumeControl.CoreAudio.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession">
+<area shape="rect" id="node1" title="Sets only the specified sessions &#160;as selected, unless sessions &#160;contains exactly 1 session in which c..." alt="" coords="5,45,253,101"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a6fc89905cebf16eeebb1a70120967c75" title="Sets whether all AudioSession instances in the Sessions list are selected or not." alt="" coords="301,5,520,61"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#aefed066323178ba08dce36d09e368c3f" title="Sets only the specified sessions &#160;as selected." alt="" coords="301,85,520,141"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a0d99654cef7569144f231abe71830718" title="Sets whether the specified audioSession &#160;is selected or not." alt="" coords="568,45,787,101"/>
+</map>
