@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using VolumeControl.Core.Input.Exceptions;
+using VolumeControl.Log;
 
 namespace VolumeControl.Core.Input.Actions.Settings
 {
@@ -31,14 +32,25 @@ namespace VolumeControl.Core.Input.Actions.Settings
         {
             ActionSettingDefinition = definition;
 
-            if (value is JObject jobject)
-            { // special handling is required for JObject
-                Value = jobject.ToObject<T>();
-            }
-            else
+            try
             {
-                // using Convert is required here because C# is "highly type-safe" and "trash at casting":
-                Value = (T?)Convert.ChangeType(value, ValueType);
+                if (value is JObject jobject)
+                { // special handling is required for JObject
+                    Value = jobject.ToObject<T>();
+                }
+                else if (value is JArray jarray)
+                { // special handling is required for JArray
+                    Value = jarray.ToObject<T>();
+                }
+                else
+                { // using Convert is required here because C# is "highly type-safe" and "trash at casting":
+                    Value = (T?)Convert.ChangeType(value, ValueType);
+                }
+            }
+            catch (Exception ex)
+            {
+                FLog.Log.Error($"An exception occurred during initialization of action setting \"{definition.Name}\":", ex);
+                Value = (T?)definition.CreateValueInstance(); //< get a default value
             }
         }
         #endregion Constructors

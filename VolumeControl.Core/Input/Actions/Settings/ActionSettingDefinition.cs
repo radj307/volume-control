@@ -86,7 +86,7 @@ namespace VolumeControl.Core.Input.Actions.Settings
         #endregion Operators
 
         #region Methods
-        private object? CreateValueInstance()
+        internal object? CreateValueInstance()
         {
             if (DefaultValue == null && ValueType == typeof(string))
                 return string.Empty; //< string doesn't have a default constructor, prevent exception by returning an empty string
