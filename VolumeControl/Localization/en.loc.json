@@ -338,6 +338,9 @@
             },
             "Tooltip": {
               "English (US/CA)": "When enabled, Volume Control will start when you log in."
+            },
+            "AltTooltip": {
+              "English (US/CA)": "Another Volume Control instance is set to run at startup. Changing this will replace it."
             }
           },
           "StartMinimized": {
