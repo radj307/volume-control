@@ -28,11 +28,6 @@ namespace VolumeControl.Helpers.Addon
             if (actions.Length > 0)
             {
                 api.HotkeyManager.HotkeyActionManager.AddActionDefinitions(actions);
-                Log.Debug($"Found {actions.Length} addon actions.");
-            }
-            else
-            {
-                Log.Debug("No addon actions were found!");
             }
 
             /*List<HotkeyAction> actions;

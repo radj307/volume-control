@@ -49,6 +49,8 @@ namespace VolumeControl.Core.Input.Actions
             try
             {
                 HotkeyActionDefinition.Invoke_Unsafe(sender, e);
+                if (FLog.Log.FilterEventType(Log.Enum.EventType.TRACE))
+                    FLog.Log.Trace($"Successfully executed action \"{Name}\".");
             }
             catch (Exception ex)
             {

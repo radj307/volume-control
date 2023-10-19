@@ -37,7 +37,6 @@ namespace VolumeControl.CoreAudio
             {
                 CreateAndAddDeviceIfUnique(mmDevice);
             }
-            Log.Debug($"Successfully initialized {Devices.Count} {nameof(AudioDevice)}s.");
         }
 
         /// <summary>
