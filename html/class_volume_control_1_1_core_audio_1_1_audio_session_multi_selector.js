@@ -25,7 +25,7 @@ var class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector =
     [ "SelectedSessions", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#abaedc78c2d388268e25f8b7d170f8eca", null ],
     [ "SelectionStates", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a17836e8de794869076be7ea43e0eafba", null ],
     [ "Sessions", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a6e216e00724015e78105942c1d30e5c6", null ],
-    [ "CurrentItemChanged", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#af1209ede736be648a28f24cf63373773", null ],
+    [ "CurrentSessionChanged", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a7b6e9e653ddaa521709e3a9e4ef1abc3", null ],
     [ "PreviewSessionIsSelected", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a72c891338c3242616dade059f4b819e9", null ],
     [ "PropertyChanged", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a8157e9a8d2975aa0d14c592d3abb3977", null ],
     [ "SessionDeselected", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#ae6829d68823e6d3a688741673fd5647f", null ],

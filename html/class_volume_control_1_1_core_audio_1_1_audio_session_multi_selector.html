@@ -207,9 +207,9 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
 <tr class="memitem:ae6829d68823e6d3a688741673fd5647f"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html">AudioSession</a> &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#ae6829d68823e6d3a688741673fd5647f">SessionDeselected</a></td></tr>
 <tr class="memdesc:ae6829d68823e6d3a688741673fd5647f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Occurs when a session is deselected for any reason.  <a href="class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#ae6829d68823e6d3a688741673fd5647f">More...</a><br /></td></tr>
 <tr class="separator:ae6829d68823e6d3a688741673fd5647f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1209ede736be648a28f24cf63373773"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html">AudioSession</a>?&gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#af1209ede736be648a28f24cf63373773">CurrentItemChanged</a></td></tr>
-<tr class="memdesc:af1209ede736be648a28f24cf63373773"><td class="mdescLeft">&#160;</td><td class="mdescRight">Occurs when the CurrentItem is changed for any reason.  <a href="class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#af1209ede736be648a28f24cf63373773">More...</a><br /></td></tr>
-<tr class="separator:af1209ede736be648a28f24cf63373773"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b6e9e653ddaa521709e3a9e4ef1abc3"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html">AudioSession</a>?&gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a7b6e9e653ddaa521709e3a9e4ef1abc3">CurrentSessionChanged</a></td></tr>
+<tr class="memdesc:a7b6e9e653ddaa521709e3a9e4ef1abc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Occurs when the CurrentItem is changed for any reason.  <a href="class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a7b6e9e653ddaa521709e3a9e4ef1abc3">More...</a><br /></td></tr>
+<tr class="separator:a7b6e9e653ddaa521709e3a9e4ef1abc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72c891338c3242616dade059f4b819e9"><td class="memItemLeft" align="right" valign="top">PreviewSessionIsSelectedEventHandler?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a72c891338c3242616dade059f4b819e9">PreviewSessionIsSelected</a></td></tr>
 <tr class="memdesc:a72c891338c3242616dade059f4b819e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Occurs prior to a new session being added, allowing handlers to determine if it should be selected by default.  <a href="class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a72c891338c3242616dade059f4b819e9">More...</a><br /></td></tr>
 <tr class="separator:a72c891338c3242616dade059f4b819e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -264,7 +264,7 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
 <p>Decrements the CurrentIndex by 1, looping back around to the length of the Sessions list when it goes past 0. </p>
 <p>Does nothing when <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a5438318041a2d66887743a151e4653be">LockCurrentIndex</a> is <code>true</code>. </p>
 
-<p class="reference">References <a class="el" href="#l00113">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentIndex</a>, <a class="el" href="#l00129">VolumeControl.CoreAudio.AudioSessionMultiSelector.LockCurrentIndex</a>, and <a class="el" href="#l00039">VolumeControl.CoreAudio.AudioSessionMultiSelector.SelectionStates</a>.</p>
+<p class="reference">References <a class="el" href="#l00113">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentIndex</a>, <a class="el" href="#l00134">VolumeControl.CoreAudio.AudioSessionMultiSelector.LockCurrentIndex</a>, and <a class="el" href="#l00039">VolumeControl.CoreAudio.AudioSessionMultiSelector.SelectionStates</a>.</p>
 
 </div>
 </div>
@@ -286,7 +286,7 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
 <p>Deselects the CurrentItem. </p>
 <p>Does nothing when <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a1d2f67bc2ba638155b8730608975a775">LockSelection</a> is <code>true</code> or <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a1fac7c7fec5ed9a8ef62535a2fee74a2">CurrentIndex</a> is -1. </p>
 
-<p class="reference">References <a class="el" href="#l00113">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentIndex</a>, <a class="el" href="#l00142">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentSession</a>, and <a class="el" href="#l00164">VolumeControl.CoreAudio.AudioSessionMultiSelector.LockSelection</a>.</p>
+<p class="reference">References <a class="el" href="#l00113">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentIndex</a>, <a class="el" href="#l00147">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentSession</a>, and <a class="el" href="#l00169">VolumeControl.CoreAudio.AudioSessionMultiSelector.LockSelection</a>.</p>
 
 </div>
 </div>
@@ -343,7 +343,7 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
 <p>Increments the CurrentIndex by 1, looping back around to 0 when it exceeds the length of the Sessions list. </p>
 <p>Does nothing when <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a5438318041a2d66887743a151e4653be">LockCurrentIndex</a> is <code>true</code>. </p>
 
-<p class="reference">References <a class="el" href="#l00113">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentIndex</a>, <a class="el" href="#l00129">VolumeControl.CoreAudio.AudioSessionMultiSelector.LockCurrentIndex</a>, and <a class="el" href="#l00039">VolumeControl.CoreAudio.AudioSessionMultiSelector.SelectionStates</a>.</p>
+<p class="reference">References <a class="el" href="#l00113">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentIndex</a>, <a class="el" href="#l00134">VolumeControl.CoreAudio.AudioSessionMultiSelector.LockCurrentIndex</a>, and <a class="el" href="#l00039">VolumeControl.CoreAudio.AudioSessionMultiSelector.SelectionStates</a>.</p>
 
 </div>
 </div>
@@ -365,7 +365,7 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
 <p>Selects the CurrentItem. </p>
 <p>Does nothing when <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a1d2f67bc2ba638155b8730608975a775">LockSelection</a> is <code>true</code> or <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a1fac7c7fec5ed9a8ef62535a2fee74a2">CurrentIndex</a> is -1. </p>
 
-<p class="reference">References <a class="el" href="#l00113">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentIndex</a>, <a class="el" href="#l00142">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentSession</a>, and <a class="el" href="#l00164">VolumeControl.CoreAudio.AudioSessionMultiSelector.LockSelection</a>.</p>
+<p class="reference">References <a class="el" href="#l00113">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentIndex</a>, <a class="el" href="#l00147">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentSession</a>, and <a class="el" href="#l00169">VolumeControl.CoreAudio.AudioSessionMultiSelector.LockSelection</a>.</p>
 
 </div>
 </div>
@@ -393,9 +393,9 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00039">VolumeControl.CoreAudio.AudioSessionMultiSelector.SelectionStates</a>, and <a class="el" href="#l00285">VolumeControl.CoreAudio.AudioSessionMultiSelector.SetSessionIsSelected()</a>.</p>
+<p class="reference">References <a class="el" href="#l00039">VolumeControl.CoreAudio.AudioSessionMultiSelector.SelectionStates</a>, and <a class="el" href="#l00294">VolumeControl.CoreAudio.AudioSessionMultiSelector.SetSessionIsSelected()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="#l00367">VolumeControl.CoreAudio.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00376">VolumeControl.CoreAudio.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -433,9 +433,9 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00039">VolumeControl.CoreAudio.AudioSessionMultiSelector.SelectionStates</a>, and <a class="el" href="#l00285">VolumeControl.CoreAudio.AudioSessionMultiSelector.SetSessionIsSelected()</a>.</p>
+<p class="reference">References <a class="el" href="#l00039">VolumeControl.CoreAudio.AudioSessionMultiSelector.SelectionStates</a>, and <a class="el" href="#l00294">VolumeControl.CoreAudio.AudioSessionMultiSelector.SetSessionIsSelected()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="#l00367">VolumeControl.CoreAudio.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00376">VolumeControl.CoreAudio.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -473,7 +473,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00142">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentSession</a>, <a class="el" href="#l00336">VolumeControl.CoreAudio.AudioSessionMultiSelector.SetAllSessionSelectionStates()</a>, and <a class="el" href="#l00350">VolumeControl.CoreAudio.AudioSessionMultiSelector.SetSelectedSessions()</a>.</p>
+<p class="reference">References <a class="el" href="#l00147">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentSession</a>, <a class="el" href="#l00345">VolumeControl.CoreAudio.AudioSessionMultiSelector.SetAllSessionSelectionStates()</a>, and <a class="el" href="#l00359">VolumeControl.CoreAudio.AudioSessionMultiSelector.SetSelectedSessions()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -523,7 +523,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="#l00336">VolumeControl.CoreAudio.AudioSessionMultiSelector.SetAllSessionSelectionStates()</a>, and <a class="el" href="#l00350">VolumeControl.CoreAudio.AudioSessionMultiSelector.SetSelectedSessions()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00345">VolumeControl.CoreAudio.AudioSessionMultiSelector.SetAllSessionSelectionStates()</a>, and <a class="el" href="#l00359">VolumeControl.CoreAudio.AudioSessionMultiSelector.SetSelectedSessions()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -593,7 +593,7 @@ Here is the caller graph for this function:</div>
 <p>Toggles whether the CurrentItem is selected. </p>
 <p>Does nothing when <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a1d2f67bc2ba638155b8730608975a775">LockSelection</a> is <code>true</code> or <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a1fac7c7fec5ed9a8ef62535a2fee74a2">CurrentIndex</a> is -1. </p>
 
-<p class="reference">References <a class="el" href="#l00113">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentIndex</a>, <a class="el" href="#l00142">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentSession</a>, <a class="el" href="#l00164">VolumeControl.CoreAudio.AudioSessionMultiSelector.LockSelection</a>, and <a class="el" href="#l00039">VolumeControl.CoreAudio.AudioSessionMultiSelector.SelectionStates</a>.</p>
+<p class="reference">References <a class="el" href="#l00113">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentIndex</a>, <a class="el" href="#l00147">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentSession</a>, <a class="el" href="#l00169">VolumeControl.CoreAudio.AudioSessionMultiSelector.LockSelection</a>, and <a class="el" href="#l00039">VolumeControl.CoreAudio.AudioSessionMultiSelector.SelectionStates</a>.</p>
 
 </div>
 </div>
@@ -615,7 +615,7 @@ Here is the caller graph for this function:</div>
 <p>Sets the CurrentIndex to 0. </p>
 <p>Does nothing when <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a5438318041a2d66887743a151e4653be">LockCurrentIndex</a> is <code>true</code>. </p>
 
-<p class="reference">References <a class="el" href="#l00113">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentIndex</a>, and <a class="el" href="#l00129">VolumeControl.CoreAudio.AudioSessionMultiSelector.LockCurrentIndex</a>.</p>
+<p class="reference">References <a class="el" href="#l00113">VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentIndex</a>, and <a class="el" href="#l00134">VolumeControl.CoreAudio.AudioSessionMultiSelector.LockCurrentIndex</a>.</p>
 
 </div>
 </div>
@@ -642,7 +642,7 @@ Here is the caller graph for this function:</div>
 
 <p>Gets or sets the session that the selector is currently pointing at. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00402">VolumeControl.CoreAudio.AudioSessionMultiSelector.DeselectCurrentItem()</a>, <a class="el" href="#l00388">VolumeControl.CoreAudio.AudioSessionMultiSelector.SelectCurrentItem()</a>, <a class="el" href="#l00367">VolumeControl.CoreAudio.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession()</a>, and <a class="el" href="#l00416">VolumeControl.CoreAudio.AudioSessionMultiSelector.ToggleSelectCurrentItem()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00411">VolumeControl.CoreAudio.AudioSessionMultiSelector.DeselectCurrentItem()</a>, <a class="el" href="#l00397">VolumeControl.CoreAudio.AudioSessionMultiSelector.SelectCurrentItem()</a>, <a class="el" href="#l00376">VolumeControl.CoreAudio.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession()</a>, and <a class="el" href="#l00425">VolumeControl.CoreAudio.AudioSessionMultiSelector.ToggleSelectCurrentItem()</a>.</p>
 
 </div>
 </div>
@@ -721,14 +721,14 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Event Documentation</h2>
-<a id="af1209ede736be648a28f24cf63373773"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1209ede736be648a28f24cf63373773">&#9670;&nbsp;</a></span>CurrentItemChanged</h2>
+<a id="a7b6e9e653ddaa521709e3a9e4ef1abc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b6e9e653ddaa521709e3a9e4ef1abc3">&#9670;&nbsp;</a></span>CurrentSessionChanged</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">EventHandler&lt;<a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html">AudioSession</a>?&gt;? VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentItemChanged</td>
+          <td class="memname">EventHandler&lt;<a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_session.html">AudioSession</a>?&gt;? VolumeControl.CoreAudio.AudioSessionMultiSelector.CurrentSessionChanged</td>
         </tr>
       </table>
 </div><div class="memdoc">
