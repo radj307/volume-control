@@ -12,6 +12,11 @@ namespace VolumeControl.HotkeyActions
     [HotkeyActionGroup("Active Application", GroupColor = "#9F87FF")]
     public sealed class ActiveApplicationActions
     {
+        #region Fields
+        private const string Setting_SelectTarget_Name = "Select Session";
+        private const string Setting_SelectTarget_Description = "Selects the session when the action is triggered.";
+        #endregion Fields
+
         #region Properties
         private static VCAPI VCAPI => VCAPI.Default;
         #endregion Properties
@@ -47,34 +52,69 @@ namespace VolumeControl.HotkeyActions
 
         #region Methods
         [HotkeyAction(Description = "Increases the volume of the current foreground application.")]
+        [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         public void VolumeUp(object? sender, HotkeyActionPressedEventArgs e)
         {
             if (GetActiveSession() is AudioSession session)
+            {
                 session.Volume += VCAPI.Settings.VolumeStepSize;
+                if (e.GetValue<bool>(Setting_SelectTarget_Name))
+                {
+                    VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
+                }
+            }
         }
         [HotkeyAction(Description = "Decreases the volume of the current foreground application.")]
+        [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         public void VolumeDown(object? sender, HotkeyActionPressedEventArgs e)
         {
             if (GetActiveSession() is AudioSession session)
+            {
                 session.Volume -= VCAPI.Settings.VolumeStepSize;
+                if (e.GetValue<bool>(Setting_SelectTarget_Name))
+                {
+                    VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
+                }
+            }
         }
         [HotkeyAction(Description = "Mutes the current foreground application.")]
+        [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         public void Mute(object? sender, HotkeyActionPressedEventArgs e)
         {
             if (GetActiveSession() is AudioSession session)
+            {
                 session.Mute = true;
+                if (e.GetValue<bool>(Setting_SelectTarget_Name))
+                {
+                    VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
+                }
+            }
         }
         [HotkeyAction(Description = "Unmutes the current foreground application.")]
+        [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         public void Unmute(object? sender, HotkeyActionPressedEventArgs e)
         {
             if (GetActiveSession() is AudioSession session)
+            {
                 session.Mute = false;
+                if (e.GetValue<bool>(Setting_SelectTarget_Name))
+                {
+                    VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
+                }
+            }
         }
         [HotkeyAction(Description = "(Un)Mutes the current foreground application.")]
+        [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         public void ToggleMute(object? sender, HotkeyActionPressedEventArgs e)
         {
             if (GetActiveSession() is AudioSession session)
+            {
                 session.Mute = !session.Mute;
+                if (e.GetValue<bool>(Setting_SelectTarget_Name))
+                {
+                    VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
+                }
+            }
         }
         #endregion Methods
     }
