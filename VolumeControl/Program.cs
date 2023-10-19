@@ -237,6 +237,7 @@ namespace VolumeControl
 
             GC.WaitForPendingFinalizers();
 
+            Settings.Save();
             Log.Dispose();
             appMutex.ReleaseMutex();
             appMutex.Dispose();
