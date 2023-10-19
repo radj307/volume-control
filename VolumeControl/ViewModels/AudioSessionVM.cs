@@ -54,11 +54,11 @@ namespace VolumeControl.ViewModels
         public string Name => AudioSession.Name;
         public bool IsSelected
         {
-            get => SDK.VCAPI.Default.AudioSessionMultiSelector.GetSessionIsSelected(this.AudioSession);
+            get => AudioDeviceManagerVM.AudioSessionMultiSelector.GetSessionIsSelected(this.AudioSession);
             set
             {
                 _isSelectedChanging = true;
-                SDK.VCAPI.Default.AudioSessionMultiSelector.SetSessionIsSelected(this.AudioSession, value);
+                AudioDeviceManagerVM.AudioSessionMultiSelector.SetSessionIsSelected(this.AudioSession, value);
                 _isSelectedChanging = false;
                 NotifyPropertyChanged();
             }

@@ -98,7 +98,7 @@ namespace VolumeControl.ViewModels
             // attach handlers to session selection events
             AudioSessionMultiSelector.SessionSelected += this.AudioSessionMultiSelector_SessionSelected;
             AudioSessionMultiSelector.SessionDeselected += this.AudioSessionMultiSelector_SessionDeselected;
-            AudioSessionMultiSelector.CurrentItemChanged += this.AudioSessionMultiSelector_CurrentItemChanged;
+            AudioSessionMultiSelector.CurrentSessionChanged += this.AudioSessionMultiSelector_CurrentSessionChanged;
 
             if (doDebugLogging) Log.Debug($"Successfully initialized {AudioSessionManager.Sessions.Count + AudioSessionManager.HiddenSessions.Count} {(AudioSessionManager.HiddenSessions.Count == 0 ? "" : $"({AudioSessionManager.HiddenSessions.Count} hidden)")} audio sessions.");
 
@@ -256,7 +256,7 @@ namespace VolumeControl.ViewModels
             // update the all selected checkbox
             NotifyPropertyChanged(nameof(AllSessionsSelected));
         }
-        private void AudioSessionMultiSelector_CurrentItemChanged(object? sender, AudioSession? e)
+        private void AudioSessionMultiSelector_CurrentSessionChanged(object? sender, AudioSession? e)
         {
             Settings.TargetSession = e?.GetTargetInfo() ?? TargetInfo.Empty;
             CurrentSession = e == null ? null : GetAudioSessionVM(e);

@@ -119,8 +119,8 @@ namespace VolumeControl.CoreAudio
                 _currentIndex = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(CurrentSession));
-                if (_currentIndex != -1)
-                    NotifyCurrentItemChanged(Sessions[_currentIndex]);
+                if (_currentIndex != -1) // only notify that the session was changed to actual session
+                    NotifyCurrentSessionChanged(Sessions[_currentIndex]);
             }
         }
         private int _currentIndex;
@@ -156,7 +156,7 @@ namespace VolumeControl.CoreAudio
                     NotifyPropertyChanged(nameof(CurrentIndex));
                 }
                 NotifyPropertyChanged();
-                NotifyCurrentItemChanged(value);
+                NotifyCurrentSessionChanged(value);
             }
         }
         /// <inheritdoc/>
@@ -204,8 +204,8 @@ namespace VolumeControl.CoreAudio
         /// <summary>
         /// Occurs when the CurrentItem is changed for any reason.
         /// </summary>
-        public event EventHandler<AudioSession?>? CurrentItemChanged;
-        private void NotifyCurrentItemChanged(AudioSession? audioSession) => CurrentItemChanged?.Invoke(this, audioSession);
+        public event EventHandler<AudioSession?>? CurrentSessionChanged;
+        private void NotifyCurrentSessionChanged(AudioSession? audioSession) => CurrentSessionChanged?.Invoke(this, audioSession);
         /// <summary>
         /// Occurs prior to a new session being added, allowing handlers to determine if it should be selected by default.
         /// </summary>
