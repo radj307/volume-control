@@ -1,8 +1,6 @@
 ﻿using CodingSeb.Localization;
 using Semver;
 using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -13,7 +11,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using VolumeControl.Core;
-using VolumeControl.Core.Input;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
