@@ -111,7 +111,12 @@ namespace VolumeControl.CoreAudio
         /// <inheritdoc/>
         public int CurrentIndex
         {
-            get => _currentIndex;
+            get
+            {
+                if (_currentIndex == -1)
+                    ResolveCurrentIndex();
+                return _currentIndex;
+            }
             set
             {
                 if (LockCurrentIndex) return;
@@ -251,6 +256,10 @@ namespace VolumeControl.CoreAudio
         private void RemoveSession(AudioSession session)
         {
             var index = Sessions.IndexOf(session); //< we can get the index here because the session hasn't been removed yet
+            if (index == _currentIndex)
+            {
+                CurrentIndex = -1;
+            }
             var wasSelected = _selectionStates[index];
             _selectionStates.RemoveAt(index);
             if (wasSelected)
@@ -478,6 +487,24 @@ namespace VolumeControl.CoreAudio
             CurrentIndex = -1;
         }
         #endregion Increment/Decrement/Unset CurrentIndex
+
+        #region ResolveCurrentIndex
+        private void ResolveCurrentIndex()
+        {
+            var targetInfo = (Core.Config.Default as Core.Config)!.TargetSession;
+
+            if (targetInfo.ProcessName.Length == 0) return;
+
+            var target = AudioSessionManager.FindSessionWithSimilarProcessIdentifier(targetInfo.ProcessIdentifier);
+
+            if (target == null) return;
+
+            _currentIndex = Sessions.IndexOf(target);
+            NotifyPropertyChanged(nameof(CurrentIndex));
+            NotifyPropertyChanged(nameof(CurrentSession));
+            NotifyCurrentSessionChanged(target);
+        }
+        #endregion ResolveCurrentIndex
 
         #endregion Methods
 
