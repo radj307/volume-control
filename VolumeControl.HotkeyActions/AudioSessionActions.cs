@@ -72,102 +72,6 @@ namespace VolumeControl.HotkeyActions
     }
     #endregion DataTemplateProviders
 
-    public class ActionTargetSpecifierDataTemplateProvider : DataTemplateProvider
-    {
-        public override DataTemplate ProvideDataTemplate()
-        {
-            // create root grid
-            var rootGrid = new FrameworkElementFactory(typeof(Grid));
-
-            // create grid row 0
-            #region rootGrid_row0
-            var rootGrid_row0 = new FrameworkElementFactory(typeof(RowDefinition));
-            rootGrid_row0.SetValue(RowDefinition.HeightProperty, GridLength.Auto);
-
-            // create item template for the listbox
-            #region TargetListBox ItemTemplate
-            var itemTemplate_grid = new FrameworkElementFactory(typeof(Grid));
-
-            // ItemTemplate Column 0
-            #region itemTemplate_col0
-            var itemTemplate_col0 = new FrameworkElementFactory(typeof(ColumnDefinition));
-            itemTemplate_col0.SetValue(ColumnDefinition.WidthProperty, GridLength.Auto);
-
-            #region itemTemplate_textBox
-            var itemTemplate_textBox = new FrameworkElementFactory(typeof(TextBox), "ItemTextBox");
-            itemTemplate_textBox.SetBinding(TextBox.TextProperty, new Binding(".") { UpdateSourceTrigger = UpdateSourceTrigger.LostFocus });
-            #endregion itemTemplate_textBox
-
-            itemTemplate_col0.AppendChild(itemTemplate_textBox);
-            itemTemplate_grid.AppendChild(itemTemplate_col0);
-            #endregion itemTemplate_col0
-
-            // ItemTemplate Column 1
-            #region itemTemplate_col1
-            var itemTemplate_col1 = new FrameworkElementFactory(typeof(ColumnDefinition));
-            itemTemplate_col1.SetValue(ColumnDefinition.WidthProperty, GridLength.Auto);
-
-            #region itemTemplate_button
-            var itemTemplate_button = new FrameworkElementFactory(typeof(Button));
-            itemTemplate_button.SetBinding(Button.WidthProperty, new Binding(nameof(Button.ActualHeight)) { RelativeSource = RelativeSource.Self });
-            itemTemplate_button.SetBinding(Button.HeightProperty, new Binding(nameof(TextBox.Height)) { ElementName = "ItemTextBox" });
-            itemTemplate_button.SetBinding(Button.TagProperty, new Binding() { RelativeSource = new() { Mode = RelativeSourceMode.FindAncestor, AncestorType = typeof(ListBox) } });
-            itemTemplate_button.SetBinding(Button.DataContextProperty, new Binding() { RelativeSource = new() { Mode = RelativeSourceMode.FindAncestor, AncestorType = typeof(ListBoxItem) } });
-            itemTemplate_button.SetValue(Button.ContentProperty, "❌");
-            itemTemplate_button.SetValue(Button.FontSizeProperty, 9.0);
-            itemTemplate_button.AddHandler(Button.ClickEvent, new RoutedEventHandler((sender, e) =>
-            { // Button.Click
-                var button = (Button)sender;
-                var listBox = (ListBox)button.Tag;
-                var listBoxItem = (ListBoxItem)button.DataContext;
-
-                if (((IActionSettingInstance)listBox.DataContext).Value is not ActionTargetSpecifier setting) return;
-
-                var index = listBox.ItemContainerGenerator.IndexFromContainer(listBoxItem);
-                setting.Targets.RemoveAt(index);
-            }));
-            #endregion itemTemplate_button
-
-            itemTemplate_col1.AppendChild(itemTemplate_button);
-            itemTemplate_grid.AppendChild(itemTemplate_col1);
-            #endregion itemTemplate_col1
-            #endregion TargetListBox ItemTemplate
-
-            // create listbox
-            #region TargetListBox
-            var targetListBox = new FrameworkElementFactory(typeof(ListBox), "TargetListBox");
-            targetListBox.SetBinding(ListBox.ItemsSourceProperty, new Binding($"Value.Targets"));
-            targetListBox.SetValue(ListBox.ItemTemplateProperty, new DataTemplate(typeof(string)) { VisualTree = itemTemplate_grid });
-            #endregion TargetListBox
-
-            // add the row into the root grid
-            rootGrid.AppendChild(rootGrid_row0);
-            #endregion rootGrid_row0
-
-            // create grid row 1
-            #region rootGrid_row1
-            var rootGrid_row1 = new FrameworkElementFactory(typeof(RowDefinition));
-            rootGrid_row1.SetValue(RowDefinition.HeightProperty, GridLength.Auto);
-
-            // create AddTargetBox
-            #region AddTargetBox
-            var addTargetBox = new FrameworkElementFactory(typeof(TextBoxWithCompletionOptions), "AddTargetBox");
-            addTargetBox.SetBinding(TextBoxWithCompletionOptions.TagProperty, new Binding() { ElementName = "TargetListBox" });
-            addTargetBox.SetBinding(TextBoxWithCompletionOptions.CompletionOptionsSourceProperty, new Binding()
-            {
-                // TODO: Bind this to autocomplete source somehow
-            });
-            rootGrid_row1.AppendChild(addTargetBox);
-            #endregion AddTargetBox
-
-            // add the row into the root grid
-            rootGrid.AppendChild(rootGrid_row1);
-            #endregion rootGrid_row1
-
-            return new DataTemplate(typeof(ActionTargetSpecifier)) { VisualTree = rootGrid };
-        }
-    }
-
     /// <summary>
     /// Contains hotkey action handlers that interact with AudioSessions in the AudioDeviceManager object.
     /// </summary>
@@ -200,7 +104,7 @@ namespace VolumeControl.HotkeyActions
 
         #region Action Methods
         [HotkeyAction(Description = "Increases the volume of the selected session(s).")]
-        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), typeof(ActionTargetSpecifierDataTemplateProvider), Description = Setting_TargetOverride_Description)]
+        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), Description = Setting_TargetOverride_Description)]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         [HotkeyActionSetting(Setting_OverrideVolumeStep_Name, typeof(bool), Description = Setting_OverrideVolumeStep_Description)]
         [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), typeof(VolumeStep_NumericUpDown_DataTemplateProvider), DefaultValue = 2, Description = Setting_VolumeStep_Description)]
