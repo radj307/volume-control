@@ -40,9 +40,9 @@ namespace VolumeControl.Helpers
 #       if DEBUG // Debug configuration:
             FLog.Info($"Volume Control version {this.CurrentVersion} (DEBUG)");
 #       elif RELEASE // Release configuration:
-            Log.Info($"Volume Control version {this.CurrentVersion} (Portable)");
+            FLog.Info($"Volume Control version {this.CurrentVersion} (Portable)");
 #       elif RELEASE_FORINSTALLER // Release-ForInstaller configuration:
-            Log.Info($"Volume Control version {this.CurrentVersion} (Installed)");
+            FLog.Info($"Volume Control version {this.CurrentVersion} (Installed)");
 #       endif
             FLog.Info(GetWindowsVersion());
 
