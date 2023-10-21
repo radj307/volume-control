@@ -39,7 +39,7 @@ namespace VolumeControl.Helpers
                 if (!e.NewLanguageId.Equals(Settings.LanguageName, StringComparison.Ordinal))
                 {
                     Settings.LanguageName = e.NewLanguageId;
-                    Log.Info($"{nameof(Settings.LanguageName)} was changed to '{Settings.LanguageName}' (was '{e.OldLanguageId}')");
+                    FLog.Info($"{nameof(Settings.LanguageName)} was changed to '{Settings.LanguageName}' (was '{e.OldLanguageId}')");
                 }
             };
         }
@@ -51,8 +51,7 @@ namespace VolumeControl.Helpers
         #endregion Fields
 
         #region Properties
-        private static LogWriter Log => FLog.Log;
-        private static Config Settings => (Config.Default as Config)!;
+        private static Config Settings => (AppConfig.Configuration.Default as Config)!;
         private static LocalizationLoader Loader => LocalizationLoader.Instance;
         private static List<ILocalizationFileLoader> FileLoaders => Loader.FileLanguageLoaders;
         private static string DefaultPath { get; } = Path.Combine(PathFinder.ApplicationAppDataPath, "Localization");
@@ -76,7 +75,7 @@ namespace VolumeControl.Helpers
             foreach (string dir in Settings.CustomLocalizationDirectories)
             {
                 if (dir.Any(c => _invalidPathChars.Contains(c)))
-                    Log.Error($"{nameof(Settings.CustomLocalizationDirectories)} specifies directory path with illegal characters: '{dir}'");
+                    FLog.Error($"{nameof(Settings.CustomLocalizationDirectories)} specifies directory path with illegal characters: '{dir}'");
                 else
                     LoadTranslationsFromDirectory(dir);
             }
@@ -104,17 +103,17 @@ namespace VolumeControl.Helpers
                     try
                     {
                         Loader.AddFile(filepath);
-                        Log.Debug($"Successfully loaded language config '{filepath}'");
+                        FLog.Debug($"Successfully loaded language config '{filepath}'");
                     }
                     catch (Exception ex)
                     {
-                        Log.Error($"Failed to load language config '{filepath}' because an exception was thrown!", ex);
+                        FLog.Error($"Failed to load language config '{filepath}' because an exception was thrown!", ex);
                     }
                 }
             }
             else
             {
-                Log.Error($"{nameof(LoadTranslationsFromDirectory)} cannot load directory '{path}' because it doesn't exist!");
+                FLog.Error($"{nameof(LoadTranslationsFromDirectory)} cannot load directory '{path}' because it doesn't exist!");
             }
         }
 
@@ -156,12 +155,12 @@ namespace VolumeControl.Helpers
         }
         #endregion Methods
     }
+    #region DEBUG
     /// <summary>
     /// Custom <see cref="ILocalizationFileLoader"/> implementation that emulates <see cref="JsonFileLoader"/>, with a few extra features.
     /// </summary>
     public class TestFileLoader : ILocalizationFileLoader
     {
-        private static LogWriter Log => FLog.Log;
         private string _fileName = string.Empty;
         private readonly Stack<string> _currentPath = new();
         private readonly Dictionary<string, string> _langIndex = new();
@@ -204,7 +203,7 @@ namespace VolumeControl.Helpers
             }
             catch (Exception ex)
             {
-                Log.Error(ex);
+                FLog.Error(ex);
             }
         }
 
@@ -272,4 +271,5 @@ namespace VolumeControl.Helpers
             _langIndex.Clear();
         }
     }
+    #endregion DEBUG
 }

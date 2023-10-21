@@ -77,7 +77,6 @@ namespace VolumeControl
         private VolumeControlVM VCSettings => (this.FindResource("Settings") as VolumeControlVM)!;
         private AudioDeviceManagerVM AudioAPI => this.VCSettings.AudioAPI;
         private HotkeyManagerVM HotkeyAPI => this.VCSettings.HotkeyAPI;
-        private static LogWriter Log => FLog.Log;
         private static Config Settings => (AppConfig.Configuration.Default as Config)!;
         #endregion Properties
 
@@ -156,12 +155,12 @@ namespace VolumeControl
                         return;
                     case MessageBoxResult.Cancel:
                         Settings.DeleteHotkeyConfirmation = false;
-                        Log.Info($"User specified option '{MessageBoxResult.Cancel:G}' in the remove hotkey confirmation dialog, indicating they want to disable the confirmation dialog; the '{nameof(Settings.DeleteHotkeyConfirmation)}' setting has been set to false.");
+                        FLog.Info($"User specified option '{MessageBoxResult.Cancel:G}' in the remove hotkey confirmation dialog, indicating they want to disable the confirmation dialog; the '{nameof(Settings.DeleteHotkeyConfirmation)}' setting has been set to false.");
                         return;
                     }
                 }
 
-                Log.Debug($"User is removing hotkey {id} ({this.HotkeyAPI.HotkeyManager.GetHotkey(id)?.GetStringRepresentation()})");
+                FLog.Debug($"User is removing hotkey {id} ({this.HotkeyAPI.HotkeyManager.GetHotkey(id)?.GetStringRepresentation()})");
 
                 this.HotkeyAPI.HotkeyManager.RemoveHotkey(id);
             }
@@ -193,6 +192,13 @@ namespace VolumeControl
             {
                 logPath.Text = path;
             }
+        }
+        private void Handle_OpenLogClick(object sender, RoutedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(VCSettings.LogFilePath)
+            {
+                UseShellExecute = true
+            })?.Dispose();
         }
         private void Handle_LogFilterChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -343,7 +349,7 @@ namespace VolumeControl
                 == MessageBoxResult.OK)
             {
                 Application.Current.Shutdown(); //< this waits for the method to return; doing this first seems to prevent crashes
-                Process.Start(VCSettings.ExecutablePath, "--wait-for-mutex");
+                Process.Start(VCSettings.ExecutablePath, "--wait-for-mutex")?.Dispose();
             }
         }
         #endregion EventHandlers

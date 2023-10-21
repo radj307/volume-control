@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Windows.Media;
 using VolumeControl.Core.Attributes;
+using VolumeControl.Core.Helpers;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.Core.Input.Actions.Settings;
 using VolumeControl.Log;
@@ -321,7 +322,21 @@ namespace VolumeControl.Core.Input
                     ++loadedActionsFromTypeCount;
 
                     if (FLog.Log.FilterEventType(Log.Enum.EventType.TRACE))
-                        FLog.Log.Trace($"[ActionLoader] Loaded {method.GetFullName()}.");
+                    {
+                        List<object?> lines = new();
+
+                        var lineHeader = "[ActionLoader] ";
+                        lines.Add($"{lineHeader}Loaded {method.GetFullName()}.");
+                        lineHeader = new string(' ', lineHeader.Length);
+                        for (int k = 0, k_max = actionSettingDefs.Length; k < k_max; ++k)
+                        {
+                            var settingDef = actionSettingDefs[k];
+
+                            lines.Add($"{lineHeader}+ Setting \"{settingDef.Name}\"{StringHelper.IndentWithPattern(30, settingDef.Name.Length)}({settingDef.ValueType.FullName})");
+                        }
+
+                        FLog.Log.Trace(lines.ToArray());
+                    }
                 } //< enumerate public methods
 
                 if (FLog.Log.FilterEventType(Log.Enum.EventType.DEBUG))

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using VolumeControl.Core;
+using VolumeControl.Core.Input;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.CoreAudio;
 using VolumeControl.Helpers;
-using VolumeControl.Helpers.Addon;
 using VolumeControl.Helpers.Update;
 using VolumeControl.HotkeyActions;
 using VolumeControl.Log;
@@ -40,28 +41,28 @@ namespace VolumeControl.ViewModels
             // Initialize the addon API
             var api = Initializer.Initialize(this.AudioAPI.AudioDeviceManager, this.AudioAPI.AudioDeviceSelector, this.AudioAPI.AudioSessionManager, this.AudioAPI.AudioSessionMultiSelector, this.HotkeyAPI.HotkeyManager, this.MainWindowHandle, (AppConfig.Configuration.Default as Config)!);
 
-            VCHotkeyAddon hotkeyAddonLoader = new();
-
-            // Load default action groups
-            hotkeyAddonLoader.LoadTypes(
+            var actions = HotkeyActionAddonLoader.Load(
                 typeof(AudioDeviceActions),
                 typeof(AudioSessionActions),
                 typeof(ActiveApplicationActions),
                 typeof(ApplicationActions),
-                typeof(MediaActions)
-            );
+                typeof(MediaActions));
+
+            HotkeyAPI.HotkeyManager.HotkeyActionManager.AddActionDefinitions(actions);
 
             AddonDirectories.ForEach(dir =>
             {
                 if (Directory.Exists(dir))
                 {
-                    foreach (string dll in Directory.EnumerateFiles(dir, "*.dll", new EnumerationOptions()
+                    foreach (string dllPath in Directory.EnumerateFiles(dir, "*.dll", new EnumerationOptions()
                     {
                         MatchCasing = MatchCasing.CaseInsensitive,
                         RecurseSubdirectories = false,
                     }))
                     {
-                        hotkeyAddonLoader.LoadAssemblyFrom(dll);
+                        FLog.Trace($"Found addon DLL \"{dllPath}\"");
+
+                        HotkeyAPI.HotkeyManager.HotkeyActionManager.AddActionDefinitions(HotkeyActionAddonLoader.Load(Assembly.LoadFrom(dllPath).GetExportedTypes()));
                     }
                 }
             });
@@ -110,7 +111,6 @@ namespace VolumeControl.ViewModels
         #region PrivateStatics
         /// <summary>Static accessor for <see cref="Settings.Default"/>.</summary>
         private static Config Settings => (AppConfig.Configuration.Default as Config)!;
-        private static LogWriter Log => FLog.Log;
         #endregion PrivateStatics
         /// <summary>
         /// True when there is a newer version of volume control available.
@@ -173,7 +173,7 @@ namespace VolumeControl.ViewModels
             {
                 this.HotkeyAPI.ResetHotkeys();
 
-                Log.Info("Hotkey definitions were reset to default.");
+                FLog.Info("Hotkey definitions were reset to default.");
             }
         }
         private static List<string> GetAddonDirectories()
@@ -192,17 +192,17 @@ namespace VolumeControl.ViewModels
                     if (Directory.Exists(path))
                     {
                         _ = l.AddIfUnique(path);
-                        Log.Debug($"Successfully added custom addon search directory '{path}'");
+                        FLog.Debug($"Successfully added custom addon search directory '{path}'");
                     }
                     else
                     {
-                        Log.Debug($"'{nameof(Settings.CustomAddonDirectories)}' contains an item that wasn't found: '{path}'!");
+                        FLog.Debug($"'{nameof(Settings.CustomAddonDirectories)}' contains an item that wasn't found: '{path}'!");
                     }
                 }
             }
             else
             {
-                Log.Debug($"{nameof(Settings.CustomAddonDirectories)} is null.");
+                FLog.Debug($"{nameof(Settings.CustomAddonDirectories)} is null.");
             }
 
             return l;

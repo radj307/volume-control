@@ -38,18 +38,6 @@
         /// </summary>
         FATAL = 16,
         /// <summary>
-        /// All event types, except for DEBUG.
-        /// This EventType does not have an associated header, and may only be used for type filtering.
-        /// If used anyway, it produces this header:  "[????]"
-        /// </summary>
-        ALL_EXCEPT_DEBUG = INFO | WARN | ERROR | FATAL,
-        /// <summary>
-        /// All event types, including DEBUG.
-        /// This EventType does not have an associated header, and may only be used for type filtering.
-        /// If used anyway, it produces this header:  "[????]"
-        /// </summary>
-        ALL = ALL_EXCEPT_DEBUG | DEBUG,
-        /// <summary>
         /// A critical message that does not necessarily indicate failure, but cannot be prevented from appearing in the log by user settings.
         /// Produces header:  "[CRITICAL]"
         /// </summary>
@@ -59,5 +47,21 @@
         /// Produces header:  "[TRACE]"
         /// </summary>
         TRACE = 64,
+    }
+    /// <summary>
+    /// Defines extension methods for the <see cref="EventType"/> enum.
+    /// </summary>
+    public static class EventTypeExtensions
+    {
+        /// <summary>
+        /// Check if the specified <paramref name="eventType"/> is a single value or multiple flags.
+        /// </summary>
+        /// <param name="eventType">The <see cref="EventType"/> instance to check.</param>
+        /// <returns><see langword="true"/> when <paramref name="eventType"/> is a single value; otherwise <see langword="false"/>.</returns>
+        public static bool IsSingleValue(this EventType eventType)
+        {
+            var v = (byte)eventType;
+            return v != 0 && (v & (v - 1)) == 0;
+        }
     }
 }

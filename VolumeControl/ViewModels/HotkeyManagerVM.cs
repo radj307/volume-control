@@ -24,7 +24,7 @@ namespace VolumeControl.ViewModels
         #endregion Constructor
 
         #region Properties
-        private static Config Settings => (Config.Default as Config)!;
+        private static Config Settings => (AppConfig.Configuration.Default as Config)!;
         public HotkeyManager HotkeyManager { get; }
         public ObservableImmutableList<HotkeyVM> Hotkeys { get; }
         public bool? AllSelected
@@ -102,6 +102,7 @@ namespace VolumeControl.ViewModels
             {
                 vm.Hotkey.PropertyChanged -= this.Hotkey_PropertyChanged;
                 Hotkeys.Remove(vm);
+                SaveHotkeys();
             }
         }
         #endregion HotkeyManager

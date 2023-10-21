@@ -23,10 +23,6 @@ namespace VolumeControl.WPF.Extensions
         private const string PropertyName_OpensInBrowser = "OpensInBrowser";
         #endregion Fields
 
-        #region Properties
-        private static LogWriter Log => FLog.Log;
-        #endregion Properties
-
         #region DependencyProperty
         /// <summary>
         /// Gets or sets whether this <see cref="Hyperlink"/> instance is 
@@ -70,7 +66,7 @@ namespace VolumeControl.WPF.Extensions
             }
             catch (Exception ex)
             {
-                Log.Error($"{nameof(Hyperlink_RequestNavigate)} failed due to an exception!", ex);
+                FLog.Error($"{nameof(Hyperlink_RequestNavigate)} failed due to an exception!", ex);
             }
         }
         #endregion EventHandlers

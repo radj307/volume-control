@@ -27,9 +27,9 @@
 
         #region Methods
         /// <inheritdoc/>
-        public TextReader? GetReader() => this.Enabled ? new StreamReader(_stream) : null;
+        public TextReader? GetReader() => this.Enabled ? new StreamReader(_stream, leaveOpen: true) : null;
         /// <inheritdoc/>
-        public TextWriter? GetWriter() => this.Enabled ? new StreamWriter(_stream) : null;
+        public TextWriter? GetWriter() => this.Enabled ? new StreamWriter(_stream, leaveOpen: true) : null;
         /// <inheritdoc/>
         public int? ReadRaw()
         {
@@ -37,7 +37,6 @@
                 return null;
             using TextReader? r = this.GetReader();
             int? ch = r?.Read();
-            r?.Dispose();
             return ch;
         }
         /// <inheritdoc/>
@@ -74,5 +73,16 @@
             GC.SuppressFinalize(this);
         }
         #endregion Methods
+
+        #region Method Overrides
+        /// <summary>
+        /// Returns the contents of the stream as a UTF8 string.
+        /// </summary>
+        /// <returns><see cref="string"/> with the entire contents of the memory stream.</returns>
+        public override string ToString()
+        {
+            return System.Text.Encoding.UTF8.GetString(_stream.ToArray().TakeWhile(b => b != '\0').ToArray());
+        }
+        #endregion Method Overrides
     }
 }

@@ -37,7 +37,7 @@ namespace VolumeControl.CoreAudio
             AudioSessionControl.OnSimpleVolumeChanged += this.AudioSessionControl_OnSimpleVolumeChanged;
             AudioSessionControl.OnStateChanged += this.AudioSessionControl_OnStateChanged;
 
-            if (FLog.Log.FilterEventType(VolumeControl.Log.Enum.EventType.TRACE))
+            if (FLog.Log.FilterEventType(Log.Enum.EventType.TRACE))
                 FLog.Log.Trace($"Created {nameof(AudioSession)} instance \"{ProcessIdentifier}\"");
         }
         #endregion Constructor
@@ -85,7 +85,6 @@ namespace VolumeControl.CoreAudio
         #endregion Fields
 
         #region Properties
-        private static LogWriter Log => FLog.Log;
         /// <summary>
         /// Gets the <see cref="CoreAudio.AudioDevice"/> that this <see cref="AudioSession"/> instance is running on.
         /// </summary>
@@ -301,7 +300,7 @@ namespace VolumeControl.CoreAudio
             }
             catch (Exception ex)
             {
-                Log.Error($"Failed to get the Process associated with session '{ProcessIdentifier}' because of an exception:", ex);
+                FLog.Error($"Failed to get the Process associated with session '{ProcessIdentifier}' because of an exception:", ex);
                 return null;
             }
         }
@@ -337,10 +336,14 @@ namespace VolumeControl.CoreAudio
         #endregion Methods
 
         #region IDisposable Implementation
+        /// <summary>
+        /// Default finalizer.
+        /// </summary>
+        ~AudioSession() => Dispose();
         /// <inheritdoc/>
         public void Dispose()
         {
-            if (FLog.Log.FilterEventType(VolumeControl.Log.Enum.EventType.TRACE))
+            if (FLog.Log.FilterEventType(Log.Enum.EventType.TRACE))
                 FLog.Log.Trace($"Disposing of {nameof(AudioSession)} instance \"{ProcessIdentifier}\"");
             this.Process?.Dispose();
             this.AudioSessionControl.Dispose();

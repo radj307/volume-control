@@ -36,7 +36,7 @@ namespace VolumeControl.SDK
         /// <summary>
         /// This is the default log instance.
         /// </summary>
-        public static LogWriter Log => FLog.Log;
+        public static AsyncLogWriter Log => FLog.Log;
         #endregion Statics
 
         #region Properties
@@ -57,7 +57,7 @@ namespace VolumeControl.SDK
         /// </summary>
         public AudioSessionMultiSelector AudioSessionMultiSelector { get; }
         /// <summary>
-        /// This is the global <see cref="Core.HotkeyManager"/> responsible for managing hotkeys.
+        /// This is the global <see cref="HotkeyManager"/> responsible for managing hotkeys.
         /// </summary>
         public HotkeyManager HotkeyManager { get; }
         /// <summary>

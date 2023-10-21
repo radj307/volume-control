@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -13,10 +14,15 @@ using System.Windows;
 using VolumeControl.Core;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
+using VolumeControl.Log.Enum;
 using VolumeControl.TypeExtensions;
 
 namespace VolumeControl
 {
+#if DEBUG
+    /// <summary>
+    /// Helper class for comparing the approximate speeds of code snippets.
+    /// </summary>
     public class DebugProfiler
     {
         #region Fields
@@ -31,35 +37,119 @@ namespace VolumeControl
         /// Profiles the specified <paramref name="action"/> and returns the elapsed time.
         /// </summary>
         /// <param name="action">A delegate containing the code to profile.</param>
+        /// <param name="preAction">An action to perform prior to the <paramref name="action"/>, or <see langword="null"/>.</param>
+        /// <param name="postAction">An action to perform after the <paramref name="action"/>, or <see langword="null"/>.</param>
         /// <returns>A <see cref="TimeSpan"/> containing the elapsed time.</returns>
-        public TimeSpan Profile(Action action)
+        [MethodImpl(MethodImplOptions.NoOptimization | MethodImplOptions.NoInlining)]
+        public TimeSpan Profile(Action action, Action? preAction = null, Action? postAction = null)
         {
             _stopwatch.Reset();
+
+            preAction?.Invoke();
 
             _stopwatch.Start();
             action.Invoke();
             _stopwatch.Stop();
 
+            postAction?.Invoke();
+
             return _stopwatch.Elapsed;
         }
         /// <summary>
-        /// Profiles the specified <paramref name="action"/> and returns the average elapsed time.
+        /// Profiles the specified <paramref name="action"/> and returns the elapsed times.
         /// </summary>
-        /// <param name="action">A delegate containing the code to profile.</param>
         /// <param name="count">The number of times to profile the <paramref name="action"/>.</param>
-        /// <returns>The average amount of elapsed time, as a <see cref="TimeSpan"/> instance.</returns>
-        public TimeSpan Profile(Action action, int count)
+        /// <param name="action">A delegate containing the code to profile.</param>
+        /// <param name="preAction">An action to perform prior to the <paramref name="action"/>, or <see langword="null"/>.</param>
+        /// <param name="postAction">An action to perform after the <paramref name="action"/>, or <see langword="null"/>.</param>
+        /// <returns>An array of <see cref="TimeSpan"/> instances containing the elapsed time of each run.</returns>
+        [MethodImpl(MethodImplOptions.NoOptimization | MethodImplOptions.NoInlining)]
+        public TimeSpan[] ProfileAll(int count, Action action, Action? preAction = null, Action? postAction = null)
         {
             TimeSpan[] t = new TimeSpan[count];
 
             for (int i = 0; i < count; ++i)
             {
-                t[i] = Profile(action);
+                t[i] = Profile(action, preAction, postAction);
             }
 
-            return new TimeSpan((long)Math.Round(t.Select(ts => ts.Ticks).Average(), 0));
+            return t;
+        }
+        /// <summary>
+        /// Profiles the specified <paramref name="action"/> and returns the average elapsed time.
+        /// </summary>
+        /// <param name="count">The number of times to profile the <paramref name="action"/>.</param>
+        /// <param name="action">A delegate containing the code to profile.</param>
+        /// <returns>The average amount of elapsed time, as a <see cref="TimeSpan"/> instance.</returns>
+        [MethodImpl(MethodImplOptions.NoOptimization | MethodImplOptions.NoInlining)]
+        public TimeSpan Profile(int count, Action action, Action? preAction = null, Action? postAction = null)
+        {
+            return new TimeSpan((long)Math.Round(ProfileAll(count, action, preAction, postAction).Select(ts => ts.Ticks).Average(), 0));
+        }
+        /// <summary>
+        /// Profiles the specified <paramref name="action"/> and returns the average elapsed time in ticks.
+        /// </summary>
+        /// <param name="count">The number of times to profile the <paramref name="action"/>.</param>
+        /// <param name="action">A delegate containing the code to profile.</param>
+        /// <returns>The average elapsed time, measured in ticks.</returns>
+        [MethodImpl(MethodImplOptions.NoOptimization | MethodImplOptions.NoInlining)]
+        public double ProfileTicks(int count, Action action, Action? preAction = null, Action? postAction = null)
+        {
+            return ProfileAll(count, action, preAction, postAction).Select(ts => ts.Ticks).Average();
+        }
+        /// <summary>
+        /// Profiles the specified <paramref name="action"/> and returns the average elapsed time in microseconds.
+        /// </summary>
+        /// <param name="count">The number of times to profile the <paramref name="action"/>.</param>
+        /// <param name="action">A delegate containing the code to profile.</param>
+        /// <returns>The average elapsed time, measured in microseconds.</returns>
+        [MethodImpl(MethodImplOptions.NoOptimization | MethodImplOptions.NoInlining)]
+        public double ProfileMicroseconds(int count, Action action, Action? preAction = null, Action? postAction = null)
+        {
+            double avgTicks = ProfileTicks(count, action, preAction, postAction);
+            return (avgTicks / Stopwatch.Frequency) * 1000000;
         }
         #endregion Profile
+
+        #region IndexOfFastestValue
+        /// <summary>
+        /// Finds the smallest value &amp; its index in the specified <paramref name="values"/> array.
+        /// </summary>
+        /// <typeparam name="T">The comparable type of the specified <paramref name="values"/>.</typeparam>
+        /// <param name="values">Any number of values.</param>
+        /// <returns>The fastest value and its index in <paramref name="values"/>.</returns>
+        public static (T Value, int Index) Smallest<T>(params T[] values) where T : IComparable<T>
+        {
+            T smallestValue = default!;
+            int smallestIndex = -1;
+
+            for (int i = 0, i_max = values.Length; i < i_max; ++i)
+            {
+                T value = values[i];
+                if (smallestIndex == -1 || value.CompareTo(smallestValue) < 0)
+                {
+                    smallestValue = value;
+                    smallestIndex = i;
+                }
+            }
+
+            return (smallestValue, smallestIndex);
+        }
+        /// <summary>
+        /// Gets the index of the smallest value in the specified <paramref name="values"/> array.
+        /// </summary>
+        /// <typeparam name="T">The comparable type of the specified <paramref name="values"/>.</typeparam>
+        /// <param name="values">Any number of values.</param>
+        /// <returns>The index of the fastest value in <paramref name="values"/>.</returns>
+        public static int IndexOfSmallest<T>(params T[] values) where T : IComparable<T>
+            => Smallest(values).Index;
+        /// <inheritdoc cref="Smallest{T}(T[])"/>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
+        public (T Value, int Index) Fastest<T>(params T[] values) where T : IComparable<T> => Smallest(values);
+        /// <inheritdoc cref="IndexOfSmallest{T}(T[])"/>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
+        public int IndexOfFastest<T>(params T[] values) where T : IComparable<T> => IndexOfSmallest(values);
+        #endregion IndexOfFastestValue
 
         #region Next
         /// <summary>
@@ -85,19 +175,11 @@ namespace VolumeControl
         #endregion NextBool
 
         #endregion Methods
-
-        public void TestGeneric<T1, T2>()
-        {
-
-        }
     }
+#endif // DEBUG
 
     internal static class Program
     {
-        #region Statics
-        private static LogWriter Log => FLog.Log;
-        #endregion Statics
-
         #region Fields
         private const string appMutexIdentifier = "VolumeControlSingleInstance";
         private static Mutex appMutex = null!;
@@ -105,6 +187,8 @@ namespace VolumeControl
         #endregion Fields
 
         #region Methods
+
+        #region Main
         /// <summary>
         /// Program entry point
         /// </summary>
@@ -130,6 +214,14 @@ namespace VolumeControl
             Settings.Load();
 #endif
 
+            // initialize the log
+            FLog.Initialize();
+
+#if DEBUG
+            // show all log message types in debug mode
+            FLog.Log.EventTypeFilter = EventType.DEBUG | EventType.INFO | EventType.WARN | EventType.ERROR | EventType.FATAL | EventType.TRACE;
+#endif
+
             // Get program information:
             SemVersion version = GetProgramVersion();
             int versionCompare = version.CompareSortOrderTo(Settings.__VERSION__);
@@ -138,10 +230,12 @@ namespace VolumeControl
             // Check commandline arguments:  
             bool overwriteLanguageConfigs = args.Any(arg => arg.Equals("--overwrite-language-configs", StringComparison.Ordinal));
             bool waitForMutex = args.Any(arg => arg.Equals("--wait-for-mutex", StringComparison.Ordinal));
-#if DEBUG // DEBUG
+#if DEBUG
             overwriteLanguageConfigs = true; //< always overwrite language configs in DEBUG configuration
-#endif // DEBUG
+#endif
 
+            // initialize locale helper
+            //  overwrite language configs when the version number changed or when specified on the commandline
             LocalizationHelper locale = new(overwriteDefaultLangConfigs: doUpdate || overwriteLanguageConfigs);
 
             // Multi instance gate
@@ -162,7 +256,7 @@ namespace VolumeControl
                 }
                 else
                 {
-                    Log.Fatal($"Failed to acquire a mutex lock using identifier '{mutexId}'; ", Settings.AllowMultipleDistinctInstances ? $"another instance of Volume Control is using the config located at '{Settings.Location}'" : "another instance of Volume Control is already running!");
+                    FLog.Fatal($"Failed to acquire a mutex lock using identifier '{mutexId}'; ", Settings.AllowMultipleDistinctInstances ? $"another instance of Volume Control is using the config located at '{Settings.Location}'" : "another instance of Volume Control is already running!");
                     MessageBox.Show(Loc.Tr($"VolumeControl.Dialogs.AnotherInstanceIsRunning.{(Settings.AllowMultipleDistinctInstances ? "MultiInstance" : "SingleInstance")}", "Another instance of Volume Control is already running!").Replace("${PATH}", Settings.Location));
                     return;
                 }
@@ -172,11 +266,11 @@ namespace VolumeControl
             { // write a log message about changing the working directory
                 if (Settings.RunAtStartup)
                 {
-                    Log.Info($"Changed application working directory to '{Environment.CurrentDirectory}' (Was '{Environment.SystemDirectory}').");
+                    FLog.Info($"Changed application working directory to '{Environment.CurrentDirectory}' (Was '{Environment.SystemDirectory}').");
                 }
                 else
                 { // warn the user
-                    Log.Warning($"Changed application working directory to '{Environment.CurrentDirectory}' (Was '{Environment.SystemDirectory}').",
+                    FLog.Warning($"Changed application working directory to '{Environment.CurrentDirectory}' (Was '{Environment.SystemDirectory}').",
                         "Run at Startup is disabled. The application's working directory should never be set to the system directory under any other circumstances!");
                 }
             }
@@ -184,11 +278,12 @@ namespace VolumeControl
             // Update the Settings' version number
             if (doUpdate)
             {
-                Log.Info($"The version number in the settings file was {Settings.__VERSION__}, settings will be {(versionCompare.Equals(1) ? "upgraded" : "downgraded")} to {version}.");
+                FLog.Info($"The version number in the settings file was {Settings.__VERSION__}, settings will be {(versionCompare.Equals(1) ? "upgraded" : "downgraded")} to {version}.");
             }
-#if DEBUG // In debug configuration, always overwrite previous language files
+#if DEBUG
             doUpdate = true;
 #endif
+            // update the version number in the config
             Settings.__VERSION__ = version;
 
             // create the application class
@@ -196,38 +291,18 @@ namespace VolumeControl
             try
             {
                 int rc = app.Run();
-                Log.Info($"App exited with code {rc}");
+                FLog.Info($"App exited with code {rc}");
             }
             catch (Exception ex)
             {
-                Log.Fatal("App exited because of an unhandled exception!", ex);
-                try
-                {
-                    // cleanup the notify icon if the program crashes (if it shuts down normally, it is correctly disposed of)
-                    app.TrayIcon.Dispose();
+                // cleanup the notify icon if the program crashes (if it shuts down normally, it is correctly disposed of)
+                app.TrayIcon.Dispose(); //< do this before literally ANYTHING else
 
-                    using TextReader? sr = Log.Endpoint.GetReader();
-                    if (sr is not null)
-                    {
-                        string content = sr.ReadToEnd();
-                        sr.Dispose();
+                FLog.Fatal("App exited because of an unhandled exception:", ex);
 
-                        WriteCrashDump(content);
-                    }
-                    else
-                    {
-                        Log.Fatal($"Failed to create crash log dump!");
-                    }
-                }
-                catch (Exception inner_ex)
-                {
-                    Log.Fatal("Another exception occurred while writing a crash dump!", inner_ex);
-                }
+                WriteCrashDump(File.ReadAllText(Settings.LogPath));
 
 #if DEBUG
-                Log.Dispose();
-                appMutex.ReleaseMutex();
-                appMutex.Dispose();
                 throw; //< rethrow in debug configuration
 #endif
             }
@@ -235,11 +310,13 @@ namespace VolumeControl
             GC.WaitForPendingFinalizers();
 
             Settings.Save();
-            Log.Dispose();
+            FLog.Log.Dispose();
             appMutex.ReleaseMutex();
             appMutex.Dispose();
         }
+        #endregion Main
 
+        #region Private
         private static string HashFilePath(string path)
         {
             var md5 = MD5.Create();
@@ -255,7 +332,7 @@ namespace VolumeControl
             string myVersion = asm.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? string.Empty;
             return myVersion.GetSemVer() ?? new(0);
         }
-        private static string GetExecutablePath() => System.Diagnostics.Process.GetCurrentProcess().MainModule?.FileName is string path
+        private static string GetExecutablePath() => Process.GetCurrentProcess().MainModule?.FileName is string path
                 ? path
                 : throw new Exception("Failed to get the location of the current process' executable!");
         /// <summary>
@@ -273,7 +350,7 @@ namespace VolumeControl
             }
             using var sw = new StreamWriter($"volumecontrol-crash-{++count}.log");
 
-            string headerText = $"/// VOLUME CONTROL CRASH REPORT /// {Timestamp.Now(VolumeControl.Log.Enum.EventType.FATAL)} ///";
+            string headerText = $"/// VOLUME CONTROL CRASH REPORT /// {DateTime.Now.ToString(AsyncLogWriter.DateTimeFormatString)} [{nameof(EventType.FATAL)}] ///";
 
             int len = 120;
             if (headerText.Length > 120)
@@ -295,6 +372,8 @@ namespace VolumeControl
 
             sw.Dispose();
         }
+        #endregion Private
+
         #endregion Methods
     }
 }

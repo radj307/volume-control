@@ -25,7 +25,7 @@ namespace VolumeControl
             // Add a log handler to the dispatcher's unhandled exception event
             DispatcherUnhandledException += (s, e) =>
             {
-                Log.Error($"An unhandled exception occurred!", $"Sender: '{s}' ({s.GetType()})", e.Exception);
+                FLog.Error($"An unhandled exception occurred!", $"Sender: '{s}' ({s.GetType()})", e.Exception);
                 e.Handled = true;
             };
 
@@ -55,10 +55,6 @@ namespace VolumeControl
         public readonly VolumeControlNotifyIcon TrayIcon;
         #endregion Fields
 
-        #region Properties
-        private static LogWriter Log => FLog.Log;
-        #endregion Properties
-
         #region Methods
         private void HideMainWindow() => this.MainWindow.Hide();
         private void ShowMainWindow()
@@ -87,7 +83,7 @@ namespace VolumeControl
         {
             if (Path.GetDirectoryName(filePath) is not string directoryPath)
             {
-                Log.Error($"Cannot get directory from path '{filePath}'!");
+                FLog.Error($"Cannot get directory from path '{filePath}'!");
                 return;
             }
 
@@ -95,7 +91,7 @@ namespace VolumeControl
 
             if (nativeFolder == IntPtr.Zero)
             {
-                Log.Error($"Cannot locate directory '{directoryPath}'!");
+                FLog.Error($"Cannot locate directory '{directoryPath}'!");
                 return;
             }
 
@@ -112,7 +108,7 @@ namespace VolumeControl
                 fileArray = new IntPtr[] { nativeFile };
             }
 
-            Log.Debug($"Opening and selecting '{filePath}' in the file explorer.");
+            FLog.Debug($"Opening and selecting '{filePath}' in the file explorer.");
 
             _ = SHOpenFolderAndSelectItems(nativeFolder, (uint)fileArray.Length, fileArray, 0);
 

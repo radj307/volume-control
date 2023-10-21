@@ -9,12 +9,13 @@ namespace VolumeControl.Helpers
     /// </summary>
     internal static class PathFinder
     {
+        #region Properties
         /// <summary>
         /// The absolute filepath of Volume Control's local appdata subdirectory.
         /// </summary>
         public static string ApplicationAppDataPath => _localAppData ??= FindLocalAppDataConfigDir();
         private static string? _localAppData = null;
-        private static LogWriter Log => FLog.Log;
+        #endregion Properties
 
         #region Functions
         private static string FindLocalAppDataConfigDir()
@@ -31,7 +32,7 @@ namespace VolumeControl.Helpers
                 }
                 else
                 {
-                    Log.Error($"Couldn't locate the target LocalAppData subdirectory '{searchString}' in path '{dir}'");
+                    FLog.Error($"Couldn't locate the target LocalAppData subdirectory '{searchString}' in path '{dir}'");
                 }
             }
             return path;

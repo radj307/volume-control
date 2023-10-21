@@ -11,7 +11,7 @@ namespace VolumeControl.CoreAudio
     /// <remarks>
     /// The <see cref="AudioDeviceManager"/> class is responsible for managing the list of active audio devices and handling all events related directly to <see cref="AudioDevice"/> instances.
     /// </remarks>
-    public sealed class AudioDeviceManager
+    public sealed class AudioDeviceManager : IDisposable
     {
         #region Constructor
         /// <summary>
@@ -71,7 +71,6 @@ namespace VolumeControl.CoreAudio
         #endregion Fields
 
         #region Properties
-        private static LogWriter Log => FLog.Log;
         /// <summary>
         /// Gets the list of <see cref="AudioDevice"/> instances.
         /// </summary>
@@ -139,7 +138,7 @@ namespace VolumeControl.CoreAudio
             }
             catch (Exception ex)
             {
-                Log.Error($"Getting default audio device with role '{deviceRole:G}' failed because an exception was thrown:", ex);
+                FLog.Error($"Getting default audio device with role '{deviceRole:G}' failed because an exception was thrown:", ex);
                 return null;
             }
         }
@@ -156,12 +155,12 @@ namespace VolumeControl.CoreAudio
                 if (CreateAndAddDeviceIfUnique(mmDevice) is AudioDevice newAudioDevice)
                 {
                     NotifyDeviceStateChanged(newAudioDevice);
-                    Log.Debug($"{nameof(AudioDevice)} '{newAudioDevice.Name}' state changed to {mmDevice.State:G}; added it to the list.");
+                    FLog.Debug($"{nameof(AudioDevice)} '{newAudioDevice.Name}' state changed to {mmDevice.State:G}; added it to the list.");
                 }
                 else
                 {
                     NotifyDeviceStateChanged(FindDeviceByMMDevice(mmDevice)!);
-                    Log.Error($"{nameof(AudioDevice)} '{mmDevice.GetDeviceName()}' state changed to {mmDevice.State:G}; it is already in the list!");
+                    FLog.Error($"{nameof(AudioDevice)} '{mmDevice.GetDeviceName()}' state changed to {mmDevice.State:G}; it is already in the list!");
                 }
             }
             else // e.DeviceState != DeviceState.Active
@@ -172,7 +171,7 @@ namespace VolumeControl.CoreAudio
 
                     _devices.Remove(existingAudioDevice);
 
-                    Log.Debug($"{nameof(AudioDevice)} '{existingAudioDevice.Name}' state changed to {mmDevice.State:G}; removed it from the list.");
+                    FLog.Debug($"{nameof(AudioDevice)} '{existingAudioDevice.Name}' state changed to {mmDevice.State:G}; removed it from the list.");
 
                     NotifyDeviceRemovedFromList(existingAudioDevice);
 
@@ -180,7 +179,7 @@ namespace VolumeControl.CoreAudio
                 }
                 else
                 {
-                    Log.Error($"{nameof(AudioDevice)} '{mmDevice.GetDeviceName()}' state changed to {mmDevice.State:G}; cannot remove it from the list because it doesn't exist!");
+                    FLog.Error($"{nameof(AudioDevice)} '{mmDevice.GetDeviceName()}' state changed to {mmDevice.State:G}; cannot remove it from the list because it doesn't exist!");
                 }
             }
         }
@@ -192,15 +191,15 @@ namespace VolumeControl.CoreAudio
             if (mmDevice.State.Equals(DeviceState.Active))
             {
                 if (CreateAndAddDeviceIfUnique(mmDevice) is AudioDevice newAudioDevice)
-                    Log.Debug($"Detected new {nameof(AudioDevice)} '{newAudioDevice.Name}'; added it to the list.");
+                    FLog.Debug($"Detected new {nameof(AudioDevice)} '{newAudioDevice.Name}'; added it to the list.");
                 else
                 {
-                    Log.Error($"Detected new {nameof(AudioDevice)} '{mmDevice.GetDeviceName()}'; it is already in the list!");
+                    FLog.Error($"Detected new {nameof(AudioDevice)} '{mmDevice.GetDeviceName()}'; it is already in the list!");
                 }
             }
             else
             {
-                Log.Debug($"Detected new {nameof(AudioDevice)} '{mmDevice.GetDeviceName()}'; did not add it the list because its current state is {mmDevice.State:G}.");
+                FLog.Debug($"Detected new {nameof(AudioDevice)} '{mmDevice.GetDeviceName()}'; did not add it the list because its current state is {mmDevice.State:G}.");
             }
         }
         private void DeviceNotificationClient_DeviceRemoved(object? sender, DeviceNotificationEventArgs e)
@@ -209,7 +208,7 @@ namespace VolumeControl.CoreAudio
             {
                 _devices.Remove(audioDevice);
 
-                Log.Debug($"{nameof(AudioDevice)} '{audioDevice.Name}' was removed from the system; it was removed from the list.");
+                FLog.Debug($"{nameof(AudioDevice)} '{audioDevice.Name}' was removed from the system; it was removed from the list.");
 
                 NotifyDeviceRemovedFromList(audioDevice);
 
@@ -227,5 +226,18 @@ namespace VolumeControl.CoreAudio
                 audioDevice.IsDefault = true;
         }
         #endregion Methods (_deviceNotificationClient EventHandlers)
+
+        #region IDisposable Implementation
+        /// <summary>
+        /// Disposes of managed devices.
+        /// </summary>
+        ~AudioDeviceManager() => Dispose();
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Devices.ForEach(d => d.Dispose());
+            GC.SuppressFinalize(this);
+        }
+        #endregion IDisposable Implementation
     }
 }

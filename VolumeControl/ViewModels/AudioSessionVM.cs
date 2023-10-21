@@ -106,6 +106,7 @@ namespace VolumeControl.ViewModels
         public void Dispose()
         {
             ((IDisposable)this.AudioSession).Dispose();
+            _icon = null;
             GC.SuppressFinalize(this);
         }
         #endregion IDisposable Implementation

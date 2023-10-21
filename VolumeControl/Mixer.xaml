@@ -1864,6 +1864,7 @@
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
                                                 <Border x:Name="logPathTextBoxWidthClamp" />
                                                 <TextBox
@@ -1895,7 +1896,14 @@
                                                     Content="🗁"
                                                     FontWeight="SemiBold"
                                                     IsEnabled="{Binding IsChecked, ElementName=cbEnableLog}" />
-
+                                                <Button
+                                                    Grid.Column="2"
+                                                    Margin="5,2"
+                                                    Padding="3,0"
+                                                    Content="Open"
+                                                    Click="Handle_OpenLogClick"
+                                                    VerticalAlignment="Stretch"
+                                                    IsEnabled="{Binding IsChecked, ElementName=cbEnableLog}" />
                                             </Grid>
                                         </Grid>
                                     </Grid>

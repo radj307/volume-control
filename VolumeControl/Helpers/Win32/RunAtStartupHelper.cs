@@ -26,7 +26,6 @@ namespace VolumeControl.Helpers.Win32
         #endregion Private Constants
 
         #region Properties
-        private static LogWriter Log => FLog.Log;
         private static string RunKeyFullPath => $"{RegistryRunAtStartupKeyFriendlyPrefix}{RegistryRunAtStartupKeyPath}";
         /// <summary>
         /// Gets or sets the registry value named by <see cref="RegistryRunAtStartupValueName"/>, located in the <see langword="HKEY_CURRENT_USER"/> subkey specified by <see cref="RegistryRunAtStartupKeyPath"/>
@@ -44,18 +43,18 @@ namespace VolumeControl.Helpers.Win32
                             RegistryValueKind valueKind = runkey.GetValueKind(RegistryRunAtStartupValueName);
                             if (valueKind.Equals(RegistryValueKind.String))
                                 return runkey.GetValue(RegistryRunAtStartupValueName)?.ToString();
-                            else Log.Warning($"{nameof(RunAtStartupHelper)}:  Unexpected type '{valueKind:G}' for value '{RunKeyFullPath}\\{RegistryRunAtStartupValueName}'; expected type '{RegistryValueKind.String:G}'");
+                            else FLog.Warning($"{nameof(RunAtStartupHelper)}:  Unexpected type '{valueKind:G}' for value '{RunKeyFullPath}\\{RegistryRunAtStartupValueName}'; expected type '{RegistryValueKind.String:G}'");
                         }
                         // else; value doesn't exist so return null.
                     }
                     else
                     {
-                        Log.Error($"{nameof(RunAtStartupHelper)}:  Failed to open registry key '{RunKeyFullPath}' for reading!");
+                        FLog.Error($"{nameof(RunAtStartupHelper)}:  Failed to open registry key '{RunKeyFullPath}' for reading!");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Log.Error($"{nameof(RunAtStartupHelper)}:  Exception thrown while attempting to read registry value named '{RegistryRunAtStartupValueName}' from registry key '{RunKeyFullPath}':", ex);
+                    FLog.Error($"{nameof(RunAtStartupHelper)}:  Exception thrown while attempting to read registry value named '{RegistryRunAtStartupValueName}' from registry key '{RunKeyFullPath}':", ex);
                 }
                 return null;
             }
@@ -78,12 +77,12 @@ namespace VolumeControl.Helpers.Win32
                     }
                     else
                     {
-                        Log.Error($"{nameof(RunAtStartupHelper)}:  Failed to open registry key '{RunKeyFullPath}' for writing!");
+                        FLog.Error($"{nameof(RunAtStartupHelper)}:  Failed to open registry key '{RunKeyFullPath}' for writing!");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Log.Error($"{nameof(RunAtStartupHelper)}:  Exception thrown while attempting to write value named '{RegistryRunAtStartupValueName}' to registry key '{RunKeyFullPath}':", ex);
+                    FLog.Error($"{nameof(RunAtStartupHelper)}:  Exception thrown while attempting to write value named '{RegistryRunAtStartupValueName}' to registry key '{RunKeyFullPath}':", ex);
                 }
             }
         }

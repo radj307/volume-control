@@ -49,7 +49,7 @@ namespace VolumeControl.Core.Input.Actions.Settings
                 catch (Exception ex) // ProvideDataTemplate() failed
                 {
                     if (FLog.Log.FilterEventType(Log.Enum.EventType.ERROR))
-                        FLog.Log.Error($"{dataTemplateProviderType.FullName}.{nameof(DataTemplateProvider.ProvideDataTemplate)}() failed due to an exception:", ex);
+                        FLog.Log.Error($"{dataTemplateProviderType.FullName}.{nameof(DataTemplateProvider.ProvideDataTemplate)}() for action setting \"{Name}\" failed due to an exception:", ex);
                 }
             }
         }

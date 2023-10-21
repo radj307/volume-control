@@ -16,7 +16,7 @@ namespace VolumeControl.Helpers
         #region Constructors
         public VCSettings()
         {
-            Log.Debug($"{nameof(VCSettings)} initializing...");
+            FLog.Debug($"{nameof(VCSettings)} initializing...");
 
             // Initialize the HWndHook
             this.MainWindowHandle = WindowHandleGetter.GetWindowHandle();
@@ -25,7 +25,7 @@ namespace VolumeControl.Helpers
 
             // Get the executable path
             this.ExecutablePath = GetExecutablePath();
-            Log.Debug($"Executable location: '{this.ExecutablePath}'",
+            FLog.Debug($"Executable location: '{this.ExecutablePath}'",
                       $"Working directory:   '{Environment.CurrentDirectory}'");
 
             // Get the current version number (version config property has already been updated)
@@ -38,22 +38,21 @@ namespace VolumeControl.Helpers
 #       endif
 
 #       if DEBUG // Debug configuration:
-            Log.Info($"Volume Control version {this.CurrentVersion} (DEBUG)");
+            FLog.Info($"Volume Control version {this.CurrentVersion} (DEBUG)");
 #       elif RELEASE // Release configuration:
             Log.Info($"Volume Control version {this.CurrentVersion} (Portable)");
 #       elif RELEASE_FORINSTALLER // Release-ForInstaller configuration:
             Log.Info($"Volume Control version {this.CurrentVersion} (Installed)");
 #       endif
-            Log.Info(GetWindowsVersion());
+            FLog.Info(GetWindowsVersion());
 
-            Log.Debug($"{nameof(VCSettings)} initialization completed.");
+            FLog.Debug($"{nameof(VCSettings)} initialization completed.");
         }
         #endregion Constructors
 
         #region Properties
         #region Statics
-        private static Config Settings => (Config.Default as Config)!;
-        private static LogWriter Log => FLog.Log;
+        private static Config Settings => (AppConfig.Configuration.Default as Config)!;
         #endregion Statics
         #region ReadOnlyProperties
         /// <inheritdoc/>

@@ -24,8 +24,8 @@ namespace VolumeControl.ViewModels
     {
         public AudioDeviceManagerVM()
         {
-            var doDebugLogging = Log.IsEventVisible(VolumeControl.Log.Enum.EventType.DEBUG);
-            if (doDebugLogging) Log.Debug("Started initializing CoreAudio APIs.");
+            var doDebugLogging = FLog.Log.FilterEventType(Log.Enum.EventType.DEBUG);
+            if (doDebugLogging) FLog.Debug("Started initializing CoreAudio APIs.");
 
             // # INIT DEVICES #
             // setup the device manager
@@ -47,7 +47,7 @@ namespace VolumeControl.ViewModels
             // setup the device selection manager
             AudioDeviceSelector = new(AudioDeviceManager);
 
-            if (doDebugLogging) Log.Debug($"Successfully initialized {AudioDeviceManager.Devices.Count} audio devices.");
+            if (doDebugLogging) FLog.Debug($"Successfully initialized {AudioDeviceManager.Devices.Count} audio devices.");
 
             // # INIT SESSIONS #
             // setup the session manager
@@ -100,9 +100,9 @@ namespace VolumeControl.ViewModels
             AudioSessionMultiSelector.SessionDeselected += this.AudioSessionMultiSelector_SessionDeselected;
             AudioSessionMultiSelector.CurrentSessionChanged += this.AudioSessionMultiSelector_CurrentSessionChanged;
 
-            if (doDebugLogging) Log.Debug($"Successfully initialized {AudioSessionManager.Sessions.Count + AudioSessionManager.HiddenSessions.Count} {(AudioSessionManager.HiddenSessions.Count == 0 ? "" : $"({AudioSessionManager.HiddenSessions.Count} hidden)")} audio sessions.");
+            if (doDebugLogging) FLog.Debug($"Successfully initialized {AudioSessionManager.Sessions.Count + AudioSessionManager.HiddenSessions.Count} {(AudioSessionManager.HiddenSessions.Count == 0 ? "" : $"({AudioSessionManager.HiddenSessions.Count} hidden)")} audio sessions.");
 
-            if (doDebugLogging) Log.Debug("Finished initializing CoreAudio APIs.");
+            if (doDebugLogging) FLog.Debug("Finished initializing CoreAudio APIs.");
         }
 
         #region Events
@@ -115,8 +115,7 @@ namespace VolumeControl.ViewModels
         #endregion Fields
 
         #region Properties
-        private static Config Settings => (Config.Default as Config)!;
-        private static LogWriter Log => FLog.Log;
+        private static Config Settings => (AppConfig.Configuration.Default as Config)!;
         public ObservableImmutableList<AudioDeviceVM> Devices { get; }
         public CoreAudio.AudioSessionManager AudioSessionManager { get; }
         public ObservableImmutableList<AudioSessionVM> AllSessions { get; }
@@ -163,14 +162,14 @@ namespace VolumeControl.ViewModels
         private void AudioDeviceManager_DeviceAddedToList(object? sender, AudioDevice e)
         {
             var vm = new AudioDeviceVM(e);
-            Log.Info($"Adding Audio Device: {vm.Name}");
+            FLog.Info($"Adding Audio Device: {vm.Name}");
             Dispatcher.Invoke(() => Devices.Add(vm));
             AudioSessionManager.AddSessionManager(vm.AudioDevice.SessionManager);
         }
         private void AudioDeviceManager_DeviceRemovedFromList(object? sender, AudioDevice e)
         {
             var vm = Devices.First(device => device.AudioDevice.Equals(e));
-            Log.Info($"Removing Audio Device: {vm.Name}");
+            FLog.Info($"Removing Audio Device: {vm.Name}");
             Devices.Remove(vm);
             AudioSessionManager.RemoveSessionManager(vm.AudioDevice.SessionManager);
             vm.Dispose();
@@ -191,14 +190,14 @@ namespace VolumeControl.ViewModels
         }
         private void AudioSessionManager_PreviewSessionName(object sender, PreviewSessionNameEventArgs e)
         {
-            if (e.SessionName.Equals("Idle", System.StringComparison.Ordinal))
+            if (e.SessionName.Equals("Idle", StringComparison.Ordinal))
             {
                 e.SessionName = "System Sounds";
             }
         }
         private void AudioSessionManager_PreviewSessionIsHidden(object sender, PreviewSessionIsHiddenEventArgs e)
         {
-            e.SessionIsHidden = Settings.HiddenSessionProcessNames.Any(name => e.AudioSession.HasMatchingName(name, System.StringComparison.OrdinalIgnoreCase));
+            e.SessionIsHidden = Settings.HiddenSessionProcessNames.Any(name => e.AudioSession.HasMatchingName(name, StringComparison.OrdinalIgnoreCase));
         }
         #endregion AudioSessionManager
 

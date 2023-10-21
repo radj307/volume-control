@@ -170,6 +170,10 @@ namespace VolumeControl.CoreAudio
         #endregion IAudioPeakMeter Implementation
 
         #region IDisposable Implementation
+        /// <summary>
+        /// Disposes of the audio device.
+        /// </summary>
+        ~AudioDevice() => Dispose();
         /// <inheritdoc/>
         public void Dispose()
         {

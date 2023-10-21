@@ -9,7 +9,7 @@ namespace VolumeControl.CoreAudio
     /// <remarks>
     /// <see cref="AudioDeviceSessionManager"/> instances can be retrieved from <see cref="AudioDevice.SessionManager"/>
     /// </remarks>
-    public sealed class AudioSessionManager
+    public sealed class AudioSessionManager : IDisposable
     {
         #region Constructors
         /// <summary>
@@ -534,5 +534,20 @@ namespace VolumeControl.CoreAudio
         #endregion SessionManager
 
         #endregion EventHandlers
+
+        #region IDisposable Implementation
+        /// <summary>
+        /// Disposes of all managed audio sessions.
+        /// </summary>
+        ~AudioSessionManager() => Dispose();
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Sessions.ForEach(s => s.Dispose());
+            HiddenSessions.ForEach(s => s.Dispose());
+            SessionManagers.ForEach(sm => sm.Dispose());
+            GC.SuppressFinalize(this);
+        }
+        #endregion IDisposable Implementation
     }
 }

@@ -27,7 +27,7 @@
 
         #region Methods
         internal TextReader? GetReader(FileStreamOptions open) => !this.Enabled || this.Path.Length == 0 ? null : (TextReader)new StreamReader(File.Open(this.Path, open));
-        internal TextWriter? GetWriter(FileStreamOptions open) => !this.Enabled || this.Path.Length == 0 ? null : (TextWriter)new StreamWriter(File.Open(this.Path, open)) { AutoFlush = true };
+        internal TextWriter? GetWriter(FileStreamOptions open) => !this.Enabled || this.Path.Length == 0 ? null : (TextWriter)new StreamWriter(File.Open(this.Path, open));
         /// <inheritdoc/>
         public TextReader? GetReader() => !this.Enabled || this.Path.Length == 0
                 ? null
@@ -44,7 +44,7 @@
                 return;
             using StreamWriter w = new(File.Open(this.Path, mode, FileAccess.Write, FileShare.Read)) { AutoFlush = true };
             w.Write(str);
-            w.Close();
+            w.Flush();
         }
         /// <inheritdoc/>
         public void WriteRaw(string? str) => this.WriteRaw(str, FileMode.Append);
@@ -55,7 +55,7 @@
                 return;
             using StreamWriter w = new(File.Open(this.Path, mode, FileAccess.Write, FileShare.Read)) { AutoFlush = true };
             w.WriteLine(str);
-            w.Close();
+            w.Flush();
         }
         /// <inheritdoc/>
         public void WriteRawLine(string? str) => this.WriteRawLine(str, FileMode.Append);
@@ -80,7 +80,7 @@
         {
             if (!this.Enabled || !File.Exists(this.Path))
                 return;
-            File.Open(this.Path, FileMode.Truncate, FileAccess.Write, FileShare.ReadWrite).Close();
+            File.Open(this.Path, FileMode.Truncate, FileAccess.Write, FileShare.ReadWrite).Dispose();
         }
 
         /// <inheritdoc/>

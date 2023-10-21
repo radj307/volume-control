@@ -24,7 +24,6 @@ namespace VolumeControl.WPF
         #endregion Fields
 
         #region Properties
-        private static LogWriter Log => FLog.Log;
         private List<HwndSourceHook> Hooks { get; } = new();
         /// <summary>
         /// Gets the current target handle from the hook source.
@@ -43,11 +42,11 @@ namespace VolumeControl.WPF
             if (_source != null)
             {
                 this.DetachAll();
-                Log.Debug($"{caller} is replacing the hook source '{_source.Handle}' with '{src.Handle}'");
+                FLog.Debug($"{caller} is replacing the hook source '{_source.Handle}' with '{src.Handle}'");
             }
             else
             {
-                Log.Debug($"{caller} is setting the hook source to '{src.Handle}' (Was null)");
+                FLog.Debug($"{caller} is setting the hook source to '{src.Handle}' (Was null)");
             }
 
             _source = src;
@@ -62,7 +61,7 @@ namespace VolumeControl.WPF
         {
             this.Hooks.Add(hook);
             this.Attach(hook);
-            Log.Debug($"Attached a message hook from '{caller}'.");
+            FLog.Debug($"Attached a message hook from '{caller}'.");
         }
         /// <summary>
         /// Removes a message handler.
@@ -77,11 +76,11 @@ namespace VolumeControl.WPF
                 HwndSourceHook? inst = this.Hooks[i];
                 this.Detach(inst);
                 this.Hooks.RemoveAt(i);
-                Log.Debug($"{caller} removed a message hook.");
+                FLog.Debug($"{caller} removed a message hook.");
             }
             else
             {
-                Log.Warning($"{caller} attempted to remove a message hook that doesn't exist!");
+                FLog.Warning($"{caller} attempted to remove a message hook that doesn't exist!");
             }
         }
         #endregion Methods
@@ -91,7 +90,7 @@ namespace VolumeControl.WPF
         {
             if (_source == null || _source.Handle.Equals(IntPtr.Zero))
             {
-                Log.Error($"Cannot attach {hook.Method} to a null source!");
+                FLog.Error($"Cannot attach {hook.Method} to a null source!");
             }
             else
             {
@@ -102,7 +101,7 @@ namespace VolumeControl.WPF
         {
             if (_source == null || _source.Handle.Equals(IntPtr.Zero))
             {
-                Log.Error($"Cannot detach {hook.Method} from a null source!");
+                FLog.Error($"Cannot detach {hook.Method} from a null source!");
             }
             else
             {

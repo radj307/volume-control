@@ -25,6 +25,8 @@ namespace VolumeControl.Core
         /// <remarks>The first time this is called, the <see cref="AppConfig.Configuration.Default"/> property is set to that instance; all subsequent calls do not update this property.</remarks>
         public Config(string filePath) : base(filePath)
         {
+            // NOTE: Do not use any logging methods here since it is called prior to the log being initialized.
+
             // Forward PropertyChanged events for all properties that implement INotifyPropertyChanged
             foreach (var propertyInfo in typeof(Config).GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly))
             {
@@ -51,6 +53,9 @@ namespace VolumeControl.Core
         /// </summary>
         public void ResumeAutoSave()
         {
+            if (FLog.FilterEventType(Log.Enum.EventType.TRACE))
+                FLog.Trace($"Enabled {nameof(Config)} autosave.");
+
             _autoSaveEnabled = true;
             PropertyChanged += this.HandlePropertyChanged;
         }
@@ -59,34 +64,44 @@ namespace VolumeControl.Core
         /// </summary>
         public void PauseAutoSave()
         {
+            if (FLog.FilterEventType(Log.Enum.EventType.TRACE))
+                FLog.Trace($"Disabled {nameof(Config)} autosave.");
+
             _autoSaveEnabled = false;
             PropertyChanged -= this.HandlePropertyChanged;
         }
         #endregion Methods
 
+        #region Method Overrides
+        /// <inheritdoc/>
+        public override void Save(Formatting formatting = Formatting.Indented)
+        {
+            if (FLog.FilterEventType(Log.Enum.EventType.TRACE))
+                FLog.Trace($"Saved {nameof(Config)}");
+            base.Save(formatting);
+        }
+        #endregion Method Overrides
+
         #region EventHandlers
         private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            Log.Debug($"Config property '{e.PropertyName}' was modified.");
-            this.Save();
+            if (FLog.FilterEventType(Log.Enum.EventType.TRACE))
+                FLog.Trace($"Config property '{e.PropertyName}' was modified.");
+            Save();
         }
         private void PropertyWithPropertyChangedEvents_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (!_autoSaveEnabled) return;
 
-            this.Save();
+            Save();
         }
         private void PropertyWithCollectionChangedEvents_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             if (!_autoSaveEnabled) return;
 
-            this.Save();
+            Save();
         }
         #endregion EventHandlers
-
-        #region Statics
-        private static LogWriter Log => FLog.Log;
-        #endregion Statics
 
         #region Main
         /// <summary>
@@ -361,8 +376,7 @@ namespace VolumeControl.Core
         /// Gets or sets the <see cref="Log.Enum.EventType"/> filter used for messages.<br/>
         /// See <see cref="Log.SettingsInterface.LogFilter"/>
         /// </summary>
-        /// <remarks><b>Default: <see cref="Log.Enum.EventType.ALL_EXCEPT_DEBUG"/></b></remarks>
-        public VolumeControl.Log.Enum.EventType LogFilter { get; set; } = VolumeControl.Log.Enum.EventType.ALL_EXCEPT_DEBUG;
+        public VolumeControl.Log.Enum.EventType LogFilter { get; set; } = VolumeControl.Log.Enum.EventType.INFO | VolumeControl.Log.Enum.EventType.WARN | VolumeControl.Log.Enum.EventType.ERROR | VolumeControl.Log.Enum.EventType.FATAL | VolumeControl.Log.Enum.EventType.CRITICAL;
         /// <summary>
         /// Gets or sets whether the log is cleared when the program starts.<br/>
         /// See <see cref="Log.SettingsInterface.LogClearOnInitialize"/>
@@ -370,13 +384,6 @@ namespace VolumeControl.Core
         /// <remarks><b>Default: <see langword="true"/></b></remarks>
         public bool LogClearOnInitialize { get; set; } = true;
         /// <summary>
-        /// Gets or sets the format string used for timestamps in the log.<br/>
-        /// See <see cref="Log.SettingsInterface.LogTimestampFormat"/>
-        /// </summary>
-        /// <remarks><b>Default: "HH:mm:ss:fff"</b></remarks>
-        public string LogTimestampFormat { get; set; } = "HH:mm:ss:fff";
-        /// <summary>
-        /// 
         /// See <see cref="Log.SettingsInterface.LogEnableStackTrace"/>
         /// </summary>
         /// <remarks><b>Default: <see langword="true"/></b></remarks>

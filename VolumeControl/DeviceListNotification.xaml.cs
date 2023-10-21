@@ -28,7 +28,7 @@ namespace VolumeControl
             if (Settings.DeviceListNotificationConfig.TimeoutMs <= 0)
             { // validate the timeout value before using it for the timer interval to prevent possible unhandled exception
                 int defaultValue = NotificationConfigSection.DefaultTimeoutMs;
-                Log.Error($"{nameof(DeviceListNotification)} {nameof(Settings.DeviceListNotificationConfig.TimeoutMs)} cannot be less than or equal to zero; it was reset to '{defaultValue}' in order to avoid a fatal exception.",
+                FLog.Error($"{nameof(DeviceListNotification)} {nameof(Settings.DeviceListNotificationConfig.TimeoutMs)} cannot be less than or equal to zero; it was reset to '{defaultValue}' in order to avoid a fatal exception.",
                     new ArgumentOutOfRangeException($"{nameof(Settings)}.{Settings.DeviceListNotificationConfig}.{nameof(Settings.DeviceListNotificationConfig.TimeoutMs)}", Settings.DeviceListNotificationConfig.TimeoutMs, $"The value '{Settings.DeviceListNotificationConfig.TimeoutMs}' isn't valid for property 'System.Timers.Timer.Interval'; Value is out-of-range! (Minimum: 1)"));
                 Settings.DeviceListNotificationConfig.TimeoutMs = defaultValue;
             }
@@ -46,7 +46,7 @@ namespace VolumeControl
             _timer.Elapsed += this._timer_Elapsed;
 
             // close the window when the main window closes
-            App.Current.MainWindow.Closed += (s, e) =>
+            Application.Current.MainWindow.Closed += (s, e) =>
             {
                 _allowClose = true; //< must be true for this window to be able to close
                 this.Close();
@@ -82,7 +82,6 @@ namespace VolumeControl
 
         #region Properties
         private static Config Settings => (AppConfig.Configuration.Default as Config)!;
-        private static LogWriter Log => FLog.Log;
         public VolumeControlVM VCSettings => (this.FindResource("Settings") as VolumeControlVM)!;
         private Storyboard FadeInStoryboard => (FindResource(nameof(FadeInStoryboard)) as Storyboard)!;
         private Storyboard FadeOutStoryboard => (FindResource(nameof(FadeOutStoryboard)) as Storyboard)!;

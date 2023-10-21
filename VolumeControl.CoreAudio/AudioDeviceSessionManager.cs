@@ -1,6 +1,7 @@
 ﻿using CoreAudio;
 using CoreAudio.Interfaces;
 using VolumeControl.Log;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.CoreAudio
 {
@@ -11,7 +12,7 @@ namespace VolumeControl.CoreAudio
     /// This class is highly coupled to <see cref="CoreAudio.AudioDevice"/>, and cannot be constructed externally.<br/>
     /// If you're looking for a session manager that works with multiple <see cref="CoreAudio.AudioDevice"/> instances, see <see cref="AudioSessionManager"/>.
     /// </remarks>
-    public sealed class AudioDeviceSessionManager
+    public sealed class AudioDeviceSessionManager : IDisposable
     {
         #region Constructor
         /// <summary>
@@ -51,7 +52,6 @@ namespace VolumeControl.CoreAudio
         #endregion Events
 
         #region Properties
-        private static LogWriter Log => FLog.Log;
         /// <summary>
         /// Gets the <see cref="CoreAudio.AudioDevice"/> instance that this <see cref="AudioDeviceSessionManager"/> instance is managing.
         /// </summary>
@@ -121,7 +121,7 @@ namespace VolumeControl.CoreAudio
             session.SessionDisconnected -= this.Session_SessionDisconnected;
             session.StateChanged -= this.Session_StateChanged;
 
-            Log.Debug($"{nameof(AudioSession)} '{session.ProcessName}' ({session.PID}) exited.");
+            FLog.Debug($"{nameof(AudioSession)} '{session.ProcessName}' ({session.PID}) exited.");
             // notify that a session was removed
             NotifySessionRemovedFromList(session);
             // dispose of the session
@@ -151,19 +151,33 @@ namespace VolumeControl.CoreAudio
             if (AudioSessionManager2.Sessions?.FirstOrDefault(session => session.SessionInstanceIdentifier.Equals(newSessionInstanceIdentifier, StringComparison.Ordinal)) is AudioSessionControl2 audioSessionControl)
             {
                 if (CreateAndAddSessionIfUnique(audioSessionControl) is AudioSession newAudioSession)
-                    Log.Debug($"New {nameof(AudioSession)} '{newAudioSession.ProcessName}' ({newAudioSession.PID}) created; successfully added it to the list.");
+                    FLog.Debug($"New {nameof(AudioSession)} '{newAudioSession.ProcessName}' ({newAudioSession.PID}) created; successfully added it to the list.");
                 else if (FindSessionByAudioSessionControl(audioSessionControl) is AudioSession existingSession)
                 {
-                    Log.Error($"New {nameof(AudioSession)} '{existingSession?.ProcessName}' ({existingSession?.PID}) created; but it was already in the list!");
+                    FLog.Error($"New {nameof(AudioSession)} '{existingSession?.ProcessName}' ({existingSession?.PID}) created; but it was already in the list!");
                 }
             }
             else
             {
-                Log.Error($"New {nameof(AudioSession)} created, but no new session was found!");
+                FLog.Error($"New {nameof(AudioSession)} created, but no new session was found!");
             }
         }
         #endregion AudioSessionManager
 
         #endregion EventHandlers
+
+        #region IDisposable Implementation
+        /// <summary>
+        /// Disposes of the audio device and all managed sessions.
+        /// </summary>
+        ~AudioDeviceSessionManager() => Dispose();
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            AudioDevice.Dispose();
+            Sessions.ForEach(s => s.Dispose());
+            GC.SuppressFinalize(this);
+        }
+        #endregion IDisposable Implementation
     }
 }

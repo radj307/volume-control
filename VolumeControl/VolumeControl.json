@@ -1,0 +1,126 @@
+﻿{
+  "SessionListNotificationConfig": {
+    "TimeoutMs": 3000,
+    "Enabled": true,
+    "ShowOnVolumeChanged": true,
+    "TimeoutEnabled": true,
+    "DoFadeIn": true,
+    "FadeInDuration": "00:00:00.1500000",
+    "DoFadeOut": true,
+    "FadeOutDuration": "00:00:00.7500000",
+    "Position": "1909.68,1039.6166666666668",
+    "PositionOriginCorner": "BottomRight"
+  },
+  "DeviceListNotificationConfig": {
+    "TimeoutMs": 3000,
+    "Enabled": true,
+    "ShowOnVolumeChanged": true,
+    "TimeoutEnabled": true,
+    "DoFadeIn": true,
+    "FadeInDuration": "00:00:00.1500000",
+    "DoFadeOut": true,
+    "FadeOutDuration": "00:00:00.7500000",
+    "Position": null,
+    "PositionOriginCorner": "TopLeft"
+  },
+  "LogTimestampFormat": "HH:mm:ss:fff",
+  "LanguageName": "English (US/CA)",
+  "CreateDefaultTranslationFiles": true,
+  "CustomLocalizationDirectories": [],
+  "AllowMultipleDistinctInstances": false,
+  "RunAtStartup": false,
+  "StartMinimized": false,
+  "ShowInTaskbar": true,
+  "AlwaysOnTop": false,
+  "DeleteHotkeyConfirmation": true,
+  "ShowIcons": true,
+  "CustomAddonDirectories": [],
+  "AllowTransparency": true,
+  "KeepRelativePosition": false,
+  "NotificationMoveRequiresAlt": false,
+  "NotificationSavePos": true,
+  "NotificationExtraMouseControlsEnabled": true,
+  "CheckForUpdates": true,
+  "ShowUpdatePrompt": true,
+  "Hotkeys": [
+    {
+      "Name": "Volume Up",
+      "Key": 131,
+      "Modifiers": 0,
+      "IsRegistered": true,
+      "ActionIdentifier": "Session:Volume Up",
+      "ActionSettings": null
+    },
+    {
+      "Name": "Volume Down",
+      "Key": 130,
+      "Modifiers": 0,
+      "IsRegistered": true,
+      "ActionIdentifier": "Session:Volume Down",
+      "ActionSettings": null
+    },
+    {
+      "Name": "Toggle Mute",
+      "Key": 129,
+      "Modifiers": 0,
+      "IsRegistered": true,
+      "ActionIdentifier": "Session:Toggle Mute",
+      "ActionSettings": null
+    },
+    {
+      "Name": "Next Session",
+      "Key": 48,
+      "Modifiers": 7,
+      "IsRegistered": true,
+      "ActionIdentifier": "Session:Select Next",
+      "ActionSettings": null
+    },
+    {
+      "Name": "Previous Session",
+      "Key": 60,
+      "Modifiers": 7,
+      "IsRegistered": true,
+      "ActionIdentifier": "Session:Select Previous",
+      "ActionSettings": null
+    },
+    {
+      "Name": "Un/Lock Session",
+      "Key": 62,
+      "Modifiers": 7,
+      "IsRegistered": true,
+      "ActionIdentifier": "Session:Toggle Lock",
+      "ActionSettings": null
+    },
+    {
+      "Name": "Toggle Selected",
+      "Key": 66,
+      "Modifiers": 7,
+      "IsRegistered": true,
+      "ActionIdentifier": "Session:Toggle Selected",
+      "ActionSettings": null
+    }
+  ],
+  "TargetSession": {
+    "PID": null,
+    "ProcessName": "",
+    "SessionInstanceIdentifier": ""
+  },
+  "SelectedSessions": [],
+  "LockTargetSession": false,
+  "TargetDeviceID": "{0.0.0.00000000}.{9d2749b4-7c0d-434f-955b-0187eefc59c5}",
+  "LockTargetDevice": false,
+  "VolumeStepSize": 2,
+  "PeakMeterUpdateIntervalMs": 100,
+  "ShowPeakMeters": true,
+  "EnableDeviceControl": false,
+  "HiddenSessionProcessNames": [],
+  "EnableLogging": true,
+  "LogPath": "VolumeControl.log",
+  "LogFilter": 30,
+  "LogClearOnInitialize": true,
+  "LogEnableStackTrace": true,
+  "LogEnableStackTraceLineCount": true,
+  "__VERSION__": {
+    "SemVersion": "6.1.1-rev1"
+  }
+}

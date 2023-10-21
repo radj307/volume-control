@@ -3,107 +3,152 @@ using VolumeControl.Log.Enum;
 
 namespace VolumeControl.Log
 {
-    /// <summary>Global static log manager object.</summary>
+    /// <summary>
+    /// Static logger class.
+    /// </summary>
+    /// <remarks>
+    /// The <see cref="Initialize"/> method must be called before accessing any properties, and after the settings have initialized.
+    /// </remarks>
     public static class FLog
     {
         #region Fields
-        private static LogWriter _log = null!;
-        private static SettingsInterface Settings => SettingsInterface.Default;
+        private static bool _initialized = false;
+        private static AsyncLogWriter _logWriter = null!;
         #endregion Fields
 
         #region Properties
+        private static SettingsInterface SettingsInterface => SettingsInterface.Default;
         /// <summary>
-        /// The LogWriter instance used by FLog.
+        /// Gets the <see cref="AsyncLogWriter"/> instance.
         /// </summary>
-        public static LogWriter Log
+        /// <remarks>
+        /// To preserve thread-safety, the <see cref="FileEndpoint"/> cannot be accessed through the log writer. It can be configured via the relevant setting in the Config.
+        /// </remarks>
+        public static AsyncLogWriter Log
         {
             get
             {
-                if (!Initialized)
-                    Initialize();
-                return _log;
+                if (!_initialized)
+                    throw MakeLogNotInitializedException();
+                return _logWriter;
             }
-            private set => _log = value;
         }
-        /// <summary>
-        /// Sets whether or not the log is enabled.
-        /// </summary>
-        public static bool EnableLog
+        /// <inheritdoc cref="AsyncLogWriter.IsAsyncEnabled"/>
+        public static bool IsAsyncEnabled
         {
             get
             {
-                if (!Initialized)
-                    Initialize();
-                return _log.Endpoint.Enabled;
+                if (!_initialized)
+                    throw MakeLogNotInitializedException();
+                return _logWriter.IsAsyncEnabled;
             }
-            private set
+            set
             {
-                if (!Initialized)
-                    Initialize();
-                _log.Endpoint.Enabled = value;
+                if (!_initialized)
+                    throw MakeLogNotInitializedException();
+                _logWriter.IsAsyncEnabled = value;
             }
         }
-        /// <summary>
-        /// Gets or sets the event type filter that determines which event types are allowed to be written to the log endpoint.
-        /// </summary>
-        /// <remarks><b>Messages with an <see cref="EventType"/> that isn't present in this bitflag are discarded!</b></remarks>
-        public static EventType EventFilter { get; private set; }
-        /// <summary>
-        /// Get or set the log filepath.
-        /// </summary>
-        public static string? FilePath { get; private set; }
-        /// <summary>
-        /// True when <see cref="Initialize"/> has been called, and the log is ready.
-        /// </summary>
-        public static bool Initialized { get; private set; } = false;
         #endregion Properties
 
         #region Methods
-        private static void Initialize()
+
+        #region Private
+        /// <summary>
+        /// Creates a new string that contains the log init message that appears on the first line of the log.
+        /// </summary>
+        /// <param name="verb">Displayed in the header as "Log (verb)"</param>
+        private static string MakeInitMessage(string verb)
+            => $"{AsyncLogWriter.DateTimeFormatString}{AsyncLogWriter.Indent(AsyncLogWriter.TimestampLength, AsyncLogWriter.DateTimeFormatString.Length)}{new string(' ', AsyncLogWriter.EventTypeLength)}=== Log {verb} @ {DateTime.UtcNow:U} ===  {{ Filter: {(byte)Log.EventTypeFilter} ({Log.EventTypeFilter:G}) }}";
+        private static void WriteRaw(string text)
         {
-            if (Initialized)
-                throw new Exception("Cannot call FLog.Initialize() or FLog.CustomInitialize() multiple times!");
-            Initialized = true;
-
-            // get the full filepath to the log
-            FilePath = Settings.LogPath;
-            // Set the event type filter
-            EventFilter = Settings.LogFilter;
-
-            var endpoint = new FileEndpoint(FilePath, Settings.EnableLogging);
-
-            if (endpoint.Enabled && Settings.LogClearOnInitialize)
+            lock (Log.Endpoint)
             {
-                endpoint.Reset(); //< clear the log file
-            }
-
-#           if DEBUG
-            EventFilter = EventType.ALL | EventType.TRACE;  //< show all log messages
-            endpoint.Enabled = true;                        //< force enable logging
-#           endif
-
-            CreateLog(endpoint);
-            WriteInitMessage("Initialized");
-
-            Settings.PropertyChanged += HandlePropertyChanged!;
-        }
-        private static void WriteInitMessage(string log_____) => Log.WriteLine($"{Settings.LogTimestampFormat}{new string(' ', Timestamp.LineHeaderTotalLength - Settings.LogTimestampFormat.Length)}=== Log {log_____} @ {DateTime.UtcNow:U} ===  {{ Filter: {(byte)EventFilter} ({EventFilter:G}) }}");
-        private static void CreateLog(IEndpoint endpoint) => Log = new(endpoint, EventFilter);
-        private static void HandlePropertyChanged(object sender, EventArgs e)
-        {
-            bool enabled = Log.Endpoint.Enabled;
-            if (enabled != Settings.EnableLogging || FilePath != Settings.LogPath || EventFilter != Settings.LogFilter)
-            {
-                EventFilter = Settings.LogFilter;
-                FilePath = Settings.LogPath;
-                enabled = Settings.EnableLogging;
-
-                var endpoint = new FileEndpoint(FilePath, enabled);
-
-                CreateLog(endpoint);
-                WriteInitMessage("Re-Initialized");
+                Log.Endpoint.WriteRaw(text);
             }
         }
+        private static NotInitializedException MakeLogNotInitializedException(Exception? innerException = null)
+            => new(nameof(FLog), "The log hasn't been initialized yet!", innerException);
+        #endregion Private
+
+        #region Initialize
+        /// <summary>
+        /// Initializes the log. The settings object must be created before calling this method. This method can only be called once.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">The method has already been called before.</exception>
+        /// <exception cref="NotInitializedException">The default config object hasn't been initialized yet.</exception>
+        public static void Initialize()
+        {
+            if (_initialized) // already initialized
+                throw new InvalidOperationException($"{nameof(FLog)} is already initialized! {nameof(Initialize)}() can only be called once.");
+            else if (SettingsInterface == null) // settings aren't initialized yet
+                throw new NotInitializedException(nameof(SettingsInterface), $"The default {nameof(AppConfig.Configuration)} instance must be initialized prior to calling {nameof(Initialize)}()!");
+
+            // attach property changed handler to the settings object so we can react to changes
+            SettingsInterface.PropertyChanged += SettingsInterface_PropertyChanged;
+
+            _logWriter = new(new FileEndpoint(SettingsInterface.LogPath, SettingsInterface.EnableLogging), SettingsInterface.LogFilter);
+
+            _initialized = true; //< Log is valid here
+
+            if (SettingsInterface.LogClearOnInitialize)
+            {
+                Log.ResetEndpoint(MakeInitMessage("Initialized"));
+            }
+            else WriteRaw(MakeInitMessage("Initialized"));
+        }
+        #endregion Initialize
+
+        #region AsyncLogWriter Methods
+        /// <inheritdoc cref="AsyncLogWriter.FilterEventType(EventType)"/>
+        public static bool FilterEventType(EventType eventType) => Log.FilterEventType(eventType);
+        /// <inheritdoc cref="AsyncLogWriter.Trace"/>
+        public static void Trace(params object?[] lines) => Log.LogMessage(new(EventType.TRACE, lines));
+        /// <inheritdoc cref="AsyncLogWriter.Debug(object?[])"/>
+        public static void Debug(params object?[] lines) => Log.LogMessage(new(EventType.DEBUG, lines));
+        /// <inheritdoc cref="AsyncLogWriter.Info"/>
+        public static void Info(params object?[] lines) => Log.LogMessage(new(EventType.INFO, lines));
+        /// <inheritdoc cref="AsyncLogWriter.Warning"/>
+        public static void Warning(params object?[] lines) => Log.LogMessage(new(EventType.WARN, lines));
+        /// <inheritdoc cref="AsyncLogWriter.Error(object?[])"/>
+        public static void Error(params object?[] lines) => Log.LogMessage(new(EventType.ERROR, lines));
+        /// <inheritdoc cref="AsyncLogWriter.Fatal(object?[])"/>
+        public static void Fatal(params object?[] lines) => Log.LogMessage(new(EventType.FATAL, lines));
+        /// <inheritdoc cref="AsyncLogWriter.Critical(object?[])"/>
+        public static void Critical(params object?[] lines) => Log.LogMessage(new(EventType.CRITICAL, lines));
+        /// <inheritdoc cref="AsyncLogWriter.Blank(object?[])"/>
+        public static void Blank(params object?[] lines) => Log.LogMessage(new(EventType.NONE, lines));
+        #endregion AsyncLogWriter Methods
+
         #endregion Methods
+
+        #region EventHandlers
+
+        #region SettingsInterface
+        private static void SettingsInterface_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == null || !_initialized) return;
+
+            if (e.PropertyName.Equals(nameof(SettingsInterface.EnableLogging), StringComparison.Ordinal))
+            {
+                Log.EndpointEnabled = SettingsInterface.EnableLogging;
+            }
+            else if (e.PropertyName.Equals(nameof(SettingsInterface.LogPath), StringComparison.Ordinal))
+            {
+                lock (Log.Endpoint)
+                {
+                    ((FileEndpoint)Log.Endpoint).Path = SettingsInterface.LogPath;
+                }
+            }
+            else if (e.PropertyName.Equals(nameof(SettingsInterface.LogFilter), StringComparison.Ordinal))
+            {
+                Log.EventTypeFilter = SettingsInterface.LogFilter;
+
+                WriteRaw(MakeInitMessage("Filter Changed"));
+            }
+        }
+        #endregion SettingsInterface
+
+        #endregion EventHandlers
     }
 }

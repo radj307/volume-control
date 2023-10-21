@@ -60,8 +60,8 @@ namespace VolumeControl.Log
         }
         public string LogTimestampFormat
         {
-            get => (string)Settings[nameof(this.LogTimestampFormat)]!;
-            set => Settings[nameof(this.LogTimestampFormat)] = value;
+            get => "HH:mm:ss:fff";
+            set { }
         }
         public bool LogEnableStackTrace
         {
