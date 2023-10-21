@@ -1,7 +1,5 @@
 var NAVTREEINDEX3 =
 {
-"class_volume_control_1_1_log_1_1_async_log_writer.html#ad73f47c5e247c2e655c91b9bb4e192d6":[8,0,0,3,2,7],
-"class_volume_control_1_1_log_1_1_async_log_writer.html#ad90457d0c535ef67b8a3c81501f96d04":[8,0,0,3,2,17],
 "class_volume_control_1_1_log_1_1_async_log_writer.html#afc3cbffb26f2fa01c6f87e7ea3adb4ca":[8,0,0,3,2,9],
 "class_volume_control_1_1_log_1_1_debug_utils.html":[8,0,0,3,3],
 "class_volume_control_1_1_log_1_1_debug_utils.html#a5a20bd262520d0c921161b80241e35ca":[8,0,0,3,3,0],
@@ -249,5 +247,7 @@ var NAVTREEINDEX3 =
 "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_autocomplete_behavior.html#ab9fa60253d3fb998c4ed63a792cd22f9":[8,0,0,6,1,4,3],
 "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_enter_updates_text_source_behavior.html":[8,0,0,6,1,5],
 "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_enter_updates_text_source_behavior.html#a28dacc7d92b1bf9eacb894f21c550b71":[8,0,0,6,1,5,1],
-"class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_enter_updates_text_source_behavior.html#a2aa3e95b1361d5c5e54bfe6fac51e927":[8,0,0,6,1,5,2]
+"class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_enter_updates_text_source_behavior.html#a2aa3e95b1361d5c5e54bfe6fac51e927":[8,0,0,6,1,5,2],
+"class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_enter_updates_text_source_behavior.html#a46ca22997b389f7d9fce544019ade23d":[8,0,0,6,1,5,3],
+"class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_enter_updates_text_source_behavior.html#a8739d5e7315a2b68c81440836a22d396":[8,0,0,6,1,5,4]
 };

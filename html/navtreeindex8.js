@@ -1,7 +1,5 @@
 var NAVTREEINDEX8 =
 {
-"struct_volume_control_1_1_core_1_1_structs_1_1_target_info.html#a93e0e07ff1ef2ac0bf57c9c9cc7723f3":[8,0,0,0,4,0,1],
-"struct_volume_control_1_1_core_1_1_structs_1_1_target_info.html#abf9ec05e21d228c1569b7349dc7ebda6":[8,0,0,0,4,0,0],
 "struct_volume_control_1_1_core_1_1_structs_1_1_target_info.html#acfa688da9b7778e0348dce640d48c919":[8,0,0,0,4,0,2],
 "struct_volume_control_1_1_core_1_1_structs_1_1_target_info.html#afee9a9c929feef0cc1cd05c770933f14":[8,0,0,0,4,0,4],
 "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_i_n_m_a_x_i_n_f_o.html":[8,0,0,6,7,0],

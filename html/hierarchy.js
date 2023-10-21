@@ -31,7 +31,6 @@ var hierarchy =
       [ "VolumeControl.WPF.Controls.NumericUpDown", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down.html", null ]
     ] ],
     [ "VolumeControl.Core.DataTemplateProvider", "class_volume_control_1_1_core_1_1_data_template_provider.html", [
-      [ "VolumeControl.HotkeyActions.ActionTargetSpecifierDataTemplateProvider", "class_volume_control_1_1_hotkey_actions_1_1_action_target_specifier_data_template_provider.html", null ],
       [ "VolumeControl.HotkeyActions.NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_hotkey_actions_1_1_numeric_up_down___data_template_provider.html", [
         [ "VolumeControl.HotkeyActions.VolumeLevel_NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_hotkey_actions_1_1_volume_level___numeric_up_down___data_template_provider.html", null ],
         [ "VolumeControl.HotkeyActions.VolumeStep_NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_hotkey_actions_1_1_volume_step___numeric_up_down___data_template_provider.html", null ]

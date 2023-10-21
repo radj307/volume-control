@@ -8,9 +8,9 @@
  viewBox="0.00 0.00 321.00 39.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Graphical Class Hierarchy</title>
-<!-- Node56 -->
+<!-- Node55 -->
 <g id="node1" class="node">
-<title>Node56</title>
+<title>Node55</title>
 <g id="a_node1"><a xlink:title=" ">
 <polygon fill="none" stroke="#bfbfbf" points="0,-6 0,-25 107,-25 107,-6 0,-6"/>
 <text text-anchor="middle" x="53.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">HandledEventArgs</text>
@@ -27,9 +27,9 @@
 </a>
 </g>
 </g>
-<!-- Node56&#45;&gt;Node0 -->
+<!-- Node55&#45;&gt;Node0 -->
 <g id="edge1" class="edge">
-<title>Node56&#45;&gt;Node0</title>
+<title>Node55&#45;&gt;Node0</title>
 <path fill="none" stroke="midnightblue" d="M117.47,-15.5C125.73,-15.5 134.3,-15.5 142.84,-15.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="117.19,-12 107.19,-15.5 117.19,-19 117.19,-12"/>
 </g>

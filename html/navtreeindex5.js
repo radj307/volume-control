@@ -1,7 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_brush_converter.html#aec5e39b28d4fac94fb894a3c1be5acc3":[8,0,0,6,5,2,2],
-"class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_brush_converter.html#afa19103c002d6fbc74572cf112fed532":[8,0,0,6,5,2,5],
 "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_check_visible_converter.html":[8,0,0,6,5,4],
 "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_check_visible_converter.html#a0405707f856f289b71004b7fe51576c1":[8,0,0,6,5,4,0],
 "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_check_visible_converter.html#a8a3bc337f2c3e39f0420b47c1baead27":[8,0,0,6,5,4,1],
@@ -137,8 +135,8 @@ var NAVTREEINDEX5 =
 "dir_f3fceef7ef2392cf921a36ff96ee570d.html":[9,0,6,2],
 "dir_f9538c984ad656b042c5452ce79bc4bb.html":[9,0,3,0],
 "files.html":[9,0],
-"functions.html":[8,3,0,0],
 "functions.html":[8,3,0],
+"functions.html":[8,3,0,0],
 "functions_a.html":[8,3,0,1],
 "functions_b.html":[8,3,0,2],
 "functions_c.html":[8,3,0,3],
@@ -179,8 +177,8 @@ var NAVTREEINDEX5 =
 "functions_n.html":[8,3,0,14],
 "functions_o.html":[8,3,0,15],
 "functions_p.html":[8,3,0,16],
-"functions_prop.html":[8,3,4],
 "functions_prop.html":[8,3,4,0],
+"functions_prop.html":[8,3,4],
 "functions_prop_a.html":[8,3,4,1],
 "functions_prop_b.html":[8,3,4,2],
 "functions_prop_c.html":[8,3,4,3],
@@ -249,5 +247,7 @@ var NAVTREEINDEX5 =
 "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_multi_selector.html#a0d80b0aba42a85e67a69373fb59882b7":[8,0,0,1,2,1,1],
 "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_multi_selector.html#a6afdc697a5b0e31f87fd5bc3582c13f3":[8,0,0,1,2,1,3],
 "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_multi_selector.html#ad30d83f6a69b7f5dd8c27dd67d6d5512":[8,0,0,1,2,1,2],
-"interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_multi_selector.html#ae86e6be9ada7bd505d5c9c4a8abb6d49":[8,0,0,1,2,1,0]
+"interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_multi_selector.html#ae86e6be9ada7bd505d5c9c4a8abb6d49":[8,0,0,1,2,1,0],
+"interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_peak_meter.html":[8,0,0,1,2,2],
+"interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_peak_meter.html#a0cbdf6fcbf5e4556d123ccfa42f077a5":[8,0,0,1,2,2,0]
 };
