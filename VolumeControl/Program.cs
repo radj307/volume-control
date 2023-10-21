@@ -329,8 +329,19 @@ namespace VolumeControl
         private static SemVersion GetProgramVersion()
         {
             var asm = Assembly.GetExecutingAssembly();
-            string myVersion = asm.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? string.Empty;
-            return myVersion.GetSemVer() ?? new(0);
+
+            var versionAttribute = asm.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+
+            if (versionAttribute == null)
+                throw new InvalidOperationException($"Failed to retrieve {nameof(AssemblyInformationalVersionAttribute)} from assembly {asm.FullName}!");
+
+            var versionString = versionAttribute.InformationalVersion;
+            var version = versionString.GetSemVer();
+
+            if (version == null)
+                throw new InvalidOperationException($"Failed to parse a version number from version string '{versionString}' retrieved from assembly {asm.FullName}!");
+
+            return version;
         }
         private static string GetExecutablePath() => Process.GetCurrentProcess().MainModule?.FileName is string path
                 ? path
