@@ -333,13 +333,21 @@ namespace VolumeControl
             var versionAttribute = asm.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
 
             if (versionAttribute == null)
-                throw new InvalidOperationException($"Failed to retrieve {nameof(AssemblyInformationalVersionAttribute)} from assembly {asm.FullName}!");
+            {
+                var ex = new InvalidOperationException($"Failed to retrieve {nameof(AssemblyInformationalVersionAttribute)} from assembly {asm.FullName}!");
+                FLog.Fatal(ex);
+                throw ex;
+            }
 
             var versionString = versionAttribute.InformationalVersion;
             var version = versionString.GetSemVer();
 
             if (version == null)
-                throw new InvalidOperationException($"Failed to parse a version number from version string '{versionString}' retrieved from assembly {asm.FullName}!");
+            {
+                var ex = new InvalidOperationException($"Failed to parse a version number from version string '{versionString}' retrieved from assembly {asm.FullName}!");
+                FLog.Fatal(ex);
+                throw ex;
+            }
 
             return version;
         }
