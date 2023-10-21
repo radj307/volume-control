@@ -1,0 +1,4 @@
+<map id="VolumeControl.HotkeyActions.ActionTargetSpecifierDataTemplateProvider" name="VolumeControl.HotkeyActions.ActionTargetSpecifierDataTemplateProvider">
+<area shape="rect" id="node1" title=" " alt="" coords="5,175,256,281"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_data_template_provider.html" title="Provides a DataTemplate for some hardcoded type. &#160;The Type of a derived class can be specified for th..." alt="" coords="10,5,251,127"/>
+</map>

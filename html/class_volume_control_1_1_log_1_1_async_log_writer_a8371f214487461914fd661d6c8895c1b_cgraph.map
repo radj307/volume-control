@@ -1,0 +1,5 @@
+<map id="VolumeControl.Log.AsyncLogWriter.LogMessage" name="VolumeControl.Log.AsyncLogWriter.LogMessage">
+<area shape="rect" id="node1" title="Writes the specified logMessage &#160;to the log." alt="" coords="5,5,216,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_async_log_writer.html#aa420a04f8d2d9e993547d0866758abca" title="Writes the specified message &#160;to the log endpoint." alt="" coords="264,5,475,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_async_log_writer.html#a991ed5d730c4006309027e8b98304751" title="Checks if messages with the specified eventType &#160;are shown in the log." alt="" coords="523,5,733,47"/>
+</map>

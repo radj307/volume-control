@@ -1,7 +1,7 @@
 <map id="VolumeControl.Core.Input.Actions.HotkeyActionInstance.Invoke" name="VolumeControl.Core.Input.Actions.HotkeyActionInstance.Invoke">
 <area shape="rect" id="node1" title="Invokes the method specified by the HotkeyActionDefinition" alt="" coords="5,108,268,149"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7" title="Write a formatted EventType.ERROR message to the log endpoint." alt="" coords="323,5,537,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_log_writer.html#a927e2b5b79ae2c3a0b243246bb2e5a3d" title="Determines whether the given EventType should be written to the Endpoint or not." alt="" coords="323,71,537,112"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_async_log_writer.html#a78392efd4f13ac8fb627ef5349c75eab" title="Queues writing a EventType.ERROR message with the specified lines ." alt="" coords="325,5,535,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_async_log_writer.html#a991ed5d730c4006309027e8b98304751" title="Checks if messages with the specified eventType &#160;are shown in the log." alt="" coords="325,71,535,112"/>
 <area shape="rect" id="node4" href="$class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_definition.html#ad2bd456f883ab4794fd4d81a3d92a773" title="Directly invokes the method specified by ActionMethodInfo with the specified parameters ." alt="" coords="316,137,544,193"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_log_1_1_log_writer.html#af0f88b0317ce8060aa063802c6742068" title="Write a formatted EventType.TRACE message to the log endpoint." alt="" coords="323,217,537,259"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_log_1_1_async_log_writer.html#abc333e4213798ea77274dd28ef009268" title="Queues writing a EventType.TRACE message with the specified lines ." alt="" coords="325,217,535,259"/>
 </map>

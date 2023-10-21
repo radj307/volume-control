@@ -11,7 +11,6 @@ var class_volume_control_1_1_core_audio_1_1_audio_session =
     [ "AudioSessionControl", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a65eabfffca15ba0cdf8d097c695172f7", null ],
     [ "HasCustomName", "class_volume_control_1_1_core_audio_1_1_audio_session.html#ae257d90f1f62ddc047a7eed7d5d065f4", null ],
     [ "IsHidden", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a588001904394abe8dd5da7a421d9ffb7", null ],
-    [ "Log", "class_volume_control_1_1_core_audio_1_1_audio_session.html#acf3b0015ac380f44e603e522dcf4aad7", null ],
     [ "Mute", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a547ae01091031fbcf06577ba875ee9ca", null ],
     [ "Name", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a85219eef4927bd5ba998c74c4458a75a", null ],
     [ "NativeVolume", "class_volume_control_1_1_core_audio_1_1_audio_session.html#acd2ad5bfc8e70640a22a261c5de97bd5", null ],

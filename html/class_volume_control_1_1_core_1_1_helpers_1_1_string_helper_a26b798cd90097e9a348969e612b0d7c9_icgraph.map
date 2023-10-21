@@ -1,0 +1,4 @@
+<map id="VolumeControl.Core.Helpers.StringHelper.MakeAlternatingPattern" name="VolumeControl.Core.Helpers.StringHelper.MakeAlternatingPattern">
+<area shape="rect" id="node1" title="Returns a new string containing an alternating pattern of the specified characters with the specified..." alt="" coords="276,5,535,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#aa4265bfd17b16cabf1340ddb9f7ecdef" title="Returns an alternating pattern long enough to fill the specified maxLength &#160;after subtracting the use..." alt="" coords="5,5,228,47"/>
+</map>

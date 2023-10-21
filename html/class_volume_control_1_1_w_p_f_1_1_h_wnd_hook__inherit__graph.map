@@ -1,4 +1,4 @@
 <map id="VolumeControl.WPF.HWndHook" name="VolumeControl.WPF.HWndHook">
-<area shape="rect" id="node1" title="Handles receiving windows event messages." alt="" coords="5,131,232,311"/>
+<area shape="rect" id="node1" title="Handles receiving windows event messages." alt="" coords="5,131,232,296"/>
 <area shape="rect" id="node2" title=" " alt="" coords="69,5,168,83"/>
 </map>

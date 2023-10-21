@@ -1,0 +1,5 @@
+<map id="VolumeControl.Core.Config.ResumeAutoSave" name="VolumeControl.Core.Config.ResumeAutoSave">
+<area shape="rect" id="node1" title="Resumes automatic saving of the config to disk whenever a PropertyChanged event is triggered." alt="" coords="5,35,207,76"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_f_log.html#a4dcec7039adc7659b074ba4122cea0f8" title=" " alt="" coords="255,5,473,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_f_log.html#adbdeeb85b00761bffe708833e6556492" title=" " alt="" coords="255,71,473,98"/>
+</map>

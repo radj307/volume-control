@@ -1,0 +1,4 @@
+<map id="VolumeControl.Log.ThreadedLogger.WriteLogMessage" name="VolumeControl.Log.ThreadedLogger.WriteLogMessage">
+<area shape="rect" id="node1" title="Writes the specified message &#160;to the log endpoint." alt="" coords="264,5,475,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_threaded_logger.html#a59f7bce9d38b0737460521e9084ed1f5" title="Adds the specified message &#160;to the message queue when UseAsyncQueue is true; otherwise writes the mes..." alt="" coords="5,5,216,47"/>
+</map>

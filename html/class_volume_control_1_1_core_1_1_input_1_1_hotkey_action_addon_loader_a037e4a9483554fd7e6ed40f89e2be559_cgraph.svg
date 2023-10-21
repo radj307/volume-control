@@ -38,10 +38,10 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="class_volume_control_1_1_log_1_1_log_writer.html#a09e652d1c8049b4b137d45dd2a6466a4" target="_top" xlink:title="Write a formatted EventType.DEBUG message to the log endpoint.">
-<polygon fill="none" stroke="black" points="212,-147.5 212,-177.5 373,-177.5 373,-147.5 212,-147.5"/>
-<text text-anchor="start" x="220" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.LogWriter.</text>
-<text text-anchor="middle" x="292.5" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">Debug</text>
+<g id="a_node3"><a xlink:href="class_volume_control_1_1_log_1_1_async_log_writer.html#aa1c61e979b3f9bb69784da07de4d64e0" target="_top" xlink:title="Queues writing a EventType.DEBUG message with the specified lines .">
+<polygon fill="none" stroke="black" points="213.5,-147.5 213.5,-177.5 371.5,-177.5 371.5,-147.5 213.5,-147.5"/>
+<text text-anchor="start" x="221.5" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.AsyncLog</text>
+<text text-anchor="middle" x="292.5" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">Writer.Debug</text>
 </a>
 </g>
 </g>
@@ -54,26 +54,26 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7" target="_top" xlink:title="Write a formatted EventType.ERROR message to the log endpoint.">
-<polygon fill="none" stroke="black" points="212,-98.5 212,-128.5 373,-128.5 373,-98.5 212,-98.5"/>
-<text text-anchor="start" x="220" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.LogWriter.</text>
-<text text-anchor="middle" x="292.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">Error</text>
+<g id="a_node4"><a xlink:href="class_volume_control_1_1_log_1_1_async_log_writer.html#a78392efd4f13ac8fb627ef5349c75eab" target="_top" xlink:title="Queues writing a EventType.ERROR message with the specified lines .">
+<polygon fill="none" stroke="black" points="213.5,-98.5 213.5,-128.5 371.5,-128.5 371.5,-98.5 213.5,-98.5"/>
+<text text-anchor="start" x="221.5" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.AsyncLog</text>
+<text text-anchor="middle" x="292.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">Writer.Error</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node1&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M171.06,-113.5C181.16,-113.5 191.49,-113.5 201.65,-113.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="201.74,-117 211.74,-113.5 201.74,-110 201.74,-117"/>
+<path fill="none" stroke="midnightblue" d="M171.06,-113.5C181.68,-113.5 192.56,-113.5 203.23,-113.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="203.38,-117 213.38,-113.5 203.38,-110 203.38,-117"/>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="class_volume_control_1_1_log_1_1_log_writer.html#a927e2b5b79ae2c3a0b243246bb2e5a3d" target="_top" xlink:title="Determines whether the given EventType should be written to the Endpoint or not.">
-<polygon fill="none" stroke="black" points="212,-49.5 212,-79.5 373,-79.5 373,-49.5 212,-49.5"/>
-<text text-anchor="start" x="220" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.LogWriter.</text>
-<text text-anchor="middle" x="292.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">FilterEventType</text>
+<g id="a_node5"><a xlink:href="class_volume_control_1_1_log_1_1_async_log_writer.html#a991ed5d730c4006309027e8b98304751" target="_top" xlink:title="Checks if messages with the specified eventType &#160;are shown in the log.">
+<polygon fill="none" stroke="black" points="213.5,-49.5 213.5,-79.5 371.5,-79.5 371.5,-49.5 213.5,-49.5"/>
+<text text-anchor="start" x="221.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.AsyncLog</text>
+<text text-anchor="middle" x="292.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">Writer.FilterEventType</text>
 </a>
 </g>
 </g>
@@ -86,10 +86,10 @@
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="class_volume_control_1_1_log_1_1_log_writer.html#af0f88b0317ce8060aa063802c6742068" target="_top" xlink:title="Write a formatted EventType.TRACE message to the log endpoint.">
-<polygon fill="none" stroke="black" points="212,-0.5 212,-30.5 373,-30.5 373,-0.5 212,-0.5"/>
-<text text-anchor="start" x="220" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.LogWriter.</text>
-<text text-anchor="middle" x="292.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Trace</text>
+<g id="a_node6"><a xlink:href="class_volume_control_1_1_log_1_1_async_log_writer.html#abc333e4213798ea77274dd28ef009268" target="_top" xlink:title="Queues writing a EventType.TRACE message with the specified lines .">
+<polygon fill="none" stroke="black" points="213.5,-0.5 213.5,-30.5 371.5,-30.5 371.5,-0.5 213.5,-0.5"/>
+<text text-anchor="start" x="221.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.AsyncLog</text>
+<text text-anchor="middle" x="292.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Writer.Trace</text>
 </a>
 </g>
 </g>

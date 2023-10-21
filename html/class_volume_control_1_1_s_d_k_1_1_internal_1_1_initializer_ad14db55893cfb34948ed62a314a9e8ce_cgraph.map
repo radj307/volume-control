@@ -1,4 +1,4 @@
 <map id="VolumeControl.SDK.Internal.Initializer.Initialize" name="VolumeControl.SDK.Internal.Initializer.Initialize">
 <area shape="rect" id="node1" title=" " alt="" coords="5,5,212,47"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7" title="Write a formatted EventType.ERROR message to the log endpoint." alt="" coords="260,5,475,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_async_log_writer.html#a78392efd4f13ac8fb627ef5349c75eab" title="Queues writing a EventType.ERROR message with the specified lines ." alt="" coords="260,5,471,47"/>
 </map>

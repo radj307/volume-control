@@ -11,7 +11,8 @@ var annotated_dup =
           [ "EVirtualKeyCodeExtensions", "class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions.html", "class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions" ]
         ] ],
         [ "Helpers", "namespace_volume_control_1_1_core_1_1_helpers.html", [
-          [ "GetWin32Error", "class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error.html", "class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error" ]
+          [ "GetWin32Error", "class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error.html", "class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error" ],
+          [ "StringHelper", "class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html", "class_volume_control_1_1_core_1_1_helpers_1_1_string_helper" ]
         ] ],
         [ "Input", "namespace_volume_control_1_1_core_1_1_input.html", [
           [ "Actions", "namespace_volume_control_1_1_core_1_1_input_1_1_actions.html", [
@@ -95,6 +96,7 @@ var annotated_dup =
         [ "NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_hotkey_actions_1_1_numeric_up_down___data_template_provider.html", "class_volume_control_1_1_hotkey_actions_1_1_numeric_up_down___data_template_provider" ],
         [ "VolumeStep_NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_hotkey_actions_1_1_volume_step___numeric_up_down___data_template_provider.html", "class_volume_control_1_1_hotkey_actions_1_1_volume_step___numeric_up_down___data_template_provider" ],
         [ "VolumeLevel_NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_hotkey_actions_1_1_volume_level___numeric_up_down___data_template_provider.html", "class_volume_control_1_1_hotkey_actions_1_1_volume_level___numeric_up_down___data_template_provider" ],
+        [ "ActionTargetSpecifierDataTemplateProvider", "class_volume_control_1_1_hotkey_actions_1_1_action_target_specifier_data_template_provider.html", "class_volume_control_1_1_hotkey_actions_1_1_action_target_specifier_data_template_provider" ],
         [ "AudioSessionActions", "class_volume_control_1_1_hotkey_actions_1_1_audio_session_actions.html", "class_volume_control_1_1_hotkey_actions_1_1_audio_session_actions" ],
         [ "MediaActions", "class_volume_control_1_1_hotkey_actions_1_1_media_actions.html", "class_volume_control_1_1_hotkey_actions_1_1_media_actions" ]
       ] ],
@@ -105,14 +107,16 @@ var annotated_dup =
           [ "IEndpoint", "interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html", "interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint" ],
           [ "MemoryEndpoint", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint" ]
         ] ],
-        [ "Interfaces", "namespace_volume_control_1_1_log_1_1_interfaces.html", [
-          [ "ILogWriter", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer" ],
-          [ "ITimestamp", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp.html", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp" ]
+        [ "Enum", "namespace_volume_control_1_1_log_1_1_enum.html", [
+          [ "EventTypeExtensions", "class_volume_control_1_1_log_1_1_enum_1_1_event_type_extensions.html", "class_volume_control_1_1_log_1_1_enum_1_1_event_type_extensions" ]
         ] ],
+        [ "AsyncLogWriter", "class_volume_control_1_1_log_1_1_async_log_writer.html", "class_volume_control_1_1_log_1_1_async_log_writer" ],
         [ "DebugUtils", "class_volume_control_1_1_log_1_1_debug_utils.html", "class_volume_control_1_1_log_1_1_debug_utils" ],
+        [ "ExceptionMessageHelper", "class_volume_control_1_1_log_1_1_exception_message_helper.html", "class_volume_control_1_1_log_1_1_exception_message_helper" ],
         [ "FLog", "class_volume_control_1_1_log_1_1_f_log.html", "class_volume_control_1_1_log_1_1_f_log" ],
-        [ "LogWriter", "class_volume_control_1_1_log_1_1_log_writer.html", "class_volume_control_1_1_log_1_1_log_writer" ],
-        [ "Timestamp", "class_volume_control_1_1_log_1_1_timestamp.html", "class_volume_control_1_1_log_1_1_timestamp" ]
+        [ "LogMessage", "class_volume_control_1_1_log_1_1_log_message.html", "class_volume_control_1_1_log_1_1_log_message" ],
+        [ "NotInitializedException", "class_volume_control_1_1_log_1_1_not_initialized_exception.html", "class_volume_control_1_1_log_1_1_not_initialized_exception" ],
+        [ "ThreadedLogger", "class_volume_control_1_1_log_1_1_threaded_logger.html", "class_volume_control_1_1_log_1_1_threaded_logger" ]
       ] ],
       [ "SDK", "namespace_volume_control_1_1_s_d_k.html", [
         [ "Internal", "namespace_volume_control_1_1_s_d_k_1_1_internal.html", [

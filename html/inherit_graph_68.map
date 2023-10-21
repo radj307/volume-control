@@ -1,5 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,60,140,87"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_controls_1_1_text_box_with_completion_options_1_1_committed_text_event_args.html" title="Event arguments for the CommittedTextEventHandler event type." alt="" coords="188,5,495,61"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_w_p_f_1_1_controls_1_1_text_box_with_completion_options_1_1_suggestion_clicked_event_args.html" title="Event arguments for the SuggestionClickedEventHandler event type." alt="" coords="189,85,494,141"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,13,164,39"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_multi_binding_boolean_converter.html" title="IMultiValueConverter for multiple boolean inputs that accepts and returns a list of booleans...." alt="" coords="212,5,440,47"/>
 </map>

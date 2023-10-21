@@ -1,5 +1,5 @@
 <map id="VolumeControl.WPF.HWndHook.RemoveHook" name="VolumeControl.WPF.HWndHook.RemoveHook">
-<area shape="rect" id="node1" title="Removes a message handler." alt="" coords="5,39,236,80"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#a09e652d1c8049b4b137d45dd2a6466a4" title="Write a formatted EventType.DEBUG message to the log endpoint." alt="" coords="284,5,499,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_log_writer.html#a5caf611b6e4d2cf97b6521b9b2e3f9ef" title="Write a formatted EventType.WARN message to the log endpoint." alt="" coords="284,71,499,112"/>
+<area shape="rect" id="node1" title="Removes a message handler." alt="" coords="5,23,236,65"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_f_log.html#aa25eeb75847c93ffc7ecbc4d2982d6ab" title=" " alt="" coords="289,5,516,32"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_f_log.html#a94e8675763cb9b451120d7e4fed4f9d0" title=" " alt="" coords="284,56,521,83"/>
 </map>

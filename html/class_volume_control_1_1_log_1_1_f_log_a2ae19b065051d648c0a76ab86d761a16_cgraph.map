@@ -1,0 +1,4 @@
+<map id="VolumeControl.Log.FLog.Initialize" name="VolumeControl.Log.FLog.Initialize">
+<area shape="rect" id="node1" title="Initializes the log. The settings object must be created before calling this method...." alt="" coords="5,13,245,39"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_async_log_writer.html#a9b0db8752284ac0fa32b2962935b7f7e" title="Resets the endpoint to its default state by calling IEndpoint.Reset." alt="" coords="293,5,504,47"/>
+</map>

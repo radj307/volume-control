@@ -3,6 +3,7 @@ var class_volume_control_1_1_core_audio_1_1_audio_session_manager =
     [ "AudioSessionManager", "class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a9faf566ac2546ae6d3bfd31de046f264", null ],
     [ "AudioSessionManager", "class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#aac6b1105f5d8dfe44b1d0cd65118124a", null ],
     [ "AddSessionManager", "class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a471bcb761f4a046dc496a48a136bac3b", null ],
+    [ "Dispose", "class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#ae19de0cc68afad62190cc7624c77ffbc", null ],
     [ "FindSession", "class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#aef309bffe628736c855c7f91a85b2044", null ],
     [ "FindSessionWithExactProcessIdentifier", "class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a98ea90db21f6e928b546d4c7010f878d", null ],
     [ "FindSessionWithName", "class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a002328df0dfce68e90f191d7c2b48496", null ],

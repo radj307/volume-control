@@ -1,0 +1,5 @@
+<map id="VolumeControl.Log.ThreadedLogger" name="VolumeControl.Log.ThreadedLogger">
+<area shape="rect" id="node1" title="Manages a background thread to write queued log messages. The queue can be disabled at runtime to swi..." alt="" coords="5,131,216,281"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_async_log_writer.html" title="Asynchonously writes messages to the log endpoint." alt="" coords="5,329,216,773"/>
+<area shape="rect" id="node2" title=" " alt="" coords="61,5,160,83"/>
+</map>

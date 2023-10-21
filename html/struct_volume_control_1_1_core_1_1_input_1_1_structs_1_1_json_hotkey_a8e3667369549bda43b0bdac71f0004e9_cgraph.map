@@ -1,5 +1,5 @@
 <map id="VolumeControl.Core.Input.Structs.JsonHotkey.CreateInstance&lt; THotkey &gt;" name="VolumeControl.Core.Input.Structs.JsonHotkey.CreateInstance&lt; THotkey &gt;">
 <area shape="rect" id="node1" title="Creates a new THotkey &#160;instance from this JsonHotkey struct, using the specified actionManager &#160;to re..." alt="" coords="5,31,249,87"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7" title="Write a formatted EventType.ERROR message to the log endpoint." alt="" coords="297,5,512,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_log_writer.html#a927e2b5b79ae2c3a0b243246bb2e5a3d" title="Determines whether the given EventType should be written to the Endpoint or not." alt="" coords="297,71,512,112"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_async_log_writer.html#a78392efd4f13ac8fb627ef5349c75eab" title="Queues writing a EventType.ERROR message with the specified lines ." alt="" coords="297,5,508,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_async_log_writer.html#a991ed5d730c4006309027e8b98304751" title="Checks if messages with the specified eventType &#160;are shown in the log." alt="" coords="297,71,508,112"/>
 </map>
