@@ -33,13 +33,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-ForInstaller|AnyCPU'">
     <DefineConstants>$(DefineConstants)TRACE</DefineConstants>
   </PropertyGroup>
-  <!-- VERSIONING ATTRIBUTES -->
-  <ItemGroup>
-    <AssemblyAttribute Include="AssemblyAttribute.ExtendedVersion">
-      <_Parameter1>$(ExtendedVersion)</_Parameter1>
-    </AssemblyAttribute>
-  </ItemGroup>
-  <!-- VERSIONING ATTRIBUTES -->
   <ItemGroup>
     <None Remove="Localization\de.loc.json" />
     <None Remove="Localization\en.loc.json" />
