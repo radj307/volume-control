@@ -300,7 +300,7 @@ namespace VolumeControl.CoreAudio
             }
             catch (Exception ex)
             {
-                FLog.Error($"Failed to get the Process associated with session '{ProcessIdentifier}' because of an exception:", ex);
+                FLog.Error($"Failed to get the Process associated with session '{ProcessIdentifier}' (PID: {PID}, Name: '{Name}', ProcessName: '{ProcessName}') because of an exception:", ex);
                 return null;
             }
         }
