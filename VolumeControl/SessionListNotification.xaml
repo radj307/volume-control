@@ -253,12 +253,7 @@
             </ListView>
 
             <!--  Row 1 (Controls)  -->
-            <Grid Grid.Row="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
                 <Border Grid.RowSpan="3" Background="{StaticResource WindowBorderBrush}" />
                 <ItemsControl
                     x:Name="MultiSelectionControls"
@@ -268,7 +263,6 @@
                     Visibility="{Binding AudioAPI.AudioSessionMultiSelector.HasSelectedSessions, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <Grid Visibility="{Binding IsVisible, ElementName=MultiSelectionControls, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
                     <ContentControl
-                        Grid.Row="2"
                         Margin="2,4,2,2"
                         Content="{Binding AudioAPI.CurrentSession}"
                         ContentTemplate="{StaticResource SessionControlsDataTemplate}"
