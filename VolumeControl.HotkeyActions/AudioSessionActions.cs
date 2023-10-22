@@ -1,16 +1,13 @@
 ﻿using Microsoft.Xaml.Behaviors;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using VolumeControl.Core;
 using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Input;
-using VolumeControl.Core.Input.Actions.Settings;
 using VolumeControl.CoreAudio;
 using VolumeControl.CoreAudio.Helpers;
 using VolumeControl.SDK;
 using VolumeControl.WPF.Behaviors;
-using VolumeControl.WPF.Collections;
 using VolumeControl.WPF.Controls;
 
 namespace VolumeControl.HotkeyActions
@@ -18,7 +15,7 @@ namespace VolumeControl.HotkeyActions
     #region DataTemplateProviders
     public abstract class NumericUpDown_DataTemplateProvider : DataTemplateProvider
     {
-        protected FrameworkElementFactory GetNumericUpDownFactory()
+        protected virtual FrameworkElementFactory GetNumericUpDownFactory()
         {
             var numericUpDownFactory = new FrameworkElementFactory(typeof(NumericUpDown));
 
@@ -27,7 +24,7 @@ namespace VolumeControl.HotkeyActions
             numericUpDownFactory.SetValue(FrameworkElement.MarginProperty, new Thickness(3, 1, 3, 1));
 
             // Bind NumericUpDown.Value => IActionSettingInstance.Value
-            numericUpDownFactory.SetBinding(NumericUpDown.ValueProperty, new Binding(nameof(IActionSettingInstance.Value)));
+            numericUpDownFactory.SetBinding(NumericUpDown.ValueProperty, new Binding(nameof(Core.Input.Actions.Settings.IActionSettingInstance.Value)));
 
             // Attach behaviors through the Loaded event
             numericUpDownFactory.AddHandler(FrameworkElement.LoadedEvent, new RoutedEventHandler((sender, e) =>
@@ -82,6 +79,9 @@ namespace VolumeControl.HotkeyActions
         // Target Override(s)
         private const string Setting_TargetOverride_Name = "Target Override(s)";
         private const string Setting_TargetOverride_Description = "Causes this action to only affect the specified audio sessions.";
+        // Target All Sessions
+        private const string Setting_TargetAll_Name = "Target All Sessions";
+        private const string Setting_TargetAll_Description = "Ignores the target override(s) and applies the action to all audio sessions.";
         // Select Target Override(s)
         private const string Setting_SelectTarget_Name = "Select Target Override(s)";
         private const string Setting_SelectTarget_Description = "Selects the target override sessions when the action is triggered.";
@@ -93,6 +93,11 @@ namespace VolumeControl.HotkeyActions
         // Volume Level
         private const string Setting_VolumeLevel_Name = "Volume Level";
         private const string Setting_VolumeLevel_Description = "The volume level to set the target sessions to.";
+        // Mute State
+        private const string Setting_SetMuteState_Name = "Set Mute State";
+        private const string Setting_SetMuteState_Description = "Check this to set the mute state of the target to whatever is specified by the Mute State setting.";
+        private const string Setting_MuteState_Name = "Mute State";
+        private const string Setting_MuteState_Description = "Mutes the target when checked; otherwise unmutes the target.";
         #endregion Fields
 
         #region Properties
@@ -203,40 +208,58 @@ namespace VolumeControl.HotkeyActions
         }
         [HotkeyAction(Description = "Sets the volume level of the specified session(s) to a pre-configured level.")]
         [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), Description = Setting_TargetOverride_Description)]
+        [HotkeyActionSetting(Setting_TargetAll_Name, typeof(bool), Description = Setting_TargetAll_Description)]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         [HotkeyActionSetting(Setting_VolumeLevel_Name, typeof(int), typeof(VolumeLevel_NumericUpDown_DataTemplateProvider), DefaultValue = 50, Description = Setting_VolumeLevel_Description)]
+        [HotkeyActionSetting(Setting_SetMuteState_Name, typeof(bool), Description = Setting_SetMuteState_Description)]
+        [HotkeyActionSetting(Setting_MuteState_Name, typeof(bool), Description = Setting_MuteState_Description)]
         public void SetVolume(object? sender, HotkeyActionPressedEventArgs e)
         {
             bool showNotification = false;
 
             var volumeLevel = e.GetValue<int>(Setting_VolumeLevel_Name);
+            var setMuteState = e.GetValue<bool>(Setting_SetMuteState_Name);
+            var muteState = e.GetValue<bool>(Setting_MuteState_Name);
 
-            if (e.GetValue<ActionTargetSpecifier>(Setting_TargetOverride_Name) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
+            var targetAllSessions = e.GetValue<bool>(Setting_TargetAll_Name);
+            var targetSpecifier = e.GetValue<ActionTargetSpecifier>(Setting_TargetOverride_Name);
+
+            if (targetAllSessions || targetSpecifier.Targets.Count > 0)
             { // operate on target overrides:
-                List<AudioSession> sessions = new();
-                for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
+                var selectTargets = e.GetValue<bool>(Setting_SelectTarget_Name);
+                List<AudioSession>? sessions = selectTargets ? new() : null;
+
+                foreach (var session in VCAPI.AudioSessionManager.Sessions)
                 {
-                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i]) is AudioSession session)
+                    if (targetAllSessions || targetSpecifier.Targets.Any(targetName => session.HasMatchingName(targetName, StringComparison.OrdinalIgnoreCase)))
                     {
                         session.Volume = volumeLevel;
-                        sessions.Add(session);
+                        if (setMuteState)
+                            session.Mute = muteState;
+                        sessions?.Add(session);
                         showNotification = true;
                     }
                 }
-                if (e.GetValue<bool>(Setting_SelectTarget_Name))
-                    MultiSelector.SetSelectedSessionsOrCurrentSession(sessions.ToArray());
+
+                if (selectTargets)
+                    MultiSelector.SetSelectedSessionsOrCurrentSession(sessions!.ToArray());
             }
             else if (SelectedSessions.Count > 0)
             { // operate on selected sessions:
                 for (int i = 0, max = SelectedSessions.Count; i < max; ++i)
                 {
-                    SelectedSessions[i].Volume = volumeLevel;
+                    var session = SelectedSessions[i];
+                    session.Volume = volumeLevel;
+                    if (setMuteState)
+                        session.Mute = muteState;
                     showNotification = true;
                 }
             }
             else if (CurrentSession != null)
-            {
+            { // operate on current session:
                 CurrentSession.Volume = volumeLevel;
+                if (setMuteState)
+                    CurrentSession.Mute = muteState;
                 showNotification = true;
             }
 
