@@ -110,17 +110,17 @@ namespace VolumeControl.Core.Input.Actions
         #region Methods
 
         #region CreateInstance
-        private IActionSettingInstance[] CreateDefaultActionSettings()
+        private IActionSettingInstance[] CreateActionSettingInstances()
             => ActionSettingDefinitions.Select(def => def.CreateInstance()).ToArray();
-        private IActionSettingInstance[] MergeDefaultActionSettings(IActionSettingInstance[] actionSettings)
+        private IActionSettingInstance[] CreateActionSettingInstances(IActionSettingInstance[] existingSettingInstances)
         {
             List<IActionSettingInstance> l = new();
 
-            foreach (var definition in ActionSettingDefinitions)
+            foreach (var settingDefinition in ActionSettingDefinitions)
             {
                 try
                 {
-                    l.Add(definition.CreateInstance(actionSettings.FirstOrDefault(settingInst => settingInst.Name.Equals(definition.Name, StringComparison.Ordinal))?.Value));
+                    l.Add(settingDefinition.CreateInstance(existingSettingInstances.FirstOrDefault(settingInst => settingInst.Name.Equals(settingDefinition.Name, StringComparison.Ordinal))?.Value));
                 }
                 catch (Exception ex)
                 {
@@ -136,14 +136,14 @@ namespace VolumeControl.Core.Input.Actions
         /// </summary>
         /// <returns>A new <see cref="HotkeyActionInstance"/> object.</returns>
         public HotkeyActionInstance CreateInstance()
-            => new(this, CreateDefaultActionSettings());
+            => new(this, CreateActionSettingInstances());
         /// <summary>
         /// Creates a new <see cref="HotkeyActionInstance"/> instance from this definition and the specified <paramref name="actionSettings"/>.
         /// </summary>
         /// <param name="actionSettings">The action settings to use for the action instance.</param>
         /// <returns>A new <see cref="HotkeyActionInstance"/> object with the specified <paramref name="actionSettings"/>.</returns>
         public HotkeyActionInstance CreateInstance(IActionSettingInstance[] actionSettings)
-            => new(this, MergeDefaultActionSettings(actionSettings));
+            => new(this, CreateActionSettingInstances(actionSettings));
         #endregion CreateInstance
 
         #region Invoke_Unsafe

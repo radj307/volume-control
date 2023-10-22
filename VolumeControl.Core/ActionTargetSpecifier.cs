@@ -12,7 +12,7 @@ namespace VolumeControl.Core
     {
         #region Properties
         /// <summary>
-        /// List of targets.
+        /// Gets the list of targets.
         /// </summary>
         public ObservableImmutableList<string> Targets { get; } = new();
         #endregion Properties

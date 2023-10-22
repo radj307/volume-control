@@ -48,6 +48,9 @@
         /// Gets or sets the type of this action setting.
         /// </summary>
         public Type ValueType { get; set; }
+        /// <summary>
+        /// Gets or sets the default value of this action setting.
+        /// </summary>
         public object? DefaultValue { get; set; }
         /// <summary>
         /// Gets or sets the type of <see cref="DataTemplateProvider"/> used to provide a UI editor control specific to this action setting's ValueType.<br/>
