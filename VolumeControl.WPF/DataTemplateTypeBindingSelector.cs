@@ -17,6 +17,10 @@ namespace VolumeControl.WPF
         /// </summary>
         public List<DataTemplateTypeBinding> DataTemplateTypeBindings { get; set; } = new();
         /// <summary>
+        /// Gets or sets the data template to use when no other templates are available.
+        /// </summary>
+        public DataTemplate? DefaultDataTemplate { get; set; }
+        /// <summary>
         /// Gets or sets the name of a property within the bound object to use when detecting the object type.
         /// </summary>
         public string? TargetPropertyName { get; set; }
@@ -42,7 +46,7 @@ namespace VolumeControl.WPF
 
                 if (template is not null && template.DataTemplate is not null)
                     return template.DataTemplate;
-                else throw new InvalidOperationException($"There is no {nameof(DataTemplate)} for object type '{type.FullName}'");
+                else return DefaultDataTemplate ?? throw new InvalidOperationException($"There is no {nameof(DataTemplate)} for object type '{type.FullName}', and no {nameof(DefaultDataTemplate)} was provided!");
             }
 
             return base.SelectTemplate(item, container);
