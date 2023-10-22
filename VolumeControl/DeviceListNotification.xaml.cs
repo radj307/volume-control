@@ -250,6 +250,13 @@ namespace VolumeControl
             Opacity = 1.0;
         }
         #endregion Start/Stop Fade Animations
+
+        #region ResetPosition
+        public void ResetPosition()
+        {
+            this.SetPos(new Point(SystemParameters.WorkArea.Right - this.ActualWidth - 10, SystemParameters.WorkArea.Bottom - this.ActualHeight - 10));
+        }
+        #endregion ResetPosition
         #endregion Methods
 
         #region Window Method Overrides
@@ -460,7 +467,7 @@ namespace VolumeControl
                 }
                 else
                 {
-                    this.SetPos(new(SystemParameters.WorkArea.Right - this.ActualWidth - 10, SystemParameters.WorkArea.Bottom - this.ActualHeight - 10));
+                    ResetPosition();
                 }
             }
         }

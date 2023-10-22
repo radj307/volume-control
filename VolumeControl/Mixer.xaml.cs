@@ -271,12 +271,12 @@ namespace VolumeControl
             {
                 if (appWindows[i] is SessionListNotification sessionListNotificationWindow)
                 {
-                    sessionListNotificationWindow.SetPosAtCenterPoint(cp);
+                    sessionListNotificationWindow.ResetPosition();
                     VCAPI.Default.ShowSessionListNotification();
                 }
                 else if (appWindows[i] is DeviceListNotification deviceListNotificationWindow)
                 {
-                    deviceListNotificationWindow.SetPosAtCenterPoint(cp);
+                    deviceListNotificationWindow.ResetPosition();
                     VCAPI.Default.ShowDeviceListNotification();
                 }
             }
