@@ -246,8 +246,19 @@ namespace VolumeControl
         {
             if (sender is Button b && b.CommandParameter is int hkid && HotkeyAPI.Hotkeys.FirstOrDefault(hk => hk.Hotkey.ID.Equals(hkid)) is HotkeyVM hk)
             {
-                ActionSettingsWindow settingsWindow = new(owner: this, hotkey: hk);
-                settingsWindow.ShowDialog();
+                try
+                {
+                    ActionSettingsWindow settingsWindow = new(owner: this, hotkey: hk);
+                    settingsWindow.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    FLog.Critical($"The {nameof(ActionSettingsWindow)} for hotkey {hk.Hotkey.ID} \"{hk.Hotkey.Name}\" failed due to an exception:", ex);
+
+#if DEBUG
+                    throw; //< rethrow in debug configuration
+#endif
+                }
             }
         }
         private void Handle_ResetNotificationPositionClick(object sender, RoutedEventArgs e)

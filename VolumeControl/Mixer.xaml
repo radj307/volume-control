@@ -1900,9 +1900,9 @@
                                                     Grid.Column="2"
                                                     Margin="5,2"
                                                     Padding="3,0"
-                                                    Content="Open"
-                                                    Click="Handle_OpenLogClick"
                                                     VerticalAlignment="Stretch"
+                                                    Click="Handle_OpenLogClick"
+                                                    Content="Open"
                                                     IsEnabled="{Binding IsChecked, ElementName=cbEnableLog}" />
                                             </Grid>
                                         </Grid>
