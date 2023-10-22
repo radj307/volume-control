@@ -21,6 +21,7 @@
             </conv:ConverterChain>
             <conv:ListHasItemsBooleanConverter x:Key="ListHasItemsBooleanConverter" />
             <conv:MultiBindingBooleanConverter x:Key="MultiBindingBooleanConverter" />
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -37,6 +38,16 @@
             PreviewKeyDown="FilterTextBox_PreviewKeyDown"
             SelectionBrush="{Binding TextBoxSelectionBrush}"
             Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Border Margin="2,0">
+            <TextBlock
+                x:Name="DefaultTextBlock"
+                Margin="{Binding TextBoxBorderThickness}"
+                Padding="{Binding TextBoxPadding}"
+                Foreground="{Binding DefaultTextBlockForeground}"
+                IsHitTestVisible="False"
+                Text="{Binding DefaultText}"
+                Visibility="{Binding Text.IsEmpty, Mode=OneWay, ElementName=FilterTextBox, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </Border>
         <Popup
             x:Name="OptionsPopup"
             IsOpen="{b:MultiBinding {Binding IsFocused, ElementName=FilterTextBox, Mode=OneWay},

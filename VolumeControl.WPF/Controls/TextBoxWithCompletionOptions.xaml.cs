@@ -199,6 +199,42 @@ namespace VolumeControl.WPF.Controls
         }
         #endregion TextProperty
 
+        #region DefaultTextProperty
+        /// <summary>
+        /// The <see cref="DependencyProperty"/> for <see cref="DefaultText"/>.
+        /// </summary>
+        public static readonly DependencyProperty DefaultTextProperty = DependencyProperty.Register(
+            nameof(DefaultText),
+            typeof(string),
+            typeof(TextBoxWithCompletionOptions),
+            new PropertyMetadata(string.Empty));
+        /// <summary>
+        /// Gets or sets the default text to show when the textbox is empty.
+        /// </summary>
+        public string DefaultText
+        {
+            get => (string)GetValue(DefaultTextProperty);
+            set => SetValue(DefaultTextProperty, value);
+        }
+        #endregion DefaultTextProperty
+
+        #region DefaultTextBlockForegroundProperty
+        /// <summary>
+        /// The <see cref="DependencyProperty"/> for <see cref="TextBoxForeground"/>.
+        /// </summary>
+        public static readonly DependencyProperty DefaultTextBlockForegroundProperty = DependencyProperty.Register(
+            nameof(DefaultTextBlockForeground),
+            typeof(Brush),
+            typeof(TextBoxWithCompletionOptions),
+            new PropertyMetadata(ForegroundProperty.DefaultMetadata.DefaultValue));
+        /// <inheritdoc cref="Control.Foreground"/>
+        public Brush DefaultTextBlockForeground
+        {
+            get => (Brush)GetValue(DefaultTextBlockForegroundProperty);
+            set => SetValue(DefaultTextBlockForegroundProperty, value);
+        }
+        #endregion DefaultTextBlockForegroundProperty
+
         #region StringComparisonProperty
         /// <summary>
         /// The <see cref="DependencyProperty"/> for <see cref="StringComparison"/>.
