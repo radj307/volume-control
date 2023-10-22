@@ -64,6 +64,7 @@
             <SolidColorBrush x:Key="TextBoxForeground">WhiteSmoke</SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxBackgroundDisabled">#2F2F2F</SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxSelectionBrush">#569DE5</SolidColorBrush>
+            <SolidColorBrush x:Key="TextBoxWatermarkForeground">#9A9A9A</SolidColorBrush>
 
             <!--  Data Grid Colors  -->
             <SolidColorBrush x:Key="HeaderBackgroundBrush">#222</SolidColorBrush>
@@ -162,12 +163,7 @@
                 x:Key="WatermarkTextBlockStyle"
                 BasedOn="{StaticResource TextBlockStyle}"
                 TargetType="TextBlock">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
-                        <Setter Property="Foreground" Value="LightGray" />
-                    </DataTrigger>
-                </Style.Triggers>
-                <Setter Property="Foreground" Value="#9A9A9A" />
+                <Setter Property="Foreground" Value="{StaticResource TextBoxWatermarkForeground}" />
                 <Setter Property="IsHitTestVisible" Value="False" />
             </Style>
             <!--  Rounded Mask Style  -->
@@ -858,6 +854,7 @@
             <Style x:Key="TextBoxWithCompletionOptionsStyle" TargetType="{x:Type controls:TextBoxWithCompletionOptions}">
                 <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
                 <Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
+                <Setter Property="DefaultTextBlockForeground" Value="{StaticResource TextBoxWatermarkForeground}" />
                 <Setter Property="MinWidth" Value="60" />
                 <Setter Property="TextBoxForeground" Value="{StaticResource TextBoxForeground}" />
                 <Setter Property="TextBoxBackground" Value="{StaticResource TextBoxBackground}" />

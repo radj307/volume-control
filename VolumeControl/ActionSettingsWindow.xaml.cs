@@ -5,9 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using VolumeControl.Core;
-using VolumeControl.Core.Input;
 using VolumeControl.Core.Input.Actions.Settings;
-using VolumeControl.Helpers;
+using VolumeControl.Log;
 using VolumeControl.SDK;
 using VolumeControl.TypeExtensions;
 using VolumeControl.ViewModels;
@@ -74,13 +73,11 @@ namespace VolumeControl
             var button = (Button)sender;
             var listBox = (ListBox)button.Tag;
 
-            var setting = (IActionSettingInstance)listBox.DataContext;
-
-            if (setting?.Value is not ActionTargetSpecifier list) return;
+            var specifier = (ActionTargetSpecifier)listBox.DataContext;
 
             var index = listBox.ItemContainerGenerator.IndexFromContainer((ListBoxItem)button.DataContext);
 
-            list.Targets.RemoveAt(index);
+            specifier.Targets.RemoveAt(index);
         }
         #endregion ListBoxRemoveButton
 
@@ -104,61 +101,59 @@ namespace VolumeControl
         /// </summary>
         private void AddTargetBox_SuggestionClicked(object sender, WPF.Controls.TextBoxWithCompletionOptions.SuggestionClickedEventArgs e)
         {
-            var box = (WPF.Controls.TextBoxWithCompletionOptions)sender;
-            var listBox = (ListBox)box.Tag;
+            var addTargetBox = (WPF.Controls.TextBoxWithCompletionOptions)sender;
 
-            if (((IActionSettingInstance)listBox.DataContext)?.Value is not ActionTargetSpecifier list) return;
+            var setting = (IActionSettingInstance)((ListBox)addTargetBox.Tag).DataContext;
+            var specifier = (ActionTargetSpecifier)setting.Value!;
 
-            list.Targets.Add(e.SuggestionText);
+            specifier.Targets.Add(e.SuggestionText);
         }
         /// <summary>
         /// Adds (and attempts to resolve) the committed text to the list of target overrides.
         /// </summary>
         private void AddTargetBox_CommittedText(object sender, WPF.Controls.TextBoxWithCompletionOptions.CommittedTextEventArgs e)
         {
-            var box = (WPF.Controls.TextBoxWithCompletionOptions)sender;
+            var addTargetBox = (WPF.Controls.TextBoxWithCompletionOptions)sender;
 
-            if (box.Text.Trim().Length == 0)
+            if (addTargetBox.Text.Trim().Length == 0)
             {
                 e.Handled = true;
                 return;
             }
 
-            var listBox = (ListBox)box.Tag;
+            var setting = (IActionSettingInstance)((ListBox)addTargetBox.Tag).DataContext;
+            var specifier = (ActionTargetSpecifier)setting.Value!;
 
-            if (((IActionSettingInstance)listBox.DataContext)?.Value is not ActionTargetSpecifier list) return;
-
-            if (VCAPI.Default.AudioSessionManager.FindSessionWithProcessName(box.Text, StringComparison.OrdinalIgnoreCase) is CoreAudio.AudioSession session)
+            if (VCAPI.Default.AudioSessionManager.FindSessionWithProcessName(addTargetBox.Text, StringComparison.OrdinalIgnoreCase) is CoreAudio.AudioSession session)
             {
-                list.Targets.Add(session.ProcessName);
+                specifier.Targets.Add(session.ProcessName);
             }
-            else
+            else // add whatever text was entered
             {
-                list.Targets.Add(box.Text);
+                specifier.Targets.Add(addTargetBox.Text);
             }
 
-            box.Text = string.Empty;
+            addTargetBox.Text = string.Empty;
         }
         /// <summary>
         /// Removes the last item in the list of target overrides.
         /// </summary>
         private void AddTargetBox_BackPressed(object sender, RoutedEventArgs e)
         {
-            var box = (WPF.Controls.TextBoxWithCompletionOptions)sender;
-
-            var listBox = (ListBox)box.Tag;
+            var addTargetBox = (WPF.Controls.TextBoxWithCompletionOptions)sender;
+            var listBox = (ListBox)addTargetBox.Tag;
 
             if (listBox.Items.Count == 0) return;
 
-            if (((IActionSettingInstance)listBox.DataContext)?.Value is not ActionTargetSpecifier list) return;
+            var setting = (IActionSettingInstance)listBox.DataContext;
+            var specifier = (ActionTargetSpecifier)setting.Value!;
 
-            list.Targets.RemoveAt(listBox.Items.Count - 1);//< remove the last item in the list
+            specifier.Targets.RemoveAt(listBox.Items.Count - 1);//< remove the last item in the list
         }
         #endregion AddTargetBox
 
-        #endregion EventHandlers
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        #region ResetToDefaultButton
+        private void ResetToDefaultButton_Click(object sender, RoutedEventArgs e)
         {
             if (Hotkey == null || Hotkey.Hotkey.Action == null) return;
 
@@ -186,5 +181,17 @@ namespace VolumeControl
                 }
             }
         }
+        #endregion ResetToDefaultButton
+
+        #region DataTemplateErrorTextBlock
+        private void DataTemplateErrorTextBlock_Loaded(object sender, RoutedEventArgs e)
+        {
+            var textBlock = (TextBlock)sender;
+
+            FLog.Critical($"No {nameof(DataTemplate)} was found for object type \"{textBlock.DataContext.GetType()}\"!");
+        }
+        #endregion DataTemplateErrorTextBlock
+
+        #endregion EventHandlers
     }
 }

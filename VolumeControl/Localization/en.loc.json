@@ -513,6 +513,21 @@
       }
     },
 
+    "ActionSettingsWindow": {
+      "DataTemplateErrorTextBlock": {
+        "Tooltip": {
+          "English (US/CA)": "No DataTemplate is available for this value type!"
+        }
+      },
+      "ActionTargetSpecifierDataTemplate": {
+        "AddTargetBox": {
+          "DefaultText": {
+            "English (US/CA)": "Target Name..."
+          }
+        }
+      }
+    },
+
     "Dialogs": {
       "AnotherInstanceIsRunning": {
         "MultiInstance": {
