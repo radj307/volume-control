@@ -340,19 +340,13 @@ namespace VolumeControl.Log
         #endregion Methods
 
         #region IDisposable Implementation
-        bool disposed = false;
         /// <summary>
-        /// Default finalizer.
+        /// Disposes of the endpoint &amp; thread.
         /// </summary>
-        ~AsyncLogWriter()
-        {
-            if (!disposed)
-                Dispose();
-        }
+        ~AsyncLogWriter() => Dispose();
         /// <inheritdoc/>
         public new void Dispose()
         {
-            disposed = true;
             if (Endpoint is IDisposable d)
                 d.Dispose();
             base.Dispose();
