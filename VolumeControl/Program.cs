@@ -56,6 +56,35 @@ namespace VolumeControl
             return _stopwatch.Elapsed;
         }
         /// <summary>
+        /// Profiles the specified <paramref name="action"/> and returns the average elapsed time.
+        /// </summary>
+        /// <param name="count">The number of times to profile the <paramref name="action"/>.</param>
+        /// <param name="action">A delegate containing the code to profile.</param>
+        /// <param name="preAction">An action to perform prior to the <paramref name="action"/>, or <see langword="null"/>.</param>
+        /// <param name="postAction">An action to perform after the <paramref name="action"/>, or <see langword="null"/>.</param>
+        /// <returns>The average amount of elapsed time, as a <see cref="TimeSpan"/> instance.</returns>
+        [MethodImpl(MethodImplOptions.NoOptimization | MethodImplOptions.NoInlining)]
+        public TimeSpan Profile(int count, Action action, Action? preAction = null, Action? postAction = null)
+        {
+            return new TimeSpan((long)Math.Round(ProfileAll(count, action, preAction, postAction).Select(ts => ts.Ticks).Average(), 0));
+        }
+        /// <summary>
+        /// Profiles the specified <paramref name="action"/> and returns the average elapsed time.
+        /// </summary>
+        /// <param name="count">The number of times to profile the <paramref name="action"/>.</param>
+        /// <param name="action">A delegate containing the code to profile.</param>
+        /// <param name="preAction">An action to perform prior to the <paramref name="action"/>, or <see langword="null"/>. The <see cref="int"/> parameter is the invocation counter.</param>
+        /// <param name="postAction">An action to perform after the <paramref name="action"/>, or <see langword="null"/>. The <see cref="int"/> parameter is the invocation counter.</param>
+        /// <returns>The average amount of elapsed time, as a <see cref="TimeSpan"/> instance.</returns>
+        [MethodImpl(MethodImplOptions.NoOptimization | MethodImplOptions.NoInlining)]
+        public TimeSpan Profile(int count, Action action, Action<int>? preAction, Action<int>? postAction)
+        {
+            return new TimeSpan((long)Math.Round(ProfileAll(count, action, preAction, postAction).Select(ts => ts.Ticks).Average(), 0));
+        }
+        #endregion Profile
+
+        #region ProfileAll
+        /// <summary>
         /// Profiles the specified <paramref name="action"/> and returns the elapsed times.
         /// </summary>
         /// <param name="count">The number of times to profile the <paramref name="action"/>.</param>
@@ -76,21 +105,39 @@ namespace VolumeControl
             return t;
         }
         /// <summary>
-        /// Profiles the specified <paramref name="action"/> and returns the average elapsed time.
+        /// Profiles the specified <paramref name="action"/> and returns the elapsed times.
         /// </summary>
         /// <param name="count">The number of times to profile the <paramref name="action"/>.</param>
         /// <param name="action">A delegate containing the code to profile.</param>
-        /// <returns>The average amount of elapsed time, as a <see cref="TimeSpan"/> instance.</returns>
+        /// <param name="preAction">An action to perform prior to the <paramref name="action"/>, or <see langword="null"/>. The <see cref="int"/> parameter is the invocation counter.</param>
+        /// <param name="postAction">An action to perform after the <paramref name="action"/>, or <see langword="null"/>. The <see cref="int"/> parameter is the invocation counter.</param>
+        /// <returns>An array of <see cref="TimeSpan"/> instances containing the elapsed time of each run.</returns>
         [MethodImpl(MethodImplOptions.NoOptimization | MethodImplOptions.NoInlining)]
-        public TimeSpan Profile(int count, Action action, Action? preAction = null, Action? postAction = null)
+        public TimeSpan[] ProfileAll(int count, Action action, Action<int>? preAction, Action<int>? postAction)
         {
-            return new TimeSpan((long)Math.Round(ProfileAll(count, action, preAction, postAction).Select(ts => ts.Ticks).Average(), 0));
+            TimeSpan[] t = new TimeSpan[count];
+
+            for (int i = 0; i < count; ++i)
+            {
+                preAction?.Invoke(i);
+
+                t[i] = Profile(action);
+
+                postAction?.Invoke(i);
+            }
+
+            return t;
         }
+        #endregion ProfileAll
+
+        #region ProfileTicks
         /// <summary>
         /// Profiles the specified <paramref name="action"/> and returns the average elapsed time in ticks.
         /// </summary>
         /// <param name="count">The number of times to profile the <paramref name="action"/>.</param>
         /// <param name="action">A delegate containing the code to profile.</param>
+        /// <param name="preAction">An action to perform prior to the <paramref name="action"/>, or <see langword="null"/>.</param>
+        /// <param name="postAction">An action to perform after the <paramref name="action"/>, or <see langword="null"/>.</param>
         /// <returns>The average elapsed time, measured in ticks.</returns>
         [MethodImpl(MethodImplOptions.NoOptimization | MethodImplOptions.NoInlining)]
         public double ProfileTicks(int count, Action action, Action? preAction = null, Action? postAction = null)
@@ -98,10 +145,28 @@ namespace VolumeControl
             return ProfileAll(count, action, preAction, postAction).Select(ts => ts.Ticks).Average();
         }
         /// <summary>
+        /// Profiles the specified <paramref name="action"/> and returns the average elapsed time in ticks.
+        /// </summary>
+        /// <param name="count">The number of times to profile the <paramref name="action"/>.</param>
+        /// <param name="action">A delegate containing the code to profile.</param>
+        /// <param name="preAction">An action to perform prior to the <paramref name="action"/>, or <see langword="null"/>. The <see cref="int"/> parameter is the invocation counter.</param>
+        /// <param name="postAction">An action to perform after the <paramref name="action"/>, or <see langword="null"/>. The <see cref="int"/> parameter is the invocation counter.</param>
+        /// <returns>The average elapsed time, measured in ticks.</returns>
+        [MethodImpl(MethodImplOptions.NoOptimization | MethodImplOptions.NoInlining)]
+        public double ProfileTicks(int count, Action action, Action<int>? preAction, Action<int>? postAction)
+        {
+            return ProfileAll(count, action, preAction, postAction).Select(ts => ts.Ticks).Average();
+        }
+        #endregion ProfileTicks
+
+        #region ProfileMicroseconds
+        /// <summary>
         /// Profiles the specified <paramref name="action"/> and returns the average elapsed time in microseconds.
         /// </summary>
         /// <param name="count">The number of times to profile the <paramref name="action"/>.</param>
         /// <param name="action">A delegate containing the code to profile.</param>
+        /// <param name="preAction">An action to perform prior to the <paramref name="action"/>, or <see langword="null"/>.</param>
+        /// <param name="postAction">An action to perform after the <paramref name="action"/>, or <see langword="null"/>.</param>
         /// <returns>The average elapsed time, measured in microseconds.</returns>
         [MethodImpl(MethodImplOptions.NoOptimization | MethodImplOptions.NoInlining)]
         public double ProfileMicroseconds(int count, Action action, Action? preAction = null, Action? postAction = null)
@@ -109,7 +174,21 @@ namespace VolumeControl
             double avgTicks = ProfileTicks(count, action, preAction, postAction);
             return (avgTicks / Stopwatch.Frequency) * 1000000;
         }
-        #endregion Profile
+        /// <summary>
+        /// Profiles the specified <paramref name="action"/> and returns the average elapsed time in microseconds.
+        /// </summary>
+        /// <param name="count">The number of times to profile the <paramref name="action"/>.</param>
+        /// <param name="action">A delegate containing the code to profile.</param>
+        /// <param name="preAction">An action to perform prior to the <paramref name="action"/>, or <see langword="null"/>. The <see cref="int"/> parameter is the invocation counter.</param>
+        /// <param name="postAction">An action to perform after the <paramref name="action"/>, or <see langword="null"/>. The <see cref="int"/> parameter is the invocation counter.</param>
+        /// <returns>The average elapsed time, measured in microseconds.</returns>
+        [MethodImpl(MethodImplOptions.NoOptimization | MethodImplOptions.NoInlining)]
+        public double ProfileMicroseconds(int count, Action action, Action<int>? preAction, Action<int>? postAction)
+        {
+            double avgTicks = ProfileTicks(count, action, preAction, postAction);
+            return (avgTicks / Stopwatch.Frequency) * 1000000;
+        }
+        #endregion ProfileMicroseconds
 
         #region IndexOfFastestValue
         /// <summary>
@@ -203,40 +282,16 @@ namespace VolumeControl
                 changedWorkingDirectory = true;
             }
 
+            // Initialize the config
 #if RELEASE_FORINSTALLER // use the application's AppData directory for the config file
             Settings = new(Path.Combine(PathFinder.ApplicationAppDataPath, "VolumeControl.json"))
             {
                 LogPath = Path.Combine(PathFinder.ApplicationAppDataPath, "VolumeControl.log"),
             };
-            Settings.Load();
 #else
             Settings = new("VolumeControl.json");
+#endif
             Settings.Load();
-#endif
-
-            // initialize the log
-            FLog.Initialize();
-
-#if DEBUG
-            // show all log message types in debug mode
-            FLog.Log.EventTypeFilter = EventType.DEBUG | EventType.INFO | EventType.WARN | EventType.ERROR | EventType.FATAL | EventType.TRACE;
-#endif
-
-            // Get program information:
-            SemVersion version = GetProgramVersion();
-            int versionCompare = version.CompareSortOrderTo(Settings.__VERSION__);
-            bool doUpdate = !versionCompare.Equals(0);
-
-            // Check commandline arguments:  
-            bool overwriteLanguageConfigs = args.Any(arg => arg.Equals("--overwrite-language-configs", StringComparison.Ordinal));
-            bool waitForMutex = args.Any(arg => arg.Equals("--wait-for-mutex", StringComparison.Ordinal));
-#if DEBUG
-            overwriteLanguageConfigs = true; //< always overwrite language configs in DEBUG configuration
-#endif
-
-            // initialize locale helper
-            //  overwrite language configs when the version number changed or when specified on the commandline
-            LocalizationHelper locale = new(overwriteDefaultLangConfigs: doUpdate || overwriteLanguageConfigs);
 
             // Multi instance gate
             string mutexId = appMutexIdentifier;
@@ -245,22 +300,40 @@ namespace VolumeControl
                 mutexId += ':' + HashFilePath(Settings.Location);
 
             // Acquire mutex lock
-            bool isNewInstance = false;
-            appMutex = new Mutex(true, mutexId, out isNewInstance);
-
+            appMutex = new Mutex(true, mutexId, out bool isNewInstance);
             if (!isNewInstance) // Check if we acquired the mutex lock
-            {
-                if (waitForMutex)
+            { // another instance is running:
+                if (args.Any(arg => arg.Equals("--wait-for-mutex", StringComparison.Ordinal)))
                 {
                     _ = appMutex.WaitOne(); //< wait until the mutex is acquired
                 }
                 else
                 {
-                    FLog.Fatal($"Failed to acquire a mutex lock using identifier '{mutexId}'; ", Settings.AllowMultipleDistinctInstances ? $"another instance of Volume Control is using the config located at '{Settings.Location}'" : "another instance of Volume Control is already running!");
                     MessageBox.Show(Loc.Tr($"VolumeControl.Dialogs.AnotherInstanceIsRunning.{(Settings.AllowMultipleDistinctInstances ? "MultiInstance" : "SingleInstance")}", "Another instance of Volume Control is already running!").Replace("${PATH}", Settings.Location));
                     return;
                 }
             }
+
+            // Initialize the log
+            FLog.Initialize();
+#if DEBUG
+            // show all log message types in debug mode
+            FLog.Log.EventTypeFilter = EventType.DEBUG | EventType.INFO | EventType.WARN | EventType.ERROR | EventType.FATAL | EventType.TRACE;
+#endif
+
+            // Get program information:
+            SemVersion version = GetProgramVersion();
+            int versionCompare = version.CompareSortOrderTo(Settings.__VERSION__);
+            bool versionChanged = !versionCompare.Equals(0);
+
+            bool overwriteLanguageConfigs = args.Any(arg => arg.Equals("--overwrite-language-configs", StringComparison.Ordinal));
+#if DEBUG
+            overwriteLanguageConfigs = true; //< always overwrite language configs in DEBUG configuration
+#endif
+
+            // Initialize locale helper
+            //  overwrite language configs when the version number changed or when specified on the commandline
+            LocalizationHelper locale = new(overwriteDefaultLangConfigs: versionChanged || overwriteLanguageConfigs);
 
             if (changedWorkingDirectory)
             { // write a log message about changing the working directory
@@ -275,13 +348,13 @@ namespace VolumeControl
                 }
             }
 
-            // Update the Settings' version number
-            if (doUpdate)
+            // Update the version number in the config
+            if (versionChanged)
             {
-                FLog.Info($"The version number in the settings file was {Settings.__VERSION__}, settings will be {(versionCompare.Equals(1) ? "upgraded" : "downgraded")} to {version}.");
+                FLog.Info($"Config version is {Settings.__VERSION__}, settings will be migrated to version {version}.");
             }
 #if DEBUG
-            doUpdate = true;
+            versionChanged = true;
 #endif
             // update the version number in the config
             Settings.__VERSION__ = version;
@@ -310,6 +383,7 @@ namespace VolumeControl
             GC.WaitForPendingFinalizers();
 
             Settings.Save();
+            FLog.Log.Flush(); //< wait for log messages to finish being written
             FLog.Log.Dispose();
             appMutex.ReleaseMutex();
             appMutex.Dispose();
