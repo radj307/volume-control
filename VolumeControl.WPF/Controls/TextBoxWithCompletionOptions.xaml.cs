@@ -368,14 +368,6 @@ namespace VolumeControl.WPF.Controls
         {
             switch (e.Key)
             {
-            case Key.Back:
-                if (FilterTextBox.Text.Length > 0) break;
-
-                if (!Keyboard.Modifiers.Equals(BackPressedRequiredModifierKeys)) break;
-
-                NotifyBackPressed();
-                e.Handled = true;
-                break;
             case Key.Enter:
                 NotifyCommittedText(FilterTextBox.Text);
                 break;
@@ -473,6 +465,16 @@ namespace VolumeControl.WPF.Controls
                     FilterTextBox.Text = (string)OptionsListView.SelectedItem;
                     FilterTextBox.SelectionStart = FilterTextBox.Text.Length;
                     //< Do not set handled here, we want the KeyUp event to fire!
+                    break;
+                }
+            case Key.Back:
+                { // delete the most recent item when there is no text entered
+                    if (FilterTextBox.Text.Length > 0) break;
+
+                    if (!Keyboard.Modifiers.Equals(BackPressedRequiredModifierKeys)) break;
+
+                    NotifyBackPressed();
+                    e.Handled = true;
                     break;
                 }
             case Key.Escape:
