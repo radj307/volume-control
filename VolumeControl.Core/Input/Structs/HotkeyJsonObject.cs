@@ -75,8 +75,8 @@ namespace VolumeControl.Core.Input.Structs
                     }
                     else
                     {
-                        if (FLog.Log.FilterEventType(Log.Enum.EventType.ERROR))
-                            FLog.Log.Error($"Couldn't find an action with identifier \"{ActionIdentifier}\"!");
+                        if (FLog.FilterEventType(Log.Enum.EventType.ERROR))
+                            FLog.Error($"Couldn't find an action with identifier \"{ActionIdentifier}\"!");
                     }
                 }
                 return hotkey;
@@ -105,17 +105,32 @@ namespace VolumeControl.Core.Input.Structs
 
                 if (settingDefinition == null)
                 {
-                    if (FLog.Log.FilterEventType(Log.Enum.EventType.WARN))
-                        FLog.Log.Warning($"There is no action setting definition associated with JSON key '{name}'.");
+                    if (FLog.FilterEventType(Log.Enum.EventType.WARN))
+                        FLog.Warning($"There is no action setting definition associated with JSON key '{name}' for action \"{actionDefinition.Identifier}\".");
                     continue;
                 }
 
-                var settingInstance = settingDefinition.CreateInstance(value);
+                IActionSettingInstance? settingInstance;
+
+                try
+                {
+                    settingInstance = settingDefinition.CreateInstance(value);
+                }
+                catch (Exception ex)
+                {
+                    if (FLog.FilterEventType(Log.Enum.EventType.ERROR))
+                        FLog.Error($"An exception occurred while creating action setting \"{name}\" with value \"{value}\" for action \"{actionDefinition.Identifier}\":", ex);
+#if DEBUG
+                    throw; //< rethrow exception in DEBUG configuration
+#else
+                    continue;
+#endif
+                }
 
                 if (settingInstance == null)
                 {
-                    if (FLog.Log.FilterEventType(Log.Enum.EventType.ERROR))
-                        FLog.Log.Error($"Failed to create an instance of action setting \"{name}\" with value \"{value}\"!");
+                    if (FLog.FilterEventType(Log.Enum.EventType.ERROR))
+                        FLog.Error($"An unknown error occurred while creating action setting \"{name}\" with value \"{value}\" for action \"{actionDefinition.Identifier}\"!");
                     continue;
                 }
 
