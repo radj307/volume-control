@@ -94,6 +94,7 @@ namespace VolumeControl.ViewModels
             var vm = new HotkeyVM((HotkeyWithError)e);
             vm.Hotkey.PropertyChanged += this.Hotkey_PropertyChanged;
             Hotkeys.Add(vm);
+            NotifyPropertyChanged(nameof(AllSelected));
         }
         private void HotkeyManager_RemovedHotkey(object? sender, Hotkey e)
         {
@@ -104,6 +105,7 @@ namespace VolumeControl.ViewModels
                 Hotkeys.Remove(vm);
                 SaveHotkeys();
             }
+            NotifyPropertyChanged(nameof(AllSelected));
         }
         #endregion HotkeyManager
 

@@ -178,7 +178,10 @@ namespace VolumeControl.ViewModels
 
         #region AudioSessionManager
         private void AudioSessionManager_AddedSessionToList(object? sender, AudioSession e)
-            => Dispatcher.Invoke(() => AllSessions.Add(new AudioSessionVM(this, e)));
+        {
+            Dispatcher.Invoke(() => AllSessions.Add(new AudioSessionVM(this, e)));
+            NotifyPropertyChanged(nameof(AllSessionsSelected));
+        }
         private void AudioSessionManager_RemovedSessionFromList(object? sender, AudioSession e)
         {
             // check if the vm actually exists to prevent possible exception in rare cases
@@ -187,6 +190,7 @@ namespace VolumeControl.ViewModels
                 AllSessions.Remove(vm);
                 vm.Dispose();
             }
+            NotifyPropertyChanged(nameof(AllSessionsSelected));
         }
         private void AudioSessionManager_PreviewSessionName(object sender, PreviewSessionNameEventArgs e)
         {
