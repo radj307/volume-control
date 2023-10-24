@@ -41,12 +41,12 @@ namespace VolumeControl.SDK.Internal
             _initialized = true;
 
             return VCAPI.Default = new(
-                audioDeviceManager, 
-                audioDeviceSelector, 
+                audioDeviceManager,
+                audioDeviceSelector,
                 audioSessionManager,
-                audioSessionMultiSelector, 
-                mgr, 
-                mainWindowHWnd, 
+                audioSessionMultiSelector,
+                mgr,
+                mainWindowHWnd,
                 settings);
         }
     }

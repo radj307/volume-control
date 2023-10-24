@@ -73,27 +73,14 @@ namespace VolumeControl
             var button = (Button)sender;
             var listBox = (ListBox)button.Tag;
 
-            var specifier = (ActionTargetSpecifier)listBox.DataContext;
+            var setting = (IActionSettingInstance)listBox.DataContext;
+            var specifier = (ActionTargetSpecifier)setting.Value!;
 
             var index = listBox.ItemContainerGenerator.IndexFromContainer((ListBoxItem)button.DataContext);
 
             specifier.Targets.RemoveAt(index);
         }
         #endregion ListBoxRemoveButton
-
-        #region ApplicationCommands
-        /// <summary>
-        /// Closes the window when ESC is pressed.
-        /// </summary>
-        private void ApplicationCommands_Close_Executed(object sender, ExecutedRoutedEventArgs e) => Close();
-        #endregion ApplicationCommands
-
-        #region CloseWindowButton
-        /// <summary>
-        /// Closes the window.
-        /// </summary>
-        private void CloseWindowButton_Click(object sender, RoutedEventArgs e) => Close();
-        #endregion CloseWindowButton
 
         #region AddTargetBox
         /// <summary>
@@ -151,6 +138,20 @@ namespace VolumeControl
             specifier.Targets.RemoveAt(listBox.Items.Count - 1);//< remove the last item in the list
         }
         #endregion AddTargetBox
+
+        #region ApplicationCommands
+        /// <summary>
+        /// Closes the window when ESC is pressed.
+        /// </summary>
+        private void ApplicationCommands_Close_Executed(object sender, ExecutedRoutedEventArgs e) => Close();
+        #endregion ApplicationCommands
+
+        #region CloseWindowButton
+        /// <summary>
+        /// Closes the window.
+        /// </summary>
+        private void CloseWindowButton_Click(object sender, RoutedEventArgs e) => Close();
+        #endregion CloseWindowButton
 
         #region ResetToDefaultButton
         private void ResetToDefaultButton_Click(object sender, RoutedEventArgs e)

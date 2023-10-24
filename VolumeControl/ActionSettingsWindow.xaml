@@ -340,15 +340,32 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
                                 <!--  Value  -->
-                                <DataGridTemplateColumn x:Name="ExplicitDataTemplateValueColumn" IsReadOnly="True">
+                                <DataGridTemplateColumn IsReadOnly="True">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border ToolTip="{Binding Description}">
-                                                <ContentControl
-                                                    x:Name="ContentControl"
-                                                    Margin="5,3"
-                                                    Content="{Binding}"
-                                                    IsTabStop="False" />
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <CheckBox
+                                                        Margin="5,3"
+                                                        Content="{Tr 'VolumeControl.ActionSettingsWindow.ToggleActionSetting.Content',
+                                                                     DefaultText='Enable'}"
+                                                        IsChecked="{Binding IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        ToolTip="{Tr 'VolumeControl.ActionSettingsWindow.ToggleActionSetting.Tooltip',
+                                                                     DefaultText='This action setting is enabled when checked.'}"
+                                                        Visibility="{Binding IsToggleable, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                                    <ContentControl
+                                                        x:Name="ContentControl"
+                                                        Grid.Column="1"
+                                                        Margin="5,3"
+                                                        Content="{Binding}"
+                                                        IsEnabled="{Binding IsEnabled}"
+                                                        IsTabStop="False" />
+                                                </Grid>
                                             </Border>
                                             <DataTemplate.Triggers>
                                                 <!--  Use Provided DataTemplate  -->

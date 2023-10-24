@@ -37,7 +37,7 @@ namespace VolumeControl.Core.Input
             if (parameters.Length == 0)
             {
                 FLog.Log.Error($"[ActionMethodValidator] {method.GetFullName()} is invalid because it doesn't have enough parameters.",
-                    $"  Expected:  object? sender, {typeof(HotkeyActionPressedEventArgs).Name} e");
+                    $"  Expected:  object? sender, {typeof(HotkeyPressedEventArgs).Name} e");
                 state = EMethodValidationState.Error;
             }
             // PARAMETER 0 "sender"
@@ -63,10 +63,10 @@ namespace VolumeControl.Core.Input
             {
                 var param = parameters[1];
                 var paramType = param.ParameterType;
-                if (paramType != typeof(HotkeyActionPressedEventArgs) && paramType != typeof(System.ComponentModel.HandledEventArgs) && paramType != typeof(EventArgs))
+                if (paramType != typeof(HotkeyPressedEventArgs) && paramType != typeof(System.ComponentModel.HandledEventArgs) && paramType != typeof(EventArgs))
                 {
                     FLog.Log.Error($"[ActionMethodValidator] {method.GetFullName()} is invalid because parameter 1 is incorrect. (Invalid Type)",
-                        $"  Expected:  {typeof(HotkeyActionPressedEventArgs).FullName} e",
+                        $"  Expected:  {typeof(HotkeyPressedEventArgs).FullName} e",
                         $"  Actual:    {paramType.FullName} {param.Name}");
                     state = EMethodValidationState.Error;
                 }
@@ -74,13 +74,13 @@ namespace VolumeControl.Core.Input
             else
             {
                 FLog.Log.Error($"[ActionMethodValidator] {method.GetFullName()} is invalid because parameter 1 is missing.",
-                    $"  Expected:  {typeof(HotkeyActionPressedEventArgs).FullName} e");
+                    $"  Expected:  {typeof(HotkeyPressedEventArgs).FullName} e");
             }
             // EXTRA PARAMETERS
             if (parameters.Length > 2)
             {
                 FLog.Log.Error($"[ActionMethodValidator] {method.GetFullName()} is invalid because it has too many parameters.",
-                    $"Expected:  {method.Name}(object? sender, {typeof(HotkeyActionPressedEventArgs).Name} e)",
+                    $"Expected:  {method.Name}(object? sender, {typeof(HotkeyPressedEventArgs).Name} e)",
                     $"Actual:    {method.GetFullName()}");
             }
 
@@ -89,6 +89,9 @@ namespace VolumeControl.Core.Input
         #endregion ValidateMethodIsEligibleAsAction
 
         #region GetFullName
+        /// <summary>
+        /// Defines the components of a method name.
+        /// </summary>
         [Flags]
         public enum MethodNamePart
         {
@@ -133,6 +136,12 @@ namespace VolumeControl.Core.Input
             /// </summary>
             ReturnType = NonVoidReturnType | VoidReturnType,
         }
+        /// <summary>
+        /// Gets the name of the method with the specified <paramref name="includedNameComponents"/>.
+        /// </summary>
+        /// <param name="method">(implicit) The <see cref="MethodInfo"/> object of the method to get the name of.</param>
+        /// <param name="includedNameComponents">The parts of the method name to include.</param>
+        /// <returns>The name of the <paramref name="method"/> with the <paramref name="includedNameComponents"/> shown.</returns>
         public static string GetFullName(this MethodInfo method, MethodNamePart includedNameComponents)
         {
             string fullName = string.Empty;
@@ -209,6 +218,11 @@ namespace VolumeControl.Core.Input
 
             return fullName;
         }
+        /// <summary>
+        /// Gets the name of the method.
+        /// </summary>
+        /// <param name="method">(implicit) The <see cref="MethodInfo"/> object of the method to get the name of.</param>
+        /// <returns>The full name of the <paramref name="method"/>, including the full declaring typename, generic parameters, parameters, and return type (if not <see cref="void"/>).</returns>
         public static string GetFullName(this MethodInfo method)
             => GetFullName(method, MethodNamePart.FullDeclaringTypeName | MethodNamePart.GenericParameters | MethodNamePart.Parameters | MethodNamePart.NonVoidReturnType);
         #endregion GetFullName

@@ -65,7 +65,7 @@ namespace VolumeControl.Core.Input
         /// <summary>
         /// Occurs when the hotkey combination was pressed.
         /// </summary>
-        event HotkeyActionPressedEventHandler? Pressed;
+        event HotkeyPressedEventHandler? Pressed;
         #endregion Events
     }
 }

@@ -179,8 +179,8 @@ namespace VolumeControl.Core.Input
         /// <summary>
         /// Occurs when the hotkey was pressed, after the Action has been triggered.
         /// </summary>
-        public event HotkeyActionPressedEventHandler? Pressed;
-        private void NotifyPressed(object? sender, HotkeyActionPressedEventArgs e) => Pressed?.Invoke(sender, e);
+        public event HotkeyPressedEventHandler? Pressed;
+        private void NotifyPressed(object? sender, HotkeyPressedEventArgs e) => Pressed?.Invoke(sender, e);
         /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
         /// <summary>
@@ -245,7 +245,7 @@ namespace VolumeControl.Core.Input
                 {
                     if (!IsRegistered) break;
 
-                    HotkeyActionPressedEventArgs eventArgs = Action != null ? new(Action.ActionSettings) : new();
+                    HotkeyPressedEventArgs eventArgs = Action != null ? new(Action.ActionSettings) : new();
                     Action?.Invoke(this, eventArgs);
                     NotifyPressed(this, eventArgs);
                     handled = true;

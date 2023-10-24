@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 using VolumeControl.Core.Input.Enums;
-using VolumeControl.Core.Input.Structs;
+using VolumeControl.Core.Input.Json;
 using VolumeControl.Core.Structs;
 using VolumeControl.Log;
 using VolumeControl.WPF.Collections;

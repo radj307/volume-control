@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Windows;
 using VolumeControl.Core.Attributes;
+using VolumeControl.Core.Input.Exceptions;
 using VolumeControl.Log;
 
 namespace VolumeControl.Core.Input.Actions.Settings
@@ -22,12 +23,25 @@ namespace VolumeControl.Core.Input.Actions.Settings
         /// <param name="defaultValue">The default value of the action setting.</param>
         /// <param name="dataTemplateProviderType">The type of WPF DataTemplate to use for displaying the action setting's value editor control.</param>
         /// <param name="description">The description of the action setting.</param>
-        internal ActionSettingDefinition(string name, Type valueType, object? defaultValue, Type? dataTemplateProviderType, string? description)
+        /// <param name="isToggleable">Whether the action setting can be toggled.</param>
+        /// <param name="startsEnabled">Whether the action setting is enabled by default. Has no effect when IsToggleable is <see langword="false"/>.</param>
+        internal ActionSettingDefinition(string name, Type valueType, object? defaultValue, Type? dataTemplateProviderType, string? description, bool isToggleable, bool startsEnabled)
         {
             Name = name;
             Description = description;
             ValueType = valueType;
-            DefaultValue = defaultValue;
+            IsToggleable = isToggleable;
+            StartsEnabled = startsEnabled;
+
+            if (defaultValue?.GetType() is Type defaultValueType && !valueType.IsAssignableFrom(defaultValueType))
+            {
+                var invalidTypeException = new InvalidActionSettingValueTypeException(defaultValueType, valueType, $"The default value of action setting \"{name}\" is an invalid type! Expected a value of type \"{valueType}\", received \"{defaultValue}\" with type \"{defaultValueType}\".");
+                FLog.Error(invalidTypeException);
+#if DEBUG
+                throw invalidTypeException;
+#endif
+            }
+            else DefaultValue = defaultValue;
 
             if (dataTemplateProviderType != null && dataTemplateProviderType.IsSubclassOf(typeof(DataTemplateProvider)))
             { // create a DataTemplate instance using the provider:
@@ -44,12 +58,12 @@ namespace VolumeControl.Core.Input.Actions.Settings
                 if (provider == null) return;
                 try
                 {
-                    DataTemplate = provider.ProvideDataTemplate();
+                    DataTemplate = provider.GetDataTemplate();
                 }
                 catch (Exception ex) // ProvideDataTemplate() failed
                 {
                     if (FLog.Log.FilterEventType(Log.Enum.EventType.ERROR))
-                        FLog.Log.Error($"{dataTemplateProviderType.FullName}.{nameof(DataTemplateProvider.ProvideDataTemplate)}() for action setting \"{Name}\" failed due to an exception:", ex);
+                        FLog.Log.Error($"{dataTemplateProviderType.FullName}.ProvideDataTemplate() for action setting \"{Name}\" failed due to an exception:", ex);
                 }
             }
         }
@@ -76,6 +90,17 @@ namespace VolumeControl.Core.Input.Actions.Settings
         /// Gets the WPF DataTemplate to use for displaying the value editor control in the GUI.
         /// </summary>
         public DataTemplate? DataTemplate { get; }
+        /// <summary>
+        /// Gets whether the action setting can be toggled on/off.
+        /// </summary>
+        public bool IsToggleable { get; }
+        /// <summary>
+        /// Gets whether the action setting is enabled by default or not.
+        /// </summary>
+        /// <remarks>
+        /// Has no effect when IsToggleable is <see langword="false"/>.
+        /// </remarks>
+        public bool StartsEnabled { get; }
         #endregion Properties
 
         #region Operators
@@ -84,7 +109,7 @@ namespace VolumeControl.Core.Input.Actions.Settings
         /// </summary>
         /// <param name="actionSettingAttribute">An <see cref="HotkeyActionSettingAttribute"/> instance.</param>
         public static explicit operator ActionSettingDefinition(HotkeyActionSettingAttribute actionSettingAttribute)
-            => new(actionSettingAttribute.Name, actionSettingAttribute.ValueType, actionSettingAttribute.DefaultValue, actionSettingAttribute.DataTemplateProviderType, actionSettingAttribute.Description);
+            => new(actionSettingAttribute.Name, actionSettingAttribute.ValueType, actionSettingAttribute.DefaultValue, actionSettingAttribute.DataTemplateProviderType, actionSettingAttribute.Description, actionSettingAttribute.IsToggleable, actionSettingAttribute.StartsEnabled);
         #endregion Operators
 
         #region Methods
@@ -107,6 +132,7 @@ namespace VolumeControl.Core.Input.Actions.Settings
                 new[]
                 { // constructor parameters:
                     this,
+                    IsToggleable && StartsEnabled,
                     CreateValueInstance()
                 },
                 System.Globalization.CultureInfo.CurrentCulture)!;
@@ -114,9 +140,10 @@ namespace VolumeControl.Core.Input.Actions.Settings
         /// <summary>
         /// Creates a new <see cref="ActionSettingInstance{T}"/> instance from this <see cref="ActionSettingDefinition"/> and the specified <paramref name="value"/>.
         /// </summary>
+        /// <param name="enabled">Whether the action setting instance should start enabled. This does not have any effect if the setting is not toggleable.</param>
         /// <param name="value">A default value for the action setting instance.</param>
         /// <inheritdoc cref="CreateInstance()"/>
-        public IActionSettingInstance CreateInstance(object? value)
+        public IActionSettingInstance CreateInstance(bool? enabled, object? value)
         {
             return (IActionSettingInstance)Activator.CreateInstance(
                 typeof(ActionSettingInstance<>).MakeGenericType(ValueType),
@@ -125,6 +152,7 @@ namespace VolumeControl.Core.Input.Actions.Settings
                 new[]
                 { // constructor parameters:
                     this,
+                    enabled,
                     value ?? CreateValueInstance()
                 },
                 System.Globalization.CultureInfo.CurrentCulture)!;

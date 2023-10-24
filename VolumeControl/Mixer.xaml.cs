@@ -240,7 +240,7 @@ namespace VolumeControl
                 }
             }
         }
-        private void Handle_ReloadLanguageConfigs(object sender, RoutedEventArgs e) => LocalizationHelper.ReloadLanguageConfigs();
+        private void Handle_ReloadLanguageConfigs(object sender, RoutedEventArgs e) => LocalizationHelper.ReloadLanguageConfigs(FLog.Log);
 
         private void Handle_HotkeyActionSettingsClick(object sender, RoutedEventArgs e)
         {

@@ -1,7 +1,5 @@
 ﻿using CodingSeb.Localization;
 using CodingSeb.Localization.Loaders;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +15,7 @@ namespace VolumeControl.Helpers
     internal class LocalizationHelper
     {
         #region Constructor
-        public LocalizationHelper(bool overwriteDefaultLangConfigs = false)
+        public LocalizationHelper(bool overwriteExistingConfigs, ILogWriter? log = null)
         {
             if (_initialized)
                 return;
@@ -28,9 +26,9 @@ namespace VolumeControl.Helpers
             _ = FileLoaders.AddIfUnique(new YamlFileLoader());
 
             if (Settings.CreateDefaultTranslationFiles) //< never create default files when this (and this alone) is false!
-                CreateDefaultFiles(overwriteDefaultLangConfigs);
+                CreateDefaultFiles(overwriteExistingConfigs);
 
-            ReloadLanguageConfigs();
+            ReloadLanguageConfigs(log);
 
             Loc.CurrentLanguage = Settings.LanguageName;
 
@@ -39,7 +37,7 @@ namespace VolumeControl.Helpers
                 if (!e.NewLanguageId.Equals(Settings.LanguageName, StringComparison.Ordinal))
                 {
                     Settings.LanguageName = e.NewLanguageId;
-                    FLog.Info($"{nameof(Settings.LanguageName)} was changed to '{Settings.LanguageName}' (was '{e.OldLanguageId}')");
+                    log?.Info($"{nameof(Settings.LanguageName)} was changed to '{Settings.LanguageName}' (was '{e.OldLanguageId}')");
                 }
             };
         }
@@ -56,64 +54,56 @@ namespace VolumeControl.Helpers
         private static List<ILocalizationFileLoader> FileLoaders => Loader.FileLanguageLoaders;
         private static string DefaultPath { get; } = Path.Combine(PathFinder.ApplicationAppDataPath, "Localization");
         private static Loc Loc => Loc.Instance;
+        private static readonly Regex LanguageConfigNameRegex = new(@"([a-z]{2}\.loc\.(?:json|yaml|yml))", RegexOptions.Compiled);
         #endregion Properties
 
         #region Methods
         /// <summary>
-        /// Reloads all language config files from the disk, calling <see cref="LocalizationLoader.ClearAllTranslations(bool)"/> to clear the cache, then re-enumerating the <see cref="Config.CustomLocalizationDirectories"/> list and reloading each file.
+        /// Reloads all language config files from the disk, calling <see cref="LocalizationInitializer.ClearAllTranslations(bool)"/> to clear the cache, then re-enumerating the <see cref="Config.CustomLocalizationDirectories"/> list and reloading each file.
         /// </summary>
         /// <remarks>Before this method returns, it will attempt to re-select the current language config using the value of the <see cref="Config.LanguageName"/> setting.</remarks>
-        public static void ReloadLanguageConfigs()
+        public static void ReloadLanguageConfigs(ILogWriter? log)
         {
             // clear all loaded translations, and available languages
             Loader.ClearAllTranslations(true);
 
             // check default directory
-            LoadTranslationsFromDirectory(DefaultPath);
+            LoadTranslationsFromDirectory(DefaultPath, log);
 
             // check custom directories
             foreach (string dir in Settings.CustomLocalizationDirectories)
             {
                 if (dir.Any(c => _invalidPathChars.Contains(c)))
-                    FLog.Error($"{nameof(Settings.CustomLocalizationDirectories)} specifies directory path with illegal characters: '{dir}'");
+                    log?.Error($"{nameof(Settings.CustomLocalizationDirectories)} specifies directory path with illegal characters: '{dir}'");
                 else
-                    LoadTranslationsFromDirectory(dir);
+                    LoadTranslationsFromDirectory(dir, log);
             }
         }
 
-        /// <summary>
-        /// Checks if <paramref name="filename"/> appears to specify a language config file using a regular expression.
-        /// </summary>
-        /// <remarks><b>This does not check if the file actually exists.</b></remarks>
-        /// <param name="filename">A filename or filepath to validate.</param>
-        /// <returns><see langword="true"/> when <paramref name="filename"/> specifies a valid language config file; otherwise <see langword="false"/></returns>
-        private static bool ValidateLanguageConfigFilename(string filename)
-            => Path.HasExtension(filename) && Regex.Match(filename, "^.+?\\.loc\\.(?:json|yaml|yml)$", RegexOptions.Compiled).Success;
-
-        private static void LoadTranslationsFromDirectory(string path)
+        private static void LoadTranslationsFromDirectory(string path, ILogWriter? log)
         {
             if (Directory.Exists(path))
             {
                 foreach (string filepath in Directory.EnumerateFiles(path))
                 {
                     string filename = Path.GetFileName(filepath);
-                    if (!ValidateLanguageConfigFilename(filename))
+                    if (!LanguageConfigNameRegex.IsMatch(filename))
                         continue;
 
                     try
                     {
                         Loader.AddFile(filepath);
-                        FLog.Debug($"Successfully loaded language config '{filepath}'");
+                        log?.Debug($"Successfully loaded language config '{filepath}'");
                     }
                     catch (Exception ex)
                     {
-                        FLog.Error($"Failed to load language config '{filepath}' because an exception was thrown!", ex);
+                        log?.Error($"Failed to load language config '{filepath}' because an exception was thrown!", ex);
                     }
                 }
             }
             else
             {
-                FLog.Error($"{nameof(LoadTranslationsFromDirectory)} cannot load directory '{path}' because it doesn't exist!");
+                log?.Error($"{nameof(LoadTranslationsFromDirectory)} cannot load directory '{path}' because it doesn't exist!");
             }
         }
 
@@ -126,150 +116,34 @@ namespace VolumeControl.Helpers
                 _ = Directory.CreateDirectory(DefaultPath);
 
             var asm = Assembly.GetExecutingAssembly();
-            const string resourcePath = "VolumeControl.Localization"; //< specifies the directory/namespace where localization files are located (relative to the solution dir)
+            const string baseResourcePath = "VolumeControl.Localization";
 
             foreach (string embeddedResourceName in asm.GetManifestResourceNames())
             {
-                if (embeddedResourceName.StartsWith(resourcePath, StringComparison.Ordinal) && ValidateLanguageConfigFilename(embeddedResourceName))
+                if (!embeddedResourceName.StartsWith(baseResourcePath, StringComparison.Ordinal))
+                    continue;
+
+                if (LanguageConfigNameRegex.IsMatch(embeddedResourceName))
                 {
                     string
-                        embeddedResourceFilename = embeddedResourceName[(resourcePath.Length + 1)..],
-                        filepath = Path.Combine(DefaultPath, embeddedResourceFilename);
+                        embeddedResourceFilename = embeddedResourceName[(baseResourcePath.Length + 1)..],
+                        filePath = Path.Combine(DefaultPath, embeddedResourceFilename);
 
-                    if (overwrite || !File.Exists(filepath))
+                    if (overwrite || !File.Exists(filePath))
                     {
-                        using Stream? stream = asm.GetManifestResourceStream(embeddedResourceName);
+                        using var resourceStream = asm.GetManifestResourceStream(embeddedResourceName);
 
-                        if (stream is null || stream.Length.Equals(0))
+                        if (resourceStream == null || resourceStream.Length.Equals(0))
                             continue;
 
-                        using (var sw = new StreamWriter(File.Open(filepath, FileMode.Create, FileAccess.Write, FileShare.None)))
-                        {
-                            stream?.CopyTo(sw.BaseStream);
-                            sw.Flush();
-                            sw.Close();
-                        };
+                        using var fileStream = File.Open(filePath, FileMode.Create, FileAccess.Write, FileShare.None);
+
+                        resourceStream.CopyTo(fileStream);
+                        fileStream.Flush();
                     }
                 }
             }
         }
         #endregion Methods
     }
-    #region DEBUG
-    /// <summary>
-    /// Custom <see cref="ILocalizationFileLoader"/> implementation that emulates <see cref="JsonFileLoader"/>, with a few extra features.
-    /// </summary>
-    public class TestFileLoader : ILocalizationFileLoader
-    {
-        private string _fileName = string.Empty;
-        private readonly Stack<string> _currentPath = new();
-        private readonly Dictionary<string, string> _langIndex = new();
-
-        private string CurrentPath
-        {
-            get
-            {
-                string path = string.Empty;
-                bool fst = true;
-                foreach (string segment in _currentPath.Reverse())
-                {
-                    if (fst)
-                        fst = false;
-                    else
-                        path += '.';
-                    path += segment;
-                }
-                return path;
-            }
-            set
-            {
-                _currentPath.Clear();
-                _ = value.Split('.').ForEach(_currentPath.Push);
-            }
-        }
-
-        public bool CanLoadFile(string fileName) => fileName.EndsWith(".loc.json", StringComparison.Ordinal) && File.Exists(fileName);
-        public void LoadFile(string fileName, LocalizationLoader loader)
-        {
-            this.Reset();
-            _fileName = fileName;
-            try
-            {
-                var root = (JObject)JToken.Parse(File.ReadAllText(fileName));
-                if (!root.ContainsKey("LanguageName"))
-                    throw new JsonException("Language Config files must contain a 'LanguageName' metadata section!");
-                this.SetLanguageMetadataFromObject(ref root);
-                this.LoadFromObject(root, loader);
-            }
-            catch (Exception ex)
-            {
-                FLog.Error(ex);
-            }
-        }
-
-        private void SetLanguageMetadataFromObject(ref JObject root)
-        {
-            JToken? meta = root["LanguageName"];
-            if (meta is null || !meta.Type.Equals(JTokenType.Object))
-                throw new JsonException($"Invalid 'LanguageName' metadata section in language config file '{_fileName}'!");
-
-            foreach ((string key, JToken? valueToken) in (JObject)meta)
-            {
-                if (valueToken is null || !valueToken.Type.Equals(JTokenType.String)) continue;
-
-                _langIndex.Add(key, (string?)valueToken ?? string.Empty);
-            }
-
-            _ = root.Remove("LanguageName");
-        }
-
-        private void LoadFromObject(JObject obj, LocalizationLoader loader)
-        {
-            foreach ((string key, JToken? val) in obj)
-            {
-                if (val is null) continue;
-
-                string? s = null;
-
-                switch (val.Type)
-                {
-                case JTokenType.Array:
-                    s = string.Empty;
-                    _ = ((JArray)val).ForEach(item =>
-                    {
-                        if (item.Type.Equals(JTokenType.String))
-                        {
-                            s += (string?)item;
-                            s += '\n';
-                        }
-                    });
-                    goto is_value_type;
-                case JTokenType.String:
-                    s = (string?)val;
-
-                is_value_type:
-                    if (!_langIndex.ContainsKey(key))
-                        throw new Exception($"Language '{key}' is missing a metadata entry!");
-
-                    if (s is not null && s.Length > 0)
-                        loader.AddTranslation(this.CurrentPath, _langIndex[key], s, _fileName);
-
-                    break;
-                case JTokenType.Object:
-                    _currentPath.Push(key);
-                    this.LoadFromObject((JObject)val, loader); //< recurse
-                    _ = _currentPath.Pop();
-                    break;
-                default: break;
-                }
-            }
-        }
-        private void Reset()
-        {
-            _fileName = string.Empty;
-            _currentPath.Clear();
-            _langIndex.Clear();
-        }
-    }
-    #endregion DEBUG
 }

@@ -53,6 +53,21 @@
         /// </summary>
         public object? DefaultValue { get; set; }
         /// <summary>
+        /// Gets or sets whether this action setting can be toggled on/off.
+        /// </summary>
+        /// <remarks>
+        /// When <see langword="true"/> a checkbox control is shown in the UI to allow users to enable or disable the setting.<br/>
+        /// You can determine whether an action setting instance is enabled or not by checking the <see cref="Input.Actions.Settings.IActionSettingInstance.IsEnabled"/> property.
+        /// </remarks>
+        public bool IsToggleable { get; set; }
+        /// <summary>
+        /// Gets or sets whether this action setting is enabled by default or not.
+        /// </summary>
+        /// <remarks>
+        /// This has no effect when IsToggleable is set to <see langword="false"/>.
+        /// </remarks>
+        public bool StartsEnabled { get; set; }
+        /// <summary>
         /// Gets or sets the type of <see cref="DataTemplateProvider"/> used to provide a UI editor control specific to this action setting's ValueType.<br/>
         /// Only types that derive from <see cref="DataTemplateProvider"/> are allowed.
         /// </summary>

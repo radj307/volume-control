@@ -491,6 +491,11 @@ namespace VolumeControl.WPF.Controls
                         FilterTextBox.SelectionStart = FilterTextBox.Text.Length;
                         e.Handled = true; //< key press has been handled
                     }
+                    else if (OptionsListView.Items.Count == 0 && FilterTextBox.Text.Length > 0)
+                    { // no suggestions are in the list and there is text:
+                        NotifyCommittedText(FilterTextBox.Text);
+                        e.Handled = true;
+                    }
                     break;
                 }
             case Key.Enter:

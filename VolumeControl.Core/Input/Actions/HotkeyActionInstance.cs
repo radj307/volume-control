@@ -44,7 +44,7 @@ namespace VolumeControl.Core.Input.Actions
         /// </summary>
         /// <param name="sender">The object instance to use as the sender of the event.</param>
         /// <param name="e">The event arguments to use for the event.</param>
-        public void Invoke(object? sender, HotkeyActionPressedEventArgs e)
+        public void Invoke(object? sender, HotkeyPressedEventArgs e)
         {
             try
             {
@@ -59,10 +59,10 @@ namespace VolumeControl.Core.Input.Actions
             }
         }
         /// <summary>
-        /// Invokes the method specified by the HotkeyActionDefinition with a new <see cref="HotkeyActionPressedEventArgs"/> instance.
+        /// Invokes the method specified by the HotkeyActionDefinition with a new <see cref="HotkeyPressedEventArgs"/> instance.
         /// </summary>
         /// <param name="sender">The object instance to use as the sender of the event.</param>
-        public void Invoke(object? sender) => Invoke(sender, new HotkeyActionPressedEventArgs(ActionSettings));
+        public void Invoke(object? sender) => Invoke(sender, new HotkeyPressedEventArgs(ActionSettings));
         #endregion Methods
     }
 }

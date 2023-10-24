@@ -278,7 +278,10 @@ namespace VolumeControl
             bool changedWorkingDirectory = false;
             if (Environment.CurrentDirectory.Equals(Environment.SystemDirectory, StringComparison.OrdinalIgnoreCase))
             { // working directory is System32, change that to the executable directory to prevent problems
-                Environment.CurrentDirectory = Path.GetDirectoryName(GetExecutablePath()) ?? AppDomain.CurrentDomain.RelativeSearchPath ?? AppDomain.CurrentDomain.BaseDirectory; ;
+                var proc = Process.GetCurrentProcess();
+                var exeDir = Path.GetDirectoryName(proc.MainModule?.FileName) ?? AppDomain.CurrentDomain.RelativeSearchPath ?? AppDomain.CurrentDomain.BaseDirectory;
+                proc.Dispose();
+                Environment.CurrentDirectory = exeDir;
                 changedWorkingDirectory = true;
             }
 
@@ -294,27 +297,29 @@ namespace VolumeControl
             Settings.Load();
 
             // Multi instance gate
-            string mutexId = appMutexIdentifier;
+            string appMutexName = appMutexIdentifier;
+            if (Settings.AllowMultipleDistinctInstances)
+            { // multi-instance mode is enabled; hash the config filepath and append it to the mutex name:
+                appMutexName += ':' + HashFilePath(Settings.Location);
+            }
 
-            if (Settings.AllowMultipleDistinctInstances) // append the hash of the config's path to the mutex ID:
-                mutexId += ':' + HashFilePath(Settings.Location);
-
-            // Acquire mutex lock
-            appMutex = new Mutex(true, mutexId, out bool isNewInstance);
-            if (!isNewInstance) // Check if we acquired the mutex lock
-            { // another instance is running:
+            // Create the app mutex
+            appMutex = new Mutex(true, appMutexName, out bool isNewInstance);
+            if (!isNewInstance)
+            { // mutex not acquired, a conflicting instance is running:
                 if (args.Any(arg => arg.Equals("--wait-for-mutex", StringComparison.Ordinal)))
                 {
                     _ = appMutex.WaitOne(); //< wait until the mutex is acquired
                 }
                 else
                 {
+                    LocalizationHelper localeHelper = new(false); //< initialize without logging
                     MessageBox.Show(Loc.Tr($"VolumeControl.Dialogs.AnotherInstanceIsRunning.{(Settings.AllowMultipleDistinctInstances ? "MultiInstance" : "SingleInstance")}", "Another instance of Volume Control is already running!").Replace("${PATH}", Settings.Location));
                     return;
                 }
             }
 
-            // Initialize the log
+            // Initialize the log now that we aren't potentially overwriting another instance's log file
             FLog.Initialize();
 #if DEBUG
             // show all log message types in debug mode
@@ -333,7 +338,7 @@ namespace VolumeControl
 
             // Initialize locale helper
             //  overwrite language configs when the version number changed or when specified on the commandline
-            LocalizationHelper locale = new(overwriteDefaultLangConfigs: versionChanged || overwriteLanguageConfigs);
+            LocalizationHelper locale = new(overwriteExistingConfigs: versionChanged || overwriteLanguageConfigs, FLog.Log);
 
             if (changedWorkingDirectory)
             { // write a log message about changing the working directory
@@ -408,9 +413,7 @@ namespace VolumeControl
 
             if (versionAttribute == null)
             {
-                var ex = new InvalidOperationException($"Failed to retrieve {nameof(AssemblyInformationalVersionAttribute)} from assembly {asm.FullName}!");
-                FLog.Fatal(ex);
-                throw ex;
+                throw new InvalidOperationException($"Failed to retrieve {nameof(AssemblyInformationalVersionAttribute)} from assembly {asm.FullName}!"); ;
             }
 
             var versionString = versionAttribute.InformationalVersion;
@@ -418,16 +421,11 @@ namespace VolumeControl
 
             if (version == null)
             {
-                var ex = new InvalidOperationException($"Failed to parse a version number from version string '{versionString}' retrieved from assembly {asm.FullName}!");
-                FLog.Fatal(ex);
-                throw ex;
+                throw new InvalidOperationException($"Failed to parse a version number from version string '{versionString}' retrieved from assembly {asm.FullName}!");
             }
 
             return version;
         }
-        private static string GetExecutablePath() => Process.GetCurrentProcess().MainModule?.FileName is string path
-                ? path
-                : throw new Exception("Failed to get the location of the current process' executable!");
         /// <summary>
         /// Writes <paramref name="content"/> to an automatically-generated crash dump file.
         /// </summary>

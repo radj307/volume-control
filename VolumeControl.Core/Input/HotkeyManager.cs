@@ -1,5 +1,5 @@
 ﻿using VolumeControl.Core.Input.Actions;
-using VolumeControl.Core.Input.Structs;
+using VolumeControl.Core.Input.Json;
 
 namespace VolumeControl.Core.Input
 {

@@ -519,6 +519,14 @@
           "English (US/CA)": "No DataTemplate is available for this value type!"
         }
       },
+      "ToggleActionSetting": {
+        "Content": {
+          "English (US/CA)": "Enable"
+        },
+        "Tooltip": {
+          "English (US/CA)": "This action setting is enabled when checked."
+        }
+      },
       "ActionTargetSpecifierDataTemplate": {
         "AddTargetBox": {
           "DefaultText": {

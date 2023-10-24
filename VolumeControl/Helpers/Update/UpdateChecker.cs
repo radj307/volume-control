@@ -51,7 +51,7 @@ namespace VolumeControl.Helpers.Update
         private void ShowUpdatePrompt(ReleaseInfo releaseInfo)
         {
             FLog.Info($"Showing update prompt for new version: {releaseInfo.Version}");
-            
+
             string msg = Loc.Tr("VolumeControl.Dialogs.UpdatePrompt.NewVersionAvailableFormatMsg", "A new version of Volume Control is available!\nDo you want to go to the releases page?\nCurrent Version:  ${CURRENT_VERSION}\nLatest Version:   ${LATEST_VERSION}\n\nClick 'Yes' to go to the releases page.\nClick 'No' if you don't want to update right now.\nClick 'Cancel' to disable these prompts.");
             msg = msg.Replace("${CURRENT_VERSION}", this.CurrentVersion.ToString());
             msg = msg.Replace("${LATEST_VERSION}", releaseInfo.Version.ToString());

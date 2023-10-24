@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel;
 using VolumeControl.Core;
 using VolumeControl.Core.Attributes;
+using VolumeControl.Core.Input;
 using VolumeControl.CoreAudio;
 using VolumeControl.CoreAudio.Helpers;
 using VolumeControl.SDK;
+using VolumeControl.SDK.DataTemplateProviders;
 
 namespace VolumeControl.HotkeyActions
 {
@@ -14,10 +16,8 @@ namespace VolumeControl.HotkeyActions
     public sealed class AudioDeviceActions
     {
         #region Fields
-        /// <summary>
-        /// The name of the display target associated with this class.
-        /// </summary>
-        public const string DisplayTargetName = "Audio Devices";
+        private const string Setting_VolumeStep_Name = "Volume Step Override";
+        private const string Setting_VolumeStep_Description = "Overrides the default volume step for this action.";
         #endregion Fields
 
         #region Properties
@@ -29,22 +29,28 @@ namespace VolumeControl.HotkeyActions
 
         #region Action Methods
         [HotkeyAction(Description = "Increases the device volume of the selected device.")]
-        public void VolumeUp(object? sender, HandledEventArgs e)
+        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), typeof(VolumeStep_NumericUpDown_DataTemplateProvider), Description = Setting_VolumeStep_Description, DefaultValue = 2, IsToggleable = true)]
+        public void VolumeUp(object? sender, HotkeyPressedEventArgs e)
         {
             if (SelectedDevice == null) return;
 
-            SelectedDevice.IncreaseVolume(VCAPI.Settings.VolumeStepSize);
+            int volumeStep = e.GetValueOrDefault(Setting_VolumeStep_Name, VCAPI.Settings.VolumeStepSize);
+
+            SelectedDevice.IncreaseVolume(volumeStep);
 
             if (!Settings.DeviceListNotificationConfig.ShowOnVolumeChanged) return;
 
             VCAPI.ShowDeviceListNotification();
         }
         [HotkeyAction(Description = "Decreases the device volume of the selected device.")]
-        public void VolumeDown(object? sender, HandledEventArgs e)
+        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), typeof(VolumeStep_NumericUpDown_DataTemplateProvider), Description = Setting_VolumeStep_Description, DefaultValue = 2, IsToggleable = true)]
+        public void VolumeDown(object? sender, HotkeyPressedEventArgs e)
         {
             if (SelectedDevice == null) return;
 
-            SelectedDevice.DecreaseVolume(VCAPI.Settings.VolumeStepSize);
+            int volumeStep = e.GetValueOrDefault(Setting_VolumeStep_Name, VCAPI.Settings.VolumeStepSize);
+
+            SelectedDevice.DecreaseVolume(volumeStep);
 
             if (!Settings.DeviceListNotificationConfig.ShowOnVolumeChanged) return;
 

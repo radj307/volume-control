@@ -3,6 +3,7 @@ using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Input;
 using VolumeControl.CoreAudio;
 using VolumeControl.SDK;
+using VolumeControl.SDK.DataTemplateProviders;
 
 namespace VolumeControl.HotkeyActions
 {
@@ -13,8 +14,12 @@ namespace VolumeControl.HotkeyActions
     public sealed class ActiveApplicationActions
     {
         #region Fields
+        // Select target
         private const string Setting_SelectTarget_Name = "Select Session";
         private const string Setting_SelectTarget_Description = "Selects the session when the action is triggered.";
+        // Volume Step
+        private const string Setting_VolumeStep_Name = "Volume Step Override";
+        private const string Setting_VolumeStep_Description = "Overrides the default volume step for this action.";
         #endregion Fields
 
         #region Properties
@@ -53,11 +58,14 @@ namespace VolumeControl.HotkeyActions
         #region Methods
         [HotkeyAction(Description = "Increases the volume of the current foreground application.")]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
-        public void VolumeUp(object? sender, HotkeyActionPressedEventArgs e)
+        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), typeof(VolumeStep_NumericUpDown_DataTemplateProvider), DefaultValue = 2, Description = Setting_VolumeStep_Description, IsToggleable = true)]
+        public void VolumeUp(object? sender, HotkeyPressedEventArgs e)
         {
             if (GetActiveSession() is AudioSession session)
             {
-                session.Volume += VCAPI.Settings.VolumeStepSize;
+                var volumeStep = e.GetValueOrDefault(Setting_VolumeStep_Name, VCAPI.Settings.VolumeStepSize);
+
+                session.Volume += volumeStep;
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
                 {
                     VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
@@ -66,11 +74,14 @@ namespace VolumeControl.HotkeyActions
         }
         [HotkeyAction(Description = "Decreases the volume of the current foreground application.")]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
-        public void VolumeDown(object? sender, HotkeyActionPressedEventArgs e)
+        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), typeof(VolumeStep_NumericUpDown_DataTemplateProvider), DefaultValue = 2, Description = Setting_VolumeStep_Description, IsToggleable = true)]
+        public void VolumeDown(object? sender, HotkeyPressedEventArgs e)
         {
             if (GetActiveSession() is AudioSession session)
             {
-                session.Volume -= VCAPI.Settings.VolumeStepSize;
+                var volumeStep = e.GetValueOrDefault(Setting_VolumeStep_Name, VCAPI.Settings.VolumeStepSize);
+
+                session.Volume -= volumeStep;
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
                 {
                     VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
@@ -79,7 +90,7 @@ namespace VolumeControl.HotkeyActions
         }
         [HotkeyAction(Description = "Mutes the current foreground application.")]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
-        public void Mute(object? sender, HotkeyActionPressedEventArgs e)
+        public void Mute(object? sender, HotkeyPressedEventArgs e)
         {
             if (GetActiveSession() is AudioSession session)
             {
@@ -92,7 +103,7 @@ namespace VolumeControl.HotkeyActions
         }
         [HotkeyAction(Description = "Unmutes the current foreground application.")]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
-        public void Unmute(object? sender, HotkeyActionPressedEventArgs e)
+        public void Unmute(object? sender, HotkeyPressedEventArgs e)
         {
             if (GetActiveSession() is AudioSession session)
             {
@@ -105,7 +116,7 @@ namespace VolumeControl.HotkeyActions
         }
         [HotkeyAction(Description = "(Un)Mutes the current foreground application.")]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
-        public void ToggleMute(object? sender, HotkeyActionPressedEventArgs e)
+        public void ToggleMute(object? sender, HotkeyPressedEventArgs e)
         {
             if (GetActiveSession() is AudioSession session)
             {

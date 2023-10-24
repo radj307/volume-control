@@ -3,7 +3,7 @@ using VolumeControl.Core.Input.Actions.Settings;
 using VolumeControl.Core.Input.Enums;
 using VolumeControl.Log;
 
-namespace VolumeControl.Core.Input.Structs
+namespace VolumeControl.Core.Input.Json
 {
     /// <summary>
     /// Contains the JSON object representation of a <see cref="Hotkey"/> instance.
@@ -50,7 +50,7 @@ namespace VolumeControl.Core.Input.Structs
         /// <summary>
         /// Gets or sets the action settings dictionary containing the action settings for this hotkey's action.
         /// </summary>
-        public Dictionary<string, object?>? ActionSettings { get; set; } = null;
+        public Dictionary<string, JsonActionSettingValue>? ActionSettings { get; set; } = null;
         #endregion Properties
 
         #region Methods
@@ -93,13 +93,13 @@ namespace VolumeControl.Core.Input.Structs
         #endregion Methods
 
         #region Functions
-        private static Dictionary<string, object?> ActionSettingsArrayToDictionary(IActionSettingInstance[] actionSettings)
-            => actionSettings.ToDictionary(setting => setting.Name, setting => setting.Value);
-        private static IActionSettingInstance[] ActionSettingsDictionaryToArray(Dictionary<string, object?> settingsDictionary, HotkeyActionDefinition actionDefinition)
+        private static Dictionary<string, JsonActionSettingValue> ActionSettingsArrayToDictionary(IActionSettingInstance[] actionSettings)
+            => actionSettings.ToDictionary(setting => setting.Name, setting => new JsonActionSettingValue(setting));
+        private static IActionSettingInstance[] ActionSettingsDictionaryToArray(Dictionary<string, JsonActionSettingValue> settingsDictionary, HotkeyActionDefinition actionDefinition)
         {
             List<IActionSettingInstance> l = new();
 
-            foreach ((string name, object? value) in settingsDictionary)
+            foreach ((string name, JsonActionSettingValue value) in settingsDictionary)
             {
                 var settingDefinition = actionDefinition.GetActionSettingDefinition(name);
 
@@ -114,7 +114,7 @@ namespace VolumeControl.Core.Input.Structs
 
                 try
                 {
-                    settingInstance = settingDefinition.CreateInstance(value);
+                    settingInstance = settingDefinition.CreateInstance(value.Enabled, value.Value);
                 }
                 catch (Exception ex)
                 {

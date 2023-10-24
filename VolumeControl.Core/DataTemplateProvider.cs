@@ -43,8 +43,12 @@ namespace VolumeControl.Core
         /// To bind to the value of the action setting, set the data binding's path to "Value".
         /// </remarks>
         /// <returns>A new <see cref="DataTemplate"/> instance specifying the controls to use for displaying an action setting value editor.</returns>
-        public abstract DataTemplate ProvideDataTemplate();
+        protected abstract DataTemplate ProvideDataTemplate();
         #endregion Abstract Methods
+
+        #region Internal Methods
+        internal DataTemplate GetDataTemplate() => ProvideDataTemplate();
+        #endregion Internal Methods
 
         #region Static Methods
         /// <summary>

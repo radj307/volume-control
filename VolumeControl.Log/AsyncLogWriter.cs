@@ -9,7 +9,7 @@ namespace VolumeControl.Log
     /// <summary>
     /// Asynchonously writes messages to the log endpoint.
     /// </summary>
-    public sealed class AsyncLogWriter : ThreadedLogger, IDisposable
+    public sealed class AsyncLogWriter : ThreadedLogger, ILogWriter, IDisposable
     {
         #region Constructor
         /// <summary>

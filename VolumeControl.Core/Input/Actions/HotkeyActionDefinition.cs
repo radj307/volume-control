@@ -118,9 +118,18 @@ namespace VolumeControl.Core.Input.Actions
 
             foreach (var settingDefinition in ActionSettingDefinitions)
             {
+                var existingSettingInstance = existingSettingInstances.FirstOrDefault(settingInst => settingInst.Name.Equals(settingDefinition.Name, StringComparison.Ordinal));
+
                 try
                 {
-                    l.Add(settingDefinition.CreateInstance(existingSettingInstances.FirstOrDefault(settingInst => settingInst.Name.Equals(settingDefinition.Name, StringComparison.Ordinal))?.Value));
+                    if (existingSettingInstance == null)
+                    {
+                        l.Add(settingDefinition.CreateInstance());
+                    }
+                    else
+                    {
+                        l.Add(settingDefinition.CreateInstance(existingSettingInstance.IsEnabled, existingSettingInstance.Value));
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -158,11 +167,11 @@ namespace VolumeControl.Core.Input.Actions
         public object? Invoke_Unsafe(params object?[] parameters)
             => ActionMethodInfo.Invoke(ActionGroupInstance, parameters);
         /// <summary>
-        /// Directly invokes the method specified by <see cref="ActionMethodInfo"/> with the parameters expected by <see cref="HotkeyActionPressedEventHandler"/>.
+        /// Directly invokes the method specified by <see cref="ActionMethodInfo"/> with the parameters expected by <see cref="HotkeyPressedEventHandler"/>.
         /// </summary>
         /// <inheritdoc cref="Invoke_Unsafe(object?[])"/>
         public object? Invoke_Unsafe(object? sender, IActionSettingInstance[] actionSettings)
-            => Invoke_Unsafe(sender, new HotkeyActionPressedEventArgs(actionSettings));
+            => Invoke_Unsafe(sender, new HotkeyPressedEventArgs(actionSettings));
         #endregion Invoke_Unsafe
 
         #region GetActionSettingDefinition

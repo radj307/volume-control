@@ -1,7 +1,7 @@
 ﻿namespace VolumeControl.Core.Input.Exceptions
 {
     /// <summary>
-    /// Represents errors that occur when a hotkey action setting wasn't found in a <see cref="HotkeyActionPressedEventArgs"/> instance.
+    /// Represents errors that occur when a hotkey action setting wasn't found in a <see cref="HotkeyPressedEventArgs"/> instance.
     /// </summary>
     public sealed class ActionSettingNotFoundException : Exception
     {
@@ -46,7 +46,7 @@
         /// <param name="actionSettingName">The name of the action setting that wasn't found.</param>
         /// <param name="actionSettingType">The type of the action setting that wasn't found, or <see langword="null"/> if no type was specified.</param>
         internal ActionSettingNotFoundException(string actionSettingName, Type? actionSettingType)
-            : base($"Couldn't find an action setting with name \"{actionSettingName}\" and type \"{actionSettingType.FullName}\"!")
+            : base($"Couldn't find an action setting with name \"{actionSettingName}\" and type \"{actionSettingType}\"!")
         {
             ActionSettingName = actionSettingName;
             ActionSettingType = actionSettingType;
