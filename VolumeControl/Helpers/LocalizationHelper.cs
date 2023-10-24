@@ -59,7 +59,7 @@ namespace VolumeControl.Helpers
 
         #region Methods
         /// <summary>
-        /// Reloads all language config files from the disk, calling <see cref="LocalizationInitializer.ClearAllTranslations(bool)"/> to clear the cache, then re-enumerating the <see cref="Config.CustomLocalizationDirectories"/> list and reloading each file.
+        /// Reloads all language config files from the disk, calling <see cref="LocalizationLoader.ClearAllTranslations(bool)"/> to clear the cache, then re-enumerating the <see cref="Config.CustomLocalizationDirectories"/> list and reloading each file.
         /// </summary>
         /// <remarks>Before this method returns, it will attempt to re-select the current language config using the value of the <see cref="Config.LanguageName"/> setting.</remarks>
         public static void ReloadLanguageConfigs(ILogWriter? log)
@@ -71,39 +71,48 @@ namespace VolumeControl.Helpers
             LoadTranslationsFromDirectory(DefaultPath, log);
 
             // check custom directories
-            foreach (string dir in Settings.CustomLocalizationDirectories)
+            foreach (string dirPath in Settings.CustomLocalizationDirectories)
             {
-                if (dir.Any(c => _invalidPathChars.Contains(c)))
-                    log?.Error($"{nameof(Settings.CustomLocalizationDirectories)} specifies directory path with illegal characters: '{dir}'");
+                if (dirPath.Any(c => _invalidPathChars.Contains(c)))
+                    log?.Error($"{nameof(Settings.CustomLocalizationDirectories)} specifies directory path with illegal characters: '{dirPath}'");
                 else
-                    LoadTranslationsFromDirectory(dir, log);
+                    LoadTranslationsFromDirectory(dirPath, log);
             }
         }
 
         private static void LoadTranslationsFromDirectory(string path, ILogWriter? log)
         {
+            bool showTraceLogMessages = log?.FilterEventType(Log.Enum.EventType.TRACE) ?? false;
             if (Directory.Exists(path))
             {
+                if (showTraceLogMessages)
+                    log?.Trace($"[{nameof(LocalizationHelper)}] Searching for language config files in \"{path}\"");
                 foreach (string filepath in Directory.EnumerateFiles(path))
                 {
                     string filename = Path.GetFileName(filepath);
                     if (!LanguageConfigNameRegex.IsMatch(filename))
+                    {
+                        if (showTraceLogMessages)
+                            log?.Trace($"[{nameof(LocalizationHelper)}] Skipped loading \"{filepath}\" because its name is invalid!");
                         continue;
+                    }
 
                     try
                     {
                         Loader.AddFile(filepath);
-                        log?.Debug($"Successfully loaded language config '{filepath}'");
+
+                        if (showTraceLogMessages)
+                            log?.Trace($"[{nameof(LocalizationHelper)}] Successfully loaded language config \"{filepath}\"");
                     }
                     catch (Exception ex)
                     {
-                        log?.Error($"Failed to load language config '{filepath}' because an exception was thrown!", ex);
+                        log?.Error($"[{nameof(LocalizationHelper)}] Failed to load language config \"{filepath}\" due to an exception:", ex);
                     }
                 }
             }
             else
             {
-                log?.Error($"{nameof(LoadTranslationsFromDirectory)} cannot load directory '{path}' because it doesn't exist!");
+                log?.Error($"[{nameof(LocalizationHelper)}] Directory \"{path}\" doesn't exist!");
             }
         }
 
