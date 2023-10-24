@@ -3,44 +3,60 @@
 #define public Dependency_Path_NetCoreCheck "InnoDependencyInstaller\dependencies\"
 #include "InnoDependencyInstaller\CodeDependencies.iss"
 
-#define AppID "{33DFCEE8-022C-4C66-A366-79A7415320F2}"
-#define AppName "Volume Control"
-#define AppPublisher "radj307"
-#define AppURL "https://github.com/radj307/volume-control"
-#define AppExeName "VolumeControl.exe"
-#define AppMutex "VolumeControlSingleInstance"
+#define AppID               "{33DFCEE8-022C-4C66-A366-79A7415320F2}"
+#define AppName             "Volume Control"
+#define AppPublisher        "radj307"
+#define CurrentYear         GetDateTimeString('yyyy','','')
+#define StartYearCopyright  "2011"
+#define AppURL              "https://github.com/radj307/volume-control"
+#define AppExeName          "VolumeControl.exe"
+
+#define AppMutex            "VolumeControlSingleInstance"
 ; #define AppVersion "" ;< DEFINE THIS VIA COMMANDLINE (/dAppVersion="VERSION_NUMBER")
 
 [Setup]
-AppId={{#AppID}
+AppId={#AppID}
 AppName={#AppName}
 AppVersion={#AppVersion}
 AppVerName={#AppName} {#AppVersion}
-AppPublisher={#AppPublisher}
+
+AppPublisher=(c){#StartYearCopyright}-{#CurrentYear} {#AppPublisher}
 AppPublisherURL={#AppURL}
 AppSupportURL={#AppURL}
 AppUpdatesURL={#AppURL}
+
+VersionInfoDescription={#AppName} installer
+VersionInfoProductName={#AppName}
+VersionInfoVersion={#AppVersion}
+
+UninstallDisplayIcon={app}\{#AppExeName}
+UninstallDisplayName={#AppName}
+
+ShowLanguageDialog=yes
+UsePreviousLanguage=no
+LanguageDetectionMethod=uilanguage
+
+WizardStyle=modern
+WizardSizePercent=100
+
+;PrivilegesRequiredOverridesAllowed=dialog
+
 ArchitecturesInstallIn64BitMode=x64
 DefaultDirName={autopf}\VolumeControl
 DisableProgramGroupPage=yes
 LicenseFile=LICENSE
-PrivilegesRequiredOverridesAllowed=dialog
 ; OutputDir=publish
 OutputBaseFilename=VolumeControl-Installer
 SetupIconFile=VolumeControl\Resources\icons\iconSilveredInstall.ico
-UninstallDisplayIcon={app}\iconSilvered.ico
-UninstallDisplayName={#AppName}
 Compression=lzma
 SolidCompression=yes
-WizardStyle=modern
-WizardSizePercent=100
 AppMutex={#AppMutex}
 
 [Languages]
-Name: "english"; MessagesFile: "compiler:Default.isl"
-Name: "french"; MessagesFile: "compiler:Languages\French.isl"
-Name: "german"; MessagesFile: "compiler:Languages\German.isl"
-Name: "italian"; MessagesFile: "compiler:Languages\Italian.isl"
+Name: "english";    MessagesFile: "compiler:Default.isl"
+Name: "french";     MessagesFile: "compiler:Languages\French.isl"
+Name: "german";     MessagesFile: "compiler:Languages\German.isl"
+Name: "italian";    MessagesFile: "compiler:Languages\Italian.isl"
 Name: "portuguese"; MessagesFile: "compiler:Languages\Portuguese.isl"
 
 [Tasks]
