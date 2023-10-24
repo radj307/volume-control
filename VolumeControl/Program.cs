@@ -278,14 +278,15 @@ namespace VolumeControl
             }
             catch (Exception ex)
             {
-                Console.Error.WriteLine(ex.Message);
-                return 1;
+                Console.Error.WriteLine(ex.ToString());
+#if DEBUG
+                throw; //< rethrow in DEBUG configuration
+#else
+                return 1; //< otherwise return error
+#endif
             }
         }
-        /// <summary>
-        /// Program entry point
-        /// </summary>
-        public static int Main_Impl(string[] args)
+        private static int Main_Impl(string[] args)
         {
             // make sure the application's working directory isn't System32 (this occurs when run at startup is enabled and the program was started via its registry key)
             bool changedWorkingDirectory = false;
