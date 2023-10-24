@@ -268,11 +268,24 @@ namespace VolumeControl
         #region Methods
 
         #region Main
+        [STAThread]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static int Main(string[] args)
+        {
+            try
+            {
+                return Main_Impl(args);
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex.Message);
+                return 1;
+            }
+        }
         /// <summary>
         /// Program entry point
         /// </summary>
-        [STAThread]
-        public static void Main(string[] args)
+        public static int Main_Impl(string[] args)
         {
             // make sure the application's working directory isn't System32 (this occurs when run at startup is enabled and the program was started via its registry key)
             bool changedWorkingDirectory = false;
@@ -315,7 +328,7 @@ namespace VolumeControl
                 {
                     LocalizationHelper localeHelper = new(false); //< initialize without logging
                     MessageBox.Show(Loc.Tr($"VolumeControl.Dialogs.AnotherInstanceIsRunning.{(Settings.AllowMultipleDistinctInstances ? "MultiInstance" : "SingleInstance")}", "Another instance of Volume Control is already running!").Replace("${PATH}", Settings.Location));
-                    return;
+                    return 2;
                 }
             }
 
@@ -366,9 +379,10 @@ namespace VolumeControl
 
             // create the application class
             var app = new App();
+            int rc;
             try
             {
-                int rc = app.Run();
+                rc = app.Run();
                 FLog.Info($"App exited with code {rc}");
             }
             catch (Exception ex)
@@ -392,6 +406,8 @@ namespace VolumeControl
             FLog.Log.Dispose();
             appMutex.ReleaseMutex();
             appMutex.Dispose();
+
+            return rc;
         }
         #endregion Main
 
