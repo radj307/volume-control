@@ -1,8 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="node1" title=" " alt="" coords="5,159,92,186"/>
 <area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_embedded_resource_not_found_exception.html" title="Represents errors that occur while trying to access an embedded resource file." alt="" coords="171,5,396,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_action_setting_not_found_exception.html" title="Represents errors that occur when a hotkey action setting wasn&#39;t found in a HotkeyActionPressedEventA..." alt="" coords="160,71,407,127"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_hotkey_registration_exception.html" title=" " alt="" coords="140,152,427,193"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_action_setting_not_found_exception.html" title="Represents errors that occur when a hotkey action setting wasn&#39;t found in a HotkeyPressedEventArgs in..." alt="" coords="160,71,407,127"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_hotkey_registration_exception.html" title="Represents an error that occurs while registering or unregistering a hotkey." alt="" coords="140,152,427,193"/>
 <area shape="rect" id="node5" href="$class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_action_setting_value_type_exception.html" title="Represents type errors that occur from the ActionSettingInstance&lt;T&gt; class." alt="" coords="169,218,397,274"/>
 <area shape="rect" id="node6" href="$class_volume_control_1_1_log_1_1_not_initialized_exception.html" title="Represents errors that occur as a result of trying to access an object before it is initialized." alt="" coords="165,299,401,340"/>
 </map>

@@ -1,11 +1,10 @@
 <map id="VolumeControl.Log.AsyncLogWriter.FilterEventType" name="VolumeControl.Log.AsyncLogWriter.FilterEventType">
-<area shape="rect" id="node1" title="Checks if messages with the specified eventType &#160;are shown in the log." alt="" coords="631,185,841,226"/>
-<area shape="rect" id="node2" href="$struct_volume_control_1_1_core_1_1_input_1_1_structs_1_1_json_hotkey.html#a8e3667369549bda43b0bdac71f0004e9" title="Creates a new THotkey &#160;instance from this JsonHotkey struct, using the specified actionManager &#160;to re..." alt="" coords="329,5,573,61"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_device.html#a39f02cf93decd6dd0eb7a0b9b265f768" title=" " alt="" coords="355,86,548,127"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_core_audio_1_1_audio_session.html#ac7d080e2d81f450d4177ba7ca2ccd7fa" title=" " alt="" coords="355,151,548,193"/>
-<area shape="rect" id="node6" href="$class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html#a5f9ed283ca3d13a3c3e7220a23627c47" title="Invokes the method specified by the HotkeyActionDefinition" alt="" coords="320,217,583,258"/>
-<area shape="rect" id="node7" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html#a037e4a9483554fd7e6ed40f89e2be559" title="Loads hotkey actions from the specified types ." alt="" coords="337,282,565,323"/>
-<area shape="rect" id="node8" href="$class_volume_control_1_1_log_1_1_async_log_writer.html#aa420a04f8d2d9e993547d0866758abca" title="Writes the specified message &#160;to the log endpoint." alt="" coords="346,347,557,389"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_core_audio_1_1_audio_device_session_manager.html#a66931393d3da762b7dfbac974c213b21" title=" " alt="" coords="5,86,272,127"/>
-<area shape="rect" id="node9" href="$class_volume_control_1_1_log_1_1_async_log_writer.html#a8371f214487461914fd661d6c8895c1b" title="Writes the specified logMessage &#160;to the log." alt="" coords="33,347,244,389"/>
+<area shape="rect" id="node1" title="Checks if messages with the specified eventType &#160;are shown in the log." alt="" coords="631,136,841,177"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_device.html#a39f02cf93decd6dd0eb7a0b9b265f768" title=" " alt="" coords="355,5,548,47"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_core_audio_1_1_audio_session.html#ac7d080e2d81f450d4177ba7ca2ccd7fa" title=" " alt="" coords="355,71,548,112"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html#aeb130faa7474afab767d630854556df4" title="Invokes the method specified by the HotkeyActionDefinition" alt="" coords="320,136,583,177"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html#a037e4a9483554fd7e6ed40f89e2be559" title="Loads hotkey actions from the specified types ." alt="" coords="337,201,565,243"/>
+<area shape="rect" id="node7" href="$class_volume_control_1_1_log_1_1_async_log_writer.html#aa420a04f8d2d9e993547d0866758abca" title="Writes the specified message &#160;to the log endpoint." alt="" coords="346,267,557,308"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_device_session_manager.html#a66931393d3da762b7dfbac974c213b21" title=" " alt="" coords="5,5,272,47"/>
+<area shape="rect" id="node8" href="$class_volume_control_1_1_log_1_1_async_log_writer.html#a8371f214487461914fd661d6c8895c1b" title="Writes the specified logMessage &#160;to the log." alt="" coords="33,267,244,308"/>
 </map>

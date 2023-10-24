@@ -1,0 +1,4 @@
+<map id="VolumeControl.Core.Input.HotkeyPressedEventArgs.TryGetSetting&lt; T &gt;" name="VolumeControl.Core.Input.HotkeyPressedEventArgs.TryGetSetting&lt; T &gt;">
+<area shape="rect" id="node1" title="Gets the action setting with the specified name &#160;and value type." alt="" coords="301,13,616,54"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#a811a45ec804d4517876636624522c28d" title="Gets the value of the action setting with the specified name &#160;and value type if it isn&#39;t null or disa..." alt="" coords="5,5,253,61"/>
+</map>

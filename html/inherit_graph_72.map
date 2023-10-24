@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix.html" title="Adds a message hook handler that fixes a bug with WPF windows that have their Window...." alt="" coords="5,5,232,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,13,140,39"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_extensions_1_1_enum_values_extension.html" title="Markup extension that provides an array of all of the values of a given enum type by calling Enum...." alt="" coords="188,5,416,47"/>
 </map>

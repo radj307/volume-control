@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html#a5f9ed283ca3d13a3c3e7220a23627c47" target="_top" xlink:title="Invokes the method specified by the HotkeyActionDefinition">
+<g id="a_node2"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html#aeb130faa7474afab767d630854556df4" target="_top" xlink:title="Invokes the method specified by the HotkeyActionDefinition">
 <polygon fill="none" stroke="black" points="0,-6 0,-36 197,-36 197,-6 0,-6"/>
 <text text-anchor="start" x="8" y="-24" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
 <text text-anchor="middle" x="98.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Actions.HotkeyActionInstance.Invoke</text>

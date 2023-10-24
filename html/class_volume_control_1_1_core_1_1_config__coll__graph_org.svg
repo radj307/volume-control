@@ -62,10 +62,10 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="struct_volume_control_1_1_core_1_1_input_1_1_structs_1_1_json_hotkey.html" target="_top" xlink:title="Contains the JSON object representation of a Hotkey instance.">
+<g id="a_node3"><a xlink:href="struct_volume_control_1_1_core_1_1_input_1_1_json_1_1_json_hotkey.html" target="_top" xlink:title="Contains the JSON object representation of a Hotkey instance.">
 <polygon fill="none" stroke="black" points="173.5,-314.5 173.5,-470.5 345.5,-470.5 345.5,-314.5 173.5,-314.5"/>
 <text text-anchor="start" x="181.5" y="-458.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
-<text text-anchor="middle" x="259.5" y="-447.5" font-family="Helvetica,sans-Serif" font-size="10.00">Structs.JsonHotkey</text>
+<text text-anchor="middle" x="259.5" y="-447.5" font-family="Helvetica,sans-Serif" font-size="10.00">Json.JsonHotkey</text>
 <polyline fill="none" stroke="black" points="173.5,-440.5 345.5,-440.5 "/>
 <text text-anchor="start" x="181.5" y="-428.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
 <text text-anchor="start" x="181.5" y="-417.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Key</text>

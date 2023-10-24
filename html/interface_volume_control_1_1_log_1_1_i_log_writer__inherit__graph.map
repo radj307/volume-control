@@ -1,0 +1,4 @@
+<map id="VolumeControl.Log.ILogWriter" name="VolumeControl.Log.ILogWriter">
+<area shape="rect" id="node1" title="Represents a log writer instance." alt="" coords="5,5,221,215"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_async_log_writer.html" title="Asynchonously writes messages to the log endpoint." alt="" coords="8,263,219,707"/>
+</map>

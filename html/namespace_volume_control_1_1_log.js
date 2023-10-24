@@ -6,6 +6,7 @@ var namespace_volume_control_1_1_log =
     [ "DebugUtils", "class_volume_control_1_1_log_1_1_debug_utils.html", "class_volume_control_1_1_log_1_1_debug_utils" ],
     [ "ExceptionMessageHelper", "class_volume_control_1_1_log_1_1_exception_message_helper.html", "class_volume_control_1_1_log_1_1_exception_message_helper" ],
     [ "FLog", "class_volume_control_1_1_log_1_1_f_log.html", "class_volume_control_1_1_log_1_1_f_log" ],
+    [ "ILogWriter", "interface_volume_control_1_1_log_1_1_i_log_writer.html", "interface_volume_control_1_1_log_1_1_i_log_writer" ],
     [ "LogMessage", "class_volume_control_1_1_log_1_1_log_message.html", "class_volume_control_1_1_log_1_1_log_message" ],
     [ "NotInitializedException", "class_volume_control_1_1_log_1_1_not_initialized_exception.html", "class_volume_control_1_1_log_1_1_not_initialized_exception" ],
     [ "ThreadedLogger", "class_volume_control_1_1_log_1_1_threaded_logger.html", "class_volume_control_1_1_log_1_1_threaded_logger" ]

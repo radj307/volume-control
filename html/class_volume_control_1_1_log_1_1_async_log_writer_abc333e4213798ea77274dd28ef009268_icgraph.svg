@@ -99,7 +99,7 @@ var sectionId = 'dynsection-7';
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html#a5f9ed283ca3d13a3c3e7220a23627c47" target="_top" xlink:title="Invokes the method specified by the HotkeyActionDefinition">
+<g id="a_node5"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html#aeb130faa7474afab767d630854556df4" target="_top" xlink:title="Invokes the method specified by the HotkeyActionDefinition">
 <polygon fill="none" stroke="black" points="236,-49.5 236,-79.5 433,-79.5 433,-49.5 236,-49.5"/>
 <text text-anchor="start" x="244" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
 <text text-anchor="middle" x="334.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">Actions.HotkeyActionInstance.Invoke</text>

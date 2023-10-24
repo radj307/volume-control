@@ -1,0 +1,6 @@
+<map id="VolumeControl.SDK.DataTemplateProviders.NumericUpDown_DataTemplateProvider" name="VolumeControl.SDK.DataTemplateProviders.NumericUpDown_DataTemplateProvider">
+<area shape="rect" id="node1" title="Abstract DataTemplateProvider that implements GetNumericUpDownFactory." alt="" coords="157,189,451,296"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_volume_level___numeric_up_down___data_template_provider.html" title="Ready&#45;to&#45;use Core.DataTemplateProvider that creates a NumericUpDown control with a MinValue of 0 and ..." alt="" coords="5,344,293,451"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_volume_step___numeric_up_down___data_template_provider.html" title="Ready&#45;to&#45;use Core.DataTemplateProvider that creates a NumericUpDown control with a MinValue of 1 and ..." alt="" coords="317,344,600,451"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_data_template_provider.html" title="Provides a DataTemplate for some hardcoded type. &#160;The Type of a derived class can be specified for th..." alt="" coords="183,5,425,141"/>
+</map>

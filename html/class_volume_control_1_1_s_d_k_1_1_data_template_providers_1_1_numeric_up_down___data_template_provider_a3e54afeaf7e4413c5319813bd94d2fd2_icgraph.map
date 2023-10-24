@@ -1,0 +1,5 @@
+<map id="VolumeControl.SDK.DataTemplateProviders.NumericUpDown_DataTemplateProvider.GetNumericUpDownFactory" name="VolumeControl.SDK.DataTemplateProviders.NumericUpDown_DataTemplateProvider.GetNumericUpDownFactory">
+<area shape="rect" id="node1" title="Gets a new FrameworkElementFactory instance of a NumericUpDown control." alt="" coords="371,45,665,101"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_volume_level___numeric_up_down___data_template_provider.html#a164c4f6a537ce358a02ae5db24ae75fa" title="Gets the DataTemplate instance to use for displaying an editor control for the action setting&#39;s value..." alt="" coords="5,5,323,61"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_volume_step___numeric_up_down___data_template_provider.html#aac1a112fbf98ef5204a5d2aa88f99811" title="Gets the DataTemplate instance to use for displaying an editor control for the action setting&#39;s value..." alt="" coords="5,85,323,141"/>
+</map>

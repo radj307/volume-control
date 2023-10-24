@@ -1,0 +1,4 @@
+<map id="VolumeControl.WPF.Controls.DataGridWithoutNavKeys" name="VolumeControl.WPF.Controls.DataGridWithoutNavKeys">
+<area shape="rect" id="node1" title="A DataGrid that ignores KeyDown events for Key.Enter, allowing other controls to receive them without..." alt="" coords="5,131,252,237"/>
+<area shape="rect" id="node2" title=" " alt="" coords="89,5,169,83"/>
+</map>

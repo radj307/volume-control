@@ -30,10 +30,13 @@ var hierarchy =
     [ "Control", null, [
       [ "VolumeControl.WPF.Controls.NumericUpDown", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down.html", null ]
     ] ],
+    [ "DataGrid", null, [
+      [ "VolumeControl.WPF.Controls.DataGridWithoutNavKeys", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_data_grid_without_nav_keys.html", null ]
+    ] ],
     [ "VolumeControl.Core.DataTemplateProvider", "class_volume_control_1_1_core_1_1_data_template_provider.html", [
-      [ "VolumeControl.HotkeyActions.NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_hotkey_actions_1_1_numeric_up_down___data_template_provider.html", [
-        [ "VolumeControl.HotkeyActions.VolumeLevel_NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_hotkey_actions_1_1_volume_level___numeric_up_down___data_template_provider.html", null ],
-        [ "VolumeControl.HotkeyActions.VolumeStep_NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_hotkey_actions_1_1_volume_step___numeric_up_down___data_template_provider.html", null ]
+      [ "VolumeControl.SDK.DataTemplateProviders.NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_numeric_up_down___data_template_provider.html", [
+        [ "VolumeControl.SDK.DataTemplateProviders.VolumeLevel_NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_volume_level___numeric_up_down___data_template_provider.html", null ],
+        [ "VolumeControl.SDK.DataTemplateProviders.VolumeStep_NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_volume_step___numeric_up_down___data_template_provider.html", null ]
       ] ]
     ] ],
     [ "DataTemplateSelector", null, [
@@ -66,7 +69,7 @@ var hierarchy =
     [ "VolumeControl.Log.FLog", "class_volume_control_1_1_log_1_1_f_log.html", null ],
     [ "VolumeControl.Core.Helpers.GetWin32Error", "class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error.html", null ],
     [ "HandledEventArgs", null, [
-      [ "VolumeControl.Core.Input.HotkeyActionPressedEventArgs", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_pressed_event_args.html", null ]
+      [ "VolumeControl.Core.Input.HotkeyPressedEventArgs", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html", null ]
     ] ],
     [ "VolumeControl.Core.Input.HotkeyActionAddonLoader", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html", null ],
     [ "VolumeControl.Core.Input.Actions.HotkeyActionDefinition", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_definition.html", null ],
@@ -152,6 +155,9 @@ var hierarchy =
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ]
     ] ],
+    [ "VolumeControl.Log.ILogWriter", "interface_volume_control_1_1_log_1_1_i_log_writer.html", [
+      [ "VolumeControl.Log.AsyncLogWriter", "class_volume_control_1_1_log_1_1_async_log_writer.html", null ]
+    ] ],
     [ "IMultiValueConverter", null, [
       [ "VolumeControl.WPF.Converters.MultiBindingBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_multi_binding_boolean_converter.html", null ]
     ] ],
@@ -212,7 +218,8 @@ var hierarchy =
     ] ],
     [ "VolumeControl.CoreAudio.Interfaces.IVolumeControl", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_volume_control.html", null ],
     [ "VolumeControl.CoreAudio.Interfaces.IVolumePeakMeter", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_volume_peak_meter.html", null ],
-    [ "VolumeControl.Core.Input.Structs.JsonHotkey", "struct_volume_control_1_1_core_1_1_input_1_1_structs_1_1_json_hotkey.html", null ],
+    [ "VolumeControl.Core.Input.Json.JsonActionSettingValue", "struct_volume_control_1_1_core_1_1_input_1_1_json_1_1_json_action_setting_value.html", null ],
+    [ "VolumeControl.Core.Input.Json.JsonHotkey", "struct_volume_control_1_1_core_1_1_input_1_1_json_1_1_json_hotkey.html", null ],
     [ "List", null, [
       [ "VolumeControl.WPF.Converters.ConverterChain", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain.html", null ]
     ] ],
