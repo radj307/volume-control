@@ -85,6 +85,10 @@ namespace VolumeControl.ViewModels
             // bind to session added/removed events to update the auto complete sources
             AudioAPI.AudioSessionManager.AddedSessionToList += this.AudioSessionManager_AddedOrRemovedSession;
             AudioAPI.AudioSessionManager.RemovedSessionFromList += this.AudioSessionManager_AddedOrRemovedSession;
+
+            // setup flags viewmodels
+            SessionListNotificationFlagsVM = new(Settings.SessionListNotificationConfig);
+            DeviceListNotificationFlagsVM = new(Settings.DeviceListNotificationConfig);
         }
         #endregion Constructor
 
@@ -163,6 +167,9 @@ namespace VolumeControl.ViewModels
                 _updatingAudioSessionSelectorFromTargetSessionText = false;
             }
         }
+
+        public ListNotificationViewFlagsVM SessionListNotificationFlagsVM { get; }
+        public ListNotificationViewFlagsVM DeviceListNotificationFlagsVM { get; }
         #endregion Properties
 
         #region Methods

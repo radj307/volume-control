@@ -19,7 +19,6 @@ using VolumeControl.SDK;
 using VolumeControl.SDK.Internal;
 using VolumeControl.ViewModels;
 using VolumeControl.WPF;
-using VolumeControl.WPF.Collections;
 using VolumeControl.WPF.Controls;
 
 namespace VolumeControl
@@ -200,13 +199,6 @@ namespace VolumeControl
                 UseShellExecute = true
             })?.Dispose();
         }
-        private void Handle_LogFilterChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName?.Equals("Value", StringComparison.Ordinal) ?? false)
-            {
-                Settings.LogFilter = (this.FindResource("EventTypeOptions") as BindableEventType)!.Value;
-            }
-        }
         private void Handle_TargetNameBoxDoubleClick(object sender, MouseButtonEventArgs e)
         {
             targetbox.SelectionStart = 0;
@@ -216,7 +208,10 @@ namespace VolumeControl
         private void Handle_MaximizeClick(object sender, RoutedEventArgs e) => this.WindowState = WindowState.Maximized;
         private void Handle_CloseClick(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
         private void Handle_CheckForUpdatesClick(object sender, RoutedEventArgs e) => this.VCSettings.Updater.CheckForUpdateNow();
-        private void Handle_LogFilterBoxSelectionChanged(object sender, SelectionChangedEventArgs e) => logFilterBox.SelectedItem = null;
+        private void ComboBox_RemoveSelection(object sender, SelectionChangedEventArgs e)
+        {
+            ((ComboBox)sender).SelectedItem = null;
+        }
         private void Handle_KeySelectorKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key.Equals(Key.Tab))

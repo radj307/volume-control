@@ -46,6 +46,8 @@ namespace VolumeControl.ViewModels
 
             // setup the device selection manager
             AudioDeviceSelector = new(AudioDeviceManager);
+            SelectedDevice = AudioDeviceSelector.Selected != null ? GetAudioDeviceVM(AudioDeviceSelector.Selected) : null;
+            AudioDeviceSelector.PropertyChanged += this.AudioDeviceSelector_PropertyChanged;
 
             if (doDebugLogging) FLog.Debug($"Successfully initialized {AudioDeviceManager.Devices.Count} audio devices.");
 
@@ -123,6 +125,7 @@ namespace VolumeControl.ViewModels
         public Comparer<AudioSessionVM> SelectedSessionsComparer { get; }
         public AudioSessionVM? CurrentSession { get; set; }
         public AudioDeviceSelector AudioDeviceSelector { get; }
+        public AudioDeviceVM? SelectedDevice { get; set; }
         public AudioSessionMultiSelector AudioSessionMultiSelector { get; }
         public bool? AllSessionsSelected
         {
@@ -265,6 +268,18 @@ namespace VolumeControl.ViewModels
             CurrentSession = e == null ? null : GetAudioSessionVM(e);
         }
         #endregion AudioSessionMultiSelector
+
+        #region AudioDeviceSelector
+        private void AudioDeviceSelector_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        { // update the SelectedDevice property
+            if (e.PropertyName == null) return;
+
+            if (e.PropertyName.Equals(nameof(AudioDeviceSelector.Selected), StringComparison.Ordinal))
+            {
+                SelectedDevice = AudioDeviceSelector.Selected != null ? GetAudioDeviceVM(AudioDeviceSelector.Selected) : null;
+            }
+        }
+        #endregion AudioDeviceSelector
 
         #endregion EventHandlers
     }

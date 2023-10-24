@@ -7,7 +7,6 @@
     xmlns:core="clr-namespace:VolumeControl.Core;assembly=VolumeControl.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:local="clr-namespace:VolumeControl"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:VolumeControl.ViewModels"
     xmlns:wpf="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
@@ -47,44 +46,6 @@
                 WhenTrue="{x:Static core:Config.NotificationLockedBrush}" />
 
             <!--  Styles  -->
-            <Style TargetType="{x:Type ListView}">
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="Background" Value="#0000" />
-                <Setter Property="FocusVisualStyle" Value="{StaticResource CustomFocusVisualStyle}" />
-            </Style>
-            <Style TargetType="{x:Type ListViewItem}">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="FontWeight" Value="Bold" />
-                        <Setter Property="Background" Value="{Binding AudioAPI.AudioDeviceSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
-                    </DataTrigger>
-                </Style.Triggers>
-                <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
-                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                <Setter Property="Padding" Value="6,4" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ListViewItem}">
-                            <Border
-                                Margin="{TemplateBinding Margin}"
-                                Padding="{TemplateBinding Padding}"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{StaticResource RoundedControlCorner}"
-                                FocusVisualStyle="{TemplateBinding FocusVisualStyle}">
-                                <ContentPresenter
-                                    Content="{TemplateBinding Content}"
-                                    ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                    ContentTemplate="{TemplateBinding ContentTemplate}"
-                                    ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" />
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <EventSetter Event="Selected" Handler="ListViewItem_Selected" />
-            </Style>
             <Style BasedOn="{StaticResource CheckBoxStyle}" TargetType="{x:Type CheckBox}" />
             <Style BasedOn="{StaticResource TextBoxStyle}" TargetType="{x:Type TextBox}">
                 <Setter Property="Background" Value="#0000" />
@@ -109,75 +70,8 @@
                     Duration="{Binding DeviceListNotificationConfig.FadeOutDuration, Source={StaticResource Settings}}" />
             </Storyboard>
 
-        </ResourceDictionary>
-    </Window.Resources>
-    <Window.Style>
-        <Style TargetType="{x:Type Window}">
-            <Setter Property="Background" Value="{StaticResource NotificationBackgroundBrush}" />
-        </Style>
-    </Window.Style>
-
-    <Border BorderThickness="10">
-        <Border.Style>
-            <Style TargetType="{x:Type Border}">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding AudioAPI.AudioDeviceSelector.Selected, Source={StaticResource Settings}, Converter={StaticResource IsNullConverter}}" Value="True">
-                        <Setter Property="BorderBrush" Value="{Binding AudioAPI.AudioDeviceSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
-                    </DataTrigger>
-                </Style.Triggers>
-                <Setter Property="BorderBrush" Value="{StaticResource WindowBorderBrush}" />
-            </Style>
-        </Border.Style>
-        <Grid DataContext="{StaticResource Settings}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <!--  Row 0 (ListView)  -->
-            <ListView
-                x:Name="ListView"
-                Margin="6"
-                Padding="1"
-                ItemsSource="{Binding AudioAPI.Devices, Mode=OneWay}"
-                PreviewMouseDown="ListView_PreviewMouseDown"
-                SelectedIndex="{Binding AudioAPI.AudioDeviceSelector.SelectedIndex, UpdateSourceTrigger=PropertyChanged}"
-                SelectionMode="Single">
-                <i:Interaction.Behaviors>
-                    <wpfBehaviors:MouseWheelListViewBehavior />
-                </i:Interaction.Behaviors>
-                <ListView.ItemTemplate>
-                    <DataTemplate DataType="{x:Type vm:AudioDeviceVM}">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-
-                            <Image
-                                Width="{Binding Height, RelativeSource={RelativeSource Self}, Mode=OneWay}"
-                                Height="{Binding ActualHeight, ElementName=deviceNameBox}"
-                                Margin="0,0,3,0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Source="{Binding Icon}"
-                                Visibility="{Binding ShowIcons, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                            <TextBlock
-                                x:Name="deviceNameBox"
-                                Grid.Column="1"
-                                Margin="3,0,0,0"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
-                                Text="{Binding Name}" />
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
-            <!--  Row 1 (Controls)  -->
-            <Grid Grid.Row="2" Visibility="{Binding AudioAPI.AudioDeviceSelector.Selected, Mode=OneWay, Converter={StaticResource NullableToVisibilityConverter}}">
-                <Border Background="{StaticResource WindowBorderBrush}" />
-                <Grid Margin="2,4,2,2" DataContext="{Binding AudioAPI.AudioDeviceSelector.Selected}">
+            <DataTemplate x:Key="DeviceControlsDataTemplate" DataType="{x:Type vm:AudioDeviceVM}">
+                <Grid Margin="2,4,2,2" DataContext="{Binding AudioDevice}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition MinWidth="80" />
@@ -219,6 +113,168 @@
                         </i:Interaction.Behaviors>
                     </TextBox>
                 </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DeviceDisplayDataTemplate" DataType="{x:Type vm:AudioDeviceVM}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image
+                        Width="{Binding Height, RelativeSource={RelativeSource Self}, Mode=OneWay}"
+                        Height="{Binding ActualHeight, ElementName=deviceNameBox}"
+                        Margin="0,0,3,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Source="{Binding Icon}"
+                        Visibility="{Binding ShowIcons, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <TextBlock
+                        x:Name="deviceNameBox"
+                        Grid.Column="1"
+                        Margin="3,0,0,0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        Foreground="{StaticResource TextBoxForeground}"
+                        Text="{Binding Name}" />
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DeviceFullDataTemplate" DataType="{x:Type vm:AudioDeviceVM}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <ContentControl
+                        Margin="3,1"
+                        Content="{Binding}"
+                        ContentTemplate="{StaticResource DeviceDisplayDataTemplate}" />
+
+                    <ContentControl
+                        Grid.Row="1"
+                        Margin="3,1"
+                        Content="{Binding}"
+                        ContentTemplate="{StaticResource DeviceControlsDataTemplate}" />
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.Style>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="Background" Value="{StaticResource NotificationBackgroundBrush}" />
+        </Style>
+    </Window.Style>
+
+    <Border BorderThickness="10">
+        <Border.Style>
+            <Style TargetType="{x:Type Border}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding AudioAPI.AudioDeviceSelector.Selected, Source={StaticResource Settings}, Converter={StaticResource IsNullConverter}}" Value="True">
+                        <Setter Property="BorderBrush" Value="{Binding AudioAPI.AudioDeviceSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
+                    </DataTrigger>
+                </Style.Triggers>
+                <Setter Property="BorderBrush" Value="{StaticResource WindowBorderBrush}" />
+            </Style>
+        </Border.Style>
+        <Grid DataContext="{StaticResource Settings}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!--  Row 0 (ListView)  -->
+            <ListView
+                x:Name="ListView"
+                Margin="6"
+                Padding="1"
+                ItemTemplate="{StaticResource DeviceDisplayDataTemplate}"
+                ItemsSource="{Binding AudioAPI.Devices, Mode=OneWay}"
+                PreviewMouseDown="ListView_PreviewMouseDown"
+                SelectedIndex="{Binding AudioAPI.AudioDeviceSelector.SelectedIndex, UpdateSourceTrigger=PropertyChanged}"
+                SelectionMode="Single">
+                <i:Interaction.Behaviors>
+                    <wpfBehaviors:MouseWheelListViewBehavior />
+                </i:Interaction.Behaviors>
+                <ListView.Style>
+                    <Style TargetType="{x:Type ListView}">
+                        <Style.Triggers>
+                            <!--  Collapse list when not enabled  -->
+                            <DataTrigger Binding="{Binding DeviceListNotificationFlagsVM.ShowFullList, Source={StaticResource Settings}}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="Background" Value="#0000" />
+                        <Setter Property="FocusVisualStyle" Value="{StaticResource CustomFocusVisualStyle}" />
+                    </Style>
+                </ListView.Style>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Background" Value="{Binding AudioAPI.AudioDeviceSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                        <Setter Property="Padding" Value="6,4" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <Border
+                                        Margin="{TemplateBinding Margin}"
+                                        Padding="{TemplateBinding Padding}"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="{StaticResource RoundedControlCorner}"
+                                        FocusVisualStyle="{TemplateBinding FocusVisualStyle}">
+                                        <ContentPresenter
+                                            Content="{TemplateBinding Content}"
+                                            ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                                            ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <EventSetter Event="Selected" Handler="ListViewItem_Selected" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+
+            <!--  Row 1 (Controls)  -->
+            <Grid Grid.Row="2">
+                <Grid.Style>
+                    <Style TargetType="{x:Type Grid}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DeviceListNotificationFlagsVM.ShowControlBar, Source={StaticResource Settings}}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+
+                <Border Background="{StaticResource WindowBorderBrush}" />
+                <ContentControl
+                    Margin="2"
+                    Content="{Binding AudioAPI.SelectedDevice}"
+                    Visibility="{Binding AudioAPI.SelectedDevice, Mode=OneWay, Converter={StaticResource NullableToVisibilityConverter}}">
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DeviceListNotificationFlagsVM.ShowSelectedOnly, Source={StaticResource Settings}}" Value="True">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource DeviceFullDataTemplate}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                            <Setter Property="ContentTemplate" Value="{StaticResource DeviceControlsDataTemplate}" />
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
             </Grid>
         </Grid>
     </Border>

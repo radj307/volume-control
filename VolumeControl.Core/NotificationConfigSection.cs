@@ -67,6 +67,10 @@ namespace VolumeControl.Core
         /// Gets or sets the duration of the notification fade-in animation.
         /// </summary>
         public Duration FadeOutDuration { get; set; } = new(TimeSpan.FromMilliseconds(750));
+        /// <summary>
+        /// Gets or sets the view mode of this notification.
+        /// </summary>
+        public EListNotificationView ViewMode { get; set; } = EListNotificationView.Everything;
         #endregion Properties
     }
 }
