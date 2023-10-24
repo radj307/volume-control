@@ -109,5 +109,22 @@
         {
             return (T)Enum.ToObject(typeof(T), Convert.ToInt64(e) ^ Convert.ToInt64(value));
         }
+        /// <summary>
+        /// Gets a single merged value containing all of the flags in the <paramref name="enumerable"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of enum being operated on.</typeparam>
+        /// <param name="enumerable">(implicit) Enumerable containing enum values of type <typeparamref name="T"/>.</param>
+        /// <returns>A single enum value containing all of the values in the <paramref name="enumerable"/>.</returns>
+        public static T GetSingleValue<T>(this IEnumerable<T> enumerable) where T : struct, Enum
+        {
+            var result = Convert.ToInt64(default(T));
+
+            foreach (var value in enumerable)
+            {
+                result |= Convert.ToInt64(value);
+            }
+
+            return (T)Enum.ToObject(typeof(T), result);
+        }
     }
 }

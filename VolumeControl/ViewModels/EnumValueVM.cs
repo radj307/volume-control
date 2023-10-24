@@ -59,6 +59,7 @@ namespace VolumeControl.ViewModels
                 item.PropertyChanged += this.Item_PropertyChanged;
                 _items.Add(item);
             }
+            _state = _items.Select(item => item.Value).GetSingleValue();
         }
         #endregion Constructor
 
@@ -71,7 +72,7 @@ namespace VolumeControl.ViewModels
         private readonly List<FlagsEnumValueVM> _items;
         public T State
         {
-            get => ZeroValue.SetFlagStates(Items.ToPairs(item => item.Value, item => item.IsSet).ToArray());
+            get => _state;
             set
             {
                 var changedFlags = State.Xor(value);
@@ -79,10 +80,12 @@ namespace VolumeControl.ViewModels
                 {
                     item.IsSet = value.HasFlag(item.Value);
                 }
+                _state = value;
                 NotifyStateChanged(State, changedFlags);
                 NotifyPropertyChanged();
             }
         }
+        private T _state;
         #endregion Properties
 
         #region Events
@@ -101,7 +104,9 @@ namespace VolumeControl.ViewModels
 
             if (e.PropertyName.Equals(nameof(FlagsEnumValueVM.IsSet), StringComparison.Ordinal))
             {
-                NotifyStateChanged(State, ((FlagsEnumValueVM)sender!).Value);
+                var item = (FlagsEnumValueVM)sender!;
+                _state = _state.SetFlagState(item.Value, item.IsSet);
+                NotifyStateChanged(State, item.Value);
             }
         }
         #endregion Item
