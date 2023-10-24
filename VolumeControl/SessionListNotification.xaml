@@ -196,7 +196,7 @@
                         ContentTemplate="{StaticResource SessionDisplayDataTemplate}" />
 
                     <ContentControl
-                        Grid.Column="1"
+                        Grid.Row="1"
                         Margin="3,1"
                         Content="{Binding}"
                         ContentTemplate="{StaticResource SessionControlsDataTemplate}" />
@@ -206,170 +206,180 @@
     </Window.Resources>
 
     <Border
+        Padding="9"
+        Background="{StaticResource NotificationBackgroundBrush}"
         BorderThickness="7"
-        CornerRadius="19"
-        Opacity="1.0">
+        CornerRadius="19">
         <Border.Style>
             <Style TargetType="{x:Type Border}">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding AudioAPI.AudioSessionMultiSelector.CurrentSession, Source={StaticResource Settings}, Converter={StaticResource IsNullConverter}}" Value="True">
                         <Setter Property="BorderBrush" Value="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
                     </DataTrigger>
+                    <DataTrigger Binding="{Binding SessionListNotificationFlagsVM.ShowFullList, Source={StaticResource Settings}}" Value="False">
+                        <Setter Property="BorderBrush" Value="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
+                    </DataTrigger>
                 </Style.Triggers>
                 <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
             </Style>
         </Border.Style>
-        <Border
-            Padding="9"
-            Background="{StaticResource NotificationBackgroundBrush}"
-            CornerRadius="18">
-            <Grid DataContext="{StaticResource Settings}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+        <Grid DataContext="{StaticResource Settings}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-                <!--  Row 0 (ListView)  -->
-                <ListView
-                    x:Name="ListView"
-                    Margin="6,6,6,8"
-                    Padding="1"
-                    Background="#0000"
-                    ItemTemplate="{StaticResource SessionDisplayAlwaysBoldWidthDataTemplate}"
-                    ItemsSource="{Binding AudioAPI.AllSessions, Mode=OneWay}"
-                    PreviewMouseDown="ListView_PreviewMouseDown"
-                    SelectedIndex="{Binding AudioAPI.AudioSessionMultiSelector.CurrentIndex, UpdateSourceTrigger=PropertyChanged}"
-                    SelectionMode="Single">
-                    <i:Interaction.Behaviors>
-                        <wpfBehaviors:MouseWheelListViewBehavior />
-                    </i:Interaction.Behaviors>
-                    <ListView.Style>
-                        <Style TargetType="{x:Type ListView}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding SessionListNotificationFlagsVM.ShowFullList, Source={StaticResource Settings}}" Value="False">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="BorderThickness" Value="0" />
-                            <Setter Property="Background" Value="#0000" />
-                            <Setter Property="FocusVisualStyle" Value="{StaticResource CustomFocusVisualStyle}" />
-                        </Style>
-                    </ListView.Style>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListViewItem}">
-                            <Style.Triggers>
-                                <!--  Selector (Multi-Selection Mode Only):  -->
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding AudioAPI.AudioSessionMultiSelector.HasSelectedSessions, Source={StaticResource Settings}}" Value="True" />
-                                        <!--  Binds to ListViewItem.IsSelected:  -->
-                                        <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
-                                    </MultiDataTrigger.Conditions>
-                                    <MultiDataTrigger.Setters>
-                                        <Setter Property="BorderBrush" Value="{StaticResource TextBoxForeground}" />
-                                        <Setter Property="FontWeight" Value="Bold" />
-                                    </MultiDataTrigger.Setters>
-                                </MultiDataTrigger>
-                                <!--  Selector (Single-Selection Mode Only):  -->
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding AudioAPI.AudioSessionMultiSelector.HasSelectedSessions, Source={StaticResource Settings}}" Value="False" />
-                                        <!--  Binds to ListViewItem.IsSelected:  -->
-                                        <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
-                                    </MultiDataTrigger.Conditions>
-                                    <MultiDataTrigger.Setters>
-                                        <Setter Property="Background" Value="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
-                                        <Setter Property="FontWeight" Value="Bold" />
-                                    </MultiDataTrigger.Setters>
-                                </MultiDataTrigger>
-
-                                <!--  Binds to AudioSessionVM.IsSelected:  -->
-                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+            <!--  Row 0 (ListView)  -->
+            <ListView
+                x:Name="ListView"
+                Margin="6,6,6,8"
+                Padding="1"
+                Background="#0000"
+                ItemTemplate="{StaticResource SessionDisplayAlwaysBoldWidthDataTemplate}"
+                ItemsSource="{Binding AudioAPI.AllSessions, Mode=OneWay}"
+                PreviewMouseDown="ListView_PreviewMouseDown"
+                SelectedIndex="{Binding AudioAPI.AudioSessionMultiSelector.CurrentIndex, UpdateSourceTrigger=PropertyChanged}"
+                SelectionMode="Single">
+                <i:Interaction.Behaviors>
+                    <wpfBehaviors:MouseWheelListViewBehavior />
+                </i:Interaction.Behaviors>
+                <ListView.Style>
+                    <Style TargetType="{x:Type ListView}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SessionListNotificationFlagsVM.ShowFullList, Source={StaticResource Settings}}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="Background" Value="#0000" />
+                        <Setter Property="FocusVisualStyle" Value="{StaticResource CustomFocusVisualStyle}" />
+                    </Style>
+                </ListView.Style>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Style.Triggers>
+                            <!--  Selector (Multi-Selection Mode Only):  -->
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding AudioAPI.AudioSessionMultiSelector.HasSelectedSessions, Source={StaticResource Settings}}" Value="True" />
+                                    <!--  Binds to ListViewItem.IsSelected:  -->
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter Property="BorderBrush" Value="{StaticResource TextBoxForeground}" />
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+                            <!--  Selector (Single-Selection Mode Only):  -->
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding AudioAPI.AudioSessionMultiSelector.HasSelectedSessions, Source={StaticResource Settings}}" Value="False" />
+                                    <!--  Binds to ListViewItem.IsSelected:  -->
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
                                     <Setter Property="Background" Value="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="BorderThickness" Value="1.5" />
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                            <Setter Property="Margin" Value="0,1" />
-                            <Setter Property="Padding" Value="6,4" />
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                        <Border
-                                            Margin="{TemplateBinding Margin}"
-                                            Padding="{TemplateBinding Padding}"
-                                            Background="{TemplateBinding Background}"
-                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                            BorderThickness="{TemplateBinding BorderThickness}"
-                                            CornerRadius="{StaticResource RoundedControlCorner}"
-                                            FocusVisualStyle="{TemplateBinding FocusVisualStyle}">
-                                            <ContentPresenter
-                                                Content="{TemplateBinding Content}"
-                                                ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                                ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" />
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <EventSetter Event="Selected" Handler="ListViewItem_Selected" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
 
-                <!--  Row 1 (Controls)  -->
-                <Grid Grid.Row="1">
-                    <Grid.Style>
-                        <Style TargetType="{x:Type Grid}">
+                            <!--  Binds to AudioSessionVM.IsSelected:  -->
+                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                <Setter Property="Background" Value="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                        <Setter Property="BorderThickness" Value="1.5" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                        <Setter Property="Margin" Value="0,1" />
+                        <Setter Property="Padding" Value="6,4" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <Border
+                                        Margin="{TemplateBinding Margin}"
+                                        Padding="{TemplateBinding Padding}"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="{StaticResource RoundedControlCorner}"
+                                        FocusVisualStyle="{TemplateBinding FocusVisualStyle}">
+                                        <ContentPresenter
+                                            Content="{TemplateBinding Content}"
+                                            ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                                            ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <EventSetter Event="Selected" Handler="ListViewItem_Selected" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+
+            <!--  Row 1 (Controls)  -->
+            <Grid Grid.Row="1">
+                <Grid.Style>
+                    <Style TargetType="{x:Type Grid}">
+                        <Style.Triggers>
+                            <!--  Hide controls when viewmode doesn't include them  -->
+                            <DataTrigger Binding="{Binding SessionListNotificationFlagsVM.ShowControlBar, Source={StaticResource Settings}}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SessionListNotificationFlagsVM.ShowSelectedOnly, Source={StaticResource Settings}}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+
+                <Border Background="{StaticResource WindowBorderBrush}" />
+                <ItemsControl
+                    x:Name="MultiSelectionControls"
+                    Margin="2"
+                    ItemsSource="{Binding AudioAPI.SelectedSessions}"
+                    Visibility="{Binding AudioAPI.AudioSessionMultiSelector.HasSelectedSessions, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <ItemsControl.Style>
+                        <Style TargetType="{x:Type ItemsControl}">
                             <Style.Triggers>
-                                <!--  Hide controls when viewmode doesn't include them  -->
+                                <!--  Use display/control hybrid template when only selected sessions are visible  -->
+                                <DataTrigger Binding="{Binding SessionListNotificationFlagsVM.ShowSelectedOnly, Source={StaticResource Settings}}" Value="True">
+                                    <Setter Property="ItemTemplate" Value="{StaticResource SessionFullDataTemplate}" />
+                                </DataTrigger>
+                                <!--  Override last and use display template when control bar isn't visible  -->
                                 <DataTrigger Binding="{Binding SessionListNotificationFlagsVM.ShowControlBar, Source={StaticResource Settings}}" Value="False">
-                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Setter Property="ItemTemplate" Value="{StaticResource SessionDisplayDataTemplate}" />
                                 </DataTrigger>
                             </Style.Triggers>
+                            <Setter Property="ItemTemplate" Value="{StaticResource SessionControlsDataTemplate}" />
                         </Style>
-                    </Grid.Style>
-
-                    <Border Grid.RowSpan="3" Background="{StaticResource WindowBorderBrush}" />
-                    <ItemsControl
-                        x:Name="MultiSelectionControls"
+                    </ItemsControl.Style>
+                </ItemsControl>
+                <Grid Visibility="{Binding IsVisible, ElementName=MultiSelectionControls, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <ContentControl
                         Margin="2"
-                        ItemsSource="{Binding AudioAPI.SelectedSessions}"
-                        Visibility="{Binding AudioAPI.AudioSessionMultiSelector.HasSelectedSessions, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <ItemsControl.Style>
-                            <Style TargetType="{x:Type ItemsControl}">
+                        Content="{Binding AudioAPI.CurrentSession}"
+                        Visibility="{Binding AudioAPI.AudioSessionMultiSelector.CurrentSession, Mode=OneWay, Converter={StaticResource NullableToVisibilityConverter}}">
+                        <ContentControl.Style>
+                            <Style TargetType="{x:Type ContentControl}">
                                 <Style.Triggers>
                                     <!--  Use display/control hybrid template when only selected sessions are visible  -->
                                     <DataTrigger Binding="{Binding SessionListNotificationFlagsVM.ShowSelectedOnly, Source={StaticResource Settings}}" Value="True">
-                                        <Setter Property="ItemTemplate" Value="{StaticResource SessionFullDataTemplate}" />
+                                        <Setter Property="ContentTemplate" Value="{StaticResource SessionFullDataTemplate}" />
+                                    </DataTrigger>
+                                    <!--  Override last and use display template when control bar isn't visible  -->
+                                    <DataTrigger Binding="{Binding SessionListNotificationFlagsVM.ShowControlBar, Source={StaticResource Settings}}" Value="False">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource SessionDisplayDataTemplate}" />
                                     </DataTrigger>
                                 </Style.Triggers>
-                                <Setter Property="ItemTemplate" Value="{StaticResource SessionControlsDataTemplate}" />
+                                <Setter Property="ContentTemplate" Value="{StaticResource SessionControlsDataTemplate}" />
                             </Style>
-                        </ItemsControl.Style>
-                    </ItemsControl>
-                    <Grid Visibility="{Binding IsVisible, ElementName=MultiSelectionControls, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
-                        <ContentControl
-                            Margin="2"
-                            Content="{Binding AudioAPI.CurrentSession}"
-                            Visibility="{Binding AudioAPI.AudioSessionMultiSelector.CurrentSession, Mode=OneWay, Converter={StaticResource NullableToVisibilityConverter}}">
-                            <ContentControl.Style>
-                                <Style TargetType="{x:Type ContentControl}">
-                                    <Style.Triggers>
-                                        <!--  Use display/control hybrid template when only selected sessions are visible  -->
-                                        <DataTrigger Binding="{Binding SessionListNotificationFlagsVM.ShowSelectedOnly, Source={StaticResource Settings}}" Value="True">
-                                            <Setter Property="ContentTemplate" Value="{StaticResource SessionFullDataTemplate}" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                    <Setter Property="ContentTemplate" Value="{StaticResource SessionControlsDataTemplate}" />
-                                </Style>
-                            </ContentControl.Style>
-                        </ContentControl>
-                    </Grid>
+                        </ContentControl.Style>
+                    </ContentControl>
                 </Grid>
             </Grid>
-        </Border>
+        </Grid>
     </Border>
 
     <WindowChrome.WindowChrome>
