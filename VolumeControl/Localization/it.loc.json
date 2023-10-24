@@ -32,6 +32,13 @@
           }
         },
         "MixerGrid": {
+          "Selected": {
+            "Header": {
+              "Tooltip": {
+                "Italiano (Italian)": "Deseeleziona tutte le sessioni."
+              }
+            }
+          },
           "PID": {
             "Header": {
               "Italiano (Italian)": "PID"
@@ -64,14 +71,6 @@
           "Italiano (Italian)": "Tasti rapidi"
         },
         "ControlRow": {
-          "EditMode": {
-            "Content": {
-              "Italiano (Italian)": "Modo modifica"
-            },
-            "Tooltip": {
-              "Italiano (Italian)": "Consente di modificare, creare ed eliminare tasti di scelta rapida."
-            }
-          },
           "VolumeStep": {
             "Content": {
               "Italiano (Italian)": "Step volume"
@@ -85,7 +84,7 @@
               "Italiano (Italian)": "Ripristina predefiniti"
             },
             "Tooltip": {
-              "Italiano (Italian)": "Ripristina tutti i tasti di scelta rapida alla impostazione predefinita."
+              "Italiano (Italian)": "Ripristina tutti i tasti scelta rapida alle impostazioni predefinite."
             }
           }
         },
@@ -172,7 +171,6 @@
                 "Italiano (Italian)": "Impostazioni aggiuntive"
               },
               "Tooltip": {}
-
             },
             "ShowPeakMeters": {
               "Content": {
@@ -258,6 +256,12 @@
               "Tooltip": {
                 "Italiano (Italian)": "Forza la scomparsa della finestra di notifica."
               }
+            },
+            "HiddenSessions": {
+              "Content": {
+                "Italiano (Italian)": "Nascondi sessioni"
+              },
+              "Tooltip": {}
             }
           },
           "Enable": {
@@ -282,6 +286,22 @@
             },
             "Tooltip": {
               "Italiano (Italian)": "La quantità di tempo in millisecondi durante la quale le notifiche rimarranno visibili dopo essere state attivate."
+            }
+          },
+          "SessionListNotificationConfig": {
+            "Header": {
+              "Content": {
+                "Italiano (Italian)": "Opzioni notifica sessioni"
+              },
+              "Tooltip": {}
+            }
+          },
+          "DeviceListNotificationConfig": {
+            "Header": {
+              "Content": {
+                "Italiano (Italian)": "Opzioni notifica dispositivo"
+              },
+              "Tooltip": {}
             }
           }
         },
@@ -318,6 +338,9 @@
             },
             "Tooltip": {
               "Italiano (Italian)": "Quando abilitato, il controllo del volume verrà eseguito all'accesso del sistema."
+            },
+            "AltTooltip": {
+              "Italiano (Italian)": "Un'altra istanza di Controllo volume è impostata per essere eseguita all'avvio.\nLa modifica di questo lo sostituirà."
             }
           },
           "StartMinimized": {
@@ -354,6 +377,14 @@
             },
             "Tooltip": {
               "Italiano (Italian)": "Quando abilitato, il programma tenterà di visualizzare l'icona associata ai dispositivi audio e alle sessioni (alcune icone potrebbero mancare durante l'esecuzione come utente)."
+            }
+          },
+          "KeepRelativePosition": {
+            "Content": {
+              "Italiano (Italian)": "Mantieni posizione relativa"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Quando la dimensioen della finestra cambia mantieni la finestra principale nella stessa posizione rispetto all'angolo dello schermo più vicino "
             }
           }
         },
@@ -481,6 +512,30 @@
         }
       }
     },
+
+    "ActionSettingsWindow": {
+      "DataTemplateErrorTextBlock": {
+        "Tooltip": {
+          "Italiano (Italian)": "Non è disponibile nessun ModelloDati per questo tipo di valore!"
+        }
+      },
+      "ToggleActionSetting": {
+        "Content": {
+          "Italiano (Italian)": "Abilita"
+        },
+        "Tooltip": {
+          "Italiano (Italian)": "Questa impostazione di azione è abilitata quando selezionata."
+        }
+      },
+      "ActionTargetSpecifierDataTemplate": {
+        "AddTargetBox": {
+          "DefaultText": {
+            "Italiano (Italian)": "Nome destinazione..."
+          }
+        }
+      }
+    },
+
     "Dialogs": {
       "AnotherInstanceIsRunning": {
         "MultiInstance": {
@@ -503,17 +558,15 @@
           "Italiano (Italian)": "Sei sicuro di voler eliminare il tasto scelta rapida ${ID}?\n\n- 'Sì' elimina il tasto scelta rapida.\n- 'No' non elimina il tasto scelta rapida.\n- 'Annulla' disabilita queste richieste di conferma in futuro (non elimina il tasto di scelta rapida).\n"
         },
         "Caption": {
-          "ConfirmRemove": {
             "Italiano (Italian)": "Conferma rimozione"
-          }
         }
       },
-      "DisplayTargetsHelp": {
+      "MultiInstanceChanged": {
         "Message": {
-          "Italiano (Italian)": "Una destinazione visualizzazione è una raccolta di trigger, controlli, colori e logica che determinano il comportamento e l'aspetto della finestra di notifica.\nLe destinazioni visualizzazione cambiano anche quando viene visualizzata la finestra di notifica.\nAd esempio, la destinazione  visualizzazione 'Sessioni audio' visualizza la finestra di notifica quando la sessione selezionata viene modificata o bloccata/sbloccata, o quando il volume della sessione o lo stato di disattivazione dell'audio cambia."
+          "Italiano (Italian)": "Le modifiche all'impostazione Multiistanza avranno effetto dopo il riavvio del Controllo volume.\n\nVuoi riavviare l'applicazione adesso?"
         },
         "Caption": {
-          "Italiano (Italian)": "Guida destinazione visualizzazione"
+          "Italiano (Italian)": "È necessario il riavvio dell'applicazione"
         }
       }
     },
@@ -530,6 +583,9 @@
       },
       "OpenLocation": {
         "Italiano (Italian)": "Apri percorso"
+      },
+      "OpenAppData": {
+        "Italiano (Italian)": "Apri AppData"
       },
       "Close": {
         "Italiano (Italian)": "Chiudi"
