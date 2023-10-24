@@ -12,10 +12,17 @@ namespace VolumeControl.WPF.Extensions
     public sealed class EnumValuesExtension : MarkupExtension
     {
         #region Initializer
+        /// <summary>
+        /// Creates a new <see cref="EnumValuesExtension"/> instance.
+        /// </summary>
         public EnumValuesExtension()
         {
             EnumType = null!;
         }
+        /// <summary>
+        /// Creates a new <see cref="EnumValuesExtension"/> instance with the specified <paramref name="enumType"/>.
+        /// </summary>
+        /// <param name="enumType">The enum type to get the values of.</param>
         public EnumValuesExtension(Type enumType)
         {
             EnumType = enumType;
@@ -36,7 +43,7 @@ namespace VolumeControl.WPF.Extensions
                 _enumType = value;
             }
         }
-        private Type _enumType;
+        private Type _enumType = null!;
         /// <summary>
         /// Gets or sets the list of value names to be excluded from the output. Multiple values can be specified by separating them with commas (,).
         /// </summary>

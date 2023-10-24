@@ -379,7 +379,7 @@ namespace VolumeControl
 
             // create the application class
             var app = new App();
-            int rc;
+            int rc = -1;
             try
             {
                 rc = app.Run();

@@ -4,7 +4,7 @@ using VolumeControl.Log;
 namespace VolumeControl.WPF.Collections
 {
     /// <summary>
-    /// This is an extension of the <see cref="BindableEventType"/> object that initializes the <see cref="BindableEventType.Value"/> property to <see cref="FLog.EventFilter"/>.
+    /// This is an extension of the <see cref="BindableEventType"/> object that initializes the <see cref="BindableEventType.Value"/> property to the log's event filter.
     /// </summary>
     public class LogEventTypeFilter : BindableEventType
     {

@@ -110,7 +110,6 @@ namespace VolumeControl.WPF.Collections
 
         #region Properties
         /// <summary>Gets the formatted name of the current bitfield combination.</summary>
-        /// <remarks>This may include <see cref="EventType.NONE"/>, <see cref="EventType.ALL_EXCEPT_DEBUG"/>, <see cref="EventType.ALL"/>, or a combination of other values.</remarks>
         public string Name => $"{this.Value:G}";
         /// <summary>Gets or sets the bitfield flag value.</summary>
         public EventType Value
@@ -145,7 +144,7 @@ namespace VolumeControl.WPF.Collections
 
         #region Methods
         /// <summary>
-        /// This method is responsible for populating the <see cref="Options"/> list, as well as filtering out unwanted event types like <see cref="EventType.NONE"/>, <see cref="EventType.ALL_EXCEPT_DEBUG"/>, and <see cref="EventType.ALL"/>.
+        /// This method is responsible for populating the <see cref="Options"/> list, as well as filtering out unwanted event types like <see cref="EventType.NONE"/>.
         /// </summary>
         private void InitializeOptions()
         {
