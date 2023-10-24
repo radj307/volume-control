@@ -89,5 +89,26 @@ namespace VolumeControl.TypeExtensions
 
             return l.AsEnumerable();
         }
+        /// <summary>
+        /// Gets a list of pairs from the enumerable.
+        /// </summary>
+        /// <typeparam name="TIn">Input type</typeparam>
+        /// <typeparam name="TOut1">Output item type 1</typeparam>
+        /// <typeparam name="TOut2">Output item type 2</typeparam>
+        /// <param name="enumerable">(implicit) Enumerable.</param>
+        /// <param name="item1Selector">Selector for the first item in the pair.</param>
+        /// <param name="item2Selector">Selector for the second item in the pair.</param>
+        /// <returns>A list of <typeparamref name="TOut1"/>-<typeparamref name="TOut2"/> pairs.</returns>
+        public static IEnumerable<(TOut1, TOut2)> ToPairs<TIn, TOut1, TOut2>(this IEnumerable<TIn> enumerable, Func<TIn, TOut1> item1Selector, Func<TIn, TOut2> item2Selector)
+        {
+            List<(TOut1, TOut2)> l = new();
+
+            foreach (var item in enumerable)
+            {
+                l.Add((item1Selector(item), item2Selector(item)));
+            }
+
+            return l.AsEnumerable();
+        }
     }
 }
