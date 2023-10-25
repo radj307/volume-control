@@ -1,26 +1,29 @@
 ; NOTE: Prior to compiling this file, run "git clone https://github.com/DomGries/InnoDependencyInstaller"
 
 #define public Dependency_Path_NetCoreCheck "InnoDependencyInstaller\dependencies\"
-#include "InnoDependencyInstaller\CodeDependencies.iss"
+#include                                    "InnoDependencyInstaller\CodeDependencies.iss"
 
-#define AppID               "{33DFCEE8-022C-4C66-A366-79A7415320F2}"
-#define AppName             "Volume Control"
-#define AppPublisher        "radj307"
-#define CurrentYear         GetDateTimeString('yyyy','','')
-#define StartYearCopyright  "2011"
-#define AppURL              "https://github.com/radj307/volume-control"
-#define AppExeName          "VolumeControl.exe"
+#define AppID                               "{33DFCEE8-022C-4C66-A366-79A7415320F2}"
+#define AppName                             "Volume Control"
+#define AppPublisher                        "radj307"
+#define CurrentYear                         GetDateTimeString('yyyy','','')
+#define StartYearCopyright                  "2022"
+#define AppURL                              "https://github.com/radj307/volume-control"
+#define AppExeName                          "VolumeControl.exe"
+#define AppMutex                            "VolumeControlSingleInstance"
 
-#define AppMutex            "VolumeControlSingleInstance"
-; #define AppVersion "" ;< DEFINE THIS VIA COMMANDLINE (/dAppVersion="VERSION_NUMBER")
+#define SourceExeFilePath                   "publish\installer"
+#define SourceIconFile                      "VolumeControl\Resources\icons\iconSilvered.ico"
+
+#define AppVersion                          GetVersionNumbersString(SourceExeFilePath + "\" + AppExeName)
 
 [Setup]
-AppId={#AppID}
+AppId={{#AppID}
 AppName={#AppName}
 AppVersion={#AppVersion}
 AppVerName={#AppName} {#AppVersion}
 
-AppPublisher=(c){#StartYearCopyright}-{#CurrentYear} {#AppPublisher}
+AppCopyright=© {#StartYearCopyright}-{#CurrentYear} {#AppPublisher}
 AppPublisherURL={#AppURL}
 AppSupportURL={#AppURL}
 AppUpdatesURL={#AppURL}
@@ -31,6 +34,7 @@ VersionInfoVersion={#AppVersion}
 
 UninstallDisplayIcon={app}\{#AppExeName}
 UninstallDisplayName={#AppName}
+AppPublisher={#AppPublisher}
 
 ShowLanguageDialog=yes
 UsePreviousLanguage=no
@@ -39,12 +43,13 @@ LanguageDetectionMethod=uilanguage
 WizardStyle=modern
 WizardSizePercent=100
 
-;PrivilegesRequiredOverridesAllowed=dialog
+PrivilegesRequiredOverridesAllowed=dialog
+
+LicenseFile=LICENSE
 
 ArchitecturesInstallIn64BitMode=x64
 DefaultDirName={autopf}\VolumeControl
 DisableProgramGroupPage=yes
-LicenseFile=LICENSE
 ; OutputDir=publish
 OutputBaseFilename=VolumeControl-Installer
 SetupIconFile=VolumeControl\Resources\icons\iconSilveredInstall.ico
@@ -63,8 +68,8 @@ Name: "portuguese"; MessagesFile: "compiler:Languages\Portuguese.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "publish\installer\{#AppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "VolumeControl\Resources\icons\iconSilvered.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourceExeFilePath}\{#AppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourceIconFile}"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{autoprograms}\{#AppName}"; Filename: "{app}\{#AppExeName}"
