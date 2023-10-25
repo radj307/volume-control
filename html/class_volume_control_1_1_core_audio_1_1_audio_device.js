@@ -1,6 +1,7 @@
 var class_volume_control_1_1_core_audio_1_1_audio_device =
 [
     [ "Dispose", "class_volume_control_1_1_core_audio_1_1_audio_device.html#a39f02cf93decd6dd0eb7a0b9b265f768", null ],
+    [ "ToString", "class_volume_control_1_1_core_audio_1_1_audio_device.html#a572427192e34667e6e302b5d0d2cce20", null ],
     [ "AudioEndpointVolume", "class_volume_control_1_1_core_audio_1_1_audio_device.html#ad59a606611e8842d6bec3a4a37fb4483", null ],
     [ "AudioMeterInformation", "class_volume_control_1_1_core_audio_1_1_audio_device.html#a2987e71b7242c252b1eb42bcbac71ba6", null ],
     [ "AudioSessionManager", "class_volume_control_1_1_core_audio_1_1_audio_device.html#a98b2d5a4df6b15da365966b49a6919b7", null ],

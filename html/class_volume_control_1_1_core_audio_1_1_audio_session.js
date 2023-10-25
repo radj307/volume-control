@@ -1,8 +1,10 @@
 var class_volume_control_1_1_core_audio_1_1_audio_session =
 [
     [ "Dispose", "class_volume_control_1_1_core_audio_1_1_audio_session.html#ac7d080e2d81f450d4177ba7ca2ccd7fa", null ],
+    [ "GetProcess", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a41c715c15797053d56b0f3e3722c5093", null ],
     [ "GetTargetInfo", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a5a7f0e9a82545ee48b703574258adf70", null ],
     [ "HasMatchingName", "class_volume_control_1_1_core_audio_1_1_audio_session.html#aaf7a37b3dc9484a667cc5222180ecbd2", null ],
+    [ "ToString", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a6b2ff2ff14ddaba7a5283a5d7a8251e3", null ],
     [ "TryParseProcessIdentifier", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a881aa8fa47e671a1ca6129a6f25baa26", null ],
     [ "processId", "class_volume_control_1_1_core_audio_1_1_audio_session.html#ade41e72408db7e5f2c8c8704723b5a1e", null ],
     [ "ProcessIdentifierSeparatorChar", "class_volume_control_1_1_core_audio_1_1_audio_session.html#ac6bbccc8e83e41a1b226a35ad14ae64c", null ],
@@ -16,7 +18,6 @@ var class_volume_control_1_1_core_audio_1_1_audio_session =
     [ "NativeVolume", "class_volume_control_1_1_core_audio_1_1_audio_session.html#acd2ad5bfc8e70640a22a261c5de97bd5", null ],
     [ "PeakMeterValue", "class_volume_control_1_1_core_audio_1_1_audio_session.html#ab77d5a6d91a39c956af20dd5ec39b6f5", null ],
     [ "PID", "class_volume_control_1_1_core_audio_1_1_audio_session.html#ae6617f95d24f061e1da7cdbbb47b7255", null ],
-    [ "Process", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a3a57804167e73fb9451b425587f4278b", null ],
     [ "ProcessIdentifier", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a302e52ab94dd200adc50a5c4522913d7", null ],
     [ "ProcessName", "class_volume_control_1_1_core_audio_1_1_audio_session.html#a9233daa574ed29a653f612cfa526e4ab", null ],
     [ "SessionIdentifier", "class_volume_control_1_1_core_audio_1_1_audio_session.html#aab7405b92d06a550377e07acb65bbe73", null ],

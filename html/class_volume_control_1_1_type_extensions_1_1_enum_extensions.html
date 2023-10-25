@@ -98,7 +98,8 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_type_extensio
 <div class="dynheader">
 Collaboration diagram for VolumeControl.TypeExtensions.EnumExtensions:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_enum_extensions__coll__graph.svg" width="238" height="147"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_enum_extensions__coll__graph.svg" width="238" height="220"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -113,6 +114,21 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a6812e53c55521fa2f45fef15970a3404"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3049a4c3865a4ea807e707b779b2fc5e"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#a3049a4c3865a4ea807e707b779b2fc5e">HasAnyFlag&lt; T &gt;</a> (this T e, params T[] other)</td></tr>
 <tr class="separator:a3049a4c3865a4ea807e707b779b2fc5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a3aa1f89023f408ff75763decf9ac1b"><td class="memItemLeft" align="right" valign="top">static T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#a6a3aa1f89023f408ff75763decf9ac1b">SetFlagState&lt; T &gt;</a> (this T e, T flag, bool state)</td></tr>
+<tr class="memdesc:a6a3aa1f89023f408ff75763decf9ac1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the enum value with the specified <em>flag</em>  changed.  <a href="class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#a6a3aa1f89023f408ff75763decf9ac1b">More...</a><br /></td></tr>
+<tr class="separator:a6a3aa1f89023f408ff75763decf9ac1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0620a79b426ea9a48a8b8905a7757496"><td class="memItemLeft" align="right" valign="top">static T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#a0620a79b426ea9a48a8b8905a7757496">SetFlagStates&lt; T &gt;</a> (this T e, params(T flag, bool state)[] flagStates)</td></tr>
+<tr class="memdesc:a0620a79b426ea9a48a8b8905a7757496"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the enum value with any number of flags changed.  <a href="class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#a0620a79b426ea9a48a8b8905a7757496">More...</a><br /></td></tr>
+<tr class="separator:a0620a79b426ea9a48a8b8905a7757496"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae2852d9fe2b91355388f2e6cc1a71f6"><td class="memItemLeft" align="right" valign="top">static T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#aae2852d9fe2b91355388f2e6cc1a71f6">Xor&lt; T &gt;</a> (this T e, T value)</td></tr>
+<tr class="memdesc:aae2852d9fe2b91355388f2e6cc1a71f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs an XOR bitwise operation on the enum and the specified <em>value</em> .  <a href="class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#aae2852d9fe2b91355388f2e6cc1a71f6">More...</a><br /></td></tr>
+<tr class="separator:aae2852d9fe2b91355388f2e6cc1a71f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f4743503179c0ff7c001479b3ec90d7"><td class="memItemLeft" align="right" valign="top">static T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#a1f4743503179c0ff7c001479b3ec90d7">GetSingleValue&lt; T &gt;</a> (this IEnumerable&lt; T &gt; enumerable)</td></tr>
+<tr class="memdesc:a1f4743503179c0ff7c001479b3ec90d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a single merged value containing all of the flags in the <em>enumerable</em> .  <a href="class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#a1f4743503179c0ff7c001479b3ec90d7">More...</a><br /></td></tr>
+<tr class="separator:a1f4743503179c0ff7c001479b3ec90d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10c279dd229963b8da7bce0d01274adf"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#a10c279dd229963b8da7bce0d01274adf">IsSingleValue&lt; T &gt;</a> (this T e)</td></tr>
+<tr class="memdesc:a10c279dd229963b8da7bce0d01274adf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the enum value has only 1 bit set.  <a href="class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#a10c279dd229963b8da7bce0d01274adf">More...</a><br /></td></tr>
+<tr class="separator:a10c279dd229963b8da7bce0d01274adf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Extensions for any Enum type. </p>
@@ -169,6 +185,7 @@ Static Public Member Functions</h2></td></tr>
 <div class="typeconstraint">
 <dl><dt><b>Type Constraints</b></dt><dd>
 <table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>struct</em></td><td>&#160;</td></tr>
 <tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>Enum</em></td><td>&#160;</td></tr>
 </table>
 </dd>
@@ -220,9 +237,60 @@ Static Public Member Functions</h2></td></tr>
 <div class="typeconstraint">
 <dl><dt><b>Type Constraints</b></dt><dd>
 <table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>struct</em></td><td>&#160;</td></tr>
 <tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>Enum</em></td><td>&#160;</td></tr>
 <tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>e.EqualsAny</em></td><td>&#160;</td></tr>
 <tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>other.AsEnumerable()</em></td><td>&#160;</td></tr>
+</table>
+</dd>
+</dl>
+</div>
+
+</div>
+</div>
+<a id="a1f4743503179c0ff7c001479b3ec90d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f4743503179c0ff7c001479b3ec90d7">&#9670;&nbsp;</a></span>GetSingleValue&lt; T &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static T VolumeControl.TypeExtensions.EnumExtensions.GetSingleValue&lt; T &gt; </td>
+          <td>(</td>
+          <td class="paramtype">this IEnumerable&lt; T &gt;&#160;</td>
+          <td class="paramname"><em>enumerable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets a single merged value containing all of the flags in the <em>enumerable</em> . </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of enum being operated on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enumerable</td><td>(implicit) Enumerable containing enum values of type <em>T</em> .</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A single enum value containing all of the values in the <em>enumerable</em> .</dd></dl>
+<div class="typeconstraint">
+<dl><dt><b>Type Constraints</b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>struct</em></td><td>&#160;</td></tr>
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>Enum</em></td><td>&#160;</td></tr>
 </table>
 </dd>
 </dl>
@@ -282,6 +350,7 @@ Static Public Member Functions</h2></td></tr>
 <div class="typeconstraint">
 <dl><dt><b>Type Constraints</b></dt><dd>
 <table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>struct</em></td><td>&#160;</td></tr>
 <tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>Enum</em></td><td>&#160;</td></tr>
 </table>
 </dd>
@@ -333,9 +402,251 @@ Static Public Member Functions</h2></td></tr>
 <div class="typeconstraint">
 <dl><dt><b>Type Constraints</b></dt><dd>
 <table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>struct</em></td><td>&#160;</td></tr>
 <tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>Enum</em></td><td>&#160;</td></tr>
 <tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>e.HasAnyFlag</em></td><td>&#160;</td></tr>
 <tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>other.AsEnumerable()</em></td><td>&#160;</td></tr>
+</table>
+</dd>
+</dl>
+</div>
+
+</div>
+</div>
+<a id="a10c279dd229963b8da7bce0d01274adf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10c279dd229963b8da7bce0d01274adf">&#9670;&nbsp;</a></span>IsSingleValue&lt; T &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool VolumeControl.TypeExtensions.EnumExtensions.IsSingleValue&lt; T &gt; </td>
+          <td>(</td>
+          <td class="paramtype">this T&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if the enum value has only 1 bit set. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of enum being operated on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">e</td><td>(implicit) Enum value to operate on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> when the enum value is a power of 2; <code>false</code>.</dd></dl>
+<div class="typeconstraint">
+<dl><dt><b>Type Constraints</b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>struct</em></td><td>&#160;</td></tr>
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>Enum</em></td><td>&#160;</td></tr>
+</table>
+</dd>
+</dl>
+</div>
+
+</div>
+</div>
+<a id="a6a3aa1f89023f408ff75763decf9ac1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a3aa1f89023f408ff75763decf9ac1b">&#9670;&nbsp;</a></span>SetFlagState&lt; T &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static T VolumeControl.TypeExtensions.EnumExtensions.SetFlagState&lt; T &gt; </td>
+          <td>(</td>
+          <td class="paramtype">this T&#160;</td>
+          <td class="paramname"><em>e</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>flag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>state</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the enum value with the specified <em>flag</em>  changed. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of enum being operated on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">e</td><td>(implicit) Enum value to operate on.</td></tr>
+    <tr><td class="paramname">flag</td><td>The enum value of the flag to set or unset.</td></tr>
+    <tr><td class="paramname">state</td><td>The specified <em>flag</em>  is set when <code>true</code> and unset when <code>false</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The enum value with the specified <em>flag</em>  set to the specified <em>state</em> .</dd></dl>
+<div class="typeconstraint">
+<dl><dt><b>Type Constraints</b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>struct</em></td><td>&#160;</td></tr>
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>Enum</em></td><td>&#160;</td></tr>
+</table>
+</dd>
+</dl>
+</div>
+
+</div>
+</div>
+<a id="a0620a79b426ea9a48a8b8905a7757496"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0620a79b426ea9a48a8b8905a7757496">&#9670;&nbsp;</a></span>SetFlagStates&lt; T &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static T VolumeControl.TypeExtensions.EnumExtensions.SetFlagStates&lt; T &gt; </td>
+          <td>(</td>
+          <td class="paramtype">this T&#160;</td>
+          <td class="paramname"><em>e</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">params(T flag, bool state)[]&#160;</td>
+          <td class="paramname"><em>flagStates</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the enum value with any number of flags changed. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of enum being operated on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">e</td><td>(implicit) Enum value to operate on.</td></tr>
+    <tr><td class="paramname">flagStates</td><td>Any number of flag-state pairs. When state is <code>true</code>, the associated flag is set; otherwise when state is <code>false</code>, the associated flag is unset.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The enum value with the specified <em>flagStates</em>  changed.</dd></dl>
+<div class="typeconstraint">
+<dl><dt><b>Type Constraints</b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>struct</em></td><td>&#160;</td></tr>
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>Enum</em></td><td>&#160;</td></tr>
+</table>
+</dd>
+</dl>
+</div>
+
+</div>
+</div>
+<a id="aae2852d9fe2b91355388f2e6cc1a71f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae2852d9fe2b91355388f2e6cc1a71f6">&#9670;&nbsp;</a></span>Xor&lt; T &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static T VolumeControl.TypeExtensions.EnumExtensions.Xor&lt; T &gt; </td>
+          <td>(</td>
+          <td class="paramtype">this T&#160;</td>
+          <td class="paramname"><em>e</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Performs an XOR bitwise operation on the enum and the specified <em>value</em> . </p>
+<p>Intended for use when the actual enum type is not known, such as within a generic method. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of enum being operated on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">e</td><td>(implicit) Enum value to operate on.</td></tr>
+    <tr><td class="paramname">value</td><td>Enum value to operate on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of the bitwise XOR operation.</dd></dl>
+<div class="typeconstraint">
+<dl><dt><b>Type Constraints</b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>struct</em></td><td>&#160;</td></tr>
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>Enum</em></td><td>&#160;</td></tr>
 </table>
 </dd>
 </dl>

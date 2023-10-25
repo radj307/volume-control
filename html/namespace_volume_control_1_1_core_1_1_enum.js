@@ -1,6 +1,13 @@
 var namespace_volume_control_1_1_core_1_1_enum =
 [
     [ "EVirtualKeyCodeExtensions", "class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions.html", "class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions" ],
+    [ "EListNotificationView", "namespace_volume_control_1_1_core_1_1_enum.html#a9de225fdace7d16156e407c0e04aab7c", [
+      [ "Nothing", "namespace_volume_control_1_1_core_1_1_enum.html#a9de225fdace7d16156e407c0e04aab7caf80a4ad87fee7c9fdc19b7769495fdb5", null ],
+      [ "ControlBar", "namespace_volume_control_1_1_core_1_1_enum.html#a9de225fdace7d16156e407c0e04aab7ca21e03ccf3bba47183aa563f6a0436cb5", null ],
+      [ "SelectedItemOnly", "namespace_volume_control_1_1_core_1_1_enum.html#a9de225fdace7d16156e407c0e04aab7ca10616db113c61a692be2782c9e605d68", null ],
+      [ "AllItems", "namespace_volume_control_1_1_core_1_1_enum.html#a9de225fdace7d16156e407c0e04aab7ca3c68943f83d28af30ec40cc2997636a8", null ],
+      [ "Everything", "namespace_volume_control_1_1_core_1_1_enum.html#a9de225fdace7d16156e407c0e04aab7ca709468af25e91284821d1bdbfdded24c", null ]
+    ] ],
     [ "EScreenCorner", "namespace_volume_control_1_1_core_1_1_enum.html#aca56ed2e295e884a71fbb14e4c927648", [
       [ "TopLeft", "namespace_volume_control_1_1_core_1_1_enum.html#aca56ed2e295e884a71fbb14e4c927648ab32beb056fbfe36afbabc6c88c81ab36", null ],
       [ "TopRight", "namespace_volume_control_1_1_core_1_1_enum.html#aca56ed2e295e884a71fbb14e4c927648a1d85a557894c340c318493f33bfa8efb", null ],

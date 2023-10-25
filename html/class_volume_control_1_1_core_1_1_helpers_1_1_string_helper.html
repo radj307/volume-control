@@ -86,6 +86,7 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_core_1_1_help
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -93,14 +94,35 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_core_1_1_help
 </div><!--header-->
 <div class="contents">
 
-<p>Defines helper methods for creating nicely-formatted strings.  
+<p>Defines helper methods &amp; extension methods for creating nicely-formatted strings.  
  <a href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#details">More...</a></p>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Core.Helpers.StringHelper:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper__coll__graph.svg" width="222" height="147"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper__coll__graph.svg" width="222" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:aee6cbe304779da826d743cbe24468320"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#aee6cbe304779da826d743cbe24468320">MethodNamePart</a> { <br />
+&#160;&#160;<a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#aee6cbe304779da826d743cbe24468320a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+, <a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#aee6cbe304779da826d743cbe24468320a7f3d30227d2aee37bb323f552181dc91">FullTypeNames</a> = 1
+, <a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#aee6cbe304779da826d743cbe24468320abb71af3b9008ca715d42064e31cdde75">FullDeclaringTypeName</a> = 2
+, <a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#aee6cbe304779da826d743cbe24468320a39423f66de26b37293a26437fb7718c0">GenericParameters</a> = 4
+, <br />
+&#160;&#160;<a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#aee6cbe304779da826d743cbe24468320ae4bd46cde66f0d24c332dc3555fb7099">ParameterTypes</a> = 8
+, <a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#aee6cbe304779da826d743cbe24468320af472f8f64641d9a7f078e97cd44f0594">ParameterNames</a> = 16
+, <a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#aee6cbe304779da826d743cbe24468320a3225a10b07f1580f10dee4abc3779e6c">Parameters</a> = ParameterTypes | ParameterNames
+, <a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#aee6cbe304779da826d743cbe24468320a9de6304118ad7f812c27b170e42d22bb">NonVoidReturnType</a> = 32
+, <br />
+&#160;&#160;<a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#aee6cbe304779da826d743cbe24468320a7c07c4097a9497cfbd268a1923403502">VoidReturnType</a> = 64
+, <a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#aee6cbe304779da826d743cbe24468320af66469d7266975f6d2af9cea0720e723">ReturnType</a> = NonVoidReturnType | VoidReturnType
+<br />
+ }</td></tr>
+<tr class="memdesc:aee6cbe304779da826d743cbe24468320"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the components of a method name.  <a href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#aee6cbe304779da826d743cbe24468320">More...</a><br /></td></tr>
+<tr class="separator:aee6cbe304779da826d743cbe24468320"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a26b798cd90097e9a348969e612b0d7c9"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#a26b798cd90097e9a348969e612b0d7c9">MakeAlternatingPattern</a> (int length, char fillChar=' ', char dotChar='.', bool alignRight=true)</td></tr>
@@ -115,10 +137,144 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a8da403475755ea68b95386fb5d43a9c1"><td class="memItemLeft" align="right" valign="top"><a id="a8da403475755ea68b95386fb5d43a9c1"></a>
 static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#a8da403475755ea68b95386fb5d43a9c1">Indent</a> (int maxLength, int usedLength, bool allowZeroLength=false)</td></tr>
 <tr class="separator:a8da403475755ea68b95386fb5d43a9c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03f674c682dc9571560a29396375ecac"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#a03f674c682dc9571560a29396375ecac">GetFullMethodName</a> (this MethodInfo method, <a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#aee6cbe304779da826d743cbe24468320">MethodNamePart</a> includedNameComponents)</td></tr>
+<tr class="memdesc:a03f674c682dc9571560a29396375ecac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the name of the method with the specified <em>includedNameComponents</em> .  <a href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#a03f674c682dc9571560a29396375ecac">More...</a><br /></td></tr>
+<tr class="separator:a03f674c682dc9571560a29396375ecac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6fef1c41cae4764d15d196f1ea06d2c"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#ac6fef1c41cae4764d15d196f1ea06d2c">GetFullMethodName</a> (this MethodInfo method)</td></tr>
+<tr class="memdesc:ac6fef1c41cae4764d15d196f1ea06d2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the name of the method.  <a href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#ac6fef1c41cae4764d15d196f1ea06d2c">More...</a><br /></td></tr>
+<tr class="separator:ac6fef1c41cae4764d15d196f1ea06d2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Defines helper methods for creating nicely-formatted strings. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+<div class="textblock"><p>Defines helper methods &amp; extension methods for creating nicely-formatted strings. </p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="aee6cbe304779da826d743cbe24468320"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee6cbe304779da826d743cbe24468320">&#9670;&nbsp;</a></span>MethodNamePart</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#aee6cbe304779da826d743cbe24468320">VolumeControl.Core.Helpers.StringHelper.MethodNamePart</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Defines the components of a method name. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aee6cbe304779da826d743cbe24468320a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"><p>Shows only the declaring type name and the method name, with empty brackets. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aee6cbe304779da826d743cbe24468320a7f3d30227d2aee37bb323f552181dc91"></a>FullTypeNames&#160;</td><td class="fielddoc"><p>Shows namespace qualifiers for all types. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aee6cbe304779da826d743cbe24468320abb71af3b9008ca715d42064e31cdde75"></a>FullDeclaringTypeName&#160;</td><td class="fielddoc"><p>Shows namespace qualifiers for the declaring type. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aee6cbe304779da826d743cbe24468320a39423f66de26b37293a26437fb7718c0"></a>GenericParameters&#160;</td><td class="fielddoc"><p>Shows generic type parameters. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aee6cbe304779da826d743cbe24468320ae4bd46cde66f0d24c332dc3555fb7099"></a>ParameterTypes&#160;</td><td class="fielddoc"><p>Shows parameter types. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aee6cbe304779da826d743cbe24468320af472f8f64641d9a7f078e97cd44f0594"></a>ParameterNames&#160;</td><td class="fielddoc"><p>Shows parameter names. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aee6cbe304779da826d743cbe24468320a3225a10b07f1580f10dee4abc3779e6c"></a>Parameters&#160;</td><td class="fielddoc"><p>Shows parameter types and names. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aee6cbe304779da826d743cbe24468320a9de6304118ad7f812c27b170e42d22bb"></a>NonVoidReturnType&#160;</td><td class="fielddoc"><p>Shows the return type, but only if it isn't void. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aee6cbe304779da826d743cbe24468320a7c07c4097a9497cfbd268a1923403502"></a>VoidReturnType&#160;</td><td class="fielddoc"><p>Shows the return type, even if it is void. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aee6cbe304779da826d743cbe24468320af66469d7266975f6d2af9cea0720e723"></a>ReturnType&#160;</td><td class="fielddoc"><p>Shows the return type. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac6fef1c41cae4764d15d196f1ea06d2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6fef1c41cae4764d15d196f1ea06d2c">&#9670;&nbsp;</a></span>GetFullMethodName() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static string VolumeControl.Core.Helpers.StringHelper.GetFullMethodName </td>
+          <td>(</td>
+          <td class="paramtype">this MethodInfo&#160;</td>
+          <td class="paramname"><em>method</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the name of the method. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">method</td><td>(implicit) The MethodInfo object of the method to get the name of.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The full name of the <em>method</em> , including the full declaring typename, generic parameters, parameters, and return type (if not void).</dd></dl>
+
+</div>
+</div>
+<a id="a03f674c682dc9571560a29396375ecac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03f674c682dc9571560a29396375ecac">&#9670;&nbsp;</a></span>GetFullMethodName() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static string VolumeControl.Core.Helpers.StringHelper.GetFullMethodName </td>
+          <td>(</td>
+          <td class="paramtype">this MethodInfo&#160;</td>
+          <td class="paramname"><em>method</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#aee6cbe304779da826d743cbe24468320">MethodNamePart</a>&#160;</td>
+          <td class="paramname"><em>includedNameComponents</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the name of the method with the specified <em>includedNameComponents</em> . </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">method</td><td>(implicit) The MethodInfo object of the method to get the name of.</td></tr>
+    <tr><td class="paramname">includedNameComponents</td><td>The parts of the method name to include.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The name of the <em>method</em>  with the <em>includedNameComponents</em>  shown.</dd></dl>
+
+</div>
+</div>
 <a id="a7c53dece1be13faea4a6b477172bf8a4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7c53dece1be13faea4a6b477172bf8a4">&#9670;&nbsp;</a></span>Indent()</h2>
 
@@ -252,7 +408,7 @@ static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An indentation string made up of alternating characters with the requested length.</dd></dl>
 
-<p class="reference">References <a class="el" href="#l00023">VolumeControl.Core.Helpers.StringHelper.MakeAlternatingPattern()</a>.</p>
+<p class="reference">References <a class="el" href="#l00025">VolumeControl.Core.Helpers.StringHelper.MakeAlternatingPattern()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -327,7 +483,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="#l00072">VolumeControl.Core.Helpers.StringHelper.IndentWithPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00074">VolumeControl.Core.Helpers.StringHelper.IndentWithPattern()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">

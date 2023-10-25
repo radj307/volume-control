@@ -11,5 +11,6 @@ var class_volume_control_1_1_core_1_1_notification_config_section =
     [ "ShowOnVolumeChanged", "class_volume_control_1_1_core_1_1_notification_config_section.html#a6af48f67d0817432c5fc440c0a315724", null ],
     [ "TimeoutEnabled", "class_volume_control_1_1_core_1_1_notification_config_section.html#afec50b3a06a69285a563b62f9c70d3c2", null ],
     [ "TimeoutMs", "class_volume_control_1_1_core_1_1_notification_config_section.html#a319ab81cf40b3ad46c89bb7f07dca442", null ],
+    [ "ViewMode", "class_volume_control_1_1_core_1_1_notification_config_section.html#a9904b037d06b704888e92ffe5b4e1656", null ],
     [ "PropertyChanged", "class_volume_control_1_1_core_1_1_notification_config_section.html#aa26ec9315fbad452a2efe2c366dc1ab9", null ]
 ];

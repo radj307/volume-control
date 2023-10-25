@@ -56,7 +56,6 @@ var hierarchy =
       [ "VolumeControl.CoreAudio.Events.PreviewSessionNameEventArgs", "class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_name_event_args.html", null ],
       [ "VolumeControl.CoreAudio.Events.VolumeChangedEventArgs", "class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args.html", null ]
     ] ],
-    [ "VolumeControl.Log.Enum.EventTypeExtensions", "class_volume_control_1_1_log_1_1_enum_1_1_event_type_extensions.html", null ],
     [ "VolumeControl.Core.Enum.EVirtualKeyCodeExtensions", "class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions.html", null ],
     [ "Exception", null, [
       [ "VolumeControl.Core.EmbeddedResourceNotFoundException", "class_volume_control_1_1_core_1_1_embedded_resource_not_found_exception.html", null ],
@@ -103,10 +102,6 @@ var hierarchy =
     ] ],
     [ "ICollection", null, [
       [ "VolumeControl.Core.ActionTargetSpecifier", "class_volume_control_1_1_core_1_1_action_target_specifier.html", null ],
-      [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", [
-        [ "VolumeControl.WPF.Collections.LogEventTypeFilter", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_log_event_type_filter.html", null ]
-      ] ],
-      [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ]
     ] ],
@@ -137,8 +132,6 @@ var hierarchy =
       [ "VolumeControl.Log.Endpoints.MemoryEndpoint", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html", null ]
     ] ],
     [ "IEnumerable", null, [
-      [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ],
-      [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ]
     ] ],
@@ -150,8 +143,6 @@ var hierarchy =
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ]
     ] ],
     [ "IList", null, [
-      [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ],
-      [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ]
     ] ],
@@ -163,7 +154,6 @@ var hierarchy =
     ] ],
     [ "VolumeControl.SDK.Internal.Initializer", "class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer.html", null ],
     [ "INotifyCollectionChanged", null, [
-      [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableCollectionObject", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object.html", [
         [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ]
       ] ],
@@ -178,8 +168,6 @@ var hierarchy =
       [ "VolumeControl.CoreAudio.AudioSession", "class_volume_control_1_1_core_audio_1_1_audio_session.html", null ],
       [ "VolumeControl.CoreAudio.AudioSessionMultiSelector", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html", null ],
       [ "VolumeControl.CoreAudio.AudioSessionSelector", "class_volume_control_1_1_core_audio_1_1_audio_session_selector.html", null ],
-      [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ],
-      [ "VolumeControl.WPF.Collections.BindableEventType.BindableEventTypeFlag", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type_1_1_bindable_event_type_flag.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableCollectionObject", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ],
       [ "VolumeControl.WPF.DataTemplateTypeBinding", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding.html", null ]
@@ -192,11 +180,9 @@ var hierarchy =
       [ "VolumeControl.CoreAudio.Events.VolumeChangedEventArgs", "class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args.html", null ]
     ] ],
     [ "IReadOnlyCollection", null, [
-      [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ]
     ] ],
     [ "IReadOnlyList", null, [
-      [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ]
     ] ],
     [ "VolumeControl.TypeExtensions.IReadOnlyListExtensions", "class_volume_control_1_1_type_extensions_1_1_i_read_only_list_extensions.html", null ],

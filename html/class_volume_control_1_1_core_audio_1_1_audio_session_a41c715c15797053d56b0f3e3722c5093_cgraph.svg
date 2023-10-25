@@ -21,10 +21,9 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7" target="_top" xlink:title="Write a formatted EventType.ERROR message to the log endpoint.">
-<polygon fill="none" stroke="black" points="181,-0.5 181,-30.5 342,-30.5 342,-0.5 181,-0.5"/>
-<text text-anchor="start" x="189" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.LogWriter.</text>
-<text text-anchor="middle" x="261.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Error</text>
+<g id="a_node2"><a xlink:href="class_volume_control_1_1_log_1_1_f_log.html#ad09321e60c917e6a06243fa7743f412d" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="181,-6 181,-25 342,-25 342,-6 181,-6"/>
+<text text-anchor="middle" x="261.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.FLog.Error</text>
 </a>
 </g>
 </g>

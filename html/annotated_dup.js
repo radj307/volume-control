@@ -104,9 +104,6 @@ var annotated_dup =
           [ "IEndpoint", "interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html", "interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint" ],
           [ "MemoryEndpoint", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint" ]
         ] ],
-        [ "Enum", "namespace_volume_control_1_1_log_1_1_enum.html", [
-          [ "EventTypeExtensions", "class_volume_control_1_1_log_1_1_enum_1_1_event_type_extensions.html", "class_volume_control_1_1_log_1_1_enum_1_1_event_type_extensions" ]
-        ] ],
         [ "AsyncLogWriter", "class_volume_control_1_1_log_1_1_async_log_writer.html", "class_volume_control_1_1_log_1_1_async_log_writer" ],
         [ "DebugUtils", "class_volume_control_1_1_log_1_1_debug_utils.html", "class_volume_control_1_1_log_1_1_debug_utils" ],
         [ "ExceptionMessageHelper", "class_volume_control_1_1_log_1_1_exception_message_helper.html", "class_volume_control_1_1_log_1_1_exception_message_helper" ],
@@ -165,8 +162,6 @@ var annotated_dup =
           [ "MultiBinding", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding" ]
         ] ],
         [ "Collections", "namespace_volume_control_1_1_w_p_f_1_1_collections.html", [
-          [ "BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type" ],
-          [ "LogEventTypeFilter", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_log_event_type_filter.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_log_event_type_filter" ],
           [ "ObservableCollectionObject", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object" ],
           [ "ObservableList", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list" ],
           [ "ObservableImmutableList", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list" ],

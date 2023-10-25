@@ -8,6 +8,7 @@ var class_volume_control_1_1_log_1_1_f_log =
     [ "FilterEventType", "class_volume_control_1_1_log_1_1_f_log.html#a4dcec7039adc7659b074ba4122cea0f8", null ],
     [ "Info", "class_volume_control_1_1_log_1_1_f_log.html#a45057c2745f95898072ab630fd72cb9e", null ],
     [ "Initialize", "class_volume_control_1_1_log_1_1_f_log.html#a2ae19b065051d648c0a76ab86d761a16", null ],
+    [ "LogMessage", "class_volume_control_1_1_log_1_1_f_log.html#a85772588881c3b883612f2238ecb5c1c", null ],
     [ "Trace", "class_volume_control_1_1_log_1_1_f_log.html#adbdeeb85b00761bffe708833e6556492", null ],
     [ "Warning", "class_volume_control_1_1_log_1_1_f_log.html#a94e8675763cb9b451120d7e4fed4f9d0", null ],
     [ "IsAsyncEnabled", "class_volume_control_1_1_log_1_1_f_log.html#a0af58edaf2523925eb3af94fb392366d", null ],
