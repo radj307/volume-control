@@ -63,25 +63,23 @@ namespace VolumeControl.ViewModels
         }
         #endregion Constructor
 
-        #region Fields
-        private readonly T ZeroValue = (T)Enum.ToObject(typeof(T), 0);
-        #endregion Fields
-
         #region Properties
+        /// <summary>
+        /// Gets the list of <see cref="FlagsEnumValueVM"/> instances representing the flag values.
+        /// </summary>
         public IReadOnlyList<FlagsEnumValueVM> Items => _items;
         private readonly List<FlagsEnumValueVM> _items;
+        /// <summary>
+        /// Gets or sets the current state of all of the flags.
+        /// </summary>
         public T State
         {
             get => _state;
             set
             {
-                var changedFlags = State.Xor(value);
-                foreach (var item in Items)
-                {
-                    item.IsSet = value.HasFlag(item.Value);
-                }
                 _state = value;
-                NotifyStateChanged(State, changedFlags);
+                Items.ForEach(item => item.IsSet = value.HasFlag(item.Value));
+                NotifyStateChanged(State, State.Xor(value));
                 NotifyPropertyChanged();
             }
         }
@@ -89,8 +87,15 @@ namespace VolumeControl.ViewModels
         #endregion Properties
 
         #region Events
+        /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        /// <summary>
+        /// Occurs when the value of the State property has changed.
+        /// </summary>
+        /// <remarks>
+        /// Occurs before the PropertyChanged event.
+        /// </remarks>
         public event EventHandler<(T NewState, T ChangedFlags)>? StateChanged;
         private void NotifyStateChanged(T newState, T changedFlags) => StateChanged?.Invoke(this, (newState, changedFlags));
         #endregion Events
