@@ -54,6 +54,8 @@ namespace VolumeControl
 
             Settings.SessionListNotificationConfig.PropertyChanged += this.SessionListNotificationConfig_PropertyChanged;
 
+            VCSettings.SessionListNotificationFlagsVM.StateChanged += this.SessionListNotificationFlagsVM_StateChanged;
+
             // bind to the show event
             VCEvents.ShowSessionListNotification += this.VCEvents_ShowSessionListNotification;
         }
@@ -103,6 +105,7 @@ namespace VolumeControl
                 _fadingIn = false;
             }
         }
+        private bool IsHiddenByViewMode => VCSettings.SessionListNotificationFlagsVM.State == EListNotificationView.Nothing;
         #endregion Properties
 
         #region Methods
@@ -129,6 +132,8 @@ namespace VolumeControl
         #region Show/Hide
         public new void Show()
         {
+            if (IsHiddenByViewMode) return;
+
             StopTimer();
             if (!Settings.SessionListNotificationConfig.DoFadeIn)
             { // fade-in disabled:
@@ -155,11 +160,7 @@ namespace VolumeControl
             if (!Settings.SessionListNotificationConfig.DoFadeOut)
             { // fade-out disabled:
                 //< we are NOT on the main UI thread here (!), use the dispatcher:
-                this.Dispatcher.Invoke(() =>
-                {
-                    StopTimer();
-                    base.Hide();
-                });
+                HideNowNoFadeOut();
             }
             else if (!_fading)
             {
@@ -170,6 +171,16 @@ namespace VolumeControl
                 StopFadeIn(resetOpacity: false);
                 StartFadeOut();
             }
+        }
+        private void HideNowNoFadeOut()
+        {
+            if (_fadingIn)
+                StopFadeIn(resetOpacity: false);
+            this.Dispatcher.Invoke(() =>
+            {
+                StopTimer();
+                base.Hide();
+            });
         }
         #endregion Show/Hide
 
@@ -481,6 +492,16 @@ namespace VolumeControl
             }
         }
         #endregion Window
+
+        #region SessionListNotificationFlagsVM
+        private void SessionListNotificationFlagsVM_StateChanged(object? sender, (EListNotificationView NewState, EListNotificationView ChangedFlags) e)
+        {
+            if (e.NewState == EListNotificationView.Nothing)
+            {
+                HideNowNoFadeOut();
+            }
+        }
+        #endregion SessionListNotificationFlagsVM
 
         #endregion EventHandlers
     }
