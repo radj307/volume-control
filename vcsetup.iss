@@ -13,9 +13,6 @@
 #define AppMutex                            "VolumeControlSingleInstance"
 
 #define SourceExeFilePath                   "publish\installer"
-#define SourceIconFile                      "VolumeControl\Resources\icons\iconSilvered.ico"
-
-#define AppVersion                          GetVersionNumbersString(SourceExeFilePath + "\" + AppExeName)
 
 [Setup]
 AppId={{#AppID}
@@ -23,7 +20,7 @@ AppName={#AppName}
 AppVersion={#AppVersion}
 AppVerName={#AppName} {#AppVersion}
 
-AppCopyright=© {#StartYearCopyright}-{#CurrentYear} {#AppPublisher}
+AppCopyright=Â© {#StartYearCopyright}-{#CurrentYear} {#AppPublisher}
 AppPublisherURL={#AppURL}
 AppSupportURL={#AppURL}
 AppUpdatesURL={#AppURL}
@@ -69,7 +66,6 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "{#SourceExeFilePath}\{#AppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#SourceIconFile}"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{autoprograms}\{#AppName}"; Filename: "{app}\{#AppExeName}"
