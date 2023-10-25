@@ -24,7 +24,7 @@ jobs:
 
       - name: Print Package Version
         run:  |
-              '${{ github.event.release.tag_name }}'
+              Write-Host "Using Package Version ${{ github.event.release.tag_name || github.event.inputs.package_version }}"
 
       - uses: vedantmgoyal2009/winget-releaser@v2
         with:
