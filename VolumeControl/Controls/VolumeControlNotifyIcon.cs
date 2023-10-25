@@ -39,7 +39,7 @@ namespace VolumeControl.Controls
         private static string GetShowHideText(bool isVisible) => isVisible ? GetHideText() : GetShowText();
         private static string GetBringToFrontText() => Loc.Tr("VolumeControl.NotifyIcon.BringToFront", "Bring to Front");
         private static string GetOpenLocationText() => Loc.Tr("VolumeControl.NotifyIcon.OpenLocation", "Open Location");
-        private static string GetOpenAppDataText() => Loc.Tr("VolumeControl.NotifyIcon.OpenAppData", "Open Location");
+        private static string GetOpenAppDataText() => Loc.Tr("VolumeControl.NotifyIcon.OpenAppData", "Open AppData");
         private static string GetCloseText() => Loc.Tr("VolumeControl.NotifyIcon.Close", "Close");
         #endregion TranslationGetters
 
