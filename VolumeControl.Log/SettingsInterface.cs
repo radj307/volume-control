@@ -58,21 +58,6 @@ namespace VolumeControl.Log
             get => (bool)Settings[nameof(this.LogClearOnInitialize)]!;
             set => Settings[nameof(this.LogClearOnInitialize)] = value;
         }
-        public string LogTimestampFormat
-        {
-            get => "HH:mm:ss:fff";
-            set { }
-        }
-        public bool LogEnableStackTrace
-        {
-            get => (bool)Settings[nameof(this.LogEnableStackTrace)]!;
-            set => Settings[nameof(this.LogEnableStackTrace)] = value;
-        }
-        public bool LogEnableStackTraceLineCount
-        {
-            get => (bool)Settings[nameof(this.LogEnableStackTraceLineCount)]!;
-            set => Settings[nameof(this.LogEnableStackTraceLineCount)] = value;
-        }
         #endregion Settings
         #endregion Properties
     }

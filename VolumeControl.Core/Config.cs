@@ -362,38 +362,35 @@ namespace VolumeControl.Core
         #region Log
         /// <summary>
         /// Gets or sets whether the log is enabled or not.<br/>
-        /// See <see cref="Log.SettingsInterface.EnableLogging"/>
+        /// See <see cref="SettingsInterface.EnableLogging"/>
         /// </summary>
         /// <remarks><b>Default: <see langword="true"/></b></remarks>
         public bool EnableLogging { get; set; } = true;
+        //          ^^^^^^^^^^^^^
+        //          DO NOT RENAME THIS WITHOUT ALSO RENAMING IT IN VolumeControl.Log.SettingsInterface
         /// <summary>
         /// Gets or sets the location of the log file.<br/>
-        /// See <see cref="Log.SettingsInterface.LogPath"/>
+        /// See <see cref="SettingsInterface.LogPath"/>
         /// </summary>
         /// <remarks><b>Default: "VolumeControl.log"</b></remarks>
         public string LogPath { get; set; } = "VolumeControl.log";
+        //            ^^^^^^^
+        //          DO NOT RENAME THIS WITHOUT ALSO RENAMING IT IN VolumeControl.Log.SettingsInterface
         /// <summary>
         /// Gets or sets the <see cref="Log.Enum.EventType"/> filter used for messages.<br/>
-        /// See <see cref="Log.SettingsInterface.LogFilter"/>
+        /// See <see cref="SettingsInterface.LogFilter"/>
         /// </summary>
-        public VolumeControl.Log.Enum.EventType LogFilter { get; set; } = VolumeControl.Log.Enum.EventType.INFO | VolumeControl.Log.Enum.EventType.WARN | VolumeControl.Log.Enum.EventType.ERROR | VolumeControl.Log.Enum.EventType.FATAL | VolumeControl.Log.Enum.EventType.CRITICAL;
+        public Log.Enum.EventType LogFilter { get; set; } = Log.Enum.EventType.INFO | Log.Enum.EventType.WARN | Log.Enum.EventType.ERROR | Log.Enum.EventType.FATAL | Log.Enum.EventType.CRITICAL;
+        //                        ^^^^^^^^^
+        //          DO NOT RENAME THIS WITHOUT ALSO RENAMING IT IN VolumeControl.Log.SettingsInterface
         /// <summary>
         /// Gets or sets whether the log is cleared when the program starts.<br/>
-        /// See <see cref="Log.SettingsInterface.LogClearOnInitialize"/>
+        /// See <see cref="SettingsInterface.LogClearOnInitialize"/>
         /// </summary>
         /// <remarks><b>Default: <see langword="true"/></b></remarks>
         public bool LogClearOnInitialize { get; set; } = true;
-        /// <summary>
-        /// See <see cref="Log.SettingsInterface.LogEnableStackTrace"/>
-        /// </summary>
-        /// <remarks><b>Default: <see langword="true"/></b></remarks>
-        public bool LogEnableStackTrace { get; set; } = true;
-        /// <summary>
-        /// 
-        /// See <see cref="Log.SettingsInterface.LogEnableStackTraceLineCount"/>
-        /// </summary>
-        /// <remarks><b>Default: <see langword="true"/></b></remarks>
-        public bool LogEnableStackTraceLineCount { get; set; } = true;
+        //          ^^^^^^^^^^^^^^^^^^^^
+        //          DO NOT RENAME THIS WITHOUT ALSO RENAMING IT IN VolumeControl.Log.SettingsInterface
         #endregion Log
 
         #region Misc
