@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace VolumeControl.Log
@@ -129,15 +130,24 @@ namespace VolumeControl.Log
                 const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly;
                 Type baseExceptionType = typeof(Exception);
                 // enumerate inherited types until we reach the base Exception type
-                for (Type? t = exceptionType; t != null && t != baseExceptionType; t = t.BaseType)
+                for (Type? type = exceptionType; type != null && type != baseExceptionType; type = type.BaseType)
                 {
                     // get properties declared in this type
-                    foreach (var propInfo in t.GetProperties(bindingFlags))
+                    foreach (var propInfo in type.GetProperties(bindingFlags))
                     {
+                        // skip unreadable properties
+                        if (!propInfo.CanRead) continue;
+
                         // ensure this property does not override a base property
-                        if ((propInfo.GetMethod ?? propInfo.SetMethod)!.GetBaseDefinition().DeclaringType!.Equals(t))
+                        if (propInfo.GetMethod!.GetBaseDefinition().DeclaringType?.Equals(type) ?? false)
                         { // this property is not an override
-                            sb.Append($"{tabPrefix}\"{propInfo.Name}\": \"{propInfo.GetValue(exception)}\"{endline}");
+                            var value = propInfo.GetValue(exception);
+
+                            // skip properties with null/empty values
+                            if (value == null || (value is string s && s.Length == 0))
+                                continue;
+
+                            sb.Append($"{tabPrefix}\"{propInfo.Name}\": \"{value}\"{endline}");
                         }
                     }
                 }

@@ -45,6 +45,8 @@ namespace VolumeControl.Log
         #endregion Properties
 
         #region Methods
+
+        #region (Internal)
         internal void RemoveNullLines()
         {
             for (int i = Lines.Count - 1; i >= 0; --i)
@@ -55,6 +57,17 @@ namespace VolumeControl.Log
                 }
             }
         }
+        #endregion (Internal)
+
+        /// <summary>
+        /// Appends the specified <paramref name="line"/> to the message.
+        /// </summary>
+        /// <param name="line">The content of the line.</param>
+        public void AppendLine(object? line)
+        {
+            Lines.Add(line);
+        }
+
         #endregion Methods
     }
 }

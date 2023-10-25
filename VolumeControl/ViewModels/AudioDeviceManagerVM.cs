@@ -197,7 +197,7 @@ namespace VolumeControl.ViewModels
         }
         private void AudioSessionManager_PreviewSessionName(object sender, PreviewSessionNameEventArgs e)
         {
-            if (e.SessionName.Equals("Idle", StringComparison.Ordinal))
+            if (e.AudioSession.PID.Equals(0))
             {
                 e.SessionName = "System Sounds";
             }

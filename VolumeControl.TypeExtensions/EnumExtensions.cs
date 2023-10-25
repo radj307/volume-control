@@ -126,5 +126,17 @@
 
             return (T)Enum.ToObject(typeof(T), result);
         }
+        /// <summary>
+        /// Checks if the enum value has only 1 bit set.
+        /// </summary>
+        /// <typeparam name="T">The type of enum being operated on.</typeparam>
+        /// <param name="e">(implicit) Enum value to operate on.</param>
+        /// <returns><see langword="true"/> when the enum value is a power of 2; <see langword="false"/>.</returns>
+        public static bool IsSingleValue<T>(this T e) where T : struct, Enum
+        {
+            var e_v = Convert.ToInt64(e);
+            
+            return e_v == 0 || (e_v & (e_v - 1)) == 0;
+        }
     }
 }

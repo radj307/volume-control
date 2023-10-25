@@ -15,19 +15,19 @@ namespace VolumeControl.Core.Enum
         /// </summary>
         Nothing = 0,
         /// <summary>
-        /// Control bar that shows a mute checkbox, volume slider, and volume textbox.
+        /// The control bar that includes a mute checkbox, volume slider, and volume level textbox.
         /// </summary>
         ControlBar = 1,
         /// <summary>
-        /// The selected item(s) in the list only.
+        /// Only the selected item(s).
         /// </summary>
         SelectedItemOnly = 2,
         /// <summary>
-        /// All items in the list, including the selected item(s).
+        /// The full list of items.
         /// </summary>
         AllItems = 4,
         /// <summary>
-        /// Everything
+        /// Everything.
         /// </summary>
         Everything = ControlBar | AllItems,
     }

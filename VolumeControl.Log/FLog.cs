@@ -53,13 +53,13 @@ namespace VolumeControl.Log
 
         #region Methods
 
-        #region Private
+        #region (Private)
         /// <summary>
         /// Creates a new string that contains the log init message that appears on the first line of the log.
         /// </summary>
         /// <param name="verb">Displayed in the header as "Log (verb)"</param>
         private static string MakeInitMessage(string verb)
-            => $"{AsyncLogWriter.DateTimeFormatString}{AsyncLogWriter.Indent(AsyncLogWriter.TimestampLength, AsyncLogWriter.DateTimeFormatString.Length)}{new string(' ', AsyncLogWriter.EventTypeLength)}=== Log {verb} @ {DateTime.UtcNow:U} ===  {{ Filter: {(byte)Log.EventTypeFilter} ({Log.EventTypeFilter:G}) }}";
+            => $"{AsyncLogWriter.DateTimeFormatString}{AsyncLogWriter.Indent(AsyncLogWriter.TimestampLength, AsyncLogWriter.DateTimeFormatString.Length)}{new string(' ', AsyncLogWriter.EventTypeLength)}=== Log {verb} @ {DateTime.UtcNow:U} ===  {{ {nameof(SettingsInterface.LogFilter)}: {(int)Log.EventTypeFilter} ({Log.EventTypeFilter:G}) }}";
         private static void WriteRaw(string text)
         {
             lock (Log.Endpoint)
@@ -69,7 +69,7 @@ namespace VolumeControl.Log
         }
         private static NotInitializedException MakeLogNotInitializedException(Exception? innerException = null)
             => new(nameof(FLog), "The log hasn't been initialized yet!", innerException);
-        #endregion Private
+        #endregion (Private)
 
         #region Initialize
         /// <summary>
@@ -102,6 +102,8 @@ namespace VolumeControl.Log
         #region AsyncLogWriter Methods
         /// <inheritdoc cref="AsyncLogWriter.FilterEventType(EventType)"/>
         public static bool FilterEventType(EventType eventType) => Log.FilterEventType(eventType);
+        /// <inheritdoc cref="AsyncLogWriter.LogMessage(Log.LogMessage)"/>
+        public static void LogMessage(LogMessage logMessage) => Log.LogMessage(logMessage);
         /// <inheritdoc cref="AsyncLogWriter.Trace"/>
         public static void Trace(params object?[] lines) => Log.LogMessage(new(EventType.TRACE, lines));
         /// <inheritdoc cref="AsyncLogWriter.Debug(object?[])"/>

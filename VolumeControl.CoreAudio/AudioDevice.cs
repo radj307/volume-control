@@ -29,12 +29,12 @@ namespace VolumeControl.CoreAudio
             if (MMDevice.AudioMeterInformation is null)
                 throw new NullReferenceException($"{nameof(AudioDevice)} '{Name}' has a null {nameof(MMDevice.AudioMeterInformation)} property!");
 
-            SessionManager = new(this);
+            SessionManager = new(this); //< TODO: try-catch?
 
             AudioEndpointVolume.OnVolumeNotification += AudioEndpointVolume_OnVolumeNotification;
 
-            if (FLog.Log.FilterEventType(Log.Enum.EventType.TRACE))
-                FLog.Log.Trace($"Created {nameof(AudioDevice)} instance \"{FullName}\"");
+            if (FLog.FilterEventType(Log.Enum.EventType.TRACE))
+                FLog.Trace($"[{nameof(AudioDevice)}] Successfully created {nameof(AudioDevice)} instance \"{FullName}\".");
         }
         #endregion Constructor
 
@@ -183,6 +183,18 @@ namespace VolumeControl.CoreAudio
             GC.SuppressFinalize(this);
         }
         #endregion IDisposable Implementation
+
+        #region Methods
+
+        #region ToString
+        /// <summary>
+        /// Gets the FullName of this <see cref="AudioDevice"/> instance.
+        /// </summary>
+        /// <returns>The FullName <see cref="string"/> of this <see cref="AudioDevice"/> instance.</returns>
+        public override string ToString() => FullName;
+        #endregion ToString
+
+        #endregion Methods
 
         #region EventHandlers
 

@@ -18,12 +18,17 @@ namespace VolumeControl.CoreAudio
         #region Constructor
         internal AudioSession(AudioDevice owningDevice, AudioSessionControl2 audioSessionControl2)
         {
+            bool showTraceLogMessages = FLog.FilterEventType(Log.Enum.EventType.TRACE);
+
             AudioDevice = owningDevice;
             AudioSessionControl = audioSessionControl2;
 
             PID = AudioSessionControl.ProcessID;
-            ProcessName = Process?.ProcessName ?? string.Empty;
-            Name = AudioSessionControl.DisplayName.Length > 0 && !AudioSessionControl.DisplayName.StartsWith('@') ? AudioSessionControl.DisplayName : ProcessName;
+            using var process = GetProcess();
+            ProcessName = process?.ProcessName ?? string.Empty;
+            Name = AudioSessionControl.DisplayName.Length > 0 && !AudioSessionControl.DisplayName.StartsWith('@')
+                ? AudioSessionControl.DisplayName
+                : ProcessName;
             ProcessIdentifier = $"{PID}{ProcessIdentifierSeparatorChar}{ProcessName}";
 
             if (AudioSessionControl.SimpleAudioVolume is null)
@@ -37,8 +42,8 @@ namespace VolumeControl.CoreAudio
             AudioSessionControl.OnSimpleVolumeChanged += this.AudioSessionControl_OnSimpleVolumeChanged;
             AudioSessionControl.OnStateChanged += this.AudioSessionControl_OnStateChanged;
 
-            if (FLog.Log.FilterEventType(Log.Enum.EventType.TRACE))
-                FLog.Log.Trace($"Created {nameof(AudioSession)} instance \"{ProcessIdentifier}\"");
+            if (showTraceLogMessages)
+                FLog.Trace($"Created {nameof(AudioSession)} instance \"{ProcessIdentifier}\"");
         }
         #endregion Constructor
 
@@ -138,11 +143,6 @@ namespace VolumeControl.CoreAudio
         }
         private bool _hasCustomName = false;
         /// <summary>
-        /// Gets the <see cref="System.Diagnostics.Process"/> that is controlling this <see cref="AudioSession"/> instance.
-        /// </summary>
-        public Process? Process => _process ??= GetProcess();
-        private Process? _process;
-        /// <summary>
         /// Gets the process identifier of this audio session.
         /// </summary>
         /// <remarks>
@@ -235,6 +235,14 @@ namespace VolumeControl.CoreAudio
 
         #region Methods
 
+        #region ToString
+        /// <summary>
+        /// Gets the ProcessIdentifier associated with this <see cref="AudioSession"/> instance.
+        /// </summary>
+        /// <returns>The ProcessIdentifier <see cref="string"/> for this <see cref="AudioSession"/> instance.</returns>
+        public override string ToString() => ProcessIdentifier;
+        #endregion ToString
+
         #region ParseProcessIdentifier
         /// <summary>
         /// Splits the given <paramref name="processIdentifier"/> into its ProcessID and ProcessName components, if they exist.
@@ -291,8 +299,11 @@ namespace VolumeControl.CoreAudio
         /// <summary>
         /// Gets the process that created this audio session.
         /// </summary>
+        /// <remarks>
+        /// The caller is responsible for calling <see cref="Process.Dispose(bool)"/>.
+        /// </remarks>
         /// <returns><see cref="System.Diagnostics.Process"/> instance that created this audio session, or <see langword="null"/> if an error occurred.</returns>
-        private Process? GetProcess()
+        public Process? GetProcess()
         {
             try
             {
@@ -345,7 +356,6 @@ namespace VolumeControl.CoreAudio
         {
             if (FLog.Log.FilterEventType(Log.Enum.EventType.TRACE))
                 FLog.Log.Trace($"Disposing of {nameof(AudioSession)} instance \"{ProcessIdentifier}\"");
-            this.Process?.Dispose();
             this.AudioSessionControl.Dispose();
             GC.SuppressFinalize(this);
         }

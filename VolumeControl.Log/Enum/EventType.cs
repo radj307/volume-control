@@ -48,20 +48,4 @@
         /// </summary>
         TRACE = 64,
     }
-    /// <summary>
-    /// Defines extension methods for the <see cref="EventType"/> enum.
-    /// </summary>
-    public static class EventTypeExtensions
-    {
-        /// <summary>
-        /// Check if the specified <paramref name="eventType"/> is a single value or multiple flags.
-        /// </summary>
-        /// <param name="eventType">The <see cref="EventType"/> instance to check.</param>
-        /// <returns><see langword="true"/> when <paramref name="eventType"/> is a single value; otherwise <see langword="false"/>.</returns>
-        public static bool IsSingleValue(this EventType eventType)
-        {
-            var v = (byte)eventType;
-            return v != 0 && (v & (v - 1)) == 0;
-        }
-    }
 }

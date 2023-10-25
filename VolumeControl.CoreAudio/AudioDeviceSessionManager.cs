@@ -28,10 +28,21 @@ namespace VolumeControl.CoreAudio
 
             AudioSessionManager2.OnSessionCreated += this.AudioSessionManager_OnSessionCreated;
 
+            bool showTraceLogMessages = FLog.FilterEventType(Log.Enum.EventType.TRACE);
+
             if (AudioSessionManager2.Sessions is not null)
             { // populate the sessions list
+                if (showTraceLogMessages)
+                    FLog.Trace($"[{nameof(AudioDeviceSessionManager)}] {nameof(AudioDevice)} instance \"{AudioDevice}\" has {AudioSessionManager2.Sessions.Count} associated sessions. Initializing them now...");
+
                 foreach (var audioSessionControl in AudioSessionManager2.Sessions)
                 {
+                    if (audioSessionControl.State == AudioSessionState.AudioSessionStateExpired)
+                    {
+                        if (showTraceLogMessages)
+                            FLog.Trace($"[{nameof(AudioDeviceSessionManager)}] Ignoring expired session with {nameof(audioSessionControl.ProcessID)} {audioSessionControl.ProcessID} and {nameof(audioSessionControl.SessionInstanceIdentifier)} \"{audioSessionControl.SessionInstanceIdentifier}\".");
+                        continue;
+                    }
                     CreateAndAddSessionIfUnique(audioSessionControl);
                 }
             }
@@ -97,17 +108,24 @@ namespace VolumeControl.CoreAudio
         {
             if (FindSessionByAudioSessionControl(audioSessionControl) is null)
             {
-                var newSession = new AudioSession(AudioDevice, audioSessionControl);
-                // connect important session events:
-                newSession.SessionDisconnected += this.Session_SessionDisconnected;
-                newSession.StateChanged += this.Session_StateChanged;
-                _sessions.Add(newSession);
+                try
+                {
+                    var newSession = new AudioSession(AudioDevice, audioSessionControl);
+                    // connect important session events:
+                    newSession.SessionDisconnected += this.Session_SessionDisconnected;
+                    newSession.StateChanged += this.Session_StateChanged;
+                    _sessions.Add(newSession);
 
-                NotifySessionAddedToList(newSession);
+                    NotifySessionAddedToList(newSession);
 
-                return newSession;
+                    return newSession;
+                }
+                catch (Exception ex)
+                {
+                    FLog.Error($"[{nameof(AudioDeviceSessionManager)}] An exception occurred while creating an {nameof(AudioSession)} instance for session with (ProcessID: {audioSessionControl.ProcessID}, DisplayName: {audioSessionControl.DisplayName}, SessionInstanceIdentifier: {audioSessionControl.SessionInstanceIdentifier})!", ex);
+                }
             }
-            else return null;
+            return null;
         }
         /// <summary>
         /// Removes the given <paramref name="session"/> from the <see cref="Sessions"/> list and disposes of it.
@@ -151,7 +169,9 @@ namespace VolumeControl.CoreAudio
             if (AudioSessionManager2.Sessions?.FirstOrDefault(session => session.SessionInstanceIdentifier.Equals(newSessionInstanceIdentifier, StringComparison.Ordinal)) is AudioSessionControl2 audioSessionControl)
             {
                 if (CreateAndAddSessionIfUnique(audioSessionControl) is AudioSession newAudioSession)
+                {
                     FLog.Debug($"New {nameof(AudioSession)} '{newAudioSession.ProcessName}' ({newAudioSession.PID}) created; successfully added it to the list.");
+                }
                 else if (FindSessionByAudioSessionControl(audioSessionControl) is AudioSession existingSession)
                 {
                     FLog.Error($"New {nameof(AudioSession)} '{existingSession?.ProcessName}' ({existingSession?.PID}) created; but it was already in the list!");

@@ -82,7 +82,7 @@ namespace VolumeControl.ViewModels
             }
 
             // try getting the icon from the process
-            var proc = AudioSession.Process;
+            using var proc = AudioSession.GetProcess();
 
             if (proc == null) return null;
             try

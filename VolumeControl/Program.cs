@@ -260,7 +260,7 @@ namespace VolumeControl
     internal static class Program
     {
         #region Fields
-        private const string appMutexIdentifier = "VolumeControlSingleInstance";
+        private const string appMutexIdentifier = "VolumeControlSingleInstance"; //< Don't change this without also changing the installer script (vcsetup.iss)
         private static Mutex appMutex = null!;
         private static Config Settings = null!;
         #endregion Fields
@@ -274,6 +274,8 @@ namespace VolumeControl
         {
             try
             {
+                Console.Out.WriteLine("Application is starting.");
+
                 return Main_Impl(args);
             }
             catch (Exception ex)
@@ -323,22 +325,37 @@ namespace VolumeControl
             { // mutex not acquired, a conflicting instance is running:
                 if (args.Any(arg => arg.Equals("--wait-for-mutex", StringComparison.Ordinal)))
                 {
+                    Console.Out.WriteLine($"Waiting for mutex \"{appMutexName}\" to become available...");
                     _ = appMutex.WaitOne(); //< wait until the mutex is acquired
+                    Console.Out.WriteLine($"Acquired mutex \"{appMutexName}\"");
                 }
                 else
                 {
+                    Console.Error.WriteLine($"Failed to acquire mutex \"{appMutexName}\" because another instance of Volume Control is using it!");
                     LocalizationHelper localeHelper = new(false); //< initialize without logging
                     MessageBox.Show(Loc.Tr($"VolumeControl.Dialogs.AnotherInstanceIsRunning.{(Settings.AllowMultipleDistinctInstances ? "MultiInstance" : "SingleInstance")}", "Another instance of Volume Control is already running!").Replace("${PATH}", Settings.Location));
                     return 2;
                 }
             }
+            else Console.Out.WriteLine($"Acquired mutex \"{appMutexName}\".");
 
             // Initialize the log now that we aren't potentially overwriting another instance's log file
             FLog.Initialize();
 #if DEBUG
             // show all log message types in debug mode
-            FLog.Log.EventTypeFilter = EventType.DEBUG | EventType.INFO | EventType.WARN | EventType.ERROR | EventType.FATAL | EventType.TRACE;
+           // FLog.Log.EventTypeFilter = EventType.DEBUG | EventType.INFO | EventType.WARN | EventType.ERROR | EventType.FATAL | EventType.TRACE;
 #endif
+
+            // write commandline arguments to the log if they were specified
+            if (args.Length > 0)
+            {
+                var msg = new LogMessage(EventType.INFO, $"Commandline arguments were included:");
+                for (int i = 0, i_max = args.Length; i < i_max; ++i)
+                {
+                    msg.AppendLine($" [{i}] \"{args[i]}\"");
+                }
+                FLog.LogMessage(msg);
+            }
 
             // Get program information:
             SemVersion version = GetProgramVersion();
@@ -412,7 +429,7 @@ namespace VolumeControl
         }
         #endregion Main
 
-        #region Private
+        #region (Private)
         private static string HashFilePath(string path)
         {
             var md5 = MD5.Create();
@@ -480,7 +497,7 @@ namespace VolumeControl
 
             sw.Dispose();
         }
-        #endregion Private
+        #endregion (Private)
 
         #endregion Methods
     }

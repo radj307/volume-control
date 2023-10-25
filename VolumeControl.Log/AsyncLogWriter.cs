@@ -170,7 +170,7 @@ namespace VolumeControl.Log
 
         #region Methods
 
-        #region Private/Internal
+        #region (Private/Internal)
         private static string MakeLineHeader(DateTime dateTime, EventType eventType)
         {
             string timeStampString = dateTime.ToString(DateTimeFormatString);
@@ -221,7 +221,7 @@ namespace VolumeControl.Log
                 ? ""
                 : new(' ', length);
         }
-        #endregion Private/Internal
+        #endregion (Private/Internal)
 
         #region FilterEventType
         /// <summary>
