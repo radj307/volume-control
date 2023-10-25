@@ -1,4 +1,6 @@
-; NOTE: Prior to compiling this file, run "git clone https://github.com/DomGries/InnoDependencyInstaller"
+; NOTES:
+;  - Prior to compiling this file, run "git clone https://github.com/DomGries/InnoDependencyInstaller"
+;  - AppVersion must be defined on the commandline with /dAppVersion=""
 
 #define public Dependency_Path_NetCoreCheck "InnoDependencyInstaller\dependencies\"
 #include                                    "InnoDependencyInstaller\CodeDependencies.iss"
