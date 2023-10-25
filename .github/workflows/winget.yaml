@@ -4,6 +4,13 @@ on:
   release:
     types: [released]
   workflow_dispatch:
+    inputs:
+      package_version:
+        description:  'The version number of the package'
+        required:     true
+        default:      ''
+        type:         string
+
 
 defaults:
   run:
@@ -15,12 +22,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - run:  |
-              ${{ github.event.release.tag_name }}
+      - name: Print Package Version
+        run:  |
+              '${{ github.event.release.tag_name }}'
 
       - uses: vedantmgoyal2009/winget-releaser@v2
         with:
           identifier: radj307.volume-control
-          version: ${{ github.event.release.tag_name }}
+          version: ${{ github.event.release.tag_name || github.event.inputs.package_version }}
           installers-regex: '-Installer\.exe$'
           token: ${{ secrets.WINGET_TOKEN }}
