@@ -1,0 +1,34 @@
+name: Publish to Winget
+
+on:
+  release:
+    types: [released]
+  workflow_dispatch:
+    inputs:
+      package_version:
+        description:  'The version number of the package'
+        required:     true
+        default:      ''
+        type:         string
+
+
+defaults:
+  run:
+    shell:  |
+            pwsh -noninteractive -command "try {{ $ErrorActionPreference='Stop'; . '{0}' }} catch {{ Write-Error ""FAILED: $_""; throw; }} if ((Test-Path -LiteralPath variable:\LASTEXITCODE)) {{ exit $LASTEXITCODE }}"
+               
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Print Package Version
+        run:  |
+              '${{ github.event.release.tag_name }}'
+
+      - uses: vedantmgoyal2009/winget-releaser@v2
+        with:
+          identifier: radj307.volume-control
+          version: ${{ github.event.release.tag_name || github.event.inputs.package_version }}
+          installers-regex: '-Installer\.exe$'
+          token: ${{ secrets.WINGET_TOKEN }}

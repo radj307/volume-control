@@ -8,7 +8,12 @@ body:
       value:  |
               Thank you for taking the time to fill out a localization issue form!
               
-              We usually prioritize localization-related issue reports, but 
+              If you know how to translate from English to your desired language, please consider submitting a pull request to fix the issue yourself.
+
+  - type: markdown
+    attributes:
+      value:  |
+              Thank you for taking the time to fill out a localization issue form!
 
   - type: input
     id: version
