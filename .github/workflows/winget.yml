@@ -3,11 +3,21 @@ name: Publish to Winget
 on:
   release:
     types: [released]
+  workflow_dispatch:
 
+defaults:
+  run:
+    shell:  |
+            pwsh -noninteractive -command "try {{ $ErrorActionPreference='Stop'; . '{0}' }} catch {{ Write-Error ""FAILED: $_""; throw; }} if ((Test-Path -LiteralPath variable:\LASTEXITCODE)) {{ exit $LASTEXITCODE }}"
+               
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
+
+      - run:  |
+              ${{ github.event.release.tag_name }}
+
       - uses: vedantmgoyal2009/winget-releaser@v2
         with:
           identifier: radj307.volume-control
