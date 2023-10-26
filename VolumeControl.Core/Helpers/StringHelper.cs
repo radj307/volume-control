@@ -99,7 +99,7 @@ namespace VolumeControl.Core.Helpers
                 : new(fillChar, length);
         }
         /// <inheritdoc cref="Indent(int, int, char, bool)"/>
-        public static string Indent(int maxLength, int usedLength, bool allowZeroLength = false)
+        public static string Indent(int maxLength, int usedLength, bool allowZeroLength)
             => Indent(maxLength, usedLength, ' ', allowZeroLength);
         #endregion Indent
 
