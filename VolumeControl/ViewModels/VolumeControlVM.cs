@@ -41,12 +41,7 @@ namespace VolumeControl.ViewModels
             // Initialize the addon API
             var api = Initializer.Initialize(this.AudioAPI.AudioDeviceManager, this.AudioAPI.AudioDeviceSelector, this.AudioAPI.AudioSessionManager, this.AudioAPI.AudioSessionMultiSelector, this.HotkeyAPI.HotkeyManager, this.MainWindowHandle, (AppConfig.Configuration.Default as Config)!);
 
-            var actions = HotkeyActionAddonLoader.Load(
-                typeof(AudioDeviceActions),
-                typeof(AudioSessionActions),
-                typeof(ActiveApplicationActions),
-                typeof(ApplicationActions),
-                typeof(MediaActions));
+            var actions = HotkeyActionAddonLoader.Load(GetDefaultActionGroupTypes());
 
             HotkeyAPI.HotkeyManager.HotkeyActionManager.AddActionDefinitions(actions);
 
@@ -173,6 +168,16 @@ namespace VolumeControl.ViewModels
         #endregion Properties
 
         #region Methods
+
+        #region GetDefaultActionGroupTypes
+        private static Type[] GetDefaultActionGroupTypes()
+        {
+            var asm = Assembly.Load($"{nameof(VolumeControl)}.{nameof(HotkeyActions)}");
+
+            return asm.GetExportedTypes().Where(type => type.GetCustomAttribute<Core.Attributes.HotkeyActionGroupAttribute>() != null).ToArray();
+        }
+        #endregion GetDefaultActionGroupTypes
+
         /// <summary>Displays a message box prompting the user for confirmation, and if confirmation is given, resets all hotkeys to their default settings using <see cref="HotkeyManager.ResetHotkeys"/>.</summary>
         public void ResetHotkeySettings()
         {
