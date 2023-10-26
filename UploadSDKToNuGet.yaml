@@ -1,0 +1,52 @@
+name: Upload SDK to NuGet
+
+on:
+  release:
+    types: [released]
+
+defaults:
+  run:
+    shell:  |
+            pwsh -noninteractive -command "try {{ $ErrorActionPreference='Stop'; . '{0}' }} catch {{ Write-Error ""FAILED: $_""; throw; }} if ((Test-Path -LiteralPath variable:\LASTEXITCODE)) {{ exit $LASTEXITCODE }}"
+            
+jobs:
+  build-and-upload:
+    runs-on:  windows-latest
+    env:
+      DOTNET_NOLOGO:                true
+      DOTNET_CLI_TELEMETRY_OPTOUT:  true
+
+    steps:
+      - uses: actions/checkout@v4
+        ref:  ${{ github.event.release.tag_name }}
+
+      - uses: actions/setup-dotnet@v3.2.0
+        with:
+          dotnet-version:   6.0.x
+          
+      - name:   Authenticate with Github NuGet Package Registry
+        run:    dotnet nuget add source --username radj307 --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/radj307/index.json"
+
+      - name:   Build Package
+        run:    |
+                dotnet build -c Release
+                dotnet pack ./VolumeControl.SDK/VolumeControl.SDK.csproj --noLogo -c Release -o . --include-symbols
+
+      - name:   Get Approval
+        if:     ${{ vars.REQUIRE_MANUAL_APPROVAL_TO_UPLOAD_NUGET_PACKAGE == 'true' }}
+        uses:   trstringer/manual-approval@v1.9.0
+        permissions:
+          issues: write
+        with:
+          approvers:    radj307
+          issue-title:  "[ACTIONS] Provide Upload Approval for ${{ github.event.release.tag_name }} SDK NuGet Package"
+          issue-body:   |
+                        Manual approval is required before automated upload of SDK NuGet Package version ${{ github.event.release.tag_name }} because the REQUIRE_MANUAL_APPROVAL_TO_UPLOAD_NUGET_PACKAGE repository variable is set to true.
+
+      - name:   Upload Packages
+        run:    >
+                foreach ($pkg in $(Get-ChildItem -Filter *.nupkg)) {
+                  dotnet push $pkg.Name -k ${{ github.token }} -s https://nuget.pkg.github.com/radj307/index.json --skip-duplicate
+                  dotnet nuget push $pkg.Name -k ${{ secrets.NUGET_API_KEY_VOLUMECONTROLSDK }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+                }
+        
