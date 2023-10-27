@@ -31,6 +31,10 @@ namespace VolumeControl.CoreAudio
         }
         #endregion Initializer
 
+        #region Fields
+        private bool _noResolveCurrentIndex = false;
+        #endregion Fields
+
         #region Properties
         AudioSessionManager AudioSessionManager { get; }
         private IReadOnlyList<AudioSession> Sessions => AudioSessionManager.Sessions;
@@ -113,7 +117,7 @@ namespace VolumeControl.CoreAudio
         {
             get
             {
-                if (_currentIndex == -1)
+                if (!_noResolveCurrentIndex && _currentIndex == -1)
                     ResolveCurrentIndex();
                 return _currentIndex;
             }
@@ -122,10 +126,12 @@ namespace VolumeControl.CoreAudio
                 if (LockCurrentIndex) return;
 
                 _currentIndex = value;
+
+                _noResolveCurrentIndex = _currentIndex == -1;
+
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(CurrentSession));
-                if (_currentIndex != -1) // only notify that the session was changed to actual session
-                    NotifyCurrentSessionChanged(Sessions[_currentIndex]);
+                NotifyCurrentSessionChanged(_currentIndex != -1 ? Sessions[_currentIndex] : null);
             }
         }
         private int _currentIndex;
@@ -233,12 +239,14 @@ namespace VolumeControl.CoreAudio
             if (!hadSelectedSessions)
                 NotifyPropertyChanged(nameof(HasSelectedSessions));
         }
-        private void RemoveSelectedSession(AudioSession audioSession)
+        private bool RemoveSelectedSession(AudioSession audioSession)
         {
             if (_selectedSessions.Remove(audioSession) && _selectedSessions.Count == 0)
             {
                 NotifyPropertyChanged(nameof(HasSelectedSessions));
+                return true;
             }
+            return false;
         }
         #endregion Add/Remove SelectedSession
 
@@ -387,6 +395,13 @@ namespace VolumeControl.CoreAudio
             => SetSelectedSessionsOrCurrentSession(sessions.ToArray());
         #endregion SetSelectedSessionsOrCurrentSession
 
+        #region ClearSelectedSessions
+        /// <summary>
+        /// Unselects all SelectedSessions.
+        /// </summary>
+        public void ClearSelectedSessions() => SetAllSessionSelectionStates(false);
+        #endregion ClearSelectedSessions
+
         #region Select/Deselect/ToggleSelect CurrentItem
         /// <summary>
         /// Selects the CurrentItem.
@@ -412,9 +427,11 @@ namespace VolumeControl.CoreAudio
         {
             if (LockSelection || CurrentIndex == -1) return;
 
-            _selectionStates[CurrentIndex] = false;
-            RemoveSelectedSession(CurrentSession!);
-            NotifySessionDeselected(CurrentSession!);
+            CurrentIndex = -1;
+            if (RemoveSelectedSession(CurrentSession!))
+            {
+                NotifySessionDeselected(CurrentSession!);
+            }
         }
         /// <summary>
         /// Toggles whether the CurrentItem is selected.

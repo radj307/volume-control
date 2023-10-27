@@ -116,7 +116,7 @@ namespace VolumeControl.ViewModels
         {
             if (_isSelectedChanging) return; //< don't update if the source is this object
 
-            if (e.Equals(this.AudioSession))
+            if (AudioSession.Equals(e))
             {
                 NotifyPropertyChanged(nameof(IsSelected));
             }

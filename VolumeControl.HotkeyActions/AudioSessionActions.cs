@@ -360,6 +360,10 @@ namespace VolumeControl.HotkeyActions
         [HotkeyAction(Description = "Unsets the selector.")]
         public void Deselect(object? sender, HotkeyPressedEventArgs e)
         {
+            if (MultiSelector.HasSelectedSessions)
+            {
+                MultiSelector.ClearSelectedSessions();
+            }
             MultiSelector.DeselectCurrentItem();
 
             VCAPI.ShowSessionListNotification();
