@@ -18,7 +18,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        ref:  ${{ github.event.release.tag_name }}
+        with:
+          ref:  ${{ github.event.release.tag_name }}
 
       - uses: actions/setup-dotnet@v3.2.0
         with:
@@ -31,17 +32,6 @@ jobs:
         run:    |
                 dotnet build -c Release
                 dotnet pack ./VolumeControl.SDK/VolumeControl.SDK.csproj --noLogo -c Release -o . --include-symbols
-
-      - name:   Get Approval
-        if:     ${{ vars.REQUIRE_MANUAL_APPROVAL_TO_UPLOAD_NUGET_PACKAGE == 'true' }}
-        uses:   trstringer/manual-approval@v1.9.0
-        permissions:
-          issues: write
-        with:
-          approvers:    radj307
-          issue-title:  "[ACTIONS] Provide Upload Approval for ${{ github.event.release.tag_name }} SDK NuGet Package"
-          issue-body:   |
-                        Manual approval is required before automated upload of SDK NuGet Package version ${{ github.event.release.tag_name }} because the REQUIRE_MANUAL_APPROVAL_TO_UPLOAD_NUGET_PACKAGE repository variable is set to true.
 
       - name:   Upload Packages
         run:    >
