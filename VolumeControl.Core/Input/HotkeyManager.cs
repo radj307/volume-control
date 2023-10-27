@@ -1,4 +1,5 @@
 ﻿using VolumeControl.Core.Input.Actions;
+using VolumeControl.Core.Input.Enums;
 using VolumeControl.Core.Input.Json;
 
 namespace VolumeControl.Core.Input
@@ -33,6 +34,11 @@ namespace VolumeControl.Core.Input
         /// </summary>
         public IReadOnlyList<Hotkey> Hotkeys => _hotkeys;
         private readonly List<Hotkey> _hotkeys = new();
+        /// <summary>
+        /// Gets the list of <see cref="HotkeyMessageHookAbstractor"/> instances that are currently active.
+        /// </summary>
+        public IReadOnlyList<HotkeyMessageHookAbstractor> HookAbstractors => _hookAbstractors;
+        private readonly List<HotkeyMessageHookAbstractor> _hookAbstractors = new();
         #endregion Properties
 
         #region Events
@@ -50,13 +56,28 @@ namespace VolumeControl.Core.Input
 
         #region Methods
 
+        #region GetRegisteredHotkeyWithKeyCombination
+        private Hotkey? GetRegisteredHotkeyWithKeyCombination(EFriendlyKey key, EModifierKey modifiers)
+        {
+            foreach (var hotkey in Hotkeys)
+            {
+                if (!hotkey.IsRegistered) continue;
+
+                if (hotkey.Key == key && hotkey.Modifiers == modifiers)
+                    return hotkey;
+            }
+
+            return null;
+        }
+        #endregion GetRegisteredHotkeyWithKeyCombination
+
         #region GetHotkey
         /// <summary>
         /// Gets the <see cref="Hotkey"/> with the specified <paramref name="id"/>.
         /// </summary>
         /// <param name="id">The unique ID number of the hotkey to get.</param>
         /// <returns>The <see cref="Hotkey"/> instance with the specified <paramref name="id"/> number if found; otherwise <see langword="null"/>.</returns>
-        public Hotkey? GetHotkey(int id)
+        public Hotkey? GetHotkey(ushort id)
             => Hotkeys.FirstOrDefault(hk => hk.ID.Equals(id));
         #endregion GetHotkey
 
@@ -65,10 +86,13 @@ namespace VolumeControl.Core.Input
         /// Adds the specified <paramref name="hotkey"/> to the manager.
         /// </summary>
         /// <param name="hotkey">A <see cref="Hotkey"/> instance to add to the list of managed hotkeys.</param>
+        /// <exception cref="ArgumentException">The <paramref name="hotkey"/> is already being managed by this <see cref="HotkeyManager"/>.</exception>
         public void AddHotkey(Hotkey hotkey)
         {
             if (Hotkeys.Contains(hotkey))
-                throw new InvalidOperationException($"Hotkey instance '{hotkey.Name}' ({hotkey.GetStringRepresentation()}) is already being managed by this {nameof(HotkeyManager)} instance!");
+                throw new ArgumentException($"Hotkey instance '{hotkey.Name}' ({hotkey.GetStringRepresentation()}) is already being managed by this {nameof(HotkeyManager)} instance!");
+
+            hotkey.Registering += this.Hotkey_Registering;
 
             _hotkeys.Add(hotkey);
             NotifyAddedHotkey(hotkey);
@@ -78,10 +102,13 @@ namespace VolumeControl.Core.Input
         /// </summary>
         /// <param name="hotkey">A <see cref="Hotkey"/> instance to remove from the list of managed hotkeys.</param>
         /// <returns><see langword="true"/> when the <paramref name="hotkey"/> was successfully removed; otherwise <see langword="false"/>.</returns>
+        /// <exception cref="ArgumentException">The <paramref name="hotkey"/> is not being managed by this <see cref="HotkeyManager"/>.</exception>
         public bool RemoveHotkey(Hotkey hotkey)
         {
             if (!Hotkeys.Contains(hotkey))
-                throw new InvalidOperationException($"Hotkey instance '{hotkey.Name}' ({hotkey.GetStringRepresentation()}) is not being managed by this {nameof(HotkeyManager)} instance!");
+                throw new ArgumentException($"Hotkey instance '{hotkey.Name}' ({hotkey.GetStringRepresentation()}) is not being managed by this {nameof(HotkeyManager)} instance!");
+
+            hotkey.Registering -= this.Hotkey_Registering;
 
             _hotkeys.Remove(hotkey);
             NotifyRemovedHotkey(hotkey);
@@ -93,7 +120,8 @@ namespace VolumeControl.Core.Input
         /// </summary>
         /// <param name="id">The unique ID number of a hotkey to remove.</param>
         /// <returns><see langword="true"/> when the hotkey was successfully removed; otherwise <see langword="false"/>.</returns>
-        public bool RemoveHotkey(int id)
+        /// <exception cref="ArgumentException">The hotkey with <paramref name="id"/> is not being managed by this <see cref="HotkeyManager"/>.</exception>
+        public bool RemoveHotkey(ushort id)
             => GetHotkey(id) is Hotkey hk && RemoveHotkey(hk);
         #endregion Add/Remove Hotkey
 
@@ -138,12 +166,12 @@ namespace VolumeControl.Core.Input
         {
             for (int i = 0, max = hotkeyJsonObjects.Length; i < max; ++i)
             {
-                AddHotkey(hotkeyJsonObjects[i].CreateInstance<THotkey>(HotkeyActionManager));
+                var hotkeyJsonObject = hotkeyJsonObjects[i];
+                var hotkey = hotkeyJsonObject.CreateInstance<THotkey>(HotkeyActionManager, deferRegistration: true);
+                AddHotkey(hotkey);
+                hotkey.IsRegistered = hotkeyJsonObject.IsRegistered;
             }
         }
-        /// <inheritdoc cref="AddJsonHotkeys{THotkey}(JsonHotkey[])"/>
-        public virtual void AddJsonHotkeys(params JsonHotkey[] hotkeyJsonObjects)
-            => AddJsonHotkeys<Hotkey>(hotkeyJsonObjects);
         #endregion AddJsonHotkeys
 
         #region SetHotkeysFromJsonHotkeys
@@ -163,5 +191,54 @@ namespace VolumeControl.Core.Input
         #endregion SetHotkeysFromJsonHotkeys
 
         #endregion Methods
+
+        #region EventHandlers
+
+        #region Hotkey
+        private void Hotkey_Registering(object? sender, HotkeyRegisteringEventArgs e)
+        {
+            var hotkey = (Hotkey)sender!;
+
+            foreach (var existingHookManager in HookAbstractors)
+            {
+                if (existingHookManager.HotkeyHasManagedKeyCombination(hotkey))
+                { // a hook manager already exists for this duplicate key combination:
+                    existingHookManager.AddHotkey(hotkey);
+                    e.Handled = true;
+                    e.RegistrationSuccessStateWhenHandled = true;
+                    return;
+                }
+            }
+
+            var existingHotkey = GetRegisteredHotkeyWithKeyCombination(hotkey.Key, hotkey.Modifiers);
+
+            if (existingHotkey == null) return; //< this hotkey is not a duplicate, register it normally.
+
+            e.Handled = true; //< don't allow this hotkey to register itself
+            e.RegistrationSuccessStateWhenHandled = true;
+
+            var hookManager = new HotkeyMessageHookAbstractor();
+
+            hookManager.AddHotkey(existingHotkey);
+            hookManager.AddHotkey(hotkey);
+
+            hookManager.OneHotkeyRemaining += this.HookManager_OneHotkeyRemaining;
+
+            _hookAbstractors.Add(hookManager);
+        }
+        #endregion Hotkey
+
+        #region HookManager
+        private void HookManager_OneHotkeyRemaining(object? sender, IHotkey e)
+        {
+            var hookManager = (HotkeyMessageHookAbstractor)sender!;
+
+            hookManager.RemoveHotkey(e);
+
+            _hookAbstractors.Remove(hookManager);
+        }
+        #endregion HookManager
+
+        #endregion EventHandlers
     }
 }

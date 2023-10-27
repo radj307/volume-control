@@ -1,4 +1,4 @@
-﻿using System.Windows.Interop;
+﻿using System.ComponentModel;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.Core.Input.Enums;
 
@@ -7,7 +7,7 @@ namespace VolumeControl.Core.Input
     /// <summary>
     /// Represents a Win32 global hotkey.
     /// </summary>
-    public interface IHotkey
+    public interface IHotkey : IHotkeyMessageHook, INotifyPropertyChanged, IDisposable
     {
         #region Properties
         /// <summary>
@@ -17,7 +17,7 @@ namespace VolumeControl.Core.Input
         /// <summary>
         /// Gets the ID number of this hotkey.
         /// </summary>
-        int ID { get; }
+        ushort ID { get; }
         /// <summary>
         /// Gets or sets the main key for this hotkey.
         /// </summary>
@@ -47,10 +47,6 @@ namespace VolumeControl.Core.Input
         /// </summary>
         bool NoRepeat { get; set; }
         /// <summary>
-        /// Gets the windows message hook for this hotkey.
-        /// </summary>
-        HwndSourceHook MessageHook { get; }
-        /// <summary>
         /// Gets or sets whether this hotkey is registered with the Win32 API.
         /// </summary>
         /// <returns><see langword="true"/> when the hotkey is enabled; otherwise <see langword="false"/>.</returns>
@@ -66,6 +62,22 @@ namespace VolumeControl.Core.Input
         /// Occurs when the hotkey combination was pressed.
         /// </summary>
         event HotkeyPressedEventHandler? Pressed;
+        /// <summary>
+        /// Occurs when the hotkey is about to be registered for any reason.
+        /// </summary>
+        event HotkeyRegisteringEventHandler? Registering;
+        /// <summary>
+        /// Occurs when the hotkey has been registered for any reason.
+        /// </summary>
+        event EventHandler? Registered;
+        /// <summary>
+        /// Occurs when the hotkey is about to be unregistered for any reason.
+        /// </summary>
+        public event HotkeyRegisteringEventHandler? Unregistering;
+        /// <summary>
+        /// Occurs when the hotkey has been unregistered for any reason.
+        /// </summary>
+        event EventHandler? Unregistered;
         #endregion Events
     }
 }

@@ -1,6 +1,5 @@
 ﻿using VolumeControl.Core.Input.Actions;
 using VolumeControl.Core.Input.Enums;
-using VolumeControl.Core.Input.Exceptions;
 
 namespace VolumeControl.Core.Input
 {
@@ -14,22 +13,38 @@ namespace VolumeControl.Core.Input
         /// Creates a new <see cref="HotkeyWithError"/> instance with the specified parameters.
         /// </summary>
         /// <inheritdoc/>
-        public HotkeyWithError(EFriendlyKey key, EModifierKey modifiers, bool isRegistered) : base(key, modifiers, isRegistered) { }
+        public HotkeyWithError(EFriendlyKey key, EModifierKey modifiers, bool isRegistered) : base(key, modifiers, isRegistered)
+        {
+            base.Registering += new((s, e) => UnsetError());
+            base.Unregistered += new((s, e) => UnsetError());
+        }
         /// <summary>
         /// Creates a new <see cref="HotkeyWithError"/> instance with the specified parameters.
         /// </summary>
         /// <inheritdoc/>
-        public HotkeyWithError(string name, EFriendlyKey key, EModifierKey modifiers, bool isRegistered) : base(name, key, modifiers, isRegistered) { }
+        public HotkeyWithError(string name, EFriendlyKey key, EModifierKey modifiers, bool isRegistered) : base(name, key, modifiers, isRegistered)
+        {
+            base.Registering += new((s, e) => UnsetError());
+            base.Unregistered += new((s, e) => UnsetError());
+        }
         /// <summary>
         /// Creates a new <see cref="HotkeyWithError"/> instance with the specified parameters.
         /// </summary>
         /// <inheritdoc/>
-        public HotkeyWithError(EFriendlyKey key, EModifierKey modifiers, bool isRegistered, HotkeyActionInstance actionInstance) : base(key, modifiers, isRegistered, actionInstance) { }
+        public HotkeyWithError(EFriendlyKey key, EModifierKey modifiers, bool isRegistered, HotkeyActionInstance actionInstance) : base(key, modifiers, isRegistered, actionInstance)
+        {
+            base.Registering += new((s, e) => UnsetError());
+            base.Unregistered += new((s, e) => UnsetError());
+        }
         /// <summary>
         /// Creates a new <see cref="HotkeyWithError"/> instance with the specified parameters.
         /// </summary>
         /// <inheritdoc/>
-        public HotkeyWithError(string name, EFriendlyKey key, EModifierKey modifiers, bool isRegistered, HotkeyActionInstance actionInstance) : base(name, key, modifiers, isRegistered, actionInstance) { }
+        public HotkeyWithError(string name, EFriendlyKey key, EModifierKey modifiers, bool isRegistered, HotkeyActionInstance actionInstance) : base(name, key, modifiers, isRegistered, actionInstance)
+        {
+            base.Registering += new((s, e) => UnsetError());
+            base.Unregistered += new((s, e) => UnsetError());
+        }
         #endregion Constructors
 
         #region Properties
@@ -54,43 +69,6 @@ namespace VolumeControl.Core.Input
         #endregion Properties
 
         #region Methods
-
-        #region Registration
-        /// <inheritdoc/>
-        protected override bool Register()
-        {
-            if (IsRegistered) return false;
-
-            UnsetError();
-            try
-            {
-                WindowsHotkeyAPI.Register(this);
-                return true;
-            }
-            catch (HotkeyRegistrationException ex)
-            {
-                ErrorMessage = ex.Message;
-                return false;
-            }
-        }
-        /// <inheritdoc/>
-        protected override bool Unregister()
-        {
-            if (!IsRegistered) return false;
-
-            UnsetError();
-            try
-            {
-                WindowsHotkeyAPI.Unregister(this);
-                return true;
-            }
-            catch (HotkeyRegistrationException ex)
-            {
-                ErrorMessage = ex.Message;
-                return false;
-            }
-        }
-        #endregion Registration
 
         #region UnsetError
         private void UnsetError()

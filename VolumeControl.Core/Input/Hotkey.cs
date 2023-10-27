@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Interop;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.Core.Input.Enums;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Core.Input
 {
@@ -63,7 +64,7 @@ namespace VolumeControl.Core.Input
 
         #region Properties
         /// <inheritdoc/>
-        public int ID { get; private set; }
+        public ushort ID { get; private set; }
         /// <inheritdoc/>
         public string Name { get; set; }
         /// <inheritdoc/>
@@ -140,7 +141,7 @@ namespace VolumeControl.Core.Input
         /// <inheritdoc/>
         public HwndSourceHook MessageHook => MessageHookImpl;
         /// <inheritdoc/>
-        public virtual bool IsRegistered
+        public bool IsRegistered
         {
             get => _isRegistered;
             set
@@ -180,7 +181,7 @@ namespace VolumeControl.Core.Input
         /// Occurs when the hotkey was pressed, after the Action has been triggered.
         /// </summary>
         public event HotkeyPressedEventHandler? Pressed;
-        private void NotifyPressed(object? sender, HotkeyPressedEventArgs e) => Pressed?.Invoke(sender, e);
+        internal void NotifyPressed(object? sender, HotkeyPressedEventArgs e) => Pressed?.Invoke(sender, e);
         /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
         /// <summary>
@@ -188,36 +189,108 @@ namespace VolumeControl.Core.Input
         /// </summary>
         /// <param name="propertyName">The name of the property that was changed.</param>
         protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        /// <inheritdoc/>
+        public event HotkeyRegisteringEventHandler? Registering;
+        /// <returns><see cref="HandledEventArgs.Handled"/></returns>
+        private HotkeyRegisteringEventArgs NotifyRegistering()
+        {
+            var args = new HotkeyRegisteringEventArgs();
+            Registering?.Invoke(this, args);
+            return args;
+        }
+        /// <inheritdoc/>
+        public event EventHandler? Registered;
+        internal void NotifyRegistered() => Registered?.Invoke(this, EventArgs.Empty);
+        /// <inheritdoc/>
+        public event HotkeyRegisteringEventHandler? Unregistering;
+        private HotkeyRegisteringEventArgs NotifyUnregistering()
+        {
+            var args = new HotkeyRegisteringEventArgs();
+            Unregistering?.Invoke(this, args);
+            return args;
+        }
+        /// <inheritdoc/>
+        public event EventHandler? Unregistered;
+        internal void NotifyUnregistered() => Unregistered?.Invoke(this, EventArgs.Empty);
         #endregion Events
 
         #region Methods
 
         #region Registration
         /// <summary>
+        /// Registers the hotkey with the Windows API.
+        /// </summary>
+        /// <remarks>
+        /// This can be overridden in derived classes to change how the hotkey is registered.
+        /// This method is only called after the Registering event returns without being set as handled.
+        /// </remarks>
+        /// <returns><see langword="true"/> when successful; otherwise <see langword="false"/>.</returns>
+        protected virtual bool RegisterHotkey() => WindowsHotkeyAPI.TryRegister(this);
+        /// <summary>
+        /// Unregisters the hotkey with the Windows API.
+        /// </summary>
+        /// <remarks>
+        /// This can be overridden in derived classes to change how the hotkey is unregistered.
+        /// </remarks>
+        /// <returns><see langword="true"/> when successful; otherwise <see langword="false"/>.</returns>
+        protected virtual bool UnregisterHotkey() => WindowsHotkeyAPI.TryUnregister(this);
+        /// <summary>
         /// Registers the hotkey with the Win32 API.
         /// </summary>
-        /// <returns><see langword="true"/> when successful; otherwise <see langword="false"/>.</returns>
-        protected virtual bool Register()
+        /// <returns><see langword="true"/> when successful and not interrupted; otherwise <see langword="false"/>.</returns>
+        private bool Register()
         {
             if (IsRegistered) return false;
 
-            return WindowsHotkeyAPI.TryRegister(this);
+            var interrupt = NotifyRegistering();
+            if (interrupt.Handled)
+            {
+                if (interrupt.RegistrationSuccessStateWhenHandled)
+                {
+                    NotifyRegistered();
+                    return true;
+                }
+                else return false;
+            }
+
+            if (RegisterHotkey())
+            {
+                NotifyRegistered();
+                return true;
+            }
+            else return false;
         }
         /// <summary>
         /// Unregisters the hotkey with the Win32 API.
         /// </summary>
-        /// <returns><see langword="true"/> when successful; otherwise <see langword="false"/>.</returns>
-        protected virtual bool Unregister()
+        /// <returns><see langword="true"/> when successful and not interrupted; otherwise <see langword="false"/>.</returns>
+        private bool Unregister()
         {
             if (!IsRegistered) return false;
 
-            return WindowsHotkeyAPI.TryUnregister(this);
+            var interrupt = NotifyUnregistering();
+            if (interrupt.Handled)
+            {
+                if (interrupt.RegistrationSuccessStateWhenHandled)
+                {
+                    NotifyUnregistered();
+                    return true;
+                }
+                else return false;
+            }
+
+            if (UnregisterHotkey())
+            {
+                NotifyUnregistered();
+                return true;
+            }
+            else return false;
         }
         /// <summary>
         /// Re-registers the hotkey with the Win32 API.
         /// </summary>
         /// <returns><see langword="true"/> when successful; otherwise <see langword="false"/>.</returns>
-        protected virtual bool Reregister()
+        private bool Reregister()
         {
             if (Unregister()) //< no need to check if we're registered since this does it for us
             {
@@ -235,19 +308,20 @@ namespace VolumeControl.Core.Input
         }
         #endregion Registration
 
-        #region MessageHook
+        #region MessageHookImpl
         IntPtr MessageHookImpl(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             switch (msg)
             {
             case WindowsHotkeyAPI.WM_HOTKEY:
-                if (wParam.ToInt32().Equals(this.ID))
+                if (Convert.ToUInt16(wParam.ToInt32()).Equals(this.ID))
                 {
-                    if (!IsRegistered) break;
-
-                    HotkeyPressedEventArgs eventArgs = Action != null ? new(Action.ActionSettings) : new();
-                    Action?.Invoke(this, eventArgs);
-                    NotifyPressed(this, eventArgs);
+                    if (Action != null)
+                    {
+                        HotkeyPressedEventArgs eventArgs = new(Action.ActionSettings);
+                        Action.Invoke(this, eventArgs);
+                        NotifyPressed(this, eventArgs);
+                    }
                     handled = true;
                 }
                 break;
@@ -256,7 +330,7 @@ namespace VolumeControl.Core.Input
             }
             return IntPtr.Zero;
         }
-        #endregion MessageHook
+        #endregion MessageHookImpl
 
         #region GetNewID
         /// <summary>

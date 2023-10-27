@@ -116,10 +116,8 @@ namespace VolumeControl
         /// <summary>Handles the Select process button's click event.</summary>
         private void Handle_ProcessSelectClick(object sender, RoutedEventArgs e)
         {
-            if (MixerGrid.CurrentCell.Item is AudioSessionVM session)
-            {
-                VCAPI.Default.AudioSessionMultiSelector.CurrentSession = session.AudioSession;
-            }
+            var session = (AudioSessionVM)MixerGrid.CurrentCell.Item;
+            VCAPI.Default.AudioSessionMultiSelector.CurrentSession = session.AudioSession;
         }
         /// <summary>Handles the create new hotkey button's click event.</summary>
         private void Handle_CreateNewHotkeyClick(object sender, RoutedEventArgs e)
@@ -127,42 +125,42 @@ namespace VolumeControl
         /// <summary>Handles the remove hotkey button's click event.</summary>
         private void Handle_hotkeyGridRemoveClick(object sender, RoutedEventArgs e)
         {
-            if (sender is Button hotkeyGridRemove && hotkeyGridRemove.CommandParameter is int id)
+            var hotkeyGridRemove = (Button)sender;
+            var id = (ushort)hotkeyGridRemove.CommandParameter;
+
+            if (!this.HotkeyAPI.Hotkeys.Any(hk => hk.Hotkey.ID.Equals(id)))
+                return;
+
+            if (Settings.DeleteHotkeyConfirmation)
             {
-                if (!this.HotkeyAPI.Hotkeys.Any(hk => hk.Hotkey.ID.Equals(id)))
-                    return;
-
-                if (Settings.DeleteHotkeyConfirmation)
+                switch (MessageBox.Show(
+                    Loc.Tr("VolumeControl.Dialogs.RemoveHotkey.Message",
+                    $"Are you sure you want to delete hotkey {id}?\n" +
+                    $"\n" +
+                    $"- 'Yes'     Delete the hotkey.\n" +
+                    $"- 'No'      Do not delete the hotkey.\n" +
+                    $"- 'Cancel'  Don't show this again. (Press again to delete)\n")
+                    .Replace("${ID}", id.ToString()),
+                    Loc.Tr("VolumeControl.Dialogs.RemoveHotkey.Caption", "Confirm Delete"),
+                    MessageBoxButton.YesNoCancel,
+                    MessageBoxImage.Question,
+                    MessageBoxResult.No)
+                    )
                 {
-                    switch (MessageBox.Show(
-                        Loc.Tr("VolumeControl.Dialogs.RemoveHotkey.Message",
-                        $"Are you sure you want to delete hotkey {id}?\n" +
-                        $"\n" +
-                        $"- 'Yes'     Delete the hotkey.\n" +
-                        $"- 'No'      Do not delete the hotkey.\n" +
-                        $"- 'Cancel'  Don't show this again. (Press again to delete)\n")
-                        .Replace("${ID}", id.ToString()),
-                        Loc.Tr("VolumeControl.Dialogs.RemoveHotkey.Caption", "Confirm Delete"),
-                        MessageBoxButton.YesNoCancel,
-                        MessageBoxImage.Question,
-                        MessageBoxResult.No)
-                        )
-                    {
-                    case MessageBoxResult.Yes:
-                        break; // continue
-                    case MessageBoxResult.No:
-                        return;
-                    case MessageBoxResult.Cancel:
-                        Settings.DeleteHotkeyConfirmation = false;
-                        FLog.Info($"User specified option '{MessageBoxResult.Cancel:G}' in the remove hotkey confirmation dialog, indicating they want to disable the confirmation dialog; the '{nameof(Settings.DeleteHotkeyConfirmation)}' setting has been set to false.");
-                        return;
-                    }
+                case MessageBoxResult.Yes:
+                    break; // continue
+                case MessageBoxResult.No:
+                    return;
+                case MessageBoxResult.Cancel:
+                    Settings.DeleteHotkeyConfirmation = false;
+                    FLog.Info($"User specified option '{MessageBoxResult.Cancel:G}' in the remove hotkey confirmation dialog, indicating they want to disable the confirmation dialog; the '{nameof(Settings.DeleteHotkeyConfirmation)}' setting has been set to false.");
+                    return;
                 }
-
-                FLog.Debug($"User is removing hotkey {id} ({this.HotkeyAPI.HotkeyManager.GetHotkey(id)?.GetStringRepresentation()})");
-
-                this.HotkeyAPI.HotkeyManager.RemoveHotkey(id);
             }
+
+            FLog.Debug($"User is removing hotkey {id} ({this.HotkeyAPI.HotkeyManager.GetHotkey(id)?.GetStringRepresentation()})");
+
+            this.HotkeyAPI.HotkeyManager.RemoveHotkey(id);
         }
         /// <inheritdoc cref="VolumeControlVM.ResetHotkeySettings"/>
         private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e)
@@ -239,21 +237,24 @@ namespace VolumeControl
 
         private void Handle_HotkeyActionSettingsClick(object sender, RoutedEventArgs e)
         {
-            if (sender is Button b && b.CommandParameter is int hkid && HotkeyAPI.Hotkeys.FirstOrDefault(hk => hk.Hotkey.ID.Equals(hkid)) is HotkeyVM hk)
+            var b = (Button)sender;
+            var hkid = (ushort)b.CommandParameter;
+            var hk = HotkeyAPI.Hotkeys.FirstOrDefault(hk => hk.Hotkey.ID.Equals(hkid));
+
+            if (hk == null) return;
+
+            try
             {
-                try
-                {
-                    ActionSettingsWindow settingsWindow = new(owner: this, hotkey: hk);
-                    settingsWindow.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    FLog.Critical($"The {nameof(ActionSettingsWindow)} for hotkey {hk.Hotkey.ID} \"{hk.Hotkey.Name}\" failed due to an exception:", ex);
+                ActionSettingsWindow settingsWindow = new(owner: this, hotkey: hk);
+                settingsWindow.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                FLog.Critical($"The {nameof(ActionSettingsWindow)} for hotkey {hk.Hotkey.ID} \"{hk.Hotkey.Name}\" failed due to an exception:", ex);
 
 #if DEBUG
-                    throw; //< rethrow in debug configuration
+                throw; //< rethrow in debug configuration
 #endif
-                }
             }
         }
         private void Handle_ResetNotificationPositionClick(object sender, RoutedEventArgs e)

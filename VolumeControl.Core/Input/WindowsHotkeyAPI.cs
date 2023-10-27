@@ -9,7 +9,7 @@ namespace VolumeControl.Core.Input
     /// <summary>
     /// API for interacting with the global hotkey functionality exposed in the Win32 API.
     /// </summary>
-    public static class WindowsHotkeyAPI
+    internal static class WindowsHotkeyAPI
     {
         #region ID
         /// <summary>
@@ -30,11 +30,11 @@ namespace VolumeControl.Core.Input
         /// <summary>
         /// Gets the next available hotkey ID number.
         /// </summary>
-        internal static int NextID
+        internal static ushort NextID
         {
             get
             {
-                int id = Interlocked.Increment(ref _nextID);
+                ushort id = Convert.ToUInt16(Interlocked.Increment(ref _nextID));
                 if (id >= MaxID)
                     throw new Exception($"Exceeded the maximum number of hotkey IDs ({MaxID - MinID})");
                 return id;
@@ -107,6 +107,22 @@ namespace VolumeControl.Core.Input
 
         #region Methods
         /// <summary>
+        /// Adds the specified <paramref name="hook"/> to the internal Message-Only Window's message hooks.
+        /// </summary>
+        /// <param name="hook">An object that can accept hotkey messages.</param>
+        public static void AddHook(IHotkeyMessageHook hook)
+        {
+            _messageOnlyWindow.AddHook(hook.MessageHook);
+        }
+        /// <summary>
+        /// Removes the specified <paramref name="hook"/> from the internal Message-Only Window's message hooks.
+        /// </summary>
+        /// <param name="hook">An object that can accept hotkey messages.</param>
+        public static void RemoveHook(IHotkeyMessageHook hook)
+        {
+            _messageOnlyWindow.RemoveHook(hook.MessageHook);
+        }
+        /// <summary>
         /// Registers the specified <paramref name="hotkey"/>.
         /// </summary>
         /// <param name="hotkey">An <see cref="IHotkey"/> instance to register.</param>
@@ -114,7 +130,7 @@ namespace VolumeControl.Core.Input
         public static void Register(IHotkey hotkey)
         {
             if (RegisterHotKey(_messageOnlyWindow.Handle, hotkey.ID, (uint)hotkey.Modifiers, (uint)KeyInterop.VirtualKeyFromKey((Key)hotkey.Key)) != 0)
-                _messageOnlyWindow.AddHook(hotkey.MessageHook);
+                AddHook(hotkey);
             else
             { // failure
                 (int hr, string msg) = GetWin32Error.GetLastWin32Error();
@@ -146,7 +162,7 @@ namespace VolumeControl.Core.Input
         public static void Unregister(IHotkey hotkey)
         {
             if (UnregisterHotKey(_messageOnlyWindow.Handle, hotkey.ID) != 0)
-                _messageOnlyWindow.RemoveHook(hotkey.MessageHook);
+                RemoveHook(hotkey);
             else
             { // failure
                 (int hr, string msg) = GetWin32Error.GetLastWin32Error();

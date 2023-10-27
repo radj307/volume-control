@@ -59,11 +59,12 @@ namespace VolumeControl.Core.Input.Json
         /// </summary>
         /// <typeparam name="THotkey">A hotkey type that derives from <see cref="Hotkey"/>.</typeparam>
         /// <param name="actionManager">A <see cref="HotkeyActionManager"/> instance to use to resolve the ActionIdentifier.</param>
+        /// <param name="deferRegistration">When <see langword="true"/>, the created hotkey is not registered even if it should be.</param>
         /// <returns>A new <typeparamref name="THotkey"/> instance.</returns>
         /// <exception cref="InvalidOperationException">Creating an instance of type <typeparamref name="THotkey"/> failed.</exception>
-        public THotkey CreateInstance<THotkey>(HotkeyActionManager actionManager) where THotkey : Hotkey
+        public THotkey CreateInstance<THotkey>(HotkeyActionManager actionManager, bool deferRegistration = false) where THotkey : Hotkey
         {
-            if (Activator.CreateInstance(typeof(THotkey), Name, Key, Modifiers, IsRegistered) is THotkey hotkey)
+            if (Activator.CreateInstance(typeof(THotkey), Name, Key, Modifiers, deferRegistration ? false : IsRegistered) is THotkey hotkey)
             {
                 if (ActionIdentifier != null)
                 { // hotkey has a configured action
@@ -83,13 +84,6 @@ namespace VolumeControl.Core.Input.Json
             }
             else throw new InvalidOperationException($"Failed to create a new hotkey of type {typeof(THotkey).FullName}!");
         }
-        /// <summary>
-        /// Creates a new <see cref="Hotkey"/> instance from this <see cref="JsonHotkey"/> struct, using the specified <paramref name="actionManager"/> to resolve the ActionIdentifier.
-        /// </summary>
-        /// <param name="actionManager">A <see cref="HotkeyActionManager"/> instance to use to resolve the ActionIdentifier.</param>
-        /// <returns>A new <see cref="Hotkey"/> instance.</returns>
-        public Hotkey CreateInstance(HotkeyActionManager actionManager)
-            => CreateInstance<Hotkey>(actionManager);
         #endregion Methods
 
         #region Functions
