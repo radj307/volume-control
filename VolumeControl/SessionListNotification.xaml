@@ -17,9 +17,7 @@
     Background="Transparent"
     Closing="Window_Closing"
     FontFamily="{StaticResource InterFont}"
-    GotKeyboardFocus="Window_GotKeyboardFocus"
     Loaded="Window_Loaded"
-    LostKeyboardFocus="Window_LostKeyboardFocus"
     MouseDown="Window_MouseDown"
     MouseEnter="Window_MouseEnter"
     MouseLeave="Window_MouseLeave"
@@ -114,7 +112,7 @@
                         VerticalAlignment="Center"
                         Text="{Binding Volume, UpdateSourceTrigger=LostFocus}">
                         <i:Interaction.Behaviors>
-                            <wpfBehaviors:EscapeRemovesFocusBehavior />
+                            <wpfBehaviors:EscapeRemovesFocusBehavior FocusOnParentWindow="False" />
                             <wpfBehaviors:TextBoxEnterUpdatesTextSourceBehavior />
                         </i:Interaction.Behaviors>
                     </TextBox>

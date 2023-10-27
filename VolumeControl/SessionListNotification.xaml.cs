@@ -109,6 +109,7 @@ namespace VolumeControl
         #endregion Properties
 
         #region Methods
+
         #region Start/Stop-Timer
         /// <summary>
         /// Starts the timer if <see cref="Config.NotificationTimeoutEnabled"/> is <see langword="true"/>; otherwise does nothing.
@@ -181,6 +182,7 @@ namespace VolumeControl
                 StopTimer();
                 base.Hide();
             });
+            SavePosition();
         }
         #endregion Show/Hide
 
@@ -268,6 +270,31 @@ namespace VolumeControl
             this.SetPos(new Point(SystemParameters.WorkArea.Right - this.ActualWidth - 10, SystemParameters.WorkArea.Bottom - this.ActualHeight - 10));
         }
         #endregion ResetPosition
+
+        #region Save/Load Position
+        private bool SavePosition()
+        {
+            // if saving position is enabled and the notif window has actually loaded, save the current position
+            if (Settings.NotificationSavePos && _loaded)
+            {
+                Settings.SessionListNotificationConfig.PositionOriginCorner = this.GetCurrentScreenCorner();
+                Settings.SessionListNotificationConfig.Position = this.GetPosAtCorner(Settings.SessionListNotificationConfig.PositionOriginCorner);
+                return true;
+            }
+            else return false;
+        }
+        private bool LoadPosition()
+        {
+            // if saving position is enabled and there is a saved position to load
+            if (Settings.NotificationSavePos && Settings.SessionListNotificationConfig.Position is Point pos)
+            {
+                this.SetPosAtCorner(Settings.SessionListNotificationConfig.PositionOriginCorner, pos);
+                return true;
+            }
+            else return false;
+        }
+        #endregion Save/Load Position
+
         #endregion Methods
 
         #region Window Method Overrides
@@ -310,7 +337,7 @@ namespace VolumeControl
         /// </summary>
         private void _timer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
         {
-            if (IsMouseOver || IsKeyboardFocusWithin)
+            if (IsMouseOver)
             {
                 this.Dispatcher.Invoke(() => RestartTimer()); //< restart the timer
                 return;
@@ -399,6 +426,7 @@ namespace VolumeControl
             _fading = false;
             _fadingIn = false;
             this.Opacity = 1.0; //< reset Opacity property now that we're done with it; this fixes a bug when FadeIn is disabled.
+            SavePosition();
         }
         #endregion Storyboards
 
@@ -426,7 +454,6 @@ namespace VolumeControl
         /// </summary>
         private void Window_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (IsKeyboardFocusWithin) return;
             RestartTimer();
         }
         /// <summary>
@@ -445,21 +472,6 @@ namespace VolumeControl
             }
         }
         /// <summary>
-        /// stops the timer when keyboard focus was acquired
-        /// </summary>
-        private void Window_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            StopTimer();
-        }
-        /// <summary>
-        /// (re)starts the timer when keyboard focus was lost
-        /// </summary>
-        private void Window_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            if (IsMouseOver) return;
-            RestartTimer();
-        }
-        /// <summary>
         /// Initializes the position of the window
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -468,12 +480,8 @@ namespace VolumeControl
             {
                 _loaded = true;
 
-                if (Settings.NotificationSavePos && Settings.SessionListNotificationConfig.Position is Point pos)
-                {
-                    this.SetPosAtCorner(Settings.SessionListNotificationConfig.PositionOriginCorner, pos);
-                }
-                else
-                {
+                if (!LoadPosition())
+                { // couldn't load previous position, use default position instead
                     ResetPosition();
                 }
             }
@@ -484,12 +492,7 @@ namespace VolumeControl
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             if (!_allowClose) e.Cancel = true;
-            // if saving position is enabled and the notif window has actually loaded, save the current position
-            if (Settings.NotificationSavePos && _loaded)
-            {
-                Settings.SessionListNotificationConfig.PositionOriginCorner = this.GetCurrentScreenCorner();
-                Settings.SessionListNotificationConfig.Position = this.GetPosAtCorner(Settings.SessionListNotificationConfig.PositionOriginCorner);
-            }
+            SavePosition();
         }
         #endregion Window
 
