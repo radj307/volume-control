@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
 using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Input.Exceptions;
@@ -12,6 +13,7 @@ namespace VolumeControl.Core.Input.Actions.Settings
     /// <remarks>
     /// This class is created automatically when a hotkey action addon method is marked with <see cref="HotkeyActionSettingAttribute"/>.
     /// </remarks>
+    [DebuggerDisplay("Name = {Name}, ValueType = {ValueType}")]
     public class ActionSettingDefinition
     {
         #region Constructor

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using VolumeControl.Core.Input.Exceptions;
 using VolumeControl.Log;
@@ -10,6 +11,7 @@ namespace VolumeControl.Core.Input.Actions.Settings
     /// Container for a named parameter that is passed to an action method when invoked.
     /// </summary>
     /// <typeparam name="T">The type of value contained by this action setting instance.</typeparam>
+    [DebuggerDisplay("Name = {Name}, Value = {Value}")]
     public class ActionSettingInstance<T> : IActionSettingInstance<T>, IActionSettingInstance, INotifyPropertyChanged
     {
         #region Constructors

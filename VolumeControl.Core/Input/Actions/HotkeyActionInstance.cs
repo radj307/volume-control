@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System.Diagnostics;
+using System.Windows.Media;
 using VolumeControl.Core.Input.Actions.Settings;
 using VolumeControl.Log;
 
@@ -7,6 +8,7 @@ namespace VolumeControl.Core.Input.Actions
     /// <summary>
     /// An instance of a hotkey action.
     /// </summary>
+    [DebuggerDisplay("Identifier = {Identifier}")]
     public class HotkeyActionInstance
     {
         #region Constructor

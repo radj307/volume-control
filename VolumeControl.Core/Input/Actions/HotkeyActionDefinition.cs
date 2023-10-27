@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 using System.Windows.Media;
 using VolumeControl.Core.Input.Actions.Settings;
 using VolumeControl.Log;
@@ -8,6 +9,7 @@ namespace VolumeControl.Core.Input.Actions
     /// <summary>
     /// Represents the definition of a hotkey action, including metadata and the reflection classes for targeting the method.
     /// </summary>
+    [DebuggerDisplay("Identifier = {Identifier}")]
     public class HotkeyActionDefinition
     {
         #region Constructors
