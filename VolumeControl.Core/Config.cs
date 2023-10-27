@@ -23,24 +23,7 @@ namespace VolumeControl.Core
         /// Creates a new <see cref="Config"/> instance.
         /// </summary>
         /// <remarks>The first time this is called, the <see cref="AppConfig.Configuration.Default"/> property is set to that instance; all subsequent calls do not update this property.</remarks>
-        public Config(string filePath) : base(filePath)
-        {
-            // NOTE: Do not use any logging methods here since it is called prior to the log being initialized.
-
-            // Forward PropertyChanged events for all properties that implement INotifyPropertyChanged
-            foreach (var propertyInfo in typeof(Config).GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly))
-            {
-                var property = propertyInfo.GetValue(this);
-                if (property is INotifyPropertyChanged propertyWithPropertyChangedEvents)
-                { // property implements INotifyPropertyChanged
-                    propertyWithPropertyChangedEvents.PropertyChanged += this.PropertyWithPropertyChangedEvents_PropertyChanged;
-                }
-                else if (property is INotifyCollectionChanged propertyWithCollectionChangedEvents)
-                {
-                    propertyWithCollectionChangedEvents.CollectionChanged += this.PropertyWithCollectionChangedEvents_CollectionChanged;
-                }
-            }
-        }
+        public Config(string filePath) : base(filePath) { }
         #endregion Constructor
 
         #region Fields
@@ -69,6 +52,25 @@ namespace VolumeControl.Core
 
             _autoSaveEnabled = false;
             PropertyChanged -= this.HandlePropertyChanged;
+        }
+        /// <summary>
+        /// Attaches autosave event handlers to properties that have notifications
+        /// </summary>
+        public void AttachReflectivePropertyChangedHandlers()
+        {
+            // Forward PropertyChanged events for all properties that implement INotifyPropertyChanged
+            foreach (var propertyInfo in GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly))
+            {
+                var property = propertyInfo.GetValue(this);
+                if (property is INotifyPropertyChanged propertyWithPropertyChangedEvents)
+                { // property implements INotifyPropertyChanged
+                    propertyWithPropertyChangedEvents.PropertyChanged += this.PropertyWithPropertyChangedEvents_PropertyChanged;
+                }
+                else if (property is INotifyCollectionChanged propertyWithCollectionChangedEvents)
+                {
+                    propertyWithCollectionChangedEvents.CollectionChanged += this.PropertyWithCollectionChangedEvents_CollectionChanged;
+                }
+            }
         }
         #endregion Methods
 

@@ -311,6 +311,7 @@ namespace VolumeControl
             Settings = new("VolumeControl.json");
 #endif
             Settings.Load();
+            Settings.AttachReflectivePropertyChangedHandlers();
 
             // Multi instance gate
             string appMutexName = appMutexIdentifier;
@@ -343,7 +344,7 @@ namespace VolumeControl
             FLog.Initialize();
 #if DEBUG
             // show all log message types in debug mode
-           // FLog.Log.EventTypeFilter = EventType.DEBUG | EventType.INFO | EventType.WARN | EventType.ERROR | EventType.FATAL | EventType.TRACE;
+            FLog.Log.EventTypeFilter = EventType.DEBUG | EventType.INFO | EventType.WARN | EventType.ERROR | EventType.FATAL | EventType.TRACE;
 #endif
 
             // write commandline arguments to the log if they were specified
