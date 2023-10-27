@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GithubActions", "GithubActi
 		.github\workflows\update-documentation.yml = .github\workflows\update-documentation.yml
 		.github\workflows\update-referrers.yml = .github\workflows\update-referrers.yml
 		.github\workflows\UpdateVersion.yaml = .github\workflows\UpdateVersion.yaml
+		UploadSDKToNuGet.yaml = UploadSDKToNuGet.yaml
 		.github\workflows\winget.yaml = .github\workflows\winget.yaml
 	EndProjectSection
 EndProject

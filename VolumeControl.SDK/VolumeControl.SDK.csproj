@@ -1,73 +1,77 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <ErrorReport>none</ErrorReport>
-    <Description>Official addon development SDK for the Volume Control application.  https://github.com/radj307/volume-control</Description>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageTags>volume-control;VolumeControl;volume-control-sdk</PackageTags>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/radj307/volume-control</RepositoryUrl>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageIcon>iconSilvered.png</PackageIcon>
-    <PackageProjectUrl>https://radj307.github.io/volume-control/html/index.html</PackageProjectUrl>
-    <Authors>radj307</Authors>
-    <Copyright>Copyright © 2023 by $(Authors)</Copyright>
-    <NeutralLanguage>en-CA</NeutralLanguage>
-    <PackageReleaseNotes>Full Changelog: https://github.com/radj307/volume-control/commits/main</PackageReleaseNotes>
-    <FileVersion>6.3.0</FileVersion>
-    <Version>6.3.0-debug</Version>
-    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\VolumeControl\Resources\images\iconSilvered.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Fody" Version="6.6.3">
-      <PrivateAssets>All</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="PropertyChanged.Fody" Version="4.0.1">
-      <PrivateAssets>All</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="radj307.AppConfig" Version="1.0.2" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\VolumeControl.CoreAudio\VolumeControl.CoreAudio.csproj" />
-    <ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj">
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-      <IncludeAssets>VolumeControl.Core.dll</IncludeAssets>
-    </ProjectReference>
-    <ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj">
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-      <IncludeAssets>VolumeControl.Log.dll</IncludeAssets>
-    </ProjectReference>
-    <ProjectReference Include="..\VolumeControl.TypeExtensions\VolumeControl.TypeExtensions.csproj">
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-      <IncludeAssets>VolumeControl.TypeExtensions.dll</IncludeAssets>
-    </ProjectReference>
-    <ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj">
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-      <IncludeAssets>VolumeControl.WPF.dll</IncludeAssets>
-    </ProjectReference>
-  </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).pdb&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).xml&quot; &quot;..\publish\SDK\&quot;" />
-  </Target>
-  <Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
-    <ItemGroup>
-      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
-    </ItemGroup>
-  </Target>
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<ErrorReport>none</ErrorReport>
+		<Description>Official Addon development SDK for the Volume Control application.</Description>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<PackageTags>volume-control;VolumeControl;volume-control-sdk</PackageTags>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/radj307/volume-control</RepositoryUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>iconSilvered.png</PackageIcon>
+		<PackageProjectUrl>https://radj307.github.io/volume-control/html/index.html</PackageProjectUrl>
+		<Authors>radj307</Authors>
+		<Copyright>Copyright © 2023 by $(Authors)</Copyright>
+		<NeutralLanguage>en-CA</NeutralLanguage>
+		<PackageReleaseNotes>Full Changelog: https://github.com/radj307/volume-control/commits/main</PackageReleaseNotes>
+		<FileVersion>6.3.0</FileVersion>
+		<Version>6.3.0-debug</Version>
+		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\VolumeControl\Resources\images\iconSilvered.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Fody" Version="6.8.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.75" />
+		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0">
+			<PrivateAssets>All</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="radj307.AppConfig" Version="1.0.2" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\VolumeControl.CoreAudio\VolumeControl.CoreAudio.csproj">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>VolumeControl.CoreAudio.dll</IncludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>VolumeControl.Core.dll</IncludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>VolumeControl.Log.dll</IncludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\VolumeControl.TypeExtensions\VolumeControl.TypeExtensions.csproj">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>VolumeControl.TypeExtensions.dll</IncludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>VolumeControl.WPF.dll</IncludeAssets>
+		</ProjectReference>
+	</ItemGroup>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).pdb&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).xml&quot; &quot;..\publish\SDK\&quot;" />
+	</Target>
+	<Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
+		<ItemGroup>
+			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+		</ItemGroup>
+	</Target>
 </Project>
