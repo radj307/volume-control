@@ -67,7 +67,9 @@
                     <wpf:DataTemplateTypeBinding Type="{x:Type sys:String}">
                         <wpf:DataTemplateTypeBinding.DataTemplate>
                             <DataTemplate>
-                                <TextBox Style="{StaticResource RoundedTextBoxStyle}" Text="{Binding Value, UpdateSourceTrigger=LostFocus}" />
+                                <Grid>
+                                    <TextBox Style="{StaticResource RoundedTextBoxStyle}" Text="{Binding Value, UpdateSourceTrigger=LostFocus}" />
+                                </Grid>
                             </DataTemplate>
                         </wpf:DataTemplateTypeBinding.DataTemplate>
                     </wpf:DataTemplateTypeBinding>

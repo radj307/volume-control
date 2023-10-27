@@ -429,22 +429,7 @@
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="{StaticResource RoundedControlCorner}">
-                                <TextBox
-                                    Name="textBox"
-                                    Padding="{TemplateBinding Padding}"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                    Background="#0000"
-                                    BorderThickness="0"
-                                    FontFamily="{TemplateBinding FontFamily}"
-                                    FontSize="{TemplateBinding FontSize}"
-                                    FontStretch="{TemplateBinding FontStretch}"
-                                    FontWeight="{TemplateBinding FontWeight}"
-                                    Foreground="{TemplateBinding Foreground}"
-                                    Text="{TemplateBinding Text}"
-                                    TextAlignment="{TemplateBinding TextAlignment}" />
+                                <ScrollViewer Name="PART_ContentHost" />
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger SourceName="border" Property="IsMouseOver" Value="True">
