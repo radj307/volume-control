@@ -36,7 +36,6 @@ namespace VolumeControl.HotkeyActions
 
             string workingDir = e.GetValue<string>(SettingName_StartIn).Trim();
             string args = e.GetValue<string>(SettingName_Args).Trim();
-            bool showMessageOnError = (bool)e.Settings[3].Value!;
 
             try
             {
@@ -50,13 +49,17 @@ namespace VolumeControl.HotkeyActions
             }
             catch (Exception ex)
             {
-                FLog.Error($"StartProcess threw an exception with \"{workingDir}\\{target} {args}\":", ex);
+                FLog.Error($"StartProcess threw an exception with arguments {{ {SettingName_Target}: \"{target}\", {SettingName_Args}: \"{args}\", {SettingName_StartIn}: \"{workingDir}\" }}!", ex);
+                bool showMessageOnError = e.GetValue<bool>(SettingName_ShowMessageOnError);
                 if (showMessageOnError)
                 {
                     var hotkey = (Hotkey)sender;
                     StringBuilder sb = new();
                     sb.AppendLine("Command Failed!");
-                    sb.AppendLine($"{SettingName_Target}: {hotkey.GetStringRepresentation()}");
+                    sb.AppendLine($"Hotkey: {hotkey.ID} {hotkey.GetStringRepresentation()}");
+                    sb.AppendLine($"{SettingName_Target}: \"{target}\"");
+                    sb.AppendLine($"{SettingName_Args}: \"{args}\"");
+                    sb.AppendLine($"{SettingName_StartIn}: \"{workingDir}\"");
 
                     MessageBox.Show(
                         sb.ToString(),
