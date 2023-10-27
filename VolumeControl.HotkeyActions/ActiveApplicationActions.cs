@@ -69,6 +69,7 @@ namespace VolumeControl.HotkeyActions
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
                 {
                     VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
+                    VCAPI.ShowSessionListNotification();
                 }
             }
         }
@@ -85,6 +86,7 @@ namespace VolumeControl.HotkeyActions
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
                 {
                     VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
+                    VCAPI.ShowSessionListNotification();
                 }
             }
         }
@@ -98,6 +100,7 @@ namespace VolumeControl.HotkeyActions
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
                 {
                     VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
+                    VCAPI.ShowSessionListNotification();
                 }
             }
         }
@@ -111,6 +114,7 @@ namespace VolumeControl.HotkeyActions
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
                 {
                     VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
+                    VCAPI.ShowSessionListNotification();
                 }
             }
         }
@@ -124,6 +128,7 @@ namespace VolumeControl.HotkeyActions
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
                 {
                     VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
+                    VCAPI.ShowSessionListNotification();
                 }
             }
         }
