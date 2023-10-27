@@ -4,13 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Media;
 using VolumeControl.Core;
 using VolumeControl.Core.Input;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.CoreAudio;
 using VolumeControl.Helpers;
 using VolumeControl.Helpers.Update;
-using VolumeControl.HotkeyActions;
 using VolumeControl.Log;
 using VolumeControl.SDK;
 using VolumeControl.SDK.Internal;
@@ -84,13 +84,18 @@ namespace VolumeControl.ViewModels
             // setup flags viewmodels
             SessionListNotificationFlagsVM = new(Settings.SessionListNotificationConfig);
             DeviceListNotificationFlagsVM = new(Settings.DeviceListNotificationConfig);
+
+            // setup notification brushes
+            SessionListNotificationLockedBrush = new SolidColorBrush(Settings.SessionListNotificationConfig.LockedColor);
+            SessionListNotificationUnlockedBrush = new SolidColorBrush(Settings.SessionListNotificationConfig.UnlockedColor);
+            DeviceListNotificationLockedBrush = new SolidColorBrush(Settings.DeviceListNotificationConfig.LockedColor);
+            DeviceListNotificationUnlockedBrush = new SolidColorBrush(Settings.DeviceListNotificationConfig.UnlockedColor);
         }
         #endregion Constructor
 
         #region Fields
         #region PrivateFields
         private bool disposedValue;
-        private bool _updatingAudioSessionSelectorFromTargetSessionText = false;
         #endregion PrivateFields
         public readonly UpdateChecker Updater;
         #endregion Fields
@@ -133,12 +138,10 @@ namespace VolumeControl.ViewModels
         /// </summary>
         public string TargetSessionText
         {
-            get => AudioAPI.AudioSessionMultiSelector.CurrentSession?.ProcessIdentifier ?? Settings.TargetSession.ProcessIdentifier;
+            get => AudioAPI.AudioSessionMultiSelector.CurrentSession?.ProcessIdentifier ?? string.Empty;
             set
             {
                 value = value.Trim();
-
-                _updatingAudioSessionSelectorFromTargetSessionText = true;
 
                 if (value.Length > 0)
                 {
@@ -156,15 +159,18 @@ namespace VolumeControl.ViewModels
                 }
                 else
                 {
-                    AudioAPI.AudioSessionMultiSelector.CurrentSession = null;
+                    AudioAPI.AudioSessionMultiSelector.DeselectCurrentItem();
                 }
-
-                _updatingAudioSessionSelectorFromTargetSessionText = false;
             }
         }
 
         public ListNotificationViewFlagsVM SessionListNotificationFlagsVM { get; }
         public ListNotificationViewFlagsVM DeviceListNotificationFlagsVM { get; }
+
+        public Brush SessionListNotificationLockedBrush { get; }
+        public Brush SessionListNotificationUnlockedBrush { get; }
+        public Brush DeviceListNotificationLockedBrush { get; }
+        public Brush DeviceListNotificationUnlockedBrush { get; }
         #endregion Properties
 
         #region Methods
@@ -253,10 +259,7 @@ namespace VolumeControl.ViewModels
 
             if (e.PropertyName.Equals(nameof(AudioSessionMultiSelector.CurrentIndex)))
             {
-                if (!_updatingAudioSessionSelectorFromTargetSessionText)
-                {
-                    ForceNotifyPropertyChanged(nameof(TargetSessionText));
-                }
+                ForceNotifyPropertyChanged(nameof(TargetSessionText));
             }
             else if (e.PropertyName.Equals(nameof(AudioSessionSelector.LockSelection)))
             {

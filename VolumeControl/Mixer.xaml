@@ -296,12 +296,13 @@
                             <Grid>
                                 <Border
                                     Name="Border"
-                                    Margin="1,0"
-                                    BorderThickness="0"
+                                    Margin="{TemplateBinding Margin}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
                                     CornerRadius="{Binding Source={StaticResource RoundedControlCorner}, Converter={StaticResource SquaredCornerRadiusConverter}, ConverterParameter={x:Static conv:Corner.Bottom}}">
                                     <ContentPresenter
                                         x:Name="ContentSite"
-                                        Margin="10,2"
+                                        Margin="{TemplateBinding Padding}"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         ContentSource="Header"
@@ -313,23 +314,27 @@
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter TargetName="Border" Property="Background" Value="{StaticResource TabBackgroundBrush}" />
                                     <Setter TargetName="Border" Property="Margin" Value="1,-1" />
+                                    <Setter TargetName="ContentSite" Property="TextBlock.Foreground" Value="{StaticResource TextBoxForeground}" />
                                     <Setter TargetName="ContentSite" Property="TextBlock.FontWeight" Value="Bold" />
                                     <Setter TargetName="ContentSite" Property="TextBlock.FontSize" Value="13" />
                                 </Trigger>
                                 <!--  UNSELECTED TAB APPEARANCE:  -->
                                 <Trigger Property="IsSelected" Value="False">
-                                    <Setter TargetName="Border" Property="Background" Value="#303030" />
-                                    <Setter TargetName="ContentSite" Property="TextBlock.Foreground" Value="LightGray" />
+                                    <Setter TargetName="Border" Property="Background" Value="{StaticResource TabUnselectedBackgroundBrush}" />
+                                    <Setter TargetName="ContentSite" Property="TextBlock.Foreground" Value="{StaticResource TextBoxForegroundDark}" />
                                     <Setter TargetName="ContentSite" Property="TextBlock.FontWeight" Value="Medium" />
                                     <Setter TargetName="ContentSite" Property="TextBlock.FontSize" Value="11" />
+                                </Trigger>
+                                <Trigger Property="IsFocused" Value="True">
+                                    <Setter TargetName="ContentSite" Property="TextBlock.Foreground" Value="{StaticResource SelectionBorderBrush}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="Foreground" Value="WhiteSmoke" />
-                <Setter Property="Padding" Value="3" />
-                <Setter Property="FocusVisualStyle" Value="{DynamicResource CustomFocusVisualStyle}" />
+                <Setter Property="Margin" Value="1,0" />
+                <Setter Property="Padding" Value="10,3" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
 
             <!--  Hyperlink  -->
@@ -567,7 +572,6 @@
                 MoveFocusToContentWhenSelectionChanges="False"
                 Style="{StaticResource TabControlStyle}">
 
-
                 <!--  ▼ Mixer Tab ▼  -->
                 <TabItem Name="MixerTab" Header="{Tr 'VolumeControl.MainWindow.Mixer.TabHeader', DefaultText='Mixer'}">
                     <TabItem.Resources>
@@ -575,9 +579,9 @@
                             x:Key="SectionStyle"
                             BasedOn="{StaticResource BorderStyle}"
                             TargetType="{x:Type Border}">
-                            <Setter Property="Background" Value="#EE383838" />
+                            <Setter Property="Background" Value="{StaticResource TabBackgroundBrush}" />
                             <Setter Property="BorderThickness" Value="3" />
-                            <Setter Property="BorderBrush" Value="#EE404040" />
+                            <Setter Property="BorderBrush" Value="{StaticResource TabBorderBrush}" />
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="VerticalAlignment" Value="Center" />
                             <Setter Property="Padding" Value="2" />
@@ -1577,7 +1581,8 @@
                                                 <ContentControl
                                                     Margin="5,3"
                                                     Content="{Binding SessionListNotificationConfig, Source={StaticResource Settings}}"
-                                                    ContentTemplate="{StaticResource NotificationConfigDataTemplate}" />
+                                                    ContentTemplate="{StaticResource NotificationConfigDataTemplate}"
+                                                    IsTabStop="False" />
                                                 <Grid Margin="5,0,5,5">
                                                     <TextBlock
                                                         Margin="5,0"
@@ -1620,7 +1625,8 @@
                                                 <ContentControl
                                                     Margin="5,3"
                                                     Content="{Binding DeviceListNotificationConfig, Source={StaticResource Settings}}"
-                                                    ContentTemplate="{StaticResource NotificationConfigDataTemplate}" />
+                                                    ContentTemplate="{StaticResource NotificationConfigDataTemplate}"
+                                                    IsTabStop="False" />
                                                 <Grid Margin="5,0,5,5">
                                                     <TextBlock
                                                         Margin="5,0"

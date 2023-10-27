@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Media;
 using VolumeControl.Core.Enum;
 
 namespace VolumeControl.Core
@@ -71,6 +72,14 @@ namespace VolumeControl.Core
         /// Gets or sets the view mode of this notification.
         /// </summary>
         public EListNotificationView ViewMode { get; set; } = EListNotificationView.Everything;
+        /// <summary>
+        /// Gets or sets the color used to indicate that selection is locked.
+        /// </summary>
+        public Color LockedColor { get; set; } = Color.FromRgb(0xA3, 0x28, 0x28);
+        /// <summary>
+        /// Gets or sets the color used to indicate that selection is unlocked.
+        /// </summary>
+        public Color UnlockedColor { get; set; } = Color.FromRgb(0x49, 0x6D, 0x49);
         #endregion Properties
     }
 }

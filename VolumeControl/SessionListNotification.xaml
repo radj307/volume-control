@@ -40,8 +40,8 @@
             <conv:BooleanInverter x:Key="InvertConverter" />
             <conv:BoolToBrushConverter
                 x:Key="SelectedItemBackgroundBrushConverter"
-                WhenFalse="{x:Static core:Config.NotificationUnlockedBrush}"
-                WhenTrue="{x:Static core:Config.NotificationLockedBrush}" />
+                WhenFalse="{Binding SessionListNotificationUnlockedBrush, Source={StaticResource Settings}}"
+                WhenTrue="{Binding SessionListNotificationLockedBrush, Source={StaticResource Settings}}" />
             <conv:ConverterChain x:Key="InvertedBooleanToVisibilityConverter">
                 <conv:BooleanInverter />
                 <BooleanToVisibilityConverter />
@@ -210,7 +210,8 @@
         CornerRadius="19">
         <Border.Style>
             <Style TargetType="{x:Type Border}">
-                <Style.Triggers>
+                <Setter Property="BorderBrush" Value="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
+                <!--<Style.Triggers>
                     <DataTrigger Binding="{Binding AudioAPI.AudioSessionMultiSelector.CurrentSession, Source={StaticResource Settings}, Converter={StaticResource IsNullConverter}}" Value="True">
                         <Setter Property="BorderBrush" Value="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
                     </DataTrigger>
@@ -218,7 +219,7 @@
                         <Setter Property="BorderBrush" Value="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
                     </DataTrigger>
                 </Style.Triggers>
-                <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />-->
             </Style>
         </Border.Style>
         <Grid DataContext="{StaticResource Settings}">

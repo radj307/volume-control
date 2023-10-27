@@ -41,8 +41,8 @@
             <local:SessionListNotification x:Key="SessionListNotification" />
             <local:DeviceListNotification x:Key="DeviceListNotification" />
 
-            <CornerRadius x:Key="RoundedControlCorner">4</CornerRadius>
-            <CornerRadius x:Key="RoundedWindowCorner">5</CornerRadius>
+            <CornerRadius x:Key="RoundedControlCorner">5</CornerRadius>
+            <CornerRadius x:Key="RoundedWindowCorner">7</CornerRadius>
 
             <!--  Window Colors  -->
             <Color x:Key="WindowBackgroundColor">#D222</Color>
@@ -52,7 +52,9 @@
             <SolidColorBrush x:Key="NotificationBackgroundBrush">#252525</SolidColorBrush>
 
             <!--  Tabs  -->
-            <SolidColorBrush x:Key="TabBackgroundBrush">#D03d3d3d</SolidColorBrush>
+            <SolidColorBrush x:Key="TabBackgroundBrush">#383838</SolidColorBrush>
+            <SolidColorBrush x:Key="TabUnselectedBackgroundBrush">#333</SolidColorBrush>
+            <SolidColorBrush x:Key="TabBorderBrush">#444</SolidColorBrush>
 
             <!--  Misc Colors  -->
             <SolidColorBrush x:Key="HeaderForegroundBrush">LightGray</SolidColorBrush>
@@ -62,6 +64,7 @@
             <!--  TextBox Colors  -->
             <SolidColorBrush x:Key="TextBoxBackground">#1F1F1F</SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxForeground">WhiteSmoke</SolidColorBrush>
+            <SolidColorBrush x:Key="TextBoxForegroundDark">LightGray</SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxBackgroundDisabled">#2F2F2F</SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxSelectionBrush">#569DE5</SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxWatermarkForeground">#9A9A9A</SolidColorBrush>
@@ -112,11 +115,10 @@
             <Color x:Key="GrayForegroundFocusedColor">#909090</Color>
 
             <LinearGradientBrush x:Key="SelectionBorderBrush" StartPoint="0.2,0" EndPoint="0.8,1">
-                <GradientStop Offset="0" Color="#49F" />
+                <GradientStop Offset="0" Color="#4AF" />
                 <GradientStop Offset="1" Color="#4CF" />
             </LinearGradientBrush>
             <Thickness x:Key="SelectionBorderThickness">1</Thickness>
-            <Thickness x:Key="TabItemSelectionBorderThickness">1,1,0,1</Thickness>
 
             <!--  CustomFocusVisualStyle  -->
             <Style x:Key="CustomFocusVisualStyle">

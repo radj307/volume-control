@@ -183,29 +183,6 @@ namespace VolumeControl.Core
 
         #region Notifications
         /// <summary>
-        /// The brush to use for the background of the list notification when locked.
-        /// </summary>
-        [JsonIgnore]
-        public static readonly Brush NotificationLockedBrush = new LinearGradientBrush(new GradientStopCollection()
-        {
-            new GradientStop(Color.FromRgb(0xA3, 0x28, 0x28), 0.2),
-            new GradientStop(Color.FromRgb(0xA8, 0x14, 0x14), 0.8)
-        }, new Point(0, 0), new Point(1, 1));
-        /// <summary>
-        /// The brush to use for the background of the list notification when unlocked.
-        /// </summary>
-        [JsonIgnore]
-        public static readonly Brush NotificationUnlockedBrush = new LinearGradientBrush(new GradientStopCollection()
-        {
-            new GradientStop(Color.FromRgb(0x49, 0x6D, 0x49), 0.2),
-            new GradientStop(Color.FromRgb(0x40, 0x70, 0x40), 0.8)
-        }, new Point(0, 0), new Point(1, 1));
-        /// <summary>
-        /// The default background brush used for the ListNotification
-        /// </summary>
-        [JsonIgnore]
-        public static readonly Brush NotificationDefaultBrush = new SolidColorBrush(Color.FromRgb(0x30, 0x30, 0x30));
-        /// <summary>
         /// Gets or sets the configuration for the SessionListNotification window.
         /// </summary>
         public NotificationConfigSection SessionListNotificationConfig { get; set; } = new();

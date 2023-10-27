@@ -42,8 +42,8 @@
             <conv:BooleanInverter x:Key="InvertConverter" />
             <conv:BoolToBrushConverter
                 x:Key="SelectedItemBackgroundBrushConverter"
-                WhenFalse="{x:Static core:Config.NotificationUnlockedBrush}"
-                WhenTrue="{x:Static core:Config.NotificationLockedBrush}" />
+                WhenFalse="{Binding DeviceListNotificationUnlockedBrush, Source={StaticResource Settings}}"
+                WhenTrue="{Binding DeviceListNotificationLockedBrush, Source={StaticResource Settings}}" />
 
             <!--  Styles  -->
             <Style BasedOn="{StaticResource CheckBoxStyle}" TargetType="{x:Type CheckBox}" />

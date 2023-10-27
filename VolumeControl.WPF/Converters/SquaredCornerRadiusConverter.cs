@@ -19,25 +19,25 @@ namespace VolumeControl.WPF.Converters
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Corner corners = this.Squared;
-            if (parameter is Corner c)
-                corners = c;
+            var cornersToSquare = Squared;
+            if (parameter is Corner cornerParameter)
+                cornersToSquare = cornerParameter;
 
             var cr = (CornerRadius)value;
 
-            if (corners.HasFlag(Corner.TopLeft))
+            if (cornersToSquare.HasFlag(Corner.TopLeft))
                 cr.TopLeft = 0;
-            if (corners.HasFlag(Corner.TopRight))
+            if (cornersToSquare.HasFlag(Corner.TopRight))
                 cr.TopRight = 0;
-            if (corners.HasFlag(Corner.BottomLeft))
+            if (cornersToSquare.HasFlag(Corner.BottomLeft))
                 cr.BottomLeft = 0;
-            if (corners.HasFlag(Corner.BottomRight))
+            if (cornersToSquare.HasFlag(Corner.BottomRight))
                 cr.BottomRight = 0;
 
             return cr;
         }
         /// <returns>The unmodified <paramref name="value"/> parameter.</returns>
         /// <inheritdoc/>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => value;
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
     }
 }
