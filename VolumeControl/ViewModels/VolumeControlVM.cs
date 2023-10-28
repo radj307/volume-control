@@ -85,11 +85,16 @@ namespace VolumeControl.ViewModels
             SessionListNotificationFlagsVM = new(Settings.SessionListNotificationConfig);
             DeviceListNotificationFlagsVM = new(Settings.DeviceListNotificationConfig);
 
-            // setup notification brushes
+            // session notification brushes
+            SessionListNotificationBackgroundBrush = new SolidColorBrush(Settings.SessionListNotificationConfig.BackgroundColor);
             SessionListNotificationLockedBrush = new SolidColorBrush(Settings.SessionListNotificationConfig.LockedColor);
             SessionListNotificationUnlockedBrush = new SolidColorBrush(Settings.SessionListNotificationConfig.UnlockedColor);
+            SessionListNotificationForegroundBrush = new SolidColorBrush(Settings.SessionListNotificationConfig.TextColor);
+            // device notification brushes
+            DeviceListNotificationBackgroundBrush = new SolidColorBrush(Settings.DeviceListNotificationConfig.BackgroundColor);
             DeviceListNotificationLockedBrush = new SolidColorBrush(Settings.DeviceListNotificationConfig.LockedColor);
             DeviceListNotificationUnlockedBrush = new SolidColorBrush(Settings.DeviceListNotificationConfig.UnlockedColor);
+            DeviceListNotificationForegroundBrush = new SolidColorBrush(Settings.DeviceListNotificationConfig.TextColor);
         }
         #endregion Constructor
 
@@ -167,10 +172,14 @@ namespace VolumeControl.ViewModels
         public ListNotificationViewFlagsVM SessionListNotificationFlagsVM { get; }
         public ListNotificationViewFlagsVM DeviceListNotificationFlagsVM { get; }
 
+        public Brush SessionListNotificationBackgroundBrush { get; }
         public Brush SessionListNotificationLockedBrush { get; }
         public Brush SessionListNotificationUnlockedBrush { get; }
+        public Brush SessionListNotificationForegroundBrush { get; }
+        public Brush DeviceListNotificationBackgroundBrush { get; }
         public Brush DeviceListNotificationLockedBrush { get; }
         public Brush DeviceListNotificationUnlockedBrush { get; }
+        public Brush DeviceListNotificationForegroundBrush { get; }
         #endregion Properties
 
         #region Methods

@@ -73,13 +73,21 @@ namespace VolumeControl.Core
         /// </summary>
         public EListNotificationView ViewMode { get; set; } = EListNotificationView.Everything;
         /// <summary>
-        /// Gets or sets the color used to indicate that selection is locked.
+        /// Gets or sets the background color.
+        /// </summary>
+        public Color BackgroundColor { get; set; } = Color.FromRgb(0x25, 0x25, 0x25);
+        /// <summary>
+        /// Gets or sets the accent color when selection is locked.
         /// </summary>
         public Color LockedColor { get; set; } = Color.FromRgb(0xA3, 0x28, 0x28);
         /// <summary>
-        /// Gets or sets the color used to indicate that selection is unlocked.
+        /// Gets or sets the accent color when selection is unlocked.
         /// </summary>
         public Color UnlockedColor { get; set; } = Color.FromRgb(0x49, 0x6D, 0x49);
+        /// <summary>
+        /// Gets or sets the text color.
+        /// </summary>
+        public Color TextColor { get; set; } = Colors.WhiteSmoke;
         #endregion Properties
     }
 }

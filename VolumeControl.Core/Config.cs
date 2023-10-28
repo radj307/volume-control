@@ -2,7 +2,6 @@
 using Semver;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Media;
 using VolumeControl.Core.Input.Enums;
 using VolumeControl.Core.Input.Json;
@@ -189,7 +188,11 @@ namespace VolumeControl.Core
         /// <summary>
         /// Gets or sets the configuration for the DeviceListNotification window.
         /// </summary>
-        public NotificationConfigSection DeviceListNotificationConfig { get; set; } = new();
+        public NotificationConfigSection DeviceListNotificationConfig { get; set; } = new()
+        {
+            LockedColor = Color.FromRgb(0x49, 0x80, 0x49),
+            UnlockedColor = Color.FromRgb(0xA7, 0x33, 0x74),
+        };
         /// <summary>
         /// Gets or sets whether the notification can be dragged without holding down the ALT key.
         /// </summary>
@@ -335,7 +338,7 @@ namespace VolumeControl.Core
         /// <summary>
         /// Gets or sets the list of (process names of) hidden audio sessions.
         /// </summary>
-        public ObservableImmutableList<string> HiddenSessionProcessNames { get; set; } = new() { };
+        public ObservableImmutableList<string> HiddenSessionProcessNames { get; set; } = new();
         #endregion Audio
 
         #region Log

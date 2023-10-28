@@ -107,6 +107,7 @@
                         Margin="3,0,0,0"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
+                        Foreground="{Binding DeviceListNotificationForegroundBrush, Source={StaticResource Settings}}"
                         Text="{Binding Volume, UpdateSourceTrigger=LostFocus}">
                         <i:Interaction.Behaviors>
                             <wpfBehaviors:EscapeRemovesFocusBehavior />
@@ -136,7 +137,7 @@
                         Margin="3,0,0,0"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        Foreground="{StaticResource TextBoxForeground}"
+                        Foreground="{Binding DeviceListNotificationForegroundBrush, Source={StaticResource Settings}}"
                         Text="{Binding Name}" />
                 </Grid>
             </DataTemplate>
@@ -168,17 +169,12 @@
         </Style>
     </Window.Style>
 
-    <Border BorderThickness="10">
-        <Border.Style>
-            <Style TargetType="{x:Type Border}">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding AudioAPI.AudioDeviceSelector.Selected, Source={StaticResource Settings}, Converter={StaticResource IsNullConverter}}" Value="True">
-                        <Setter Property="BorderBrush" Value="{Binding AudioAPI.AudioDeviceSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
-                    </DataTrigger>
-                </Style.Triggers>
-                <Setter Property="BorderBrush" Value="{StaticResource WindowBorderBrush}" />
-            </Style>
-        </Border.Style>
+    <Border
+        Padding="9"
+        Background="{Binding DeviceListNotificationBackgroundBrush, Source={StaticResource Settings}}"
+        BorderBrush="{Binding AudioAPI.AudioDeviceSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}"
+        BorderThickness="7"
+        CornerRadius="19">
         <Grid DataContext="{StaticResource Settings}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

@@ -110,6 +110,7 @@
                         Margin="3,0,0,0"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
+                        Foreground="{Binding DeviceListNotificationForegroundBrush, Source={StaticResource Settings}}"
                         Text="{Binding Volume, UpdateSourceTrigger=LostFocus}">
                         <i:Interaction.Behaviors>
                             <wpfBehaviors:EscapeRemovesFocusBehavior FocusOnParentWindow="False" />
@@ -141,7 +142,7 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         FontSize="13"
-                        Foreground="{StaticResource TextBoxForeground}"
+                        Foreground="{Binding DeviceListNotificationForegroundBrush, Source={StaticResource Settings}}"
                         Text="{Binding Name}" />
                 </Grid>
             </DataTemplate>
@@ -168,8 +169,9 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         FontSize="13"
-                        Foreground="{StaticResource TextBoxForeground}"
+                        Foreground="{Binding DeviceListNotificationForegroundBrush, Source={StaticResource Settings}}"
                         Text="{Binding Name}" />
+                    <!--  Always Bold TextBlock (Keeps correct width)  -->
                     <TextBlock
                         Grid.Column="1"
                         Margin="{Binding Margin}"
@@ -205,23 +207,10 @@
 
     <Border
         Padding="9"
-        Background="{StaticResource NotificationBackgroundBrush}"
+        Background="{Binding SessionListNotificationBackgroundBrush, Source={StaticResource Settings}}"
+        BorderBrush="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}"
         BorderThickness="7"
         CornerRadius="19">
-        <Border.Style>
-            <Style TargetType="{x:Type Border}">
-                <Setter Property="BorderBrush" Value="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
-                <!--<Style.Triggers>
-                    <DataTrigger Binding="{Binding AudioAPI.AudioSessionMultiSelector.CurrentSession, Source={StaticResource Settings}, Converter={StaticResource IsNullConverter}}" Value="True">
-                        <Setter Property="BorderBrush" Value="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding SessionListNotificationFlagsVM.ShowFullList, Source={StaticResource Settings}}" Value="False">
-                        <Setter Property="BorderBrush" Value="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
-                    </DataTrigger>
-                </Style.Triggers>
-                <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />-->
-            </Style>
-        </Border.Style>
         <Grid DataContext="{StaticResource Settings}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
