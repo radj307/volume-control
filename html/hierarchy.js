@@ -68,7 +68,8 @@ var hierarchy =
     [ "VolumeControl.Log.FLog", "class_volume_control_1_1_log_1_1_f_log.html", null ],
     [ "VolumeControl.Core.Helpers.GetWin32Error", "class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error.html", null ],
     [ "HandledEventArgs", null, [
-      [ "VolumeControl.Core.Input.HotkeyPressedEventArgs", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html", null ]
+      [ "VolumeControl.Core.Input.HotkeyPressedEventArgs", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html", null ],
+      [ "VolumeControl.Core.Input.HotkeyRegisteringEventArgs", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_registering_event_args.html", null ]
     ] ],
     [ "VolumeControl.Core.Input.HotkeyActionAddonLoader", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html", null ],
     [ "VolumeControl.Core.Input.Actions.HotkeyActionDefinition", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_definition.html", null ],
@@ -113,6 +114,9 @@ var hierarchy =
       [ "VolumeControl.Core.Input.Hotkey", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html", [
         [ "VolumeControl.Core.Input.HotkeyWithError", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html", null ]
       ] ],
+      [ "VolumeControl.Core.Input.IHotkey", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html", [
+        [ "VolumeControl.Core.Input.Hotkey", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html", null ]
+      ] ],
       [ "VolumeControl.CoreAudio.AudioDevice", "class_volume_control_1_1_core_audio_1_1_audio_device.html", null ],
       [ "VolumeControl.CoreAudio.AudioDeviceManager", "class_volume_control_1_1_core_audio_1_1_audio_device_manager.html", null ],
       [ "VolumeControl.CoreAudio.AudioDeviceSessionManager", "class_volume_control_1_1_core_audio_1_1_audio_device_session_manager.html", null ],
@@ -135,10 +139,11 @@ var hierarchy =
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ]
     ] ],
-    [ "VolumeControl.Core.Input.IHotkey", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html", [
-      [ "VolumeControl.Core.Input.Hotkey", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html", null ]
-    ] ],
     [ "VolumeControl.Core.Input.IHotkey_Extensions", "class_volume_control_1_1_core_1_1_input_1_1_i_hotkey___extensions.html", null ],
+    [ "VolumeControl.Core.Input.IHotkeyMessageHook", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook.html", [
+      [ "VolumeControl.Core.Input.HotkeyMessageHookAbstractor", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_message_hook_abstractor.html", null ],
+      [ "VolumeControl.Core.Input.IHotkey", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html", null ]
+    ] ],
     [ "IImmutableList", null, [
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ]
     ] ],
@@ -162,6 +167,7 @@ var hierarchy =
     [ "INotifyPropertyChanged", null, [
       [ "VolumeControl.Core.Input.Actions.Settings.ActionSettingInstance< T >", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_settings_1_1_action_setting_instance.html", null ],
       [ "VolumeControl.Core.Input.Hotkey", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html", null ],
+      [ "VolumeControl.Core.Input.IHotkey", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html", null ],
       [ "VolumeControl.Core.NotificationConfigSection", "class_volume_control_1_1_core_1_1_notification_config_section.html", null ],
       [ "VolumeControl.CoreAudio.AudioDevice", "class_volume_control_1_1_core_audio_1_1_audio_device.html", null ],
       [ "VolumeControl.CoreAudio.AudioDeviceSelector", "class_volume_control_1_1_core_audio_1_1_audio_device_selector.html", null ],
@@ -242,6 +248,7 @@ var hierarchy =
     ] ],
     [ "VolumeControl.TypeExtensions.StringExtensions", "class_volume_control_1_1_type_extensions_1_1_string_extensions.html", null ],
     [ "VolumeControl.Core.Helpers.StringHelper", "class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html", null ],
+    [ "VolumeControl.HotkeyActions.SystemActions", "class_volume_control_1_1_hotkey_actions_1_1_system_actions.html", null ],
     [ "VolumeControl.Core.Structs.TargetInfo", "struct_volume_control_1_1_core_1_1_structs_1_1_target_info.html", null ],
     [ "VolumeControl.TypeExtensions.TimerExtensions", "class_volume_control_1_1_type_extensions_1_1_timer_extensions.html", null ],
     [ "VolumeControl.TypeExtensions.TypeExtensions", "class_volume_control_1_1_type_extensions_1_1_type_extensions.html", null ],
@@ -253,6 +260,5 @@ var hierarchy =
     [ "VolumeControl.SDK.Internal.VCEvents", "class_volume_control_1_1_s_d_k_1_1_internal_1_1_v_c_events.html", null ],
     [ "VolumeControl.CoreAudio.Helpers.VolumeControlExtensions", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_volume_control_extensions.html", null ],
     [ "VolumeControl.CoreAudio.Helpers.VolumeLevelConverter", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_volume_level_converter.html", null ],
-    [ "VolumeControl.WPF.WindowHandleGetter", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html", null ],
-    [ "VolumeControl.Core.Input.WindowsHotkeyAPI", "class_volume_control_1_1_core_1_1_input_1_1_windows_hotkey_a_p_i.html", null ]
+    [ "VolumeControl.WPF.WindowHandleGetter", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html", null ]
 ];

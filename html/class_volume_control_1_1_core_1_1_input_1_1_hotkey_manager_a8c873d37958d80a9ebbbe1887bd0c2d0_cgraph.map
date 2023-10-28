@@ -2,7 +2,4 @@
 <area shape="rect" id="node1" title="Removes all hotkeys from the manager." alt="" coords="5,5,220,47"/>
 <area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#a8c582a292d4a72ef3caada32eff31cfe" title="Removes the specified hotkey &#160;from the manager." alt="" coords="268,5,496,47"/>
 <area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a32d7855fa82b1806411aa54d64e4c099" title=" " alt="" coords="544,5,737,47"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a9cdb123b8b415f401289241b2bfa6d6c" title="Unregisters the hotkey with the Win32 API." alt="" coords="785,5,979,47"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_core_1_1_input_1_1_windows_hotkey_a_p_i.html#ac001f386c8766c5af77db645f9aea101" title="Attempts to unregister the specified hotkey ." alt="" coords="1027,5,1265,47"/>
-<area shape="rect" id="node6" href="$class_volume_control_1_1_core_1_1_input_1_1_windows_hotkey_a_p_i.html#a07ed6bb5aaebdc268b01ac666511d1e6" title="Unregisters the specified hotkey ." alt="" coords="1313,5,1533,47"/>
 </map>

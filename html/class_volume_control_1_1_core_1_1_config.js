@@ -1,13 +1,11 @@
 var class_volume_control_1_1_core_1_1_config =
 [
     [ "Config", "class_volume_control_1_1_core_1_1_config.html#a3f8d7b3d96b474ea9c5a326dd2336be4", null ],
+    [ "AttachReflectivePropertyChangedHandlers", "class_volume_control_1_1_core_1_1_config.html#a4876ffc7bcf2b147068f4f865d9a28c0", null ],
     [ "PauseAutoSave", "class_volume_control_1_1_core_1_1_config.html#a6c890b9f23d737235d707b288ae0899f", null ],
     [ "ResumeAutoSave", "class_volume_control_1_1_core_1_1_config.html#acae4db80be97fb8bad0436613e473a10", null ],
     [ "Save", "class_volume_control_1_1_core_1_1_config.html#a48b649dee6d5fd7e06c532674db63ad4", null ],
     [ "Hotkeys_Default", "class_volume_control_1_1_core_1_1_config.html#ac88c6277d33051b90c4f37bc16ca26a3", null ],
-    [ "NotificationDefaultBrush", "class_volume_control_1_1_core_1_1_config.html#a487db62f9ac51c93ed87b59a3b9ceab9", null ],
-    [ "NotificationLockedBrush", "class_volume_control_1_1_core_1_1_config.html#abb4a43d216b2119d78819d2b2e449c92", null ],
-    [ "NotificationUnlockedBrush", "class_volume_control_1_1_core_1_1_config.html#a4d85f3526b9b33c4c9f98d2f046484ed", null ],
     [ "PeakMeterMaxValue", "class_volume_control_1_1_core_1_1_config.html#a7034788612c2c6724aa3926032fd84d8", null ],
     [ "PeakMeterMinValue", "class_volume_control_1_1_core_1_1_config.html#a8d2d3c338d9cdf8df38ec327facc0ff1", null ],
     [ "__VERSION__", "class_volume_control_1_1_core_1_1_config.html#a99c05311457d9ccb3799aa8b3b8edbe0", null ],

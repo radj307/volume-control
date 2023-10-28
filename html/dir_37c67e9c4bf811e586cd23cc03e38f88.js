@@ -7,9 +7,12 @@ var dir_37c67e9c4bf811e586cd23cc03e38f88 =
     [ "Hotkey.cs", null, null ],
     [ "HotkeyActionAddonLoader.cs", null, null ],
     [ "HotkeyManager.cs", null, null ],
+    [ "HotkeyMessageHookAbstractor.cs", null, null ],
     [ "HotkeyPressedEventArgs.cs", null, null ],
+    [ "HotkeyRegisteringEventArgs.cs", null, null ],
     [ "HotkeyWithError.cs", null, null ],
     [ "IHotkey.cs", null, null ],
     [ "IHotkey_Extensions.cs", null, null ],
+    [ "IHotkeyMessageHook.cs", null, null ],
     [ "WindowsHotkeyAPI.cs", null, null ]
 ];

@@ -40,11 +40,13 @@ var annotated_dup =
           [ "Hotkey", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey" ],
           [ "HotkeyActionAddonLoader", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader" ],
           [ "HotkeyManager", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager" ],
+          [ "HotkeyMessageHookAbstractor", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_message_hook_abstractor.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_message_hook_abstractor" ],
           [ "HotkeyPressedEventArgs", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args" ],
+          [ "HotkeyRegisteringEventArgs", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_registering_event_args.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_registering_event_args" ],
           [ "HotkeyWithError", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error" ],
           [ "IHotkey", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey" ],
           [ "IHotkey_Extensions", "class_volume_control_1_1_core_1_1_input_1_1_i_hotkey___extensions.html", "class_volume_control_1_1_core_1_1_input_1_1_i_hotkey___extensions" ],
-          [ "WindowsHotkeyAPI", "class_volume_control_1_1_core_1_1_input_1_1_windows_hotkey_a_p_i.html", "class_volume_control_1_1_core_1_1_input_1_1_windows_hotkey_a_p_i" ]
+          [ "IHotkeyMessageHook", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook.html", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook" ]
         ] ],
         [ "Structs", "namespace_volume_control_1_1_core_1_1_structs.html", [
           [ "TargetInfo", "struct_volume_control_1_1_core_1_1_structs_1_1_target_info.html", "struct_volume_control_1_1_core_1_1_structs_1_1_target_info" ]
@@ -95,7 +97,8 @@ var annotated_dup =
         [ "ApplicationActions", "class_volume_control_1_1_hotkey_actions_1_1_application_actions.html", "class_volume_control_1_1_hotkey_actions_1_1_application_actions" ],
         [ "AudioDeviceActions", "class_volume_control_1_1_hotkey_actions_1_1_audio_device_actions.html", "class_volume_control_1_1_hotkey_actions_1_1_audio_device_actions" ],
         [ "AudioSessionActions", "class_volume_control_1_1_hotkey_actions_1_1_audio_session_actions.html", "class_volume_control_1_1_hotkey_actions_1_1_audio_session_actions" ],
-        [ "MediaActions", "class_volume_control_1_1_hotkey_actions_1_1_media_actions.html", "class_volume_control_1_1_hotkey_actions_1_1_media_actions" ]
+        [ "MediaActions", "class_volume_control_1_1_hotkey_actions_1_1_media_actions.html", "class_volume_control_1_1_hotkey_actions_1_1_media_actions" ],
+        [ "SystemActions", "class_volume_control_1_1_hotkey_actions_1_1_system_actions.html", "class_volume_control_1_1_hotkey_actions_1_1_system_actions" ]
       ] ],
       [ "Log", "namespace_volume_control_1_1_log.html", [
         [ "Endpoints", "namespace_volume_control_1_1_log_1_1_endpoints.html", [

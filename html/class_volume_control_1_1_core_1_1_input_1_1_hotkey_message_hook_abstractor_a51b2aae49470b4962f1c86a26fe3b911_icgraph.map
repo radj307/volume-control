@@ -1,0 +1,5 @@
+<map id="VolumeControl.Core.Input.HotkeyMessageHookAbstractor.HotkeyHasManagedKeyCombination" name="VolumeControl.Core.Input.HotkeyMessageHookAbstractor.HotkeyHasManagedKeyCombination">
+<area shape="rect" id="node1" title="Checks if the specified hotkey &#160;instance has the same key combination as the one managed by this inst..." alt="" coords="611,5,887,61"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_message_hook_abstractor.html#a2e35304c2beacffa5856603f9c30de80" title="Adds the specified hotkey &#160;to this message hook abstractor instance." alt="" coords="308,5,563,61"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_message_hook_abstractor.html#adf9545465d850b437deb008fccdb84d7" title="Adds the specified hotkeys &#160;to this message hook abstractor instance." alt="" coords="5,5,260,61"/>
+</map>

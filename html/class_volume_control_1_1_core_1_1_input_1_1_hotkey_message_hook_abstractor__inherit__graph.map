@@ -1,0 +1,4 @@
+<map id="VolumeControl.Core.Input.HotkeyMessageHookAbstractor" name="VolumeControl.Core.Input.HotkeyMessageHookAbstractor">
+<area shape="rect" id="node1" title="Maintains a single message hook for multiple hotkeys with the same key combination to allow them all ..." alt="" coords="5,131,291,340"/>
+<area shape="rect" id="node2" href="$interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook.html" title="Represents an object that can be added to the hotkey message hook system." alt="" coords="66,5,230,83"/>
+</map>

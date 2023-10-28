@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['rcmonitor_1677',['rcMonitor',['../class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html#a4874dbc6e95678ba553dafddfe948357',1,'VolumeControl::WPF::PInvoke::MONITORINFO']]],
-  ['rcwork_1678',['rcWork',['../class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html#afae05d1f45f1584a11e78ac3318c417d',1,'VolumeControl::WPF::PInvoke::MONITORINFO']]],
-  ['requireprefixproperty_1679',['RequirePrefixProperty',['../class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_autocomplete_behavior.html#ab9fa60253d3fb998c4ed63a792cd22f9',1,'VolumeControl::WPF::Behaviors::TextBoxAutocompleteBehavior']]],
-  ['right_1680',['right',['../struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html#a63cf1803b274eaab83038961e725e1eb',1,'VolumeControl::WPF::PInvoke::RECT']]]
+  ['seteventashandledproperty_1691',['SetEventAsHandledProperty',['../class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html#addbd51ff25aed5ea3df372fceeaa5168',1,'VolumeControl::WPF::Behaviors::EscapeRemovesFocusBehavior']]],
+  ['stringcomparisonproperty_1692',['StringComparisonProperty',['../class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_autocomplete_behavior.html#a081d1c9cfd4540e90331044e6dc50ebb',1,'VolumeControl.WPF.Behaviors.TextBoxAutocompleteBehavior.StringComparisonProperty()'],['../class_volume_control_1_1_w_p_f_1_1_controls_1_1_text_box_with_completion_options.html#a43a38ab4d6baa09b6cdbe83fb4626852',1,'VolumeControl.WPF.Controls.TextBoxWithCompletionOptions.StringComparisonProperty()'],['../class_volume_control_1_1_w_p_f_1_1_filtered_text_items_source.html#aaeb974a84d1534e8b1c27fa0ed05b9fa',1,'VolumeControl.WPF.FilteredTextItemsSource.StringComparisonProperty()']]],
+  ['suggestionclickedevent_1693',['SuggestionClickedEvent',['../class_volume_control_1_1_w_p_f_1_1_controls_1_1_text_box_with_completion_options.html#a4309bbf31d8df2ca0731d2c3332a2e8d',1,'VolumeControl::WPF::Controls::TextBoxWithCompletionOptions']]]
 ];

@@ -1,6 +1,7 @@
 var class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector =
 [
     [ "AudioSessionMultiSelector", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a4c440065f56e2e4c82f20d250ea01f51", null ],
+    [ "ClearSelectedSessions", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a3fa68f21624078abbc8ac970648eb65d", null ],
     [ "DecrementCurrentIndex", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a80a9643f3671ed1df03748edd6f02ecb", null ],
     [ "DeselectCurrentItem", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#ae1fd917416a5e62e8c0c20a5733bb9bd", null ],
     [ "GetSessionIsSelected", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#aea3b7db78f1a3954292c66739fad2987", null ],
@@ -16,7 +17,7 @@ var class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector =
     [ "ToggleSelectCurrentItem", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#af61fe48f5b2318f73923f2eac8f01ba5", null ],
     [ "UnsetCurrentIndex", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#abdecb96a5461c386de6bc468cb34a2ff", null ],
     [ "AudioSessionManager", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#aea402b429f54019d847fd3cc54714d73", null ],
-    [ "CurrentIndex", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a1fac7c7fec5ed9a8ef62535a2fee74a2", null ],
+    [ "CurrentIndex", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a9108da287dd8e8e2e409fbb49b28d6d5", null ],
     [ "CurrentSession", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#ae8309752687b96d84e5586877812762e", null ],
     [ "HasSelectedSessions", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a8b003f0d4a1922580455ad4c39f6e67e", null ],
     [ "LockCurrentIndex", "class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a5438318041a2d66887743a151e4653be", null ],

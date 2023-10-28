@@ -105,8 +105,14 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html">HotkeyManager</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages a list of <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html" title="A hotkey that executes an action when pressed.">Hotkey</a> instances.  <a href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_message_hook_abstractor.html">HotkeyMessageHookAbstractor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maintains a single message hook for multiple hotkeys with the same key combination to allow them all to be "registered" at the same time.  <a href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_message_hook_abstractor.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html">HotkeyPressedEventArgs</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event arguments for hotkey action events.  <a href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_registering_event_args.html">HotkeyRegisteringEventArgs</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides data for the hotkey Registering and Unregistering events.  <a href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_registering_event_args.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html">HotkeyWithError</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html" title="A hotkey that executes an action when pressed.">Hotkey</a> that also tracks and reports registration errors.  <a href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html#details">More...</a><br /></td></tr>
@@ -117,8 +123,11 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_i_hotkey___extensions.html">IHotkey_Extensions</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines extension methods for the <a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html" title="Represents a Win32 global hotkey.">IHotkey</a> interface.  <a href="class_volume_control_1_1_core_1_1_input_1_1_i_hotkey___extensions.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_windows_hotkey_a_p_i.html">WindowsHotkeyAPI</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">API for interacting with the global hotkey functionality exposed in the Win32 API.  <a href="class_volume_control_1_1_core_1_1_input_1_1_windows_hotkey_a_p_i.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook.html">IHotkeyMessageHook</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an object that can be added to the hotkey message hook system.  <a href="interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><b>WindowsHotkeyAPI</b></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">API for interacting with the global hotkey functionality exposed in the Win32 API. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -126,6 +135,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aa8db04950fac822b72d38672f89014c7"><td class="memItemLeft" align="right" valign="top">delegate void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_volume_control_1_1_core_1_1_input.html#aa8db04950fac822b72d38672f89014c7">HotkeyPressedEventHandler</a> (object? sender, <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html">HotkeyPressedEventArgs</a> e)</td></tr>
 <tr class="memdesc:aa8db04950fac822b72d38672f89014c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event handler type for hotkey action events.  <a href="namespace_volume_control_1_1_core_1_1_input.html#aa8db04950fac822b72d38672f89014c7">More...</a><br /></td></tr>
 <tr class="separator:aa8db04950fac822b72d38672f89014c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad289b21a000baf983e2412e6762129ca"><td class="memItemLeft" align="right" valign="top">delegate void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_volume_control_1_1_core_1_1_input.html#ad289b21a000baf983e2412e6762129ca">HotkeyRegisteringEventHandler</a> (object sender, <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_registering_event_args.html">HotkeyRegisteringEventArgs</a> e)</td></tr>
+<tr class="memdesc:ad289b21a000baf983e2412e6762129ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a method that can handle Registering and Unregistering hotkey events.  <a href="namespace_volume_control_1_1_core_1_1_input.html#ad289b21a000baf983e2412e6762129ca">More...</a><br /></td></tr>
+<tr class="separator:ad289b21a000baf983e2412e6762129ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="aa8db04950fac822b72d38672f89014c7"></a>
@@ -159,6 +171,43 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">sender</td><td>The <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html" title="A hotkey that executes an action when pressed.">Hotkey</a> that was pressed.</td></tr>
     <tr><td class="paramname">e</td><td>The event arguments and action settings for the event.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad289b21a000baf983e2412e6762129ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad289b21a000baf983e2412e6762129ca">&#9670;&nbsp;</a></span>HotkeyRegisteringEventHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">delegate void VolumeControl.Core.Input.HotkeyRegisteringEventHandler </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_registering_event_args.html">HotkeyRegisteringEventArgs</a>&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Represents a method that can handle Registering and Unregistering hotkey events. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>The hotkey that is trying to (un)register.</td></tr>
+    <tr><td class="paramname">e</td><td>The <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_registering_event_args.html" title="Provides data for the hotkey Registering and Unregistering events.">HotkeyRegisteringEventArgs</a> instance for this event invocation.</td></tr>
   </table>
   </dd>
 </dl>

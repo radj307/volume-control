@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['onkeyeventproperty_1671',['OnKeyEventProperty',['../class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_enter_updates_text_source_behavior.html#a46ca22997b389f7d9fce544019ade23d',1,'VolumeControl::WPF::Behaviors::TextBoxEnterUpdatesTextSourceBehavior']]],
-  ['opensinbrowserproperty_1672',['OpensInBrowserProperty',['../class_volume_control_1_1_w_p_f_1_1_extensions_1_1_hyperlink_extensions.html#a27224cdd4d5b75778de5446dbf80bc22',1,'VolumeControl::WPF::Extensions::HyperlinkExtensions']]]
+  ['peakmetermaxvalue_1683',['PeakMeterMaxValue',['../class_volume_control_1_1_core_1_1_config.html#a7034788612c2c6724aa3926032fd84d8',1,'VolumeControl::Core::Config']]],
+  ['peakmeterminvalue_1684',['PeakMeterMinValue',['../class_volume_control_1_1_core_1_1_config.html#a8d2d3c338d9cdf8df38ec327facc0ff1',1,'VolumeControl::Core::Config']]],
+  ['processid_1685',['processId',['../class_volume_control_1_1_core_audio_1_1_audio_session.html#ade41e72408db7e5f2c8c8704723b5a1e',1,'VolumeControl::CoreAudio::AudioSession']]],
+  ['processidentifierseparatorchar_1686',['ProcessIdentifierSeparatorChar',['../class_volume_control_1_1_core_audio_1_1_audio_session.html#ac6bbccc8e83e41a1b226a35ad14ae64c',1,'VolumeControl::CoreAudio::AudioSession']]]
 ];

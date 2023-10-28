@@ -1,3 +1,6 @@
 <map id="VolumeControl.Core.Input.IHotkey" name="VolumeControl.Core.Input.IHotkey">
-<area shape="rect" id="node1" title="Represents a Win32 global hotkey." alt="" coords="5,5,199,259"/>
+<area shape="rect" id="node1" title="Represents a Win32 global hotkey." alt="" coords="185,131,379,369"/>
+<area shape="rect" id="node2" href="$interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook.html" title="Represents an object that can be added to the hotkey message hook system." alt="" coords="5,5,169,83"/>
+<area shape="rect" id="node3" title=" " alt="" coords="193,5,371,83"/>
+<area shape="rect" id="node4" title=" " alt="" coords="395,5,494,83"/>
 </map>

@@ -1,0 +1,4 @@
+<map id="VolumeControl.Core.Input.Actions.HotkeyActionManager.FindActionDefinition" name="VolumeControl.Core.Input.Actions.HotkeyActionManager.FindActionDefinition">
+<area shape="rect" id="node1" title="Gets the hotkey action definition with the specified identifier ." alt="" coords="280,5,528,61"/>
+<area shape="rect" id="node2" href="$struct_volume_control_1_1_core_1_1_input_1_1_json_1_1_json_hotkey.html#a0dccf7e778db39d8e89cf003fa38b0a7" title="Creates a new THotkey &#160;instance from this JsonHotkey struct, using the specified actionManager &#160;to re..." alt="" coords="5,5,232,61"/>
+</map>

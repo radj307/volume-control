@@ -1,0 +1,6 @@
+<map id="VolumeControl.Core.Input.Json.JsonHotkey.CreateInstance&lt; THotkey &gt;" name="VolumeControl.Core.Input.Json.JsonHotkey.CreateInstance&lt; THotkey &gt;">
+<area shape="rect" id="node1" title="Creates a new THotkey &#160;instance from this JsonHotkey struct, using the specified actionManager &#160;to re..." alt="" coords="5,49,232,105"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_f_log.html#ad09321e60c917e6a06243fa7743f412d" title=" " alt="" coords="297,5,511,32"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_f_log.html#a4dcec7039adc7659b074ba4122cea0f8" title=" " alt="" coords="295,57,513,98"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_manager.html#af931f2c903f3efc47ab86965f7992495" title="Gets the hotkey action definition with the specified identifier ." alt="" coords="280,123,528,179"/>
+</map>

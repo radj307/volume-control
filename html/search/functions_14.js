@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['volumechangedeventhandler_1617',['VolumeChangedEventHandler',['../namespace_volume_control_1_1_core_audio_1_1_events.html#a59ed35f1775d48c0588327bdcf6a4817',1,'VolumeControl::CoreAudio::Events']]]
+  ['volumechangedeventhandler_1632',['VolumeChangedEventHandler',['../namespace_volume_control_1_1_core_audio_1_1_events.html#a59ed35f1775d48c0588327bdcf6a4817',1,'VolumeControl::CoreAudio::Events']]]
 ];
