@@ -1,5 +1,6 @@
 var NAVTREEINDEX3 =
 {
+"class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#af51d768d27755155c535713ce6c69806":[8,0,0,4,2,0],
 "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#af5e78eb864c01b5820bbd2c23c50bc4e":[8,0,0,4,2,11],
 "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#af809953a8b9b7a8aad5a3e8e2e672b7e":[8,0,0,4,2,3],
 "class_volume_control_1_1_type_extensions_1_1_array_extensions.html":[8,0,0,5,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX3 =
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a87d30a5ee491d99d9bd13a5607610f49":[8,0,0,6,3,2,5],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a8a2de12e7eecf1b411443ba630c37ece":[8,0,0,6,3,2,23],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a8d26abae05e70ba2956bae7e1a0c8019":[8,0,0,6,3,2,51],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a8f169437f07d82271da4e983cc0a146f":[8,0,0,6,3,2,22],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a8fef95ee49b77a51b2c95f5344be1325":[8,0,0,6,3,2,21]
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a8f169437f07d82271da4e983cc0a146f":[8,0,0,6,3,2,22]
 };

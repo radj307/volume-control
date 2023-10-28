@@ -1,5 +1,6 @@
 var NAVTREEINDEX4 =
 {
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a8fef95ee49b77a51b2c95f5344be1325":[8,0,0,6,3,2,21],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a96925e7304be012080e9ce2fe309e2cf":[8,0,0,6,3,2,36],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#aa41d6eb961eb7fe8614da1751f6b1ab2":[8,0,0,6,3,2,44],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#aa753fea8c9fbccf0a01e1f3bf42d390e":[8,0,0,6,3,2,9],
@@ -248,6 +249,5 @@ var NAVTREEINDEX4 =
 "dir_de8110102793bc76b72f375a7172e7dc.html":[9,0,0,4],
 "dir_dfeb0bbe9861c0cf46380bc369054898.html":[9,0,0,3,0,0],
 "dir_dfee6aaf6fde6236538c0995ea829e09.html":[9,0,3,1],
-"dir_e0426a029853236d1e4229321efaa5c5.html":[9,0,0,3,1],
-"dir_e32eeeeda73970094a607a0b09c789f1.html":[9,0,6,3]
+"dir_e0426a029853236d1e4229321efaa5c5.html":[9,0,0,3,1]
 };
