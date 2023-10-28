@@ -72,7 +72,10 @@ namespace VolumeControl
             if (this.MainWindow.IsVisible)
                 this.HideMainWindow();
             else
+            {
                 this.ShowMainWindow();
+                MainWindow.Activate();
+            }
         }
         #region OpenFolderAndSelectItem
         [DllImport("shell32.dll", SetLastError = true)]
