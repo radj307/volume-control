@@ -88,6 +88,10 @@ namespace VolumeControl.Core
         /// Gets or sets the text color.
         /// </summary>
         public Color TextColor { get; set; } = Colors.WhiteSmoke;
+        /// <summary>
+        /// Gets or sets the radius of the notification window's corners.
+        /// </summary>
+        public CornerRadius CornerRadius { get; set; } = new(19);
         #endregion Properties
     }
 }

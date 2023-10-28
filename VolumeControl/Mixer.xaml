@@ -7,7 +7,6 @@
     xmlns:behaviour="clr-namespace:XamlTimers;assembly=XamlTimers"
     xmlns:controls="clr-namespace:VolumeControl.WPF.Controls;assembly=VolumeControl.WPF"
     xmlns:conv="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
-    xmlns:core="clr-namespace:VolumeControl.Core;assembly=VolumeControl.Core"
     xmlns:ctrlz="urn:controlzex"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:extensions="clr-namespace:VolumeControl.WPF.Extensions;assembly=VolumeControl.WPF"
@@ -43,13 +42,14 @@
             <sys:Double x:Key="CaptionHeight">22</sys:Double>
 
             <!--  NotificationConfig DataTemplate  -->
-            <DataTemplate x:Key="NotificationConfigDataTemplate" DataType="{x:Type core:NotificationConfigSection}">
+            <DataTemplate x:Key="NotificationConfigDataTemplate" DataType="{x:Type vm:NotificationConfigSectionVM}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="26" />
                         <RowDefinition Height="26" />
                         <RowDefinition Height="26" />
                         <RowDefinition Height="26" />
@@ -63,7 +63,7 @@
                         HorizontalAlignment="Left"
                         Content="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Enable.Content',
                                      DefaultText='Enable'}"
-                        IsChecked="{Binding Enabled, UpdateSourceTrigger=PropertyChanged}"
+                        IsChecked="{Binding ConfigSection.Enabled, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource CheckBoxStyle}"
                         ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Enable.Tooltip',
                                      DefaultText='Enables the notification window.'}" />
@@ -72,8 +72,8 @@
                         Margin="5,3"
                         Content="{Tr 'VolumeControl.MainWindow.Settings.Notifications.OnVolumeChange.Content',
                                      DefaultText='On Volume Change'}"
-                        IsChecked="{Binding ShowOnVolumeChanged, UpdateSourceTrigger=PropertyChanged}"
-                        IsEnabled="{Binding Enabled}"
+                        IsChecked="{Binding ConfigSection.ShowOnVolumeChanged, UpdateSourceTrigger=PropertyChanged}"
+                        IsEnabled="{Binding ConfigSection.Enabled}"
                         Style="{StaticResource CheckBoxStyle}"
                         ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.OnVolumeChange.Tooltip',
                                      DefaultText='Show notifications when changing the volume or mute state.'}" />
@@ -86,8 +86,8 @@
                         HorizontalAlignment="Left"
                         Content="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Timeout.Content',
                                      DefaultText='Timeout'}"
-                        IsChecked="{Binding TimeoutEnabled, UpdateSourceTrigger=PropertyChanged}"
-                        IsEnabled="{Binding Enabled}"
+                        IsChecked="{Binding ConfigSection.TimeoutEnabled, UpdateSourceTrigger=PropertyChanged}"
+                        IsEnabled="{Binding ConfigSection.Enabled}"
                         Style="{StaticResource ApplicationSettingsCheckboxStyle}"
                         ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Timeout.Tooltip',
                                      DefaultText='The amount of time in milliseconds that notifications will remain visible after being triggered.'}" />
@@ -99,13 +99,13 @@
                         MinWidth="88"
                         Margin="6,0"
                         HorizontalAlignment="Stretch"
-                        IsEnabled="{b:MultiBinding {Binding Enabled},
+                        IsEnabled="{b:MultiBinding {Binding ConfigSection.Enabled},
                                                    {Binding IsChecked, ElementName=EnableNotificationTimeoutCheckbox},
                                                    Converter={StaticResource MultiBindingBooleanConverter}}"
                         MinValue="500"
                         ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Timeout.Tooltip',
                                      DefaultText='The amount of time in milliseconds that notifications will remain visible after being triggered.'}"
-                        Value="{Binding TimeoutMs, Mode=TwoWay}">
+                        Value="{Binding ConfigSection.TimeoutMs, Mode=TwoWay}">
                         <i:Interaction.Behaviors>
                             <wpfBehaviors:MouseWheelNumericUpDownBehavior Amount="50" />
                             <wpfBehaviors:EscapeRemovesFocusBehavior />
@@ -120,8 +120,8 @@
                         HorizontalAlignment="Left"
                         Content="{Tr 'VolumeControl.ListNotification.Options.DoFadeIn.Content',
                                      DefaultText='Fade In'}"
-                        IsChecked="{Binding DoFadeIn, UpdateSourceTrigger=PropertyChanged}"
-                        IsEnabled="{Binding Enabled}"
+                        IsChecked="{Binding ConfigSection.DoFadeIn, UpdateSourceTrigger=PropertyChanged}"
+                        IsEnabled="{Binding ConfigSection.Enabled}"
                         Style="{StaticResource CheckBoxStyle}"
                         ToolTip="{Tr 'VolumeControl.ListNotification.Options.DoFadeIn.Tooltip',
                                      DefaultText='When checked, the notification window shows a fade-in animation instead of instantly appearing.'}" />
@@ -132,11 +132,11 @@
                         Margin="5,0"
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Center"
-                        IsEnabled="{b:MultiBinding {Binding Enabled},
+                        IsEnabled="{b:MultiBinding {Binding ConfigSection.Enabled},
                                                    {Binding IsChecked, ElementName=EnableNotificationFadeInCheckbox},
                                                    Converter={StaticResource MultiBindingBooleanConverter}}"
                         Style="{StaticResource RoundedTextBoxStyle}"
-                        Text="{Binding FadeInDuration, UpdateSourceTrigger=LostFocus}"
+                        Text="{Binding ConfigSection.FadeInDuration, UpdateSourceTrigger=LostFocus}"
                         ToolTip="{Tr 'VolumeControl.ListNotification.Options.FadeIn.Tooltip',
                                      DefaultText='Specifies the duration of the fade-in animation in milliseconds.'}">
                         <i:Interaction.Behaviors>
@@ -153,8 +153,8 @@
                         HorizontalContentAlignment="Center"
                         Content="{Tr 'VolumeControl.ListNotification.Options.DoFadeOut.Content',
                                      DefaultText='Fade Out'}"
-                        IsChecked="{Binding DoFadeOut, UpdateSourceTrigger=PropertyChanged}"
-                        IsEnabled="{Binding Enabled}"
+                        IsChecked="{Binding ConfigSection.DoFadeOut, UpdateSourceTrigger=PropertyChanged}"
+                        IsEnabled="{Binding ConfigSection.Enabled}"
                         Style="{StaticResource CheckBoxStyle}"
                         ToolTip="{Tr 'VolumeControl.ListNotification.Options.DoFadeOut.Tooltip',
                                      DefaultText='When checked, the notification window shows a fade-out animation instead of instantly disappearing.'}" />
@@ -164,17 +164,44 @@
                         Width="{Binding ActualWidth, ElementName=BigBastard}"
                         Margin="5,0"
                         HorizontalAlignment="Stretch"
-                        IsEnabled="{b:MultiBinding {Binding Enabled},
+                        IsEnabled="{b:MultiBinding {Binding ConfigSection.Enabled},
                                                    {Binding IsChecked, ElementName=EnableNotificationFadeOutCheckbox},
                                                    Converter={StaticResource MultiBindingBooleanConverter}}"
                         Style="{StaticResource RoundedTextBoxStyle}"
-                        Text="{Binding FadeOutDuration, UpdateSourceTrigger=LostFocus}"
+                        Text="{Binding ConfigSection.FadeOutDuration, UpdateSourceTrigger=LostFocus}"
                         ToolTip="{Tr 'VolumeControl.ListNotification.Options.FadeOut.Tooltip',
                                      DefaultText='Specifies the duration of the fade-out animation in milliseconds.'}">
                         <i:Interaction.Behaviors>
                             <wpfBehaviors:EscapeRemovesFocusBehavior />
                         </i:Interaction.Behaviors>
                     </TextBox>
+
+                    <!--  Row 4 ; Column 0-1  -->
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.ColumnSpan="2"
+                        Margin="8,1"
+                        Panel.ZIndex="1"
+                        Style="{StaticResource WatermarkTextBlockStyle}"
+                        Text="View Mode" />
+                    <ComboBox
+                        Grid.Row="4"
+                        Grid.ColumnSpan="2"
+                        Margin="3,1"
+                        Panel.ZIndex="0"
+                        IsEditable="False"
+                        ItemsSource="{Binding FlagsVM.Items}"
+                        SelectionChanged="ComboBox_RemoveSelection"
+                        Style="{StaticResource ComboBoxStyle}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox
+                                    Content="{Binding Name}"
+                                    IsChecked="{Binding IsSet}"
+                                    Style="{StaticResource CheckBoxStyle}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </Grid>
             </DataTemplate>
 
@@ -1579,33 +1606,10 @@
                                                     ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.SessionListNotificationConfig.Header.Tooltip',
                                                                  DefaultText=' '}" />
                                                 <ContentControl
-                                                    Margin="5,3"
-                                                    Content="{Binding SessionListNotificationConfig, Source={StaticResource Settings}}"
+                                                    Margin="5,3,5,5"
+                                                    Content="{Binding SessionConfigVM, Source={StaticResource Settings}}"
                                                     ContentTemplate="{StaticResource NotificationConfigDataTemplate}"
                                                     IsTabStop="False" />
-                                                <Grid Margin="5,0,5,5">
-                                                    <TextBlock
-                                                        Margin="5,0"
-                                                        Panel.ZIndex="1"
-                                                        IsHitTestVisible="False"
-                                                        Style="{StaticResource TextBlockStyle}"
-                                                        Text="View Mode" />
-                                                    <ComboBox
-                                                        Panel.ZIndex="0"
-                                                        IsEditable="False"
-                                                        ItemsSource="{Binding SessionListNotificationFlagsVM.Items, Source={StaticResource Settings}}"
-                                                        SelectionChanged="ComboBox_RemoveSelection"
-                                                        Style="{StaticResource ComboBoxStyle}">
-                                                        <ComboBox.ItemTemplate>
-                                                            <DataTemplate>
-                                                                <CheckBox
-                                                                    Content="{Binding Name}"
-                                                                    IsChecked="{Binding IsSet}"
-                                                                    Style="{StaticResource CheckBoxStyle}" />
-                                                            </DataTemplate>
-                                                        </ComboBox.ItemTemplate>
-                                                    </ComboBox>
-                                                </Grid>
                                             </StackPanel>
                                         </Border>
                                         <Border
@@ -1623,33 +1627,10 @@
                                                     ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.DeviceListNotificationConfig.Header.Tooltip',
                                                                  DefaultText=' '}" />
                                                 <ContentControl
-                                                    Margin="5,3"
-                                                    Content="{Binding DeviceListNotificationConfig, Source={StaticResource Settings}}"
+                                                    Margin="5,3,5,5"
+                                                    Content="{Binding DeviceConfigVM, Source={StaticResource Settings}}"
                                                     ContentTemplate="{StaticResource NotificationConfigDataTemplate}"
                                                     IsTabStop="False" />
-                                                <Grid Margin="5,0,5,5">
-                                                    <TextBlock
-                                                        Margin="5,0"
-                                                        Panel.ZIndex="1"
-                                                        IsHitTestVisible="False"
-                                                        Style="{StaticResource TextBlockStyle}"
-                                                        Text="View Mode" />
-                                                    <ComboBox
-                                                        Panel.ZIndex="0"
-                                                        IsEditable="False"
-                                                        ItemsSource="{Binding DeviceListNotificationFlagsVM.Items, Source={StaticResource Settings}}"
-                                                        SelectionChanged="ComboBox_RemoveSelection"
-                                                        Style="{StaticResource ComboBoxStyle}">
-                                                        <ComboBox.ItemTemplate>
-                                                            <DataTemplate>
-                                                                <CheckBox
-                                                                    Content="{Binding Name}"
-                                                                    IsChecked="{Binding IsSet}"
-                                                                    Style="{StaticResource CheckBoxStyle}" />
-                                                            </DataTemplate>
-                                                        </ComboBox.ItemTemplate>
-                                                    </ComboBox>
-                                                </Grid>
                                             </StackPanel>
                                         </Border>
                                     </UniformGrid>

@@ -152,18 +152,6 @@ namespace VolumeControl.Helpers
             get => Settings.VolumeStepSize;
             set => Settings.VolumeStepSize = value;
         }
-        /// <inheritdoc cref="Config.SessionListNotificationConfig"/>
-        public NotificationConfigSection SessionListNotificationConfig
-        {
-            get => Settings.SessionListNotificationConfig;
-            set => Settings.SessionListNotificationConfig = value;
-        }
-        /// <inheritdoc cref="Config.DeviceListNotificationConfig"/>
-        public NotificationConfigSection DeviceListNotificationConfig
-        {
-            get => Settings.DeviceListNotificationConfig;
-            set => Settings.DeviceListNotificationConfig = value;
-        }
         /// <inheritdoc cref="Config.NotificationMoveRequiresAlt"/>
         public bool NotificationDragRequiresAlt
         {

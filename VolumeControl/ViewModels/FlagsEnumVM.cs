@@ -21,7 +21,7 @@ namespace VolumeControl.ViewModels
             {
                 IsSet = isSet;
                 Value = value;
-                Name = Enum.GetName<T>(value)!;
+                Name = Enum.GetName(value)!;
             }
             #endregion Constructor
 
@@ -53,7 +53,7 @@ namespace VolumeControl.ViewModels
             _items = new();
             foreach (var value in Enum.GetValues<T>())
             {
-                if ((excluded.HasValue && excluded.Value.HasFlag(value)) || excludedNames.Contains(Enum.GetName(value)))
+                if (excluded.HasValue && excluded.Value.HasFlag(value) || excludedNames.Contains(Enum.GetName(value)))
                     continue;
                 var item = new FlagsEnumValueVM(value, selected.HasFlag(value));
                 item.PropertyChanged += this.Item_PropertyChanged;

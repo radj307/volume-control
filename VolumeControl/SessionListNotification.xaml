@@ -16,6 +16,7 @@
     AllowsTransparency="True"
     Background="Transparent"
     Closing="Window_Closing"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
     FontFamily="{StaticResource InterFont}"
     Loaded="Window_Loaded"
     MouseDown="Window_MouseDown"
@@ -40,8 +41,8 @@
             <conv:BooleanInverter x:Key="InvertConverter" />
             <conv:BoolToBrushConverter
                 x:Key="SelectedItemBackgroundBrushConverter"
-                WhenFalse="{Binding SessionListNotificationUnlockedBrush, Source={StaticResource Settings}}"
-                WhenTrue="{Binding SessionListNotificationLockedBrush, Source={StaticResource Settings}}" />
+                WhenFalse="{Binding SessionConfigVM.UnlockedAccentBrush, Source={StaticResource Settings}}"
+                WhenTrue="{Binding SessionConfigVM.LockedAccentBrush, Source={StaticResource Settings}}" />
             <conv:ConverterChain x:Key="InvertedBooleanToVisibilityConverter">
                 <conv:BooleanInverter />
                 <BooleanToVisibilityConverter />
@@ -61,7 +62,7 @@
                     Storyboard.TargetProperty="Opacity"
                     From="0.0"
                     To="1.0"
-                    Duration="{Binding SessionListNotificationConfig.FadeInDuration, Source={StaticResource Settings}}" />
+                    Duration="{Binding SessionConfigVM.ConfigSection.FadeInDuration, Source={StaticResource Settings}}" />
             </Storyboard>
             <Storyboard x:Key="FadeOutStoryboard" Completed="FadeOutStoryboard_Completed">
                 <DoubleAnimation
@@ -69,7 +70,7 @@
                     Storyboard.TargetProperty="Opacity"
                     From="1.0"
                     To="0.0"
-                    Duration="{Binding SessionListNotificationConfig.FadeOutDuration, Source={StaticResource Settings}}" />
+                    Duration="{Binding SessionConfigVM.ConfigSection.FadeOutDuration, Source={StaticResource Settings}}" />
             </Storyboard>
 
             <!--  DataTemplates  -->
@@ -88,7 +89,7 @@
                         IsChecked="{Binding Mute, UpdateSourceTrigger=PropertyChanged}" />
                     <Slider
                         Grid.Column="1"
-                        Margin="3,0"
+                        Margin="2,0"
                         VerticalAlignment="Center"
                         LargeChange="5"
                         Maximum="100"
@@ -106,12 +107,13 @@
                     </Slider>
                     <TextBox
                         Grid.Column="2"
-                        MinWidth="30"
+                        MinWidth="34"
                         Margin="3,0,0,0"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
-                        Foreground="{Binding DeviceListNotificationForegroundBrush, Source={StaticResource Settings}}"
-                        Text="{Binding Volume, UpdateSourceTrigger=LostFocus}">
+                        Foreground="{Binding SessionConfigVM.ForegroundBrush, Source={StaticResource Settings}}"
+                        Text="{Binding Volume, UpdateSourceTrigger=LostFocus}"
+                        TextAlignment="Right">
                         <i:Interaction.Behaviors>
                             <wpfBehaviors:EscapeRemovesFocusBehavior FocusOnParentWindow="False" />
                             <wpfBehaviors:TextBoxEnterUpdatesTextSourceBehavior />
@@ -142,7 +144,7 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         FontSize="13"
-                        Foreground="{Binding DeviceListNotificationForegroundBrush, Source={StaticResource Settings}}"
+                        Foreground="{Binding SessionConfigVM.ForegroundBrush, Source={StaticResource Settings}}"
                         Text="{Binding Name}" />
                 </Grid>
             </DataTemplate>
@@ -169,7 +171,7 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         FontSize="13"
-                        Foreground="{Binding DeviceListNotificationForegroundBrush, Source={StaticResource Settings}}"
+                        Foreground="{Binding SessionConfigVM.ForegroundBrush, Source={StaticResource Settings}}"
                         Text="{Binding Name}" />
                     <!--  Always Bold TextBlock (Keeps correct width)  -->
                     <TextBlock
@@ -207,11 +209,12 @@
 
     <Border
         Padding="9"
-        Background="{Binding SessionListNotificationBackgroundBrush, Source={StaticResource Settings}}"
+        Background="{Binding SessionConfigVM.BackgroundBrush, Source={StaticResource Settings}}"
         BorderBrush="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}"
         BorderThickness="7"
-        CornerRadius="19">
-        <Grid DataContext="{StaticResource Settings}">
+        CornerRadius="{Binding SessionConfigVM.ConfigSection.CornerRadius, Source={StaticResource Settings}}"
+        RenderOptions.EdgeMode="Aliased">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -224,9 +227,9 @@
                 Padding="1"
                 Background="#0000"
                 ItemTemplate="{StaticResource SessionDisplayAlwaysBoldWidthDataTemplate}"
-                ItemsSource="{Binding AudioAPI.AllSessions, Mode=OneWay}"
+                ItemsSource="{Binding AudioAPI.AllSessions, Source={StaticResource Settings}, Mode=OneWay}"
                 PreviewMouseDown="ListView_PreviewMouseDown"
-                SelectedIndex="{Binding AudioAPI.AudioSessionMultiSelector.CurrentIndex, UpdateSourceTrigger=PropertyChanged}"
+                SelectedIndex="{Binding AudioAPI.AudioSessionMultiSelector.CurrentIndex, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                 SelectionMode="Single">
                 <i:Interaction.Behaviors>
                     <wpfBehaviors:MouseWheelListViewBehavior />
@@ -234,7 +237,7 @@
                 <ListView.Style>
                     <Style TargetType="{x:Type ListView}">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding SessionListNotificationFlagsVM.ShowFullList, Source={StaticResource Settings}}" Value="False">
+                            <DataTrigger Binding="{Binding SessionConfigVM.FlagsVM.ShowFullList, Source={StaticResource Settings}}" Value="False">
                                 <Setter Property="Visibility" Value="Collapsed" />
                             </DataTrigger>
                         </Style.Triggers>
@@ -312,31 +315,31 @@
                     <Style TargetType="{x:Type Grid}">
                         <Style.Triggers>
                             <!--  Hide controls when viewmode doesn't include them  -->
-                            <DataTrigger Binding="{Binding SessionListNotificationFlagsVM.ShowControlBar, Source={StaticResource Settings}}" Value="False">
+                            <DataTrigger Binding="{Binding SessionConfigVM.FlagsVM.ShowControlBar, Source={StaticResource Settings}}" Value="False">
                                 <Setter Property="Visibility" Value="Collapsed" />
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding SessionListNotificationFlagsVM.ShowSelectedOnly, Source={StaticResource Settings}}" Value="True">
+                            <DataTrigger Binding="{Binding SessionConfigVM.FlagsVM.ShowSelectedOnly, Source={StaticResource Settings}}" Value="True">
                                 <Setter Property="Visibility" Value="Visible" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Grid.Style>
 
-                <Border Background="{StaticResource WindowBorderBrush}" />
+                <Border Background="{Binding SessionConfigVM.BackgroundBrush, Source={StaticResource Settings}}" />
                 <ItemsControl
                     x:Name="MultiSelectionControls"
                     Margin="2"
-                    ItemsSource="{Binding AudioAPI.SelectedSessions}"
-                    Visibility="{Binding AudioAPI.AudioSessionMultiSelector.HasSelectedSessions, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    ItemsSource="{Binding AudioAPI.SelectedSessions, Source={StaticResource Settings}}"
+                    Visibility="{Binding AudioAPI.AudioSessionMultiSelector.HasSelectedSessions, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <ItemsControl.Style>
                         <Style TargetType="{x:Type ItemsControl}">
                             <Style.Triggers>
                                 <!--  Use display/control hybrid template when only selected sessions are visible  -->
-                                <DataTrigger Binding="{Binding SessionListNotificationFlagsVM.ShowSelectedOnly, Source={StaticResource Settings}}" Value="True">
+                                <DataTrigger Binding="{Binding SessionConfigVM.FlagsVM.ShowSelectedOnly, Source={StaticResource Settings}}" Value="True">
                                     <Setter Property="ItemTemplate" Value="{StaticResource SessionFullDataTemplate}" />
                                 </DataTrigger>
                                 <!--  Override last and use display template when control bar isn't visible  -->
-                                <DataTrigger Binding="{Binding SessionListNotificationFlagsVM.ShowControlBar, Source={StaticResource Settings}}" Value="False">
+                                <DataTrigger Binding="{Binding SessionConfigVM.FlagsVM.ShowControlBar, Source={StaticResource Settings}}" Value="False">
                                     <Setter Property="ItemTemplate" Value="{StaticResource SessionDisplayDataTemplate}" />
                                 </DataTrigger>
                             </Style.Triggers>
@@ -347,17 +350,17 @@
                 <Grid Visibility="{Binding IsVisible, ElementName=MultiSelectionControls, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
                     <ContentControl
                         Margin="2"
-                        Content="{Binding AudioAPI.CurrentSession}"
-                        Visibility="{Binding AudioAPI.AudioSessionMultiSelector.CurrentSession, Mode=OneWay, Converter={StaticResource NullableToVisibilityConverter}}">
+                        Content="{Binding AudioAPI.CurrentSession, Source={StaticResource Settings}}"
+                        Visibility="{Binding AudioAPI.AudioSessionMultiSelector.CurrentSession, Source={StaticResource Settings}, Mode=OneWay, Converter={StaticResource NullableToVisibilityConverter}}">
                         <ContentControl.Style>
                             <Style TargetType="{x:Type ContentControl}">
                                 <Style.Triggers>
                                     <!--  Use display/control hybrid template when only selected sessions are visible  -->
-                                    <DataTrigger Binding="{Binding SessionListNotificationFlagsVM.ShowSelectedOnly, Source={StaticResource Settings}}" Value="True">
+                                    <DataTrigger Binding="{Binding SessionConfigVM.FlagsVM.ShowSelectedOnly, Source={StaticResource Settings}}" Value="True">
                                         <Setter Property="ContentTemplate" Value="{StaticResource SessionFullDataTemplate}" />
                                     </DataTrigger>
                                     <!--  Override last and use display template when control bar isn't visible  -->
-                                    <DataTrigger Binding="{Binding SessionListNotificationFlagsVM.ShowControlBar, Source={StaticResource Settings}}" Value="False">
+                                    <DataTrigger Binding="{Binding SessionConfigVM.FlagsVM.ShowControlBar, Source={StaticResource Settings}}" Value="False">
                                         <Setter Property="ContentTemplate" Value="{StaticResource SessionDisplayDataTemplate}" />
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -371,9 +374,6 @@
     </Border>
 
     <WindowChrome.WindowChrome>
-        <WindowChrome
-            CaptionHeight="0"
-            CornerRadius="19"
-            GlassFrameThickness="0" />
+        <WindowChrome CaptionHeight="0" />
     </WindowChrome.WindowChrome>
 </Window>

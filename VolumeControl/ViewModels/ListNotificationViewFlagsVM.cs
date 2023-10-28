@@ -14,7 +14,7 @@ namespace VolumeControl.ViewModels
             ConfigSection = configSection;
 
             ConfigSection.PropertyChanged += this.ConfigSection_PropertyChanged;
-            base.StateChanged += this.ListNotificationViewFlagsVM_StateChanged;
+            StateChanged += this.ListNotificationViewFlagsVM_StateChanged;
         }
         #endregion Constructor
 
@@ -61,9 +61,7 @@ namespace VolumeControl.ViewModels
             if (_thisIsStateChangeSource) return;
             _thisIsStateChangeSource = true;
             if (e.ChangedFlags == EListNotificationView.SelectedItemOnly)
-            {
                 State &= ~EListNotificationView.AllItems;
-            }
             else if (e.ChangedFlags == EListNotificationView.AllItems)
             {
                 State &= ~EListNotificationView.SelectedItemOnly;

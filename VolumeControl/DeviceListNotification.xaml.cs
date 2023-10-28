@@ -54,6 +54,8 @@ namespace VolumeControl
 
             Settings.DeviceListNotificationConfig.PropertyChanged += this.DeviceListNotificationConfig_PropertyChanged;
 
+            VCSettings.DeviceConfigVM.FlagsVM.StateChanged += this.FlagsVM_StateChanged;
+
             // bind to the show event
             VCEvents.ShowDeviceListNotification += this.VCEvents_ShowDeviceListNotification;
         }
@@ -83,6 +85,7 @@ namespace VolumeControl
         #region Properties
         private static Config Settings => (AppConfig.Configuration.Default as Config)!;
         public VolumeControlVM VCSettings => (this.FindResource("Settings") as VolumeControlVM)!;
+        public NotificationConfigSectionVM VM => VCSettings.DeviceConfigVM;
         private Storyboard FadeInStoryboard => (FindResource(nameof(FadeInStoryboard)) as Storyboard)!;
         private Storyboard FadeOutStoryboard => (FindResource(nameof(FadeOutStoryboard)) as Storyboard)!;
         private bool IsFadingIn
@@ -103,9 +106,11 @@ namespace VolumeControl
                 _fadingIn = false;
             }
         }
+        private bool IsHiddenByViewMode => VM.FlagsVM.State == EListNotificationView.Nothing;
         #endregion Properties
 
         #region Methods
+
         #region Start/Stop-Timer
         /// <summary>
         /// Starts the timer if <see cref="Config.NotificationTimeoutEnabled"/> is <see langword="true"/>; otherwise does nothing.
@@ -129,6 +134,8 @@ namespace VolumeControl
         #region Show/Hide
         public new void Show()
         {
+            if (IsHiddenByViewMode) return;
+
             StopTimer();
             if (!Settings.DeviceListNotificationConfig.DoFadeIn)
             { // fade-in disabled:
@@ -155,11 +162,7 @@ namespace VolumeControl
             if (!Settings.DeviceListNotificationConfig.DoFadeOut)
             { // fade-out disabled:
                 //< we are NOT on the main UI thread here (!), use the dispatcher:
-                this.Dispatcher.Invoke(() =>
-                {
-                    StopTimer();
-                    base.Hide();
-                });
+                HideNowNoFadeOut();
             }
             else if (!_fading)
             {
@@ -170,6 +173,17 @@ namespace VolumeControl
                 StopFadeIn(resetOpacity: false);
                 StartFadeOut();
             }
+        }
+        private void HideNowNoFadeOut()
+        {
+            if (_fadingIn)
+                StopFadeIn(resetOpacity: false);
+            this.Dispatcher.Invoke(() =>
+            {
+                StopTimer();
+                base.Hide();
+            });
+            SavePosition();
         }
         #endregion Show/Hide
 
@@ -257,6 +271,37 @@ namespace VolumeControl
             this.SetPos(new Point(SystemParameters.WorkArea.Right - this.ActualWidth - 10, SystemParameters.WorkArea.Bottom - this.ActualHeight - 10));
         }
         #endregion ResetPosition
+
+        #region Save/Load Position
+        private bool SavePosition()
+        {
+            // if saving position is enabled and the notif window has actually loaded, save the current position
+            if (Settings.NotificationSavePos && _loaded)
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    VM.ConfigSection.PositionOriginCorner = this.GetCurrentScreenCorner();
+                    VM.ConfigSection.Position = this.GetPosAtCorner(VM.ConfigSection.PositionOriginCorner);
+                });
+                return true;
+            }
+            else return false;
+        }
+        private bool LoadPosition()
+        {
+            // if saving position is enabled and there is a saved position to load
+            if (Settings.NotificationSavePos && VM.ConfigSection.Position is Point pos)
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    this.SetPosAtCorner(VM.ConfigSection.PositionOriginCorner, pos);
+                });
+                return true;
+            }
+            else return false;
+        }
+        #endregion Save/Load Position
+
         #endregion Methods
 
         #region Window Method Overrides
@@ -299,7 +344,7 @@ namespace VolumeControl
         /// </summary>
         private void _timer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
         {
-            if (IsMouseOver || IsKeyboardFocusWithin)
+            if (IsMouseOver)
             {
                 this.Dispatcher.Invoke(() => RestartTimer()); //< restart the timer
                 return;
@@ -392,6 +437,7 @@ namespace VolumeControl
             _fading = false;
             _fadingIn = false;
             this.Opacity = 1.0; //< reset Opacity property now that we're done with it; this fixes a bug when FadeIn is disabled.
+            SavePosition();
         }
         #endregion Storyboards
 
@@ -419,7 +465,6 @@ namespace VolumeControl
         /// </summary>
         private void Window_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (IsKeyboardFocusWithin) return;
             RestartTimer();
         }
         /// <summary>
@@ -438,21 +483,6 @@ namespace VolumeControl
             }
         }
         /// <summary>
-        /// stops the timer when keyboard focus was acquired
-        /// </summary>
-        private void Window_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            StopTimer();
-        }
-        /// <summary>
-        /// (re)starts the timer when keyboard focus was lost
-        /// </summary>
-        private void Window_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            if (IsMouseOver) return;
-            RestartTimer();
-        }
-        /// <summary>
         /// Initializes the position of the window
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -461,12 +491,8 @@ namespace VolumeControl
             {
                 _loaded = true;
 
-                if (Settings.NotificationSavePos && Settings.DeviceListNotificationConfig.Position is Point pos)
-                {
-                    this.SetPosAtCorner(Settings.DeviceListNotificationConfig.PositionOriginCorner, pos);
-                }
-                else
-                {
+                if (!LoadPosition())
+                { // couldn't load previous position, use default position instead
                     ResetPosition();
                 }
             }
@@ -477,14 +503,19 @@ namespace VolumeControl
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             if (!_allowClose) e.Cancel = true;
-            // if saving position is enabled and the notif window has actually loaded, save the current position
-            if (Settings.NotificationSavePos && _loaded)
-            {
-                Settings.DeviceListNotificationConfig.PositionOriginCorner = this.GetCurrentScreenCorner();
-                Settings.DeviceListNotificationConfig.Position = this.GetPosAtCorner(Settings.DeviceListNotificationConfig.PositionOriginCorner);
-            }
+            SavePosition();
         }
         #endregion Window
+
+        #region FlagsVM
+        private void FlagsVM_StateChanged(object? sender, (EListNotificationView NewState, EListNotificationView ChangedFlags) e)
+        {
+            if (e.NewState == EListNotificationView.Nothing)
+            {
+                HideNowNoFadeOut();
+            }
+        }
+        #endregion FlagsVM
 
         #endregion EventHandlers
     }

@@ -81,20 +81,9 @@ namespace VolumeControl.ViewModels
             AudioAPI.AudioSessionManager.AddedSessionToList += this.AudioSessionManager_AddedOrRemovedSession;
             AudioAPI.AudioSessionManager.RemovedSessionFromList += this.AudioSessionManager_AddedOrRemovedSession;
 
-            // setup flags viewmodels
-            SessionListNotificationFlagsVM = new(Settings.SessionListNotificationConfig);
-            DeviceListNotificationFlagsVM = new(Settings.DeviceListNotificationConfig);
-
-            // session notification brushes
-            SessionListNotificationBackgroundBrush = new SolidColorBrush(Settings.SessionListNotificationConfig.BackgroundColor);
-            SessionListNotificationLockedBrush = new SolidColorBrush(Settings.SessionListNotificationConfig.LockedColor);
-            SessionListNotificationUnlockedBrush = new SolidColorBrush(Settings.SessionListNotificationConfig.UnlockedColor);
-            SessionListNotificationForegroundBrush = new SolidColorBrush(Settings.SessionListNotificationConfig.TextColor);
-            // device notification brushes
-            DeviceListNotificationBackgroundBrush = new SolidColorBrush(Settings.DeviceListNotificationConfig.BackgroundColor);
-            DeviceListNotificationLockedBrush = new SolidColorBrush(Settings.DeviceListNotificationConfig.LockedColor);
-            DeviceListNotificationUnlockedBrush = new SolidColorBrush(Settings.DeviceListNotificationConfig.UnlockedColor);
-            DeviceListNotificationForegroundBrush = new SolidColorBrush(Settings.DeviceListNotificationConfig.TextColor);
+            // setup notification config view models
+            SessionConfigVM = new(Settings.SessionListNotificationConfig);
+            DeviceConfigVM = new(Settings.DeviceListNotificationConfig);
         }
         #endregion Constructor
 
@@ -132,10 +121,8 @@ namespace VolumeControl.ViewModels
         #endregion Statics
 
         #region ParentObjects
-        //public AudioDeviceManagerVM AudioDeviceManagerVM { get; }
         public AudioDeviceManagerVM AudioAPI { get; }
         public HotkeyManagerVM HotkeyAPI { get; }
-        //public ListNotificationVM ListNotificationVM { get; }
         #endregion ParentObjects
 
         /// <summary>
@@ -169,17 +156,8 @@ namespace VolumeControl.ViewModels
             }
         }
 
-        public ListNotificationViewFlagsVM SessionListNotificationFlagsVM { get; }
-        public ListNotificationViewFlagsVM DeviceListNotificationFlagsVM { get; }
-
-        public Brush SessionListNotificationBackgroundBrush { get; }
-        public Brush SessionListNotificationLockedBrush { get; }
-        public Brush SessionListNotificationUnlockedBrush { get; }
-        public Brush SessionListNotificationForegroundBrush { get; }
-        public Brush DeviceListNotificationBackgroundBrush { get; }
-        public Brush DeviceListNotificationLockedBrush { get; }
-        public Brush DeviceListNotificationUnlockedBrush { get; }
-        public Brush DeviceListNotificationForegroundBrush { get; }
+        public NotificationConfigSectionVM SessionConfigVM { get; }
+        public NotificationConfigSectionVM DeviceConfigVM { get; }
         #endregion Properties
 
         #region Methods

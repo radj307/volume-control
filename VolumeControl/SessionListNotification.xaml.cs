@@ -54,7 +54,7 @@ namespace VolumeControl
 
             Settings.SessionListNotificationConfig.PropertyChanged += this.SessionListNotificationConfig_PropertyChanged;
 
-            VCSettings.SessionListNotificationFlagsVM.StateChanged += this.SessionListNotificationFlagsVM_StateChanged;
+            VCSettings.SessionConfigVM.FlagsVM.StateChanged += this.FlagsVM_StateChanged;
 
             // bind to the show event
             VCEvents.ShowSessionListNotification += this.VCEvents_ShowSessionListNotification;
@@ -85,6 +85,7 @@ namespace VolumeControl
         #region Properties
         private static Config Settings => (AppConfig.Configuration.Default as Config)!;
         public VolumeControlVM VCSettings => (this.FindResource("Settings") as VolumeControlVM)!;
+        public NotificationConfigSectionVM VM => VCSettings.SessionConfigVM;
         private Storyboard FadeInStoryboard => (FindResource(nameof(FadeInStoryboard)) as Storyboard)!;
         private Storyboard FadeOutStoryboard => (FindResource(nameof(FadeOutStoryboard)) as Storyboard)!;
         private bool IsFadingIn
@@ -105,7 +106,7 @@ namespace VolumeControl
                 _fadingIn = false;
             }
         }
-        private bool IsHiddenByViewMode => VCSettings.SessionListNotificationFlagsVM.State == EListNotificationView.Nothing;
+        private bool IsHiddenByViewMode => VM.FlagsVM.State == EListNotificationView.Nothing;
         #endregion Properties
 
         #region Methods
@@ -277,8 +278,11 @@ namespace VolumeControl
             // if saving position is enabled and the notif window has actually loaded, save the current position
             if (Settings.NotificationSavePos && _loaded)
             {
-                Settings.SessionListNotificationConfig.PositionOriginCorner = this.GetCurrentScreenCorner();
-                Settings.SessionListNotificationConfig.Position = this.GetPosAtCorner(Settings.SessionListNotificationConfig.PositionOriginCorner);
+                Dispatcher.Invoke(() =>
+                {
+                    VM.ConfigSection.PositionOriginCorner = this.GetCurrentScreenCorner();
+                    VM.ConfigSection.Position = this.GetPosAtCorner(VM.ConfigSection.PositionOriginCorner);
+                });
                 return true;
             }
             else return false;
@@ -286,9 +290,12 @@ namespace VolumeControl
         private bool LoadPosition()
         {
             // if saving position is enabled and there is a saved position to load
-            if (Settings.NotificationSavePos && Settings.SessionListNotificationConfig.Position is Point pos)
+            if (Settings.NotificationSavePos && VM.ConfigSection.Position is Point pos)
             {
-                this.SetPosAtCorner(Settings.SessionListNotificationConfig.PositionOriginCorner, pos);
+                Dispatcher.Invoke(() =>
+                {
+                    this.SetPosAtCorner(VM.ConfigSection.PositionOriginCorner, pos);
+                });
                 return true;
             }
             else return false;
@@ -496,15 +503,15 @@ namespace VolumeControl
         }
         #endregion Window
 
-        #region SessionListNotificationFlagsVM
-        private void SessionListNotificationFlagsVM_StateChanged(object? sender, (EListNotificationView NewState, EListNotificationView ChangedFlags) e)
+        #region FlagsVM
+        private void FlagsVM_StateChanged(object? sender, (EListNotificationView NewState, EListNotificationView ChangedFlags) e)
         {
             if (e.NewState == EListNotificationView.Nothing)
             {
                 HideNowNoFadeOut();
             }
         }
-        #endregion SessionListNotificationFlagsVM
+        #endregion FlagsVM
 
         #endregion EventHandlers
     }

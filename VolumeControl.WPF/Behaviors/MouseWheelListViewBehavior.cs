@@ -14,20 +14,22 @@ namespace VolumeControl.WPF.Behaviors
         {
             var listView = (ListView)sender;
 
-            int count = listView.Items.Count;
             int index = listView.SelectedIndex;
+            int maxIndex = listView.Items.Count - 1;
 
             if (e.Delta < 0.0)
-            {
-                if (index >= count - 1)
+            { // scroll up
+                ++index;
+
+                if (index > maxIndex)
                     index = 0;
-                else index++;
             }
             else
-            {
-                if (index <= 0)
-                    index = count - 1;
-                else index--;
+            { // scroll down
+                --index;
+
+                if (index < 0)
+                    index = maxIndex;
             }
 
             listView.SelectedIndex = index;
