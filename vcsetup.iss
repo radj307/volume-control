@@ -29,7 +29,6 @@ AppUpdatesURL={#AppURL}
 
 VersionInfoDescription={#AppName} installer
 VersionInfoProductName={#AppName}
-VersionInfoVersion={#AppVersion}
 
 UninstallDisplayIcon={app}\{#AppExeName}
 UninstallDisplayName={#AppName}
@@ -42,6 +41,7 @@ LanguageDetectionMethod=uilanguage
 WizardStyle=modern
 WizardSizePercent=100
 
+PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
 
 LicenseFile=LICENSE
@@ -78,6 +78,12 @@ Filename: "{app}\{#AppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(
 
 [UninstallDelete]
 Type: dirifempty; Name: "{app}"
+
+[Registry]
+; All Users
+Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{{#AppID}_is1"; ValueType: string; ValueName: "DisplayVersion"; ValueData: "{#AppVersion}"; Flags: uninsdeletevalue; Check: IsAdmin
+; Current User
+Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{{#AppID}_is1"; ValueType: string; ValueName: "DisplayVersion"; ValueData: "{#AppVersion}"; Flags: uninsdeletevalue; Check: not IsAdmin
 
 [Code]
 function GetUninstallString(): String;
