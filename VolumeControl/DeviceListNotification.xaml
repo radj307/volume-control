@@ -72,6 +72,7 @@
 
             <!--  DataTemplates  -->
             <DataTemplate x:Key="DeviceControlsDataTemplate" DataType="{x:Type vm:AudioDeviceVM}">
+                <!--  ControlBar template  -->
                 <Grid Margin="2,4,2,2" DataContext="{Binding AudioDevice}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -109,15 +110,16 @@
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Foreground="{Binding DeviceConfigVM.ForegroundBrush, Source={StaticResource Settings}}"
-                        Text="{Binding Volume, UpdateSourceTrigger=LostFocus}">
+                        Text="{Binding Volume, UpdateSourceTrigger=LostFocus}"
+                        TextAlignment="Right">
                         <i:Interaction.Behaviors>
                             <wpfBehaviors:EscapeRemovesFocusBehavior />
                         </i:Interaction.Behaviors>
                     </TextBox>
                 </Grid>
             </DataTemplate>
-
             <DataTemplate x:Key="DeviceDisplayDataTemplate" DataType="{x:Type vm:AudioDeviceVM}">
+                <!--  Display template without auto-sizing  -->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -142,8 +144,8 @@
                         Text="{Binding Name}" />
                 </Grid>
             </DataTemplate>
-
             <DataTemplate x:Key="DeviceDisplayAlwaysBoldWidthDataTemplate" DataType="{x:Type vm:AudioDeviceVM}">
+                <!--  Display template that always keeps enough width to display bold text without resizing  -->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -177,8 +179,8 @@
                         Visibility="Hidden" />
                 </Grid>
             </DataTemplate>
-
             <DataTemplate x:Key="DeviceFullDataTemplate" DataType="{x:Type vm:AudioDeviceVM}">
+                <!--  Combines the display data template with the controls data template  -->
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />

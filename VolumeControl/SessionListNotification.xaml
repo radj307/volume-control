@@ -75,6 +75,7 @@
 
             <!--  DataTemplates  -->
             <DataTemplate x:Key="SessionControlsDataTemplate" DataType="{x:Type vm:AudioSessionVM}">
+                <!--  ControlBar template  -->
                 <Grid Margin="2,4,2,2" DataContext="{Binding AudioSession}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -121,8 +122,8 @@
                     </TextBox>
                 </Grid>
             </DataTemplate>
-
             <DataTemplate x:Key="SessionDisplayDataTemplate" DataType="{x:Type vm:AudioSessionVM}">
+                <!--  Display template without auto-sizing  -->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -148,8 +149,8 @@
                         Text="{Binding Name}" />
                 </Grid>
             </DataTemplate>
-
             <DataTemplate x:Key="SessionDisplayAlwaysBoldWidthDataTemplate" DataType="{x:Type vm:AudioSessionVM}">
+                <!--  Display template that always keeps enough width to display bold text without resizing  -->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -184,8 +185,8 @@
                         Visibility="Hidden" />
                 </Grid>
             </DataTemplate>
-
             <DataTemplate x:Key="SessionFullDataTemplate" DataType="{x:Type vm:AudioSessionVM}">
+                <!--  Combines the display data template with the controls data template  -->
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
