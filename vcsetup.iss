@@ -3,7 +3,9 @@
 ;  - AppVersion must be defined on the commandline with /dAppVersion=""
 
 #define public Dependency_Path_NetCoreCheck "InnoDependencyInstaller\dependencies\"
-#include                                    "InnoDependencyInstaller\CodeDependencies.iss"
+#include                                    "InnoDependencyInstaller\CodeDependencies.iss"        
+
+#define SourceExeFilePath                   "publish\installer"
 
 #define AppID                               "{33DFCEE8-022C-4C66-A366-79A7415320F2}"
 #define AppName                             "Volume Control"
@@ -13,8 +15,8 @@
 #define AppURL                              "https://github.com/radj307/volume-control"
 #define AppExeName                          "VolumeControl.exe"
 #define AppMutex                            "VolumeControlSingleInstance"
-
-#define SourceExeFilePath                   "publish\installer"
+#define AppFileVersion                      GetStringFileInfo(SourceExeFilePath + "\" + AppExeName, "FileVersion")
+#define AppVersion                          GetStringFileInfo(SourceExeFilePath + "\" + AppExeName, "ProductVersion")
 
 [Setup]
 AppId={{#AppID}
@@ -29,6 +31,7 @@ AppUpdatesURL={#AppURL}
 
 VersionInfoDescription={#AppName} installer
 VersionInfoProductName={#AppName}
+VersionInfoVersion={#AppFileVersion}
 
 UninstallDisplayIcon={app}\{#AppExeName}
 UninstallDisplayName={#AppName}
@@ -79,19 +82,18 @@ Filename: "{app}\{#AppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(
 [UninstallDelete]
 Type: dirifempty; Name: "{app}"
 
-[Registry]
-; All Users
-Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{{#AppID}_is1"; ValueType: string; ValueName: "DisplayVersion"; ValueData: "{#AppVersion}"; Flags: uninsdeletevalue; Check: IsAdmin
-; Current User
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{{#AppID}_is1"; ValueType: string; ValueName: "DisplayVersion"; ValueData: "{#AppVersion}"; Flags: uninsdeletevalue; Check: not IsAdmin
-
 [Code]
+function GetUninstallKey(): String;
+begin
+  Result := ExpandConstant('Software\Microsoft\Windows\CurrentVersion\Uninstall\{#emit SetupSetting("AppId")}_is1');
+end;
+
 function GetUninstallString(): String;
 var
   sUnInstPath: String;
   sUnInstallString: String;
 begin
-  sUnInstPath := ExpandConstant('Software\Microsoft\Windows\CurrentVersion\Uninstall\{#emit SetupSetting("AppId")}_is1');
+  sUnInstPath := GetUninstallKey();
   sUnInstallString := '';
   if not RegQueryStringValue(HKLM, sUnInstPath, 'UninstallString', sUnInstallString) then
     RegQueryStringValue(HKCU, sUnInstPath, 'UninstallString', sUnInstallString);
@@ -136,6 +138,8 @@ begin
     begin
       UnInstallOldVersion();
     end;
+  end else if (CurStep=ssPostInstall) then begin
+    RegWriteStringValue(HKEY_AUTO, GetUninstallKey(), 'DisplayVersion', '{#emit SetupSetting('AppVersion')}');
   end;
 end;
 

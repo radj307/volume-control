@@ -24,7 +24,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref:          '${{ github.ref }}'
-          fetch-depth:  0
 
       - uses: actions/setup-dotnet@main
         with:
@@ -40,10 +39,7 @@ jobs:
         run:    foreach($file in $((dir "publish" | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
 
       - name:   Prepare Installer Prerequisites
-        id:     InitInstaller
-        run:    |
-                echo AppVersion="$(git describe --tags --abbrev=0)" >> "$GITHUB_OUTPUT"
-                git clone https://github.com/DomGries/InnoDependencyInstaller
+        run:    git clone https://github.com/DomGries/InnoDependencyInstaller
 
       - name:   Build VolumeControl Binary (Installer Version)
         run:    dotnet publish VolumeControl -c Release-ForInstaller -p:PublishProfile="VolumeControl/Properties/PublishProfiles/PublishForInstaller.pubxml"
@@ -52,7 +48,7 @@ jobs:
         uses:   Minionguyjpro/Inno-Setup-Action@v1.1.0
         with:
           path: vcsetup.iss
-          options: /dAppVersion="${{ steps.InitInstaller.outputs.AppVersion }}" /Opublish
+          options: /Opublish
           
       - name:   Stage Installer
         run:    foreach($file in $((dir "publish" | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
