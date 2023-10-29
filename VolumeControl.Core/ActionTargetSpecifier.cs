@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Core
@@ -8,14 +10,38 @@ namespace VolumeControl.Core
     /// Specifies the target(s) of a hotkey action.
     /// </summary>
     [JsonArray]
-    public class ActionTargetSpecifier : ICollection<string>
+    public class ActionTargetSpecifier : INotifyPropertyChanged, ICollection<string>
     {
+        #region Constructor
+        /// <summary>
+        /// Creates a new <see cref="ActionTargetSpecifier"/> instance.
+        /// </summary>
+        public ActionTargetSpecifier()
+        {
+            Targets.CollectionChanged += this.Targets_CollectionChanged;
+        }
+        #endregion Constructor
+
+        #region Fields
+        private bool _lastHasItemsState = false;
+        #endregion Fields
+
         #region Properties
         /// <summary>
         /// Gets the list of targets.
         /// </summary>
         public ObservableImmutableList<string> Targets { get; } = new();
+        /// <summary>
+        /// Gets whether there are any targets or not.
+        /// </summary>
+        public bool HasTargets => Targets.Count > 0;
         #endregion Properties
+
+        #region Events
+        /// <inheritdoc/>
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        #endregion Events
 
         #region ICollection Implementation
 
@@ -43,5 +69,36 @@ namespace VolumeControl.Core
         #endregion Methods
 
         #endregion ICollection Implementation
+
+        #region EventHandlers
+
+        #region Targets
+        private void Targets_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+            case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                if (!_lastHasItemsState)
+                {
+                    NotifyPropertyChanged(nameof(HasTargets));
+                    _lastHasItemsState = true;
+                }
+                break;
+            case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                if (Targets.Count == 0)
+                {
+                    _lastHasItemsState = false;
+                    NotifyPropertyChanged(nameof(HasTargets));
+                }
+                break;
+            case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
+                _lastHasItemsState = HasTargets;
+                NotifyPropertyChanged(nameof(HasTargets));
+                break;
+            }
+        }
+        #endregion Targets
+
+        #endregion EventHandlers
     }
 }
