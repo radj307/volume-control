@@ -59,7 +59,7 @@ namespace VolumeControl.Log
         /// </summary>
         /// <param name="verb">Displayed in the header as "Log (verb)"</param>
         private static string MakeInitMessage(string verb)
-            => $"{AsyncLogWriter.DateTimeFormatString}{AsyncLogWriter.Indent(AsyncLogWriter.TimestampLength, AsyncLogWriter.DateTimeFormatString.Length)}{new string(' ', AsyncLogWriter.EventTypeLength)}=== Log {verb} @ {DateTime.UtcNow:U} ===  {{ {nameof(SettingsInterface.LogFilter)}: {(int)Log.EventTypeFilter} ({Log.EventTypeFilter:G}) }}";
+            => $"{AsyncLogWriter.DateTimeFormatString}{AsyncLogWriter.Indent(AsyncLogWriter.TimestampLength, AsyncLogWriter.DateTimeFormatString.Length)}{new string(' ', AsyncLogWriter.EventTypeLength)}=== Log {verb} @ {DateTime.UtcNow:U} ===  {{ {nameof(SettingsInterface.LogFilter)}: {(int)Log.EventTypeFilter} ({Log.EventTypeFilter:G}) }}{Environment.NewLine}";
         private static void WriteRaw(string text)
         {
             lock (Log.Endpoint)
