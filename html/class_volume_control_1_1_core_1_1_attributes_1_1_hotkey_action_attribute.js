@@ -1,6 +1,7 @@
 var class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_attribute =
 [
     [ "HotkeyActionAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_attribute.html#ac020a9bbe21812416e54c2ab71b67c45", null ],
+    [ "DefaultDataTemplateProvider", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_attribute.html#afbf6054967f6b1433fd5767e81b7f15b", null ],
     [ "Description", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_attribute.html#a7bd9ac98d07e5e97958207ce4bf5bfcf", null ],
     [ "GroupColorOverride", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_attribute.html#ae10a10f6e4b6d226b49206cb4acdc0db", null ],
     [ "GroupNameOverride", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_attribute.html#ad075dab60827898aa4a3defa7c983ae3", null ],

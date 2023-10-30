@@ -8,9 +8,9 @@
  viewBox="0.00 0.00 307.00 88.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>Graphical Class Hierarchy</title>
-<!-- Node56 -->
+<!-- Node58 -->
 <g id="node1" class="node">
-<title>Node56</title>
+<title>Node58</title>
 <g id="a_node1"><a xlink:title=" ">
 <polygon fill="none" stroke="#bfbfbf" points="0,-30 0,-49 107,-49 107,-30 0,-30"/>
 <text text-anchor="middle" x="53.5" y="-37" font-family="Helvetica,sans-Serif" font-size="10.00">HandledEventArgs</text>
@@ -27,15 +27,15 @@
 </a>
 </g>
 </g>
-<!-- Node56&#45;&gt;Node0 -->
+<!-- Node58&#45;&gt;Node0 -->
 <g id="edge1" class="edge">
-<title>Node56&#45;&gt;Node0</title>
+<title>Node58&#45;&gt;Node0</title>
 <path fill="none" stroke="midnightblue" d="M117.3,-48.99C127.45,-50.52 138.02,-52.12 148.36,-53.68"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="117.73,-45.51 107.32,-47.48 116.69,-52.43 117.73,-45.51"/>
 </g>
-<!-- Node58 -->
+<!-- Node60 -->
 <g id="node3" class="node">
-<title>Node58</title>
+<title>Node60</title>
 <g id="a_node3"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_registering_event_args.html" target="_top" xlink:title="Provides data for the hotkey Registering and Unregistering events.">
 <polygon fill="none" stroke="black" points="143,-0.5 143,-30.5 299,-30.5 299,-0.5 143,-0.5"/>
 <text text-anchor="start" x="151" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
@@ -43,9 +43,9 @@
 </a>
 </g>
 </g>
-<!-- Node56&#45;&gt;Node58 -->
+<!-- Node58&#45;&gt;Node60 -->
 <g id="edge2" class="edge">
-<title>Node56&#45;&gt;Node58</title>
+<title>Node58&#45;&gt;Node60</title>
 <path fill="none" stroke="midnightblue" d="M117.36,-30.38C125.72,-29.17 134.38,-27.92 142.95,-26.67"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="116.71,-26.94 107.32,-31.84 117.72,-33.87 116.71,-26.94"/>
 </g>

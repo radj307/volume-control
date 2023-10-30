@@ -1,0 +1,4 @@
+var class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_provider_type_exception =
+[
+    [ "InvalidProviderType", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_provider_type_exception.html#a05c27c7ecad3e4d9b4c15d5ad76e810e", null ]
+];

@@ -1,6 +1,5 @@
 <map id="VolumeControl.Log.AsyncLogWriter.Error" name="VolumeControl.Log.AsyncLogWriter.Error">
-<area shape="rect" id="node1" title="Queues writing a EventType.ERROR message with the specified lines ." alt="" coords="316,71,527,112"/>
+<area shape="rect" id="node1" title="Queues writing a EventType.ERROR message with the specified lines ." alt="" coords="316,39,527,80"/>
 <area shape="rect" id="node2" href="$class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer.html#ad14db55893cfb34948ed62a314a9e8ce" title=" " alt="" coords="33,5,240,47"/>
 <area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html#aeb130faa7474afab767d630854556df4" title="Invokes the method specified by the HotkeyActionDefinition" alt="" coords="5,71,268,112"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html#a037e4a9483554fd7e6ed40f89e2be559" title="Loads hotkey actions from the specified types ." alt="" coords="23,136,251,177"/>
 </map>

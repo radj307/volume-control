@@ -1,4 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,208,32"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_config.html" title="Contains the application configuration and logic to read from and write to JSON files." alt="" coords="256,5,453,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,111,84,138"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_attributes_1_1_data_template_provider_attribute.html" title="Indicates that this class is a ITemplateProvider or ITemplateDictionaryProvider for action setting Da..." alt="" coords="132,5,356,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_attribute.html" title="Indicates that this is a hotkey action method." alt="" coords="132,71,356,112"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_group_attribute.html" title="Indicates that the associated class contains hotkey action methods marked with HotkeyActionAttribute." alt="" coords="132,136,356,177"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_setting_attribute.html" title="Specifies an action setting for the associated hotkey action method." alt="" coords="132,201,356,243"/>
 </map>

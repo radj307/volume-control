@@ -14,6 +14,7 @@ var namespace_volume_control_1_1_core_1_1_input =
     [ "IHotkey", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey" ],
     [ "IHotkey_Extensions", "class_volume_control_1_1_core_1_1_input_1_1_i_hotkey___extensions.html", "class_volume_control_1_1_core_1_1_input_1_1_i_hotkey___extensions" ],
     [ "IHotkeyMessageHook", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook.html", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook" ],
+    [ "TemplateProviderManager", "class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html", "class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager" ],
     [ "HotkeyPressedEventHandler", "namespace_volume_control_1_1_core_1_1_input.html#aa8db04950fac822b72d38672f89014c7", null ],
     [ "HotkeyRegisteringEventHandler", "namespace_volume_control_1_1_core_1_1_input.html#ad289b21a000baf983e2412e6762129ca", null ]
 ];

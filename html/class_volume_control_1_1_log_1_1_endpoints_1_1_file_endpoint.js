@@ -13,5 +13,7 @@ var class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint =
     [ "WriteRawLine", "class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#aa9cd109a0e20e357239b4d08a6b7e970", null ],
     [ "WriteRawLine", "class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a669a66426858a3397a0aa9348f655fe4", null ],
     [ "Enabled", "class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a3d9bdcc2f48be0b40776f30b3fc6a982", null ],
-    [ "Path", "class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#afbcf4aa07e0e7575eb327a34039a052a", null ]
+    [ "Path", "class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#afbcf4aa07e0e7575eb327a34039a052a", null ],
+    [ "EnabledChanged", "class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a08a0daee0f138082182540d31fc2e888", null ],
+    [ "EnabledChanging", "class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a39781d510e12a4aaee9ee481deaf4557", null ]
 ];

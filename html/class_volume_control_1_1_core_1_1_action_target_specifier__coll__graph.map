@@ -1,4 +1,5 @@
 <map id="VolumeControl.Core.ActionTargetSpecifier" name="VolumeControl.Core.ActionTargetSpecifier">
-<area shape="rect" id="node1" title="Specifies the target(s) of a hotkey action." alt="" coords="5,131,203,325"/>
-<area shape="rect" id="node2" title=" " alt="" coords="25,5,183,83"/>
+<area shape="rect" id="node1" title="Specifies the target(s) of a hotkey action." alt="" coords="91,131,289,355"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,183,83"/>
+<area shape="rect" id="node3" title=" " alt="" coords="207,5,365,83"/>
 </map>

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['volumechanged_2358',['VolumeChanged',['../class_volume_control_1_1_core_audio_1_1_audio_device.html#a20aa80e1526e4ec6bf71f276d7e9bd67',1,'VolumeControl.CoreAudio.AudioDevice.VolumeChanged()'],['../class_volume_control_1_1_core_audio_1_1_audio_session.html#a6e626bc02c87dea488cc58e58b890ddd',1,'VolumeControl.CoreAudio.AudioSession.VolumeChanged()']]]
+  ['unregistered_2364',['Unregistered',['../class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#aa2afeeb0fd7c6ed0e104d79a1c9bc3ec',1,'VolumeControl.Core.Input.Hotkey.Unregistered()'],['../interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html#a995499c3f484786e88f625f45c4060b9',1,'VolumeControl.Core.Input.IHotkey.Unregistered()']]],
+  ['unregistering_2365',['Unregistering',['../class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a24642654a5ce79a98dced7f52b7d2bf1',1,'VolumeControl.Core.Input.Hotkey.Unregistering()'],['../interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html#a4ad3658b6b60783befdd75ccdd62c0cf',1,'VolumeControl.Core.Input.IHotkey.Unregistering()']]]
 ];

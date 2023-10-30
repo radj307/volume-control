@@ -1,14 +1,11 @@
 var searchData=
 [
-  ['sessionaddedtolist_2345',['SessionAddedToList',['../class_volume_control_1_1_core_audio_1_1_audio_device_session_manager.html#ac3353f4944244dc92ee797482e883cfa',1,'VolumeControl::CoreAudio::AudioDeviceSessionManager']]],
-  ['sessiondeselected_2346',['SessionDeselected',['../class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#ae6829d68823e6d3a688741673fd5647f',1,'VolumeControl::CoreAudio::AudioSessionMultiSelector']]],
-  ['sessiondisconnected_2347',['SessionDisconnected',['../class_volume_control_1_1_core_audio_1_1_audio_session.html#a0888e3adf151c891c3b4c101149900b3',1,'VolumeControl::CoreAudio::AudioSession']]],
-  ['sessionmanageraddedtolist_2348',['SessionManagerAddedToList',['../class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#aa46abf52d60580c0d585c20247585226',1,'VolumeControl::CoreAudio::AudioSessionManager']]],
-  ['sessionmanagerremovedfromlist_2349',['SessionManagerRemovedFromList',['../class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a5f8c13ae55d394cd8db4b21a47e9ddaf',1,'VolumeControl::CoreAudio::AudioSessionManager']]],
-  ['sessionremovedfromlist_2350',['SessionRemovedFromList',['../class_volume_control_1_1_core_audio_1_1_audio_device_session_manager.html#a5bcf82c80d579664215f3292fab41389',1,'VolumeControl::CoreAudio::AudioDeviceSessionManager']]],
-  ['sessionselected_2351',['SessionSelected',['../class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#acebf9ea162b3d4e94902c6b8cbdbc313',1,'VolumeControl::CoreAudio::AudioSessionMultiSelector']]],
-  ['showdevicelistnotification_2352',['ShowDeviceListNotification',['../class_volume_control_1_1_s_d_k_1_1_internal_1_1_v_c_events.html#a3240157d710dd0ba40f56db74d89b0c3',1,'VolumeControl::SDK::Internal::VCEvents']]],
-  ['showmixer_2353',['ShowMixer',['../class_volume_control_1_1_s_d_k_1_1_internal_1_1_v_c_events.html#a269ad1e99adf4b4c12025ef72b249e7c',1,'VolumeControl::SDK::Internal::VCEvents']]],
-  ['showsessionlistnotification_2354',['ShowSessionListNotification',['../class_volume_control_1_1_s_d_k_1_1_internal_1_1_v_c_events.html#a73291a0dceb6b3487c9d0403cf890b97',1,'VolumeControl::SDK::Internal::VCEvents']]],
-  ['statechanged_2355',['StateChanged',['../class_volume_control_1_1_core_audio_1_1_audio_session.html#aacec3df24d3109cc911c251ba67ed13e',1,'VolumeControl::CoreAudio::AudioSession']]]
+  ['registered_2345',['Registered',['../class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#ab1d6bdb51c6b179a77518ac5cf2c01fc',1,'VolumeControl.Core.Input.Hotkey.Registered()'],['../interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html#a1775be3e07a3489e2c52e6639b65938a',1,'VolumeControl.Core.Input.IHotkey.Registered()']]],
+  ['registering_2346',['Registering',['../class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a6238fe09c1cef3f0e89a9ef46396f16a',1,'VolumeControl.Core.Input.Hotkey.Registering()'],['../interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html#ab3be3171908cd6cd5bd9577df64ee9e0',1,'VolumeControl.Core.Input.IHotkey.Registering()']]],
+  ['removedactiondefinition_2347',['RemovedActionDefinition',['../class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_manager.html#a2d2631a73d4faf9006068b4fc053b7be',1,'VolumeControl::Core::Input::Actions::HotkeyActionManager']]],
+  ['removedhotkey_2348',['RemovedHotkey',['../class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#a8ed367114c5aa067a3a01b6969df8406',1,'VolumeControl::Core::Input::HotkeyManager']]],
+  ['removedsessionfromhiddenlist_2349',['RemovedSessionFromHiddenList',['../class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#af9887679b8d6a5dc6a7487ebe445ec9b',1,'VolumeControl::CoreAudio::AudioSessionManager']]],
+  ['removedsessionfromlist_2350',['RemovedSessionFromList',['../class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a2bfa1ef0d89840b82a4fdb3d4a5a7caf',1,'VolumeControl::CoreAudio::AudioSessionManager']]],
+  ['removingsessionfromhiddenlist_2351',['RemovingSessionFromHiddenList',['../class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a0a3c2da29da4c2beea6851ed545f7ccd',1,'VolumeControl::CoreAudio::AudioSessionManager']]],
+  ['removingsessionfromlist_2352',['RemovingSessionFromList',['../class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a7ec79fdd731728590d8ca948bca51521',1,'VolumeControl::CoreAudio::AudioSessionManager']]]
 ];

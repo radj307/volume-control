@@ -1,6 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_volume_control_1_1_core_1_1_data_template_provider.html" title="Provides a DataTemplate for some hardcoded type. &#160;The Type of a derived class can be specified for th..." alt="" coords="5,53,252,94"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_numeric_up_down___data_template_provider.html" title="Abstract DataTemplateProvider that implements GetNumericUpDownFactory." alt="" coords="300,45,595,101"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_volume_level___numeric_up_down___data_template_provider.html" title="Ready&#45;to&#45;use Core.DataTemplateProvider that creates a NumericUpDown control with a MinValue of 0 and ..." alt="" coords="643,5,931,61"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_volume_step___numeric_up_down___data_template_provider.html" title="Ready&#45;to&#45;use Core.DataTemplateProvider that creates a NumericUpDown control with a MinValue of 1 and ..." alt="" coords="645,85,928,141"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,208,32"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_config.html" title="Contains the application configuration and logic to read from and write to JSON files." alt="" coords="256,5,453,32"/>
 </map>

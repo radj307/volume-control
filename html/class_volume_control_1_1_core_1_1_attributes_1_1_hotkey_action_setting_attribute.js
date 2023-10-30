@@ -2,6 +2,9 @@ var class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_setting_attri
 [
     [ "HotkeyActionSettingAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_setting_attribute.html#a1b72d0965414f5083949057b8c170095", null ],
     [ "HotkeyActionSettingAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_setting_attribute.html#aba205467f811b6b039b8913ba38238c5", null ],
+    [ "HotkeyActionSettingAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_setting_attribute.html#afc73bb347bf032bf6093db8a84dca506", null ],
+    [ "HotkeyActionSettingAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_setting_attribute.html#afd8fd152d52a77dbef33f8e22435189c", null ],
+    [ "DataTemplateProviderKey", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_setting_attribute.html#a78355ed5b573d09b388c4f7547086790", null ],
     [ "DataTemplateProviderType", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_setting_attribute.html#ae2fa8d6d70f857a61ea96e96d1f2acac", null ],
     [ "DefaultValue", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_setting_attribute.html#ac7ee69c185f166a6be4f7c9ec9d5c036", null ],
     [ "Description", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_setting_attribute.html#a160e11e37e2893103200adc481bc191a", null ],

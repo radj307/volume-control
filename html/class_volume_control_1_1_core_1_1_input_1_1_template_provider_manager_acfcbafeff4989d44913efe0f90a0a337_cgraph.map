@@ -1,0 +1,13 @@
+<map id="VolumeControl.Core.Input.TemplateProviderManager.FindDataTemplateFor" name="VolumeControl.Core.Input.TemplateProviderManager.FindDataTemplateFor">
+<area shape="rect" id="node1" title="Finds a suitable DataTemplate instance with the specified parameters." alt="" coords="5,191,260,247"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_f_log.html#aa25eeb75847c93ffc7ecbc4d2982d6ab" title=" " alt="" coords="322,5,549,32"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_f_log.html#ad09321e60c917e6a06243fa7743f412d" title=" " alt="" coords="328,56,543,83"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_log_1_1_f_log.html#a4dcec7039adc7659b074ba4122cea0f8" title=" " alt="" coords="625,134,843,175"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a7b12d07a6c84a53cadfd27a3adc8b88c" title="Finds the DataTemplate with the specified key &#160;in the TemplateDictionaryProviders list." alt="" coords="308,157,563,213"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_log_1_1_f_log.html#adbdeeb85b00761bffe708833e6556492" title=" " alt="" coords="625,203,843,229"/>
+<area shape="rect" id="node7" href="$class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a8c3fd49c36da88da9e1a49bd056d5df1" title="Attempts to get the dictionaryProvider &#160;instance with the specified dictionaryProviderType ." alt="" coords="316,288,555,344"/>
+<area shape="rect" id="node9" href="$class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a1c96f7a45ee2b45ca285cd65ec6191b1" title="Attempts to get the provider &#160;instance with the specified providerType ." alt="" coords="316,368,555,424"/>
+<area shape="rect" id="node11" href="$class_volume_control_1_1_log_1_1_f_log.html#a94e8675763cb9b451120d7e4fed4f9d0" title=" " alt="" coords="317,448,554,475"/>
+<area shape="rect" id="node8" href="$class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a45dcb0ab3fcfe3333722b73ce9d0bbd8" title="Gets the index of the ITemplateDictionaryProvider type specified by dictionaryProviderType &#160;in Dictio..." alt="" coords="611,288,857,344"/>
+<area shape="rect" id="node10" href="$class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#ab05a1e9263dfe8ccd7b6166abefd84d5" title="Gets the index of the ITemplateProvider type specified by providerType &#160;in TemplateProviders." alt="" coords="611,368,857,424"/>
+</map>

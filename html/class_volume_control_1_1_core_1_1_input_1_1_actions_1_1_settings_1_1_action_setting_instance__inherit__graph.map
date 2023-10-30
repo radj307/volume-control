@@ -1,6 +1,6 @@
 <map id="VolumeControl.Core.Input.Actions.Settings.ActionSettingInstance&lt; T &gt;" name="VolumeControl.Core.Input.Actions.Settings.ActionSettingInstance&lt; T &gt;">
-<area shape="rect" id="node1" title="Container for a named parameter that is passed to an action method when invoked." alt="" coords="221,277,439,545"/>
-<area shape="rect" id="node2" href="$interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_settings_1_1_i_action_setting_instance.html" title="Represents an action setting instance." alt="" coords="5,5,212,229"/>
-<area shape="rect" id="node3" href="$interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_settings_1_1_i_action_setting_instance.html" title="Represents an action setting instance." alt="" coords="237,5,423,229"/>
-<area shape="rect" id="node4" title=" " alt="" coords="448,79,625,156"/>
+<area shape="rect" id="node1" title="Container for a named parameter that is passed to an action method when invoked." alt="" coords="40,403,259,671"/>
+<area shape="rect" id="node2" href="$interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_settings_1_1_i_action_setting_instance.html" title="Represents an action setting instance." alt="" coords="46,131,253,355"/>
+<area shape="rect" id="node3" title=" " alt="" coords="61,5,238,83"/>
+<area shape="rect" id="node4" href="$interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_settings_1_1_i_action_setting_instance.html" title="Represents an action setting instance." alt="" coords="277,131,464,355"/>
 </map>

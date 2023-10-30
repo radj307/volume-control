@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['cancelonlostfocus_2130',['CancelOnLostFocus',['../class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_autocomplete_behavior.html#ab9ae0350271374410af612f4d1450979',1,'VolumeControl::WPF::Behaviors::TextBoxAutocompleteBehavior']]],
   ['checkforupdates_2131',['CheckForUpdates',['../class_volume_control_1_1_core_1_1_config.html#a33dbbd1a39b7f6aa6650ee3d7c0f1025',1,'VolumeControl::Core::Config']]],
   ['committedtext_2132',['CommittedText',['../class_volume_control_1_1_w_p_f_1_1_controls_1_1_text_box_with_completion_options.html#a77b03a2367117ee8f5d42ee110a8a432',1,'VolumeControl::WPF::Controls::TextBoxWithCompletionOptions']]],
   ['completionoptionssource_2133',['CompletionOptionsSource',['../class_volume_control_1_1_w_p_f_1_1_controls_1_1_text_box_with_completion_options.html#ad91cdef7252deefa6e812e0dc108b7ea',1,'VolumeControl::WPF::Controls::TextBoxWithCompletionOptions']]],

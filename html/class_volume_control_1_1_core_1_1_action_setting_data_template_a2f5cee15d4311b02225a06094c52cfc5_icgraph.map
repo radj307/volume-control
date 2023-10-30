@@ -1,0 +1,4 @@
+<map id="VolumeControl.Core.ActionSettingDataTemplate.SupportsValueType" name="VolumeControl.Core.ActionSettingDataTemplate.SupportsValueType">
+<area shape="rect" id="node1" title="Checks if this ActionSettingDataTemplate instance supports the specified valueType ." alt="" coords="297,13,584,54"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_data_template_providers.html#a389f2c2f3f1da56b2f98c560ddf9271e" title="Provides an ActionSettingDataTemplate for the specified valueType ." alt="" coords="5,5,249,61"/>
+</map>

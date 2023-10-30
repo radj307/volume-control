@@ -1,0 +1,6 @@
+<map id="VolumeControl.Core.Input.TemplateProviderManager.IndexOfProviderType" name="VolumeControl.Core.Input.TemplateProviderManager.IndexOfProviderType">
+<area shape="rect" id="node1" title="Gets the index of the ITemplateProvider type specified by providerType &#160;in TemplateProviders." alt="" coords="919,5,1165,61"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a1c96f7a45ee2b45ca285cd65ec6191b1" title="Attempts to get the provider &#160;instance with the specified providerType ." alt="" coords="632,5,871,61"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#acfcbafeff4989d44913efe0f90a0a337" title="Finds a suitable DataTemplate instance with the specified parameters." alt="" coords="329,5,584,61"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html#a4433627a745c3edd66508a6cbc685e48" title="Loads hotkey actions from the specified types ." alt="" coords="5,13,281,54"/>
+</map>

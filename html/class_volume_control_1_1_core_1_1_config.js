@@ -16,6 +16,7 @@ var class_volume_control_1_1_core_1_1_config =
     [ "CreateDefaultTranslationFiles", "class_volume_control_1_1_core_1_1_config.html#a7570b2c31a3729bb259f34d19876d92a", null ],
     [ "CustomAddonDirectories", "class_volume_control_1_1_core_1_1_config.html#a5525b3a587477f3b9875658515f6a5f3", null ],
     [ "CustomLocalizationDirectories", "class_volume_control_1_1_core_1_1_config.html#a399b330200c44810e9030826dc163ff3", null ],
+    [ "Default", "class_volume_control_1_1_core_1_1_config.html#a2c85680469bac7a5b9ca5795862a6430", null ],
     [ "DeleteHotkeyConfirmation", "class_volume_control_1_1_core_1_1_config.html#a428cb49fbfb51c50d323ae0518536798", null ],
     [ "DeviceListNotificationConfig", "class_volume_control_1_1_core_1_1_config.html#ad97fb52ffbeb3172380e85880f06a671", null ],
     [ "EnableDeviceControl", "class_volume_control_1_1_core_1_1_config.html#a1b52d493042197f26f914414bce1109f", null ],

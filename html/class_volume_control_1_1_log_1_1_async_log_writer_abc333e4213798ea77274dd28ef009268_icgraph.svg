@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 635;
+var viewWidth = 645;
 var viewHeight = 186;
 var sectionId = 'dynsection-7';
 </script>
@@ -58,9 +58,9 @@ var sectionId = 'dynsection-7';
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title="Queues writing a EventType.TRACE message with the specified lines .">
-<polygon fill="#bfbfbf" stroke="black" points="469,-73.5 469,-103.5 627,-103.5 627,-73.5 469,-73.5"/>
-<text text-anchor="start" x="477" y="-91.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.AsyncLog</text>
-<text text-anchor="middle" x="548" y="-80.5" font-family="Helvetica,sans-Serif" font-size="10.00">Writer.Trace</text>
+<polygon fill="#bfbfbf" stroke="black" points="479,-73.5 479,-103.5 637,-103.5 637,-73.5 479,-73.5"/>
+<text text-anchor="start" x="487" y="-91.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.AsyncLog</text>
+<text text-anchor="middle" x="558" y="-80.5" font-family="Helvetica,sans-Serif" font-size="10.00">Writer.Trace</text>
 </a>
 </g>
 </g>
@@ -68,65 +68,65 @@ var sectionId = 'dynsection-7';
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:href="class_volume_control_1_1_core_audio_1_1_audio_device.html#a39f02cf93decd6dd0eb7a0b9b265f768" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="262,-147.5 262,-177.5 407,-177.5 407,-147.5 262,-147.5"/>
-<text text-anchor="start" x="270" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.CoreAudio.</text>
-<text text-anchor="middle" x="334.5" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">AudioDevice.Dispose</text>
+<polygon fill="none" stroke="black" points="267,-147.5 267,-177.5 412,-177.5 412,-147.5 267,-147.5"/>
+<text text-anchor="start" x="275" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.CoreAudio.</text>
+<text text-anchor="middle" x="339.5" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">AudioDevice.Dispose</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M507.41,-107.87C485.78,-117.94 458.31,-129.9 433,-138.5 423.43,-141.75 413.19,-144.76 403.07,-147.47"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="509.05,-110.97 516.6,-103.54 506.06,-104.64 509.05,-110.97"/>
+<path fill="none" stroke="midnightblue" d="M517.45,-107.99C495.83,-118.09 468.36,-130.05 443,-138.5 433.12,-141.79 422.55,-144.81 412.1,-147.51"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="519.09,-111.08 526.63,-103.64 516.1,-104.76 519.09,-111.08"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
 <g id="a_node4"><a xlink:href="class_volume_control_1_1_core_audio_1_1_audio_session.html#ac7d080e2d81f450d4177ba7ca2ccd7fa" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="262,-98.5 262,-128.5 407,-128.5 407,-98.5 262,-98.5"/>
-<text text-anchor="start" x="270" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.CoreAudio.</text>
-<text text-anchor="middle" x="334.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">AudioSession.Dispose</text>
+<polygon fill="none" stroke="black" points="267,-98.5 267,-128.5 412,-128.5 412,-98.5 267,-98.5"/>
+<text text-anchor="start" x="275" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.CoreAudio.</text>
+<text text-anchor="middle" x="339.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">AudioSession.Dispose</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node1&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M458.78,-98.93C441.54,-100.97 423.65,-103.08 407.04,-105.04"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="459.33,-102.39 468.85,-97.74 458.5,-95.44 459.33,-102.39"/>
+<path fill="none" stroke="midnightblue" d="M468.77,-98.69C449.91,-100.87 430.21,-103.14 412.07,-105.24"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="469.31,-102.15 478.84,-97.53 468.5,-95.2 469.31,-102.15"/>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
 <g id="a_node5"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html#aeb130faa7474afab767d630854556df4" target="_top" xlink:title="Invokes the method specified by the HotkeyActionDefinition">
-<polygon fill="none" stroke="black" points="236,-49.5 236,-79.5 433,-79.5 433,-49.5 236,-49.5"/>
-<text text-anchor="start" x="244" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
-<text text-anchor="middle" x="334.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">Actions.HotkeyActionInstance.Invoke</text>
+<polygon fill="none" stroke="black" points="241,-49.5 241,-79.5 438,-79.5 438,-49.5 241,-49.5"/>
+<text text-anchor="start" x="249" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
+<text text-anchor="middle" x="339.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">Actions.HotkeyActionInstance.Invoke</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node5 -->
 <g id="edge4" class="edge">
 <title>Node1&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M458.64,-78.47C450.2,-77.52 441.6,-76.54 433.08,-75.57"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="458.52,-81.98 468.85,-79.63 459.3,-75.03 458.52,-81.98"/>
+<path fill="none" stroke="midnightblue" d="M468.83,-78.73C458.73,-77.61 448.38,-76.46 438.16,-75.33"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="468.51,-82.21 478.84,-79.84 469.29,-75.25 468.51,-82.21"/>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html#a037e4a9483554fd7e6ed40f89e2be559" target="_top" xlink:title="Loads hotkey actions from the specified types .">
-<polygon fill="none" stroke="black" points="249,-0.5 249,-30.5 420,-30.5 420,-0.5 249,-0.5"/>
-<text text-anchor="start" x="257" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
-<text text-anchor="middle" x="334.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">HotkeyActionAddonLoader.Load</text>
+<g id="a_node6"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html#a4433627a745c3edd66508a6cbc685e48" target="_top" xlink:title="Loads hotkey actions from the specified types .">
+<polygon fill="none" stroke="black" points="236,-0.5 236,-30.5 443,-30.5 443,-0.5 236,-0.5"/>
+<text text-anchor="start" x="244" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
+<text text-anchor="middle" x="339.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">HotkeyActionAddonLoader.LoadActions</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node6 -->
 <g id="edge5" class="edge">
 <title>Node1&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M505.17,-69.14C483.85,-59.72 457.36,-48.7 433,-40.5 422.32,-36.9 410.83,-33.53 399.62,-30.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="504.01,-72.45 514.57,-73.33 506.86,-66.06 504.01,-72.45"/>
+<path fill="none" stroke="midnightblue" d="M515.96,-69.35C494.53,-59.83 467.69,-48.65 443,-40.5 432.04,-36.88 420.27,-33.53 408.75,-30.53"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="514.54,-72.55 525.09,-73.45 517.4,-66.16 514.54,-72.55"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
@@ -141,8 +141,8 @@ var sectionId = 'dynsection-7';
 <!-- Node2&#45;&gt;Node3 -->
 <g id="edge2" class="edge">
 <title>Node2&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M251.64,-162.5C235.01,-162.5 217.36,-162.5 200.2,-162.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="251.85,-166 261.85,-162.5 251.85,-159 251.85,-166"/>
+<path fill="none" stroke="midnightblue" d="M256.9,-162.5C238.6,-162.5 218.99,-162.5 200.07,-162.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="256.92,-166 266.92,-162.5 256.92,-159 256.92,-166"/>
 </g>
 </g>
 </svg>

@@ -14,5 +14,6 @@ var dir_37c67e9c4bf811e586cd23cc03e38f88 =
     [ "IHotkey.cs", null, null ],
     [ "IHotkey_Extensions.cs", null, null ],
     [ "IHotkeyMessageHook.cs", null, null ],
+    [ "TemplateProviderManager.cs", null, null ],
     [ "WindowsHotkeyAPI.cs", null, null ]
 ];

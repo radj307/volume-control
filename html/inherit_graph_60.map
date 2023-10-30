@@ -1,10 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,209,85,235"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html" title="Removes logical and/or keyboard focus from the attached control when the Escape key is pressed." alt="" coords="167,5,391,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_list_view_behavior.html" title="Behavior&lt;T&gt; that enables the mouse wheel to increment/decrement the selected item in a ListView." alt="" coords="167,71,390,112"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_numeric_up_down_behavior.html" title="Behavior&lt;T&gt; that enables the mouse wheel to change the value of NumericUpDown controls." alt="" coords="141,136,416,177"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_range_base_behavior.html" title="Behavior&lt;T&gt; that enables the mouse wheel to change the value of controls based on RangeBase." alt="" coords="160,201,397,243"/>
-<area shape="rect" id="node6" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_autocomplete_behavior.html" title="Behavior that implements autocomplete suggestions for TextBox controls." alt="" coords="167,267,390,308"/>
-<area shape="rect" id="node7" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_enter_updates_text_source_behavior.html" title="Forces the TextBox.Text property&#39;s data binding to update its source when the Enter key is pressed or..." alt="" coords="133,332,424,373"/>
-<area shape="rect" id="node8" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_input_filter_behavior.html" title="TextBox behavior that uses regular expressions to only allow certain types of input." alt="" coords="167,397,390,439"/>
+<area shape="rect" id="node1" href="$class_volume_control_1_1_type_extensions_1_1_timer_extensions.html" title="Extensions for the System.Windows.Forms.Timer timer object." alt="" coords="5,5,232,47"/>
 </map>

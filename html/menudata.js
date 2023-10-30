@@ -132,6 +132,7 @@ var menudata={children:[
 {text:"a",url:"functions_evnt.html#index_a"},
 {text:"c",url:"functions_evnt.html#index_c"},
 {text:"d",url:"functions_evnt.html#index_d"},
+{text:"e",url:"functions_evnt.html#index_e"},
 {text:"i",url:"functions_evnt.html#index_i"},
 {text:"o",url:"functions_evnt.html#index_o"},
 {text:"p",url:"functions_evnt.html#index_p"},

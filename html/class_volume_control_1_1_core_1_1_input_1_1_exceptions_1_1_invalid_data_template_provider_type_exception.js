@@ -1,0 +1,4 @@
+var class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_data_template_provider_type_exception =
+[
+    [ "InvalidProviderType", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_data_template_provider_type_exception.html#afccacc9210b8778184afe95a607d20ec", null ]
+];

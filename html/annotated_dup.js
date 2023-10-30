@@ -3,6 +3,7 @@ var annotated_dup =
     [ "VolumeControl", "namespace_volume_control.html", [
       [ "Core", "namespace_volume_control_1_1_core.html", [
         [ "Attributes", "namespace_volume_control_1_1_core_1_1_attributes.html", [
+          [ "DataTemplateProviderAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_data_template_provider_attribute.html", null ],
           [ "HotkeyActionAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_attribute.html", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_attribute" ],
           [ "HotkeyActionGroupAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_group_attribute.html", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_group_attribute" ],
           [ "HotkeyActionSettingAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_setting_attribute.html", "class_volume_control_1_1_core_1_1_attributes_1_1_hotkey_action_setting_attribute" ]
@@ -31,7 +32,9 @@ var annotated_dup =
           [ "Exceptions", "namespace_volume_control_1_1_core_1_1_input_1_1_exceptions.html", [
             [ "ActionSettingNotFoundException", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_action_setting_not_found_exception.html", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_action_setting_not_found_exception" ],
             [ "HotkeyRegistrationException", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_hotkey_registration_exception.html", null ],
-            [ "InvalidActionSettingValueTypeException", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_action_setting_value_type_exception.html", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_action_setting_value_type_exception" ]
+            [ "InvalidActionSettingValueTypeException", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_action_setting_value_type_exception.html", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_action_setting_value_type_exception" ],
+            [ "InvalidDataTemplateProviderTypeException", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_data_template_provider_type_exception.html", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_data_template_provider_type_exception" ],
+            [ "InvalidProviderTypeException", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_provider_type_exception.html", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_provider_type_exception" ]
           ] ],
           [ "Json", "namespace_volume_control_1_1_core_1_1_input_1_1_json.html", [
             [ "JsonHotkey", "struct_volume_control_1_1_core_1_1_input_1_1_json_1_1_json_hotkey.html", "struct_volume_control_1_1_core_1_1_input_1_1_json_1_1_json_hotkey" ],
@@ -46,14 +49,17 @@ var annotated_dup =
           [ "HotkeyWithError", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error" ],
           [ "IHotkey", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey" ],
           [ "IHotkey_Extensions", "class_volume_control_1_1_core_1_1_input_1_1_i_hotkey___extensions.html", "class_volume_control_1_1_core_1_1_input_1_1_i_hotkey___extensions" ],
-          [ "IHotkeyMessageHook", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook.html", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook" ]
+          [ "IHotkeyMessageHook", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook.html", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook" ],
+          [ "TemplateProviderManager", "class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html", "class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager" ]
         ] ],
         [ "Structs", "namespace_volume_control_1_1_core_1_1_structs.html", [
           [ "TargetInfo", "struct_volume_control_1_1_core_1_1_structs_1_1_target_info.html", "struct_volume_control_1_1_core_1_1_structs_1_1_target_info" ]
         ] ],
+        [ "ActionSettingDataTemplate", "class_volume_control_1_1_core_1_1_action_setting_data_template.html", "class_volume_control_1_1_core_1_1_action_setting_data_template" ],
         [ "ActionTargetSpecifier", "class_volume_control_1_1_core_1_1_action_target_specifier.html", "class_volume_control_1_1_core_1_1_action_target_specifier" ],
         [ "Config", "class_volume_control_1_1_core_1_1_config.html", "class_volume_control_1_1_core_1_1_config" ],
-        [ "DataTemplateProvider", "class_volume_control_1_1_core_1_1_data_template_provider.html", "class_volume_control_1_1_core_1_1_data_template_provider" ],
+        [ "ITemplateProvider", "interface_volume_control_1_1_core_1_1_i_template_provider.html", "interface_volume_control_1_1_core_1_1_i_template_provider" ],
+        [ "ITemplateDictionaryProvider", "interface_volume_control_1_1_core_1_1_i_template_dictionary_provider.html", "interface_volume_control_1_1_core_1_1_i_template_dictionary_provider" ],
         [ "EmbeddedResourceNotFoundException", "class_volume_control_1_1_core_1_1_embedded_resource_not_found_exception.html", "class_volume_control_1_1_core_1_1_embedded_resource_not_found_exception" ],
         [ "InputSimulator", "class_volume_control_1_1_core_1_1_input_simulator.html", "class_volume_control_1_1_core_1_1_input_simulator" ],
         [ "NotificationConfigSection", "class_volume_control_1_1_core_1_1_notification_config_section.html", "class_volume_control_1_1_core_1_1_notification_config_section" ],
@@ -118,9 +124,7 @@ var annotated_dup =
       ] ],
       [ "SDK", "namespace_volume_control_1_1_s_d_k.html", [
         [ "DataTemplateProviders", "namespace_volume_control_1_1_s_d_k_1_1_data_template_providers.html", [
-          [ "NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_numeric_up_down___data_template_provider.html", "class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_numeric_up_down___data_template_provider" ],
-          [ "VolumeLevel_NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_volume_level___numeric_up_down___data_template_provider.html", "class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_volume_level___numeric_up_down___data_template_provider" ],
-          [ "VolumeStep_NumericUpDown_DataTemplateProvider", "class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_volume_step___numeric_up_down___data_template_provider.html", "class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_volume_step___numeric_up_down___data_template_provider" ]
+          [ "DataTemplateProviders", "class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_data_template_providers.html", "class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_data_template_providers" ]
         ] ],
         [ "Internal", "namespace_volume_control_1_1_s_d_k_1_1_internal.html", [
           [ "Initializer", "class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer.html", "class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer" ],
@@ -154,6 +158,7 @@ var annotated_dup =
         ] ],
         [ "Behaviors", "namespace_volume_control_1_1_w_p_f_1_1_behaviors.html", [
           [ "EscapeRemovesFocusBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior" ],
+          [ "HyperlinkOpenInBrowserBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_hyperlink_open_in_browser_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_hyperlink_open_in_browser_behavior" ],
           [ "MouseWheelListViewBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_list_view_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_list_view_behavior" ],
           [ "MouseWheelNumericUpDownBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_numeric_up_down_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_numeric_up_down_behavior" ],
           [ "MouseWheelRangeBaseBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_range_base_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_range_base_behavior" ],
@@ -188,10 +193,6 @@ var annotated_dup =
           [ "SquaredCornerRadiusConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter" ],
           [ "TagDoubleConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_tag_double_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_tag_double_converter" ]
         ] ],
-        [ "Extensions", "namespace_volume_control_1_1_w_p_f_1_1_extensions.html", [
-          [ "EnumValuesExtension", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_enum_values_extension.html", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_enum_values_extension" ],
-          [ "HyperlinkExtensions", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_hyperlink_extensions.html", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_hyperlink_extensions" ]
-        ] ],
         [ "PInvoke", "namespace_volume_control_1_1_w_p_f_1_1_p_invoke.html", [
           [ "MINMAXINFO", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_i_n_m_a_x_i_n_f_o.html", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_i_n_m_a_x_i_n_f_o" ],
           [ "MONITORINFO", "class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html", "class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o" ],
@@ -204,7 +205,6 @@ var annotated_dup =
         [ "FilteredTextItemsSource", "class_volume_control_1_1_w_p_f_1_1_filtered_text_items_source.html", "class_volume_control_1_1_w_p_f_1_1_filtered_text_items_source" ],
         [ "HWndHook", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook" ],
         [ "HWndHookWPFMaximizeBugFix", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix.html", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix" ],
-        [ "IconExtractor", "class_volume_control_1_1_w_p_f_1_1_icon_extractor.html", "class_volume_control_1_1_w_p_f_1_1_icon_extractor" ],
         [ "WindowHandleGetter", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter" ]
       ] ]
     ] ]

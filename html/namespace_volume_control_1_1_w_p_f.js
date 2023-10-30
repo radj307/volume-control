@@ -6,7 +6,6 @@ var namespace_volume_control_1_1_w_p_f =
     [ "Collections", "namespace_volume_control_1_1_w_p_f_1_1_collections.html", "namespace_volume_control_1_1_w_p_f_1_1_collections" ],
     [ "Controls", "namespace_volume_control_1_1_w_p_f_1_1_controls.html", "namespace_volume_control_1_1_w_p_f_1_1_controls" ],
     [ "Converters", "namespace_volume_control_1_1_w_p_f_1_1_converters.html", "namespace_volume_control_1_1_w_p_f_1_1_converters" ],
-    [ "Extensions", "namespace_volume_control_1_1_w_p_f_1_1_extensions.html", "namespace_volume_control_1_1_w_p_f_1_1_extensions" ],
     [ "PInvoke", "namespace_volume_control_1_1_w_p_f_1_1_p_invoke.html", "namespace_volume_control_1_1_w_p_f_1_1_p_invoke" ],
     [ "BindableTimer", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html", "class_volume_control_1_1_w_p_f_1_1_bindable_timer" ],
     [ "DataTemplateTypeBinding", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding.html", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding" ],
@@ -14,6 +13,5 @@ var namespace_volume_control_1_1_w_p_f =
     [ "FilteredTextItemsSource", "class_volume_control_1_1_w_p_f_1_1_filtered_text_items_source.html", "class_volume_control_1_1_w_p_f_1_1_filtered_text_items_source" ],
     [ "HWndHook", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook" ],
     [ "HWndHookWPFMaximizeBugFix", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix.html", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix" ],
-    [ "IconExtractor", "class_volume_control_1_1_w_p_f_1_1_icon_extractor.html", "class_volume_control_1_1_w_p_f_1_1_icon_extractor" ],
     [ "WindowHandleGetter", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter" ]
 ];

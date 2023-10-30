@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['onehotkeyremaining_2331',['OneHotkeyRemaining',['../class_volume_control_1_1_core_1_1_input_1_1_hotkey_message_hook_abstractor.html#a21028a363d0bd4ca2015b38e4e9f8360',1,'VolumeControl::Core::Input::HotkeyMessageHookAbstractor']]]
+  ['iconpathchanged_2338',['IconPathChanged',['../class_volume_control_1_1_core_audio_1_1_audio_session.html#ad202871d111c29e340d39da574e885a4',1,'VolumeControl::CoreAudio::AudioSession']]]
 ];

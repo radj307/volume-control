@@ -10,5 +10,7 @@ var class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint =
     [ "ToString", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#af6d66104c0d619424afa680c6fab32d8", null ],
     [ "WriteRaw", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#a1ff4a1d555740b1294ba3e0e55655d71", null ],
     [ "WriteRawLine", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#af90d7d71fdc8c3fc5ae89e5e2c863969", null ],
-    [ "Enabled", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#a433c594a46c188a6d05c9d1431cce2b0", null ]
+    [ "Enabled", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#a433c594a46c188a6d05c9d1431cce2b0", null ],
+    [ "EnabledChanged", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#a60f145197b4ca1ad6922a69a88677021", null ],
+    [ "EnabledChanging", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#a26b42dc705a67f387c6d02366df9f2ab", null ]
 ];

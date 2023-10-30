@@ -7,5 +7,7 @@ var interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint =
     [ "Reset", "interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#a3b3c2e8e67ea6c871d38649a3238bb2f", null ],
     [ "WriteRaw", "interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#a74b825acaf5e2abcdf1d5f575271ce88", null ],
     [ "WriteRawLine", "interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#a75f9066167539480deb69d35bfbfa07d", null ],
-    [ "Enabled", "interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#a6912d3851cf42b2017d164c08d073c8e", null ]
+    [ "Enabled", "interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#a6912d3851cf42b2017d164c08d073c8e", null ],
+    [ "EnabledChanged", "interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#acccbe24c7f956202946c81040eb54e45", null ],
+    [ "EnabledChanging", "interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#a836a408e49702a18e894e23a62a1b091", null ]
 ];
