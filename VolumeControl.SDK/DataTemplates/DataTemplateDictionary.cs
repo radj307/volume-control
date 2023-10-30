@@ -5,19 +5,19 @@ using VolumeControl.Core;
 using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Input.Actions.Settings;
 
-namespace VolumeControl.SDK.DataTemplateProviders
+namespace VolumeControl.SDK.DataTemplates
 {
     /// <summary>
     /// Provides all of the default <see cref="DataTemplate"/> instances used by the built-in hotkey actions.
     /// </summary>
     [DataTemplateProvider]
-    public partial class DataTemplateProviders : ResourceDictionary, ITemplateDictionaryProvider
+    public partial class DataTemplateDictionary : ResourceDictionary, ITemplateDictionaryProvider
     {
         #region Constructor
         /// <summary>
-        /// Creates a new <see cref="DataTemplateProviders"/> instance.
+        /// Creates a new <see cref="DataTemplateDictionary"/> instance.
         /// </summary>
-        public DataTemplateProviders()
+        public DataTemplateDictionary()
         {
             InitializeComponent();
 

@@ -4,14 +4,14 @@ using VolumeControl.Core.Input;
 using VolumeControl.CoreAudio;
 using VolumeControl.CoreAudio.Helpers;
 using VolumeControl.SDK;
-using VolumeControl.SDK.DataTemplateProviders;
+using VolumeControl.SDK.DataTemplates;
 
 namespace VolumeControl.HotkeyActions
 {
     /// <summary>
     /// Contains hotkey action handlers that interact with AudioSessions in the AudioDeviceManager object.
     /// </summary>
-    [HotkeyActionGroup("Session", GroupColor = "#99FF99", DefaultDataTemplateProvider = typeof(DataTemplateProviders))]
+    [HotkeyActionGroup("Session", GroupColor = "#99FF99", DefaultDataTemplateProvider = typeof(DataTemplateDictionary))]
     public sealed class AudioSessionActions
     {
         #region Fields

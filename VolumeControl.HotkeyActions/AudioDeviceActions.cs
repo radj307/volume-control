@@ -5,14 +5,14 @@ using VolumeControl.Core.Input;
 using VolumeControl.CoreAudio;
 using VolumeControl.CoreAudio.Helpers;
 using VolumeControl.SDK;
-using VolumeControl.SDK.DataTemplateProviders;
+using VolumeControl.SDK.DataTemplates;
 
 namespace VolumeControl.HotkeyActions
 {
     /// <summary>
     /// Contains hotkey action handlers that interact with AudioDevices in the <see cref="Audio.AudioAPI"/> object.
     /// </summary>
-    [HotkeyActionGroup("Device", GroupColor = "#FF9999")]
+    [HotkeyActionGroup("Device", GroupColor = "#FF9999", DefaultDataTemplateProvider = typeof(DataTemplateDictionary))]
     public sealed class AudioDeviceActions
     {
         #region Fields
@@ -29,7 +29,7 @@ namespace VolumeControl.HotkeyActions
 
         #region Action Methods
         [HotkeyAction(Description = "Increases the device volume of the selected device.")]
-        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), typeof(DataTemplateProviders), "VolumeStepDataTemplate", Description = Setting_VolumeStep_Description, DefaultValue = 2, IsToggleable = true)]
+        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), "VolumeStepDataTemplate", Description = Setting_VolumeStep_Description, DefaultValue = 2, IsToggleable = true)]
         public void VolumeUp(object? sender, HotkeyPressedEventArgs e)
         {
             if (SelectedDevice == null) return;
@@ -43,7 +43,7 @@ namespace VolumeControl.HotkeyActions
             VCAPI.ShowDeviceListNotification();
         }
         [HotkeyAction(Description = "Decreases the device volume of the selected device.")]
-        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), typeof(DataTemplateProviders), "VolumeStepDataTemplate", Description = Setting_VolumeStep_Description, DefaultValue = 2, IsToggleable = true)]
+        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), "VolumeStepDataTemplate", Description = Setting_VolumeStep_Description, DefaultValue = 2, IsToggleable = true)]
         public void VolumeDown(object? sender, HotkeyPressedEventArgs e)
         {
             if (SelectedDevice == null) return;

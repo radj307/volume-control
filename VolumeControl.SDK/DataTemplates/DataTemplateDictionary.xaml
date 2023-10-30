@@ -1,5 +1,5 @@
 ﻿<ResourceDictionary
-    x:Class="VolumeControl.SDK.DataTemplateProviders.DataTemplateProviders"
+    x:Class="VolumeControl.SDK.DataTemplates.DataTemplateDictionary"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:actionSettings="clr-namespace:VolumeControl.Core.Input.Actions.Settings;assembly=VolumeControl.Core"
