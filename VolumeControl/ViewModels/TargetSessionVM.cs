@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using VolumeControl.Core;
 using VolumeControl.CoreAudio;
@@ -11,9 +13,12 @@ namespace VolumeControl.ViewModels
         #region Constructor
         public TargetSessionVM(AudioSessionManager audioSessionManager, AudioSessionMultiSelector audioSessionMultiSelector)
         {
-            _targetText = Settings.TargetSession.ProcessIdentifier;
-
             AudioSessionManager = audioSessionManager;
+
+            _duplicateSessionNames = GetDuplicateSessionNames();
+
+            _targetText = GetSessionName(AudioSessionManager.FindSessionWithSimilarProcessIdentifier(Settings.TargetSession.ProcessIdentifier));
+
             AudioSessionMultiSelector = audioSessionMultiSelector;
 
             AudioSessionManager.RemovingSessionFromList += this.AudioSessionManager_RemovingSessionFromList;
@@ -27,6 +32,7 @@ namespace VolumeControl.ViewModels
         #region Fields
         private bool _removingCurrentSession = false;
         private bool _isSettingTarget = false;
+        private IEnumerable<string> _duplicateSessionNames;
         #endregion Fields
 
         #region Properties
@@ -63,7 +69,10 @@ namespace VolumeControl.ViewModels
         #region Methods
         private void UpdateTargetText(bool notify = true)
         {
-            _targetText = AudioSessionMultiSelector.CurrentSession?.ProcessIdentifier ?? string.Empty;
+            var currentSession = AudioSessionMultiSelector.CurrentSession;
+            _targetText = currentSession != null
+                ? GetSessionName(currentSession)
+                : string.Empty;
             if (notify) NotifyPropertyChanged(nameof(TargetText));
         }
         private void SetTarget(string target)
@@ -82,6 +91,20 @@ namespace VolumeControl.ViewModels
                 ProcessName = TargetText
             };
         }
+        private IEnumerable<string> GetDuplicateSessionNames()
+            => from session in AudioSessionManager.Sessions
+               group session.ProcessName by session.ProcessName into g
+               where g.Count() > 1
+               select g.Key;
+        private string GetSessionName(AudioSession? session)
+        {
+            if (session == null)
+                return string.Empty;
+            else if (_duplicateSessionNames.Contains(session.ProcessName))
+                return session.ProcessIdentifier;
+            else
+                return session.Name;
+        }
         #endregion Methods
 
         #region EventHandlers
@@ -94,14 +117,18 @@ namespace VolumeControl.ViewModels
         }
         private void AudioSessionManager_RemovedSessionFromList(object? sender, AudioSession e)
         { // allow selected session updates to change target
+            _duplicateSessionNames = GetDuplicateSessionNames();
+
             if (!_removingCurrentSession) return;
             _removingCurrentSession = false;
         }
         private void AudioSessionManager_AddedSessionToList(object? sender, AudioSession e)
         { // resolve incoming session
+            _duplicateSessionNames = GetDuplicateSessionNames();
+
             if (AudioSessionMultiSelector.CurrentSession == null && TargetText.Length > 0)
             { // current session is null but the target text is not empty
-                // split process identifier first
+              // split process identifier first
                 int separatorPos = TargetText.IndexOf(':');
                 bool isProcessIdentifier = separatorPos != -1;
                 string targetText = (isProcessIdentifier && separatorPos != TargetText.Length - 1)

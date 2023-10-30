@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using VolumeControl.Controls;
 using VolumeControl.Helpers;
@@ -178,6 +179,17 @@ namespace VolumeControl
             }
         }
         #endregion PART_TextBox
+
+        #region TextBox
+        private void TextBox_Loaded_AttachEscapeBehavior(object sender, RoutedEventArgs e)
+        {
+            var textBox = (TextBox)sender;
+
+            WPF.Behaviors.EscapeRemovesFocusBehavior escapeRemovesFocusBehavior = new();
+            escapeRemovesFocusBehavior.Attach(textBox);
+            Microsoft.Xaml.Behaviors.Interaction.GetBehaviors(textBox).Add(escapeRemovesFocusBehavior);
+        }
+        #endregion TextBox
 
         #endregion EventHandlers
     }

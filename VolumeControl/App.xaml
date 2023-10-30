@@ -114,6 +114,7 @@
             <Color x:Key="GrayForegroundColor">#B0B0B0</Color>
             <Color x:Key="GrayForegroundFocusedColor">#909090</Color>
 
+            <SolidColorBrush x:Key="SelectionForegroundBrush" Color="#4CF" />
             <LinearGradientBrush x:Key="SelectionBorderBrush" StartPoint="0.2,0" EndPoint="0.8,1">
                 <GradientStop Offset="0" Color="#4AF" />
                 <GradientStop Offset="1" Color="#4CF" />
@@ -409,6 +410,8 @@
                 <Setter Property="Padding" Value="3,2" />
                 <Setter Property="FontSize" Value="{StaticResource GlobalFontSize}" />
                 <Setter Property="FocusVisualStyle" Value="{DynamicResource CustomFocusVisualStyle}" />
+
+                <EventSetter Event="Loaded" Handler="TextBox_Loaded_AttachEscapeBehavior" />
             </Style>
             <!--  RoundedTextBoxStyle  -->
             <Style
@@ -597,7 +600,7 @@
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
             <!--  NumericUpDownStyle  -->
-            <Style TargetType="{x:Type controls:NumericUpDown}">
+            <Style x:Key="NumericUpDownStyle" TargetType="{x:Type controls:NumericUpDown}">
                 <Style.Triggers>
                     <Trigger Property="IsKeyboardFocusWithin" Value="True">
                         <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />

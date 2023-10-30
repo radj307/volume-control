@@ -1,4 +1,5 @@
-﻿using System;
+﻿using radj307.IconExtractor;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
@@ -19,17 +20,6 @@ namespace VolumeControl.ViewModels
 
             Icon = IconExtractor.TryExtractFromPath(AudioDevice.IconPath, out ImageSource icon) ? icon : null;
             Icon?.Freeze(); //< prevents WPF exceptions in some cases
-            //Sessions = new();
-
-            // attach events to add and remove audio sessions from the Sessions list
-            //AudioDevice.SessionManager.SessionAddedToList += this.SessionManager_SessionAddedToList;
-            //AudioDevice.SessionManager.SessionRemovedFromList += this.SessionManager_SessionRemovedFromList;
-
-            // initialize Sessions list
-            //foreach (var session in AudioDevice.SessionManager.Sessions)
-            //{
-            //    Sessions.Add(new AudioSessionVM(session));
-            //}
         }
         #endregion Constructor
 

@@ -49,7 +49,7 @@ namespace VolumeControl.Helpers
         #endregion Fields
 
         #region Properties
-        private static Config Settings => (AppConfig.Configuration.Default as Config)!;
+        private static Config Settings => Config.Default;
         private static LocalizationLoader Loader => LocalizationLoader.Instance;
         private static List<ILocalizationFileLoader> FileLoaders => Loader.FileLanguageLoaders;
         private static string DefaultPath { get; } = Path.Combine(PathFinder.ApplicationAppDataPath, "Localization");

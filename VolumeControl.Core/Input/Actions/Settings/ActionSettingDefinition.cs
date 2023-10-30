@@ -23,17 +23,18 @@ namespace VolumeControl.Core.Input.Actions.Settings
         /// <param name="name">The name of the action setting.</param>
         /// <param name="valueType">The type of value contained by the action setting.</param>
         /// <param name="defaultValue">The default value of the action setting.</param>
-        /// <param name="dataTemplateProviderType">The type of WPF DataTemplate to use for displaying the action setting's value editor control.</param>
         /// <param name="description">The description of the action setting.</param>
         /// <param name="isToggleable">Whether the action setting can be toggled.</param>
         /// <param name="startsEnabled">Whether the action setting is enabled by default. Has no effect when IsToggleable is <see langword="false"/>.</param>
-        internal ActionSettingDefinition(string name, Type valueType, object? defaultValue, Type? dataTemplateProviderType, string? description, bool isToggleable, bool startsEnabled)
+        /// <param name="dataTemplate">The DataTemplate to use for the value editor control(s).</param>
+        internal ActionSettingDefinition(string name, Type valueType, object? defaultValue, string? description, bool isToggleable, bool startsEnabled, DataTemplate? dataTemplate)
         {
             Name = name;
             Description = description;
             ValueType = valueType;
             IsToggleable = isToggleable;
             StartsEnabled = startsEnabled;
+            DataTemplate = dataTemplate;
 
             if (defaultValue?.GetType() is Type defaultValueType && !valueType.IsAssignableFrom(defaultValueType))
             {
@@ -44,30 +45,6 @@ namespace VolumeControl.Core.Input.Actions.Settings
 #endif
             }
             else DefaultValue = defaultValue;
-
-            if (dataTemplateProviderType != null && dataTemplateProviderType.IsSubclassOf(typeof(DataTemplateProvider)))
-            { // create a DataTemplate instance using the provider:
-                DataTemplateProvider? provider = null;
-                try
-                {
-                    provider = (DataTemplateProvider)Activator.CreateInstance(dataTemplateProviderType)!;
-                }
-                catch (Exception ex) // DataTemplateProvider instantiation failed
-                {
-                    if (FLog.Log.FilterEventType(Log.Enum.EventType.ERROR))
-                        FLog.Log.Error($"{dataTemplateProviderType.FullName} instantiation failed due to an exception:", ex);
-                }
-                if (provider == null) return;
-                try
-                {
-                    DataTemplate = provider.GetDataTemplate();
-                }
-                catch (Exception ex) // ProvideDataTemplate() failed
-                {
-                    if (FLog.Log.FilterEventType(Log.Enum.EventType.ERROR))
-                        FLog.Log.Error($"{dataTemplateProviderType.FullName}.ProvideDataTemplate() for action setting \"{Name}\" failed due to an exception:", ex);
-                }
-            }
         }
         #endregion Constructor
 
@@ -104,15 +81,6 @@ namespace VolumeControl.Core.Input.Actions.Settings
         /// </remarks>
         public bool StartsEnabled { get; }
         #endregion Properties
-
-        #region Operators
-        /// <summary>
-        /// Conversion operator for casting from <see cref="HotkeyActionSettingAttribute"/> to <see cref="ActionSettingDefinition"/>.
-        /// </summary>
-        /// <param name="actionSettingAttribute">An <see cref="HotkeyActionSettingAttribute"/> instance.</param>
-        public static explicit operator ActionSettingDefinition(HotkeyActionSettingAttribute actionSettingAttribute)
-            => new(actionSettingAttribute.Name, actionSettingAttribute.ValueType, actionSettingAttribute.DefaultValue, actionSettingAttribute.DataTemplateProviderType, actionSettingAttribute.Description, actionSettingAttribute.IsToggleable, actionSettingAttribute.StartsEnabled);
-        #endregion Operators
 
         #region Methods
         internal object? CreateValueInstance()

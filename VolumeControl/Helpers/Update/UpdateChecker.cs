@@ -23,7 +23,7 @@ namespace VolumeControl.Helpers.Update
         #endregion Fields
 
         #region Properties
-        private static Config Settings => (AppConfig.Configuration.Default as Config)!;
+        private static Config Settings => Config.Default;
         private SemVersion CurrentVersion => VCSettings.CurrentVersion;
         #endregion Properties
 

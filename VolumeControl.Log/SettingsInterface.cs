@@ -35,7 +35,7 @@ namespace VolumeControl.Log
         /// Default <see cref="SettingsInterface"/> instance.
         /// </summary>
         public static SettingsInterface Default { get; } = new();
-        private static Configuration Settings => Configuration.Default;
+        private static Configuration Settings => Configuration.DefaultInstance;
 
         #region Settings
         public bool EnableLogging

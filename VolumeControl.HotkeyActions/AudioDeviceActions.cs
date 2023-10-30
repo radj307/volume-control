@@ -29,7 +29,7 @@ namespace VolumeControl.HotkeyActions
 
         #region Action Methods
         [HotkeyAction(Description = "Increases the device volume of the selected device.")]
-        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), typeof(VolumeStep_NumericUpDown_DataTemplateProvider), Description = Setting_VolumeStep_Description, DefaultValue = 2, IsToggleable = true)]
+        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), typeof(DataTemplateProviders), "VolumeStepDataTemplate", Description = Setting_VolumeStep_Description, DefaultValue = 2, IsToggleable = true)]
         public void VolumeUp(object? sender, HotkeyPressedEventArgs e)
         {
             if (SelectedDevice == null) return;
@@ -43,7 +43,7 @@ namespace VolumeControl.HotkeyActions
             VCAPI.ShowDeviceListNotification();
         }
         [HotkeyAction(Description = "Decreases the device volume of the selected device.")]
-        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), typeof(VolumeStep_NumericUpDown_DataTemplateProvider), Description = Setting_VolumeStep_Description, DefaultValue = 2, IsToggleable = true)]
+        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), typeof(DataTemplateProviders), "VolumeStepDataTemplate", Description = Setting_VolumeStep_Description, DefaultValue = 2, IsToggleable = true)]
         public void VolumeDown(object? sender, HotkeyPressedEventArgs e)
         {
             if (SelectedDevice == null) return;

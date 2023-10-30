@@ -88,6 +88,26 @@ namespace VolumeControl.WPF.Behaviors
         }
         #endregion RequirePrefixProperty
 
+        #region CancelOnLostFocusProperty
+        /// <summary>
+        /// The <see cref="DependencyProperty"/> for <see cref="CancelOnLostFocus"/>.
+        /// </summary>
+        public static readonly DependencyProperty CancelOnLostFocusProperty = DependencyProperty.Register(
+            nameof(CancelOnLostFocus),
+            typeof(bool),
+            typeof(TextBoxAutocompleteBehavior),
+            new PropertyMetadata(false));
+        /// <summary>
+        /// Gets or sets whether the current autocomplete suggestion is deleted when keyboard focus is lost. 
+        ///  Otherwise, the current suggestion is committed.
+        /// </summary>
+        public bool CancelOnLostFocus
+        {
+            get => (bool)GetValue(CancelOnLostFocusProperty);
+            set => SetValue(CancelOnLostFocusProperty, value);
+        }
+        #endregion CancelOnLostFocusProperty
+
         #region Methods
         /// <remarks>
         /// Code is based on <see href="https://www.nuget.org/packages/WPFTextBoxAutoComplete">Nimgoble/WPFTextBoxAutoComplete</see>.
@@ -142,10 +162,28 @@ namespace VolumeControl.WPF.Behaviors
         {
             if (e.Key == Key.Enter)
             {
-                if (AssociatedObject != null && AssociatedObject.SelectionLength > 0 && AssociatedObject.SelectionStart + AssociatedObject.SelectionLength == AssociatedObject.Text.Length)
+                if (AssociatedObject.SelectionLength > 0 && AssociatedObject.SelectionStart + AssociatedObject.SelectionLength == AssociatedObject.Text.Length)
                 {
                     AssociatedObject.SelectionStart = AssociatedObject.CaretIndex = AssociatedObject.Text.Length;
                     AssociatedObject.SelectionLength = 0;
+                }
+            }
+        }
+        private void OnLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            var length = AssociatedObject.Text.Length;
+            if (AssociatedObject.SelectionStart + AssociatedObject.SelectionLength == length)
+            {
+                if (CancelOnLostFocus)
+                {
+                    AssociatedObject.TextChanged -= this.OnTextChanged;
+                    AssociatedObject.Text = AssociatedObject.Text[..AssociatedObject.SelectionStart];
+                    AssociatedObject.TextChanged += this.OnTextChanged;
+                }
+                else
+                {
+                    AssociatedObject.SelectionLength = 0;
+                    AssociatedObject.SelectionStart = length;
                 }
             }
         }
@@ -159,6 +197,7 @@ namespace VolumeControl.WPF.Behaviors
 
             AssociatedObject.TextChanged += OnTextChanged;
             AssociatedObject.PreviewKeyDown += OnPreviewKeyDown;
+            AssociatedObject.LostKeyboardFocus += this.OnLostKeyboardFocus;
         }
         /// <inheritdoc/>
         protected override void OnDetaching()
@@ -167,6 +206,7 @@ namespace VolumeControl.WPF.Behaviors
 
             AssociatedObject.TextChanged -= OnTextChanged;
             AssociatedObject.PreviewKeyDown -= OnPreviewKeyDown;
+            AssociatedObject.LostKeyboardFocus -= this.OnLostKeyboardFocus;
         }
         #endregion Behavior Override Methods
     }

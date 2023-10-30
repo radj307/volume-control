@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Media;
 using VolumeControl.Core;
 using VolumeControl.Core.Input;
 using VolumeControl.Core.Input.Actions;
@@ -41,9 +40,13 @@ namespace VolumeControl.ViewModels
             this.HotkeyAPI = new();
 
             // Initialize the addon API
-            var api = Initializer.Initialize(this.AudioAPI.AudioDeviceManager, this.AudioAPI.AudioDeviceSelector, this.AudioAPI.AudioSessionManager, this.AudioAPI.AudioSessionMultiSelector, this.HotkeyAPI.HotkeyManager, this.MainWindowHandle, (AppConfig.Configuration.Default as Config)!);
+            Initializer.Initialize(this.AudioAPI.AudioDeviceManager, this.AudioAPI.AudioDeviceSelector, this.AudioAPI.AudioSessionManager, this.AudioAPI.AudioSessionMultiSelector, this.HotkeyAPI.HotkeyManager, this.MainWindowHandle, Config.Default!);
 
-            var actions = HotkeyActionAddonLoader.Load(GetDefaultActionGroupTypes());
+            // create a template provider manager
+            var templateProviderManager = new TemplateProviderManager();
+            HotkeyActionAddonLoader.LoadProviders(ref templateProviderManager, GetDefaultDataTemplateProviderTypes());
+
+            var actions = HotkeyActionAddonLoader.LoadActions(templateProviderManager, GetDefaultActionGroupTypes());
 
             HotkeyAPI.HotkeyManager.HotkeyActionManager.AddActionDefinitions(actions);
 
@@ -51,27 +54,70 @@ namespace VolumeControl.ViewModels
             {
                 if (Directory.Exists(dir))
                 {
-                    foreach (string dllPath in Directory.EnumerateFiles(dir, "*.dll", new EnumerationOptions()
+                    FLog.Trace($"[AddonLoader] Searching for DLLs in directory \"{dir}\".");
+                    foreach (string dllPath in Directory.EnumerateFiles(dir, "*.dll", new EnumerationOptions() { MatchCasing = MatchCasing.CaseInsensitive, RecurseSubdirectories = false, }))
                     {
-                        MatchCasing = MatchCasing.CaseInsensitive,
-                        RecurseSubdirectories = false,
-                    }))
-                    {
-                        FLog.Trace($"Found addon DLL \"{dllPath}\"");
+                        // print version info
+                        var fileName = Path.GetFileName(dllPath);
+                        FLog.Debug($"[AddonLoader] Found addon DLL \"{fileName}\"");
 
-                        HotkeyAPI.HotkeyManager.HotkeyActionManager.AddActionDefinitions(HotkeyActionAddonLoader.Load(Assembly.LoadFrom(dllPath).GetExportedTypes()));
+                        var versionInfo = System.Diagnostics.FileVersionInfo.GetVersionInfo(dllPath);
+                        if (versionInfo == null)
+                        {
+                            FLog.Debug($"[AddonLoader] Addon DLL \"{fileName}\" does not have any version information.");
+                        }
+                        else
+                        {
+                            var authorName = versionInfo.CompanyName;
+
+                            if (versionInfo.IsDebug)
+                            {
+                                FLog.Warning(
+                                    $"[AddonLoader] Addon DLL was built in DEBUG configuration \"{dllPath}\"!",
+                                    $"              Contact {versionInfo.CompanyName ?? "the addon author"}");
+                            }
+                            if (FLog.FilterEventType(Log.Enum.EventType.DEBUG))
+                            {
+
+                                FLog.Debug($"[AddonLoader] Found addon DLL \"{versionInfo.FileName}\":", versionInfo.ToString());
+                            }
+                        }
+
+                        // try loading the assembly
+                        try
+                        {
+                            var asm = Assembly.LoadFrom(dllPath);
+                            var assemblyName = asm.FullName ?? dllPath;
+                            var exportedTypes = asm.GetExportedTypes();
+                            asm = null;
+
+                            FLog.Debug($"[AddonLoader] \"{assemblyName}\" exports {exportedTypes.Length} types.");
+
+                            // load providers from addon assembly
+                            HotkeyActionAddonLoader.LoadProviders(ref templateProviderManager, exportedTypes);
+
+                            // load actions from addon assembly
+                            HotkeyAPI.HotkeyManager.HotkeyActionManager.AddActionDefinitions(HotkeyActionAddonLoader.LoadActions(templateProviderManager, exportedTypes));
+                        }
+                        catch (Exception ex)
+                        {
+                            FLog.Critical($"[AddonLoader] Failed to load addon DLL \"{dllPath}\" due to an exception!", ex);
+                        }
                     }
+                }
+                else
+                {
+                    FLog.Trace($"[AddonLoader] Addon directory \"{dir}\" doesn't exist.");
                 }
             });
 
-            // Retrieve a list of all loaded action names
+            // Retrieve a sorted list of all loaded action names
             this.Actions = HotkeyAPI.HotkeyManager.HotkeyActionManager.ActionDefinitions
                 .OrderBy(a => a.GroupName)
                 .ThenBy(a => a.Name)
                 .ToList();
 
-            // load saved hotkeys
-            //  We need to have accessed the Settings propertyInfo at least once by the time we reach this point
+            // load saved hotkeys now that actions have been loaded
             this.HotkeyAPI.LoadHotkeys();
 
             // attach event to update TargetSessionText & LockTargetSession properties
@@ -110,7 +156,7 @@ namespace VolumeControl.ViewModels
         #region Statics
         #region PrivateStatics
         /// <summary>Static accessor for <see cref="Settings.Default"/>.</summary>
-        private static Config Settings => (AppConfig.Configuration.Default as Config)!;
+        private static Config Settings => Config.Default;
         #endregion PrivateStatics
         /// <summary>
         /// True when there is a newer version of volume control available.
@@ -135,11 +181,23 @@ namespace VolumeControl.ViewModels
         #region Methods
 
         #region GetDefaultActionGroupTypes
+        /// <summary>
+        /// Loads the default hotkey actions from VolumeControl.HotkeyActions
+        /// </summary>
         private static Type[] GetDefaultActionGroupTypes()
         {
             var asm = Assembly.Load($"{nameof(VolumeControl)}.{nameof(HotkeyActions)}");
 
             return asm.GetExportedTypes().Where(type => type.GetCustomAttribute<Core.Attributes.HotkeyActionGroupAttribute>() != null).ToArray();
+        }
+        /// <summary>
+        /// Loads the default data template providers from VolumeControl.SDK
+        /// </summary>
+        private static Type[] GetDefaultDataTemplateProviderTypes()
+        {
+            var asm = Assembly.Load($"{nameof(VolumeControl)}.{nameof(SDK)}");
+
+            return asm.GetExportedTypes().Where(type => type.GetCustomAttribute<Core.Attributes.DataTemplateProviderAttribute>() != null).ToArray();
         }
         #endregion GetDefaultActionGroupTypes
 

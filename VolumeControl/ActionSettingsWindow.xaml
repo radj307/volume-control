@@ -47,122 +47,18 @@
             <!--  Style Providers  -->
             <Style BasedOn="{StaticResource CheckBoxStyle}" TargetType="{x:Type CheckBox}" />
 
-            <!--  DataTemplate Selector  -->
-            <wpf:DataTemplateTypeBindingSelector x:Key="DataTemplateSelector" TargetPropertyName="Value">
-                <wpf:DataTemplateTypeBindingSelector.DefaultDataTemplate>
-                    <DataTemplate>
-                        <TextBlock
-                            x:Name="DataTemplateErrorTextBlock"
-                            Margin="5,3"
-                            VerticalAlignment="Center"
-                            Foreground="Red"
-                            Loaded="DataTemplateErrorTextBlock_Loaded"
-                            Text="{Binding}"
-                            ToolTip="{Tr 'VolumeControl.ActionSettingsWindow.DataTemplateErrorTextBlock.Tooltip',
-                                         DefaultText='No DataTemplate is available for this value type!'}"
-                            ToolTipService.InitialShowDelay="100" />
-                    </DataTemplate>
-                </wpf:DataTemplateTypeBindingSelector.DefaultDataTemplate>
-                <wpf:DataTemplateTypeBindingSelector.DataTemplateTypeBindings>
-                    <wpf:DataTemplateTypeBinding Type="{x:Type sys:String}">
-                        <wpf:DataTemplateTypeBinding.DataTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <TextBox Style="{StaticResource RoundedTextBoxStyle}" Text="{Binding Value, UpdateSourceTrigger=LostFocus}" />
-                                </Grid>
-                            </DataTemplate>
-                        </wpf:DataTemplateTypeBinding.DataTemplate>
-                    </wpf:DataTemplateTypeBinding>
-                    <wpf:DataTemplateTypeBinding Type="{x:Type sys:Boolean}">
-                        <wpf:DataTemplateTypeBinding.DataTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding Value, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
-                            </DataTemplate>
-                        </wpf:DataTemplateTypeBinding.DataTemplate>
-                    </wpf:DataTemplateTypeBinding>
-                    <wpf:DataTemplateTypeBinding Type="{x:Type core:ActionTargetSpecifier}">
-                        <wpf:DataTemplateTypeBinding.DataTemplate>
-                            <DataTemplate>
-                                <Grid MinWidth="50">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-
-                                    <ListBox
-                                        x:Name="listBox"
-                                        Grid.Row="0"
-                                        Background="#0000"
-                                        BorderThickness="0"
-                                        ItemsSource="{Binding Value.Targets}">
-                                        <ListBox.Resources>
-                                            <Style TargetType="{x:Type ListBoxItem}">
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                                            <Grid>
-                                                                <ContentPresenter />
-                                                            </Grid>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </ListBox.Resources>
-                                        <ListBox.ItemTemplate>
-                                            <DataTemplate DataType="{x:Type sys:String}">
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                    </Grid.ColumnDefinitions>
-
-                                                    <TextBox
-                                                        x:Name="textBox"
-                                                        Grid.Column="0"
-                                                        Margin="3,1"
-                                                        Padding="3,1"
-                                                        VerticalAlignment="Center"
-                                                        VerticalContentAlignment="Center"
-                                                        Background="{StaticResource TextBoxBackground}"
-                                                        Foreground="{StaticResource TextBoxForeground}"
-                                                        Text="{Binding Path=., UpdateSourceTrigger=LostFocus}">
-                                                        <i:Interaction.Behaviors>
-                                                            <wpfBehaviors:TextBoxAutocompleteBehavior ItemsSource="{Binding AudioSessionProcessNameAutocompleteSource, Source={StaticResource Settings}}" StringComparison="OrdinalIgnoreCase" />
-                                                        </i:Interaction.Behaviors>
-                                                    </TextBox>
-                                                    <Button
-                                                        Grid.Column="1"
-                                                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                                        Height="{Binding Height, ElementName=textBox}"
-                                                        Margin="3,1"
-                                                        Click="ListBoxRemoveButton_Click"
-                                                        Content="❌"
-                                                        DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
-                                                        FontSize="9"
-                                                        Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" />
-                                                </Grid>
-                                            </DataTemplate>
-                                        </ListBox.ItemTemplate>
-                                    </ListBox>
-
-                                    <controls:TextBoxWithCompletionOptions
-                                        x:Name="AddTargetBox"
-                                        Grid.Row="1"
-                                        Margin="3,1"
-                                        BackPressed="AddTargetBox_BackPressed"
-                                        CommittedText="AddTargetBox_CommittedText"
-                                        CompletionOptionsSource="{Binding AudioSessionProcessNameAutocompleteSource, Source={StaticResource Settings}}"
-                                        DefaultText="{Tr 'VolumeControl.ActionSettingsWindow.ActionTargetSpecifierDataTemplate.AddTargetBox.DefaultText',
-                                                         DefaultText='Target Name...'}"
-                                        Style="{StaticResource TextBoxWithCompletionOptionsStyle}"
-                                        SuggestionClicked="AddTargetBox_SuggestionClicked"
-                                        Tag="{Binding ElementName=listBox}" />
-                                </Grid>
-                            </DataTemplate>
-                        </wpf:DataTemplateTypeBinding.DataTemplate>
-                    </wpf:DataTemplateTypeBinding>
-                </wpf:DataTemplateTypeBindingSelector.DataTemplateTypeBindings>
-            </wpf:DataTemplateTypeBindingSelector>
+            <DataTemplate x:Key="DataTemplateErrorDataTemplate">
+                <TextBlock
+                    x:Name="DataTemplateErrorTextBlock"
+                    Margin="5,3"
+                    VerticalAlignment="Center"
+                    Foreground="Red"
+                    Loaded="DataTemplateErrorTextBlock_Loaded"
+                    Text="{Binding ValueType}"
+                    ToolTip="{Tr 'VolumeControl.ActionSettingsWindow.DataTemplateErrorTextBlock.Tooltip',
+                                 DefaultText='No DataTemplate is available for this value type!'}"
+                    ToolTipService.InitialShowDelay="100" />
+            </DataTemplate>
         </ResourceDictionary>
     </Window.Resources>
 
@@ -353,6 +249,7 @@
                                                     </Grid.ColumnDefinitions>
 
                                                     <CheckBox
+                                                        x:Name="ActionSettingToggleCheckBox"
                                                         Margin="5,3"
                                                         Content="{Tr 'VolumeControl.ActionSettingsWindow.ToggleActionSetting.Content',
                                                                      DefaultText='Enable'}"
@@ -376,7 +273,7 @@
                                                 </DataTrigger>
                                                 <!--  Use DataTemplateSelector  -->
                                                 <DataTrigger Binding="{Binding ActionSettingDefinition.DataTemplate, Converter={StaticResource IsNullConverter}}" Value="True">
-                                                    <Setter TargetName="ContentControl" Property="ContentTemplateSelector" Value="{DynamicResource DataTemplateSelector}" />
+                                                    <Setter TargetName="ContentControl" Property="ContentTemplate" Value="{StaticResource DataTemplateErrorDataTemplate}" />
                                                 </DataTrigger>
                                             </DataTemplate.Triggers>
                                         </DataTemplate>

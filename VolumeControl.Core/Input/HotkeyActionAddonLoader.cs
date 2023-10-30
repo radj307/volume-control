@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Media;
 using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Helpers;
@@ -14,6 +15,33 @@ namespace VolumeControl.Core.Input
     /// </summary>
     public static class HotkeyActionAddonLoader
     {
+        /// <summary>
+        /// Loads DataTemplate providers from the specified <paramref name="types"/> and registers them with the <paramref name="provider"/> 
+        /// </summary>
+        /// <param name="provider">The <see cref="TemplateProviderManager"/> instance to load the provider types into.</param>
+        /// <param name="types">Any number of <see cref="Type"/> instances that represent classes with the <see cref="DataTemplateProviderAttribute"/>.</param>
+        public static void LoadProviders(ref TemplateProviderManager provider, params Type[] types)
+        {
+            // load provider types
+            for (int i = 0, i_max = types.Length; i < i_max; ++i)
+            {
+                var type = types[i];
+
+                if (type.GetCustomAttribute<DataTemplateProviderAttribute>(true) == null)
+                    continue;
+
+                try
+                {
+                    provider.RegisterProvider(type);
+                }
+                catch (Exception ex)
+                {
+                    FLog.Error($"[ActionLoader] Failed to load {nameof(DataTemplate)} provider type \"{type}\" due to an exception:", ex);
+                }
+            }
+
+        }
+
         #region ValidateMethodIsEligibleAsAction
         private enum EMethodValidationState : byte
         {
@@ -91,12 +119,14 @@ namespace VolumeControl.Core.Input
         /// <summary>
         /// Loads hotkey actions from the specified <paramref name="types"/>.
         /// </summary>
+        /// <param name="provider">The <see cref="TemplateProviderManager"/> instance to use for resolving data template providers.</param>
         /// <param name="types">Any number of <see cref="Type"/> instances that represent hotkey action group types.</param>
         /// <returns>List of <see cref="HotkeyActionDefinition"/> objects for all publicly-accessible action methods.</returns>
-        public static HotkeyActionDefinition[] Load(params Type[] types)
+        public static HotkeyActionDefinition[] LoadActions(TemplateProviderManager provider, params Type[] types)
         {
-            List<HotkeyActionDefinition> l = new();
+            const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static;
 
+            List<HotkeyActionDefinition> l = new();
             int typesWithGroupAttrCount = 0; //< tracks the number of types that have the HotkeyActionGroupAttribute
 
             // enumerate through all public types in this assembly:
@@ -110,12 +140,12 @@ namespace VolumeControl.Core.Input
                 else ++typesWithGroupAttrCount;
 
                 // get all public methods from this type
-                var publicMethods = type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
+                var publicMethods = type.GetMethods(bindingFlags);
 
                 // if this type doesn't have any public methods, skip it
                 if (publicMethods.Length == 0)
                 {
-                    FLog.Log.Error($"[ActionLoader] {type.FullName} doesn't contain any publicly-accessible methods marked with {typeof(HotkeyActionAttribute).FullName}!");
+                    FLog.Error($"[ActionLoader] {type.FullName} doesn't contain any publicly-accessible methods marked with {typeof(HotkeyActionAttribute).FullName}!");
                     continue;
                 }
 
@@ -138,22 +168,51 @@ namespace VolumeControl.Core.Input
                     {
                         // this doesn't need more information because ValidateMethodIsEligibleAsAction
                         //  logs all of the problems in detail anyway.
-                        FLog.Log.Error($"[ActionLoader] {method.GetFullMethodName()} was skipped because it is invalid.");
+                        FLog.Error($"[ActionLoader] {method.GetFullMethodName()} was skipped because it is invalid.");
                         continue;
                     }
 
                     // get the action setting definitions for this method
-                    var actionSettingDefs = method.GetCustomAttributes<HotkeyActionSettingAttribute>().Select(attr => (ActionSettingDefinition)attr).ToArray();
+                    List<ActionSettingDefinition> actionSettingDefs = new();
+
+                    if (FLog.FilterEventType(Log.Enum.EventType.DEBUG))
+                        FLog.Debug($"[ActionLoader] Loading action setting definitions for \"{method.GetFullMethodName()}\"");
+
+                    foreach (var actionSettingAttribute in method.GetCustomAttributes<HotkeyActionSettingAttribute>())
+                    {
+                        var providerType = actionSettingAttribute.DataTemplateProviderType
+                            ?? actionAttribute.DefaultDataTemplateProvider
+                            ?? actionGroupAttribute.DefaultDataTemplateProvider;
+                        var providerTemplateKey = actionSettingAttribute.DataTemplateProviderKey;
+
+                        DataTemplate? dataTemplate = null;
+                        try
+                        {
+                            dataTemplate = provider.FindDataTemplateFor(providerType, providerTemplateKey, actionSettingAttribute.ValueType);
+                        }
+                        catch (Exception ex)
+                        {
+                            FLog.Error($"[ActionLoader] ", ex);
+                        }
+
+                        if (dataTemplate == null)
+                        {
+                            // TODO: Log error
+                            //        No data template found for action setting
+                        }
+
+                        actionSettingDefs.Add(new(actionSettingAttribute.Name, actionSettingAttribute.ValueType, actionSettingAttribute.DefaultValue, actionSettingAttribute.Description, actionSettingAttribute.IsToggleable, actionSettingAttribute.StartsEnabled, dataTemplate));
+                    }
 
                     // make sure there aren't any duplicate action setting names
                     var distinctSettingNames = actionSettingDefs.Select(d => d.Name).Distinct();
-                    if (distinctSettingNames.Count() != actionSettingDefs.Length)
+                    if (distinctSettingNames.Count() != actionSettingDefs.Count)
                     {
                         string duplicateNames = string.Join(", ", actionSettingDefs
                             .GroupBy(d => d.Name)
                             .Where(g => g.Count() > 1)
                             .Select(g => $"\"{g.Key}\""));
-                        FLog.Log.Error($"[ActionLoader] {method.GetFullMethodName()} was skipped because multiple settings have the same name: {duplicateNames}!");
+                        FLog.Error($"[ActionLoader] {method.GetFullMethodName()} was skipped because multiple settings have the same name: {duplicateNames}!");
                         continue;
                     }
 
@@ -168,7 +227,7 @@ namespace VolumeControl.Core.Input
                         }
                         catch (Exception ex)
                         {
-                            FLog.Log.Error($"[ActionLoader] {method.GetFullMethodName()} was skipped because constructor of type {type.Name} threw an exception:", ex);
+                            FLog.Error($"[ActionLoader] {method.GetFullMethodName()} was skipped because constructor of type {type.Name} threw an exception:", ex);
                             continue;
                         }
 
@@ -179,7 +238,7 @@ namespace VolumeControl.Core.Input
                             actionAttribute.Description,
                             actionAttribute.GroupNameOverride ?? actionGroupAttribute.GroupName,
                             actionGroupColorString == null ? null : new SolidColorBrush((Color)ColorConverter.ConvertFromString(actionGroupColorString)),
-                            actionSettingDefs);
+                            actionSettingDefs.ToArray());
                     }
                     else
                     { // static method
@@ -190,7 +249,7 @@ namespace VolumeControl.Core.Input
                             actionAttribute.Description,
                             actionAttribute.GroupNameOverride ?? actionGroupAttribute.GroupName,
                             actionGroupColorString == null ? null : new SolidColorBrush((Color)ColorConverter.ConvertFromString(actionGroupColorString)),
-                            actionSettingDefs);
+                            actionSettingDefs.ToArray());
                     }
 
                     l.Add(hotkeyActionDefinition);
@@ -203,7 +262,7 @@ namespace VolumeControl.Core.Input
                         var lineHeader = "[ActionLoader] ";
                         lines.Add($"{lineHeader}Loaded {method.GetFullMethodName()}.");
                         lineHeader = new string(' ', lineHeader.Length);
-                        for (int k = 0, k_max = actionSettingDefs.Length; k < k_max; ++k)
+                        for (int k = 0, k_max = actionSettingDefs.Count; k < k_max; ++k)
                         {
                             var settingDef = actionSettingDefs[k];
 

@@ -21,6 +21,7 @@
 	  <PackageReference Include="PropertyChanged.Fody" Version="4.1.0">
 	    <PrivateAssets>All</PrivateAssets>
 	  </PackageReference>
+	  <PackageReference Include="radj307.IconExtractor" Version="0.0.0" />
 	</ItemGroup>
 	
 	<ItemGroup>

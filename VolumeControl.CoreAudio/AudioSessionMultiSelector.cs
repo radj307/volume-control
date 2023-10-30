@@ -11,7 +11,7 @@ namespace VolumeControl.CoreAudio
     /// </summary>
     public class AudioSessionMultiSelector : IAudioMultiSelector, INotifyPropertyChanged
     {
-        #region Initializer
+        #region Constructor
         /// <summary>
         /// Creates a new <see cref="AudioSessionMultiSelector"/> instance for the specified <paramref name="audioSessionManager"/>.
         /// </summary>
@@ -27,9 +27,9 @@ namespace VolumeControl.CoreAudio
             Sessions.ForEach(AddSession);
 
             AudioSessionManager.AddedSessionToList += this.AudioSessionManager_SessionAddedToList;
-            AudioSessionManager.RemovingSessionFromList += this.AudioSessionManager_RemovingSessionFromList; ;
+            AudioSessionManager.RemovingSessionFromList += this.AudioSessionManager_RemovingSessionFromList;
         }
-        #endregion Initializer
+        #endregion Constructor
 
         #region Fields
         private bool _noResolveCurrentIndex = false;
@@ -115,12 +115,7 @@ namespace VolumeControl.CoreAudio
         /// <inheritdoc/>
         public int CurrentIndex
         {
-            get
-            {
-                if (!_noResolveCurrentIndex && _currentIndex == -1)
-                    ResolveCurrentIndex();
-                return _currentIndex;
-            }
+            get => _currentIndex;
             set
             {
                 if (LockCurrentIndex) return;
@@ -504,24 +499,6 @@ namespace VolumeControl.CoreAudio
             CurrentIndex = -1;
         }
         #endregion Increment/Decrement/Unset CurrentIndex
-
-        #region ResolveCurrentIndex
-        private void ResolveCurrentIndex()
-        {
-            var targetInfo = (Core.Config.Default as Core.Config)!.TargetSession;
-
-            if (targetInfo.ProcessName.Length == 0) return;
-
-            var target = AudioSessionManager.FindSessionWithSimilarProcessIdentifier(targetInfo.ProcessIdentifier);
-
-            if (target == null) return;
-
-            _currentIndex = Sessions.IndexOf(target);
-            NotifyPropertyChanged(nameof(CurrentIndex));
-            NotifyPropertyChanged(nameof(CurrentSession));
-            NotifyCurrentSessionChanged(target);
-        }
-        #endregion ResolveCurrentIndex
 
         #endregion Methods
 

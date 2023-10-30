@@ -52,7 +52,7 @@ namespace VolumeControl.Helpers
 
         #region Properties
         #region Statics
-        private static Config Settings => (AppConfig.Configuration.Default as Config)!;
+        private static Config Settings => Config.Default;
         #endregion Statics
         #region ReadOnlyProperties
         /// <inheritdoc/>

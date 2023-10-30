@@ -231,7 +231,9 @@ namespace VolumeControl.Log
         /// <returns><see langword="true"/> when the <paramref name="eventType"/> is shown; otherwise <see langword="false"/>.</returns>
         public bool FilterEventType(EventType eventType)
         {
-            return eventType == EventType.NONE || AlwaysVisibleEventTypes.HasFlag(eventType) || EventTypeFilter.HasFlag(eventType);
+            return eventType == EventType.NONE
+                || AlwaysVisibleEventTypes.HasFlag(eventType)
+                || EventTypeFilter.HasFlag(eventType);
         }
         #endregion FilterEventType
 

@@ -58,7 +58,7 @@ namespace VolumeControl.HotkeyActions
         #region Methods
         [HotkeyAction(Description = "Increases the volume of the current foreground application.")]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
-        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), typeof(VolumeStep_NumericUpDown_DataTemplateProvider), DefaultValue = 2, Description = Setting_VolumeStep_Description, IsToggleable = true)]
+        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), typeof(DataTemplateProviders), "VolumeStepDataTemplate", DefaultValue = 2, Description = Setting_VolumeStep_Description, IsToggleable = true)]
         public void VolumeUp(object? sender, HotkeyPressedEventArgs e)
         {
             if (GetActiveSession() is AudioSession session)
@@ -75,7 +75,7 @@ namespace VolumeControl.HotkeyActions
         }
         [HotkeyAction(Description = "Decreases the volume of the current foreground application.")]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
-        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), typeof(VolumeStep_NumericUpDown_DataTemplateProvider), DefaultValue = 2, Description = Setting_VolumeStep_Description, IsToggleable = true)]
+        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), typeof(DataTemplateProviders), "VolumeStepDataTemplate", DefaultValue = 2, Description = Setting_VolumeStep_Description, IsToggleable = true)]
         public void VolumeDown(object? sender, HotkeyPressedEventArgs e)
         {
             if (GetActiveSession() is AudioSession session)

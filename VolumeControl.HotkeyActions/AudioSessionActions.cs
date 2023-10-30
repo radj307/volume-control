@@ -11,7 +11,7 @@ namespace VolumeControl.HotkeyActions
     /// <summary>
     /// Contains hotkey action handlers that interact with AudioSessions in the AudioDeviceManager object.
     /// </summary>
-    [HotkeyActionGroup("Session", GroupColor = "#99FF99")]
+    [HotkeyActionGroup("Session", GroupColor = "#99FF99", DefaultDataTemplateProvider = typeof(DataTemplateProviders))]
     public sealed class AudioSessionActions
     {
         #region Fields
@@ -44,9 +44,9 @@ namespace VolumeControl.HotkeyActions
 
         #region Action Methods
         [HotkeyAction(Description = "Increases the volume of the selected session(s).")]
-        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), Description = Setting_TargetOverride_Description)]
+        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), "ActionTargetSpecifierDataTemplate", Description = Setting_TargetOverride_Description)]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
-        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), typeof(VolumeStep_NumericUpDown_DataTemplateProvider), DefaultValue = 2, Description = Setting_VolumeStep_Description, IsToggleable = true)]
+        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), "VolumeStepDataTemplate", DefaultValue = 2, Description = Setting_VolumeStep_Description, IsToggleable = true)]
         public void VolumeUp(object? sender, HotkeyPressedEventArgs e)
         {
             bool showNotification = false;
@@ -90,9 +90,9 @@ namespace VolumeControl.HotkeyActions
                 VCAPI.ShowSessionListNotification();
         }
         [HotkeyAction(Description = "Decreases the volume of the selected session(s).")]
-        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), Description = Setting_TargetOverride_Description)]
+        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), "ActionTargetSpecifierDataTemplate", Description = Setting_TargetOverride_Description)]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
-        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), typeof(VolumeStep_NumericUpDown_DataTemplateProvider), DefaultValue = 2, Description = Setting_VolumeStep_Description, IsToggleable = true)]
+        [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), "VolumeStepDataTemplate", DefaultValue = 2, Description = Setting_VolumeStep_Description, IsToggleable = true)]
         public void VolumeDown(object? sender, HotkeyPressedEventArgs e)
         {
             bool showNotification = false;
@@ -136,10 +136,10 @@ namespace VolumeControl.HotkeyActions
                 VCAPI.ShowSessionListNotification();
         }
         [HotkeyAction(Description = "Sets the volume level of the specified session(s) to a pre-configured level.")]
-        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), Description = Setting_TargetOverride_Description)]
+        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), "ActionTargetSpecifierDataTemplate", Description = Setting_TargetOverride_Description)]
         [HotkeyActionSetting(Setting_TargetAll_Name, typeof(bool), Description = Setting_TargetAll_Description)]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
-        [HotkeyActionSetting(Setting_VolumeLevel_Name, typeof(int), typeof(VolumeLevel_NumericUpDown_DataTemplateProvider), DefaultValue = 50, Description = Setting_VolumeLevel_Description, IsToggleable = true, StartsEnabled = true)]
+        [HotkeyActionSetting(Setting_VolumeLevel_Name, typeof(int), "VolumeLevelDataTemplate", DefaultValue = 50, Description = Setting_VolumeLevel_Description, IsToggleable = true, StartsEnabled = true)]
         [HotkeyActionSetting(Setting_MuteState_Name, typeof(bool), Description = Setting_MuteState_Description, IsToggleable = true)]
         public void SetVolume(object? sender, HotkeyPressedEventArgs e)
         {
@@ -200,7 +200,7 @@ namespace VolumeControl.HotkeyActions
                 VCAPI.ShowSessionListNotification();
         }
         [HotkeyAction(Description = "Mutes the selected session.")]
-        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), Description = Setting_TargetOverride_Description)]
+        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), "ActionTargetSpecifierDataTemplate", Description = Setting_TargetOverride_Description)]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         public void Mute(object? sender, HotkeyPressedEventArgs e)
         {
@@ -241,7 +241,7 @@ namespace VolumeControl.HotkeyActions
                 VCAPI.ShowSessionListNotification();
         }
         [HotkeyAction(Description = "Unmutes the selected session.")]
-        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), Description = Setting_TargetOverride_Description)]
+        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), "ActionTargetSpecifierDataTemplate", Description = Setting_TargetOverride_Description)]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         public void Unmute(object? sender, HotkeyPressedEventArgs e)
         {
@@ -282,7 +282,7 @@ namespace VolumeControl.HotkeyActions
                 VCAPI.ShowSessionListNotification();
         }
         [HotkeyAction(Description = "Toggles the selected session's mute state.")]
-        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), Description = Setting_TargetOverride_Description)]
+        [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), "ActionTargetSpecifierDataTemplate", Description = Setting_TargetOverride_Description)]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         public void ToggleMute(object? sender, HotkeyPressedEventArgs e)
         {

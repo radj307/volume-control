@@ -18,12 +18,31 @@
 
         #region Properties
         /// <inheritdoc/>
-        public bool Enabled { get; set; }
+        public bool Enabled
+        {
+            get => _enabled;
+            set
+            {
+                NotifyEnabledChanging(value);
+                _enabled = value;
+                NotifyEnabledChanged(_enabled);
+            }
+        }
+        private bool _enabled;
         /// <summary>
         /// The location of the log file.
         /// </summary>
         public string Path { get; set; }
         #endregion Properties
+
+        #region Events
+        /// <inheritdoc/>
+        public event EventHandler<bool>? EnabledChanging;
+        private void NotifyEnabledChanging(bool incomingState) => EnabledChanging?.Invoke(this, incomingState);
+        /// <inheritdoc/>
+        public event EventHandler<bool>? EnabledChanged;
+        private void NotifyEnabledChanged(bool newState) => EnabledChanged?.Invoke(this, newState);
+        #endregion Events
 
         #region Methods
         internal TextReader? GetReader(FileStreamOptions open) => !this.Enabled || this.Path.Length == 0 ? null : (TextReader)new StreamReader(File.Open(this.Path, open));

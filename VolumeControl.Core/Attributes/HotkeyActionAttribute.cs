@@ -44,6 +44,10 @@ namespace VolumeControl.Core.Attributes
         /// Gets or sets the group color of this hotkey action, overriding whatever is specified by the action group.
         /// </summary>
         public string? GroupColorOverride { get; set; }
+        /// <summary>
+        /// Gets or sets the default DataTemplate provider type to use for this action's settings.
+        /// </summary>
+        public Type? DefaultDataTemplateProvider { get; set; }
         #endregion Properties
     }
 }

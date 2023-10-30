@@ -26,6 +26,10 @@
         /// Gets or sets the color of this hotkey action group, as a hexadecimal color code.
         /// </summary>
         public string? GroupColor { get; set; }
+        /// <summary>
+        /// Gets or sets the default data template provider to use for action methods in this group.
+        /// </summary>
+        public Type? DefaultDataTemplateProvider { get; set; }
         #endregion Properties
     }
 }

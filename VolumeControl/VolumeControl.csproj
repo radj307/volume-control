@@ -52,7 +52,6 @@
     <None Remove="Resources\images\reload-white.png" />
     <None Remove="Resources\images\reload.png" />
     <None Remove="Resources\LICENSE" />
-    <!--<None Remove="Resources\VCUpdateUtility.exe" />-->
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Localization\de.loc.json" />

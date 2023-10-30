@@ -22,7 +22,7 @@
 		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0">
 			<PrivateAssets>All</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="radj307.AppReconfig" Version="2.1.2" />
+		<PackageReference Include="radj307.AppReconfig" Version="2.3.0" />
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">

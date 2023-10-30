@@ -1,20 +1,20 @@
-﻿using System.Reflection;
-using System.Windows;
-using System.Windows.Markup;
+﻿using System.Windows;
 using VolumeControl.Core.Attributes;
 
 namespace VolumeControl.Core
 {
     /// <summary>
-    /// Provides a <see cref="DataTemplate"/> for some hardcoded type.<br/>
-    /// The <see cref="Type"/> of a derived class can be specified for the <see cref="HotkeyActionSettingAttribute.DataTemplateProviderType"/> property to specify which <see cref="DataTemplate"/> will be used to display an editor control for that action setting.
+    /// Provides a <see cref="DataTemplate"/> instance constructed in codebehind using <see cref="FrameworkElementFactory"/>.
     /// </summary>
     /// <remarks>
-    /// To create a <see cref="DataTemplateProvider"/>, first create a new class that implements it:
+    /// Any public, non-static, non-abstract class that implements this interface can be specified for <see cref="HotkeyActionSettingAttribute.DataTemplateProviderType"/>.
+    /// </remarks>
+    /// <example>
+    /// To create an <see cref="ITemplateProvider"/>, first create a new class that implements it:
     /// <code>
-    /// public class IntDataTemplateProvider : DataTemplateProvider
+    /// public class IntDataTemplateProvider : IDataTemplateProvider
     /// {
-    ///     public override DataTemplate ProvideDataTemplate()
+    ///     public DataTemplate ProvideDataTemplate()
     ///     {
     ///         // Create a TextBox (via a factory) and bind its Text property to the action setting's Value property:
     ///         var textBoxFactory = new FrameworkElementFactory(typeof(TextBox));
@@ -29,10 +29,16 @@ namespace VolumeControl.Core
     /// <code>
     /// [HotkeyActionSetting("SomeSetting", typeof(int), typeof(IntDataTemplateProvider))]
     /// </code>
-    /// </remarks>
-    public abstract class DataTemplateProvider
+    /// </example>
+    public interface ITemplateProvider
     {
-        #region Abstract Methods
+        /// <summary>
+        /// Checks if this <see cref="ITemplateProvider"/> instance can provide a <see cref="DataTemplate"/> for the specified <paramref name="valueType"/>.
+        /// </summary>
+        /// <param name="valueType">The value type of the action setting to display in the template.</param>
+        /// <returns><see langword="true"/> when this instance supports the <paramref name="valueType"/>; otherwise <see langword="false"/>.</returns>
+        bool CanProvideDataTemplate(Type valueType);
+
         /// <summary>
         /// Gets the <see cref="DataTemplate"/> instance to use for displaying an editor control for the action setting's value.
         /// </summary>
@@ -40,64 +46,40 @@ namespace VolumeControl.Core
         /// The returned <see cref="DataTemplate"/> will always be used with a DataContext of the <see cref="Input.Actions.Settings.IActionSettingInstance"/> instance for that action setting.
         /// Therefore, valid data binding paths can be relative to an <see cref="Input.Actions.Settings.IActionSettingInstance"/> instance, or absolute by directly specifying a binding Source.
         /// <br/>
-        /// To bind to the value of the action setting, set the data binding's path to "Value".
+        /// A data binding path of "<see langword="Value"/>" will return the value instance of type <see cref="HotkeyActionSettingAttribute.ValueType"/>.
+        /// <br/>
+        /// Return <see langword="null"/> to allow another data template to be selected.
         /// </remarks>
-        /// <returns>A new <see cref="DataTemplate"/> instance specifying the controls to use for displaying an action setting value editor.</returns>
-        protected abstract DataTemplate ProvideDataTemplate();
-        #endregion Abstract Methods
-
-        #region Internal Methods
-        internal DataTemplate GetDataTemplate() => ProvideDataTemplate();
-        #endregion Internal Methods
-
-        #region Static Methods
+        /// <param name="valueType">The value type of the action setting to display in the template.</param>
+        /// <returns>A new <see cref="DataTemplate"/> instance for the specified <paramref name="valueType"/> when successful; otherwise <see langword="null"/>.</returns>
+        DataTemplate? ProvideDataTemplate(Type valueType);
+    }
+    /// <summary>
+    /// An alternative to <see cref="ITemplateProvider"/> that can be combined with a <see cref="ResourceDictionary"/>
+    ///  (with a codebehind) to define many data templates in XAML and provide them for action settings based on a key
+    ///  <see cref="string"/> and/or value type.<br/><br/>
+    ///  XAML-defined data templates must be type <see cref="ActionSettingDataTemplate"/>, not <see cref="DataTemplate"/>.
+    ///  <br/>Set <see cref="ActionSettingDataTemplate.ValueType"/> to the type of value that the data template supports.
+    /// </summary>
+    /// <remarks>
+    /// Any public, non-static, non-abstract class that implements this interface can be specified for <see cref="HotkeyActionSettingAttribute.DataTemplateProviderType"/>.
+    /// </remarks>
+    public interface ITemplateDictionaryProvider
+    {
         /// <summary>
-        /// Loads the specified XAML embedded resource file and returns the root element.
+        /// Provides the <see cref="ActionSettingDataTemplate"/> instance with the specified <paramref name="key"/>.
         /// </summary>
-        /// <param name="resourceName">The name of the resource file, including namespace qualifiers.</param>
-        /// <param name="assembly">The assembly that contains the embedded resource.</param>
-        /// <returns>The root element of the specified embedded resource XAML file.</returns>
-        /// <exception cref="EmbeddedResourceNotFoundException">The specified <paramref name="resourceName"/> was <see langword="null"/> or does not exist in the <paramref name="assembly"/>.</exception>
-        public static object LoadEmbeddedXamlResource(string resourceName, Assembly assembly)
-        {
-            try
-            {
-                using var stream = assembly.GetManifestResourceStream(resourceName);
-
-                if (stream == null)
-                    throw new EmbeddedResourceNotFoundException(resourceName, assembly);
-
-                return XamlReader.Load(stream);
-            }
-            catch (Exception ex)
-            { // rethrow as nested exception
-                throw new EmbeddedResourceNotFoundException(resourceName, assembly, ex);
-            }
-        }
+        /// <param name="key">The key name of the target <see cref="DataTemplate"/> instance.</param>
+        /// <returns><see cref="DataTemplate"/> instance with the specified <paramref name="key"/> if it exists; otherwise <see langword="null"/>.</returns>
+        ActionSettingDataTemplate? ProvideDataTemplate(string key);
         /// <summary>
-        /// Loads a <see cref="DataTemplate"/> from an embedded resource XAML file in the specified <paramref name="assembly"/>.
+        /// Provides an <see cref="ActionSettingDataTemplate"/> for the specified <paramref name="valueType"/>.
         /// </summary>
-        /// <param name="resourceName">The full name (including namespace qualifiers) of an embedded XAML resource file that contains the <see cref="DataTemplate"/> definition.</param>
-        /// <param name="assembly">The assembly that contains the embedded XAML resource file.</param>
-        /// <returns>The <see cref="DataTemplate"/></returns>
-        /// <exception cref="EmbeddedResourceNotFoundException">The specified <paramref name="resourceName"/> was <see langword="null"/> or does not exist in the <paramref name="assembly"/>.</exception>
-        /// <exception cref="InvalidOperationException">The specified <paramref name="resourceName"/> does not define a <see cref="DataTemplate"/>.</exception>
-        public static DataTemplate FromEmbeddedResource(string resourceName, Assembly assembly)
-        {
-            var rootElement = LoadEmbeddedXamlResource(resourceName, assembly);
-
-            if (rootElement is DataTemplate dataTemplate)
-            {
-                return dataTemplate;
-            }
-            else throw new InvalidOperationException($"The resource file {resourceName} is invalid because the root element is of type {rootElement.GetType().FullName}; expected a root element of type {typeof(DataTemplate).FullName}!");
-        }
-        /// <summary>
-        /// Loads a <see cref="DataTemplate"/> from an embedded resource XAML file in the calling assembly.
-        /// </summary>
-        /// <inheritdoc cref="FromEmbeddedResource(string, Assembly)"/>
-        public static DataTemplate FromEmbeddedResource(string resourceName)
-            => FromEmbeddedResource(resourceName, Assembly.GetCallingAssembly());
-        #endregion Static Methods
+        /// <remarks>
+        /// This method will not return templates where <see cref="ActionSettingDataTemplate.IsExplicit"/> is <see langword="true"/>.
+        /// </remarks>
+        /// <param name="valueType">The value type to get a <see cref="DataTemplate"/> for.</param>
+        /// <returns>An <see cref="ActionSettingDataTemplate"/> instance for the specified <paramref name="valueType"/> if one was found; otherwise <see langword="null"/>.</returns>
+        ActionSettingDataTemplate? ProvideDataTemplate(Type valueType);
     }
 }

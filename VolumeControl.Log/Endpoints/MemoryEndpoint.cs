@@ -22,8 +22,27 @@
 
         #region Properties
         /// <inheritdoc/>
-        public bool Enabled { get; set; }
+        public bool Enabled
+        {
+            get => _enabled;
+            set
+            {
+                NotifyEnabledChanging(value);
+                _enabled = value;
+                NotifyEnabledChanged(_enabled);
+            }
+        }
+        private bool _enabled;
         #endregion Properties
+
+        #region Events
+        /// <inheritdoc/>
+        public event EventHandler<bool>? EnabledChanging;
+        private void NotifyEnabledChanging(bool incomingState) => EnabledChanging?.Invoke(this, incomingState);
+        /// <inheritdoc/>
+        public event EventHandler<bool>? EnabledChanged;
+        private void NotifyEnabledChanged(bool newState) => EnabledChanged?.Invoke(this, newState);
+        #endregion Events
 
         #region Methods
         /// <inheritdoc/>

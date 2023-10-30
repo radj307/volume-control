@@ -7,7 +7,6 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Threading;
 using VolumeControl.Core;
-using VolumeControl.Core.Structs;
 using VolumeControl.CoreAudio;
 using VolumeControl.CoreAudio.Events;
 using VolumeControl.Log;
@@ -117,7 +116,7 @@ namespace VolumeControl.ViewModels
         #endregion Fields
 
         #region Properties
-        private static Config Settings => (AppConfig.Configuration.Default as Config)!;
+        private static Config Settings => Config.Default;
         public ObservableImmutableList<AudioDeviceVM> Devices { get; }
         public CoreAudio.AudioSessionManager AudioSessionManager { get; }
         public ObservableImmutableList<AudioSessionVM> AllSessions { get; }
@@ -264,7 +263,6 @@ namespace VolumeControl.ViewModels
         }
         private void AudioSessionMultiSelector_CurrentSessionChanged(object? sender, AudioSession? e)
         {
-            Settings.TargetSession = e?.GetTargetInfo() ?? TargetInfo.Empty;
             CurrentSession = e == null ? null : GetAudioSessionVM(e);
         }
         #endregion AudioSessionMultiSelector

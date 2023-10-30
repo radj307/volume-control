@@ -83,7 +83,7 @@ namespace VolumeControl
         #endregion Fields
 
         #region Properties
-        private static Config Settings => (AppConfig.Configuration.Default as Config)!;
+        private static Config Settings => Config.Default;
         public VolumeControlVM VCSettings => (this.FindResource("Settings") as VolumeControlVM)!;
         public NotificationConfigSectionVM VM => VCSettings.SessionConfigVM;
         private Storyboard FadeInStoryboard => (FindResource(nameof(FadeInStoryboard)) as Storyboard)!;

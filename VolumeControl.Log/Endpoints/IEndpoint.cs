@@ -5,10 +5,31 @@
     /// </summary>
     public interface IEndpoint
     {
+        #region Properties
         /// <summary>
         /// Return true when the endpoint is enabled.
         /// </summary>
         bool Enabled { get; set; }
+        #endregion Properties
+
+        #region Events
+        /// <summary>
+        /// Occurs when the endpoint is about to be enabled or disabled for any reason.
+        /// </summary>
+        /// <remarks>
+        /// The boolean argument is the incoming state.
+        /// </remarks>
+        event EventHandler<bool>? EnabledChanging;
+        /// <summary>
+        /// Occurs when the endpoint is enabled or disabled for any reason.
+        /// </summary>
+        /// <remarks>
+        /// The boolean argument is the new state.
+        /// </remarks>
+        event EventHandler<bool>? EnabledChanged;
+        #endregion Events
+
+        #region Methods
         /// <summary>
         /// Retrieve a <see cref="StreamReader"/> object for reading from the endpoint.<br></br>
         /// Using this is only recommended for repeated read operations, such as in a loop; There is no benefit to using this for single read operations.
@@ -53,5 +74,6 @@
         /// Reset the contents of the log endpoint, leaving it empty.
         /// </summary>
         void Reset();
+        #endregion Methods
     }
 }

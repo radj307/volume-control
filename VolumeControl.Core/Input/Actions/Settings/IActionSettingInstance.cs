@@ -1,9 +1,11 @@
-﻿namespace VolumeControl.Core.Input.Actions.Settings
+﻿using System.ComponentModel;
+
+namespace VolumeControl.Core.Input.Actions.Settings
 {
     /// <summary>
     /// Represents an action setting instance.
     /// </summary>
-    public interface IActionSettingInstance
+    public interface IActionSettingInstance : INotifyPropertyChanged
     {
         /// <summary>
         /// Gets the definition object for this action setting instance.
@@ -53,7 +55,7 @@
     /// Represents a strongly-typed action setting instance.
     /// </summary>
     /// <typeparam name="T">The value type of this action setting.</typeparam>
-    public interface IActionSettingInstance<T>
+    public interface IActionSettingInstance<T> : INotifyPropertyChanged
     {
         /// <summary>
         /// Gets the definition object for this action setting instance.

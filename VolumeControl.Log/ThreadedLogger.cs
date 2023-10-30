@@ -33,17 +33,17 @@
                 _itemAddedSignal,
                 _terminateSignal
             };
+            Queue<Action> queueCopy;
             while (true)
             {
                 _isWaitingSignal.Set();
                 int i = WaitHandle.WaitAny(waitHandles);
+                _isWaitingSignal.Reset();
 
                 if (i == 1) return; //< terminate was signaled
 
                 _itemAddedSignal.Reset();
-                _isWaitingSignal.Reset();
 
-                Queue<Action> queueCopy;
                 lock (_queue)
                 {
                     queueCopy = new Queue<Action>(_queue);

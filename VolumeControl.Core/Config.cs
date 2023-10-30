@@ -25,6 +25,14 @@ namespace VolumeControl.Core
         public Config(string filePath) : base(filePath) { }
         #endregion Constructor
 
+        #region Properties
+        /// <summary>
+        /// The default <see cref="Config"/> instance.
+        /// </summary>
+        [JsonIgnore]
+        public static Config Default => (Config)DefaultInstance;
+        #endregion Properties
+
         #region Fields
         private static bool _autoSaveEnabled;
         #endregion Fields

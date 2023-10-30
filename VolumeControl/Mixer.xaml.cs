@@ -76,7 +76,7 @@ namespace VolumeControl
         private VolumeControlVM VCSettings => (this.FindResource("Settings") as VolumeControlVM)!;
         private AudioDeviceManagerVM AudioAPI => this.VCSettings.AudioAPI;
         private HotkeyManagerVM HotkeyAPI => this.VCSettings.HotkeyAPI;
-        private static Config Settings => (AppConfig.Configuration.Default as Config)!;
+        private static Config Settings => Config.Default;
         #endregion Properties
 
         #region Window Method Overrides
