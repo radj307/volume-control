@@ -657,7 +657,7 @@
                                             IsInactiveSelectionHighlightEnabled="True"
                                             MouseDoubleClick="Handle_TargetNameBoxDoubleClick"
                                             Style="{StaticResource TextBoxStyle}"
-                                            Text="{Binding TargetSessionText, Source={StaticResource Settings}, UpdateSourceTrigger=LostFocus}">
+                                            Text="{Binding TargetBoxVM.TargetText, Source={StaticResource Settings}, UpdateSourceTrigger=LostFocus}">
                                             <i:Interaction.Behaviors>
                                                 <wpfBehaviors:TextBoxAutocompleteBehavior ItemsSource="{Binding AudioSessionProcessIdentifierAutocompleteSource, Source={StaticResource Settings}}" StringComparison="OrdinalIgnoreCase" />
                                                 <wpfBehaviors:TextBoxEnterUpdatesTextSourceBehavior />

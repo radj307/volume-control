@@ -35,6 +35,8 @@ namespace VolumeControl.ViewModels
 
             this.AudioAPI = new();
 
+            TargetBoxVM = new(AudioAPI.AudioSessionManager, AudioAPI.AudioSessionMultiSelector);
+
             // Create the hotkey manager
             this.HotkeyAPI = new();
 
@@ -125,37 +127,7 @@ namespace VolumeControl.ViewModels
         public HotkeyManagerVM HotkeyAPI { get; }
         #endregion ParentObjects
 
-        /// <summary>
-        /// Gets or sets the target session text that appears on the mixer tab.
-        /// </summary>
-        public string TargetSessionText
-        {
-            get => AudioAPI.AudioSessionMultiSelector.CurrentSession?.ProcessIdentifier ?? string.Empty;
-            set
-            {
-                value = value.Trim();
-
-                if (value.Length > 0)
-                {
-                    if (AudioAPI.AudioSessionManager.FindSessionWithSimilarProcessIdentifier(value) is AudioSession session)
-                    { // text resolves to a valid AudioSession, select it:
-                        AudioAPI.AudioSessionMultiSelector.CurrentSession = session;
-                    }
-                    else
-                    { // text does not resolve to a valid AudioSession:
-                        // update Settings.TargetSession with the (invalid) process identifier directly.
-                        //  This causes the AudioSessionSelector to receive a PropertyChanged event and deselect the previously selected session.
-                        //  AudioSessionSelector has code to prevent overwriting Settings.TargetSession in this case.
-                        Settings.TargetSession = new() { ProcessName = value };
-                    }
-                }
-                else
-                {
-                    AudioAPI.AudioSessionMultiSelector.DeselectCurrentItem();
-                }
-            }
-        }
-
+        public TargetSessionVM TargetBoxVM { get; }
         public NotificationConfigSectionVM SessionConfigVM { get; }
         public NotificationConfigSectionVM DeviceConfigVM { get; }
         #endregion Properties
@@ -244,11 +216,7 @@ namespace VolumeControl.ViewModels
         {
             if (e.PropertyName is null) return;
 
-            if (e.PropertyName.Equals(nameof(AudioSessionMultiSelector.CurrentIndex)))
-            {
-                ForceNotifyPropertyChanged(nameof(TargetSessionText));
-            }
-            else if (e.PropertyName.Equals(nameof(AudioSessionSelector.LockSelection)))
+            if (e.PropertyName.Equals(nameof(AudioSessionSelector.LockSelection)))
             {
                 LockTargetSession = VCAPI.Default.AudioSessionMultiSelector.LockSelection;
             }
