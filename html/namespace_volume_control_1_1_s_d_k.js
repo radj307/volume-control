@@ -1,6 +1,6 @@
 var namespace_volume_control_1_1_s_d_k =
 [
-    [ "DataTemplateProviders", "namespace_volume_control_1_1_s_d_k_1_1_data_template_providers.html", "namespace_volume_control_1_1_s_d_k_1_1_data_template_providers" ],
+    [ "DataTemplates", "namespace_volume_control_1_1_s_d_k_1_1_data_templates.html", "namespace_volume_control_1_1_s_d_k_1_1_data_templates" ],
     [ "Delegates", "namespace_volume_control_1_1_s_d_k_1_1_delegates.html", [
       [ "HotkeyActionDelegate", "namespace_volume_control_1_1_s_d_k_1_1_delegates.html#ae2f0f77feb4f16c0c00b0c46cf12eaf1", null ],
       [ "HotkeyActionDelegate< T1 >", "namespace_volume_control_1_1_s_d_k_1_1_delegates.html#aaaa7992917f616cf6291eeb0694286a3", null ],

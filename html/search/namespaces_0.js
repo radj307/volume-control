@@ -10,7 +10,7 @@ var searchData=
   ['converters_1315',['Converters',['../namespace_volume_control_1_1_w_p_f_1_1_converters.html',1,'VolumeControl::WPF']]],
   ['core_1316',['Core',['../namespace_volume_control_1_1_core.html',1,'VolumeControl']]],
   ['coreaudio_1317',['CoreAudio',['../namespace_volume_control_1_1_core_audio.html',1,'VolumeControl']]],
-  ['datatemplateproviders_1318',['DataTemplateProviders',['../namespace_volume_control_1_1_s_d_k_1_1_data_template_providers.html',1,'VolumeControl::SDK']]],
+  ['datatemplates_1318',['DataTemplates',['../namespace_volume_control_1_1_s_d_k_1_1_data_templates.html',1,'VolumeControl::SDK']]],
   ['delegates_1319',['Delegates',['../namespace_volume_control_1_1_s_d_k_1_1_delegates.html',1,'VolumeControl::SDK']]],
   ['endpoints_1320',['Endpoints',['../namespace_volume_control_1_1_log_1_1_endpoints.html',1,'VolumeControl::Log']]],
   ['enum_1321',['Enum',['../namespace_volume_control_1_1_core_1_1_enum.html',1,'VolumeControl.Core.Enum'],['../namespace_volume_control_1_1_log_1_1_enum.html',1,'VolumeControl.Log.Enum']]],

@@ -123,8 +123,8 @@ var annotated_dup =
         [ "ThreadedLogger", "class_volume_control_1_1_log_1_1_threaded_logger.html", "class_volume_control_1_1_log_1_1_threaded_logger" ]
       ] ],
       [ "SDK", "namespace_volume_control_1_1_s_d_k.html", [
-        [ "DataTemplateProviders", "namespace_volume_control_1_1_s_d_k_1_1_data_template_providers.html", [
-          [ "DataTemplateProviders", "class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_data_template_providers.html", "class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_data_template_providers" ]
+        [ "DataTemplates", "namespace_volume_control_1_1_s_d_k_1_1_data_templates.html", [
+          [ "DataTemplateDictionary", "class_volume_control_1_1_s_d_k_1_1_data_templates_1_1_data_template_dictionary.html", "class_volume_control_1_1_s_d_k_1_1_data_templates_1_1_data_template_dictionary" ]
         ] ],
         [ "Internal", "namespace_volume_control_1_1_s_d_k_1_1_internal.html", [
           [ "Initializer", "class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer.html", "class_volume_control_1_1_s_d_k_1_1_internal_1_1_initializer" ],

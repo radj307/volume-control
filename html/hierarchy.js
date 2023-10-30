@@ -198,7 +198,7 @@ var hierarchy =
       [ "VolumeControl.WPF.BindableTimer", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html", null ]
     ] ],
     [ "VolumeControl.Core.ITemplateDictionaryProvider", "interface_volume_control_1_1_core_1_1_i_template_dictionary_provider.html", [
-      [ "VolumeControl.SDK.DataTemplateProviders.DataTemplateProviders", "class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_data_template_providers.html", null ]
+      [ "VolumeControl.SDK.DataTemplates.DataTemplateDictionary", "class_volume_control_1_1_s_d_k_1_1_data_templates_1_1_data_template_dictionary.html", null ]
     ] ],
     [ "VolumeControl.Core.ITemplateProvider", "interface_volume_control_1_1_core_1_1_i_template_provider.html", null ],
     [ "IValueConverter", null, [
@@ -245,7 +245,7 @@ var hierarchy =
     [ "VolumeControl.WPF.PInvoke.RECT", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html", null ],
     [ "VolumeControl.TypeExtensions.ReflectionExtensions", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html", null ],
     [ "ResourceDictionary", null, [
-      [ "VolumeControl.SDK.DataTemplateProviders.DataTemplateProviders", "class_volume_control_1_1_s_d_k_1_1_data_template_providers_1_1_data_template_providers.html", null ]
+      [ "VolumeControl.SDK.DataTemplates.DataTemplateDictionary", "class_volume_control_1_1_s_d_k_1_1_data_templates_1_1_data_template_dictionary.html", null ]
     ] ],
     [ "RoutedEventArgs", null, [
       [ "VolumeControl.WPF.Controls.TextBoxWithCompletionOptions.CommittedTextEventArgs", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_text_box_with_completion_options_1_1_committed_text_event_args.html", null ],
