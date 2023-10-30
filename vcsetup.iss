@@ -148,3 +148,13 @@ begin
   Dependency_AddDotNet60;
   Result := True;
 end;
+
+procedure InitializeWizard();
+var
+  i: Integer;
+begin
+  { Set the license memo text alignment to center & strip preceding whitespace }   
+  WizardForm.LicenseMemo.Alignment := taCenter;
+  for i:= WizardForm.LicenseMemo.Lines.Count downto 0 do
+    WizardForm.LicenseMemo.Lines[i] := Trim(WizardForm.LicenseMemo.Lines[i]);
+end;
