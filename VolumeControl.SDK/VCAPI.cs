@@ -41,36 +41,44 @@ namespace VolumeControl.SDK
 
         #region Properties
         /// <summary>
-        /// This is the global <see cref="CoreAudio.AudioDeviceManager"/> responsible for managing <see cref="AudioDevice"/> instances.
+        /// Gets the audio device manager object.
         /// </summary>
         public AudioDeviceManager AudioDeviceManager { get; }
         /// <summary>
-        /// Manages the selected <see cref="AudioDevice"/> instance for the <see cref="AudioDeviceManager"/>.
+        /// Gets the audio device selection manager object.
         /// </summary>
         public AudioDeviceSelector AudioDeviceSelector { get; }
         /// <summary>
-        /// This is the global <see cref="CoreAudio.AudioSessionManager"/> responsible for managing <see cref="AudioSession"/> instances.
+        /// Gets the audio session manager object.
         /// </summary>
         public AudioSessionManager AudioSessionManager { get; }
         /// <summary>
-        /// Manages the selected <see cref="AudioSession"/> instance for the <see cref="AudioSessionManager"/>.
+        /// Gets the audio session selection manager object.
         /// </summary>
         public AudioSessionMultiSelector AudioSessionMultiSelector { get; }
         /// <summary>
-        /// This is the global <see cref="HotkeyManager"/> responsible for managing hotkeys.
+        /// Gets the hotkey manager object.
         /// </summary>
         public HotkeyManager HotkeyManager { get; }
         /// <summary>
-        /// This is the handle of the main window, for use with Windows API methods in <see cref="User32"/> or elsewhere.
+        /// Gets the handle of the main window.
         /// </summary>
+        /// <remarks>
+        /// This is the handle of the main window, for use with Windows API methods in <see cref="User32"/> or elsewhere.
+        /// </remarks>
         public IntPtr MainWindowHWnd { get; }
         /// <summary>
-        /// This is the object that contains many of the runtime application settings.<br/>These are saved to the user configuration when the application shuts down.
+        /// Gets the application settings object.
         /// </summary>
+        /// <remarks>
+        /// This is the object that contains many of the runtime application settings.<br/>These are saved to the user configuration when the application shuts down.
+        /// </remarks>
         public Config Settings { get; }
         #endregion Properties
 
         #region Methods
+
+        #region Show...
         /// <summary>
         /// Display the SessionListNotification window.
         /// </summary>
@@ -97,6 +105,8 @@ namespace VolumeControl.SDK
         {
             VCEvents.NotifyShowMixer(this, EventArgs.Empty);
         }
+        #endregion Show...
+
         #endregion Methods
     }
 }
