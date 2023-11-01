@@ -19,7 +19,7 @@ body:
     attributes:
       label:        Version Number
       description:  |
-                    The version(s) of volume control that you're having trouble with.
+                    The version of volume control that you're having trouble with. If you've tried multiple versions, separate them with commas (`,`).  
                     This tells us what version of the program we need to fix, and can be found to the left of the minimize & close buttons on the top bar.  
                     
                     If the program won't start, find `VolumeControl.exe` & *Right-Click* → **Properties** → **Details** → **`Product version`**
