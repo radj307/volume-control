@@ -326,8 +326,8 @@
               "German (DE/DE)": "In Taskleiste anzeigen"
             },
             "Tooltip": {
-              "German (DE/DE)": "Wenn aktiv wird Volume Control in der Taskleiste angezeigt."			
-      }
+              "German (DE/DE)": "Wenn aktiv wird Volume Control in der Taskleiste angezeigt."
+            }
           },
           "AlwaysOnTop": {
             "Content": {
@@ -335,7 +335,7 @@
             },
             "Tooltip": {
               "German (DE/DE)": "Wenn aktiv wird das Volume Control-Fenster immer über allen anderen Fenstern angezeigt."
-      }
+            }
           },
           "ShowIcons": {
             "Content": {

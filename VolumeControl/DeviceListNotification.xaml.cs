@@ -106,7 +106,7 @@ namespace VolumeControl
                 _fadingIn = false;
             }
         }
-        private bool IsHiddenByViewMode => VM.FlagsVM.State == EListNotificationView.Nothing;
+        private bool IsHiddenByViewMode => VM.FlagsVM.State == ENotificationViewMode.Nothing;
         #endregion Properties
 
         #region Methods
@@ -508,9 +508,9 @@ namespace VolumeControl
         #endregion Window
 
         #region FlagsVM
-        private void FlagsVM_StateChanged(object? sender, (EListNotificationView NewState, EListNotificationView ChangedFlags) e)
+        private void FlagsVM_StateChanged(object? sender, (ENotificationViewMode NewState, ENotificationViewMode ChangedFlags) e)
         {
-            if (e.NewState == EListNotificationView.Nothing)
+            if (e.NewState == ENotificationViewMode.Nothing)
             {
                 HideNowNoFadeOut();
             }

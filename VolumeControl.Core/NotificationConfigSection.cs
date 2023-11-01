@@ -71,7 +71,7 @@ namespace VolumeControl.Core
         /// <summary>
         /// Gets or sets the view mode of this notification.
         /// </summary>
-        public EListNotificationView ViewMode { get; set; } = EListNotificationView.Everything;
+        public ENotificationViewMode ViewMode { get; set; } = ENotificationViewMode.Everything;
         /// <summary>
         /// Gets or sets the background color.
         /// </summary>

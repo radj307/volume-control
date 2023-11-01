@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace VolumeControl.Core.Structs
 {
@@ -6,6 +7,7 @@ namespace VolumeControl.Core.Structs
     /// Contains metadata for saving audio sessions to and from the config
     /// </summary>
     [JsonObject]
+    [DebuggerDisplay("PID = {PID}, ProcessName = {ProcessName}")]
     public struct TargetInfo
     {
         #region Constructor

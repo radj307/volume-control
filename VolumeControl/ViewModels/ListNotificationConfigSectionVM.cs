@@ -18,7 +18,7 @@ namespace VolumeControl.ViewModels
 
         #region Properties
         public NotificationConfigSection ConfigSection { get; }
-        public ListNotificationViewFlagsVM FlagsVM { get; }
+        public NotificationViewFlagsVM FlagsVM { get; }
         public Brush LockedAccentBrush => new SolidColorBrush(ConfigSection.LockedColor);
         public Brush UnlockedAccentBrush => new SolidColorBrush(ConfigSection.UnlockedColor);
         public Brush BackgroundBrush => new SolidColorBrush(ConfigSection.BackgroundColor);

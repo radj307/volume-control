@@ -1752,14 +1752,16 @@
                                                     Content="🗁"
                                                     FontWeight="SemiBold"
                                                     IsEnabled="{Binding IsChecked, ElementName=cbEnableLog}" />
+                                                <!--  Open Log File Button  -->
                                                 <Button
                                                     Grid.Column="2"
                                                     Margin="5,2"
                                                     Padding="3,0"
                                                     VerticalAlignment="Stretch"
                                                     Click="Handle_OpenLogClick"
-                                                    Content="Open"
-                                                    IsEnabled="{Binding IsChecked, ElementName=cbEnableLog}" />
+                                                    Content="{Tr 'VolumeControl.MainWindow.Settings.Log.OpenButton.Content'}"
+                                                    IsEnabled="{Binding IsChecked, ElementName=cbEnableLog}"
+                                                    ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Log.OpenButton.Tooltip'}" />
                                             </Grid>
                                         </Grid>
                                     </Grid>

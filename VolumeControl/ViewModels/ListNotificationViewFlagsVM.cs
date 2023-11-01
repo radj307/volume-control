@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodingSeb.Localization;
+using System;
 using System.ComponentModel;
 using VolumeControl.Core;
 using VolumeControl.Core.Enum;
@@ -6,10 +7,10 @@ using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.ViewModels
 {
-    public class ListNotificationViewFlagsVM : FlagsEnumVM<EListNotificationView>
+    public class NotificationViewFlagsVM : FlagsEnumVM<ENotificationViewMode, NotificationViewFlagsVM.NotificationViewFlagsValueVM>
     {
         #region Constructor
-        public ListNotificationViewFlagsVM(NotificationConfigSection configSection) : base(configSection.ViewMode, EListNotificationView.Nothing, nameof(EListNotificationView.Everything))
+        public NotificationViewFlagsVM(NotificationConfigSection configSection) : base(configSection.ViewMode, ENotificationViewMode.Nothing, nameof(ENotificationViewMode.Everything))
         {
             ConfigSection = configSection;
 
@@ -26,28 +27,28 @@ namespace VolumeControl.ViewModels
         #region Properties
         public bool ShowControlBar
         {
-            get => ConfigSection.ViewMode.HasFlag(EListNotificationView.ControlBar);
+            get => ConfigSection.ViewMode.HasFlag(ENotificationViewMode.ControlBar);
             set
             {
-                ConfigSection.ViewMode = ConfigSection.ViewMode.SetFlagState(EListNotificationView.ControlBar, value);
+                ConfigSection.ViewMode = ConfigSection.ViewMode.SetFlagState(ENotificationViewMode.ControlBar, value);
                 NotifyPropertyChanged();
             }
         }
         public bool ShowSelectedOnly
         {
-            get => ConfigSection.ViewMode.HasFlag(EListNotificationView.SelectedItemOnly);
+            get => ConfigSection.ViewMode.HasFlag(ENotificationViewMode.SelectedItemOnly);
             set
             {
-                ConfigSection.ViewMode = ConfigSection.ViewMode.SetFlagStates((EListNotificationView.SelectedItemOnly, value), (EListNotificationView.AllItems, !value));
+                ConfigSection.ViewMode = ConfigSection.ViewMode.SetFlagStates((ENotificationViewMode.SelectedItemOnly, value), (ENotificationViewMode.AllItems, !value));
                 NotifyPropertyChanged();
             }
         }
         public bool ShowFullList
         {
-            get => ConfigSection.ViewMode.HasFlag(EListNotificationView.AllItems);
+            get => ConfigSection.ViewMode.HasFlag(ENotificationViewMode.AllItems);
             set
             {
-                ConfigSection.ViewMode = ConfigSection.ViewMode.SetFlagStates((EListNotificationView.AllItems, value), (EListNotificationView.SelectedItemOnly, !value));
+                ConfigSection.ViewMode = ConfigSection.ViewMode.SetFlagStates((ENotificationViewMode.AllItems, value), (ENotificationViewMode.SelectedItemOnly, !value));
                 NotifyPropertyChanged();
             }
         }
@@ -56,15 +57,15 @@ namespace VolumeControl.ViewModels
         #region EventHandlers
 
         #region ListNotificationViewFlagsVM
-        private void ListNotificationViewFlagsVM_StateChanged(object? sender, (EListNotificationView NewState, EListNotificationView ChangedFlags) e)
+        private void ListNotificationViewFlagsVM_StateChanged(object? sender, (ENotificationViewMode NewState, ENotificationViewMode ChangedFlags) e)
         {
             if (_thisIsStateChangeSource) return;
             _thisIsStateChangeSource = true;
-            if (e.ChangedFlags == EListNotificationView.SelectedItemOnly)
-                State &= ~EListNotificationView.AllItems;
-            else if (e.ChangedFlags == EListNotificationView.AllItems)
+            if (e.ChangedFlags == ENotificationViewMode.SelectedItemOnly)
+                State &= ~ENotificationViewMode.AllItems;
+            else if (e.ChangedFlags == ENotificationViewMode.AllItems)
             {
-                State &= ~EListNotificationView.SelectedItemOnly;
+                State &= ~ENotificationViewMode.SelectedItemOnly;
             }
             ConfigSection.ViewMode = State;
             _thisIsStateChangeSource = false;
@@ -90,5 +91,31 @@ namespace VolumeControl.ViewModels
         #endregion ConfigSection
 
         #endregion EventHandlers
+
+        #region (class) NotificationViewFlagsValueVM
+        public class NotificationViewFlagsValueVM : FlagsEnumValueBase<ENotificationViewMode>
+        {
+            #region Constructor
+            internal NotificationViewFlagsValueVM(ENotificationViewMode viewMode, bool isSet) : base(viewMode, isSet)
+            {
+                _enumName = Enum.GetName(viewMode)!;
+                Loc.Instance.CurrentLanguageChanged += this.Instance_CurrentLanguageChanged;
+            }
+            #endregion Constructor
+
+            #region Fields
+            private readonly string _enumName;
+            #endregion Fields
+
+            #region Properties
+            public override string Name => Loc.Tr($"Enums.ENotificationViewMode.{_enumName}", defaultText: _enumName);
+            #endregion Properties
+
+            #region EventHandlers
+            private void Instance_CurrentLanguageChanged(object? sender, CurrentLanguageChangedEventArgs e)
+                => NotifyPropertyChanged(nameof(Name));
+            #endregion EventHandlers
+        }
+        #endregion (class) NotificationViewFlagsValueVM
     }
 }

@@ -335,6 +335,7 @@ namespace VolumeControl.Core.Input
         /// <param name="providerType">Optional type that implements </param>
         /// <param name="templateKey">Optional key for a specific <see cref="ActionSettingDataTemplate"/> instance in a <see cref="ITemplateDictionaryProvider"/>.<br/>When <paramref name="providerType"/> is <see langword="null"/></param>
         /// <param name="valueType">The type of value that will be displayed in the <see cref="DataTemplate"/>.</param>
+        /// <param name="fallbackMode">The <see cref="FallbackMode"/> to use when searching for a template.</param>
         /// <returns><see cref="DataTemplate"/> instance for the specified parameters when successful; otherwise <see langword="null"/>.</returns>
         /// <exception cref="InvalidProviderTypeException"><paramref name="providerType"/> does not implement <see cref="ITemplateProvider"/> or <see cref="ITemplateDictionaryProvider"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="valueType"/> was <see langword="null"/> and the <paramref name="providerType"/> and <paramref name="templateKey"/> didn't resolve to a valid template.</exception>

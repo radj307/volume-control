@@ -326,6 +326,14 @@
             "WatermarkText": {
               "English (US/CA)": "Path to Log File"
             }
+          },
+          "OpenButton": {
+            "Content": {
+              "English (US/CA)": "Open"
+            },
+            "Tooltip": {
+              "English (US/CA)": "Opens the log file in the default application."
+            }
           }
         },
         "Application": {
@@ -589,6 +597,23 @@
       },
       "Close": {
         "English (US/CA)": "Close"
+      }
+    }
+  },
+
+  "Enums": {
+    "EventType": {
+
+    },
+    "ENotificationViewMode": {
+      "ControlBar": {
+        "English (US/CA)": "Control Bar"
+      },
+      "SelectedItemOnly": {
+        "English (US/CA)": "Selected Item Only"
+      },
+      "AllItems": {
+        "English (US/CA)": "All Items"
       }
     }
   }
