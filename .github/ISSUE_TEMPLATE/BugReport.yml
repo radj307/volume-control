@@ -105,4 +105,4 @@ body:
                     - (Portable)  The folder where `VolumeControl.exe` is located.  
       render:       shell
       placeholder:  |
-                    Logs may contain file paths that include your Windows username. If you don't want your username to be visible publicly, use a text editor to replace all occurrences with `<USERNAME>` prior to posting.
+                    Logs may contain file paths that include your Windows username. If you don't want your username to be visible publicly, use a text editor to replace all occurrences with <USERNAME> prior to posting.
