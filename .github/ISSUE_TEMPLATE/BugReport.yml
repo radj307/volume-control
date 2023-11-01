@@ -102,6 +102,6 @@ body:
                     :warning: **Logs may contain file paths that include your Windows username. If you don't want your username to be visible publicly, use a text editor to replace all occurrences with `<USERNAME>` prior to posting.**
       render:       shell
       placeholder:  |
-                    The log file can be found in one of the following locations, depending on which file you're using:  
-                    - (Installer) `%LocalAppData%\radj307\VolumeControl`.  
-                    - (Portable)  The folder where `VolumeControl.exe` is located. 
+                    VolumeControl.log can be found in one of the following locations, depending on which file you're using:  
+                    - (Installer) %LocalAppData%\radj307\VolumeControl  
+                    - (Portable)  The folder where `VolumeControl.exe` is located.
