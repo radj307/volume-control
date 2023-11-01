@@ -35,10 +35,11 @@ body:
       description: |
                    Select whether you used the installer version or the portable version.  
                    If you're having the issue with multiple files, select all that apply.
+
+                   Winget users should select **Installer**.
       options:
         - Installer  (VolumeControl-Installer.exe)
         - Portable   (VolumeControl.exe)
-        - Winget
       multiple:    true
     validations:
       required:    true
@@ -102,6 +103,6 @@ body:
                     :warning: **Logs may contain file paths that include your Windows username. If you don't want your username to be visible publicly, use a text editor to replace all occurrences with `<USERNAME>` prior to posting.**
       render:       shell
       placeholder:  |
-                    VolumeControl.log can be found in one of the following locations, depending on which file you're using:  
+                    VolumeControl.log can be found in one of the following locations:  
                     - (Installer) %LocalAppData%\radj307\VolumeControl  
-                    - (Portable)  The folder where `VolumeControl.exe` is located.
+                    - (Portable)  The folder where `VolumeControl.exe` is located.  
