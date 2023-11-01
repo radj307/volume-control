@@ -38,15 +38,7 @@
         /// ENTER key.
         /// Applies to both the Enter key and the numpad Enter key.
         /// </Summary>
-        Return = 6,
-        /// <Summary>
-        /// <b>VK_RETURN</b>
-        /// ENTER key.
-        /// Applies to both the Enter key and the numpad Enter key.
-        /// </Summary>
-#pragma warning disable CA1069 // Enums values should not be duplicated
         Enter = 6,
-#pragma warning restore CA1069 // Enums values should not be duplicated
         /// <Summary>
         /// <b>VK_PAUSE</b>
         /// PAUSE key
@@ -65,48 +57,6 @@
         /// ESC key
         /// </Summary>
         Escape = 13,
-        #region IME Keys
-        /// <Summary>
-        /// <b>VK_KANA</b>
-        /// IME Kana mode
-        /// </Summary>
-        ImeKanaMode = 9,
-        /// <Summary>
-        /// <b>VK_JUNJA</b>
-        /// IME Junja mode
-        /// </Summary>
-        ImeJunjaMode = 10,
-        /// <Summary>
-        /// <b>VK_FINAL</b>
-        /// IME final mode
-        /// </Summary>
-        ImeFinalMode = 11,
-        /// <Summary>
-        /// <b>VK_HANJA</b>
-        /// IME Hanja mode
-        /// </Summary>
-        ImeHanjaMode = 12,
-        /// <Summary>
-        /// <b>VK_CONVERT</b>
-        /// IME convert
-        /// </Summary>
-        ImeConvert = 14,
-        /// <Summary>
-        /// <b>VK_NONCONVERT</b>
-        /// IME nonconvert
-        /// </Summary>
-        ImeNonConvert = 15,
-        /// <Summary>
-        /// <b>VK_ACCEPT</b>
-        /// IME accept
-        /// </Summary>
-        ImeAccept = 16,
-        /// <Summary>
-        /// <b>VK_MODECHANGE</b>
-        /// IME mode change request
-        /// </Summary>
-        ImeModeChange = 17,
-        #endregion IME Keys
         /// <Summary>
         /// <b>VK_SPACE</b>
         /// SPACEBAR
@@ -698,11 +648,6 @@
         /// </Summary>
         Dash = 143,
         /// <Summary>
-        /// <b>VK_OEM_MINUS</b>
-        /// For any country/region, the '-' key
-        /// </Summary>
-        Minus = 143,
-        /// <Summary>
         /// <b>VK_OEM_PERIOD</b>
         /// For any country/region, the '.' key
         /// </Summary>
@@ -792,5 +737,47 @@
         /// Clear key
         /// </Summary>
         OemClear = 171,
+        #region IME Keys
+        /// <Summary>
+        /// <b>VK_KANA</b>
+        /// IME Kana mode
+        /// </Summary>
+        ImeKanaMode = 9,
+        /// <Summary>
+        /// <b>VK_JUNJA</b>
+        /// IME Junja mode
+        /// </Summary>
+        ImeJunjaMode = 10,
+        /// <Summary>
+        /// <b>VK_FINAL</b>
+        /// IME final mode
+        /// </Summary>
+        ImeFinalMode = 11,
+        /// <Summary>
+        /// <b>VK_HANJA</b>
+        /// IME Hanja mode
+        /// </Summary>
+        ImeHanjaMode = 12,
+        /// <Summary>
+        /// <b>VK_CONVERT</b>
+        /// IME convert
+        /// </Summary>
+        ImeConvert = 14,
+        /// <Summary>
+        /// <b>VK_NONCONVERT</b>
+        /// IME nonconvert
+        /// </Summary>
+        ImeNonConvert = 15,
+        /// <Summary>
+        /// <b>VK_ACCEPT</b>
+        /// IME accept
+        /// </Summary>
+        ImeAccept = 16,
+        /// <Summary>
+        /// <b>VK_MODECHANGE</b>
+        /// IME mode change request
+        /// </Summary>
+        ImeModeChange = 17,
+        #endregion IME Keys
     }
 }

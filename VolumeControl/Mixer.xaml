@@ -930,11 +930,32 @@
                                                         DefaultText='Key'}">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate DataType="{x:Type vm:HotkeyVM}">
-                                                    <ComboBox
-                                                        ItemsSource="{StaticResource KeyOptions}"
-                                                        KeyDown="Handle_KeySelectorKeyDown"
-                                                        SelectedValue="{Binding Hotkey.Key, UpdateSourceTrigger=PropertyChanged}"
-                                                        Style="{StaticResource ComboBoxStyle}" />
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <ComboBox
+                                                            x:Name="KeySelectorComboBox"
+                                                            DisplayMemberPath="Name"
+                                                            ItemsSource="{StaticResource KeyOptions}"
+                                                            SelectedValue="{Binding Hotkey.Key, UpdateSourceTrigger=PropertyChanged}"
+                                                            SelectedValuePath="Key"
+                                                            Style="{StaticResource ComboBoxStyle}" />
+                                                        <Button
+                                                            x:Name="KeySelectorToggleButton"
+                                                            Grid.Column="1"
+                                                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                                            Margin="2"
+                                                            Content="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Key.KeySelector.Content',
+                                                                         DefaultText='🖮'}"
+                                                            PreviewMouseDown="KeySelectorToggleButton_PreviewMouseDown"
+                                                            PreviewMouseUp="KeySelectorToggleButton_PreviewMouseUp"
+                                                            Tag="{Binding ElementName=KeySelectorComboBox}"
+                                                            ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Key.KeySelector.Tooltip',
+                                                                         DefaultText='Click and hold with the mouse, then press a key to select it.\nRegistered hotkeys can still be triggered.'}" />
+                                                    </Grid>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -1759,9 +1780,11 @@
                                                     Padding="3,0"
                                                     VerticalAlignment="Stretch"
                                                     Click="Handle_OpenLogClick"
-                                                    Content="{Tr 'VolumeControl.MainWindow.Settings.Log.OpenButton.Content'}"
+                                                    Content="{Tr 'VolumeControl.MainWindow.Settings.Log.OpenButton.Content',
+                                                                 DefaultText='Open'}"
                                                     IsEnabled="{Binding IsChecked, ElementName=cbEnableLog}"
-                                                    ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Log.OpenButton.Tooltip'}" />
+                                                    ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Log.OpenButton.Tooltip',
+                                                                 DefaultText='Opens the log file in the default application.'}" />
                                             </Grid>
                                         </Grid>
                                     </Grid>

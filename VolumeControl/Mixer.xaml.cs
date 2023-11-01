@@ -7,10 +7,12 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using VolumeControl.Core;
 using VolumeControl.Core.Enum;
+using VolumeControl.Core.Extensions;
 using VolumeControl.Core.Input;
 using VolumeControl.Core.Input.Enums;
 using VolumeControl.Helpers;
@@ -210,29 +212,6 @@ namespace VolumeControl
         {
             ((ComboBox)sender).SelectedItem = null;
         }
-        private void Handle_KeySelectorKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.Equals(Key.Tab))
-                return; //< don't capture the tab key or it breaks keyboard navigation
-            if (!Keyboard.IsKeyDown(Key.LeftCtrl) && !Keyboard.IsKeyDown(Key.LeftCtrl))
-                return; //< only capture when CTRL is held down to allow proper searching
-            if (sender is ComboBox cmb)
-            {
-                var eventKey = (EFriendlyKey)e.Key;
-                int i = cmb.Items.IndexOf(eventKey);
-
-                if (i.Equals(-1))
-                    return;
-
-                object? item = cmb.Items[i];
-
-                if (this.TryFindResource("KeyOptions") is KeyOptions keys && keys.Contains(item))
-                {
-                    cmb.SelectedItem = eventKey;
-                    e.Handled = true;
-                }
-            }
-        }
         private void Handle_ReloadLanguageConfigs(object sender, RoutedEventArgs e) => LocalizationHelper.ReloadLanguageConfigs(FLog.Log);
 
         private void Handle_HotkeyActionSettingsClick(object sender, RoutedEventArgs e)
@@ -359,6 +338,45 @@ namespace VolumeControl
                 Process.Start(VCSettings.ExecutablePath, "--wait-for-mutex")?.Dispose();
             }
         }
+
+        #region KeySelectorToggleButton
+        private void KeySelectorToggleButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var button = (Button)sender;
+            button.PreviewKeyDown += this.KeySelectorToggleButton_PreviewKeyDown;
+            FLog.Info("[KeySelector] Activated, waiting for input...");
+        }
+        private void KeySelectorToggleButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var button = (Button)sender;
+            button.PreviewKeyDown -= this.KeySelectorToggleButton_PreviewKeyDown;
+            FLog.Info("[KeySelector] Deactivated.");
+        }
+        private void KeySelectorToggleButton_PreviewKeyDown(object sender, KeyEventArgs e)
+        { // find the key that was pressed and select it
+            var button = (Button)sender;
+            var cmb = (ComboBox)button.Tag;
+
+            var friendlyKey = (EFriendlyKey)e.Key;
+
+            int i = 0, i_max = cmb.Items.Count;
+            for (; i < i_max; ++i)
+            {
+                if (friendlyKey == ((KeyOptions.FriendlyKeyVM)cmb.Items[i]).Key)
+                    break;
+            }
+            if (i == i_max)
+            {
+                FLog.Error($"[KeySelector] Key \"{friendlyKey:G}\" was pressed, but it isn't supported!");
+                return; //< key wasn't found
+            }
+            else FLog.Info($"[KeySelector] Key \"{friendlyKey:G}\" was pressed & selected.");
+
+            cmb.SelectedIndex = i;
+            e.Handled = true;
+        }
+        #endregion KeySelectorToggleButton
+
         #endregion EventHandlers
     }
 }

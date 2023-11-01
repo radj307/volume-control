@@ -1,71 +1,87 @@
-﻿using System;
+﻿using CodingSeb.Localization;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using VolumeControl.Core.Input.Enums;
 
 namespace VolumeControl.Helpers
 {
-    /// <summary>
-    /// Container for <see cref="EFriendlyKey"/> enum values that are shown in the UI.
-    /// </summary>
-    public class KeyOptions : ICollection<EFriendlyKey>, IEnumerable<EFriendlyKey>, IEnumerable, IList<EFriendlyKey>, IReadOnlyCollection<EFriendlyKey>, IReadOnlyList<EFriendlyKey>, ICollection, IList
+    public class KeyOptions : IEnumerable<KeyOptions.FriendlyKeyVM>
     {
-        public KeyOptions() => Keys = Enum.GetValues<EFriendlyKey>().ToList();
+        #region Constructor
+        public KeyOptions()
+        {
+            Items = new();
+            foreach (var keyValue in Enum.GetValues<EFriendlyKey>())
+            {
+                Items.Add(new(keyValue));
+            }
+        }
+        #endregion Constructor
 
-        public List<EFriendlyKey> Keys;
+        #region Properties
+        public List<FriendlyKeyVM> Items;
+        #endregion Properties
 
-        /// <inheritdoc/>
-        public EFriendlyKey this[int index] { get => ((IList<EFriendlyKey>)Keys)[index]; set => ((IList<EFriendlyKey>)Keys)[index] = value; }
-        /// <inheritdoc/>
-        object? IList.this[int index] { get => ((IList)Keys)[index]; set => ((IList)Keys)[index] = value; }
+        #region (class) FriendlyKeyVM
+        public class FriendlyKeyVM : INotifyPropertyChanged
+        {
+            #region Constructor
+            /// <summary>
+            /// Creates a new <see cref="FriendlyKeyVM"/> instance with the specified <paramref name="key"/> &amp; <paramref name="name"/>.
+            /// </summary>
+            /// <param name="key">The <see cref="EFriendlyKey"/> enum value that this instance represents.</param>
+            /// <param name="name">The localized name of the <paramref name="key"/>.</param>
+            public FriendlyKeyVM(EFriendlyKey key)
+            {
+                Key = key;
+                Loc.Instance.CurrentLanguageChanged += this.Instance_CurrentLanguageChanged;
+            }
+            #endregion Constructor
 
-        /// <inheritdoc/>
-        public int Count => ((ICollection<EFriendlyKey>)Keys).Count;
+            #region Fields
+            private const string EFriendlyKeyLocalizationPathRoot = "Enums.EFriendlyKey";
+            #endregion Fields
 
-        /// <inheritdoc/>
-        public bool IsReadOnly => ((ICollection<EFriendlyKey>)Keys).IsReadOnly;
+            #region Properties
+            /// <summary>
+            /// Gets the <see cref="EFriendlyKey"/> enum that this instance represents.
+            /// </summary>
+            public EFriendlyKey Key { get; }
+            /// <summary>
+            /// Gets the localized name of this key.
+            /// </summary>
+            public string Name
+            {
+                get
+                {
+                    var enumName = Enum.GetName(Key)!;
+                    return Loc.Tr($"{EFriendlyKeyLocalizationPathRoot}.{enumName}", defaultText: enumName);
+                }
+            }
+            #endregion Properties
 
-        /// <inheritdoc/>
-        public bool IsSynchronized => ((ICollection)Keys).IsSynchronized;
+            #region Events
+            public event PropertyChangedEventHandler? PropertyChanged;
+            private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+            #endregion Events
 
-        /// <inheritdoc/>
-        public object SyncRoot => ((ICollection)Keys).SyncRoot;
+            #region Operators
+            public static implicit operator EFriendlyKey(FriendlyKeyVM inst) => inst.Key;
+            #endregion Operators
 
-        /// <inheritdoc/>
-        public bool IsFixedSize => ((IList)Keys).IsFixedSize;
+            #region EventHandlers
+            private void Instance_CurrentLanguageChanged(object? sender, CurrentLanguageChangedEventArgs e)
+                => NotifyPropertyChanged(nameof(Name));
+            #endregion EventHandlers
+        }
+        #endregion (class) FriendlyKeyVM
 
-        /// <inheritdoc/>
-        public void Add(EFriendlyKey item) => ((ICollection<EFriendlyKey>)Keys).Add(item);
-        /// <inheritdoc/>
-        public int Add(object? value) => ((IList)Keys).Add(value);
-        /// <inheritdoc/>
-        public void Clear() => ((ICollection<EFriendlyKey>)Keys).Clear();
-        /// <inheritdoc/>
-        public bool Contains(EFriendlyKey item) => ((ICollection<EFriendlyKey>)Keys).Contains(item);
-        /// <inheritdoc/>
-        public bool Contains(object? value) => ((IList)Keys).Contains(value);
-        /// <inheritdoc/>
-        public void CopyTo(EFriendlyKey[] array, int arrayIndex) => ((ICollection<EFriendlyKey>)Keys).CopyTo(array, arrayIndex);
-        /// <inheritdoc/>
-        public void CopyTo(Array array, int index) => ((ICollection)Keys).CopyTo(array, index);
-        /// <inheritdoc/>
-        public IEnumerator<EFriendlyKey> GetEnumerator() => ((IEnumerable<EFriendlyKey>)Keys).GetEnumerator();
-        /// <inheritdoc/>
-        public int IndexOf(EFriendlyKey item) => ((IList<EFriendlyKey>)Keys).IndexOf(item);
-        /// <inheritdoc/>
-        public int IndexOf(object? value) => ((IList)Keys).IndexOf(value);
-        /// <inheritdoc/>
-        public void Insert(int index, EFriendlyKey item) => ((IList<EFriendlyKey>)Keys).Insert(index, item);
-        /// <inheritdoc/>
-        public void Insert(int index, object? value) => ((IList)Keys).Insert(index, value);
-        /// <inheritdoc/>
-        public bool Remove(EFriendlyKey item) => ((ICollection<EFriendlyKey>)Keys).Remove(item);
-        /// <inheritdoc/>
-        public void Remove(object? value) => ((IList)Keys).Remove(value);
-        /// <inheritdoc/>
-        public void RemoveAt(int index) => ((IList<EFriendlyKey>)Keys).RemoveAt(index);
-        /// <inheritdoc/>
-        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)Keys).GetEnumerator();
+        #region IEnumerable<KeyOptions.FriendlyKeyVM> Implementation
+        public IEnumerator<FriendlyKeyVM> GetEnumerator() => ((IEnumerable<FriendlyKeyVM>)Items).GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)Items).GetEnumerator();
+        #endregion IEnumerable<KeyOptions.FriendlyKeyVM> Implementation
     }
 }

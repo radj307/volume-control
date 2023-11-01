@@ -98,17 +98,19 @@ namespace VolumeControl.ViewModels
             #region Constructor
             internal NotificationViewFlagsValueVM(ENotificationViewMode viewMode, bool isSet) : base(viewMode, isSet)
             {
-                _enumName = Enum.GetName(viewMode)!;
                 Loc.Instance.CurrentLanguageChanged += this.Instance_CurrentLanguageChanged;
             }
             #endregion Constructor
 
-            #region Fields
-            private readonly string _enumName;
-            #endregion Fields
-
             #region Properties
-            public override string Name => Loc.Tr($"Enums.ENotificationViewMode.{_enumName}", defaultText: _enumName);
+            public override string Name
+            {
+                get
+                {
+                    var enumName = Enum.GetName(Value)!;
+                    return Loc.Tr($"Enums.ENotificationViewMode.{enumName}", defaultText: enumName);
+                }
+            }
             #endregion Properties
 
             #region EventHandlers

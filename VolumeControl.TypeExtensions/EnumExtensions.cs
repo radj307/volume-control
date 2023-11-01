@@ -127,7 +127,7 @@
             return (T)Enum.ToObject(typeof(T), result);
         }
         /// <summary>
-        /// Checks if the enum value has only 1 bit set.
+        /// Checks if the enum value has 0 or 1 bits set in total.
         /// </summary>
         /// <typeparam name="T">The type of enum being operated on.</typeparam>
         /// <param name="e">(implicit) Enum value to operate on.</param>
