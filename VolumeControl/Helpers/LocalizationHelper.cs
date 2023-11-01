@@ -138,7 +138,8 @@ namespace VolumeControl.Helpers
                         embeddedResourceFilename = embeddedResourceName[(baseResourcePath.Length + 1)..],
                         filePath = Path.Combine(DefaultPath, embeddedResourceFilename);
 
-                    if (overwrite || !File.Exists(filePath))
+                    var fileExists = File.Exists(filePath);
+                    if (overwrite || !fileExists)
                     {
                         using var resourceStream = asm.GetManifestResourceStream(embeddedResourceName);
 
@@ -149,8 +150,11 @@ namespace VolumeControl.Helpers
 
                         resourceStream.CopyTo(fileStream);
                         fileStream.Flush();
+
+                        FLog.Info($"[LocalizationHelper] {(fileExists ? "Overwrote" : "Created")} translation config at \"{filePath}\" with data from manifest resource \"{embeddedResourceName}\".");
                     }
                 }
+                else FLog.Error($"[LocalizationHelper] Manifest resource \"{embeddedResourceName}\" does not have a valid name for a translation config.");
             }
         }
         #endregion Methods

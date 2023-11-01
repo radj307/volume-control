@@ -1,0 +1,630 @@
+﻿{
+  "LanguageName": {
+    "Debug (/)": "[DEBUG]"
+  },
+  "VolumeControl": {
+    "MainWindow": {
+      "Mixer": {
+        "TabHeader": {
+          "Debug (/)": "Mixer"
+        },
+        "TargetBox": {
+          "Watermark": {
+            "Debug (/)": "Prozess ID oder Name"
+          },
+          "LockTarget": {
+            "Debug (/)": "Sperren"
+          }
+        },
+        "MixerGrid": {
+          "PID": {
+            "Header": {
+              "Debug (/)": "PID"
+            }
+          },
+          "Name": {
+            "Header": {
+              "Debug (/)": "Name"
+            }
+          },
+          "Mute": {
+            "Header": {
+              "Debug (/)": "Stumm"
+            }
+          },
+          "Volume": {
+            "Header": {
+              "Debug (/)": "Lautstärke"
+            }
+          },
+          "Select": {
+            "Button": {
+              "Debug (/)": "Auswählen"
+            }
+          }
+        }
+      },
+      "Hotkeys": {
+        "TabHeader": {
+          "Debug (/)": "Hotkeys"
+        },
+        "ControlRow": {
+          "EditMode": {
+            "Content": {
+              "Debug (/)": "Bearbeitungsmodus"
+            },
+            "Tooltip": {
+              "Debug (/)": "Ermöglicht das Bearbeiten, Erstellen und Löschen von Hotkey-Zuordnungen."
+            }
+          },
+          "VolumeStep": {
+            "Content": {
+              "Debug (/)": "Stufengröße"
+            },
+            "Tooltip": {
+              "Debug (/)": "Gibt an um wie viel Prozent die Lautstärke geändert werden soll, wenn der lauter- oder leiser-Hotkey gedrückt wird."
+            }
+          },
+          "ResetToDefault": {
+            "Content": {
+              "Debug (/)": "Zurücksetzen"
+            },
+            "Tooltip": {
+              "Debug (/)": "Setzt alle Hotkeys auf die Voreinstellung zurück."
+            }
+          }
+        },
+        "HotkeyGrid": {
+          "Active": {
+            "Header": {
+              "Tooltip": {
+                "Debug (/)": "(De)aktiviert alle Hotkeys."
+              }
+            }
+          },
+          "Name": {
+            "Header": {
+              "Debug (/)": "Name"
+            }
+          },
+          "Key": {
+            "Header": {
+              "Debug (/)": "Taste"
+            }
+          },
+          "Alt": {
+            "Header": {
+              "Debug (/)": "Alt"
+            }
+          },
+          "Ctrl": {
+            "Header": {
+              "Debug (/)": "Strg"
+            }
+          },
+          "Shift": {
+            "Header": {
+              "Debug (/)": "Umschalt"
+            }
+          },
+          "Windows": {
+            "Header": {
+              "Debug (/)": "Win"
+            }
+          },
+          "Action": {
+            "Header": {
+              "Debug (/)": "Aktion"
+            }
+          }
+        },
+        "CreateNewHotkeyButton": {
+          "Content": {
+            "Debug (/)": "Neuen Hotkey erstellen"
+          },
+          "Tooltip": {
+            "Debug (/)": "Erstellt einen neuen leeren Hotkey-Eintrag."
+          }
+        }
+      },
+      "Settings": {
+        "TabHeader": {
+          "Debug (/)": "Einstellungen"
+        },
+        "Language": {
+          "Header": {
+            "Debug (/)": "Sprache"
+          },
+          "CustomLocations": {
+            "Debug (/)": "Custom Locations"
+          },
+          "Reload": {
+            "Content": {
+              "Debug (/)": "Neu laden"
+            },
+            "Tooltip": {
+              "Debug (/)": "Lädt alle Sprach-Konfigurationsdateien neu vom Datenträger."
+            }
+          }
+        },
+        "Audio": {
+          "Header": {
+            "Debug (/)": "Audio"
+          },
+          "AdditionalSettings": {
+            "Header": {
+              "Content": {
+                "Debug (/)": "Zusätzliche Einstellungen"
+              },
+              "Tooltip": {
+              }
+            },
+            "ShowPeakMeters": {
+              "Content": {
+                "Debug (/)": "Zeige Spitzenwertanzeigen"
+              },
+              "Tooltip": {
+                "Debug (/)": "Schalte die A-Spitzenwertanzeigen im Mixer um."
+              }
+            },
+            "UpdateInterval": {
+              "Content": {
+                "Debug (/)": "Update Intervall"
+              },
+              "Tooltip": {
+                "Debug (/)": "Die Zeitspanne in Millisekunden zwischen jeder Aktualisierung der Spitzenwertanzeigen im Mixer."
+              }
+            },
+            "EnableDeviceControl": {
+              "Content": {
+                "Debug (/)": "Zeige Gerätesteuerungen"
+              },
+              "Tooltip": {
+                "Debug (/)": "Schalte die Sichtbarkeit der Lautstärke- & Stumm-Steuerungen in der Audiogeräte-Sektion um."
+              }
+            }
+          },
+          "DeviceGrid": {
+            "Enabled": {
+              "Header": {
+                "Tooltip": {
+                  "Debug (/)": "selektiert/deselektiert alle Geräte der Liste."
+                }
+              },
+              "Tooltip": {
+                "Debug (/)": "Bestimmte Geräte können hier ein- oder ausgeschlossen werden."
+              }
+            },
+            "Name": {
+              "Header": {
+                "Debug (/)": "Gerätename"
+              }
+            },
+            "Interface": {
+              "Header": {
+                "Debug (/)": "Schnittellenname"
+              }
+            },
+            "Mute": {
+              "Header": {
+                "Debug (/)": "Stumm"
+              }
+            },
+            "Volume": {
+              "Header": {
+                "Debug (/)": "Lautstärke"
+              }
+            }
+          }
+        },
+        "Notifications": {
+          "Header": {
+            "Debug (/)": "Benachrichtigungen"
+          },
+          "AdditionalSettings": {
+            "Header": {
+              "Content": {
+                "Debug (/)": "Zusätzliche Einstellungen"
+              },
+              "Tooltip": {}
+            },
+            "ResetPosition": {
+              "Content": {
+                "Debug (/)": "Benachrichtigungsort Zurücksetzen"
+              },
+              "Tooltip": {
+                "Debug (/)": "Setzt die Position der Listenbenachrichtigung zurück, wenn sie im Ansichtsfenster fehlt."
+              }
+            },
+            "ForceHide": {
+              "Content": {
+                "Debug (/)": "Verstecken"
+              },
+              "Tooltip": {
+                "Debug (/)": "Erzwingt, dass das Benachrichtigungsfenster ausgeblendet wird."
+              }
+            }
+          },
+          "Enable": {
+            "Content": {
+              "Debug (/)": "Aktivieren"
+            },
+            "Tooltip": {
+              "Debug (/)": "Schalte um ob Benachrichtigungen beim Wechsel der Zielsitzung angezeigt oder nicht angezeigt werden sollen."
+            }
+          },
+          "OnVolumeChange": {
+            "Content": {
+              "Debug (/)": "Bei Lautstärkeänderung"
+            },
+            "Tooltip": {
+              "Debug (/)": "Wenn selektiert werden Benachrichtigungen auch angezeigt wenn sich die Lautstärke des Ziels geändert wird."
+            }
+          },
+          "Timeout": {
+            "Content": {
+              "Debug (/)": "Zeitüberschreitung"
+            },
+            "Tooltip": {
+              "Debug (/)": "Die Zeit in Millisekunden die Benachrichtigungen sichtbar bleiben nachdem sie ausgelöst wurden."
+            }
+          }
+        },
+        "Log": {
+          "Header": {
+            "Debug (/)": "Ereignisprotokollierung"
+          },
+          "Enable": {
+            "Content": {
+              "Debug (/)": "Aktivieren"
+            }
+          },
+          "Filter": {
+            "Text": {
+              "Debug (/)": "Filter"
+            }
+          },
+          "Path": {
+            "Tooltip": {
+              "Debug (/)": "Spezifiziert den Ort und Namen der Protokolldatei. Relative Pfade beziehen sich auf den Ort der ausführbaren Datei."
+            },
+            "WatermarkText": {
+              "Debug (/)": "Pfad zur Protokolldatei"
+            }
+          },
+          "OpenButton": {
+            "Content": {
+              "Debug (/)": "TEST Open"
+            },
+            "Tooltip": {
+              "Debug (/)": "TEST Opens the log file in the default application."
+            }
+          }
+        },
+        "Application": {
+          "Header": {
+            "Debug (/)": "Anwendung"
+          },
+          "RunAtStartup": {
+            "Content": {
+              "Debug (/)": "Beim Starten ausführen"
+            },
+            "Tooltip": {
+              "Debug (/)": "Wenn aktiv startet Volume Control beim Anmelden."
+            }
+          },
+          "StartMinimized": {
+            "Content": {
+              "Debug (/)": "Minimiert starten"
+            },
+            "Tooltip": {
+              "Debug (/)": "Wenn aktiv minimiert sich Volume Control beim Starten."
+            }
+          },
+          "MultiInstance": {
+            "Content": {
+              "Debug (/)": "Multi-Instanz"
+            },
+            "Tooltip": {
+              "Debug (/)": "Erlaubt mehreren Volume Control Instanzen gleichzeitig ausgeführt zu werden, sofern diese verschiedene Konfigurationsdateien verwenden."
+            }
+          },
+          "ShowInTaskbar": {
+            "Content": {
+              "Debug (/)": "In Taskleiste anzeigen"
+            },
+            "Tooltip": {
+              "Debug (/)": "Wenn aktiv wird Volume Control in der Taskleiste angezeigt."
+            }
+          },
+          "AlwaysOnTop": {
+            "Content": {
+              "Debug (/)": "Immer im Vordergrund"
+            },
+            "Tooltip": {
+              "Debug (/)": "Wenn aktiv wird das Volume Control-Fenster immer über allen anderen Fenstern angezeigt."
+            }
+          },
+          "ShowIcons": {
+            "Content": {
+              "Debug (/)": "Symbole anzeigen"
+            },
+            "Tooltip": {
+              "Debug (/)": "Wenn aktiv wird das Programm versuchen das mit den Audiogeräten und Sitzungen verbundene Symbol anzuzeigen. (Einige Symbole können fehlen, wenn das Programm als Benutzer ausgeführt wird.)"
+            }
+          }
+        },
+        "Updates": {
+          "Header": {
+            "Debug (/)": "Aktualisierungen"
+          },
+          "CheckNow": {
+            "Content": {
+              "Debug (/)": "Jetzt prüfen"
+            },
+            "Tooltip": {
+              "Debug (/)": "Prüfe Volume Control manuell auf neue Versionen."
+            }
+          },
+          "OnStartup": {
+            "Content": {
+              "Debug (/)": "Beim starten"
+            },
+            "Tooltip": {
+              "Debug (/)": "Prüfe Volume Control beim starten auf neue Versionen."
+            }
+          },
+          "ShowPrompt": {
+            "Content": {
+              "Debug (/)": "Zeige Hinweis"
+            },
+            "Tooltip": {
+              "Debug (/)": "Wenn aktiv, wird ein Hinweis in Form eines Dialogfelds angezeigt; Anderenfalls wird nur ein Symbol in der oberen rechten Ecke angezeigt."
+            }
+          }
+        }
+      },
+      "About": {
+        "TabHeader": {
+          "Debug (/)": "About"
+        },
+        "ReportABug": {
+          "Content": {
+            "Debug (/)": "Report a Bug"
+          },
+          "Tooltip": {
+            "Debug (/)": "Let us know that something isn't working correctly."
+          }
+        },
+        "OpenWebsite": {
+          "Content": {
+            "Debug (/)": "Offizielle Webseite"
+          },
+          "Tooltip": {
+            "Debug (/)": "Öffnet die offizielle Volume Control Webseite im Standardbrowser."
+          }
+        },
+        "ShowDebugInfo": {
+          "Header": {
+            "Content": {
+              "Debug (/)": "Zeige Debug-Informationen"
+            },
+            "Tooltip": {}
+          },
+          "ConfigPath": {
+            "Content": {
+              "Debug (/)": ""
+            },
+            "Tooltip": {
+              "Debug (/)": ""
+            }
+          }
+        }
+      }
+    },
+
+    "Dialogs": {
+      "AnotherInstanceIsRunning": {
+        "MultiInstance": {
+          "Debug (/)": "Eine andere Volume Control Instanz nutzt bereits die Konfigurationsdatei die sich unter '${PATH}' befindet!"
+        },
+        "SingleInstance": {
+          "Debug (/)": "Eine andere Volume Control Instanz läuft bereits!"
+        }
+      },
+      "UpdatePrompt": {
+        "DontShowInFutureMsg": {
+          "Debug (/)": "Aktualisierungshinweise werden zukünftig nicht mehr angezeigt."
+        },
+        "NewVersionAvailableFormatMsg": {
+          "Debug (/)": "Eine neue Volume Control Version ist verfügbar!\nSoll die Seite mit den Veröffentlichungen geöffnet werden?\nDerzeitige Version:  ${CURRENT_VERSION}\nNeuste Version   ${LATEST_VERSION}\n\nDrücke 'Ja' um die Seite mit den Veröffentlichungen zu öffnen.\nDrücke 'Nein' falls du jetzt kein Update machen möchtest.\nDrücke 'Abbrechen' um diese Hinweise abzuschalten."
+        }
+      }
+    },
+
+    "NotifyIcon": {
+      "BringToFront": {
+        "Debug (/)": "In den Vordergrund"
+      },
+      "Hide": {
+        "Debug (/)": "Verstecken"
+      },
+      "Show": {
+        "Debug (/)": "Anzeigen"
+      },
+      "Close": {
+        "Debug (/)": "Schließen"
+      }
+    }
+  },
+
+  "Enums": {
+    "ENotificationViewMode": {
+      "ControlBar": {
+        "Debug (/)": "TEST CONTROLBAR"
+      },
+      "SelectedItemOnly": {
+        "Debug (/)": "TEST SELECTEDITEMSONLY"
+      },
+      "AllItems": {
+        "Debug (/)": "TEST ALLITEMS"
+      }
+    },
+    "EFriendlyKey": {
+      "None": { "Debug (/)": "TEST None" },
+      "Cancel": { "Debug (/)": "TEST Cancel" },
+      "Backspace": { "Debug (/)": "TEST Backspace" },
+      "Tab": { "Debug (/)": "TEST Tab" },
+      "Clear": { "Debug (/)": "TEST Clear" },
+      "Enter": { "Debug (/)": "TEST Enter" },
+      "PauseBreak": { "Debug (/)": "TEST PauseBreak" },
+      "CapsLock": { "Debug (/)": "TEST CapsLock" },
+      "Escape": { "Debug (/)": "TEST Escape" },
+      "Space": { "Debug (/)": "TEST Space" },
+      "PageUp": { "Debug (/)": "TEST PageUp" },
+      "PageDown": { "Debug (/)": "TEST PageDown" },
+      "End": { "Debug (/)": "TEST End" },
+      "Home": { "Debug (/)": "TEST Home" },
+      "LeftArrow": { "Debug (/)": "TEST LeftArrow" },
+      "UpArrow": { "Debug (/)": "TEST UpArrow" },
+      "RightArrow": { "Debug (/)": "TEST RightArrow" },
+      "DownArrow": { "Debug (/)": "TEST DownArrow" },
+      "Select": { "Debug (/)": "TEST Select" },
+      "Print": { "Debug (/)": "TEST Print" },
+      "Execute": { "Debug (/)": "TEST Execute" },
+      "PrintScreen": { "Debug (/)": "TEST PrintScreen" },
+      "Insert": { "Debug (/)": "TEST Insert" },
+      "Delete": { "Debug (/)": "TEST Delete" },
+      "Help": { "Debug (/)": "TEST Help" },
+      "D0": { "Debug (/)": "TEST D0" },
+      "D1": { "Debug (/)": "TEST D1" },
+      "D2": { "Debug (/)": "TEST D2" },
+      "D3": { "Debug (/)": "TEST D3" },
+      "D4": { "Debug (/)": "TEST D4" },
+      "D5": { "Debug (/)": "TEST D5" },
+      "D6": { "Debug (/)": "TEST D6" },
+      "D7": { "Debug (/)": "TEST D7" },
+      "D8": { "Debug (/)": "TEST D8" },
+      "D9": { "Debug (/)": "TEST D9" },
+      "A": { "Debug (/)": "TEST A" },
+      "B": { "Debug (/)": "TEST B" },
+      "C": { "Debug (/)": "TEST C" },
+      "D": { "Debug (/)": "TEST D" },
+      "E": { "Debug (/)": "TEST E" },
+      "F": { "Debug (/)": "TEST F" },
+      "G": { "Debug (/)": "TEST G" },
+      "H": { "Debug (/)": "TEST H" },
+      "I": { "Debug (/)": "TEST I" },
+      "J": { "Debug (/)": "TEST J" },
+      "K": { "Debug (/)": "TEST K" },
+      "L": { "Debug (/)": "TEST L" },
+      "M": { "Debug (/)": "TEST M" },
+      "N": { "Debug (/)": "TEST N" },
+      "O": { "Debug (/)": "TEST O" },
+      "P": { "Debug (/)": "TEST P" },
+      "Q": { "Debug (/)": "TEST Q" },
+      "R": { "Debug (/)": "TEST R" },
+      "S": { "Debug (/)": "TEST S" },
+      "T": { "Debug (/)": "TEST T" },
+      "U": { "Debug (/)": "TEST U" },
+      "V": { "Debug (/)": "TEST V" },
+      "W": { "Debug (/)": "TEST W" },
+      "X": { "Debug (/)": "TEST X" },
+      "Y": { "Debug (/)": "TEST Y" },
+      "Z": { "Debug (/)": "TEST Z" },
+      "Apps": { "Debug (/)": "TEST Apps" },
+      "Sleep": { "Debug (/)": "TEST Sleep" },
+      "NumPad0": { "Debug (/)": "TEST NumPad0" },
+      "NumPad1": { "Debug (/)": "TEST NumPad1" },
+      "NumPad2": { "Debug (/)": "TEST NumPad2" },
+      "NumPad3": { "Debug (/)": "TEST NumPad3" },
+      "NumPad4": { "Debug (/)": "TEST NumPad4" },
+      "NumPad5": { "Debug (/)": "TEST NumPad5" },
+      "NumPad6": { "Debug (/)": "TEST NumPad6" },
+      "NumPad7": { "Debug (/)": "TEST NumPad7" },
+      "NumPad8": { "Debug (/)": "TEST NumPad8" },
+      "NumPad9": { "Debug (/)": "TEST NumPad9" },
+      "NumPadMultiply": { "Debug (/)": "TEST NumPadMultiply" },
+      "NumPadAdd": { "Debug (/)": "TEST NumPadAdd" },
+      "Separator": { "Debug (/)": "TEST Separator" },
+      "NumPadSubtract": { "Debug (/)": "TEST NumPadSubtract" },
+      "NumPadDecimal": { "Debug (/)": "TEST NumPadDecimal" },
+      "NumPadDivide": { "Debug (/)": "TEST NumPadDivide" },
+      "F1": { "Debug (/)": "TEST F1" },
+      "F2": { "Debug (/)": "TEST F2" },
+      "F3": { "Debug (/)": "TEST F3" },
+      "F4": { "Debug (/)": "TEST F4" },
+      "F5": { "Debug (/)": "TEST F5" },
+      "F6": { "Debug (/)": "TEST F6" },
+      "F7": { "Debug (/)": "TEST F7" },
+      "F8": { "Debug (/)": "TEST F8" },
+      "F9": { "Debug (/)": "TEST F9" },
+      "F10": { "Debug (/)": "TEST F10" },
+      "F11": { "Debug (/)": "TEST F11" },
+      "F12": { "Debug (/)": "TEST F12" },
+      "F13": { "Debug (/)": "TEST F13" },
+      "F14": { "Debug (/)": "TEST F14" },
+      "F15": { "Debug (/)": "TEST F15" },
+      "F16": { "Debug (/)": "TEST F16" },
+      "F17": { "Debug (/)": "TEST F17" },
+      "F18": { "Debug (/)": "TEST F18" },
+      "F19": { "Debug (/)": "TEST F19" },
+      "F20": { "Debug (/)": "TEST F20" },
+      "F21": { "Debug (/)": "TEST F21" },
+      "F22": { "Debug (/)": "TEST F22" },
+      "F23": { "Debug (/)": "TEST F23" },
+      "F24": { "Debug (/)": "TEST F24" },
+      "NumLock": { "Debug (/)": "TEST NumLock" },
+      "ScrollLock": { "Debug (/)": "TEST ScrollLock" },
+      "BrowserBack": { "Debug (/)": "TEST BrowserBack" },
+      "BrowserForward": { "Debug (/)": "TEST BrowserForward" },
+      "BrowserRefresh": { "Debug (/)": "TEST BrowserRefresh" },
+      "BrowserStop": { "Debug (/)": "TEST BrowserStop" },
+      "BrowserSearch": { "Debug (/)": "TEST BrowserSearch" },
+      "BrowserFavorites": { "Debug (/)": "TEST BrowserFavorites" },
+      "BrowserHome": { "Debug (/)": "TEST BrowserHome" },
+      "VolumeMute": { "Debug (/)": "TEST VolumeMute" },
+      "VolumeDown": { "Debug (/)": "TEST VolumeDown" },
+      "VolumeUp": { "Debug (/)": "TEST VolumeUp" },
+      "MediaNextTrack": { "Debug (/)": "TEST MediaNextTrack" },
+      "MediaPreviousTrack": { "Debug (/)": "TEST MediaPreviousTrack" },
+      "MediaStop": { "Debug (/)": "TEST MediaStop" },
+      "MediaPlayPause": { "Debug (/)": "TEST MediaPlayPause" },
+      "LaunchMail": { "Debug (/)": "TEST LaunchMail" },
+      "SelectMedia": { "Debug (/)": "TEST SelectMedia" },
+      "LaunchApplication1": { "Debug (/)": "TEST LaunchApplication1" },
+      "LaunchApplication2": { "Debug (/)": "TEST LaunchApplication2" },
+      "Semicolon": { "Debug (/)": "TEST Semicolon" },
+      "Equals": { "Debug (/)": "TEST Equals" },
+      "Comma": { "Debug (/)": "TEST Comma" },
+      "Dash": { "Debug (/)": "TEST Dash" },
+      "Period": { "Debug (/)": "TEST Period" },
+      "ForwardSlash": { "Debug (/)": "TEST ForwardSlash" },
+      "Grave": { "Debug (/)": "TEST Grave" },
+      "OpenBracket": { "Debug (/)": "TEST OpenBracket" },
+      "BackSlash": { "Debug (/)": "TEST BackSlash" },
+      "CloseBracket": { "Debug (/)": "TEST CloseBracket" },
+      "Quote": { "Debug (/)": "TEST Quote" },
+      "Oem8": { "Debug (/)": "TEST Oem8" },
+      "OemBackslash": { "Debug (/)": "TEST OemBackslash" },
+      "ImeProcess": { "Debug (/)": "TEST ImeProcess" },
+      "Attn": { "Debug (/)": "TEST Attn" },
+      "CrSel": { "Debug (/)": "TEST CrSel" },
+      "ExSel": { "Debug (/)": "TEST ExSel" },
+      "EraseEof": { "Debug (/)": "TEST EraseEof" },
+      "Play": { "Debug (/)": "TEST Play" },
+      "Zoom": { "Debug (/)": "TEST Zoom" },
+      "Pa1": { "Debug (/)": "TEST Pa1" },
+      "OemClear": { "Debug (/)": "TEST OemClear" },
+      "ImeKanaMode": { "Debug (/)": "TEST ImeKanaMode" },
+      "ImeJunjaMode": { "Debug (/)": "TEST ImeJunjaMode" },
+      "ImeFinalMode": { "Debug (/)": "TEST ImeFinalMode" },
+      "ImeHanjaMode": { "Debug (/)": "TEST ImeHanjaMode" },
+      "ImeConvert": { "Debug (/)": "TEST ImeConvert" },
+      "ImeNonConvert": { "Debug (/)": "TEST ImeNonConvert" },
+      "ImeAccept": { "Debug (/)": "TEST ImeAccept" },
+      "ImeModeChange": { "Debug (/)": "TEST ImeModeChange" }
+
+    }
+  }
+}
