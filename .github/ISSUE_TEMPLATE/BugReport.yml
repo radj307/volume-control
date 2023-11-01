@@ -100,9 +100,9 @@ body:
                     [Recommended]
                     This tells us what the program was doing when the problem occurred.  
                     
-                    :warning: **Logs may contain file paths that include your Windows username. If you don't want your username to be visible publicly, use a text editor to replace all occurrences with `<USERNAME>` prior to posting.**
+                    `VolumeControl.log` can be found in one of the following locations:  
+                    - (Installer) `%LocalAppData%\radj307\VolumeControl`  
+                    - (Portable)  The folder where `VolumeControl.exe` is located.  
       render:       shell
       placeholder:  |
-                    VolumeControl.log can be found in one of the following locations:  
-                    - (Installer) %LocalAppData%\radj307\VolumeControl  
-                    - (Portable)  The folder where `VolumeControl.exe` is located.  
+                    Logs may contain file paths that include your Windows username. If you don't want your username to be visible publicly, use a text editor to replace all occurrences with `<USERNAME>` prior to posting.
