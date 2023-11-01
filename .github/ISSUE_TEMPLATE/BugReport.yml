@@ -36,8 +36,8 @@ body:
                    Select whether you used the installer version or the portable version.  
                    If you're having the issue with multiple files, select all that apply.
       options:
-        - Installer  (`VolumeControl-Installer.exe`)
-        - Portable   (`VolumeControl.exe`)
+        - Installer  (VolumeControl-Installer.exe)
+        - Portable   (VolumeControl.exe)
         - Winget
       multiple:    true
     validations:
