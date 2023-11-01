@@ -104,4 +104,4 @@ body:
       placeholder:  |
                     The log file can be found in one of the following locations, depending on which file you're using:  
                     - (Installer) `%LocalAppData%\radj307\VolumeControl`.  
-                    - (Portable) The folder where `VolumeControl.exe` is located. 
+                    - (Portable)&nbsp; The folder where `VolumeControl.exe` is located. 
