@@ -173,7 +173,7 @@ namespace VolumeControl.ViewModels
         public HotkeyManagerVM HotkeyAPI { get; }
         #endregion ParentObjects
 
-        public TargetSessionVM TargetBoxVM { get; }
+        public TargetBoxVM TargetBoxVM { get; }
         public NotificationConfigSectionVM SessionConfigVM { get; }
         public NotificationConfigSectionVM DeviceConfigVM { get; }
         #endregion Properties

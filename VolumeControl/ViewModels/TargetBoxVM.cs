@@ -8,16 +8,18 @@ using VolumeControl.CoreAudio;
 
 namespace VolumeControl.ViewModels
 {
-    public class TargetSessionVM : INotifyPropertyChanged
+    public class TargetBoxVM : INotifyPropertyChanged
     {
         #region Constructor
-        public TargetSessionVM(AudioSessionManager audioSessionManager, AudioSessionMultiSelector audioSessionMultiSelector)
+        public TargetBoxVM(AudioSessionManager audioSessionManager, AudioSessionMultiSelector audioSessionMultiSelector)
         {
             AudioSessionManager = audioSessionManager;
 
             _duplicateSessionNames = GetDuplicateSessionNames();
 
-            _targetText = GetSessionName(AudioSessionManager.FindSessionWithSimilarProcessIdentifier(Settings.TargetSession.ProcessIdentifier));
+            var previousTargetInfo = Settings.TargetSession;
+
+            _targetText = GetSessionName(AudioSessionManager.FindSessionWithSimilarProcessIdentifier(previousTargetInfo.ProcessIdentifier));
 
             AudioSessionMultiSelector = audioSessionMultiSelector;
 
@@ -159,6 +161,7 @@ namespace VolumeControl.ViewModels
             {
                 UpdateTargetText();
             }
+            SaveTarget();
         }
         #endregion AudioSessionMultiSelector
 
