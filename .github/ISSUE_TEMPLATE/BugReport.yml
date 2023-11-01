@@ -17,13 +17,31 @@ body:
   - type: input
     id: version
     attributes:
-      label: Version
+      label:        Version Number
       description:  |
+                    The version(s) of volume control that you're having trouble with.
                     This tells us what version of the program we need to fix, and can be found to the left of the minimize & close buttons on the top bar.  
-                    If the program won't start, R+Click on the executable and select **Properties**, then navigate to the **Details** tab. Enter the version shown in the `Product version` field here.
+                    
+                    If the program won't start, find `VolumeControl.exe` & *Right-Click* → **Properties** → **Details** → **`Product version`**
+                    
       placeholder: x.x.x
     validations:
       required:     true
+
+  - type: dropdown
+    id: file
+    attributes:
+      label:       File
+      description: |
+                   Select whether you used the installer version or the portable version.  
+                   If you're having the issue with multiple files, select all that apply.
+      options:
+        - Installer  (`VolumeControl-Installer.exe`)
+        - Portable   (`VolumeControl.exe`)
+        - Winget
+      multiple:    true
+    validations:
+      required:    true
 
   - type: input
     id: winver
@@ -48,7 +66,7 @@ body:
                     Be specific, and include as much detail as possible.
       placeholder:  The program does *this*
     validations:
-      required: true
+      required:     true
 
   - type: textarea
     id:   expected
@@ -67,7 +85,7 @@ body:
       description:  |
                     [Optional]
                     This helps us replicate the conditions that led to the bug you experienced, so that we can observe the cause in a debugging environment.  
-                    While this is optional, it is highly encouraged since it cuts the amount of time needed to fix the problem by half in cases where the cause isn't obvious.  
+                    Include all necessary details; if we're unable to reproduce the issue, we can't fix it!
       placeholder:  |
                     1. While sitting in an office chair, begin spinning clockwise as fast as you can until you've fully rotated a total of 99 times.
                     2. Launch the program within a few seconds.
@@ -78,8 +96,10 @@ body:
     attributes:
       label:        Log
       description:  |
-                    [Optional]
-                    This gives us an understanding of exactly what was happening when the problem occurred.  
+                    [Recommended]
+                    This tells us what the program was doing when the problem occurred.  
+                    For the installer build, the log is located in `%LocalAppData%\radj307\VolumeControl`.  
+                    For the portable build, the log is located in the same directory as `VolumeControl.exe`.  
                     
-                    :warning: **Logs may contain personally-identifying information, especially when the `DEBUG`/`INFO` levels are enabled; use discretion when including them!**
+                    :warning: **Logs may contain file paths that include your Windows username. If you don't want your username to be visible publicly, use a text editor to replace all occurrences with `<USERNAME>` prior to posting.**
       render:       shell
