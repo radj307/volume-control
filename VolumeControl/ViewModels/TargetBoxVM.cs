@@ -19,7 +19,7 @@ namespace VolumeControl.ViewModels
 
             var previousTargetInfo = Settings.TargetSession;
 
-            _targetText = GetSessionName(AudioSessionManager.FindSessionWithSimilarProcessIdentifier(previousTargetInfo.ProcessIdentifier));
+            _targetText = GetSessionName(AudioSessionManager.FindSessionWithSimilarProcessIdentifier(previousTargetInfo.ProcessIdentifier)) ?? previousTargetInfo.ProcessName;
 
             AudioSessionMultiSelector = audioSessionMultiSelector;
 
@@ -98,10 +98,10 @@ namespace VolumeControl.ViewModels
                group session.ProcessName by session.ProcessName into g
                where g.Count() > 1
                select g.Key;
-        private string GetSessionName(AudioSession? session)
+        private string? GetSessionName(AudioSession? session)
         {
             if (session == null)
-                return string.Empty;
+                return null;
             else if (_duplicateSessionNames.Contains(session.ProcessName))
                 return session.ProcessIdentifier;
             else
