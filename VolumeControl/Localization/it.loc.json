@@ -35,7 +35,7 @@
           "Selected": {
             "Header": {
               "Tooltip": {
-                "Italiano (Italian)": "Deseeleziona tutte le sessioni."
+                "Italiano (Italian)": "Deseleziona tutte le sessioni."
               }
             }
           },
@@ -104,6 +104,14 @@
           "Key": {
             "Header": {
               "Italiano (Italian)": "Chiave"
+            },
+            "KeySelector": {
+              "Content": {
+                "Italiano (Italian)": "🖮"
+              },
+              "Tooltip": {
+                "Italiano (Italian)": "Fai clic e tieni premuto con il mouse, quindi premi un tasto per selezionarlo.\nI tasti scelta rapida registrati possono comunque essere attivati."
+              }
             }
           },
           "Alt": {
@@ -321,10 +329,18 @@
           },
           "Path": {
             "Tooltip": {
-              "Italiano (Italian)": "Specifica il percorso ed il nome del file di registro.\nI percorsi relativi sono relativi al percorso dell'eseguibile."
+              "Italiano (Italian)": "Specifica il percorso e il nome del file registro.\nI percorsi relativi sono relativi alla posizione dell'eseguibile."
             },
             "WatermarkText": {
-              "Italiano (Italian)": "Percorso file registro"
+              "Italiano (Italian)": "percorso file registro eventi"
+            }
+          },
+          "OpenButton": {
+            "Content": {
+              "Italiano (Italian)": "Apri"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Apri il file registro eventi nell'applicazione predefinita."
             }
           }
         },
@@ -376,7 +392,7 @@
               "Italiano (Italian)": "Visualizza icone"
             },
             "Tooltip": {
-              "Italiano (Italian)": "Quando abilitato, il programma tenterà di visualizzare l'icona associata ai dispositivi audio e alle sessioni (alcune icone potrebbero mancare durante l'esecuzione come utente)."
+              "Italiano (Italian)": "Quando abilitato, il programma tenterà di visualizzare l'icona associata ai dispositivi audio e alle sessioni (durante l'esecuzione come utente potrebbero mancare alcune icone )."
             }
           },
           "KeepRelativePosition": {
@@ -384,7 +400,7 @@
               "Italiano (Italian)": "Mantieni posizione relativa"
             },
             "Tooltip": {
-              "Italiano (Italian)": "Quando la dimensioen della finestra cambia mantieni la finestra principale nella stessa posizione rispetto all'angolo dello schermo più vicino "
+              "Italiano (Italian)": "Quando la dimensione della finestra cambia mantieni la finestra principale nella stessa posizione rispetto all'angolo dello schermo più vicino "
             }
           }
         },
@@ -563,7 +579,7 @@
       },
       "MultiInstanceChanged": {
         "Message": {
-          "Italiano (Italian)": "Le modifiche all'impostazione Multiistanza avranno effetto dopo il riavvio del Controllo volume.\n\nVuoi riavviare l'applicazione adesso?"
+          "Italiano (Italian)": "Le modifiche all'impostazione 'Multi istanza' avranno effetto dopo il riavvio dell'applicazione.\n\nVuoi riavviare l'applicazione adesso?"
         },
         "Caption": {
           "Italiano (Italian)": "È necessario il riavvio dell'applicazione"
@@ -590,6 +606,176 @@
       "Close": {
         "Italiano (Italian)": "Chiudi"
       }
+    }
+  },
+
+  "Enums": {
+    "ENotificationViewMode": {
+      "ControlBar": {
+        "Italiano (Italian)": "Barra controllo"
+      },
+      "SelectedItemOnly": {
+        "Italiano (Italian)": "Solo elementi selezionati"
+      },
+      "AllItems": {
+        "Italiano (Italian)": "Tutti gli elementi"
+      }
+    },
+    "EFriendlyKey": {
+      "None": { "Italiano (Italian)": "Nessuno" },
+      "Cancel": { "Italiano (Italian)": "Annulla" },
+      "Backspace": { "Italiano (Italian)": "Backspace" },
+      "Tab": { "Italiano (Italian)": "Tabulazione" },
+      "Clear": { "Italiano (Italian)": "Azzera" },
+      "Enter": { "Italiano (Italian)": "Invio" },
+      "PauseBreak": { "Italiano (Italian)": "Pausa" },
+      "CapsLock": { "Italiano (Italian)": "BloccoMiausc" },
+      "Escape": { "Italiano (Italian)": "Escape" },
+      "Space": { "Italiano (Italian)": "Spazio" },
+      "PageUp": { "Italiano (Italian)": "PagSu" },
+      "PageDown": { "Italiano (Italian)": "PagGiù" },
+      "End": { "Italiano (Italian)": "Fine" },
+      "Home": { "Italiano (Italian)": "Home" },
+      "LeftArrow": { "Italiano (Italian)": "FrecciaSin" },
+      "UpArrow": { "Italiano (Italian)": "FrecciaSu" },
+      "RightArrow": { "Italiano (Italian)": "FrecciaDes" },
+      "DownArrow": { "Italiano (Italian)": "FrecciaGiù" },
+      "Select": { "Italiano (Italian)": "Seleziona" },
+      "Print": { "Italiano (Italian)": "Stampa" },
+      "Execute": { "Italiano (Italian)": "Esegui" },
+      "PrintScreen": { "Italiano (Italian)": "StpSchermo" },
+      "Insert": { "Italiano (Italian)": "Inserisci" },
+      "Delete": { "Italiano (Italian)": "Elimina" },
+      "Help": { "Italiano (Italian)": "Aiuto" },
+      "D0": { "Italiano (Italian)": "0" },
+      "D1": { "Italiano (Italian)": "1" },
+      "D2": { "Italiano (Italian)": "2" },
+      "D3": { "Italiano (Italian)": "3" },
+      "D4": { "Italiano (Italian)": "4" },
+      "D5": { "Italiano (Italian)": "5" },
+      "D6": { "Italiano (Italian)": "6" },
+      "D7": { "Italiano (Italian)": "7" },
+      "D8": { "Italiano (Italian)": "8" },
+      "D9": { "Italiano (Italian)": "9" },
+      "A": { "Italiano (Italian)": "A" },
+      "B": { "Italiano (Italian)": "B" },
+      "C": { "Italiano (Italian)": "C" },
+      "D": { "Italiano (Italian)": "D" },
+      "E": { "Italiano (Italian)": "E" },
+      "F": { "Italiano (Italian)": "F" },
+      "G": { "Italiano (Italian)": "G" },
+      "H": { "Italiano (Italian)": "H" },
+      "I": { "Italiano (Italian)": "I" },
+      "J": { "Italiano (Italian)": "J" },
+      "K": { "Italiano (Italian)": "K" },
+      "L": { "Italiano (Italian)": "L" },
+      "M": { "Italiano (Italian)": "M" },
+      "N": { "Italiano (Italian)": "N" },
+      "O": { "Italiano (Italian)": "O" },
+      "P": { "Italiano (Italian)": "P" },
+      "Q": { "Italiano (Italian)": "Q" },
+      "R": { "Italiano (Italian)": "R" },
+      "S": { "Italiano (Italian)": "S" },
+      "T": { "Italiano (Italian)": "T" },
+      "U": { "Italiano (Italian)": "U" },
+      "V": { "Italiano (Italian)": "V" },
+      "W": { "Italiano (Italian)": "W" },
+      "X": { "Italiano (Italian)": "X" },
+      "Y": { "Italiano (Italian)": "Y" },
+      "Z": { "Italiano (Italian)": "Z" },
+      "Apps": { "Italiano (Italian)": "App" },
+      "Sleep": { "Italiano (Italian)": "Sleep" },
+      "NumPad0": { "Italiano (Italian)": "0 (tastnum)" },
+      "NumPad1": { "Italiano (Italian)": "1 (tastnum)" },
+      "NumPad2": { "Italiano (Italian)": "2 (tastnum)" },
+      "NumPad3": { "Italiano (Italian)": "3 (tastnum)" },
+      "NumPad4": { "Italiano (Italian)": "4 (tastnum)" },
+      "NumPad5": { "Italiano (Italian)": "5 (tastnum)" },
+      "NumPad6": { "Italiano (Italian)": "6 (tastnum)" },
+      "NumPad7": { "Italiano (Italian)": "7 (tastnum)" },
+      "NumPad8": { "Italiano (Italian)": "8 (tastnum)" },
+      "NumPad9": { "Italiano (Italian)": "9 (tastnum)" },
+      "NumPadMultiply": { "Italiano (Italian)": "* (tastnum)" },
+      "NumPadAdd": { "Italiano (Italian)": "+ (tastnum)" },
+      "Separator": { "Italiano (Italian)": "Separatore" },
+      "NumPadSubtract": { "Italiano (Italian)": "- (tastnum)" },
+      "NumPadDecimal": { "Italiano (Italian)": ". (tastnum)" },
+      "NumPadDivide": { "Italiano (Italian)": "/ (tastnum)" },
+      "F1": { "Italiano (Italian)": "F1" },
+      "F2": { "Italiano (Italian)": "F2" },
+      "F3": { "Italiano (Italian)": "F3" },
+      "F4": { "Italiano (Italian)": "F4" },
+      "F5": { "Italiano (Italian)": "F5" },
+      "F6": { "Italiano (Italian)": "F6" },
+      "F7": { "Italiano (Italian)": "F7" },
+      "F8": { "Italiano (Italian)": "F8" },
+      "F9": { "Italiano (Italian)": "F9" },
+      "F10": { "Italiano (Italian)": "F10" },
+      "F11": { "Italiano (Italian)": "F11" },
+      "F12": { "Italiano (Italian)": "F12" },
+      "F13": { "Italiano (Italian)": "F13" },
+      "F14": { "Italiano (Italian)": "F14" },
+      "F15": { "Italiano (Italian)": "F15" },
+      "F16": { "Italiano (Italian)": "F16" },
+      "F17": { "Italiano (Italian)": "F17" },
+      "F18": { "Italiano (Italian)": "F18" },
+      "F19": { "Italiano (Italian)": "F19" },
+      "F20": { "Italiano (Italian)": "F20" },
+      "F21": { "Italiano (Italian)": "F21" },
+      "F22": { "Italiano (Italian)": "F22" },
+      "F23": { "Italiano (Italian)": "F23" },
+      "F24": { "Italiano (Italian)": "F24" },
+      "NumLock": { "Italiano (Italian)": "BloccoNum" },
+      "ScrollLock": { "Italiano (Italian)": "BloccoScorr" },
+      "BrowserBack": { "Italiano (Italian)": "Indietro (Browser)" },
+      "BrowserForward": { "Italiano (Italian)": "Avanti(Browser)" },
+      "BrowserRefresh": { "Italiano (Italian)": "Aggiorna (Browser)" },
+      "BrowserStop": { "Italiano (Italian)": "Stop (Browser)" },
+      "BrowserSearch": { "Italiano (Italian)": "Cerca(Browser)" },
+      "BrowserFavorites": { "Italiano (Italian)": "Preferiti (Browser)" },
+      "BrowserHome": { "Italiano (Italian)": "Home (Browser)" },
+      "VolumeMute": { "Italiano (Italian)": "Audio off (Browser)" },
+      "VolumeDown": { "Italiano (Italian)": "Volume -" },
+      "VolumeUp": { "Italiano (Italian)": "Volume +" },
+      "MediaNextTrack": { "Italiano (Italian)": "Traccia successiva media" },
+      "MediaPreviousTrack": { "Italiano (Italian)": "Traccia precedente media" },
+      "MediaStop": { "Italiano (Italian)": "Stop media" },
+      "MediaPlayPause": { "Italiano (Italian)": "Pausa riproduzione media" },
+      "LaunchMail": { "Italiano (Italian)": "Esegui programma mail" },
+      "SelectMedia": { "Italiano (Italian)": "Seleziona media" },
+      "LaunchApplication1": { "Italiano (Italian)": "Esegui applicazione1" },
+      "LaunchApplication2": { "Italiano (Italian)": "Esegui applicazione2" },
+      "Semicolon": { "Italiano (Italian)": "Punto e virgola" },
+      "Equals": { "Italiano (Italian)": "Uguale" },
+      "Comma": { "Italiano (Italian)": "Virgola" },
+      "Dash": { "Italiano (Italian)": "Trattino" },
+      "Period": { "Italiano (Italian)": "Punto" },
+      "ForwardSlash": { "Italiano (Italian)": "Slash" },
+      "Grave": { "Italiano (Italian)": "Grave" },
+      "OpenBracket": { "Italiano (Italian)": "ParenetsiAperta" },
+      "BackSlash": { "Italiano (Italian)": "Backslash"},
+      "CloseBracket": { "Italiano (Italian)": "ParentesiChiusa" },
+      "Quote": { "Italiano (Italian)": "Virgolette" },
+      "Oem8": { "Italiano (Italian)": "Oem8" },
+      "OemBackslash": { "Italiano (Italian)": "BackslashOem" },
+      "ImeProcess": { "Italiano (Italian)": "ImeProcess" },
+      "Attn": { "Italiano (Italian)": "Attn" },
+      "CrSel": { "Italiano (Italian)": "CrSel" },
+      "ExSel": { "Italiano (Italian)": "ExSel" },
+      "EraseEof": { "Italiano (Italian)": "EliminaEof" },
+      "Play": { "Italiano (Italian)": "Riproduci" },
+      "Zoom": { "Italiano (Italian)": "Zoom" },
+      "Pa1": { "Italiano (Italian)": "Pa1" },
+      "OemClear": { "Italiano (Italian)": "AzzeraOem" },
+      "ImeKanaMode": { "Italiano (Italian)": "ImeModoKana" },
+      "ImeJunjaMode": { "Italiano (Italian)": "ImeModoJunja" },
+      "ImeFinalMode": { "Italiano (Italian)": "ImeModoFinal" },
+      "ImeHanjaMode": { "Italiano (Italian)": "ImeModoHanja" },
+      "ImeConvert": { "Italiano (Italian)": "ImeConvert" },
+      "ImeNonConvert": { "Italiano (Italian)": "ImeNonConvert" },
+      "ImeAccept": { "Italiano (Italian)": "ImeAccetta" },
+      "ImeModeChange": { "Italiano (Italian)": "ImemCambiaModo" }
+
     }
   }
 }
