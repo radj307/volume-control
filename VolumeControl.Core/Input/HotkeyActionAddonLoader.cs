@@ -15,8 +15,9 @@ namespace VolumeControl.Core.Input
     /// </summary>
     public static class HotkeyActionAddonLoader
     {
+        #region LoadProviders
         /// <summary>
-        /// Loads DataTemplate providers from the specified <paramref name="types"/> and registers them with the <paramref name="provider"/> 
+        /// Loads DataTemplate providers from the specified <paramref name="types"/> and registers them with the <paramref name="provider"/>. 
         /// </summary>
         /// <param name="provider">The <see cref="TemplateProviderManager"/> instance to load the provider types into.</param>
         /// <param name="types">Any number of <see cref="Type"/> instances that represent classes with the <see cref="DataTemplateProviderAttribute"/>.</param>
@@ -36,11 +37,12 @@ namespace VolumeControl.Core.Input
                 }
                 catch (Exception ex)
                 {
-                    FLog.Error($"[ActionLoader] Failed to load {nameof(DataTemplate)} provider type \"{type}\" due to an exception:", ex);
+                    FLog.Error($"[ActionAddonLoader] Failed to load {nameof(DataTemplate)} provider type \"{type}\" due to an exception:", ex);
                 }
             }
 
         }
+        #endregion LoadProviders
 
         #region ValidateMethodIsEligibleAsAction
         private enum EMethodValidationState : byte
@@ -116,6 +118,7 @@ namespace VolumeControl.Core.Input
         }
         #endregion ValidateMethodIsEligibleAsAction
 
+        #region LoadActions
         /// <summary>
         /// Loads hotkey actions from the specified <paramref name="types"/>.
         /// </summary>
@@ -145,7 +148,7 @@ namespace VolumeControl.Core.Input
                 // if this type doesn't have any public methods, skip it
                 if (publicMethods.Length == 0)
                 {
-                    FLog.Error($"[ActionLoader] {type.FullName} doesn't contain any publicly-accessible methods marked with {typeof(HotkeyActionAttribute).FullName}!");
+                    FLog.Error($"[ActionAddonLoader] {type.FullName} doesn't contain any publicly-accessible methods marked with {typeof(HotkeyActionAttribute).FullName}!");
                     continue;
                 }
 
@@ -168,15 +171,15 @@ namespace VolumeControl.Core.Input
                     {
                         // this doesn't need more information because ValidateMethodIsEligibleAsAction
                         //  logs all of the problems in detail anyway.
-                        FLog.Error($"[ActionLoader] {method.GetFullMethodName()} was skipped because it is invalid.");
+                        FLog.Error($"[ActionAddonLoader] {method.GetFullMethodName()} was skipped because it is invalid.");
                         continue;
                     }
 
                     // get the action setting definitions for this method
                     List<ActionSettingDefinition> actionSettingDefs = new();
 
-                    if (FLog.FilterEventType(Log.Enum.EventType.DEBUG))
-                        FLog.Debug($"[ActionLoader] Loading action setting definitions for \"{method.GetFullMethodName()}\"");
+                    if (FLog.FilterEventType(EventType.DEBUG))
+                        FLog.Debug($"[ActionAddonLoader] Loading action setting definitions for \"{method.GetFullMethodName()}\"");
 
                     foreach (var actionSettingAttribute in method.GetCustomAttributes<HotkeyActionSettingAttribute>())
                     {
@@ -192,7 +195,7 @@ namespace VolumeControl.Core.Input
                         }
                         catch (Exception ex)
                         {
-                            FLog.Error($"[ActionLoader] ", ex);
+                            FLog.Error($"[ActionAddonLoader] ", ex);
                         }
 
                         if (dataTemplate == null)
@@ -212,7 +215,7 @@ namespace VolumeControl.Core.Input
                             .GroupBy(d => d.Name)
                             .Where(g => g.Count() > 1)
                             .Select(g => $"\"{g.Key}\""));
-                        FLog.Error($"[ActionLoader] {method.GetFullMethodName()} was skipped because multiple settings have the same name: {duplicateNames}!");
+                        FLog.Error($"[ActionAddonLoader] {method.GetFullMethodName()} was skipped because multiple settings have the same name: {duplicateNames}!");
                         continue;
                     }
 
@@ -227,7 +230,7 @@ namespace VolumeControl.Core.Input
                         }
                         catch (Exception ex)
                         {
-                            FLog.Error($"[ActionLoader] {method.GetFullMethodName()} was skipped because constructor of type {type.Name} threw an exception:", ex);
+                            FLog.Error($"[ActionAddonLoader] {method.GetFullMethodName()} was skipped because constructor of type {type.Name} threw an exception:", ex);
                             continue;
                         }
 
@@ -255,11 +258,11 @@ namespace VolumeControl.Core.Input
                     l.Add(hotkeyActionDefinition);
                     ++loadedActionsFromTypeCount;
 
-                    if (FLog.Log.FilterEventType(Log.Enum.EventType.TRACE))
+                    if (FLog.Log.FilterEventType(EventType.TRACE))
                     {
                         List<object?> lines = new();
 
-                        var lineHeader = "[ActionLoader] ";
+                        var lineHeader = "[ActionAddonLoader] ";
                         lines.Add($"{lineHeader}Loaded {method.GetFullMethodName()}.");
                         lineHeader = new string(' ', lineHeader.Length);
                         for (int k = 0, k_max = actionSettingDefs.Count; k < k_max; ++k)
@@ -273,14 +276,15 @@ namespace VolumeControl.Core.Input
                     }
                 } //< enumerate public methods
 
-                if (FLog.Log.FilterEventType(Log.Enum.EventType.DEBUG))
-                    FLog.Log.Debug($"[ActionLoader] Loaded {loadedActionsFromTypeCount}{(loadedActionsFromTypeCount == methodsWithActionAttrCount ? "" : $"/{methodsWithActionAttrCount}")} actions from {type.FullName}");
+                if (FLog.Log.FilterEventType(EventType.DEBUG))
+                    FLog.Log.Debug($"[ActionAddonLoader] Loaded {loadedActionsFromTypeCount}{(loadedActionsFromTypeCount == methodsWithActionAttrCount ? "" : $"/{methodsWithActionAttrCount}")} actions from {type.FullName}");
             } //< enumerate public types
 
-            if (FLog.Log.FilterEventType(Log.Enum.EventType.DEBUG))
-                FLog.Log.Debug($"[ActionLoader] Loaded {l.Count} total actions from {typesWithGroupAttrCount} action groups.");
+            if (FLog.Log.FilterEventType(EventType.DEBUG))
+                FLog.Log.Debug($"[ActionAddonLoader] Loaded {l.Count} total actions from {typesWithGroupAttrCount} action groups.");
 
             return l.ToArray();
         }
+        #endregion LoadActions
     }
 }

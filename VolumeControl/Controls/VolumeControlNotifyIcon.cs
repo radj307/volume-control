@@ -17,6 +17,11 @@ namespace VolumeControl.Controls
                 new System.Windows.Forms.ToolStripButton(GetShowText(), Properties.Resources.foreground, this.HandleShowHideClick),
                 new System.Windows.Forms.ToolStripButton(GetBringToFrontText(), Properties.Resources.bringtofront, this.HandleBringToFrontClick),
                 new System.Windows.Forms.ToolStripSeparator(),
+
+                new System.Windows.Forms.ToolStripButton("Open Config", Properties.Resources.codefile, this.HandleOpenConfigClicked),
+                new System.Windows.Forms.ToolStripButton("Open Log", Properties.Resources.textfile, this.HandleOpenLogClicked),
+
+                new System.Windows.Forms.ToolStripSeparator(),
                 new System.Windows.Forms.ToolStripButton(GetOpenAppDataText(), Properties.Resources.file_inverted, this.HandleOpenAppDataClick),
                 new System.Windows.Forms.ToolStripButton(GetOpenLocationText(), Properties.Resources.file, this.HandleOpenLocationClick),
                 new System.Windows.Forms.ToolStripButton(GetCloseText(), Properties.Resources.X, this.HandleCloseClicked),
@@ -44,6 +49,7 @@ namespace VolumeControl.Controls
         #endregion TranslationGetters
 
         #region Events
+
         private void Handle_CurrentLanguageChanged(object? sender, CurrentLanguageChangedEventArgs e)
         {
             this.Items[_idx_ShowHide].Text = GetShowHideText(_mainWindowVisibilityChecker());
@@ -82,10 +88,16 @@ namespace VolumeControl.Controls
         private void HandleOpenLocationClick(object? sender, EventArgs e) => OpenLocationClicked?.Invoke(sender, e);
         private void HandleOpenAppDataClick(object? sender, EventArgs e) => OpenAppDataClicked?.Invoke(sender, e);
         private void HandleCloseClicked(object? sender, EventArgs e) => CloseClicked?.Invoke(sender, e);
+        private void HandleOpenConfigClicked(object? sender, EventArgs e) => OpenConfigClicked?.Invoke(sender, e);
+        private void HandleOpenLogClicked(object? sender, EventArgs e) => OpenLogClicked?.Invoke(sender, e);
 
         public event EventHandler? ShowClicked;
         public event EventHandler? HideClicked;
         public event EventHandler? BringToFrontClicked;
+
+        public event EventHandler? OpenConfigClicked;
+        public event EventHandler? OpenLogClicked;
+
         public event EventHandler? OpenLocationClicked;
         public event EventHandler? OpenAppDataClicked;
         public event EventHandler? CloseClicked;

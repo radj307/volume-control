@@ -755,8 +755,8 @@
             </Style>
             <!--  ProgressBarPeakMeterStyle  -->
             <Style x:Key="ProgressBarPeakMeterStyle" TargetType="{x:Type ProgressBar}">
-                <Setter Property="Minimum" Value="{x:Static core:Config.PeakMeterMinValue}" />
-                <Setter Property="Maximum" Value="{x:Static core:Config.PeakMeterMaxValue}" />
+                <Setter Property="Minimum" Value="0.0" />
+                <Setter Property="Maximum" Value="1.0" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
             </Style>
             <!--  Expander Templates  -->
@@ -900,17 +900,18 @@
             <!--  ComboBox Style  -->
             <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
+                    <Trigger Property="IsEnabled" Value="False">
                         <Setter Property="Foreground" Value="#404040" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="True">
+                        <Setter Property="Background" Value="{StaticResource TextBoxBackgroundDisabled}" />
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="True">
                         <Setter Property="Foreground" Value="WhiteSmoke" />
-                    </DataTrigger>
+                    </Trigger>
                     <!--  Focused  -->
-                    <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="True">
+                    <Trigger Property="IsFocused" Value="True">
                         <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
                         <Setter Property="BorderThickness" Value="{StaticResource SelectionBorderThickness}" />
-                    </DataTrigger>
+                    </Trigger>
                 </Style.Triggers>
                 <Setter Property="SnapsToDevicePixels" Value="true" />
                 <Setter Property="OverridesDefaultStyle" Value="true" />
@@ -918,6 +919,7 @@
                 <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
                 <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
                 <Setter Property="MinHeight" Value="20" />
+                <Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
                         <ItemsPanelTemplate>
@@ -931,7 +933,7 @@
                             <Grid>
                                 <Border
                                     Name="BackgroundBorder"
-                                    Background="{StaticResource TextBoxBackground}"
+                                    Background="{TemplateBinding Background}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
                                     CornerRadius="{StaticResource RoundedControlCorner}" />
@@ -1025,6 +1027,20 @@
                 <Setter Property="Margin" Value="0,1,0,1" />
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="IsEnabled" Value="True" />
+            </Style>
+            <Style
+                x:Key="DarkButtonStyle"
+                BasedOn="{StaticResource ButtonStyle}"
+                TargetType="{x:Type Button}">
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Background" Value="{StaticResource TextBoxBackgroundDisabled}" />
+                    </Trigger>
+                </Style.Triggers>
+                <Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
+                <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
 
         </ResourceDictionary>

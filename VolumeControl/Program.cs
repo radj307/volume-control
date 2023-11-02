@@ -14,7 +14,7 @@ using System.Windows;
 using VolumeControl.Core;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
-using VolumeControl.Log.Enum;
+using VolumeControl.Log.Endpoints;
 using VolumeControl.TypeExtensions;
 
 namespace VolumeControl
@@ -341,7 +341,7 @@ namespace VolumeControl
             else Console.Out.WriteLine($"Acquired mutex \"{appMutexName}\".");
 
             // Initialize the log now that we aren't potentially overwriting another instance's log file
-            FLog.Initialize();
+            FLog.Initialize(Settings.LogPath, Settings.EnableLogging, Settings.LogFilter, Settings.LogClearOnInitialize);
 #if DEBUG
             // show all log message types in debug mode
             FLog.Log.EventTypeFilter = EventType.DEBUG | EventType.INFO | EventType.WARN | EventType.ERROR | EventType.FATAL | EventType.TRACE;

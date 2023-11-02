@@ -1,4 +1,4 @@
-﻿namespace VolumeControl.Log
+﻿namespace VolumeControl.Log.Exceptions
 {
     /// <summary>
     /// Represents errors that occur as a result of trying to access an object before it is initialized.

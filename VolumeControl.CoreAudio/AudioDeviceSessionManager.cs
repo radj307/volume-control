@@ -28,7 +28,7 @@ namespace VolumeControl.CoreAudio
 
             AudioSessionManager2.OnSessionCreated += this.AudioSessionManager_OnSessionCreated;
 
-            bool showTraceLogMessages = FLog.FilterEventType(Log.Enum.EventType.TRACE);
+            bool showTraceLogMessages = FLog.FilterEventType(EventType.TRACE);
 
             if (AudioSessionManager2.Sessions is not null)
             { // populate the sessions list

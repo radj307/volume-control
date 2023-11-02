@@ -135,7 +135,7 @@ namespace VolumeControl.Core.Input.Actions
                 }
                 catch (Exception ex)
                 {
-                    if (FLog.Log.FilterEventType(Log.Enum.EventType.ERROR))
+                    if (FLog.Log.FilterEventType(EventType.ERROR))
                         FLog.Log.Error($"Failed to instantiate action setting \"{Name}\" due to an exception:", ex);
                 }
             }

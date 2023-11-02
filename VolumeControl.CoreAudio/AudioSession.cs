@@ -18,7 +18,7 @@ namespace VolumeControl.CoreAudio
         #region Constructor
         internal AudioSession(AudioDevice owningDevice, AudioSessionControl2 audioSessionControl2)
         {
-            bool showTraceLogMessages = FLog.FilterEventType(Log.Enum.EventType.TRACE);
+            bool showTraceLogMessages = FLog.FilterEventType(EventType.TRACE);
 
             AudioDevice = owningDevice;
             AudioSessionControl = audioSessionControl2;
@@ -354,7 +354,7 @@ namespace VolumeControl.CoreAudio
         /// <inheritdoc/>
         public void Dispose()
         {
-            if (FLog.Log.FilterEventType(Log.Enum.EventType.TRACE))
+            if (FLog.Log.FilterEventType(EventType.TRACE))
                 FLog.Log.Trace($"Disposing of {nameof(AudioSession)} instance \"{ProcessIdentifier}\"");
             this.AudioSessionControl.Dispose();
             GC.SuppressFinalize(this);

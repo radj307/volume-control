@@ -101,7 +101,7 @@ namespace VolumeControl.Core.Input
                 _failedTypes.Add(providerType);
                 return false;
             }
-            else if (FLog.FilterEventType(Log.Enum.EventType.TRACE))
+            else if (FLog.FilterEventType(EventType.TRACE))
             {
                 FLog.Trace($"[{nameof(TemplateProviderManager)}] Successfully initialized {nameof(ITemplateProvider)} type \"{providerType}\".");
             }
@@ -135,7 +135,7 @@ namespace VolumeControl.Core.Input
                 _failedTypes.Add(dictionaryProviderType);
                 return false;
             }
-            else if (FLog.FilterEventType(Log.Enum.EventType.TRACE))
+            else if (FLog.FilterEventType(EventType.TRACE))
             {
                 FLog.Trace($"[{nameof(TemplateProviderManager)}] Successfully initialized {nameof(ITemplateDictionaryProvider)} type \"{dictionaryProviderType}\".");
             }
@@ -236,7 +236,7 @@ namespace VolumeControl.Core.Input
                 if (dictionaryProvider.ProvideDataTemplate(key) is ActionSettingDataTemplate actionSettingDataTemplate)
                 {
                     // write trace log message
-                    if (FLog.FilterEventType(Log.Enum.EventType.TRACE))
+                    if (FLog.FilterEventType(EventType.TRACE))
                         FLog.Trace($"[{nameof(TemplateProviderManager)}] Found DataTemplate with key \"{key}\" in {nameof(ITemplateDictionaryProvider)} type \"{dictionaryProvider.GetType()}\".");
 
                     return actionSettingDataTemplate;
@@ -244,7 +244,7 @@ namespace VolumeControl.Core.Input
             }
 
             // write trace log message
-            if (FLog.FilterEventType(Log.Enum.EventType.TRACE))
+            if (FLog.FilterEventType(EventType.TRACE))
                 FLog.Trace($"[{nameof(TemplateProviderManager)}] Couldn't find any DataTemplates with key \"{key}\".");
 
             return null;
@@ -266,7 +266,7 @@ namespace VolumeControl.Core.Input
                 if (provider.ProvideDataTemplate(valueType) is ActionSettingDataTemplate actionSettingDataTemplate)
                 {
                     // write trace log message
-                    if (FLog.FilterEventType(Log.Enum.EventType.TRACE))
+                    if (FLog.FilterEventType(EventType.TRACE))
                         FLog.Trace($"[{nameof(TemplateProviderManager)}] Found DataTemplate for value type \"{valueType}\" in {nameof(ITemplateProvider)} type \"{provider.GetType()}\".");
 
                     return actionSettingDataTemplate;
@@ -281,7 +281,7 @@ namespace VolumeControl.Core.Input
                 if (dictionaryProvider.ProvideDataTemplate(valueType) is ActionSettingDataTemplate actionSettingDataTemplate)
                 {
                     // write trace log message
-                    if (FLog.FilterEventType(Log.Enum.EventType.TRACE))
+                    if (FLog.FilterEventType(EventType.TRACE))
                         FLog.Trace($"[{nameof(TemplateProviderManager)}] Found DataTemplate for value type \"{valueType}\" in {nameof(ITemplateDictionaryProvider)} type \"{dictionaryProvider.GetType()}\".");
 
                     return actionSettingDataTemplate;
@@ -289,7 +289,7 @@ namespace VolumeControl.Core.Input
             }
 
             // write trace log message
-            if (FLog.FilterEventType(Log.Enum.EventType.TRACE))
+            if (FLog.FilterEventType(EventType.TRACE))
                 FLog.Trace($"[{nameof(TemplateProviderManager)}] Couldn't find any DataTemplates for value type \"{valueType}\".");
 
             return null;
@@ -341,14 +341,14 @@ namespace VolumeControl.Core.Input
         /// <exception cref="ArgumentNullException"><paramref name="valueType"/> was <see langword="null"/> and the <paramref name="providerType"/> and <paramref name="templateKey"/> didn't resolve to a valid template.</exception>
         public DataTemplate? FindDataTemplateFor(Type? providerType, string? templateKey, Type valueType, FallbackMode fallbackMode)
         {
-            bool traceMessagesAreEnabled = FLog.FilterEventType(Log.Enum.EventType.TRACE);
+            bool traceMessagesAreEnabled = FLog.FilterEventType(EventType.TRACE);
 
             // search specified provider for a data template
             if (providerType != null && !FailedTypes.Contains(providerType))
             {
                 if (providerType.IsAssignableTo(typeof(ITemplateProvider)))
                 { // provider
-                    if (templateKey != null && FLog.FilterEventType(Log.Enum.EventType.WARN))
+                    if (templateKey != null && FLog.FilterEventType(EventType.WARN))
                     { // [WARN] a key name was set, but the specified provider type doesn't support keys
                         FLog.Warning(
                             $"[{nameof(TemplateProviderManager)}] A {nameof(HotkeyActionSettingAttribute.DataTemplateProviderKey)} (\"{templateKey}\") was specified, but {nameof(HotkeyActionSettingAttribute.DataTemplateProviderType)} is {nameof(ITemplateProvider)} type \"{providerType}\"!",
@@ -377,14 +377,14 @@ namespace VolumeControl.Core.Input
                         }
                         else
                         { // [DEBUG] the specified provider does not support this value type
-                            if (FLog.FilterEventType(Log.Enum.EventType.DEBUG))
+                            if (FLog.FilterEventType(EventType.DEBUG))
                                 FLog.Debug($"[{nameof(TemplateProviderManager)}] {nameof(ITemplateProvider)} \"{providerType}\" does not support value type \"{valueType}\" ({StringHelper.GetFullMethodName(providerType.GetMethod(nameof(provider.CanProvideDataTemplate))!)} returned false)! Falling back to other providers.");
                         }
                         //< fallthrough
                     }
                     else if (!fallbackMode.HasFlag(FallbackMode.OnFailedProvider))
                     { // [ERROR] the specified provider type failed
-                        if (FLog.FilterEventType(Log.Enum.EventType.ERROR))
+                        if (FLog.FilterEventType(EventType.ERROR))
                             FLog.Error($"[{nameof(TemplateProviderManager)}] {nameof(ITemplateProvider)} \"{providerType}\" failed! (see the failure message above for details)");
 
                         return null;
@@ -410,7 +410,7 @@ namespace VolumeControl.Core.Input
                     }
                     else if (!fallbackMode.HasFlag(FallbackMode.OnFailedProvider))
                     { // [ERROR] the specified dictionary provider type failed
-                        if (FLog.FilterEventType(Log.Enum.EventType.ERROR))
+                        if (FLog.FilterEventType(EventType.ERROR))
                             FLog.Error($"[{nameof(TemplateProviderManager)}] {nameof(ITemplateDictionaryProvider)} \"{providerType}\" failed! (see the failure message above for details)");
 
                         return null;
@@ -446,14 +446,14 @@ namespace VolumeControl.Core.Input
         /// <exception cref="ArgumentNullException"><paramref name="valueType"/> was <see langword="null"/> and the <paramref name="providerType"/> and <paramref name="templateKey"/> didn't resolve to a valid template.</exception>
         public DataTemplate? FindDataTemplateFor(Type? providerType, string? templateKey, Type valueType, bool allowFallbackOnMissingKey = false)
         {
-            bool showTraceMessages = FLog.FilterEventType(Log.Enum.EventType.TRACE);
+            bool showTraceMessages = FLog.FilterEventType(EventType.TRACE);
 
             // search specified provider for a data template
             if (providerType != null && !FailedTypes.Contains(providerType))
             {
                 if (providerType.IsAssignableTo(typeof(ITemplateProvider)))
                 { // provider
-                    if (templateKey != null && FLog.FilterEventType(Log.Enum.EventType.WARN))
+                    if (templateKey != null && FLog.FilterEventType(EventType.WARN))
                     { // [WARN] a key name was set, but the specified provider type doesn't support keys
                         FLog.Warning(
                             $"[{nameof(TemplateProviderManager)}] A {nameof(HotkeyActionSettingAttribute.DataTemplateProviderKey)} (\"{templateKey}\") was specified, but {nameof(HotkeyActionSettingAttribute.DataTemplateProviderType)} is {nameof(ITemplateProvider)} type \"{providerType}\"!",
@@ -475,13 +475,13 @@ namespace VolumeControl.Core.Input
                         }
                         else
                         { // [DEBUG] the specified provider does not support this value type
-                            if (FLog.FilterEventType(Log.Enum.EventType.DEBUG))
+                            if (FLog.FilterEventType(EventType.DEBUG))
                                 FLog.Debug($"[{nameof(TemplateProviderManager)}] {nameof(ITemplateProvider)} \"{providerType}\" does not support value type \"{valueType}\" ({StringHelper.GetFullMethodName(providerType.GetMethod(nameof(provider.CanProvideDataTemplate))!)} returned false)! Falling back to other providers.");
                         }
                     }
                     else
                     { // [ERROR] the specified provider type failed
-                        if (FLog.FilterEventType(Log.Enum.EventType.ERROR))
+                        if (FLog.FilterEventType(EventType.ERROR))
                             FLog.Error($"[{nameof(TemplateProviderManager)}] {nameof(ITemplateProvider)} \"{providerType}\" failed! (see the failure message above for details)");
 
                         return null;
@@ -507,7 +507,7 @@ namespace VolumeControl.Core.Input
                     }
                     else
                     { // [ERROR] the specified dictionary provider type failed
-                        if (FLog.FilterEventType(Log.Enum.EventType.ERROR))
+                        if (FLog.FilterEventType(EventType.ERROR))
                             FLog.Error($"[{nameof(TemplateProviderManager)}] {nameof(ITemplateDictionaryProvider)} \"{providerType}\" failed! (see the failure message above for details)");
 
                         return null;

@@ -15,6 +15,7 @@
     xmlns:loc="clr-namespace:CodingSeb.Localization;assembly=CodingSeb.Localization"
     xmlns:local="clr-namespace:VolumeControl"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:rsc="clr-namespace:VolumeControl.Properties"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
     xmlns:vm="clr-namespace:VolumeControl.ViewModels"
     xmlns:wpf="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
@@ -942,19 +943,22 @@
                                                             ItemsSource="{StaticResource KeyOptions}"
                                                             SelectedValue="{Binding Hotkey.Key, UpdateSourceTrigger=PropertyChanged}"
                                                             SelectedValuePath="Key"
-                                                            Style="{StaticResource ComboBoxStyle}" />
+                                                            Style="{StaticResource ComboBoxStyle}">
+                                                            <i:Interaction.Behaviors>
+                                                                <wpfBehaviors:DisableMouseWheelBehavior />
+                                                            </i:Interaction.Behaviors>
+                                                        </ComboBox>
                                                         <Button
                                                             x:Name="KeySelectorToggleButton"
                                                             Grid.Column="1"
                                                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                                            Margin="2"
-                                                            Content="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Key.KeySelector.Content',
-                                                                         DefaultText='🖮'}"
+                                                            Margin="3,2,0,2"
                                                             PreviewMouseDown="KeySelectorToggleButton_PreviewMouseDown"
                                                             PreviewMouseUp="KeySelectorToggleButton_PreviewMouseUp"
+                                                            Style="{StaticResource DarkButtonStyle}"
                                                             Tag="{Binding ElementName=KeySelectorComboBox}"
                                                             ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Key.KeySelector.Tooltip',
-                                                                         DefaultText='Click and hold with the mouse, then press a key to select it.\nRegistered hotkeys can still be triggered.'}" />
+                                                                         DefaultText='Click and hold with the mouse, then press a key to select it. Registered hotkeys can still be triggered.'}" />
                                                     </Grid>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>

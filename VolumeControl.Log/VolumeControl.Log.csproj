@@ -14,17 +14,6 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Fody" Version="6.8.0">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0">
-			<PrivateAssets>All</PrivateAssets>
-		</PackageReference>
-		<PackageReference Include="radj307.AppReconfig" Version="2.3.0" />
-	</ItemGroup>
-
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).pdb&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).xml&quot; &quot;..\publish\SDK\&quot;" />
 	</Target>

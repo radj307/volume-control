@@ -1,15 +1,17 @@
 ﻿using System.Collections;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
-using VolumeControl.Log.Endpoints;
-using VolumeControl.Log.Enum;
+using VolumeControl.Log.Helpers;
+using VolumeControl.Log.Interfaces;
 
 namespace VolumeControl.Log
 {
     /// <summary>
     /// Asynchonously writes messages to the log endpoint.
     /// </summary>
-    public sealed class AsyncLogWriter : ThreadedLogger, ILogWriter, IDisposable
+    public sealed class AsyncLogWriter : ThreadedActionQueue, ILogWriter, INotifyPropertyChanged, IDisposable
     {
         #region Constructor
         /// <summary>
@@ -17,10 +19,10 @@ namespace VolumeControl.Log
         /// </summary>
         /// <param name="endpoint">A log endpoint instance.</param>
         /// <param name="eventTypeFilter">The default event type filter.</param>
-        public AsyncLogWriter(IEndpoint endpoint, EventType eventTypeFilter) : base()
+        public AsyncLogWriter(IEndpointWriter endpoint, EventType eventTypeFilter) : base()
         {
             Endpoint = endpoint;
-            EventTypeFilter = eventTypeFilter;
+            _eventTypeFilter = eventTypeFilter;
         }
         static AsyncLogWriter()
         {
@@ -31,7 +33,7 @@ namespace VolumeControl.Log
         #endregion Constructor
 
         #region Fields
-        internal readonly IEndpoint Endpoint;
+        internal readonly IEndpointWriter Endpoint;
         /// <summary>
         /// The string that defines the format of timestamps.
         /// </summary>
@@ -70,21 +72,31 @@ namespace VolumeControl.Log
             {
                 lock (Endpoint)
                 {
-                    return Endpoint.Enabled;
+                    return Endpoint.IsWritingEnabled;
                 }
             }
             set
             {
                 lock (Endpoint)
                 {
-                    Endpoint.Enabled = value;
+                    Endpoint.IsWritingEnabled = value;
                 }
+                NotifyPropertyChanged();
             }
         }
         /// <summary>
         /// Gets or sets the event type filter that determines which message types are visible for this log writer instance.
         /// </summary>
-        public EventType EventTypeFilter { get; set; }
+        public EventType EventTypeFilter
+        {
+            get => _eventTypeFilter;
+            set
+            {
+                _eventTypeFilter = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private EventType _eventTypeFilter;
         /// <summary>
         /// Gets or sets whether log messages are added to the queue to be written asynchronously, or written synchronously.
         /// </summary>
@@ -94,7 +106,7 @@ namespace VolumeControl.Log
             get => _isAsyncEnabled;
             set
             {
-                if (_isAsyncEnabled == value) return;
+                if (value == _isAsyncEnabled) return;
 
                 if (value)
                 { // enable async
@@ -105,14 +117,20 @@ namespace VolumeControl.Log
                     _isAsyncEnabled = false;
                     Flush();
                 }
+                NotifyPropertyChanged();
             }
         }
         private bool _isAsyncEnabled = true;
         #endregion Properties
 
-        #region WriteLogMessage Override
+        #region Events
         /// <inheritdoc/>
-        protected override void WriteLogMessage(LogMessage message)
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        #endregion Events
+
+        #region (Private) WriteLogMessage
+        private void WriteLogMessage(LogMessage message)
         {
             if (!FilterEventType(message.EventType))
             { // event type is not enabled; don't show it
@@ -121,9 +139,9 @@ namespace VolumeControl.Log
 
             lock (Endpoint)
             {
-                if (!Endpoint.Enabled) return;
+                if (!Endpoint.IsWritingEnabled) return;
 
-                using var writer = Endpoint.GetWriter();
+                using var writer = Endpoint.GetTextWriter();
 
                 if (writer == null) return;
 
@@ -166,7 +184,7 @@ namespace VolumeControl.Log
                 writer.Flush();
             }
         }
-        #endregion WriteLogMessage Override
+        #endregion (Private) WriteLogMessage
 
         #region Methods
 
@@ -239,7 +257,7 @@ namespace VolumeControl.Log
 
         #region ResetEndpoint
         /// <summary>
-        /// Resets the endpoint to its default state by calling <see cref="IEndpoint.Reset"/>.
+        /// Resets the endpoint to its default state by calling <see cref="IEndpointWriter.Reset"/>.
         /// </summary>
         public void ResetEndpoint()
         {
@@ -249,7 +267,7 @@ namespace VolumeControl.Log
             }
         }
         /// <summary>
-        /// Resets the endpoint to its default state by calling <see cref="IEndpoint.Reset"/>, and writes the specified <paramref name="firstLine"/>.
+        /// Resets the endpoint to its default state by calling <see cref="IEndpointWriter.Reset"/>, and writes the specified <paramref name="firstLine"/>.
         /// </summary>
         /// <param name="firstLine">The first line to (synchronously) write to the log.</param>
         public void ResetEndpoint(string firstLine)
@@ -257,7 +275,7 @@ namespace VolumeControl.Log
             lock (Endpoint)
             {
                 Endpoint.Reset();
-                Endpoint.WriteRawLine(firstLine);
+                Endpoint.WriteLine(firstLine);
             }
         }
         #endregion ResetEndpoint
@@ -267,14 +285,15 @@ namespace VolumeControl.Log
         /// Writes the specified <paramref name="logMessage"/> to the log.
         /// </summary>
         /// <remarks>
-        /// When IsAsyncEnabled is <see langword="true"/>, the message is added to the queue and written asynchronously; otherwise, the message is blocking and the message is written synchronously.
+        /// When IsAsyncEnabled is <see langword="true"/>, the message is written asynchronously;
+        /// otherwise, the message is written synchronously and the caller will be blocked until the message has been written.
         /// </remarks>
-        /// <param name="logMessage"></param>
-        public new void LogMessage(LogMessage logMessage)
+        /// <param name="logMessage">The message to write to the log.</param>
+        public void LogMessage(LogMessage logMessage)
         {
             if (IsAsyncEnabled)
             {
-                base.LogMessage(logMessage);
+                Enqueue(() => WriteLogMessage(logMessage));
             }
             else // async is disabled
             {
@@ -333,9 +352,13 @@ namespace VolumeControl.Log
         /// <summary>
         /// Sets the IsAsyncEnabled property to <see langword="false"/> without flushing the queue.
         /// </summary>
+        /// <remarks>
+        /// Queued messages will still be written, but any further messages will be written synchronously.
+        /// </remarks>
         public void DisableAsyncNoFlush()
         {
             _isAsyncEnabled = false;
+            NotifyPropertyChanged(nameof(IsAsyncEnabled));
         }
         #endregion DisableAsyncNoFlush
 

@@ -23,7 +23,7 @@ namespace VolumeControl.ViewModels
     {
         public AudioDeviceManagerVM()
         {
-            var doDebugLogging = FLog.Log.FilterEventType(Log.Enum.EventType.DEBUG);
+            var doDebugLogging = FLog.Log.FilterEventType(EventType.DEBUG);
             if (doDebugLogging) FLog.Debug("Started initializing CoreAudio APIs.");
 
             // # INIT DEVICES #

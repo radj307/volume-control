@@ -21,8 +21,11 @@ namespace VolumeControl.Core
         /// <summary>
         /// Creates a new <see cref="Config"/> instance.
         /// </summary>
-        /// <remarks>The first time this is called, the <see cref="AppConfig.Configuration.Default"/> property is set to that instance; all subsequent calls do not update this property.</remarks>
-        public Config(string filePath) : base(filePath) { }
+        /// <remarks>The first time this is called, the <see cref="AppConfig.Configuration.DefaultInstance"/> property is set to that instance; all subsequent calls do not update this property.</remarks>
+        public Config(string filePath) : base(filePath)
+        {
+            PropertyChanged += UpdateFLogState;
+        }
         #endregion Constructor
 
         #region Properties
@@ -43,7 +46,7 @@ namespace VolumeControl.Core
         /// </summary>
         public void ResumeAutoSave()
         {
-            if (FLog.FilterEventType(Log.Enum.EventType.TRACE))
+            if (FLog.FilterEventType(EventType.TRACE))
                 FLog.Trace($"Enabled {nameof(Config)} autosave.");
 
             _autoSaveEnabled = true;
@@ -54,7 +57,7 @@ namespace VolumeControl.Core
         /// </summary>
         public void PauseAutoSave()
         {
-            if (FLog.FilterEventType(Log.Enum.EventType.TRACE))
+            if (FLog.FilterEventType(EventType.TRACE))
                 FLog.Trace($"Disabled {nameof(Config)} autosave.");
 
             _autoSaveEnabled = false;
@@ -85,7 +88,7 @@ namespace VolumeControl.Core
         /// <inheritdoc/>
         public override void Save(Formatting formatting = Formatting.Indented)
         {
-            if (FLog.FilterEventType(Log.Enum.EventType.TRACE))
+            if (FLog.FilterEventType(EventType.TRACE))
                 FLog.Trace($"Saved {nameof(Config)}");
             base.Save(formatting);
         }
@@ -94,9 +97,30 @@ namespace VolumeControl.Core
         #region EventHandlers
         private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (FLog.FilterEventType(Log.Enum.EventType.TRACE))
+            if (FLog.FilterEventType(EventType.TRACE))
                 FLog.Trace($"Config property '{e.PropertyName}' was modified.");
             Save();
+        }
+        private void UpdateFLogState(object? sender, PropertyChangedEventArgs e)
+        {
+            if (!FLog.IsInitialized) return;
+
+            // update the log's properties
+            if (e.PropertyName != null)
+            {
+                if (e.PropertyName.Equals(nameof(EnableLogging), StringComparison.Ordinal))
+                {
+                    FLog.Log.EndpointEnabled = EnableLogging;
+                }
+                else if (e.PropertyName.Equals(nameof(LogFilter), StringComparison.Ordinal))
+                {
+                    FLog.Log.EventTypeFilter = LogFilter;
+                }
+                else if (e.PropertyName.Equals(nameof(LogPath), StringComparison.Ordinal))
+                {
+                    FLog.ChangeLogPath(LogPath);
+                }
+            }
         }
         private void PropertyWithPropertyChangedEvents_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
@@ -332,14 +356,6 @@ namespace VolumeControl.Core
         /// </summary>
         public bool ShowPeakMeters { get; set; } = true;
         /// <summary>
-        /// The minimum boundary shown on peak meters.
-        /// </summary>
-        public const double PeakMeterMinValue = 0.0;
-        /// <summary>
-        /// The maximum boundary shown on peak meters.
-        /// </summary>
-        public const double PeakMeterMaxValue = 1.0;
-        /// <summary>
         /// Gets or sets whether volume &amp; mute controls are visible in the Audio Devices list.
         /// </summary>
         public bool EnableDeviceControl { get; set; } = false;
@@ -367,10 +383,10 @@ namespace VolumeControl.Core
         //            ^^^^^^^
         //          DO NOT RENAME THIS WITHOUT ALSO RENAMING IT IN VolumeControl.Log.SettingsInterface
         /// <summary>
-        /// Gets or sets the <see cref="Log.Enum.EventType"/> filter used for messages.<br/>
+        /// Gets or sets the <see cref="Log.EventType"/> filter used for messages.<br/>
         /// See <see cref="SettingsInterface.LogFilter"/>
         /// </summary>
-        public Log.Enum.EventType LogFilter { get; set; } = Log.Enum.EventType.INFO | Log.Enum.EventType.WARN | Log.Enum.EventType.ERROR | Log.Enum.EventType.FATAL | Log.Enum.EventType.CRITICAL;
+        public EventType LogFilter { get; set; } = EventType.INFO | EventType.WARN | EventType.ERROR | EventType.FATAL | EventType.CRITICAL;
         //                        ^^^^^^^^^
         //          DO NOT RENAME THIS WITHOUT ALSO RENAMING IT IN VolumeControl.Log.SettingsInterface
         /// <summary>

@@ -76,7 +76,7 @@ namespace VolumeControl.Core.Input.Json
                     }
                     else
                     {
-                        if (FLog.FilterEventType(Log.Enum.EventType.ERROR))
+                        if (FLog.FilterEventType(EventType.ERROR))
                             FLog.Error($"Couldn't find an action with identifier \"{ActionIdentifier}\"!");
                     }
                 }
@@ -99,7 +99,7 @@ namespace VolumeControl.Core.Input.Json
 
                 if (settingDefinition == null)
                 {
-                    if (FLog.FilterEventType(Log.Enum.EventType.WARN))
+                    if (FLog.FilterEventType(EventType.WARN))
                         FLog.Warning($"There is no action setting definition associated with JSON key '{name}' for action \"{actionDefinition.Identifier}\".");
                     continue;
                 }
@@ -112,7 +112,7 @@ namespace VolumeControl.Core.Input.Json
                 }
                 catch (Exception ex)
                 {
-                    if (FLog.FilterEventType(Log.Enum.EventType.ERROR))
+                    if (FLog.FilterEventType(EventType.ERROR))
                         FLog.Error($"An exception occurred while creating action setting \"{name}\" with value \"{value}\" for action \"{actionDefinition.Identifier}\":", ex);
 #if DEBUG
                     throw; //< rethrow exception in DEBUG configuration
@@ -123,7 +123,7 @@ namespace VolumeControl.Core.Input.Json
 
                 if (settingInstance == null)
                 {
-                    if (FLog.FilterEventType(Log.Enum.EventType.ERROR))
+                    if (FLog.FilterEventType(EventType.ERROR))
                         FLog.Error($"An unknown error occurred while creating action setting \"{name}\" with value \"{value}\" for action \"{actionDefinition.Identifier}\"!");
                     continue;
                 }

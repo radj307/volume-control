@@ -1,9 +1,11 @@
-﻿namespace VolumeControl.Log.Endpoints
+﻿using VolumeControl.Log.Interfaces;
+
+namespace VolumeControl.Log.Endpoints
 {
     /// <summary>
-    /// A log endpoint that implements <see cref="IEndpoint"/> and uses a <see cref="MemoryStream"/> as an endpoint.
+    /// A log endpoint that implements <see cref="IEndpointWriter"/> and uses a <see cref="MemoryStream"/> as an endpoint.
     /// </summary>
-    public class MemoryEndpoint : IEndpoint, IDisposable
+    public class MemoryEndpoint : IEndpointWriter, IDisposable
     {
         #region Constructor
         /// <inheritdoc cref="MemoryEndpoint"/>
@@ -12,7 +14,7 @@
         public MemoryEndpoint(bool enabled = true, int kilobytes = 10)
         {
             _stream = new(new byte[1024 * kilobytes], true);
-            this.Enabled = enabled;
+            this.IsWritingEnabled = enabled;
         }
         #endregion Constructor
 
@@ -22,7 +24,7 @@
 
         #region Properties
         /// <inheritdoc/>
-        public bool Enabled
+        public bool IsWritingEnabled
         {
             get => _enabled;
             set
@@ -45,25 +47,31 @@
         #endregion Events
 
         #region Methods
+        /// <summary>
+        /// Gets a new <see cref="TextReader"/> instance for this memory endpoint.
+        /// </summary>
+        /// <remarks>
+        /// The caller is responsible for disposing of the returned reader object.
+        /// </remarks>
+        /// <returns>New <see cref="TextReader"/> instance.</returns>
+        public TextReader GetTextReader() => this.IsWritingEnabled ? new StreamReader(_stream, leaveOpen: true) : null!;
         /// <inheritdoc/>
-        public TextReader? GetReader() => this.Enabled ? new StreamReader(_stream, leaveOpen: true) : null;
-        /// <inheritdoc/>
-        public TextWriter? GetWriter() => this.Enabled ? new StreamWriter(_stream, leaveOpen: true) : null;
+        public TextWriter GetTextWriter() => this.IsWritingEnabled ? new StreamWriter(_stream, leaveOpen: true) : null!;
         /// <inheritdoc/>
         public int? ReadRaw()
         {
-            if (!this.Enabled)
+            if (!this.IsWritingEnabled)
                 return null;
-            using TextReader? r = this.GetReader();
+            using TextReader? r = this.GetTextReader();
             int? ch = r?.Read();
             return ch;
         }
         /// <inheritdoc/>
         public string? ReadRawLine()
         {
-            if (!this.Enabled)
+            if (!this.IsWritingEnabled)
                 return null;
-            using TextReader? r = this.GetReader();
+            using TextReader? r = this.GetTextReader();
             string? line = r?.ReadLine();
             r?.Dispose();
             return line;
@@ -71,18 +79,18 @@
         /// <inheritdoc/>
         public void Reset() => _stream = new();
         /// <inheritdoc/>
-        public void WriteRaw(string? str)
+        public void Write(string? str)
         {
-            if (!this.Enabled || str == null)
+            if (!this.IsWritingEnabled || str == null)
                 return;
             _stream.Write(new Span<byte>(str.ToCharArray().Cast<byte>().ToArray()));
         }
         /// <inheritdoc/>
-        public void WriteRawLine(string? str = null)
+        public void WriteLine(string? str = null)
         {
-            if (!this.Enabled)
+            if (!this.IsWritingEnabled)
                 return;
-            this.WriteRaw(str == null ? "\n" : $"{str}\n");
+            this.Write(str == null ? "\n" : $"{str}\n");
         }
 
         /// <inheritdoc/>

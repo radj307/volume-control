@@ -33,7 +33,7 @@ namespace VolumeControl.CoreAudio
 
             AudioEndpointVolume.OnVolumeNotification += AudioEndpointVolume_OnVolumeNotification;
 
-            if (FLog.FilterEventType(Log.Enum.EventType.TRACE))
+            if (FLog.FilterEventType(EventType.TRACE))
                 FLog.Trace($"[{nameof(AudioDevice)}] Successfully created {nameof(AudioDevice)} instance \"{FullName}\".");
         }
         #endregion Constructor
@@ -177,7 +177,7 @@ namespace VolumeControl.CoreAudio
         /// <inheritdoc/>
         public void Dispose()
         {
-            if (FLog.Log.FilterEventType(Log.Enum.EventType.TRACE))
+            if (FLog.Log.FilterEventType(EventType.TRACE))
                 FLog.Log.Trace($"Disposing of {nameof(AudioDevice)} instance \"{FullName}\"");
             ((IDisposable)this.MMDevice).Dispose();
             GC.SuppressFinalize(this);

@@ -1,6 +1,4 @@
-﻿using VolumeControl.Log.Enum;
-
-namespace VolumeControl.Log
+﻿namespace VolumeControl.Log.Interfaces
 {
     /// <summary>
     /// Represents a log writer instance.

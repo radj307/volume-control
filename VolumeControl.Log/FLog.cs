@@ -1,13 +1,13 @@
 ﻿using VolumeControl.Log.Endpoints;
-using VolumeControl.Log.Enum;
+using VolumeControl.Log.Exceptions;
 
 namespace VolumeControl.Log
 {
     /// <summary>
-    /// Static logger class.
+    /// Static file logger class.
     /// </summary>
     /// <remarks>
-    /// The <see cref="Initialize"/> method must be called before accessing any properties, and after the settings have initialized.
+    /// The <see cref="Initialize"/> method must be called before accessing any properties.
     /// </remarks>
     public static class FLog
     {
@@ -17,7 +17,6 @@ namespace VolumeControl.Log
         #endregion Fields
 
         #region Properties
-        private static SettingsInterface SettingsInterface => SettingsInterface.Default;
         /// <summary>
         /// Gets the <see cref="AsyncLogWriter"/> instance.
         /// </summary>
@@ -49,6 +48,13 @@ namespace VolumeControl.Log
                 _logWriter.IsAsyncEnabled = value;
             }
         }
+        /// <summary>
+        /// Gets whether this log has been initialized yet or not.
+        /// </summary>
+        /// <remarks>
+        /// This does not throw exceptions.
+        /// </remarks>
+        public static bool IsInitialized => _initialized;
         #endregion Properties
 
         #region Methods
@@ -59,12 +65,12 @@ namespace VolumeControl.Log
         /// </summary>
         /// <param name="verb">Displayed in the header as "Log (verb)"</param>
         private static string MakeInitMessage(string verb)
-            => $"{AsyncLogWriter.DateTimeFormatString}{AsyncLogWriter.Indent(AsyncLogWriter.TimestampLength, AsyncLogWriter.DateTimeFormatString.Length)}{new string(' ', AsyncLogWriter.EventTypeLength)}=== Log {verb} @ {DateTime.UtcNow:U} ===  {{ {nameof(SettingsInterface.LogFilter)}: {(int)Log.EventTypeFilter} ({Log.EventTypeFilter:G}) }}{Environment.NewLine}";
+            => $"{AsyncLogWriter.DateTimeFormatString}{AsyncLogWriter.Indent(AsyncLogWriter.TimestampLength, AsyncLogWriter.DateTimeFormatString.Length)}{new string(' ', AsyncLogWriter.EventTypeLength)}=== Log {verb} @ {DateTime.UtcNow:U} ===  {{ LogFilter: {(int)Log.EventTypeFilter} ({Log.EventTypeFilter:G}) }}{Environment.NewLine}";
         private static void WriteRaw(string text)
         {
             lock (Log.Endpoint)
             {
-                Log.Endpoint.WriteRaw(text);
+                Log.Endpoint.Write(text);
             }
         }
         private static NotInitializedException MakeLogNotInitializedException(Exception? innerException = null)
@@ -77,27 +83,36 @@ namespace VolumeControl.Log
         /// </summary>
         /// <exception cref="InvalidOperationException">The method has already been called before.</exception>
         /// <exception cref="NotInitializedException">The default config object hasn't been initialized yet.</exception>
-        public static void Initialize()
+        public static void Initialize(string path, bool enable, EventType logFilter, bool deleteExisting = true)
         {
             if (_initialized) // already initialized
                 throw new InvalidOperationException($"{nameof(FLog)} is already initialized! {nameof(Initialize)}() can only be called once.");
-            else if (SettingsInterface == null) // settings aren't initialized yet
-                throw new NotInitializedException(nameof(SettingsInterface), $"The default {nameof(AppConfig.Configuration)} instance must be initialized prior to calling {nameof(Initialize)}()!");
 
-            // attach property changed handler to the settings object so we can react to changes
-            SettingsInterface.PropertyChanged += SettingsInterface_PropertyChanged;
-
-            _logWriter = new(new FileEndpoint(SettingsInterface.LogPath, SettingsInterface.EnableLogging), SettingsInterface.LogFilter);
+            _logWriter = new(new FileEndpoint(path, enable), logFilter);
 
             _initialized = true; //< Log is valid here
 
-            if (SettingsInterface.LogClearOnInitialize)
+            if (deleteExisting)
             {
                 Log.ResetEndpoint(MakeInitMessage("Initialized"));
             }
             else WriteRaw(MakeInitMessage("Initialized"));
         }
         #endregion Initialize
+
+        #region ChangeLogPath
+        /// <summary>
+        /// Sets the log path to a new location.
+        /// </summary>
+        /// <param name="newPath">The filepath to change the log path to.</param>
+        public static void ChangeLogPath(string newPath)
+        {
+            if (!_initialized)
+                throw MakeLogNotInitializedException();
+
+            ((FileEndpoint)Log.Endpoint).Path = newPath;
+        }
+        #endregion ChangeLogPath
 
         #region AsyncLogWriter Methods
         /// <inheritdoc cref="AsyncLogWriter.FilterEventType(EventType)"/>
@@ -123,34 +138,5 @@ namespace VolumeControl.Log
         #endregion AsyncLogWriter Methods
 
         #endregion Methods
-
-        #region EventHandlers
-
-        #region SettingsInterface
-        private static void SettingsInterface_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == null || !_initialized) return;
-
-            if (e.PropertyName.Equals(nameof(SettingsInterface.EnableLogging), StringComparison.Ordinal))
-            {
-                Log.EndpointEnabled = SettingsInterface.EnableLogging;
-            }
-            else if (e.PropertyName.Equals(nameof(SettingsInterface.LogPath), StringComparison.Ordinal))
-            {
-                lock (Log.Endpoint)
-                {
-                    ((FileEndpoint)Log.Endpoint).Path = SettingsInterface.LogPath;
-                }
-            }
-            else if (e.PropertyName.Equals(nameof(SettingsInterface.LogFilter), StringComparison.Ordinal))
-            {
-                Log.EventTypeFilter = SettingsInterface.LogFilter;
-
-                WriteRaw(MakeInitMessage("Filter Changed"));
-            }
-        }
-        #endregion SettingsInterface
-
-        #endregion EventHandlers
     }
 }

@@ -93,6 +93,16 @@ namespace VolumeControl.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap codefile {
+            get {
+                object obj = ResourceManager.GetObject("codefile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap file {
             get {
                 object obj = ResourceManager.GetObject("file", resourceCulture);
@@ -191,6 +201,16 @@ namespace VolumeControl.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap keyboard_key {
+            get {
+                object obj = ResourceManager.GetObject("keyboard_key", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] LICENSE {
@@ -216,6 +236,16 @@ namespace VolumeControl.Properties {
         internal static System.Drawing.Bitmap reload_white {
             get {
                 object obj = ResourceManager.GetObject("reload_white", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap textfile {
+            get {
+                object obj = ResourceManager.GetObject("textfile", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

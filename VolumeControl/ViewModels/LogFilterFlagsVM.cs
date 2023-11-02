@@ -1,14 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
 using VolumeControl.Core;
-using VolumeControl.Log.Enum;
+using VolumeControl.Log;
 
 namespace VolumeControl.ViewModels
 {
     public class LogFilterFlagsVM : FlagsEnumVM<EventType>
     {
         #region Constructor
-        public LogFilterFlagsVM() : base(Settings.LogFilter, EventType.NONE | EventType.CRITICAL)
+        public LogFilterFlagsVM() : base(Settings.LogFilter, EventType.NONE | EventType.CRITICAL | EventType.FATAL, nameof(EventType.ALL))
         {
             Settings.PropertyChanged += this.Settings_PropertyChanged;
             base.StateChanged += this.LogFilterFlagsVM_StateChanged;

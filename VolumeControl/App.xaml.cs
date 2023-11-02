@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using VolumeControl.Controls;
+using VolumeControl.Core;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
 using VolumeControl.ViewModels;
@@ -39,6 +40,16 @@ namespace VolumeControl
             TrayIcon.ShowClicked += this.HandleTrayIconClick;
             TrayIcon.HideClicked += (s, e) => this.HideMainWindow();
             TrayIcon.BringToFrontClicked += (s, e) => this.ActivateMainWindow();
+
+            TrayIcon.OpenConfigClicked += (s, e) =>
+            {
+                Process.Start(new ProcessStartInfo(Config.Default.Location) { UseShellExecute = true });
+            };
+            TrayIcon.OpenLogClicked += (s, e) =>
+            {
+                Process.Start(new ProcessStartInfo(Config.Default.LogPath) { UseShellExecute = true });
+            };
+
             TrayIcon.OpenLocationClicked += (s, e) =>
             {
                 OpenFolderAndSelectItem(Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), Path.ChangeExtension(AppDomain.CurrentDomain.FriendlyName, ".exe"))));

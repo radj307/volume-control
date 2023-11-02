@@ -1,6 +1,4 @@
-﻿using VolumeControl.Log.Enum;
-
-namespace VolumeControl.Log
+﻿namespace VolumeControl.Log
 {
     /// <summary>
     /// Represents a message to be written to the log.
@@ -11,7 +9,7 @@ namespace VolumeControl.Log
         /// <summary>
         /// Creates a new <see cref="LogMessage"/> instance with the specified <paramref name="eventType"/>.
         /// </summary>
-        /// <param name="eventType">The <see cref="Enum.EventType"/> of this message.</param>
+        /// <param name="eventType">The <see cref="Log.EventType"/> of this message.</param>
         /// <param name="lines">The lines in this message.</param>
         public LogMessage(EventType eventType, params object?[] lines)
         {
@@ -21,7 +19,7 @@ namespace VolumeControl.Log
         /// <summary>
         /// Creates a new empty <see cref="LogMessage"/> instance with the specified <paramref name="eventType"/>.
         /// </summary>
-        /// <param name="eventType">The <see cref="Enum.EventType"/> of this message.</param>
+        /// <param name="eventType">The <see cref="Log.EventType"/> of this message.</param>
         public LogMessage(EventType eventType)
         {
             EventType = eventType;

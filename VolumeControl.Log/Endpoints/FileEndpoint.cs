@@ -1,112 +1,61 @@
-﻿namespace VolumeControl.Log.Endpoints
+﻿using VolumeControl.Log.Interfaces;
+
+namespace VolumeControl.Log.Endpoints
 {
     /// <summary>
     /// Log endpoint that allows writing logs directly to a file on disk.
     /// </summary>
-    public class FileEndpoint : IEndpoint
+    public class FileEndpoint : BaseEndpointWriter, IEndpointWriter
     {
         #region Constructors
         /// <inheritdoc cref="FileEndpoint"/>
         /// <param name="path">The location of the log file.</param>
         /// <param name="enabled">Whether the endpoint is already enabled when constructed or not.</param>
-        public FileEndpoint(string path, bool enabled)
+        public FileEndpoint(string path, bool enabled) : base(enabled)
         {
-            this.Path = path;
-            this.Enabled = enabled;
+            _path = path;
         }
         #endregion Constructors
 
         #region Properties
-        /// <inheritdoc/>
-        public bool Enabled
-        {
-            get => _enabled;
-            set
-            {
-                NotifyEnabledChanging(value);
-                _enabled = value;
-                NotifyEnabledChanged(_enabled);
-            }
-        }
-        private bool _enabled;
         /// <summary>
         /// The location of the log file.
         /// </summary>
-        public string Path { get; set; }
+        public string Path
+        {
+            get => _path;
+            set
+            {
+                _path = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private string _path;
+        /// <summary>
+        /// Gets whether the Path is a blank string or not.
+        /// </summary>
+        /// <returns><see langword="true"/> when the Path is a blank string; otherwise <see langword="false"/>.</returns>
+        public bool PathIsEmpty => Path.Length == 0;
         #endregion Properties
 
-        #region Events
-        /// <inheritdoc/>
-        public event EventHandler<bool>? EnabledChanging;
-        private void NotifyEnabledChanging(bool incomingState) => EnabledChanging?.Invoke(this, incomingState);
-        /// <inheritdoc/>
-        public event EventHandler<bool>? EnabledChanged;
-        private void NotifyEnabledChanged(bool newState) => EnabledChanged?.Invoke(this, newState);
-        #endregion Events
-
         #region Methods
-        internal TextReader? GetReader(FileStreamOptions open) => !this.Enabled || this.Path.Length == 0 ? null : (TextReader)new StreamReader(File.Open(this.Path, open));
-        internal TextWriter? GetWriter(FileStreamOptions open) => !this.Enabled || this.Path.Length == 0 ? null : (TextWriter)new StreamWriter(File.Open(this.Path, open));
+        internal StreamWriter? GetWriter(FileMode fileMode, FileAccess fileAccess, FileShare fileShare) => !this.IsWritingEnabled || this.Path.Length == 0 ? null : new StreamWriter(File.Open(this.Path, fileMode, fileAccess, fileShare));
+        /// <summary>
+        /// Gets a new <see cref="StreamWriter"/> instance for the file. The caller is responsible for disposing of it.
+        /// </summary>
+        /// <returns>A new <see cref="StreamWriter"/> instance when this endpoint is enabled; otherwise <see langword="null"/>.</returns>
+        public StreamWriter GetStreamWriter() => !this.IsWritingEnabled || this.Path.Length == 0
+                ? null!
+                : this.GetWriter(FileMode.Append, FileAccess.Write, FileShare.Write)!;
         /// <inheritdoc/>
-        public TextReader? GetReader() => !this.Enabled || this.Path.Length == 0
-                ? null
-                : this.GetReader(new() { Mode = FileMode.Open, Access = FileAccess.Read, Share = FileShare.ReadWrite });
+        public override TextWriter GetTextWriter() => GetStreamWriter();
         /// <inheritdoc/>
-        public TextWriter? GetWriter() => !this.Enabled || this.Path.Length == 0
-                ? null
-                : this.GetWriter(new() { Mode = FileMode.Append, Access = FileAccess.Write, Share = FileShare.ReadWrite });
-
-        /// <inheritdoc/>
-        public void WriteRaw(string? str, FileMode mode)
+        public override void Reset()
         {
-            if (!this.Enabled || this.Path.Length == 0)
-                return;
-            using StreamWriter w = new(File.Open(this.Path, mode, FileAccess.Write, FileShare.Read)) { AutoFlush = true };
-            w.Write(str);
-            w.Flush();
-        }
-        /// <inheritdoc/>
-        public void WriteRaw(string? str) => this.WriteRaw(str, FileMode.Append);
-        /// <inheritdoc/>
-        public void WriteRawLine(string? str, FileMode mode)
-        {
-            if (!this.Enabled || this.Path.Length == 0)
-                return;
-            using StreamWriter w = new(File.Open(this.Path, mode, FileAccess.Write, FileShare.Read)) { AutoFlush = true };
-            w.WriteLine(str);
-            w.Flush();
-        }
-        /// <inheritdoc/>
-        public void WriteRawLine(string? str) => this.WriteRawLine(str, FileMode.Append);
-        /// <inheritdoc/>
-        public int? ReadRaw(FileMode mode)
-        {
-            if (!this.Enabled || this.Path.Length == 0)
-                return null;
-            using StreamReader r = new(File.Open(this.Path, mode, FileAccess.Read, FileShare.ReadWrite));
-            return r.Read();
-        }
-        /// <inheritdoc/>
-        public string? ReadRawLine(FileMode mode)
-        {
-            if (!this.Enabled || this.Path.Length == 0)
-                return null;
-            using StreamReader r = new(File.Open(this.Path, mode, FileAccess.Read, FileShare.ReadWrite));
-            return r.ReadLine();
-        }
-        /// <inheritdoc/>
-        public void Reset()
-        {
-            if (!this.Enabled || !File.Exists(this.Path))
+            if (!this.IsWritingEnabled || !File.Exists(this.Path))
                 return;
             File.Open(this.Path, FileMode.Truncate, FileAccess.Write, FileShare.ReadWrite).Dispose();
         }
-
-        /// <inheritdoc/>
-        public int? ReadRaw() => this.ReadRaw(FileMode.Open);
-        /// <inheritdoc/>
-        public string? ReadRawLine() => this.ReadRawLine(FileMode.Open);
-
         #endregion Methods
     }
 }

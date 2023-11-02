@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using VolumeControl.Core;
 using VolumeControl.Log;
+using VolumeControl.Log.Interfaces;
 using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Helpers
@@ -21,9 +22,6 @@ namespace VolumeControl.Helpers
                 return;
 
             _initialized = true;
-
-            _ = FileLoaders.AddIfUnique(new JsonFileLoader());
-            _ = FileLoaders.AddIfUnique(new YamlFileLoader());
 
             if (Settings.CreateDefaultTranslationFiles) //< never create default files when this (and this alone) is false!
                 CreateDefaultFiles(overwriteExistingConfigs);
@@ -51,10 +49,9 @@ namespace VolumeControl.Helpers
         #region Properties
         private static Config Settings => Config.Default;
         private static LocalizationLoader Loader => LocalizationLoader.Instance;
-        private static List<ILocalizationFileLoader> FileLoaders => Loader.FileLanguageLoaders;
         private static string DefaultPath { get; } = Path.Combine(PathFinder.ApplicationAppDataPath, "Localization");
         private static Loc Loc => Loc.Instance;
-        private static readonly Regex LanguageConfigNameRegex = new(@"([a-z]{2}\.loc\.(?:json|yaml|yml))", RegexOptions.Compiled);
+        private static readonly Regex LanguageConfigNameRegex = new(@"([a-z]{2}\.loc\.(?:json|yaml|yml))$", RegexOptions.Compiled);
         #endregion Properties
 
         #region Methods
@@ -82,7 +79,7 @@ namespace VolumeControl.Helpers
 
         private static void LoadTranslationsFromDirectory(string path, ILogWriter? log)
         {
-            bool showTraceLogMessages = log?.FilterEventType(Log.Enum.EventType.TRACE) ?? false;
+            bool showTraceLogMessages = log?.FilterEventType(EventType.TRACE) ?? false;
             if (Directory.Exists(path))
             {
                 if (showTraceLogMessages)

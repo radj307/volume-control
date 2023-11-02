@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace VolumeControl.Log
+namespace VolumeControl.Log.Helpers
 {
     /// <summary>
     /// Helper methods for converting exceptions into nicely formatted strings.
@@ -144,7 +144,7 @@ namespace VolumeControl.Log
                             var value = propInfo.GetValue(exception);
 
                             // skip properties with null/empty values
-                            if (value == null || (value is string s && s.Length == 0))
+                            if (value == null || value is string s && s.Length == 0)
                                 continue;
 
                             sb.Append($"{tabPrefix}\"{propInfo.Name}\": \"{value}\"{endline}");
@@ -155,9 +155,7 @@ namespace VolumeControl.Log
 
             // Source:
             if (includedParts.HasFlag(MessageParts.Source) && exception.Source != null)
-            {
                 sb.Append($"{tabPrefix}\"Source\": \"{exception.Source}\"{endline}");
-            }
 
             // TargetSite:
             if (includedParts.HasFlag(MessageParts.TargetSite))
@@ -213,9 +211,7 @@ namespace VolumeControl.Log
 
             // InnerException:
             if (includedParts.HasFlag(MessageParts.InnerException) && exception.InnerException != null)
-            {
                 sb.Append($"{tabPrefix}\"InnerException\": {MakeExceptionMessage(exception.InnerException, tabPrefix, endline, tabLength, includedParts)}{endline}");
-            }
 
             // closing bracket
             sb.Append(linePrefix + '}');
