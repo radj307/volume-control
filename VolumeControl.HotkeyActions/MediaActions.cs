@@ -8,15 +8,15 @@ namespace VolumeControl.HotkeyActions
     [HotkeyActionGroup("Media", GroupColor = "#FFA54C")]
     public sealed class MediaActions
     {
-        #region Methods
-        [HotkeyAction(Description = "Switches media playback to the next track.\nThis is for people that don't have media keys.")]
+        #region Action Methods
+        [HotkeyAction(Description = "Switches media playback to the next track.")]
         public void NextTrack(object? sender, HandledEventArgs e) => InputSimulator.SendKey(EVirtualKeyCode.VK_MEDIA_NEXT_TRACK);
-        [HotkeyAction(Description = "Switches media playback to the previous track.\nThis is for people that don't have media keys.")]
+        [HotkeyAction(Description = "Switches media playback to the previous track.")]
         public void PreviousTrack(object? sender, HandledEventArgs e) => InputSimulator.SendKey(EVirtualKeyCode.VK_MEDIA_PREV_TRACK);
-        [HotkeyAction(Description = "Toggles media playback.\nThis is for people that don't have media keys.")]
+        [HotkeyAction(Description = "Toggles media playback.")]
         public void TogglePlayback(object? sender, HandledEventArgs e) => InputSimulator.SendKey(EVirtualKeyCode.VK_MEDIA_PLAY_PAUSE);
-        [HotkeyAction(Description = "Stops media playback.\nThis is for people that don't have media keys.")]
+        [HotkeyAction(Description = "Stops media playback.")]
         public void StopPlayback(object? sender, HandledEventArgs e) => InputSimulator.SendKey(EVirtualKeyCode.VK_MEDIA_STOP);
-        #endregion Methods
+        #endregion Action Methods
     }
 }

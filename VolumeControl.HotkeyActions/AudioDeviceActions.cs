@@ -17,7 +17,7 @@ namespace VolumeControl.HotkeyActions
     {
         #region Fields
         private const string Setting_VolumeStep_Name = "Volume Step Override";
-        private const string Setting_VolumeStep_Description = "Overrides the default volume step for this action.";
+        private const string Setting_VolumeStep_Description = "Overrides the global volume step for this action.";
         #endregion Fields
 
         #region Properties
@@ -28,7 +28,7 @@ namespace VolumeControl.HotkeyActions
         #endregion Properties
 
         #region Action Methods
-        [HotkeyAction(Description = "Increases the device volume of the selected device.")]
+        [HotkeyAction(Description = "Increases the volume of the selected device.")]
         [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), "VolumeStepDataTemplate", Description = Setting_VolumeStep_Description, DefaultValue = 2, IsToggleable = true)]
         public void VolumeUp(object? sender, HotkeyPressedEventArgs e)
         {
@@ -42,7 +42,7 @@ namespace VolumeControl.HotkeyActions
 
             VCAPI.ShowDeviceListNotification();
         }
-        [HotkeyAction(Description = "Decreases the device volume of the selected device.")]
+        [HotkeyAction(Description = "Decreases the volume of the selected device.")]
         [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), "VolumeStepDataTemplate", Description = Setting_VolumeStep_Description, DefaultValue = 2, IsToggleable = true)]
         public void VolumeDown(object? sender, HotkeyPressedEventArgs e)
         {
@@ -138,15 +138,6 @@ namespace VolumeControl.HotkeyActions
 
             VCAPI.ShowDeviceListNotification();
         }
-        //[HotkeyAction(Description = "Sets the selected audio device as the default audio playback device.")]
-        //public void SetDefault(object? sender, HandledEventArgs e)
-        //{
-        //    if (AudioDeviceSelector.Selected is AudioDevice selected && !selected.IsDefault)
-        //    {
-        //        CPolicyConfigClient policyConfigClient = new();
-        //        policyConfigClient.SetDefaultDevice(selected.ID);
-        //    }
-        //}
         #endregion Action Methods
     }
 }

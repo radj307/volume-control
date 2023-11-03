@@ -7,6 +7,7 @@
      * Action Groups
      *   Each key here corresponds to the case-sensitive name of an action group.
      */
+    // Audio Session Actions
     "AudioSessionActions": {
       "GroupName": { "English (US/CA)": "Session" },
 
@@ -174,6 +175,324 @@
         },
         "Description": {
           "English (US/CA)": "Toggles whether the current session is selected or not. Multiple sessions can be selected, but only one can be the current session."
+        }
+      }
+    },
+
+    // Audio Device Actions
+    "AudioDeviceActions": {
+      "GroupName": { "English (US/CA)": "Device" },
+
+      "SharedSettings": {
+        "Volume Step Override": {
+          "Name": {
+            "English (US/CA)": "Volume Step Override"
+          },
+          "Description": {
+            "English (US/CA)": "Overrides the global volume step for this action."
+          }
+        }
+      },
+
+      "VolumeUp": {
+        "Name": {
+          "English (US/CA)": "Volume Up"
+        },
+        "Description": {
+          "English (US/CA)": "Increases the volume of the selected device."
+        }
+      },
+      "VolumeDown": {
+        "Name": {
+          "English (US/CA)": "Volume Down"
+        },
+        "Description": {
+          "English (US/CA)": "Decreases the volume of the selected device."
+        }
+      },
+      "Mute": {
+        "Name": {
+          "English (US/CA)": "Mute"
+        },
+        "Description": {
+          "English (US/CA)": "Mutes the selected device."
+        }
+      },
+      "Unmute": {
+        "Name": {
+          "English (US/CA)": "Unmute"
+        },
+        "Description": {
+          "English (US/CA)": "Unmutes the selected device."
+        }
+      },
+      "ToggleMute": {
+        "Name": {
+          "English (US/CA)": "Toggle Mute"
+        },
+        "Description": {
+          "English (US/CA)": "Toggles the selected device's mute state."
+        }
+      },
+      "SelectNext": {
+        "Name": {
+          "English (US/CA)": "Select Next"
+        },
+        "Description": {
+          "English (US/CA)": "Selects the next device in the list."
+        }
+      },
+      "SelectPrevious": {
+        "Name": {
+          "English (US/CA)": "Select Previous"
+        },
+        "Description": {
+          "English (US/CA)": "Selects the previous device in the list."
+        }
+      },
+      "Deselect": {
+        "Name": {
+          "English (US/CA)": "Deselect"
+        },
+        "Description": {
+          "English (US/CA)": "Deselects the selected device."
+        }
+      },
+      "SelectDefault": {
+        "Name": {
+          "English (US/CA)": "Select Default"
+        },
+        "Description": {
+          "English (US/CA)": "Selects the default output device in the list."
+        }
+      },
+      "Lock": {
+        "Name": {
+          "English (US/CA)": "Lock"
+        },
+        "Description": {
+          "English (US/CA)": "Locks the selected device, preventing it from being changed."
+        }
+      },
+      "Unlock": {
+        "Name": {
+          "English (US/CA)": "Unlock"
+        },
+        "Description": {
+          "English (US/CA)": "Unlocks the selected device, allow it to be changed."
+        }
+      },
+      "ToggleLock": {
+        "Name": {
+          "English (US/CA)": "Toggle Lock"
+        },
+        "Description": {
+          "English (US/CA)": "Toggles whether the selected device can be changed or not."
+        }
+      }
+    },
+
+    // Active Application Actions
+    "ActiveApplicationActions": {
+      "GroupName": { "English (US/CA)": "Active Application" },
+
+      "SharedSettings": {
+        "Select Session": {
+          "Name": {
+            "English (US/CA)": "Select Session"
+          },
+          "Description": {
+            "English (US/CA)": "Selects the session when the action is triggered."
+          }
+        },
+        "Volume Step Override": {
+          "Name": {
+            "English (US/CA)": "Volume Step Override"
+          },
+          "Description": {
+            "English (US/CA)": "Overrides the global volume step for this action."
+          }
+        }
+      },
+
+      "VolumeUp": {
+        "Name": {
+          "English (US/CA)": "Volume Up"
+        },
+        "Description": {
+          "English (US/CA)": "Increases the volume of the current foreground application."
+        }
+      },
+      "VolumeDown": {
+        "Name": {
+          "English (US/CA)": "Volume Down"
+        },
+        "Description": {
+          "English (US/CA)": "Decreases the volume of the current foreground application."
+        }
+      },
+      "Mute": {
+        "Name": {
+          "English (US/CA)": "Mute"
+        },
+        "Description": {
+          "English (US/CA)": "Mutes the current foreground application."
+        }
+      },
+      "Unmute": {
+        "Name": {
+          "English (US/CA)": "Unmute"
+        },
+        "Description": {
+          "English (US/CA)": "Unmutes the current foreground application."
+        }
+      },
+      "ToggleMute": {
+        "Name": {
+          "English (US/CA)": "Toggle Mute"
+        },
+        "Description": {
+          "English (US/CA)": "(Un)Mutes the current foreground application."
+        }
+      }
+    },
+
+    // Application Actions
+    "ApplicationActions": {
+      "GroupName": { "English (US/CA)": "Application" },
+
+      "ToggleSessionNotifications": {
+        "Name": {
+          "English (US/CA)": "Toggle Session Notifications"
+        },
+        "Description": {
+          "English (US/CA)": "Toggles whether Session notifications are enabled."
+        }
+      },
+      "ToggleDeviceNotifications": {
+        "Name": {
+          "English (US/CA)": "Toggle Device Notifications"
+        },
+        "Description": {
+          "English (US/CA)": "Toggles whether Device notifications are enabled."
+        }
+      },
+      "BringToForeground": {
+        "Name": {
+          "English (US/CA)": "Bring to Foreground"
+        },
+        "Description": {
+          "English (US/CA)": "Moves the Volume Control window in front of all other windows."
+        }
+      },
+      "SendToBackground": {
+        "Name": {
+          "English (US/CA)": "Send to Background"
+        },
+        "Description": {
+          "English (US/CA)": "Moves the Volume Control window behind all other windows."
+        }
+      },
+      "Minimize": {
+        "Name": {
+          "English (US/CA)": "Minimize"
+        },
+        "Description": {
+          "English (US/CA)": "Hides the Volume Control window."
+        }
+      },
+      "Unminimize": {
+        "Name": {
+          "English (US/CA)": "Unminimize"
+        },
+        "Description": {
+          "English (US/CA)": "Shows the Volume Control window."
+        }
+      }
+    },
+
+    // Media Actions
+    "MediaActions": {
+      "GroupName": { "English (US/CA)": "Media" },
+
+      "NextTrack": {
+        "Name": {
+          "English (US/CA)": "Next Track"
+        },
+        "Description": {
+          "English (US/CA)": "Switches media playback to the next track."
+        }
+      },
+      "PreviousTrack": {
+        "Name": {
+          "English (US/CA)": "Previous Track"
+        },
+        "Description": {
+          "English (US/CA)": "Switches media playback to the previous track."
+        }
+      },
+      "TogglePlayback": {
+        "Name": {
+          "English (US/CA)": "Toggle Playback"
+        },
+        "Description": {
+          "English (US/CA)": "Toggles media playback."
+        }
+      },
+      "StopPlayback": {
+        "Name": {
+          "English (US/CA)": "Stop Playback"
+        },
+        "Description": {
+          "English (US/CA)": "Stops media playback."
+        }
+      }
+    },
+
+    // System Actions
+    "SystemActions": {
+      "GroupName": { "English (US/CA)": "System" },
+
+      "StartProcess": {
+        "Name": {
+          "English (US/CA)": "Start Process"
+        },
+        "Description": {
+          "English (US/CA)": "Starts the specified process."
+        },
+        "Settings": {
+          "FileName": {
+            "Name": {
+              "English (US/CA)": "FileName"
+            },
+            "Description": {
+              "English (US/CA)": "The absolute or relative path of the target file."
+            }
+          },
+          "Working Directory": {
+            "Name": {
+              "English (US/CA)": "Working Directory"
+            },
+            "Description": {
+              "English (US/CA)": "The working directory to execute the command from."
+            }
+          },
+          "Arguments": {
+            "Name": {
+              "English (US/CA)": "Arguments"
+            },
+            "Description": {
+              "English (US/CA)": "Commandline arguments to run the program with."
+            }
+          },
+          "Message on Error": {
+            "Name": {
+              "English (US/CA)": "Message on Error"
+            },
+            "Description": {
+              "English (US/CA)": "Shows a messagebox if an error occurs while starting the process."
+            }
+          }
         }
       }
     }
