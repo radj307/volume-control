@@ -9,6 +9,10 @@
 		<Copyright>Copyright © 2022 by $(Authors)</Copyright>
 	</PropertyGroup>
 
+	<ItemGroup Condition="'$(Configuration)'=='Debug'">
+		<EmbeddedResource Include="Localization\zz-HotkeyActions.loc.json" />
+	</ItemGroup>
+
 	<ItemGroup>
 	  <None Remove="Localization\en-HotkeyActions.loc.json" />
 	  <None Remove="Localization\it-HotkeyActions.loc.json" />
@@ -17,7 +21,6 @@
 
 	<ItemGroup>
 	  <EmbeddedResource Include="Localization\it-HotkeyActions.loc.json" />
-	  <EmbeddedResource Include="Localization\zz-HotkeyActions.loc.json" />
 	  <EmbeddedResource Include="Localization\en-HotkeyActions.loc.json" />
 	</ItemGroup>
 
