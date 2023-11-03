@@ -304,7 +304,7 @@ namespace VolumeControl
 #if RELEASE_FORINSTALLER // use the application's AppData directory for the config file
             Settings = new(Path.Combine(PathFinder.ApplicationAppDataPath, "VolumeControl.json"));
 
-            if (Settings.LogPath == DefaultLogPath && !CanWriteToDirectory(exeDir))
+            if (Settings.LogPath == Config.DefaultLogPath && !CanWriteToDirectory(exeDir))
                 Settings.LogPath = Path.Combine(PathFinder.ApplicationAppDataPath, "VolumeControl.log");
 #else
             Settings = new("VolumeControl.json");
