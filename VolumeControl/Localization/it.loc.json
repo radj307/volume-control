@@ -777,5 +777,29 @@
       "ImeModeChange": { "Italiano (Italian)": "ImemCambiaModo" }
 
     }
+  },
+
+  "DefaultHotkeyNames": {
+    "Volume Up": {
+      "Italiano (Italian)": "Volume +"
+    },
+    "Volume Down": {
+      "Italiano (Italian)": "Volume -"
+    },
+    "Toggle Mute": {
+      "Italiano (Italian)": "Audio OFF/ON"
+    },
+    "Next Session": {
+      "Italiano (Italian)": "Sessione successiva"
+    },
+    "Previous Session": {
+      "Italiano (Italian)": "Sessione precedente"
+    },
+    "Un/Lock Session": {
+      "Italiano (Italian)": "Sblocca/blocca sessione"
+    },
+    "Toggle Selected": {
+      "Italiano (Italian)": "Selezionati ON/OFF"
+    }
   }
 }
