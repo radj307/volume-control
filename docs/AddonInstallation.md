@@ -2,27 +2,16 @@
 
 # Installing Addons
 
-The exact addon installation location depends on your version of Volume Control, but all of them are located in your local AppData directory by default.
+Installing an addon for Volume Control is easy, all you have to do is copy the addon's `.dll` file to the `Addons` directory.
 
-*Tip: You can quickly open your `AppData/Local` directory in file explorer by pressing Win+R and entering `%localappdata%`*
-![localappdata](https://user-images.githubusercontent.com/1927798/228995919-8253994f-b1f6-4191-9670-aca9b466defc.gif)
+Since version `6.0.0`, the default addon location is:  
+![`C:\Users\<username>\AppData\Local\radj307\VolumeControl\Addons`](https://github.com/radj307/volume-control/assets/1927798/3d30b63f-f72e-4bfc-af31-99879b23a3f1)  
 
-## Default Location
+*Tip: To open the Addons directory quickly, press **Win+R** and enter `%LocalAppData%/radj307/VolumeControl/Addons`*
 
-### Since v6.0.0
+## CustomAddonDirectories
 
-Starting in v6.0.0, the default addon location is `C:/Users/<USERNAME>/AppData/Local/VolumeControl/Addons`.  
-![directory](https://user-images.githubusercontent.com/1927798/228998612-649ffd67-0c9f-4259-8b25-7e621fdc9456.png)  
-Addons can also be placed inside subdirectories.
-
-
-### Until v5.2.5
-
-Prior to v6.0.0, the default addon location was `C:/Users/<USERNAME>/AppData/Local/radj307/Addons`.  
-![directory](https://user-images.githubusercontent.com/1927798/228998308-9ac90cb8-0105-49b0-9f4d-c27d474740e6.png)
-
-
-## `CustomAddonDirectories` (Since v5.1.0)
+`5.1.0` added the ability to load addons from other directories by adding the path to `CustomAddonDirectories` in `VolumeControl.json`. 
 
 > ### ⚠️ Note
 > When entering file paths in JSON, make sure you use forward slashes (`/`) instead of backslashes (`\`)!  
