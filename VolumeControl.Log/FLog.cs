@@ -88,7 +88,7 @@ namespace VolumeControl.Log
             if (_initialized) // already initialized
                 throw new InvalidOperationException($"{nameof(FLog)} is already initialized! {nameof(Initialize)}() can only be called once.");
 
-            _logWriter = new(new FileEndpoint(path, enable), logFilter);
+            _logWriter = new(new PersistentFileEndpoint(path, enable), logFilter);
 
             _initialized = true; //< Log is valid here
 
