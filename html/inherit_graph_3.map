@@ -6,5 +6,5 @@
 <area shape="rect" id="node5" href="$class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_action_setting_value_type_exception.html" title="Represents type errors that occur from the ActionSettingInstance&lt;T&gt; class." alt="" coords="169,218,397,274"/>
 <area shape="rect" id="node6" href="$class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_data_template_provider_type_exception.html" title="Represents errors that occur when the specified Attributes.HotkeyActionSettingAttribute...." alt="" coords="167,298,399,354"/>
 <area shape="rect" id="node7" href="$class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_provider_type_exception.html" title="Represents errors that occur because a type that does not implement ITemplateProvider or ITemplateDic..." alt="" coords="171,378,396,434"/>
-<area shape="rect" id="node8" href="$class_volume_control_1_1_log_1_1_not_initialized_exception.html" title="Represents errors that occur as a result of trying to access an object before it is initialized." alt="" coords="165,459,401,500"/>
+<area shape="rect" id="node8" href="$class_volume_control_1_1_log_1_1_exceptions_1_1_not_initialized_exception.html" title="Represents errors that occur as a result of trying to access an object before it is initialized." alt="" coords="171,459,395,500"/>
 </map>

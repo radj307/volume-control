@@ -3,6 +3,7 @@ var namespace_volume_control_1_1_core =
     [ "Summary:", "md_docs__addon_development.html#autotoc_md17", null ],
     [ "Attributes", "namespace_volume_control_1_1_core_1_1_attributes.html", "namespace_volume_control_1_1_core_1_1_attributes" ],
     [ "Enum", "namespace_volume_control_1_1_core_1_1_enum.html", "namespace_volume_control_1_1_core_1_1_enum" ],
+    [ "Extensions", "namespace_volume_control_1_1_core_1_1_extensions.html", "namespace_volume_control_1_1_core_1_1_extensions" ],
     [ "Helpers", "namespace_volume_control_1_1_core_1_1_helpers.html", "namespace_volume_control_1_1_core_1_1_helpers" ],
     [ "Input", "namespace_volume_control_1_1_core_1_1_input.html", "namespace_volume_control_1_1_core_1_1_input" ],
     [ "Structs", "namespace_volume_control_1_1_core_1_1_structs.html", "namespace_volume_control_1_1_core_1_1_structs" ],

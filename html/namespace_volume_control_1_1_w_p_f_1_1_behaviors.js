@@ -1,6 +1,8 @@
 var namespace_volume_control_1_1_w_p_f_1_1_behaviors =
 [
+    [ "DisableMouseWheelBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_disable_mouse_wheel_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_disable_mouse_wheel_behavior" ],
     [ "EscapeRemovesFocusBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior" ],
+    [ "HorizontalScrollBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_horizontal_scroll_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_horizontal_scroll_behavior" ],
     [ "HyperlinkOpenInBrowserBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_hyperlink_open_in_browser_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_hyperlink_open_in_browser_behavior" ],
     [ "MouseWheelListViewBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_list_view_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_list_view_behavior" ],
     [ "MouseWheelNumericUpDownBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_numeric_up_down_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_numeric_up_down_behavior" ],

@@ -1,0 +1,5 @@
+<map id="VolumeControl.Log.Endpoints.MemoryEndpoint.GetTextReader" name="VolumeControl.Log.Endpoints.MemoryEndpoint.GetTextReader">
+<area shape="rect" id="node1" title="Gets a new TextReader instance for this memory endpoint." alt="" coords="279,39,512,80"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#a07f919aa268f8b2d51d1db0752d9ca9d" title=" " alt="" coords="9,5,227,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#ad99410e9294ced575ec1cf30dddf75a6" title=" " alt="" coords="5,71,231,112"/>
+</map>

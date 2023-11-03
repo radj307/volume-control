@@ -1,67 +1,13 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="295,113,441,140"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_bindable_timer.html" title=" " alt="" coords="571,41,781,82"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_brush_converter.html" title="Converts between bool and given Brush instances." alt="" coords="562,1082,790,1123"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_w_p_f_1_1_filtered_text_items_source.html" title="Helper object for creating autocomplete suggestion dropdowns for textboxes." alt="" coords="575,106,777,147"/>
-<area shape="rect" id="node5" title=" " alt="" coords="324,2200,412,2227"/>
-<area shape="rect" id="node6" href="$class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_is_hidden_event_args.html" title="Event arguments for the PreviewSessionIsHiddenEventHandler event type." alt="" coords="561,2145,791,2201"/>
-<area shape="rect" id="node7" href="$class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_is_selected_event_args.html" title="Event arguments object for the PreviewSessionIsSelectedEventHandler event type." alt="" coords="557,2225,795,2281"/>
-<area shape="rect" id="node8" href="$class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_name_event_args.html" title="Event arguments for the preview session name event, which allows session display names to be changed ..." alt="" coords="537,2306,815,2347"/>
-<area shape="rect" id="node9" href="$class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args.html" title="Contains event data for the VolumeChangedEventHandler event type." alt="" coords="555,1694,797,1735"/>
-<area shape="rect" id="node10" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_control.html" title="Represents an audio instance with a controllable volume level and mute state." alt="" coords="5,573,199,614"/>
-<area shape="rect" id="node11" href="$class_volume_control_1_1_core_audio_1_1_audio_device.html" title="An audio endpoint device." alt="" coords="579,703,773,745"/>
-<area shape="rect" id="node12" href="$class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device." alt="" coords="579,638,773,679"/>
-<area shape="rect" id="node13" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_hideable_audio_control.html" title="Represents an audio instance that can be prevented from becoming selected." alt="" coords="249,573,487,614"/>
-<area shape="rect" id="node14" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_multi_selector.html" title="Represents a list item multi&#45;selector." alt="" coords="259,821,477,862"/>
-<area shape="rect" id="node15" href="$class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html" title="Manages multiple &quot;selected&quot; audio sessions for a given CoreAudio.AudioSessionManager instance." alt="" coords="579,769,773,810"/>
-<area shape="rect" id="node16" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_peak_meter.html" title="Represents some kind of object that has an audio peak meter." alt="" coords="267,638,469,679"/>
-<area shape="rect" id="node17" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_selector.html" title="Represents a list item selector." alt="" coords="271,1479,465,1521"/>
-<area shape="rect" id="node18" href="$class_volume_control_1_1_core_audio_1_1_audio_device_selector.html" title="Manages the currently &quot;selected&quot; AudioDevice instance for a given CoreAudio.AudioDeviceManager object..." alt="" coords="579,1446,773,1487"/>
-<area shape="rect" id="node19" href="$class_volume_control_1_1_core_audio_1_1_audio_session_selector.html" title="Manages the currently &quot;selected&quot; AudioSession instance for a given CoreAudio.AudioSessionManager obje..." alt="" coords="579,1511,773,1553"/>
-<area shape="rect" id="node20" title=" " alt="" coords="323,2095,413,2121"/>
-<area shape="rect" id="node21" href="$class_volume_control_1_1_core_1_1_action_target_specifier.html" title="Specifies the target(s) of a hotkey action." alt="" coords="577,1877,775,1918"/>
-<area shape="rect" id="node22" href="$class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html" title=" " alt="" coords="863,1753,1092,1794"/>
-<area shape="rect" id="node23" title=" " alt="" coords="317,56,419,83"/>
-<area shape="rect" id="node24" title=" " alt="" coords="319,444,417,471"/>
-<area shape="rect" id="node25" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html" title="A hotkey that executes an action when pressed." alt="" coords="881,827,1074,869"/>
-<area shape="rect" id="node27" href="$interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html" title="Represents a Win32 global hotkey." alt="" coords="579,886,773,927"/>
-<area shape="rect" id="node28" href="$class_volume_control_1_1_core_audio_1_1_audio_device_manager.html" title="Manages a list of AudioDevice instances and related events." alt="" coords="579,171,773,213"/>
-<area shape="rect" id="node29" href="$class_volume_control_1_1_core_audio_1_1_audio_device_session_manager.html" title="Manages a list of AudioSession instances and their related events for a single CoreAudio...." alt="" coords="571,237,781,278"/>
-<area shape="rect" id="node30" href="$class_volume_control_1_1_core_audio_1_1_audio_session_manager.html" title="Manages a list of AudioSession instances and their related events for any number of AudioDeviceSessio..." alt="" coords="579,302,773,343"/>
-<area shape="rect" id="node31" href="$class_volume_control_1_1_log_1_1_async_log_writer.html" title="Asynchonously writes messages to the log endpoint." alt="" coords="872,462,1083,503"/>
-<area shape="rect" id="node32" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html" title="A log endpoint that implements IEndpoint and uses a MemoryStream as an endpoint." alt="" coords="567,951,785,993"/>
-<area shape="rect" id="node33" href="$class_volume_control_1_1_log_1_1_threaded_logger.html" title="Manages a background thread to write queued log messages. The queue can be disabled at runtime to swi..." alt="" coords="571,521,781,562"/>
-<area shape="rect" id="node34" href="$class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html" title="Handles receiving windows event messages." alt="" coords="563,419,789,445"/>
-<area shape="rect" id="node26" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html" title="A Hotkey that also tracks and reports registration errors." alt="" coords="1140,827,1333,869"/>
-<area shape="rect" id="node35" href="$interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html" title="Represents an endpoint output target for a log writer, and exposes helper methods for interacting wit..." alt="" coords="259,2371,477,2413"/>
-<area shape="rect" id="node36" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html" title="Allows using the Console as a logging endpoint." alt="" coords="567,2437,785,2478"/>
-<area shape="rect" id="node37" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk." alt="" coords="567,2371,785,2413"/>
-<area shape="rect" id="node38" title=" " alt="" coords="624,1760,728,1787"/>
-<area shape="rect" id="node39" href="$interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook.html" title="Represents an object that can be added to the hotkey message hook system." alt="" coords="271,1326,465,1367"/>
-<area shape="rect" id="node40" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_message_hook_abstractor.html" title="Maintains a single message hook for multiple hotkeys with the same key combination to allow them all ..." alt="" coords="563,1811,789,1853"/>
-<area shape="rect" id="node41" title=" " alt="" coords="616,1943,736,1969"/>
-<area shape="rect" id="node42" title=" " alt="" coords="651,1993,701,2020"/>
-<area shape="rect" id="node43" href="$interface_volume_control_1_1_log_1_1_i_log_writer.html" title="Represents a log writer instance." alt="" coords="568,469,784,496"/>
-<area shape="rect" id="node44" title=" " alt="" coords="275,1840,461,1867"/>
-<area shape="rect" id="node45" href="$class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object.html" title=" " alt="" coords="561,1629,791,1670"/>
-<area shape="rect" id="node46" title=" " alt="" coords="279,1184,457,1211"/>
-<area shape="rect" id="node47" href="$class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_settings_1_1_action_setting_instance.html" title="Container for a named parameter that is passed to an action method when invoked." alt="" coords="868,1232,1087,1288"/>
-<area shape="rect" id="node48" href="$interface_volume_control_1_1_core_1_1_input_1_1_actions_1_1_settings_1_1_i_action_setting_instance.html" title="Represents an action setting instance." alt="" coords="565,1264,787,1320"/>
-<area shape="rect" id="node49" href="$class_volume_control_1_1_core_1_1_notification_config_section.html" title="Configuration for a ListNotification window." alt="" coords="561,1017,791,1058"/>
-<area shape="rect" id="node50" href="$class_volume_control_1_1_w_p_f_1_1_data_template_type_binding.html" title="ViewModel object for creating a dictionary&#45;style list of System.Type &lt;=&gt; System.Windows...." alt="" coords="554,1147,798,1189"/>
-<area shape="rect" id="node51" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html" title="Represents an audio instance with a read&#45;only volume level and mute state." alt="" coords="247,703,489,745"/>
-<area shape="rect" id="node52" title=" " alt="" coords="599,1344,753,1371"/>
-<area shape="rect" id="node53" title=" " alt="" coords="620,1577,732,1604"/>
-<area shape="rect" id="node54" title=" " alt="" coords="302,5,434,32"/>
-<area shape="rect" id="node55" title=" " alt="" coords="305,2739,431,2765"/>
-<area shape="rect" id="node56" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_array_has_items_boolean_converter.html" title="Converts from an arbitrary array of items to a boolean value that depends on whether the array is emp..." alt="" coords="558,2698,794,2739"/>
-<area shape="rect" id="node57" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_check_visible_converter.html" title="Converts from bool types to visibility types." alt="" coords="562,2763,790,2805"/>
-<area shape="rect" id="node58" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter.html" title="Converts from bool types to thickness types." alt="" coords="562,2829,790,2870"/>
-<area shape="rect" id="node59" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_boolean_inverter.html" title="Binding converter for boolean types that negates the expression." alt="" coords="562,2894,790,2935"/>
-<area shape="rect" id="node60" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain.html" title="Any number of IValueConverter objects that are used in assembly&#45;line fashion on a given value." alt="" coords="562,3025,790,3066"/>
-<area shape="rect" id="node61" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_list_has_items_boolean_converter.html" title="Converts from an arbitrary list of items to a boolean value that depends on whether the list is empty..." alt="" coords="562,2959,790,3001"/>
-<area shape="rect" id="node62" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html" title="Converts from any object type to bool depending on whether or not that object is null." alt="" coords="562,2502,790,2543"/>
-<area shape="rect" id="node63" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter.html" title="This converter removes specific rounded corners depending on the Squared property...." alt="" coords="562,2567,790,2609"/>
-<area shape="rect" id="node64" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_tag_double_converter.html" title=" " alt="" coords="562,2633,790,2674"/>
-<area shape="rect" id="node65" title=" " alt="" coords="345,3032,391,3059"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,307,85,334"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_disable_mouse_wheel_behavior.html" title="Behavior that prevent the mouse wheel from triggering events." alt="" coords="167,5,390,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html" title="Removes logical and/or keyboard focus from the attached control when the Escape key is pressed." alt="" coords="167,71,391,112"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_horizontal_scroll_behavior.html" title=" " alt="" coords="167,136,390,177"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_hyperlink_open_in_browser_behavior.html" title="Hyperlink behavior that opens the link in the default browser." alt="" coords="157,201,400,243"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_list_view_behavior.html" title="Behavior&lt;T&gt; that enables the mouse wheel to increment/decrement the selected item in a ListView." alt="" coords="167,267,390,308"/>
+<area shape="rect" id="node7" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_numeric_up_down_behavior.html" title="Behavior&lt;T&gt; that enables the mouse wheel to change the value of NumericUpDown controls." alt="" coords="141,332,416,373"/>
+<area shape="rect" id="node8" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_range_base_behavior.html" title="Behavior&lt;T&gt; that enables the mouse wheel to change the value of controls based on RangeBase." alt="" coords="160,397,397,439"/>
+<area shape="rect" id="node9" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_autocomplete_behavior.html" title="Behavior that implements autocomplete suggestions for TextBox controls." alt="" coords="167,463,390,504"/>
+<area shape="rect" id="node10" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_enter_updates_text_source_behavior.html" title="Forces the TextBox.Text property&#39;s data binding to update its source when the Enter key is pressed or..." alt="" coords="133,528,424,569"/>
+<area shape="rect" id="node11" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_input_filter_behavior.html" title="TextBox behavior that uses regular expressions to only allow certain types of input." alt="" coords="167,593,390,635"/>
 </map>

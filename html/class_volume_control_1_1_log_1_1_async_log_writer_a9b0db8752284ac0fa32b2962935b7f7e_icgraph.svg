@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="Resets the endpoint to its default state by calling IEndpoint.Reset.">
+<g id="a_node1"><a xlink:title="Resets the endpoint to its default state by calling IEndpointWriter.Reset.">
 <polygon fill="#bfbfbf" stroke="black" points="216,-0.5 216,-30.5 374,-30.5 374,-0.5 216,-0.5"/>
 <text text-anchor="start" x="224" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.AsyncLog</text>
 <text text-anchor="middle" x="295" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Writer.ResetEndpoint</text>
@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_volume_control_1_1_log_1_1_f_log.html#a2ae19b065051d648c0a76ab86d761a16" target="_top" xlink:title="Initializes the log. The settings object must be created before calling this method....">
+<g id="a_node2"><a xlink:href="class_volume_control_1_1_log_1_1_f_log.html#aea9f63c707dad245894df5d38aecee2d" target="_top" xlink:title="Initializes the log. The settings object must be created before calling this method....">
 <polygon fill="none" stroke="black" points="0,-6 0,-25 180,-25 180,-6 0,-6"/>
 <text text-anchor="middle" x="90" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.FLog.Initialize</text>
 </a>

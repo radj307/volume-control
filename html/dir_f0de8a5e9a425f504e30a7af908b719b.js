@@ -1,6 +1,8 @@
 var dir_f0de8a5e9a425f504e30a7af908b719b =
 [
+    [ "DisableMouseWheelBehavior.cs", null, null ],
     [ "EscapeRemovesFocusBehavior.cs", null, null ],
+    [ "HorizontalScrollBehavior.cs", null, null ],
     [ "HyperlinkOpenInBrowserBehavior.cs", null, null ],
     [ "MouseWheelListViewBehavior.cs", null, null ],
     [ "MouseWheelNumericUpDownBehavior.cs", null, null ],

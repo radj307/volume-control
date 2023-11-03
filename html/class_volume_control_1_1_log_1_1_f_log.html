@@ -94,21 +94,25 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_log_1_1_f_log
 </div><!--header-->
 <div class="contents">
 
-<p>Static logger class.  
+<p>Static file logger class.  
  <a href="class_volume_control_1_1_log_1_1_f_log.html#details">More...</a></p>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Log.FLog:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_f_log__coll__graph.svg" width="191" height="264"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_f_log__coll__graph.svg" width="191" height="279"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a2ae19b065051d648c0a76ab86d761a16"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_f_log.html#a2ae19b065051d648c0a76ab86d761a16">Initialize</a> ()</td></tr>
-<tr class="memdesc:a2ae19b065051d648c0a76ab86d761a16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the log. The settings object must be created before calling this method. This method can only be called once.  <a href="class_volume_control_1_1_log_1_1_f_log.html#a2ae19b065051d648c0a76ab86d761a16">More...</a><br /></td></tr>
-<tr class="separator:a2ae19b065051d648c0a76ab86d761a16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea9f63c707dad245894df5d38aecee2d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_f_log.html#aea9f63c707dad245894df5d38aecee2d">Initialize</a> (string path, bool enable, <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590">EventType</a> logFilter, bool deleteExisting=true)</td></tr>
+<tr class="memdesc:aea9f63c707dad245894df5d38aecee2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the log. The settings object must be created before calling this method. This method can only be called once.  <a href="class_volume_control_1_1_log_1_1_f_log.html#aea9f63c707dad245894df5d38aecee2d">More...</a><br /></td></tr>
+<tr class="separator:aea9f63c707dad245894df5d38aecee2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42dc13972eeb6369cfa1551c30c24002"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_f_log.html#a42dc13972eeb6369cfa1551c30c24002">ChangeLogPath</a> (string newPath)</td></tr>
+<tr class="memdesc:a42dc13972eeb6369cfa1551c30c24002"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the log path to a new location.  <a href="class_volume_control_1_1_log_1_1_f_log.html#a42dc13972eeb6369cfa1551c30c24002">More...</a><br /></td></tr>
+<tr class="separator:a42dc13972eeb6369cfa1551c30c24002"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4dcec7039adc7659b074ba4122cea0f8"><td class="memItemLeft" align="right" valign="top"><a id="a4dcec7039adc7659b074ba4122cea0f8"></a>
-static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_f_log.html#a4dcec7039adc7659b074ba4122cea0f8">FilterEventType</a> (<a class="el" href="namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327">EventType</a> eventType)</td></tr>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_f_log.html#a4dcec7039adc7659b074ba4122cea0f8">FilterEventType</a> (<a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590">EventType</a> eventType)</td></tr>
 <tr class="separator:a4dcec7039adc7659b074ba4122cea0f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85772588881c3b883612f2238ecb5c1c"><td class="memItemLeft" align="right" valign="top"><a id="a85772588881c3b883612f2238ecb5c1c"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_f_log.html#a85772588881c3b883612f2238ecb5c1c">LogMessage</a> (<a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a> logMessage)</td></tr>
@@ -146,13 +150,52 @@ Properties</h2></td></tr>
 <tr class="memitem:a0af58edaf2523925eb3af94fb392366d"><td class="memItemLeft" align="right" valign="top"><a id="a0af58edaf2523925eb3af94fb392366d"></a>
 static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_f_log.html#a0af58edaf2523925eb3af94fb392366d">IsAsyncEnabled</a><code> [get, set]</code></td></tr>
 <tr class="separator:a0af58edaf2523925eb3af94fb392366d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab71371bb9b699c1f632d245a98d59535"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_f_log.html#ab71371bb9b699c1f632d245a98d59535">IsInitialized</a><code> [get]</code></td></tr>
+<tr class="memdesc:ab71371bb9b699c1f632d245a98d59535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets whether this log has been initialized yet or not.  <a href="class_volume_control_1_1_log_1_1_f_log.html#ab71371bb9b699c1f632d245a98d59535">More...</a><br /></td></tr>
+<tr class="separator:ab71371bb9b699c1f632d245a98d59535"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Static logger class. </p>
-<p>The <a class="el" href="class_volume_control_1_1_log_1_1_f_log.html#a2ae19b065051d648c0a76ab86d761a16" title="Initializes the log. The settings object must be created before calling this method....">Initialize</a> method must be called before accessing any properties, and after the settings have initialized. </p>
+<div class="textblock"><p>Static file logger class. </p>
+<p>The <a class="el" href="class_volume_control_1_1_log_1_1_f_log.html#aea9f63c707dad245894df5d38aecee2d" title="Initializes the log. The settings object must be created before calling this method....">Initialize</a> method must be called before accessing any properties. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2ae19b065051d648c0a76ab86d761a16"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ae19b065051d648c0a76ab86d761a16">&#9670;&nbsp;</a></span>Initialize()</h2>
+<a id="a42dc13972eeb6369cfa1551c30c24002"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42dc13972eeb6369cfa1551c30c24002">&#9670;&nbsp;</a></span>ChangeLogPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void VolumeControl.Log.FLog.ChangeLogPath </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>newPath</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the log path to a new location. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newPath</td><td>The filepath to change the log path to.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="reference">References <a class="el" href="#l00027">VolumeControl.Log.FLog.Log</a>.</p>
+
+</div>
+</div>
+<a id="aea9f63c707dad245894df5d38aecee2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea9f63c707dad245894df5d38aecee2d">&#9670;&nbsp;</a></span>Initialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -163,8 +206,31 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
         <tr>
           <td class="memname">static void VolumeControl.Log.FLog.Initialize </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590">EventType</a>&#160;</td>
+          <td class="paramname"><em>logFilter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>deleteExisting</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -178,21 +244,47 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">InvalidOperationException</td><td>The method has already been called before.</td></tr>
-    <tr><td class="paramname"><a class="el" href="class_volume_control_1_1_log_1_1_not_initialized_exception.html" title="Represents errors that occur as a result of trying to access an object before it is initialized.">NotInitializedException</a></td><td>The default config object hasn't been initialized yet.</td></tr>
+    <tr><td class="paramname">NotInitializedException</td><td>The default config object hasn't been initialized yet.</td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00028">VolumeControl.Log.FLog.Log</a>, and <a class="el" href="#l00244">VolumeControl.Log.AsyncLogWriter.ResetEndpoint()</a>.</p>
+<p class="reference">References <a class="el" href="#l00027">VolumeControl.Log.FLog.Log</a>, and <a class="el" href="#l00262">VolumeControl.Log.AsyncLogWriter.ResetEndpoint()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_f_log_a2ae19b065051d648c0a76ab86d761a16_cgraph.svg" width="510" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_f_log_aea9f63c707dad245894df5d38aecee2d_cgraph.svg" width="510" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
+<a id="ab71371bb9b699c1f632d245a98d59535"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab71371bb9b699c1f632d245a98d59535">&#9670;&nbsp;</a></span>IsInitialized</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VolumeControl.Log.FLog.IsInitialized</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets whether this log has been initialized yet or not. </p>
+<p>This does not throw exceptions. </p>
+
+</div>
+</div>
 <a id="ad48c72fe21568ca3d5b17b73dcca61b1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad48c72fe21568ca3d5b17b73dcca61b1">&#9670;&nbsp;</a></span>Log</h2>
 
@@ -216,7 +308,7 @@ Here is the call graph for this function:</div>
 <p>Gets the <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html" title="Asynchonously writes messages to the log endpoint.">AsyncLogWriter</a> instance. </p>
 <p>To preserve thread-safety, the FileEndpoint cannot be accessed through the log writer. It can be configured via the relevant setting in the Config. </p>
 
-<p class="reference">Referenced by <a class="el" href="class_volume_control_1_1_log_1_1_f_log.html#a1789946ab35769462213c88f7f584f1d">VolumeControl.Log.FLog.Blank()</a>, <a class="el" href="#l00178">VolumeControl.CoreAudio.AudioDevice.Dispose()</a>, <a class="el" href="#l00355">VolumeControl.CoreAudio.AudioSession.Dispose()</a>, <a class="el" href="#l00080">VolumeControl.Log.FLog.Initialize()</a>, <a class="el" href="#l00027">VolumeControl.SDK.Internal.Initializer.Initialize()</a>, <a class="el" href="#l00049">VolumeControl.Core.Input.Actions.HotkeyActionInstance.Invoke()</a>, and <a class="el" href="#l00125">VolumeControl.Core.Input.HotkeyActionAddonLoader.LoadActions()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00108">VolumeControl.Log.FLog.ChangeLogPath()</a>, <a class="el" href="#l00178">VolumeControl.CoreAudio.AudioDevice.Dispose()</a>, <a class="el" href="#l00355">VolumeControl.CoreAudio.AudioSession.Dispose()</a>, <a class="el" href="#l00027">VolumeControl.SDK.Internal.Initializer.Initialize()</a>, <a class="el" href="#l00086">VolumeControl.Log.FLog.Initialize()</a>, <a class="el" href="#l00049">VolumeControl.Core.Input.Actions.HotkeyActionInstance.Invoke()</a>, and <a class="el" href="#l00128">VolumeControl.Core.Input.HotkeyActionAddonLoader.LoadActions()</a>.</p>
 
 </div>
 </div>

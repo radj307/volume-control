@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['squaredcornerradiusconverter_1286',['SquaredCornerRadiusConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter.html',1,'VolumeControl::WPF::Converters']]],
-  ['stringextensions_1287',['StringExtensions',['../class_volume_control_1_1_type_extensions_1_1_string_extensions.html',1,'VolumeControl::TypeExtensions']]],
-  ['stringhelper_1288',['StringHelper',['../class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html',1,'VolumeControl::Core::Helpers']]],
-  ['suggestionclickedeventargs_1289',['SuggestionClickedEventArgs',['../class_volume_control_1_1_w_p_f_1_1_controls_1_1_text_box_with_completion_options_1_1_suggestion_clicked_event_args.html',1,'VolumeControl::WPF::Controls::TextBoxWithCompletionOptions']]],
-  ['systemactions_1290',['SystemActions',['../class_volume_control_1_1_hotkey_actions_1_1_system_actions.html',1,'VolumeControl::HotkeyActions']]]
+  ['realnumberextensions_1303',['RealNumberExtensions',['../class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html',1,'VolumeControl::TypeExtensions']]],
+  ['rect_1304',['RECT',['../struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html',1,'VolumeControl::WPF::PInvoke']]],
+  ['reflectionextensions_1305',['ReflectionExtensions',['../class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html',1,'VolumeControl::TypeExtensions']]]
 ];

@@ -11,6 +11,9 @@ var annotated_dup =
         [ "Enum", "namespace_volume_control_1_1_core_1_1_enum.html", [
           [ "EVirtualKeyCodeExtensions", "class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions.html", "class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions" ]
         ] ],
+        [ "Extensions", "namespace_volume_control_1_1_core_1_1_extensions.html", [
+          [ "KeyboardDeviceExtensions", "class_volume_control_1_1_core_1_1_extensions_1_1_keyboard_device_extensions.html", "class_volume_control_1_1_core_1_1_extensions_1_1_keyboard_device_extensions" ]
+        ] ],
         [ "Helpers", "namespace_volume_control_1_1_core_1_1_helpers.html", [
           [ "GetWin32Error", "class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error.html", "class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error" ],
           [ "StringHelper", "class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html", "class_volume_control_1_1_core_1_1_helpers_1_1_string_helper" ]
@@ -108,19 +111,26 @@ var annotated_dup =
       ] ],
       [ "Log", "namespace_volume_control_1_1_log.html", [
         [ "Endpoints", "namespace_volume_control_1_1_log_1_1_endpoints.html", [
+          [ "BaseEndpointWriter", "class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html", "class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer" ],
           [ "ConsoleEndpoint", "class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html", "class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint" ],
           [ "FileEndpoint", "class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html", "class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint" ],
-          [ "IEndpoint", "interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html", "interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint" ],
           [ "MemoryEndpoint", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint" ]
+        ] ],
+        [ "Exceptions", "namespace_volume_control_1_1_log_1_1_exceptions.html", [
+          [ "NotInitializedException", "class_volume_control_1_1_log_1_1_exceptions_1_1_not_initialized_exception.html", "class_volume_control_1_1_log_1_1_exceptions_1_1_not_initialized_exception" ]
+        ] ],
+        [ "Helpers", "namespace_volume_control_1_1_log_1_1_helpers.html", [
+          [ "ExceptionMessageHelper", "class_volume_control_1_1_log_1_1_helpers_1_1_exception_message_helper.html", "class_volume_control_1_1_log_1_1_helpers_1_1_exception_message_helper" ],
+          [ "ThreadedActionQueue", "class_volume_control_1_1_log_1_1_helpers_1_1_threaded_action_queue.html", "class_volume_control_1_1_log_1_1_helpers_1_1_threaded_action_queue" ]
+        ] ],
+        [ "Interfaces", "namespace_volume_control_1_1_log_1_1_interfaces.html", [
+          [ "IEndpointWriter", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer" ],
+          [ "ILogWriter", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer" ]
         ] ],
         [ "AsyncLogWriter", "class_volume_control_1_1_log_1_1_async_log_writer.html", "class_volume_control_1_1_log_1_1_async_log_writer" ],
         [ "DebugUtils", "class_volume_control_1_1_log_1_1_debug_utils.html", "class_volume_control_1_1_log_1_1_debug_utils" ],
-        [ "ExceptionMessageHelper", "class_volume_control_1_1_log_1_1_exception_message_helper.html", "class_volume_control_1_1_log_1_1_exception_message_helper" ],
         [ "FLog", "class_volume_control_1_1_log_1_1_f_log.html", "class_volume_control_1_1_log_1_1_f_log" ],
-        [ "ILogWriter", "interface_volume_control_1_1_log_1_1_i_log_writer.html", "interface_volume_control_1_1_log_1_1_i_log_writer" ],
-        [ "LogMessage", "class_volume_control_1_1_log_1_1_log_message.html", "class_volume_control_1_1_log_1_1_log_message" ],
-        [ "NotInitializedException", "class_volume_control_1_1_log_1_1_not_initialized_exception.html", "class_volume_control_1_1_log_1_1_not_initialized_exception" ],
-        [ "ThreadedLogger", "class_volume_control_1_1_log_1_1_threaded_logger.html", "class_volume_control_1_1_log_1_1_threaded_logger" ]
+        [ "LogMessage", "class_volume_control_1_1_log_1_1_log_message.html", "class_volume_control_1_1_log_1_1_log_message" ]
       ] ],
       [ "SDK", "namespace_volume_control_1_1_s_d_k.html", [
         [ "DataTemplates", "namespace_volume_control_1_1_s_d_k_1_1_data_templates.html", [
@@ -157,7 +167,9 @@ var annotated_dup =
           [ "BrushAnimation", "class_volume_control_1_1_w_p_f_1_1_animations_1_1_brush_animation.html", "class_volume_control_1_1_w_p_f_1_1_animations_1_1_brush_animation" ]
         ] ],
         [ "Behaviors", "namespace_volume_control_1_1_w_p_f_1_1_behaviors.html", [
+          [ "DisableMouseWheelBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_disable_mouse_wheel_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_disable_mouse_wheel_behavior" ],
           [ "EscapeRemovesFocusBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior" ],
+          [ "HorizontalScrollBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_horizontal_scroll_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_horizontal_scroll_behavior" ],
           [ "HyperlinkOpenInBrowserBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_hyperlink_open_in_browser_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_hyperlink_open_in_browser_behavior" ],
           [ "MouseWheelListViewBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_list_view_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_list_view_behavior" ],
           [ "MouseWheelNumericUpDownBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_numeric_up_down_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_numeric_up_down_behavior" ],

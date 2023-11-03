@@ -1,0 +1,4 @@
+<map id="VolumeControl.Log.Exceptions.NotInitializedException" name="VolumeControl.Log.Exceptions.NotInitializedException">
+<area shape="rect" id="node1" title="Represents errors that occur as a result of trying to access an object before it is initialized." alt="" coords="5,131,229,252"/>
+<area shape="rect" id="node2" title=" " alt="" coords="74,5,161,83"/>
+</map>

@@ -88,7 +88,6 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_log_1_1_endpo
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#properties">Properties</a> &#124;
-<a href="#events">Events</a> &#124;
 <a href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">VolumeControl.Log.Endpoints.FileEndpoint Class Reference</div>  </div>
@@ -100,89 +99,87 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_log_1_1_endpo
 <div class="dynheader">
 Inheritance diagram for VolumeControl.Log.Endpoints.FileEndpoint:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint__inherit__graph.svg" width="210" height="522"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint__inherit__graph.svg" width="360" height="559"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Log.Endpoints.FileEndpoint:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint__coll__graph.svg" width="210" height="522"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint__coll__graph.svg" width="360" height="559"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a2a2880e3025e43a01797aca4b0cb3b75"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a2a2880e3025e43a01797aca4b0cb3b75">FileEndpoint</a> (string path, bool enabled)</td></tr>
 <tr class="separator:a2a2880e3025e43a01797aca4b0cb3b75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f9fa484851efc87f264f6619aa8be7b"><td class="memItemLeft" align="right" valign="top"><a id="a2f9fa484851efc87f264f6619aa8be7b"></a>
-TextReader?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a2f9fa484851efc87f264f6619aa8be7b">GetReader</a> ()</td></tr>
-<tr class="memdesc:a2f9fa484851efc87f264f6619aa8be7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve a StreamReader object for reading from the endpoint.<br  />
- Using this is only recommended for repeated read operations, such as in a loop; There is no benefit to using this for single read operations. <br /></td></tr>
-<tr class="separator:a2f9fa484851efc87f264f6619aa8be7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e290ff57ab36aaf944c453de9b07c2b"><td class="memItemLeft" align="right" valign="top"><a id="a8e290ff57ab36aaf944c453de9b07c2b"></a>
-TextWriter?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a8e290ff57ab36aaf944c453de9b07c2b">GetWriter</a> ()</td></tr>
-<tr class="memdesc:a8e290ff57ab36aaf944c453de9b07c2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve a StreamWriter object for writing to the endpoint.<br  />
- Using this is only recommended for repeated write operations, such as in a loop; There is no benefit to using this for single write operations. <br /></td></tr>
-<tr class="separator:a8e290ff57ab36aaf944c453de9b07c2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab93425dcee0bbf3bf668e57861256e90"><td class="memItemLeft" align="right" valign="top"><a id="ab93425dcee0bbf3bf668e57861256e90"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#ab93425dcee0bbf3bf668e57861256e90">WriteRaw</a> (string? str, FileMode mode)</td></tr>
-<tr class="separator:ab93425dcee0bbf3bf668e57861256e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f4af91f9620b421d789add17299d393"><td class="memItemLeft" align="right" valign="top"><a id="a8f4af91f9620b421d789add17299d393"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a8f4af91f9620b421d789add17299d393">WriteRaw</a> (string? str)</td></tr>
-<tr class="memdesc:a8f4af91f9620b421d789add17299d393"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write to the filestream. It is highly recommended that you do not use this function, as it doesn't conform to formatting rules. <br /></td></tr>
-<tr class="separator:a8f4af91f9620b421d789add17299d393"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a669a66426858a3397a0aa9348f655fe4"><td class="memItemLeft" align="right" valign="top"><a id="a669a66426858a3397a0aa9348f655fe4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a669a66426858a3397a0aa9348f655fe4">WriteRawLine</a> (string? str, FileMode mode)</td></tr>
-<tr class="separator:a669a66426858a3397a0aa9348f655fe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9cd109a0e20e357239b4d08a6b7e970"><td class="memItemLeft" align="right" valign="top"><a id="aa9cd109a0e20e357239b4d08a6b7e970"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#aa9cd109a0e20e357239b4d08a6b7e970">WriteRawLine</a> (string? str)</td></tr>
-<tr class="memdesc:aa9cd109a0e20e357239b4d08a6b7e970"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write to the filestream, and append a newline. It is highly recommended that you do not use this function, as it doesn't conform to formatting rules. <br /></td></tr>
-<tr class="separator:aa9cd109a0e20e357239b4d08a6b7e970"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a166648be6b9fc34c6bd565cd4fd7e982"><td class="memItemLeft" align="right" valign="top"><a id="a166648be6b9fc34c6bd565cd4fd7e982"></a>
-int?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a166648be6b9fc34c6bd565cd4fd7e982">ReadRaw</a> (FileMode mode)</td></tr>
-<tr class="separator:a166648be6b9fc34c6bd565cd4fd7e982"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae012105d04a825b2181a4903f87b78bd"><td class="memItemLeft" align="right" valign="top"><a id="ae012105d04a825b2181a4903f87b78bd"></a>
-string?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#ae012105d04a825b2181a4903f87b78bd">ReadRawLine</a> (FileMode mode)</td></tr>
-<tr class="separator:ae012105d04a825b2181a4903f87b78bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fc46286e63a591aebbc7738cbc6edef"><td class="memItemLeft" align="right" valign="top"><a id="a6fc46286e63a591aebbc7738cbc6edef"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a6fc46286e63a591aebbc7738cbc6edef">Reset</a> ()</td></tr>
-<tr class="memdesc:a6fc46286e63a591aebbc7738cbc6edef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the contents of the log endpoint, leaving it empty. <br /></td></tr>
-<tr class="separator:a6fc46286e63a591aebbc7738cbc6edef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa216525ae4f7a5370a0881bcc2969f2e"><td class="memItemLeft" align="right" valign="top"><a id="aa216525ae4f7a5370a0881bcc2969f2e"></a>
-int?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#aa216525ae4f7a5370a0881bcc2969f2e">ReadRaw</a> ()</td></tr>
-<tr class="memdesc:aa216525ae4f7a5370a0881bcc2969f2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a character from the log endpoint. <br /></td></tr>
-<tr class="separator:aa216525ae4f7a5370a0881bcc2969f2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a602edf062d23216c025adacaf1d6c804"><td class="memItemLeft" align="right" valign="top"><a id="a602edf062d23216c025adacaf1d6c804"></a>
-string?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a602edf062d23216c025adacaf1d6c804">ReadRawLine</a> ()</td></tr>
-<tr class="memdesc:a602edf062d23216c025adacaf1d6c804"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a line from the log endpoint. <br /></td></tr>
-<tr class="separator:a602edf062d23216c025adacaf1d6c804"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0098f7a83c260dac29f938f1d6bd7cf7"><td class="memItemLeft" align="right" valign="top">StreamWriter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a0098f7a83c260dac29f938f1d6bd7cf7">GetStreamWriter</a> ()</td></tr>
+<tr class="memdesc:a0098f7a83c260dac29f938f1d6bd7cf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a new StreamWriter instance for the file. The caller is responsible for disposing of it.  <a href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a0098f7a83c260dac29f938f1d6bd7cf7">More...</a><br /></td></tr>
+<tr class="separator:a0098f7a83c260dac29f938f1d6bd7cf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab9cf18d1be33328aa416a76092d9879"><td class="memItemLeft" align="right" valign="top"><a id="aab9cf18d1be33328aa416a76092d9879"></a>
+override TextWriter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#aab9cf18d1be33328aa416a76092d9879">GetTextWriter</a> ()</td></tr>
+<tr class="memdesc:aab9cf18d1be33328aa416a76092d9879"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a TextWriter object for writing to this endpoint. <br /></td></tr>
+<tr class="separator:aab9cf18d1be33328aa416a76092d9879"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa7eccdab023097f5e1bf85044bf6060"><td class="memItemLeft" align="right" valign="top"><a id="afa7eccdab023097f5e1bf85044bf6060"></a>
+override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#afa7eccdab023097f5e1bf85044bf6060">Reset</a> ()</td></tr>
+<tr class="memdesc:afa7eccdab023097f5e1bf85044bf6060"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the endpoint's contents, leaving it blank. <br /></td></tr>
+<tr class="separator:afa7eccdab023097f5e1bf85044bf6060"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html">VolumeControl.Log.Endpoints.BaseEndpointWriter</a></td></tr>
+<tr class="memitem:ade017897aea616acfbaba1bb1a9df3c9 inherit pub_methods_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="memItemLeft" align="right" valign="top"><a id="ade017897aea616acfbaba1bb1a9df3c9"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#ade017897aea616acfbaba1bb1a9df3c9">Write</a> (string @string)</td></tr>
+<tr class="memdesc:ade017897aea616acfbaba1bb1a9df3c9 inherit pub_methods_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the specified <em>string</em>  to the endpoint. <br /></td></tr>
+<tr class="separator:ade017897aea616acfbaba1bb1a9df3c9 inherit pub_methods_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad22ed408062df36652633893ed315191 inherit pub_methods_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="memItemLeft" align="right" valign="top"><a id="ad22ed408062df36652633893ed315191"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#ad22ed408062df36652633893ed315191">WriteLine</a> (string @string)</td></tr>
+<tr class="memdesc:ad22ed408062df36652633893ed315191 inherit pub_methods_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the specified <em>string</em>  to the endpoint, followed by a line break. <br /></td></tr>
+<tr class="separator:ad22ed408062df36652633893ed315191 inherit pub_methods_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa57a3e9e584db72d3ec321fb17ac9bc6 inherit pub_methods_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#aa57a3e9e584db72d3ec321fb17ac9bc6">WriteLine</a> ()</td></tr>
+<tr class="memdesc:aa57a3e9e584db72d3ec321fb17ac9bc6 inherit pub_methods_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a line break to the endpoint.  <a href="class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#aa57a3e9e584db72d3ec321fb17ac9bc6">More...</a><br /></td></tr>
+<tr class="separator:aa57a3e9e584db72d3ec321fb17ac9bc6 inherit pub_methods_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a3d9bdcc2f48be0b40776f30b3fc6a982"><td class="memItemLeft" align="right" valign="top"><a id="a3d9bdcc2f48be0b40776f30b3fc6a982"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a3d9bdcc2f48be0b40776f30b3fc6a982">Enabled</a><code> [get, set]</code></td></tr>
-<tr class="separator:a3d9bdcc2f48be0b40776f30b3fc6a982"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbcf4aa07e0e7575eb327a34039a052a"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#afbcf4aa07e0e7575eb327a34039a052a">Path</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:afbcf4aa07e0e7575eb327a34039a052a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The location of the log file.  <a href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#afbcf4aa07e0e7575eb327a34039a052a">More...</a><br /></td></tr>
 <tr class="separator:afbcf4aa07e0e7575eb327a34039a052a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header properties_interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint"><td colspan="2" onclick="javascript:toggleInherit('properties_interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html">VolumeControl.Log.Endpoints.IEndpoint</a></td></tr>
-<tr class="memitem:a6912d3851cf42b2017d164c08d073c8e inherit properties_interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#a6912d3851cf42b2017d164c08d073c8e">Enabled</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a6912d3851cf42b2017d164c08d073c8e inherit properties_interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true when the endpoint is enabled.  <a href="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#a6912d3851cf42b2017d164c08d073c8e">More...</a><br /></td></tr>
-<tr class="separator:a6912d3851cf42b2017d164c08d073c8e inherit properties_interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a091542943155244b6b3645a175e715c5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a091542943155244b6b3645a175e715c5">PathIsEmpty</a><code> [get]</code></td></tr>
+<tr class="memdesc:a091542943155244b6b3645a175e715c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets whether the Path is a blank string or not.  <a href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a091542943155244b6b3645a175e715c5">More...</a><br /></td></tr>
+<tr class="separator:a091542943155244b6b3645a175e715c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header properties_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td colspan="2" onclick="javascript:toggleInherit('properties_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html">VolumeControl.Log.Endpoints.BaseEndpointWriter</a></td></tr>
+<tr class="memitem:a4ea39d1d60c040d9433f82d52bfd385b inherit properties_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="memItemLeft" align="right" valign="top"><a id="a4ea39d1d60c040d9433f82d52bfd385b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#a4ea39d1d60c040d9433f82d52bfd385b">IsWritingEnabled</a><code> [get, set]</code></td></tr>
+<tr class="separator:a4ea39d1d60c040d9433f82d52bfd385b inherit properties_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header properties_interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer"><td colspan="2" onclick="javascript:toggleInherit('properties_interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html">VolumeControl.Log.Interfaces.IEndpointWriter</a></td></tr>
+<tr class="memitem:a94decc8e83cfedc8766b9d2fa4fee021 inherit properties_interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html#a94decc8e83cfedc8766b9d2fa4fee021">IsWritingEnabled</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a94decc8e83cfedc8766b9d2fa4fee021 inherit properties_interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets whether this endpoint can be written to.  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html#a94decc8e83cfedc8766b9d2fa4fee021">More...</a><br /></td></tr>
+<tr class="separator:a94decc8e83cfedc8766b9d2fa4fee021 inherit properties_interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
-Events</h2></td></tr>
-<tr class="memitem:a39781d510e12a4aaee9ee481deaf4557"><td class="memItemLeft" align="right" valign="top"><a id="a39781d510e12a4aaee9ee481deaf4557"></a>
-EventHandler&lt; bool &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a39781d510e12a4aaee9ee481deaf4557">EnabledChanging</a></td></tr>
-<tr class="separator:a39781d510e12a4aaee9ee481deaf4557"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08a0daee0f138082182540d31fc2e888"><td class="memItemLeft" align="right" valign="top"><a id="a08a0daee0f138082182540d31fc2e888"></a>
-EventHandler&lt; bool &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a08a0daee0f138082182540d31fc2e888">EnabledChanged</a></td></tr>
-<tr class="separator:a08a0daee0f138082182540d31fc2e888"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header events_interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint"><td colspan="2" onclick="javascript:toggleInherit('events_interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint')"><img src="closed.png" alt="-"/>&#160;Events inherited from <a class="el" href="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html">VolumeControl.Log.Endpoints.IEndpoint</a></td></tr>
-<tr class="memitem:a836a408e49702a18e894e23a62a1b091 inherit events_interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; bool &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#a836a408e49702a18e894e23a62a1b091">EnabledChanging</a></td></tr>
-<tr class="memdesc:a836a408e49702a18e894e23a62a1b091 inherit events_interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint"><td class="mdescLeft">&#160;</td><td class="mdescRight">Occurs when the endpoint is about to be enabled or disabled for any reason.  <a href="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#a836a408e49702a18e894e23a62a1b091">More...</a><br /></td></tr>
-<tr class="separator:a836a408e49702a18e894e23a62a1b091 inherit events_interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acccbe24c7f956202946c81040eb54e45 inherit events_interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; bool &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#acccbe24c7f956202946c81040eb54e45">EnabledChanged</a></td></tr>
-<tr class="memdesc:acccbe24c7f956202946c81040eb54e45 inherit events_interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint"><td class="mdescLeft">&#160;</td><td class="mdescRight">Occurs when the endpoint is enabled or disabled for any reason.  <a href="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#acccbe24c7f956202946c81040eb54e45">More...</a><br /></td></tr>
-<tr class="separator:acccbe24c7f956202946c81040eb54e45 inherit events_interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html">VolumeControl.Log.Endpoints.BaseEndpointWriter</a></td></tr>
+<tr class="memitem:a141ba9fdaebc51db2dc4da05a56cec31 inherit pro_methods_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#a141ba9fdaebc51db2dc4da05a56cec31">BaseEndpointWriter</a> (bool isWritingEnabled=true)</td></tr>
+<tr class="memdesc:a141ba9fdaebc51db2dc4da05a56cec31 inherit pro_methods_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html" title="Abstract base class for endpoint writers.">BaseEndpointWriter</a> instance.  <a href="class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#a141ba9fdaebc51db2dc4da05a56cec31">More...</a><br /></td></tr>
+<tr class="separator:a141ba9fdaebc51db2dc4da05a56cec31 inherit pro_methods_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c4519b97ff6dbe2e3119f0e844c7631 inherit pro_methods_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#a6c4519b97ff6dbe2e3119f0e844c7631">NotifyPropertyChanged</a> ([CallerMemberName] string propertyName=&quot;&quot;)</td></tr>
+<tr class="memdesc:a6c4519b97ff6dbe2e3119f0e844c7631 inherit pro_methods_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers the PropertyChanged event for the specified <em>propertyName</em> .  <a href="class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#a6c4519b97ff6dbe2e3119f0e844c7631">More...</a><br /></td></tr>
+<tr class="separator:a6c4519b97ff6dbe2e3119f0e844c7631 inherit pro_methods_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header events_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td colspan="2" onclick="javascript:toggleInherit('events_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer')"><img src="closed.png" alt="-"/>&#160;Events inherited from <a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html">VolumeControl.Log.Endpoints.BaseEndpointWriter</a></td></tr>
+<tr class="memitem:a78f3894fb9481c533b2706338a8e3e85 inherit events_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="memItemLeft" align="right" valign="top"><a id="a78f3894fb9481c533b2706338a8e3e85"></a>
+EventHandler&lt; bool &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#a78f3894fb9481c533b2706338a8e3e85">EnabledChanging</a></td></tr>
+<tr class="separator:a78f3894fb9481c533b2706338a8e3e85 inherit events_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4613a24c61d38474ea70e6169c2451a inherit events_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="memItemLeft" align="right" valign="top"><a id="af4613a24c61d38474ea70e6169c2451a"></a>
+EventHandler&lt; bool &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#af4613a24c61d38474ea70e6169c2451a">EnabledChanged</a></td></tr>
+<tr class="separator:af4613a24c61d38474ea70e6169c2451a inherit events_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a274c744fa565f0ed61f2058dbadb9e1b inherit events_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="memItemLeft" align="right" valign="top"><a id="a274c744fa565f0ed61f2058dbadb9e1b"></a>
+PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#a274c744fa565f0ed61f2058dbadb9e1b">PropertyChanged</a></td></tr>
+<tr class="separator:a274c744fa565f0ed61f2058dbadb9e1b inherit events_class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header events_interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer"><td colspan="2" onclick="javascript:toggleInherit('events_interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer')"><img src="closed.png" alt="-"/>&#160;Events inherited from <a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html">VolumeControl.Log.Interfaces.IEndpointWriter</a></td></tr>
+<tr class="memitem:ad063efec317f1ffa8df37db4d9f0ccf8 inherit events_interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; bool &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html#ad063efec317f1ffa8df37db4d9f0ccf8">EnabledChanging</a></td></tr>
+<tr class="memdesc:ad063efec317f1ffa8df37db4d9f0ccf8 inherit events_interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Occurs when the endpoint is about to be enabled or disabled for any reason.  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html#ad063efec317f1ffa8df37db4d9f0ccf8">More...</a><br /></td></tr>
+<tr class="separator:ad063efec317f1ffa8df37db4d9f0ccf8 inherit events_interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceeeab09f8834f5de86ca6bc190b4c37 inherit events_interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; bool &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html#aceeeab09f8834f5de86ca6bc190b4c37">EnabledChanged</a></td></tr>
+<tr class="memdesc:aceeeab09f8834f5de86ca6bc190b4c37 inherit events_interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Occurs when the endpoint is enabled or disabled for any reason.  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html#aceeeab09f8834f5de86ca6bc190b4c37">More...</a><br /></td></tr>
+<tr class="separator:aceeeab09f8834f5de86ca6bc190b4c37 inherit events_interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="namespace_volume_control_1_1_log.html">Log</a> endpoint that allows writing logs directly to a file on disk. </p>
@@ -220,7 +217,26 @@ EventHandler&lt; bool &gt;?&#160;</td><td class="memItemRight" valign="bottom"><
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00022">VolumeControl.Log.Endpoints.FileEndpoint.Enabled</a>, and <a class="el" href="#l00035">VolumeControl.Log.Endpoints.FileEndpoint.Path</a>.</p>
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0098f7a83c260dac29f938f1d6bd7cf7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0098f7a83c260dac29f938f1d6bd7cf7">&#9670;&nbsp;</a></span>GetStreamWriter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">StreamWriter VolumeControl.Log.Endpoints.FileEndpoint.GetStreamWriter </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets a new StreamWriter instance for the file. The caller is responsible for disposing of it. </p>
+<dl class="section return"><dt>Returns</dt><dd>A new StreamWriter instance when this endpoint is enabled; otherwise <code>null</code>.</dd></dl>
 
 </div>
 </div>
@@ -247,7 +263,32 @@ EventHandler&lt; bool &gt;?&#160;</td><td class="memItemRight" valign="bottom"><
 
 <p>The location of the log file. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00012">VolumeControl.Log.Endpoints.FileEndpoint.FileEndpoint()</a>, <a class="el" href="#l00082">VolumeControl.Log.Endpoints.FileEndpoint.ReadRaw()</a>, <a class="el" href="#l00090">VolumeControl.Log.Endpoints.FileEndpoint.ReadRawLine()</a>, <a class="el" href="#l00098">VolumeControl.Log.Endpoints.FileEndpoint.Reset()</a>, <a class="el" href="#l00060">VolumeControl.Log.Endpoints.FileEndpoint.WriteRaw()</a>, and <a class="el" href="#l00071">VolumeControl.Log.Endpoints.FileEndpoint.WriteRawLine()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00053">VolumeControl.Log.Endpoints.FileEndpoint.Reset()</a>.</p>
+
+</div>
+</div>
+<a id="a091542943155244b6b3645a175e715c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a091542943155244b6b3645a175e715c5">&#9670;&nbsp;</a></span>PathIsEmpty</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VolumeControl.Log.Endpoints.FileEndpoint.PathIsEmpty</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets whether the Path is a blank string or not. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> when the Path is a blank string; otherwise <code>false</code>.</dd></dl>
 
 </div>
 </div>

@@ -229,7 +229,7 @@ Properties</h2></td></tr>
 
 <p class="reference">References <a class="el" href="class_volume_control_1_1_log_1_1_f_log.html#a4dcec7039adc7659b074ba4122cea0f8">VolumeControl.Log.FLog.FilterEventType()</a>, <a class="el" href="#l00024">VolumeControl.Core.Input.TemplateProviderManager.TemplateDictionaryProviders</a>, and <a class="el" href="class_volume_control_1_1_log_1_1_f_log.html#adbdeeb85b00761bffe708833e6556492">VolumeControl.Log.FLog.Trace()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="#l00341">VolumeControl.Core.Input.TemplateProviderManager.FindDataTemplateFor()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00342">VolumeControl.Core.Input.TemplateProviderManager.FindDataTemplateFor()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -389,6 +389,7 @@ Here is the call graph for this function:</div>
     <tr><td class="paramname">templateKey</td><td>Optional key for a specific <a class="el" href="class_volume_control_1_1_core_1_1_action_setting_data_template.html" title="Extends the DataTemplate class with metadata specific to action setting data template providers.">ActionSettingDataTemplate</a> instance in a <a class="el" href="interface_volume_control_1_1_core_1_1_i_template_dictionary_provider.html" title="An alternative to ITemplateProvider that can be combined with a ResourceDictionary (with a codebehind...">ITemplateDictionaryProvider</a>.<br  />
 When <em>providerType</em>  is <code>null</code></td></tr>
     <tr><td class="paramname">valueType</td><td>The type of value that will be displayed in the DataTemplate.</td></tr>
+    <tr><td class="paramname">fallbackMode</td><td>The <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a9bd894368873eca8a4fe4231ad30d8a4" title="Defines the cases when the FindDataTemplateFor(Type?, string?, Type, FallbackMode) method will fall b...">FallbackMode</a> to use when searching for a template.</td></tr>
   </table>
   </dd>
 </dl>
@@ -403,7 +404,7 @@ When <em>providerType</em>  is <code>null</code></td></tr>
 
 <p class="reference">References <a class="el" href="class_volume_control_1_1_log_1_1_f_log.html#aa25eeb75847c93ffc7ecbc4d2982d6ab">VolumeControl.Log.FLog.Debug()</a>, <a class="el" href="class_volume_control_1_1_log_1_1_f_log.html#ad09321e60c917e6a06243fa7743f412d">VolumeControl.Log.FLog.Error()</a>, <a class="el" href="#l00030">VolumeControl.Core.Input.TemplateProviderManager.FailedTypes</a>, <a class="el" href="class_volume_control_1_1_log_1_1_f_log.html#a4dcec7039adc7659b074ba4122cea0f8">VolumeControl.Log.FLog.FilterEventType()</a>, <a class="el" href="#l00229">VolumeControl.Core.Input.TemplateProviderManager.FindDataTemplate()</a>, <a class="el" href="class_volume_control_1_1_log_1_1_f_log.html#adbdeeb85b00761bffe708833e6556492">VolumeControl.Log.FLog.Trace()</a>, <a class="el" href="#l00192">VolumeControl.Core.Input.TemplateProviderManager.TryGetDictionaryProvider()</a>, <a class="el" href="#l00158">VolumeControl.Core.Input.TemplateProviderManager.TryGetProvider()</a>, and <a class="el" href="class_volume_control_1_1_log_1_1_f_log.html#a94e8675763cb9b451120d7e4fed4f9d0">VolumeControl.Log.FLog.Warning()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="#l00125">VolumeControl.Core.Input.HotkeyActionAddonLoader.LoadActions()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00128">VolumeControl.Core.Input.HotkeyActionAddonLoader.LoadActions()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -569,7 +570,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="#l00030">VolumeControl.Core.Input.TemplateProviderManager.FailedTypes</a>, <a class="el" href="#l00061">VolumeControl.Core.Input.TemplateProviderManager.IndexOfDictionaryProviderType()</a>, and <a class="el" href="#l00024">VolumeControl.Core.Input.TemplateProviderManager.TemplateDictionaryProviders</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="#l00341">VolumeControl.Core.Input.TemplateProviderManager.FindDataTemplateFor()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00342">VolumeControl.Core.Input.TemplateProviderManager.FindDataTemplateFor()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -628,7 +629,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="#l00030">VolumeControl.Core.Input.TemplateProviderManager.FailedTypes</a>, <a class="el" href="#l00043">VolumeControl.Core.Input.TemplateProviderManager.IndexOfProviderType()</a>, and <a class="el" href="#l00019">VolumeControl.Core.Input.TemplateProviderManager.TemplateProviders</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="#l00341">VolumeControl.Core.Input.TemplateProviderManager.FindDataTemplateFor()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00342">VolumeControl.Core.Input.TemplateProviderManager.FindDataTemplateFor()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -666,7 +667,7 @@ Here is the caller graph for this function:</div>
 <p>Gets the list of types that failed to initialize for any reason.<br  />
  If initialization of a provider type fails, it is added to this list and not attempted again. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00341">VolumeControl.Core.Input.TemplateProviderManager.FindDataTemplateFor()</a>, <a class="el" href="#l00192">VolumeControl.Core.Input.TemplateProviderManager.TryGetDictionaryProvider()</a>, and <a class="el" href="#l00158">VolumeControl.Core.Input.TemplateProviderManager.TryGetProvider()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00342">VolumeControl.Core.Input.TemplateProviderManager.FindDataTemplateFor()</a>, <a class="el" href="#l00192">VolumeControl.Core.Input.TemplateProviderManager.TryGetDictionaryProvider()</a>, and <a class="el" href="#l00158">VolumeControl.Core.Input.TemplateProviderManager.TryGetProvider()</a>.</p>
 
 </div>
 </div>
@@ -692,7 +693,7 @@ Here is the caller graph for this function:</div>
 
 <p>Gets the list of <a class="el" href="interface_volume_control_1_1_core_1_1_i_template_dictionary_provider.html" title="An alternative to ITemplateProvider that can be combined with a ResourceDictionary (with a codebehind...">ITemplateDictionaryProvider</a> instances. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00229">VolumeControl.Core.Input.TemplateProviderManager.FindDataTemplate()</a>, <a class="el" href="#l00596">VolumeControl.Core.Input.TemplateProviderManager.GetProviderResourceDictionaries()</a>, <a class="el" href="#l00061">VolumeControl.Core.Input.TemplateProviderManager.IndexOfDictionaryProviderType()</a>, and <a class="el" href="#l00192">VolumeControl.Core.Input.TemplateProviderManager.TryGetDictionaryProvider()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00229">VolumeControl.Core.Input.TemplateProviderManager.FindDataTemplate()</a>, <a class="el" href="#l00597">VolumeControl.Core.Input.TemplateProviderManager.GetProviderResourceDictionaries()</a>, <a class="el" href="#l00061">VolumeControl.Core.Input.TemplateProviderManager.IndexOfDictionaryProviderType()</a>, and <a class="el" href="#l00192">VolumeControl.Core.Input.TemplateProviderManager.TryGetDictionaryProvider()</a>.</p>
 
 </div>
 </div>

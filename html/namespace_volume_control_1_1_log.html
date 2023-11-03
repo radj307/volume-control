@@ -87,7 +87,8 @@ $(document).ready(function(){initNavTree('namespace_volume_control_1_1_log.html'
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">VolumeControl.Log Namespace Reference</div>  </div>
 </div><!--header-->
@@ -101,29 +102,81 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_debug_utils.html">DebugUtils</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility helper functions for writing log messages that are more helpful for debugging.  <a href="class_volume_control_1_1_log_1_1_debug_utils.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_exception_message_helper.html">ExceptionMessageHelper</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper methods for converting exceptions into nicely formatted strings.  <a href="class_volume_control_1_1_log_1_1_exception_message_helper.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_f_log.html">FLog</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static logger class.  <a href="class_volume_control_1_1_log_1_1_f_log.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_i_log_writer.html">ILogWriter</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a log writer instance.  <a href="interface_volume_control_1_1_log_1_1_i_log_writer.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static file logger class.  <a href="class_volume_control_1_1_log_1_1_f_log.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a message to be written to the log.  <a href="class_volume_control_1_1_log_1_1_log_message.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_not_initialized_exception.html">NotInitializedException</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents errors that occur as a result of trying to access an object before it is initialized.  <a href="class_volume_control_1_1_log_1_1_not_initialized_exception.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><b>SettingsInterface</b></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a more convenient way to access the program configuration without having access to the <a class="el" href="namespace_volume_control_1_1_core.html">VolumeControl.Core</a> namespace.<br  />
- See the Default property. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_threaded_logger.html">ThreadedLogger</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages a background thread to write queued log messages. The queue can be disabled at runtime to switch between asynchronous and synchronous operation.  <a href="class_volume_control_1_1_log_1_1_threaded_logger.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a7bdd79a1443a7bf40773bcffc0d63590"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590">EventType</a> : byte { <br />
+&#160;&#160;<a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590ab50339a10e1de285ac99d4c3990b8693">NONE</a> = 0
+, <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590adc30ec20708ef7b0f641ef78b7880a15">DEBUG</a> = 1
+, <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a551b723eafd6a31d444fcb2f5920fbd3">INFO</a> = 2
+, <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a32bd8a1db2275458673903bdb84cb277">WARN</a> = 4
+, <br />
+&#160;&#160;<a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590abb1ca97ec761fc37101737ba0aa2e7c5">ERROR</a> = 8
+, <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a99cd1c61610c76a57cb8d10d6df6b870">CRITICAL</a> = 16
+, <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a19da7170bea36556dde582519795f3fc">FATAL</a> = 32
+, <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a2d3e4144aa384b18849ab9a8abad74d6">TRACE</a> = 64
+, <br />
+&#160;&#160;<a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a5fb1f955b45e38e31789286a1790398d">ALL</a> = DEBUG | INFO | WARN | ERROR | CRITICAL | FATAL | TRACE
+<br />
+ }</td></tr>
+<tr class="memdesc:a7bdd79a1443a7bf40773bcffc0d63590"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the header used to print formatted log messages.  <a href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590">More...</a><br /></td></tr>
+<tr class="separator:a7bdd79a1443a7bf40773bcffc0d63590"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a7bdd79a1443a7bf40773bcffc0d63590"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bdd79a1443a7bf40773bcffc0d63590">&#9670;&nbsp;</a></span>EventType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590">VolumeControl.Log.EventType</a> : byte</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determines the header used to print formatted log messages. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a7bdd79a1443a7bf40773bcffc0d63590ab50339a10e1de285ac99d4c3990b8693"></a>NONE&#160;</td><td class="fielddoc"><p>Not an event type. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a7bdd79a1443a7bf40773bcffc0d63590adc30ec20708ef7b0f641ef78b7880a15"></a>DEBUG&#160;</td><td class="fielddoc"><p>Message contains debugging information. </p>
+<p>For debug info that is only useful in certain situations, see TRACE. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a7bdd79a1443a7bf40773bcffc0d63590a551b723eafd6a31d444fcb2f5920fbd3"></a>INFO&#160;</td><td class="fielddoc"><p>Message contains information that isn't related to an error or warning. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a7bdd79a1443a7bf40773bcffc0d63590a32bd8a1db2275458673903bdb84cb277"></a>WARN&#160;</td><td class="fielddoc"><p>Messages related to a warning or very minor error. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a7bdd79a1443a7bf40773bcffc0d63590abb1ca97ec761fc37101737ba0aa2e7c5"></a>ERROR&#160;</td><td class="fielddoc"><p>Messages related to an error. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a7bdd79a1443a7bf40773bcffc0d63590a99cd1c61610c76a57cb8d10d6df6b870"></a>CRITICAL&#160;</td><td class="fielddoc"><p>Messages related to a significant error of critical importance. </p>
+<p>For errors that the application cannot recover from, see FATAL. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a7bdd79a1443a7bf40773bcffc0d63590a19da7170bea36556dde582519795f3fc"></a>FATAL&#160;</td><td class="fielddoc"><p>Messages related to a significant error that the application cannot recover from. </p>
+<p>For significant errors that did not cause the application to exit unexpectedly, see CRITICAL. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a7bdd79a1443a7bf40773bcffc0d63590a2d3e4144aa384b18849ab9a8abad74d6"></a>TRACE&#160;</td><td class="fielddoc"><p>Message contains debugging information that is only situationally useful. </p>
+<p>For debug info that is generally useful in most or all case, see DEBUG. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a7bdd79a1443a7bf40773bcffc0d63590a5fb1f955b45e38e31789286a1790398d"></a>ALL&#160;</td><td class="fielddoc"><p>All event types. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

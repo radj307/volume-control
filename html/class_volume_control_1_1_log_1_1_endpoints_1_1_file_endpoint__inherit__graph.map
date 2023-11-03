@@ -1,4 +1,6 @@
 <map id="VolumeControl.Log.Endpoints.FileEndpoint" name="VolumeControl.Log.Endpoints.FileEndpoint">
-<area shape="rect" id="node1" title="Log endpoint that allows writing logs directly to a file on disk." alt="" coords="5,219,204,516"/>
-<area shape="rect" id="node2" href="$interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html" title="Represents an endpoint output target for a log writer, and exposes helper methods for interacting wit..." alt="" coords="43,5,166,171"/>
+<area shape="rect" id="node1" title="Log endpoint that allows writing logs directly to a file on disk." alt="" coords="38,388,255,553"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html" title="Abstract base class for endpoint writers." alt="" coords="115,175,314,340"/>
+<area shape="rect" id="node3" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html" title="Represents an endpoint that text can be written to." alt="" coords="5,5,152,127"/>
+<area shape="rect" id="node4" title=" " alt="" coords="177,27,354,105"/>
 </map>
