@@ -10,6 +10,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Localization\en-HotkeyActions.loc.json" />
+	  <None Remove="Localization\zz-HotkeyActions.loc.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Localization\zz-HotkeyActions.loc.json" />
+	  <EmbeddedResource Include="Localization\en-HotkeyActions.loc.json" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\VolumeControl.CoreAudio\VolumeControl.CoreAudio.csproj" />
 		<ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
 		<ProjectReference Include="..\VolumeControl.SDK\VolumeControl.SDK.csproj" />

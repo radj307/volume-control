@@ -19,15 +19,18 @@ namespace VolumeControl
     public partial class ActionSettingsWindow : Window, INotifyPropertyChanged
     {
         #region Initializers
-        public ActionSettingsWindow()
+        public ActionSettingsWindow(Window owner, HotkeyVM hotkey)
         {
+            // init local properties
+            Hotkey = hotkey;
+            ActionSettings = CreateActionSettingVMs(hotkey.Hotkey.Action?.ActionSettings);
+
+            // init component
             InitializeComponent();
-        }
-        public ActionSettingsWindow(Window owner, HotkeyVM hotkey) : this()
-        {
+
+            // init window properties
             Owner = owner;
             Title = hotkey.Hotkey.Name;
-            Hotkey = hotkey;
         }
         #endregion Initializers
 
@@ -37,19 +40,24 @@ namespace VolumeControl
 
         #region Properties
         private VolumeControlVM VCSettings => (FindResource("Settings") as VolumeControlVM)!;
-        public HotkeyVM? Hotkey
-        {
-            get => _hotkey;
-            set
-            {
-                _hotkey = value;
-                NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(ActionSettings));
-            }
-        }
-        private HotkeyVM? _hotkey;
-        public IActionSettingInstance[]? ActionSettings => this.Hotkey?.Hotkey.Action?.ActionSettings;
+        public HotkeyVM Hotkey { get; }
+        public ActionSettingVM[]? ActionSettings { get; }
         #endregion Properties
+
+        #region Methods
+        private ActionSettingVM[]? CreateActionSettingVMs(IActionSettingInstance[]? actionSettingInstances)
+        {
+            if (actionSettingInstances == null) return null;
+
+            var length = actionSettingInstances.Length;
+            var array = new ActionSettingVM[actionSettingInstances.Length];
+            for (int i = 0; i < length; ++i)
+            {
+                array[i] = new(Hotkey.ActionDefinition!, actionSettingInstances[i]);
+            }
+            return array;
+        }
+        #endregion Methods
 
         #region EventHandlers
 

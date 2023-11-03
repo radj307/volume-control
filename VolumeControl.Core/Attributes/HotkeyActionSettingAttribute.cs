@@ -13,7 +13,7 @@
         /// <summary>
         /// Creates a new <see cref="HotkeyActionSettingAttribute"/> instance with the specified <paramref name="name"/> and <paramref name="valueType"/>.
         /// </summary>
-        /// <param name="name">The name of this action setting.</param>
+        /// <param name="name">The name of this action setting. This is used to retrieve the value from the event arguments.</param>
         /// <param name="valueType">The type of value that this action setting contains.</param>
         public HotkeyActionSettingAttribute(string name, Type valueType)
         {
@@ -23,7 +23,7 @@
         /// <summary>
         /// Creates a new <see cref="HotkeyActionSettingAttribute"/> instance with the specified <paramref name="name"/>, <paramref name="valueType"/>, and <paramref name="dataTemplateProviderType"/>.
         /// </summary>
-        /// <param name="name">The name of this action setting.</param>
+        /// <param name="name">The name of this action setting. This is used to retrieve the value from the event arguments.</param>
         /// <param name="valueType">The type of value that this action setting contains.</param>
         /// <param name="dataTemplateProviderType">The type of the WPF DataTemplate to use for providing an editor control for the GUI.<br/>See <see cref="DataTemplateProviderType"/> for more information.</param>
         public HotkeyActionSettingAttribute(string name, Type valueType, Type dataTemplateProviderType)
@@ -35,7 +35,7 @@
         /// <summary>
         /// Creates a new <see cref="HotkeyActionSettingAttribute"/> instance with the specified <paramref name="name"/>, <paramref name="valueType"/>, and <paramref name="dataTemplateKey"/>.
         /// </summary>
-        /// <param name="name">The name of this action setting.</param>
+        /// <param name="name">The name of this action setting. This is used to retrieve the value from the event arguments.</param>
         /// <param name="valueType">The type of value that this action setting contains.</param>
         /// <param name="dataTemplateKey"><see cref="string"/> containing the key name of the target <see cref="ActionSettingDataTemplate"/> instance to use.</param>
         public HotkeyActionSettingAttribute(string name, Type valueType, string dataTemplateKey)
@@ -47,7 +47,7 @@
         /// <summary>
         /// Creates a new <see cref="HotkeyActionSettingAttribute"/> instance with the specified <paramref name="name"/>, <paramref name="valueType"/>, <paramref name="dataTemplateProviderType"/>, and <paramref name="dataTemplateKey"/>.
         /// </summary>
-        /// <param name="name">The name of this action setting.</param>
+        /// <param name="name">The name of this action setting. This is used to retrieve the value from the event arguments.</param>
         /// <param name="valueType">The type of value that this action setting contains.</param>
         /// <param name="dataTemplateProviderType">The type of the WPF DataTemplate to use for providing an editor control for the GUI.<br/>See <see cref="DataTemplateProviderType"/> for more information.</param>
         /// <param name="dataTemplateKey"><see cref="string"/> containing the key name of the target <see cref="ActionSettingDataTemplate"/> instance to use.</param>
@@ -70,11 +70,11 @@
         /// </summary>
         public string? Description { get; set; }
         /// <summary>
-        /// Gets or sets the type of this action setting.
+        /// Gets or sets the value type of this action setting.
         /// </summary>
         public Type ValueType { get; set; }
         /// <summary>
-        /// Gets or sets the default value of this action setting.
+        /// Gets or sets the default value of this action setting. Must be the same type as, or implicitly convertible to, the specified ValueType.
         /// </summary>
         public object? DefaultValue { get; set; }
         /// <summary>
@@ -93,13 +93,14 @@
         /// </remarks>
         public bool StartsEnabled { get; set; }
         /// <summary>
-        /// Gets or sets the type of the data template provider to use for this action setting.
+        /// Gets or sets the data template provider type to use for this action setting.<br/>
         /// Only types that implement <see cref="ITemplateProvider"/> or <see cref="ITemplateDictionaryProvider"/> are allowed.
         /// </summary>
         /// <remarks>
         /// When this is <see langword="null"/>, the default DataTemplate for the specified ValueType is used instead, if one is available.<br/>
         /// See the documentation for <see cref="ITemplateProvider"/> &amp; <see cref="ITemplateDictionaryProvider"/> for more information.
         /// </remarks>
+        /// <returns>A <see cref="Type"/> representing a <see langword="class"/> that implements <see cref="ITemplateProvider"/> or <see cref="ITemplateDictionaryProvider"/> class <see cref="Type"/> when a specific provider was specified; otherwise <see langword="null"/> to automatically select a suitable template for the ValueType.</returns>
         public Type? DataTemplateProviderType { get; set; }
         /// <summary>
         /// Gets or sets the name of a specific provided data template to use.

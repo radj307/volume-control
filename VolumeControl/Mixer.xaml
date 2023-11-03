@@ -1026,12 +1026,16 @@
                                                     <ComboBox
                                                         IsEditable="False"
                                                         ItemsSource="{Binding Actions, Source={StaticResource Settings}}"
-                                                        SelectedItem="{Binding ActionDefinition, UpdateSourceTrigger=PropertyChanged}"
+                                                        SelectedValue="{Binding ActionDefinition, UpdateSourceTrigger=PropertyChanged}"
+                                                        SelectedValuePath="HotkeyActionDefinition"
                                                         Style="{StaticResource ComboBoxStyle}">
+                                                        <i:Interaction.Behaviors>
+                                                            <wpfBehaviors:DisableMouseWheelBehavior />
+                                                        </i:Interaction.Behaviors>
                                                         <ComboBox.ItemContainerStyle>
                                                             <Style TargetType="{x:Type ComboBoxItem}">
                                                                 <Setter Property="ToolTipService.ShowsToolTipOnKeyboardFocus" Value="True" />
-                                                                <Setter Property="ToolTipService.ToolTip" Value="{Binding Description}" />
+                                                                <Setter Property="ToolTipService.ToolTip" Value="{Binding DisplayDescription}" />
                                                                 <Setter Property="ToolTipService.Placement" Value="Left" />
                                                                 <Setter Property="ToolTipService.InitialShowDelay" Value="0" />
                                                                 <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
@@ -1040,28 +1044,23 @@
                                                         <ComboBox.ItemTemplate>
                                                             <DataTemplate>
                                                                 <StackPanel Orientation="Horizontal">
-                                                                    <StackPanel.Resources>
-                                                                        <conv:ConverterChain x:Key="NullToVisibilityConverter">
-                                                                            <conv:NullToBooleanConverter />
-                                                                            <conv:BooleanInverter />
-                                                                            <BooleanToVisibilityConverter />
-                                                                        </conv:ConverterChain>
-                                                                    </StackPanel.Resources>
-                                                                    <TextBlock
-                                                                        Name="GroupNameTextBlock"
-                                                                        FontWeight="SemiBold"
-                                                                        Foreground="{Binding GroupBrush, TargetNullValue={StaticResource TextBoxForeground}}"
-                                                                        Text="{Binding GroupName}" />
-                                                                    <TextBlock
-                                                                        FontWeight="{Binding FontWeight, ElementName=GroupNameTextBlock}"
-                                                                        Foreground="{Binding Foreground, ElementName=GroupNameTextBlock}"
-                                                                        Style="{StaticResource TextBlockStyle}"
-                                                                        Text=": "
-                                                                        Visibility="{Binding GroupName, Converter={StaticResource NullToVisibilityConverter}}" />
+                                                                    <!--  Don't put these Run blocks on different lines or it will add space between them!  -->
+                                                                    <TextBlock FontWeight="SemiBold" Foreground="{Binding HotkeyActionDefinition.GroupBrush, TargetNullValue={StaticResource TextBoxForeground}}">
+                                                                        <TextBlock.Style>
+                                                                            <Style BasedOn="{StaticResource TextBlockStyle}" TargetType="{x:Type TextBlock}">
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding DataContext.DisplayGroupName, RelativeSource={RelativeSource Self}}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </TextBlock.Style>
+                                                                        <Run Text="{Binding DisplayGroupName, Mode=OneWay}" /><Run Text=":" />
+                                                                    </TextBlock>
                                                                     <TextBlock
                                                                         Margin="2,0"
                                                                         Style="{StaticResource TextBlockStyle}"
-                                                                        Text="{Binding Name}" />
+                                                                        Text="{Binding DisplayName}" />
                                                                 </StackPanel>
                                                             </DataTemplate>
                                                         </ComboBox.ItemTemplate>
@@ -1723,41 +1722,63 @@
                                             </ComboBox>
                                         </Grid>
                                         <!--  Log Path Textbox  -->
-                                        <Grid
+                                        <Border
                                             Grid.Column="2"
                                             Margin="3,0"
+                                            Background="{StaticResource TextBoxBackground}"
+                                            BorderThickness="1"
+                                            CornerRadius="{StaticResource RoundedControlCorner}"
                                             IsEnabled="{Binding IsChecked, ElementName=cbEnableLog}">
-                                            <Grid.Resources>
-                                                <Style
-                                                    x:Key="TextBoxValidIndicatorStyle"
-                                                    BasedOn="{StaticResource TextBoxStyle}"
-                                                    TargetType="{x:Type TextBox}">
+                                            <Border.Style>
+                                                <Style TargetType="{x:Type Border}">
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Text.IsEmpty, Mode=OneWay, Source={x:Reference logPath}}" Value="True">
-                                                            <Setter Property="Background" Value="#3F3030" />
+                                                        <DataTrigger Binding="{Binding IsFocused, ElementName=logPath}" Value="True">
+                                                            <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=logPath}" Value="True">
+                                                            <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
                                                         </DataTrigger>
                                                     </Style.Triggers>
+                                                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                                                 </Style>
-                                            </Grid.Resources>
-                                            <Border Name="logPathMask" Style="{StaticResource RoundBorderMaskStyle}" />
-
-                                            <Grid Background="{StaticResource TextBoxBackground}">
+                                            </Border.Style>
+                                            <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Border x:Name="logPathTextBoxWidthClamp" />
+
+                                                <!--  LogPath Textbox (with width clamp to prevent it from expanding too much)  -->
+                                                <Border x:Name="WidthClamp" />
                                                 <TextBox
                                                     x:Name="logPath"
-                                                    MaxWidth="{Binding ActualWidth, ElementName=logPathTextBoxWidthClamp}"
+                                                    MaxWidth="{Binding ActualWidth, ElementName=WidthClamp}"
+                                                    Padding="5,8"
+                                                    VerticalAlignment="Stretch"
                                                     Background="#0000"
                                                     BorderThickness="0"
                                                     HorizontalScrollBarVisibility="Auto"
-                                                    Style="{StaticResource TextBoxValidIndicatorStyle}"
-                                                    Text="{Binding LogFilePath, Source={StaticResource Settings}, UpdateSourceTrigger=LostFocus}"
+                                                    Text="{Binding LogFilePath, Mode=TwoWay, Source={StaticResource Settings}, UpdateSourceTrigger=LostFocus}"
                                                     ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Log.Path.Tooltip',
-                                                                 DefaultText='Specifies the location and name of the log file. Relative paths are relative to the location of the executable.'}" />
+                                                                 DefaultText='Specifies the location and name of the log file. Relative paths are relative to the location of the executable.'}">
+                                                    <i:Interaction.Behaviors>
+                                                        <wpfBehaviors:TextBoxEnterUpdatesTextSourceBehavior />
+                                                        <wpfBehaviors:HorizontalScrollBehavior Magnitude="0.33" />
+                                                    </i:Interaction.Behaviors>
+                                                    <TextBox.Style>
+                                                        <Style BasedOn="{StaticResource TextBoxStyle}" TargetType="{x:Type TextBox}">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding LogFilePath, Source={StaticResource Settings}, Mode=OneWay}" Value="">
+                                                                    <Setter Property="Background" Value="#3F3030" />
+                                                                </DataTrigger>
+                                                                <Trigger Property="IsFocused" Value="True">
+                                                                    <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBox.Style>
+                                                </TextBox>
                                                 <TextBlock
                                                     Width="{Binding Width, ElementName=logPath}"
                                                     Height="{Binding Height, ElementName=logPath}"
@@ -1790,7 +1811,7 @@
                                                     ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Log.OpenButton.Tooltip',
                                                                  DefaultText='Opens the log file in the default application.'}" />
                                             </Grid>
-                                        </Grid>
+                                        </Border>
                                     </Grid>
                                 </Grid>
                             </Border>

@@ -14,25 +14,27 @@ namespace VolumeControl.HotkeyActions
     [HotkeyActionGroup("Session", GroupColor = "#99FF99", DefaultDataTemplateProvider = typeof(DataTemplateDictionary))]
     public sealed class AudioSessionActions
     {
+        // NOTE: Don't change any names without also changing the translation keys in en-HotkeyActions.json!
+
         #region Fields
         // Target Override(s)
         private const string Setting_TargetOverride_Name = "Target Override(s)";
         private const string Setting_TargetOverride_Description = "Causes this action to only affect the specified audio sessions.";
-        // Target All Sessions
-        private const string Setting_TargetAll_Name = "Target All Sessions";
-        private const string Setting_TargetAll_Description = "Ignores the target override(s) and applies the action to all audio sessions.";
         // Select Target Override(s)
         private const string Setting_SelectTarget_Name = "Select Target Override(s)";
         private const string Setting_SelectTarget_Description = "Selects the target override sessions when the action is triggered.";
+        // Target All Sessions
+        private const string Setting_TargetAll_Name = "Target All Sessions";
+        private const string Setting_TargetAll_Description = "Ignores the target override(s) and applies the action to all audio sessions when checked.";
         // Volume Step
         private const string Setting_VolumeStep_Name = "Volume Step Override";
-        private const string Setting_VolumeStep_Description = "Overrides the default volume step for this action.";
+        private const string Setting_VolumeStep_Description = "Overrides the global volume step for this action.";
         // Volume Level
         private const string Setting_VolumeLevel_Name = "Volume Level";
-        private const string Setting_VolumeLevel_Description = "The volume level to set the target sessions to.";
+        private const string Setting_VolumeLevel_Description = "The volume level to set the target session(s) to.";
         // Mute State
         private const string Setting_MuteState_Name = "Mute State";
-        private const string Setting_MuteState_Description = "Mutes the target when checked; otherwise unmutes the target.";
+        private const string Setting_MuteState_Description = "The mute state to set the target session(s) to.";
         #endregion Fields
 
         #region Properties
@@ -43,7 +45,7 @@ namespace VolumeControl.HotkeyActions
         #endregion Properties
 
         #region Action Methods
-        [HotkeyAction(Description = "Increases the volume of the selected session(s).")]
+        [HotkeyAction(Description = "Increases the volume of the session(s).")]
         [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), "ActionTargetSpecifierDataTemplate", Description = Setting_TargetOverride_Description)]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), "VolumeStepDataTemplate", DefaultValue = 2, Description = Setting_VolumeStep_Description, IsToggleable = true)]
@@ -89,7 +91,7 @@ namespace VolumeControl.HotkeyActions
             if (showNotification)
                 VCAPI.ShowSessionListNotification();
         }
-        [HotkeyAction(Description = "Decreases the volume of the selected session(s).")]
+        [HotkeyAction(Description = "Decreases the volume of the session(s).")]
         [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), "ActionTargetSpecifierDataTemplate", Description = Setting_TargetOverride_Description)]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), "VolumeStepDataTemplate", DefaultValue = 2, Description = Setting_VolumeStep_Description, IsToggleable = true)]
@@ -135,7 +137,7 @@ namespace VolumeControl.HotkeyActions
             if (showNotification)
                 VCAPI.ShowSessionListNotification();
         }
-        [HotkeyAction(Description = "Sets the volume level of the specified session(s) to a pre-configured level.")]
+        [HotkeyAction(Description = "Sets the volume and/or mute state of the session(s).")]
         [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), "ActionTargetSpecifierDataTemplate", Description = Setting_TargetOverride_Description)]
         [HotkeyActionSetting(Setting_TargetAll_Name, typeof(bool), Description = Setting_TargetAll_Description)]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
@@ -199,7 +201,7 @@ namespace VolumeControl.HotkeyActions
             if (showNotification)
                 VCAPI.ShowSessionListNotification();
         }
-        [HotkeyAction(Description = "Mutes the selected session.")]
+        [HotkeyAction(Description = "Mutes the session(s).")]
         [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), "ActionTargetSpecifierDataTemplate", Description = Setting_TargetOverride_Description)]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         public void Mute(object? sender, HotkeyPressedEventArgs e)
@@ -240,7 +242,7 @@ namespace VolumeControl.HotkeyActions
             if (showNotification)
                 VCAPI.ShowSessionListNotification();
         }
-        [HotkeyAction(Description = "Unmutes the selected session.")]
+        [HotkeyAction(Description = "Unmutes the session(s).")]
         [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), "ActionTargetSpecifierDataTemplate", Description = Setting_TargetOverride_Description)]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         public void Unmute(object? sender, HotkeyPressedEventArgs e)
@@ -281,7 +283,7 @@ namespace VolumeControl.HotkeyActions
             if (showNotification)
                 VCAPI.ShowSessionListNotification();
         }
-        [HotkeyAction(Description = "Toggles the selected session's mute state.")]
+        [HotkeyAction(Description = "Toggles the mute state of the session(s).")]
         [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), "ActionTargetSpecifierDataTemplate", Description = Setting_TargetOverride_Description)]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         public void ToggleMute(object? sender, HotkeyPressedEventArgs e)
@@ -322,42 +324,21 @@ namespace VolumeControl.HotkeyActions
             if (showNotification)
                 VCAPI.ShowSessionListNotification();
         }
-        [HotkeyAction(Description = "Moves the selector to the next session in the list.")]
+        [HotkeyAction(Description = "Changes the current session to the next session in the list.")]
         public void SelectNext(object? sender, HotkeyPressedEventArgs e)
         {
             MultiSelector.IncrementCurrentIndex();
 
             VCAPI.ShowSessionListNotification();
         }
-        [HotkeyAction(Description = "Moves the selector to the previous session in the list.")]
+        [HotkeyAction(Description = "Changes the current session to the previous session in the list.")]
         public void SelectPrevious(object? sender, HotkeyPressedEventArgs e)
         {
             MultiSelector.DecrementCurrentIndex();
 
             VCAPI.ShowSessionListNotification();
         }
-        [HotkeyAction(Description = "Locks the selected session, preventing it from being changed.")]
-        public void Lock(object? sender, HotkeyPressedEventArgs e)
-        {
-            MultiSelector.LockSelection = true;
-
-            VCAPI.ShowSessionListNotification();
-        }
-        [HotkeyAction(Description = "Unlocks the selected session, allowing it to be changed.")]
-        public void Unlock(object? sender, HotkeyPressedEventArgs e)
-        {
-            MultiSelector.LockSelection = false;
-
-            VCAPI.ShowSessionListNotification();
-        }
-        [HotkeyAction(Description = "Toggles whether the selected session can be changed or not.")]
-        public void ToggleLock(object? sender, HotkeyPressedEventArgs e)
-        {
-            MultiSelector.LockSelection = !MultiSelector.LockSelection;
-
-            VCAPI.ShowSessionListNotification();
-        }
-        [HotkeyAction(Description = "Unsets the selector.")]
+        [HotkeyAction(Description = "Unsets the current session.")]
         public void Deselect(object? sender, HotkeyPressedEventArgs e)
         {
             if (MultiSelector.HasSelectedSessions)
@@ -368,7 +349,28 @@ namespace VolumeControl.HotkeyActions
 
             VCAPI.ShowSessionListNotification();
         }
-        [HotkeyAction(Description = "(De)selects the current session.")]
+        [HotkeyAction(Description = "Locks the current session, preventing it from being changed.")]
+        public void Lock(object? sender, HotkeyPressedEventArgs e)
+        {
+            MultiSelector.LockSelection = true;
+
+            VCAPI.ShowSessionListNotification();
+        }
+        [HotkeyAction(Description = "Unlocks the current session, allowing it to be changed again.")]
+        public void Unlock(object? sender, HotkeyPressedEventArgs e)
+        {
+            MultiSelector.LockSelection = false;
+
+            VCAPI.ShowSessionListNotification();
+        }
+        [HotkeyAction(Description = "Toggles whether the current session is locked or unlocked. When locked, it cannot be changed until unlocked.")]
+        public void ToggleLock(object? sender, HotkeyPressedEventArgs e)
+        {
+            MultiSelector.LockSelection = !MultiSelector.LockSelection;
+
+            VCAPI.ShowSessionListNotification();
+        }
+        [HotkeyAction(Description = "Toggles whether the current session is selected or not. Multiple sessions can be selected, but only one can be the current session.")]
         public void ToggleSelected(object? sender, HotkeyPressedEventArgs e)
         {
             MultiSelector.ToggleSelectCurrentItem();

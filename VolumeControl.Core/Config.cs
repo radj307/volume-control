@@ -2,6 +2,7 @@
 using Semver;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using VolumeControl.Core.Input.Enums;
 using VolumeControl.Core.Input.Json;
@@ -86,10 +87,10 @@ namespace VolumeControl.Core
 
         #region Method Overrides
         /// <inheritdoc/>
-        public override void Save(Formatting formatting = Formatting.Indented)
+        public void Save(Formatting formatting = Formatting.Indented, [CallerMemberName] string callerName = "")
         {
             if (FLog.FilterEventType(EventType.TRACE))
-                FLog.Trace($"Saved {nameof(Config)}");
+                FLog.Trace($"Saved {nameof(Config)} (Caller: \"{callerName}\")");
             base.Save(formatting);
         }
         #endregion Method Overrides
@@ -126,6 +127,9 @@ namespace VolumeControl.Core
         {
             if (!_autoSaveEnabled) return;
 
+            if (FLog.FilterEventType(EventType.TRACE))
+                FLog.Trace($"Config sub-property \"{e.PropertyName}\" was modified.");
+
             Save();
         }
         private void PropertyWithCollectionChangedEvents_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
@@ -146,7 +150,15 @@ namespace VolumeControl.Core
         /// Gets or sets whether the program should create the default translation files if they don't already exist.
         /// </summary>
         /// <remarks><b>Default: <see langword="true"/></b></remarks>
-        public bool CreateDefaultTranslationFiles { get; set; } = true;
+        public bool CreateTranslationConfigs { get; set; } = true;
+        /// <summary>
+        /// Gets or sets whether the program creates the default translation configs in the appdata directory, or the same directory as the executable.
+        /// </summary>
+        public bool CreateTranslationConfigsInLocalDirectory { get; set; } = false;
+        /// <summary>
+        /// Gets or sets whether missing translation keys cause a log message to be written.
+        /// </summary>
+        public bool LogMissingTranslations { get; set; } = false;
         /// <summary>
         /// Gets or sets a list of additional directories to load localization packages from.
         /// </summary>
@@ -367,36 +379,28 @@ namespace VolumeControl.Core
 
         #region Log
         /// <summary>
-        /// Gets or sets whether the log is enabled or not.<br/>
-        /// See <see cref="SettingsInterface.EnableLogging"/>
+        /// Gets or sets whether the log is enabled or not.
         /// </summary>
         /// <remarks><b>Default: <see langword="true"/></b></remarks>
         public bool EnableLogging { get; set; } = true;
-        //          ^^^^^^^^^^^^^
-        //          DO NOT RENAME THIS WITHOUT ALSO RENAMING IT IN VolumeControl.Log.SettingsInterface
         /// <summary>
-        /// Gets or sets the location of the log file.<br/>
-        /// See <see cref="SettingsInterface.LogPath"/>
+        /// Gets or sets the location of the log file.
         /// </summary>
         /// <remarks><b>Default: "VolumeControl.log"</b></remarks>
-        public string LogPath { get; set; } = "VolumeControl.log";
-        //            ^^^^^^^
-        //          DO NOT RENAME THIS WITHOUT ALSO RENAMING IT IN VolumeControl.Log.SettingsInterface
+        public string LogPath { get; set; } = DefaultLogPath;
         /// <summary>
-        /// Gets or sets the <see cref="Log.EventType"/> filter used for messages.<br/>
-        /// See <see cref="SettingsInterface.LogFilter"/>
+        /// The default log file path.
+        /// </summary>
+        public const string DefaultLogPath = "VolumeControl.log";
+        /// <summary>
+        /// Gets or sets the <see cref="Log.EventType"/> filter used for messages.
         /// </summary>
         public EventType LogFilter { get; set; } = EventType.INFO | EventType.WARN | EventType.ERROR | EventType.FATAL | EventType.CRITICAL;
-        //                        ^^^^^^^^^
-        //          DO NOT RENAME THIS WITHOUT ALSO RENAMING IT IN VolumeControl.Log.SettingsInterface
         /// <summary>
-        /// Gets or sets whether the log is cleared when the program starts.<br/>
-        /// See <see cref="SettingsInterface.LogClearOnInitialize"/>
+        /// Gets or sets whether the log is cleared when the program starts.
         /// </summary>
         /// <remarks><b>Default: <see langword="true"/></b></remarks>
         public bool LogClearOnInitialize { get; set; } = true;
-        //          ^^^^^^^^^^^^^^^^^^^^
-        //          DO NOT RENAME THIS WITHOUT ALSO RENAMING IT IN VolumeControl.Log.SettingsInterface
         #endregion Log
 
         #region Misc

@@ -73,7 +73,7 @@ namespace VolumeControl.ViewModels
         {
             var currentSession = AudioSessionMultiSelector.CurrentSession;
             _targetText = currentSession != null
-                ? GetSessionName(currentSession)
+                ? GetSessionName(currentSession)!
                 : string.Empty;
             if (notify) NotifyPropertyChanged(nameof(TargetText));
         }

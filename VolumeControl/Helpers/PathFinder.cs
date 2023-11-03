@@ -1,4 +1,6 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using VolumeControl.Log;
 
@@ -15,6 +17,8 @@ namespace VolumeControl.Helpers
         /// </summary>
         public static string ApplicationAppDataPath => _localAppData ??= FindLocalAppDataConfigDir();
         private static string? _localAppData = null;
+        public static string ExecutableDirectory => _executableDirectory ??= FindExecutableDirectory();
+            private static string? _executableDirectory = null;
         #endregion Properties
 
         #region Functions
@@ -36,6 +40,11 @@ namespace VolumeControl.Helpers
                 }
             }
             return path;
+        }
+        private static string FindExecutableDirectory()
+        {
+            using var proc = Process.GetCurrentProcess();
+            return Path.GetDirectoryName(proc.MainModule?.FileName) ?? AppDomain.CurrentDomain.BaseDirectory;
         }
         #endregion Functions
     }

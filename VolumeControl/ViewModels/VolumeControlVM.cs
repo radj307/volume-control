@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Media;
 using VolumeControl.Core;
 using VolumeControl.Core.Input;
 using VolumeControl.Core.Input.Actions;
@@ -43,14 +42,18 @@ namespace VolumeControl.ViewModels
             Initializer.Initialize(this.AudioAPI.AudioDeviceManager, this.AudioAPI.AudioDeviceSelector, this.AudioAPI.AudioSessionManager, this.AudioAPI.AudioSessionMultiSelector, this.HotkeyAPI.HotkeyManager, this.MainWindowHandle, Config.Default!);
 
             // Load addons
-            AddonLoader addonLoader = new();
-            addonLoader.LoadAddons(this);
+            AddonLoader = new();
+            AddonLoader.LoadAddons(this);
 
-            // Retrieve a sorted list of all loaded action names
-            this.Actions = HotkeyAPI.HotkeyManager.HotkeyActionManager.ActionDefinitions
+            // Retrieve a sorted list of all loaded actions
+            var sortedActionDefinitions = HotkeyAPI.HotkeyManager.HotkeyActionManager.ActionDefinitions
                 .OrderBy(a => a.GroupName)
-                .ThenBy(a => a.Name)
-                .ToList();
+                .ThenBy(a => a.Name);
+            // Populate the action definitions list
+            foreach (var actionDefinition in sortedActionDefinitions)
+            {
+                _actions.Add(new(actionDefinition));
+            }
 
             // load saved hotkeys now that actions have been loaded
             this.HotkeyAPI.LoadHotkeys();
@@ -84,8 +87,9 @@ namespace VolumeControl.ViewModels
         /// </summary>
         public IEnumerable<string> AudioSessionProcessIdentifierAutocompleteSource { get; private set; } = null!;
         public IEnumerable<string> AudioSessionProcessNameAutocompleteSource { get; private set; } = null!;
-        public IEnumerable<HotkeyActionDefinition> Actions { get; internal set; } = null!;
         public IEnumerable<string> AddonDirectories { get; set; } = GetAddonDirectories();
+        public IReadOnlyList<ActionVM> Actions => _actions;
+        private readonly List<ActionVM> _actions = new();
         #endregion Other
 
         #region Statics
@@ -108,10 +112,10 @@ namespace VolumeControl.ViewModels
         public HotkeyManagerVM HotkeyAPI { get; }
         #endregion ParentObjects
 
+        public AddonLoader AddonLoader { get; }
         public TargetBoxVM TargetBoxVM { get; }
         public NotificationConfigSectionVM SessionConfigVM { get; }
         public NotificationConfigSectionVM DeviceConfigVM { get; }
-        public ImageSource KeyboardKeyImageSource { get; } = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.keyboard_key.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
         #endregion Properties
 
         #region Methods

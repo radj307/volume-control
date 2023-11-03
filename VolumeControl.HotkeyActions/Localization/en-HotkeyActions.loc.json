@@ -1,0 +1,181 @@
+﻿{
+  /**
+   * All action translations MUST be defined inside of the "Actions" object.
+   */
+  "Actions": {
+    /**
+     * Action Groups
+     *   Each key here corresponds to the case-sensitive name of an action group.
+     */
+    "AudioSessionActions": {
+      "GroupName": { "English (US/CA)": "Session" },
+
+      /**
+       * Shared Action Settings
+       *   Each key in "SharedSettings" corresponds to the name of an action setting for at least one action method in this group.
+       *   Setting translations can also be defined for a specific action, which takes precedence over the settings defined here.
+       */
+      "SharedSettings": {
+        "Target Override(s)": {
+          "Name": {
+            "English (US/CA)": "Target Override(s)"
+          },
+          "Description": {
+            "English (US/CA)": "Causes this action to only affect the specified audio sessions."
+          }
+        },
+        "Select Target Override(s)": {
+          "Name": {
+            "English (US/CA)": "Select Target Override(s)"
+          },
+          "Description": {
+            "English (US/CA)": "Selects the target override sessions when the action is triggered."
+          }
+        },
+        "Volume Step Override": {
+          "Name": {
+            "English (US/CA)": "Volume Step Override"
+          },
+          "Description": {
+            "English (US/CA)": "Overrides the global volume step for this action."
+          }
+        }
+      },
+
+      /**
+       * Action Methods
+       *   Each key here corresponds to the case-sensitive name of a method in this group.
+       */
+      "VolumeUp": {
+        "Name": {
+          "English (US/CA)": "Volume Up"
+        },
+        "Description": {
+          "English (US/CA)": "Increases the volume of the session(s)."
+        }
+      },
+      "VolumeDown": {
+        "Name": {
+          "English (US/CA)": "Volume Down"
+        },
+        "Description": {
+          "English (US/CA)": "Decreases the volume of the session(s)."
+        }
+      },
+      "SetVolume": {
+        "Name": {
+          "English (US/CA)": "Set Volume"
+        },
+        "Description": {
+          "English (US/CA)": "Sets the volume and/or mute state of the session(s)."
+        },
+        "Settings": {
+          "Volume Level": {
+            "Name": {
+              "English (US/CA)": "Volume Level"
+            },
+            "Description": {
+              "English (US/CA)": "The volume level to set the target session(s) to."
+            }
+          },
+          "Mute State": {
+            "Name": {
+              "English (US/CA)": "Mute State"
+            },
+            "Description": {
+              "English (US/CA)": "The mute state to set the target session(s) to."
+            }
+          },
+          "Target All Sessions": {
+            "Name": {
+              "English (US/CA)": "Target All Sessions"
+            },
+            "Description": {
+              "English (US/CA)": "Ignores the target override(s) and applies the action to all audio sessions when checked."
+            }
+          }
+        }
+      },
+      "Mute": {
+        "Name": {
+          "English (US/CA)": "Mute"
+        },
+        "Description": {
+          "English (US/CA)": "Mutes the session(s)."
+        }
+      },
+      "Unmute": {
+        "Name": {
+          "English (US/CA)": "Unmute"
+        },
+        "Description": {
+          "English (US/CA)": "Unmutes the session(s)."
+        }
+      },
+      "ToggleMute": {
+        "Name": {
+          "English (US/CA)": "Toggle Mute"
+        },
+        "Description": {
+          "English (US/CA)": "Toggles the mute state of the session(s)."
+        }
+      },
+      "SelectNext": {
+        "Name": {
+          "English (US/CA)": "Select Next"
+        },
+        "Description": {
+          "English (US/CA)": "Changes the current session to the next session in the list."
+        }
+      },
+      "SelectPrevious": {
+        "Name": {
+          "English (US/CA)": "Select Previous"
+        },
+        "Description": {
+          "English (US/CA)": "Changes the current session to the previous session in the list."
+        }
+      },
+      "Deselect": {
+        "Name": {
+          "English (US/CA)": "Deselect"
+        },
+        "Description": {
+          "English (US/CA)": "Unsets the current session."
+        }
+      },
+      "Lock": {
+        "Name": {
+          "English (US/CA)": "Lock"
+        },
+        "Description": {
+          "English (US/CA)": "Locks the current session to prevent it from being changed."
+        }
+      },
+      "Unlock": {
+        "Name": {
+          "English (US/CA)": "Unlock"
+        },
+        "Description": {
+          "English (US/CA)": "Unlocks the current session, allowing it to be changed again."
+        }
+      },
+      "ToggleLock": {
+        "Name": {
+          "English (US/CA)": "Toggle Lock"
+        },
+        "Description": {
+          "English (US/CA)": "Toggles whether the current session is locked or unlocked. When locked, it cannot be changed until unlocked."
+        }
+      },
+      "ToggleSelected": {
+        "Name": {
+          "English (US/CA)": "Toggle Selected"
+        },
+        "Description": {
+          "English (US/CA)": "Toggles whether the current session is selected or not. Multiple sessions can be selected, but only one can be the current session."
+        }
+      }
+    }
+  }
+}

@@ -212,7 +212,10 @@ namespace VolumeControl
         {
             ((ComboBox)sender).SelectedItem = null;
         }
-        private void Handle_ReloadLanguageConfigs(object sender, RoutedEventArgs e) => LocalizationHelper.ReloadLanguageConfigs(FLog.Log);
+        private void Handle_ReloadLanguageConfigs(object sender, RoutedEventArgs e)
+        {
+            LocalizationHelper.ReloadTranslations();
+        }
 
         private void Handle_HotkeyActionSettingsClick(object sender, RoutedEventArgs e)
         {

@@ -6,7 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Security.AccessControl;
 using System.Security.Cryptography;
+using System.Security.Principal;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -14,7 +16,6 @@ using System.Windows;
 using VolumeControl.Core;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
-using VolumeControl.Log.Endpoints;
 using VolumeControl.TypeExtensions;
 
 namespace VolumeControl
@@ -290,23 +291,21 @@ namespace VolumeControl
         }
         private static int Main_Impl(string[] args)
         {
+            var exeDir = PathFinder.ExecutableDirectory;
             // make sure the application's working directory isn't System32 (this occurs when run at startup is enabled and the program was started via its registry key)
             bool changedWorkingDirectory = false;
             if (Environment.CurrentDirectory.Equals(Environment.SystemDirectory, StringComparison.OrdinalIgnoreCase))
             { // working directory is System32, change that to the executable directory to prevent problems
-                var proc = Process.GetCurrentProcess();
-                var exeDir = Path.GetDirectoryName(proc.MainModule?.FileName) ?? AppDomain.CurrentDomain.RelativeSearchPath ?? AppDomain.CurrentDomain.BaseDirectory;
-                proc.Dispose();
                 Environment.CurrentDirectory = exeDir;
                 changedWorkingDirectory = true;
             }
 
             // Initialize the config
 #if RELEASE_FORINSTALLER // use the application's AppData directory for the config file
-            Settings = new(Path.Combine(PathFinder.ApplicationAppDataPath, "VolumeControl.json"))
-            {
-                LogPath = Path.Combine(PathFinder.ApplicationAppDataPath, "VolumeControl.log"),
-            };
+            Settings = new(Path.Combine(PathFinder.ApplicationAppDataPath, "VolumeControl.json"));
+
+            if (Settings.LogPath == DefaultLogPath && !CanWriteToDirectory(exeDir))
+                Settings.LogPath = Path.Combine(PathFinder.ApplicationAppDataPath, "VolumeControl.log");
 #else
             Settings = new("VolumeControl.json");
 #endif
@@ -333,7 +332,7 @@ namespace VolumeControl
                 else
                 {
                     Console.Error.WriteLine($"Failed to acquire mutex \"{appMutexName}\" because another instance of Volume Control is using it!");
-                    LocalizationHelper localeHelper = new(false); //< initialize without logging
+                    LocalizationHelper.Initialize(false, false, null);
                     MessageBox.Show(Loc.Tr($"VolumeControl.Dialogs.AnotherInstanceIsRunning.{(Settings.AllowMultipleDistinctInstances ? "MultiInstance" : "SingleInstance")}", "Another instance of Volume Control is already running!").Replace("${PATH}", Settings.Location));
                     return 2;
                 }
@@ -364,13 +363,15 @@ namespace VolumeControl
             bool versionChanged = !versionCompare.Equals(0);
 
             bool overwriteLanguageConfigs = args.Any(arg => arg.Equals("--overwrite-language-configs", StringComparison.Ordinal));
+            bool logMissingTranslations = Settings.LogMissingTranslations;
 #if DEBUG
             overwriteLanguageConfigs = true; //< always overwrite language configs in DEBUG configuration
+            logMissingTranslations = true; //< always log missing translations in DEBUG configuration
 #endif
 
             // Initialize locale helper
             //  overwrite language configs when the version number changed or when specified on the commandline
-            LocalizationHelper locale = new(overwriteExistingConfigs: versionChanged || overwriteLanguageConfigs, FLog.Log);
+            LocalizationHelper.Initialize(versionChanged || overwriteLanguageConfigs, logMissingTranslations, FLog.Log);
 
             if (changedWorkingDirectory)
             { // write a log message about changing the working directory
@@ -497,6 +498,39 @@ namespace VolumeControl
             sw.Close();
 
             sw.Dispose();
+        }
+        private static bool CanWriteToDirectory(string path)
+        {
+            if (string.IsNullOrEmpty(path)) return false;
+            const FileSystemRights writeDataPermission = FileSystemRights.WriteData;
+
+            try
+            {
+                WindowsIdentity identity = WindowsIdentity.GetCurrent();
+                bool identityHasGroups = identity.Groups != null;
+
+                DirectoryInfo di = new DirectoryInfo(path);
+                DirectorySecurity acl = di.GetAccessControl(AccessControlSections.All);
+                AuthorizationRuleCollection rules = acl.GetAccessRules(true, true, typeof(NTAccount));
+
+                //Go through the rules returned from the DirectorySecurity
+                foreach (AuthorizationRule rule in rules)
+                {
+                    var ruleIdentityRef = rule.IdentityReference;
+                    if (ruleIdentityRef == identity.Owner || (identityHasGroups && identity.Groups!.Contains(ruleIdentityRef)))
+                    {
+                        var accessRule = (FileSystemAccessRule)rule;
+
+                        if (accessRule.AccessControlType == AccessControlType.Allow
+                            && accessRule.FileSystemRights.HasFlag(writeDataPermission))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch { }
+            return false;
         }
         #endregion (Private)
 

@@ -160,9 +160,6 @@
   <data name="idle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons\idle.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="keyboard_key" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\images\keyboard-key.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="LICENSE" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LICENSE;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

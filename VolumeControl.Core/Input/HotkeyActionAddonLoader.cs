@@ -195,7 +195,7 @@ namespace VolumeControl.Core.Input
                         }
                         catch (Exception ex)
                         {
-                            FLog.Error($"[ActionAddonLoader] ", ex);
+                            FLog.Error($"[ActionAddonLoader] An exception occurred while searching for a DataTemplate for setting \"{actionSettingAttribute.Name}\":", ex);
                         }
 
                         if (dataTemplate == null)

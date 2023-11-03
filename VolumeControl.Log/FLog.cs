@@ -65,12 +65,12 @@ namespace VolumeControl.Log
         /// </summary>
         /// <param name="verb">Displayed in the header as "Log (verb)"</param>
         private static string MakeInitMessage(string verb)
-            => $"{AsyncLogWriter.DateTimeFormatString}{AsyncLogWriter.Indent(AsyncLogWriter.TimestampLength, AsyncLogWriter.DateTimeFormatString.Length)}{new string(' ', AsyncLogWriter.EventTypeLength)}=== Log {verb} @ {DateTime.UtcNow:U} ===  {{ LogFilter: {(int)Log.EventTypeFilter} ({Log.EventTypeFilter:G}) }}{Environment.NewLine}";
-        private static void WriteRaw(string text)
+            => $"{AsyncLogWriter.DateTimeFormatString}{AsyncLogWriter.Indent(AsyncLogWriter.TimestampLength, AsyncLogWriter.DateTimeFormatString.Length)}{new string(' ', AsyncLogWriter.EventTypeLength)}=== Log {verb} @ {DateTime.UtcNow:U} ===  {{ LogFilter: {(int)Log.EventTypeFilter} ({Log.EventTypeFilter:G}) }}";
+        private static void WriteLineRaw(string text)
         {
             lock (Log.Endpoint)
             {
-                Log.Endpoint.Write(text);
+                Log.Endpoint.WriteLine(text);
             }
         }
         private static NotInitializedException MakeLogNotInitializedException(Exception? innerException = null)
@@ -96,7 +96,7 @@ namespace VolumeControl.Log
             {
                 Log.ResetEndpoint(MakeInitMessage("Initialized"));
             }
-            else WriteRaw(MakeInitMessage("Initialized"));
+            else WriteLineRaw(MakeInitMessage("Initialized"));
         }
         #endregion Initialize
 

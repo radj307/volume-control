@@ -1,0 +1,181 @@
+﻿{
+  /**
+   * All action translations MUST be defined inside of the "Actions" object.
+   */
+  "Actions": {
+    /**
+     * Action Groups
+     *   Each key here corresponds to the case-sensitive name of an action group.
+     */
+    "AudioSessionActions": {
+      "GroupName": { "Debug (/)": "TEST Session" },
+
+      /**
+       * Shared Action Settings
+       *   Each key in "SharedSettings" corresponds to the name of an action setting for at least one action method in this group.
+       *   Setting translations can also be defined for a specific action, which takes precedence over the settings defined here.
+       */
+      "SharedSettings": {
+        "Target Override(s)": {
+          "Name": {
+            "Debug (/)": "TEST Target Override(s)"
+          },
+          "Description": {
+            "Debug (/)": "TEST Causes this action to only affect the specified audio sessions."
+          }
+        },
+        "Select Target Override(s)": {
+          "Name": {
+            "Debug (/)": "TEST Select Target Override(s)"
+          },
+          "Description": {
+            "Debug (/)": "TEST Selects the target override sessions when the action is triggered."
+          }
+        },
+        "Volume Step Override": {
+          "Name": {
+            "Debug (/)": "TEST Volume Step Override"
+          },
+          "Description": {
+            "Debug (/)": "TEST Overrides the global volume step for this action."
+          }
+        }
+      },
+
+      /**
+       * Action Methods
+       *   Each key here corresponds to the case-sensitive name of a method in this group.
+       */
+      "VolumeUp": {
+        "Name": {
+          "Debug (/)": "TEST Volume Up"
+        },
+        "Description": {
+          "Debug (/)": "TEST Increases the volume of the session(s)."
+        }
+      },
+      "VolumeDown": {
+        "Name": {
+          "Debug (/)": "TEST Volume Down"
+        },
+        "Description": {
+          "Debug (/)": "TEST Decreases the volume of the session(s)."
+        }
+      },
+      "SetVolume": {
+        "Name": {
+          "Debug (/)": "TEST Set Volume"
+        },
+        "Description": {
+          "Debug (/)": "TEST Sets the volume and/or mute state of the session(s)."
+        },
+        "Settings": {
+          "Volume Level": {
+            "Name": {
+              "Debug (/)": "TEST Volume Level"
+            },
+            "Description": {
+              "Debug (/)": "TEST The volume level to set the target session(s) to."
+            }
+          },
+          "Mute State": {
+            "Name": {
+              "Debug (/)": "TEST Mute State"
+            },
+            "Description": {
+              "Debug (/)": "TEST The mute state to set the target session(s) to."
+            }
+          },
+          "Target All Sessions": {
+            "Name": {
+              "Debug (/)": "TEST Target All Sessions"
+            },
+            "Description": {
+              "Debug (/)": "TEST Ignores the target override(s) and applies the action to all audio sessions when checked."
+            }
+          }
+        }
+      },
+      "Mute": {
+        "Name": {
+          "Debug (/)": "TEST Mute"
+        },
+        "Description": {
+          "Debug (/)": "TEST Mutes the session(s)."
+        }
+      },
+      "Unmute": {
+        "Name": {
+          "Debug (/)": "TEST Unmute"
+        },
+        "Description": {
+          "Debug (/)": "TEST Unmutes the session(s)."
+        }
+      },
+      "ToggleMute": {
+        "Name": {
+          "Debug (/)": "TEST Toggle Mute"
+        },
+        "Description": {
+          "Debug (/)": "TEST Toggles the mute state of the session(s)."
+        }
+      },
+      "SelectNext": {
+        "Name": {
+          "Debug (/)": "TEST Select Next"
+        },
+        "Description": {
+          "Debug (/)": "TEST Changes the current session to the next session in the list."
+        }
+      },
+      "SelectPrevious": {
+        "Name": {
+          "Debug (/)": "TEST Select Previous"
+        },
+        "Description": {
+          "Debug (/)": "TEST Changes the current session to the previous session in the list."
+        }
+      },
+      "Deselect": {
+        "Name": {
+          "Debug (/)": "TEST Deselect"
+        },
+        "Description": {
+          "Debug (/)": "TEST Unsets the current session."
+        }
+      },
+      "Lock": {
+        "Name": {
+          "Debug (/)": "TEST Lock"
+        },
+        "Description": {
+          "Debug (/)": "TEST Locks the current session to prevent it from being changed."
+        }
+      },
+      "Unlock": {
+        "Name": {
+          "Debug (/)": "TEST Unlock"
+        },
+        "Description": {
+          "Debug (/)": "TEST Unlocks the current session, allowing it to be changed again."
+        }
+      },
+      "ToggleLock": {
+        "Name": {
+          "Debug (/)": "TEST Toggle Lock"
+        },
+        "Description": {
+          "Debug (/)": "TEST Toggles whether the current session is locked or unlocked. When locked, it cannot be changed until unlocked."
+        }
+      },
+      "ToggleSelected": {
+        "Name": {
+          "Debug (/)": "TEST Toggle Selected"
+        },
+        "Description": {
+          "Debug (/)": "TEST Toggles whether the current session is selected or not. Multiple sessions can be selected, but only one can be the current session."
+        }
+      }
+    }
+  }
+}

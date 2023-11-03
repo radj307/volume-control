@@ -33,7 +33,7 @@ namespace VolumeControl.CoreAudio
             if (AudioSessionManager2.Sessions is not null)
             { // populate the sessions list
                 if (showTraceLogMessages)
-                    FLog.Trace($"[{nameof(AudioDeviceSessionManager)}] {nameof(AudioDevice)} instance \"{AudioDevice}\" has {AudioSessionManager2.Sessions.Count} associated sessions. Initializing them now...");
+                    FLog.Trace($"[{nameof(AudioDeviceSessionManager)}] {nameof(AudioDevice)} instance \"{AudioDevice}\" has {AudioSessionManager2.Sessions.Count} associated session{(AudioSessionManager2.Sessions.Count != 1 ? "s" : "")}. Initializing them now...");
 
                 foreach (var audioSessionControl in AudioSessionManager2.Sessions)
                 {

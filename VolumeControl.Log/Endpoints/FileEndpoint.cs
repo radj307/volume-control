@@ -46,7 +46,7 @@ namespace VolumeControl.Log.Endpoints
         /// <returns>A new <see cref="StreamWriter"/> instance when this endpoint is enabled; otherwise <see langword="null"/>.</returns>
         public StreamWriter GetStreamWriter() => !this.IsWritingEnabled || this.Path.Length == 0
                 ? null!
-                : this.GetWriter(FileMode.Append, FileAccess.Write, FileShare.Write)!;
+                : this.GetWriter(FileMode.Append, FileAccess.Write, FileShare.ReadWrite)!;
         /// <inheritdoc/>
         public override TextWriter GetTextWriter() => GetStreamWriter();
         /// <inheritdoc/>

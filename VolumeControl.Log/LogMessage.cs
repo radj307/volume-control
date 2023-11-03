@@ -66,6 +66,10 @@
             Lines.Add(line);
         }
 
+        /// <inheritdoc/>
+        public override string ToString() => string.Join(Environment.NewLine, Lines);
+
         #endregion Methods
+
     }
 }

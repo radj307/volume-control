@@ -83,12 +83,17 @@ namespace VolumeControl.Core.Input.Actions.Settings
         #endregion Properties
 
         #region Methods
+
+        #region (Internal) CreateValueInstance
         internal object? CreateValueInstance()
         {
             if (DefaultValue == null && ValueType == typeof(string))
                 return string.Empty; //< string doesn't have a default constructor, prevent exception by returning an empty string
             return DefaultValue ?? Activator.CreateInstance(ValueType);
         }
+        #endregion (Internal) CreateValueInstance
+
+        #region CreateInstance
         /// <summary>
         /// Creates a new <see cref="ActionSettingInstance{T}"/> instance from this <see cref="ActionSettingDefinition"/>.
         /// </summary>
@@ -127,6 +132,8 @@ namespace VolumeControl.Core.Input.Actions.Settings
                 },
                 System.Globalization.CultureInfo.CurrentCulture)!;
         }
+        #endregion CreateInstance
+
         #endregion Methods
     }
 }

@@ -23,8 +23,6 @@ namespace VolumeControl.Helpers
             this.HWndHook = new(WindowHandleGetter.GetHwndSource(this.MainWindowHandle));
             this.HWndHook.AddMaximizeBugFixHandler();
 
-            // Get the executable path
-            this.ExecutablePath = GetExecutablePath();
             FLog.Debug($"Executable location: '{this.ExecutablePath}'",
                       $"Working directory:   '{Environment.CurrentDirectory}'");
 
@@ -60,7 +58,7 @@ namespace VolumeControl.Helpers
         /// <inheritdoc/>
         public HWndHook HWndHook { get; }
         /// <inheritdoc/>
-        public string ExecutablePath { get; }
+        public string ExecutablePath => PathFinder.ExecutableDirectory;
         /// <inheritdoc/>
         public string CurrentVersionString { get; }
         /// <inheritdoc/>
@@ -205,9 +203,6 @@ namespace VolumeControl.Helpers
         #endregion Events
 
         #region Methods
-        private static string GetExecutablePath() => Process.GetCurrentProcess().MainModule?.FileName is string path
-                ? path
-                : throw new Exception($"{nameof(VCSettings)} Error:  Retrieving the current executable path failed!");
         private static string GetWindowsVersion()
         {
             using ManagementObjectSearcher searcher = new("SELECT Caption,OSArchitecture FROM Win32_OperatingSystem");

@@ -110,7 +110,7 @@
                 "English (US/CA)": "🖮"
               },
               "Tooltip": {
-                "English (US/CA)": "Click and hold with the mouse, then press a key to select it.\nRegistered hotkeys can still be triggered."
+                "English (US/CA)": "Click and hold with the mouse, then press a key to select it. Registered hotkeys can still be triggered."
               }
             }
           },
@@ -776,6 +776,44 @@
       "ImeAccept": { "English (US/CA)": "ImeAccept" },
       "ImeModeChange": { "English (US/CA)": "ImeModeChange" }
 
+    }
+  },
+
+  "Actions": {
+    "AudioSessionActions": {
+      "GroupName": {
+        "English (US/CA)": "Session"
+      }
+    },
+    "AudioDeviceActions": {
+      "GroupName": {
+        "English (US/CA)": "Device"
+      }
+    },
+    "ActiveApplicationActions": {
+      "GroupName": {
+        "English (US/CA)": "Active Application"
+      }
+    },
+    "ApplicationActions": {
+      "GroupName": {
+        "English (US/CA)": "Application"
+      }
+    },
+    "MediaActions": {
+      "GroupName": {
+        "English (US/CA)": "Media"
+      }
+    },
+    "SystemActions": {
+      "GroupName": {
+        "English (US/CA)": "System"
+      },
+      "Actions": {
+        "StartProcess": {
+          "English (US/CA)": "Start Process"
+        }
+      }
     }
   }
 }
