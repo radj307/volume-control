@@ -1,9 +1,12 @@
-﻿using System;
+﻿using CodingSeb.Localization;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using VolumeControl.Core;
 using VolumeControl.Core.Input;
+using VolumeControl.Core.Input.Json;
 using VolumeControl.Log;
 using VolumeControl.WPF.Collections;
 
@@ -70,7 +73,7 @@ namespace VolumeControl.ViewModels
             if (Settings.Hotkeys == null)
             {
                 FLog.Log.Critical("There was a problem with the hotkeys provided by the previous configuration. Attempting to load default hotkeys instead.");
-                Settings.Hotkeys = Config.Hotkeys_Default;
+                Settings.Hotkeys = GetTranslatedDefaultHotkeys();
             }
             HotkeyManager.SetHotkeysFromJsonHotkeys<HotkeyWithError>(Settings.Hotkeys);
         }
@@ -80,9 +83,28 @@ namespace VolumeControl.ViewModels
         }
         public void ResetHotkeys()
         {
-            HotkeyManager.SetHotkeysFromJsonHotkeys<HotkeyWithError>(Config.Hotkeys_Default);
+            HotkeyManager.SetHotkeysFromJsonHotkeys<HotkeyWithError>(GetTranslatedDefaultHotkeys());
         }
         #endregion Save/Load/Reset Hotkeys
+
+        #region GetTranslatedDefaultHotkeys
+        private static JsonHotkey[] GetTranslatedDefaultHotkeys()
+        {
+            var length = Config.Hotkeys_Default.Length;
+            var array = new JsonHotkey[length];
+
+            for (int i = 0; i < length; ++i)
+            {
+                var hk = Config.Hotkeys_Default[i];
+
+                hk.Name = Loc.Tr($"DefaultHotkeyNames.{hk.Name}", defaultText: hk.Name);
+
+                array[i] = hk;
+            }
+
+            return array;
+        }
+        #endregion GetTranslatedDefaultHotkeys
 
         #endregion Methods
 

@@ -274,7 +274,7 @@ namespace VolumeControl.Core
         /// </summary>
         [JsonIgnore]
         public static readonly JsonHotkey[] Hotkeys_Default = new JsonHotkey[]
-        {
+        { // don't rename hotkeys without also renaming the localization paths. See HotkeyManagerVM.GetTranslatedDefaultHotkeys for more info.
             new ()
             {
                 Name = "Volume Up",

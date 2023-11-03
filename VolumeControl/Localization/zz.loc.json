@@ -626,5 +626,29 @@
       "ImeModeChange": { "Debug (/)": "TEST ImeModeChange" }
 
     }
+  },
+
+  "DefaultHotkeyNames": {
+    "Volume Up": {
+      "Debug (/)": "TEST Volume Up"
+    },
+    "Volume Down": {
+      "Debug (/)": "TEST Volume Down"
+    },
+    "Toggle Mute": {
+      "Debug (/)": "TEST Toggle Mute"
+    },
+    "Next Session": {
+      "Debug (/)": "TEST Next Session"
+    },
+    "Previous Session": {
+      "Debug (/)": "TEST Previous Session"
+    },
+    "Un/Lock Session": {
+      "Debug (/)": "TEST Un/Lock Session"
+    },
+    "Toggle Selected": {
+      "Debug (/)": "TEST Toggle Selected"
+    }
   }
 }

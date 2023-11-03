@@ -152,7 +152,7 @@ namespace VolumeControl.Helpers
             }
 
             // load the default translation configs
-            ReloadTranslations();
+            ReloadTranslations(keepCurrentLanguage: false);
 
             // setup logging for missing translation keys
             //  (Missing translation event is broken)
@@ -282,7 +282,7 @@ namespace VolumeControl.Helpers
         #endregion LoadFromManifestResource
 
         #region ReloadTranslations
-        public static void ReloadTranslations()
+        public static void ReloadTranslations(bool keepCurrentLanguage = true)
         {
             var currentLanguage = Loc.Instance.CurrentLanguage;
 
@@ -301,7 +301,8 @@ namespace VolumeControl.Helpers
                 StreamLoaderInstance.LoadFromStream(addonAssembly.GetManifestResourceStream(resourceName)!, LocalizationLoader.Instance, resourceName);
             }
 
-            Loc.Instance.CurrentLanguage = currentLanguage;
+            if (keepCurrentLanguage)
+                Loc.Instance.CurrentLanguage = currentLanguage;
         }
         #endregion ReloadTranslations
 

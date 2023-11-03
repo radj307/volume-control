@@ -11,10 +11,12 @@
 
 	<ItemGroup>
 	  <None Remove="Localization\en-HotkeyActions.loc.json" />
+	  <None Remove="Localization\it-HotkeyActions.loc.json" />
 	  <None Remove="Localization\zz-HotkeyActions.loc.json" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Include="Localization\it-HotkeyActions.loc.json" />
 	  <EmbeddedResource Include="Localization\zz-HotkeyActions.loc.json" />
 	  <EmbeddedResource Include="Localization\en-HotkeyActions.loc.json" />
 	</ItemGroup>

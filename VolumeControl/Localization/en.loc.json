@@ -777,5 +777,29 @@
       "ImeModeChange": { "English (US/CA)": "ImeModeChange" }
 
     }
+  },
+
+  "DefaultHotkeyNames": {
+    "Volume Up": {
+      "English (US/CA)": "Volume Up"
+    },
+    "Volume Down": {
+      "English (US/CA)": "Volume Down"
+    },
+    "Toggle Mute": {
+      "English (US/CA)": "Toggle Mute"
+    },
+    "Next Session": {
+      "English (US/CA)": "Next Session"
+    },
+    "Previous Session": {
+      "English (US/CA)": "Previous Session"
+    },
+    "Un/Lock Session": {
+      "English (US/CA)": "Un/Lock Session"
+    },
+    "Toggle Selected": {
+      "English (US/CA)": "Toggle Selected"
+    }
   }
 }

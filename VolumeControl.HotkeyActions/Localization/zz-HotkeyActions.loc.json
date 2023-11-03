@@ -1,20 +1,8 @@
 ﻿{
-  /**
-   * All action translations MUST be defined inside of the "Actions" object.
-   */
   "Actions": {
-    /**
-     * Action Groups
-     *   Each key here corresponds to the case-sensitive name of an action group.
-     */
     "AudioSessionActions": {
       "GroupName": { "Debug (/)": "TEST Session" },
 
-      /**
-       * Shared Action Settings
-       *   Each key in "SharedSettings" corresponds to the name of an action setting for at least one action method in this group.
-       *   Setting translations can also be defined for a specific action, which takes precedence over the settings defined here.
-       */
       "SharedSettings": {
         "Target Override(s)": {
           "Name": {
@@ -42,10 +30,6 @@
         }
       },
 
-      /**
-       * Action Methods
-       *   Each key here corresponds to the case-sensitive name of a method in this group.
-       */
       "VolumeUp": {
         "Name": {
           "Debug (/)": "TEST Volume Up"
@@ -174,6 +158,319 @@
         },
         "Description": {
           "Debug (/)": "TEST Toggles whether the current session is selected or not. Multiple sessions can be selected, but only one can be the current session."
+        }
+      }
+    },
+
+    "AudioDeviceActions": {
+      "GroupName": { "Debug (/)": "TEST Device" },
+
+      "SharedSettings": {
+        "Volume Step Override": {
+          "Name": {
+            "Debug (/)": "TEST Volume Step Override"
+          },
+          "Description": {
+            "Debug (/)": "TEST Overrides the global volume step for this action."
+          }
+        }
+      },
+
+      "VolumeUp": {
+        "Name": {
+          "Debug (/)": "TEST Volume Up"
+        },
+        "Description": {
+          "Debug (/)": "TEST Increases the volume of the selected device."
+        }
+      },
+      "VolumeDown": {
+        "Name": {
+          "Debug (/)": "TEST Volume Down"
+        },
+        "Description": {
+          "Debug (/)": "TEST Decreases the volume of the selected device."
+        }
+      },
+      "Mute": {
+        "Name": {
+          "Debug (/)": "TEST Mute"
+        },
+        "Description": {
+          "Debug (/)": "TEST Mutes the selected device."
+        }
+      },
+      "Unmute": {
+        "Name": {
+          "Debug (/)": "TEST Unmute"
+        },
+        "Description": {
+          "Debug (/)": "TEST Unmutes the selected device."
+        }
+      },
+      "ToggleMute": {
+        "Name": {
+          "Debug (/)": "TEST Toggle Mute"
+        },
+        "Description": {
+          "Debug (/)": "TEST Toggles the selected device's mute state."
+        }
+      },
+      "SelectNext": {
+        "Name": {
+          "Debug (/)": "TEST Select Next"
+        },
+        "Description": {
+          "Debug (/)": "TEST Selects the next device in the list."
+        }
+      },
+      "SelectPrevious": {
+        "Name": {
+          "Debug (/)": "TEST Select Previous"
+        },
+        "Description": {
+          "Debug (/)": "TEST Selects the previous device in the list."
+        }
+      },
+      "Deselect": {
+        "Name": {
+          "Debug (/)": "TEST Deselect"
+        },
+        "Description": {
+          "Debug (/)": "TEST Deselects the selected device."
+        }
+      },
+      "SelectDefault": {
+        "Name": {
+          "Debug (/)": "TEST Select Default"
+        },
+        "Description": {
+          "Debug (/)": "TEST Selects the default output device in the list."
+        }
+      },
+      "Lock": {
+        "Name": {
+          "Debug (/)": "TEST Lock"
+        },
+        "Description": {
+          "Debug (/)": "TEST Locks the selected device, preventing it from being changed."
+        }
+      },
+      "Unlock": {
+        "Name": {
+          "Debug (/)": "TEST Unlock"
+        },
+        "Description": {
+          "Debug (/)": "TEST Unlocks the selected device, allow it to be changed."
+        }
+      },
+      "ToggleLock": {
+        "Name": {
+          "Debug (/)": "TEST Toggle Lock"
+        },
+        "Description": {
+          "Debug (/)": "TEST Toggles whether the selected device can be changed or not."
+        }
+      }
+    },
+
+    "ActiveApplicationActions": {
+      "GroupName": { "Debug (/)": "TEST Active Application" },
+
+      "SharedSettings": {
+        "Select Session": {
+          "Name": {
+            "Debug (/)": "TEST Select Session"
+          },
+          "Description": {
+            "Debug (/)": "TEST Selects the session when the action is triggered."
+          }
+        },
+        "Volume Step Override": {
+          "Name": {
+            "Debug (/)": "TEST Volume Step Override"
+          },
+          "Description": {
+            "Debug (/)": "TEST Overrides the global volume step for this action."
+          }
+        }
+      },
+
+      "VolumeUp": {
+        "Name": {
+          "Debug (/)": "TEST Volume Up"
+        },
+        "Description": {
+          "Debug (/)": "TEST Increases the volume of the current foreground application."
+        }
+      },
+      "VolumeDown": {
+        "Name": {
+          "Debug (/)": "TEST Volume Down"
+        },
+        "Description": {
+          "Debug (/)": "TEST Decreases the volume of the current foreground application."
+        }
+      },
+      "Mute": {
+        "Name": {
+          "Debug (/)": "TEST Mute"
+        },
+        "Description": {
+          "Debug (/)": "TEST Mutes the current foreground application."
+        }
+      },
+      "Unmute": {
+        "Name": {
+          "Debug (/)": "TEST Unmute"
+        },
+        "Description": {
+          "Debug (/)": "TEST Unmutes the current foreground application."
+        }
+      },
+      "ToggleMute": {
+        "Name": {
+          "Debug (/)": "TEST Toggle Mute"
+        },
+        "Description": {
+          "Debug (/)": "TEST (Un)Mutes the current foreground application."
+        }
+      }
+    },
+
+    "ApplicationActions": {
+      "GroupName": { "Debug (/)": "TEST Application" },
+
+      "ToggleSessionNotifications": {
+        "Name": {
+          "Debug (/)": "TEST Toggle Session Notifications"
+        },
+        "Description": {
+          "Debug (/)": "TEST Toggles whether Session notifications are enabled."
+        }
+      },
+      "ToggleDeviceNotifications": {
+        "Name": {
+          "Debug (/)": "TEST Toggle Device Notifications"
+        },
+        "Description": {
+          "Debug (/)": "TEST Toggles whether Device notifications are enabled."
+        }
+      },
+      "BringToForeground": {
+        "Name": {
+          "Debug (/)": "TEST Bring to Foreground"
+        },
+        "Description": {
+          "Debug (/)": "TEST Moves the Volume Control window in front of all other windows."
+        }
+      },
+      "SendToBackground": {
+        "Name": {
+          "Debug (/)": "TEST Send to Background"
+        },
+        "Description": {
+          "Debug (/)": "TEST Moves the Volume Control window behind all other windows."
+        }
+      },
+      "Minimize": {
+        "Name": {
+          "Debug (/)": "TEST Minimize"
+        },
+        "Description": {
+          "Debug (/)": "TEST Hides the Volume Control window."
+        }
+      },
+      "Unminimize": {
+        "Name": {
+          "Debug (/)": "TEST Unminimize"
+        },
+        "Description": {
+          "Debug (/)": "TEST Shows the Volume Control window."
+        }
+      }
+    },
+
+    "MediaActions": {
+      "GroupName": { "Debug (/)": "TEST Media" },
+
+      "NextTrack": {
+        "Name": {
+          "Debug (/)": "TEST Next Track"
+        },
+        "Description": {
+          "Debug (/)": "TEST Switches media playback to the next track."
+        }
+      },
+      "PreviousTrack": {
+        "Name": {
+          "Debug (/)": "TEST Previous Track"
+        },
+        "Description": {
+          "Debug (/)": "TEST Switches media playback to the previous track."
+        }
+      },
+      "TogglePlayback": {
+        "Name": {
+          "Debug (/)": "TEST Toggle Playback"
+        },
+        "Description": {
+          "Debug (/)": "TEST Toggles media playback."
+        }
+      },
+      "StopPlayback": {
+        "Name": {
+          "Debug (/)": "TEST Stop Playback"
+        },
+        "Description": {
+          "Debug (/)": "TEST Stops media playback."
+        }
+      }
+    },
+
+    "SystemActions": {
+      "GroupName": { "Debug (/)": "TEST System" },
+
+      "StartProcess": {
+        "Name": {
+          "Debug (/)": "TEST Start Process"
+        },
+        "Description": {
+          "Debug (/)": "TEST Starts the specified process."
+        },
+        "Settings": {
+          "FileName": {
+            "Name": {
+              "Debug (/)": "TEST FileName"
+            },
+            "Description": {
+              "Debug (/)": "TEST The absolute or relative path of the target file."
+            }
+          },
+          "Working Directory": {
+            "Name": {
+              "Debug (/)": "TEST Working Directory"
+            },
+            "Description": {
+              "Debug (/)": "TEST The working directory to execute the command from."
+            }
+          },
+          "Arguments": {
+            "Name": {
+              "Debug (/)": "TEST Arguments"
+            },
+            "Description": {
+              "Debug (/)": "TEST Commandline arguments to run the program with."
+            }
+          },
+          "Message on Error": {
+            "Name": {
+              "Debug (/)": "TEST Message on Error"
+            },
+            "Description": {
+              "Debug (/)": "TEST Shows a messagebox if an error occurs while starting the process."
+            }
+          }
         }
       }
     }
