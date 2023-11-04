@@ -1,4 +1,4 @@
-; NOTES:
+﻿; NOTES:
 ;  - Prior to compiling this file, run "git clone https://github.com/DomGries/InnoDependencyInstaller"
 ;  - AppVersion must be defined on the commandline with /dAppVersion=""
 
@@ -11,7 +11,6 @@
 #define AppName                             "Volume Control"
 #define AppPublisher                        "radj307"
 #define CurrentYear                         GetDateTimeString('yyyy','','')
-#define StartYearCopyright                  "2022"
 #define AppURL                              "https://github.com/radj307/volume-control"
 #define AppExeName                          "VolumeControl.exe"
 #define AppMutex                            "VolumeControlSingleInstance"
@@ -24,7 +23,7 @@ AppName={#AppName}
 AppVersion={#AppVersion}
 AppVerName={#AppName} {#AppVersion}
 
-AppCopyright=© {#StartYearCopyright}-{#CurrentYear} {#AppPublisher}
+AppCopyright=Copyright © {#CurrentYear} {#AppPublisher}
 AppPublisherURL={#AppURL}
 AppSupportURL={#AppURL}
 AppUpdatesURL={#AppURL}
