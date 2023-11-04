@@ -27,7 +27,7 @@ namespace VolumeControl.Core
         /// <returns><see langword="true"/> when the <paramref name="valueType"/> is supported and this instance is not explicit; otherwise <see langword="false"/>.</returns>
         public bool SupportsValueType(Type valueType)
         {
-            if (IsExplicit) return false;
+            if (IsExplicit || ValueType == null) return false;
 
             return ValueType.IsAssignableFrom(valueType);
         }
