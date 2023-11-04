@@ -574,7 +574,7 @@
           "Italiano (Italian)": "Sei sicuro di voler eliminare il tasto scelta rapida ${ID}?\n\n- 'Sì' elimina il tasto scelta rapida.\n- 'No' non elimina il tasto scelta rapida.\n- 'Annulla' disabilita queste richieste di conferma in futuro (non elimina il tasto di scelta rapida).\n"
         },
         "Caption": {
-            "Italiano (Italian)": "Conferma rimozione"
+          "Italiano (Italian)": "Conferma rimozione"
         }
       },
       "MultiInstanceChanged": {
@@ -753,7 +753,7 @@
       "ForwardSlash": { "Italiano (Italian)": "Slash" },
       "Grave": { "Italiano (Italian)": "Grave" },
       "OpenBracket": { "Italiano (Italian)": "ParenetsiAperta" },
-      "BackSlash": { "Italiano (Italian)": "Backslash"},
+      "BackSlash": { "Italiano (Italian)": "Backslash" },
       "CloseBracket": { "Italiano (Italian)": "ParentesiChiusa" },
       "Quote": { "Italiano (Italian)": "Virgolette" },
       "Oem8": { "Italiano (Italian)": "Oem8" },
@@ -776,6 +776,30 @@
       "ImeAccept": { "Italiano (Italian)": "ImeAccetta" },
       "ImeModeChange": { "Italiano (Italian)": "ImemCambiaModo" }
 
+    }
+  },
+
+  "DefaultHotkeyNames": {
+    "Volume Up": {
+      "Italiano (Italian)": "Volume +"
+    },
+    "Volume Down": {
+      "Italiano (Italian)": "Volume -"
+    },
+    "Toggle Mute": {
+      "Italiano (Italian)": "Audio OFF/ON"
+    },
+    "Next Session": {
+      "Italiano (Italian)": "Sessione successiva"
+    },
+    "Previous Session": {
+      "Italiano (Italian)": "Sessione precedente"
+    },
+    "Un/Lock Session": {
+      "Italiano (Italian)": "Sblocca/blocca sessione"
+    },
+    "Toggle Selected": {
+      "Italiano (Italian)": "Selezionati ON/OFF"
     }
   }
 }
