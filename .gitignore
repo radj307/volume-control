@@ -35,3 +35,4 @@ publish/
 /*.nupkg
 InnoDependencyInstaller/
 /VolumeControl.SDK.xml
+/*.xml
