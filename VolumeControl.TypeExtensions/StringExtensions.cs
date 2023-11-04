@@ -10,7 +10,16 @@ namespace VolumeControl.TypeExtensions
         /// <summary>
         /// Parses a string containing a version number in semantic versioning 2 format.
         /// </summary>
-        public static SemVersion? GetSemVer(this string? s) => s is null ? null : SemVersion.TryParse(s.Trim(), SemVersionStyles.OptionalPatch, out SemVersion result) ? result : null;
+        public static SemVersion? GetSemVer(this string? s)
+        {
+            if (string.IsNullOrWhiteSpace(s)) return null;
+
+            if (SemVersion.TryParse(s.Trim(), SemVersionStyles.OptionalPatch, out SemVersion result))
+            {
+                return result;
+            }
+            return null;
+        }
         /// <summary>
         /// Removes all chars that <paramref name="pred"/> returns true for.
         /// </summary>

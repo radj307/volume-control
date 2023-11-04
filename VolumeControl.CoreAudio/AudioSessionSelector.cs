@@ -34,7 +34,7 @@ namespace VolumeControl.CoreAudio
         #endregion Fields
 
         #region Properties
-        private static Config Settings => (Config.Default as Config)!;
+        private static Config Settings => Config.Default!;
         AudioSessionManager AudioSessionManager { get; }
         /// <summary>
         /// Gets or the sets the selected item.

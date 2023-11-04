@@ -20,7 +20,7 @@ namespace VolumeControl.ViewModels
         #endregion Fields
 
         #region Properties
-        private static Config Settings => (Config.Default as Config)!;
+        private static Config Settings => Config.Default!;
         #endregion Properties
 
         #region EventHandlers

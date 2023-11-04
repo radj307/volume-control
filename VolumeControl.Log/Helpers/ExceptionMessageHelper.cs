@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace VolumeControl.Log.Helpers

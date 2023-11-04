@@ -344,6 +344,8 @@ namespace VolumeControl
 #if DEBUG
             // show all log message types in debug mode
             FLog.Log.EventTypeFilter = EventType.DEBUG | EventType.INFO | EventType.WARN | EventType.ERROR | EventType.FATAL | EventType.TRACE;
+            // open the log file in debug mode
+            ShellHelper.OpenWithDefault(Settings.LogPath);
 #endif
 
             // write commandline arguments to the log if they were specified
@@ -352,7 +354,7 @@ namespace VolumeControl
                 var msg = new LogMessage(EventType.INFO, $"Commandline arguments were included:");
                 for (int i = 0, i_max = args.Length; i < i_max; ++i)
                 {
-                    msg.AppendLine($" [{i}] \"{args[i]}\"");
+                    msg.Add($" [{i}] \"{args[i]}\"");
                 }
                 FLog.LogMessage(msg);
             }

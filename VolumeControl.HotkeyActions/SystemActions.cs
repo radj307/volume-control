@@ -2,7 +2,6 @@
 using System.Text;
 using System.Windows;
 using VolumeControl.Core.Attributes;
-using VolumeControl.Core.Helpers;
 using VolumeControl.Core.Input;
 using VolumeControl.Log;
 

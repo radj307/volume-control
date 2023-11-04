@@ -1,7 +1,6 @@
 ﻿using Semver;
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Management;
 using VolumeControl.Core;
 using VolumeControl.Helpers.Win32;

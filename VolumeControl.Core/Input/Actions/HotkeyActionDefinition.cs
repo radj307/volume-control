@@ -77,6 +77,10 @@ namespace VolumeControl.Core.Input.Actions
         /// <summary>
         /// Gets the method info for the action method that this action represents.
         /// </summary>
+        /// <remarks>
+        /// <b>Do not use this to invoke the method!</b><br/>
+        /// Use <see cref="HotkeyActionInstance.Invoke(object, HotkeyPressedEventArgs)"/> instead!
+        /// </remarks>
         public MethodInfo ActionMethodInfo { get; }
         #endregion Reflection
 
@@ -166,14 +170,14 @@ namespace VolumeControl.Core.Input.Actions
         /// </remarks>
         /// <param name="parameters">Parameters to invoke the method with. These must match the parameters accepted by the actual method.</param>
         /// <returns>The return value from <see cref="ActionMethodInfo"/>.</returns>
-        public object? Invoke_Unsafe(params object?[] parameters)
+        private object? Invoke_Unsafe(object?[] parameters)
             => ActionMethodInfo.Invoke(ActionGroupInstance, parameters);
         /// <summary>
         /// Directly invokes the method specified by <see cref="ActionMethodInfo"/> with the parameters expected by <see cref="HotkeyPressedEventHandler"/>.
         /// </summary>
         /// <inheritdoc cref="Invoke_Unsafe(object?[])"/>
-        public object? Invoke_Unsafe(object? sender, IActionSettingInstance[] actionSettings)
-            => Invoke_Unsafe(sender, new HotkeyPressedEventArgs(actionSettings));
+        internal object? Invoke_Unsafe(object sender, HotkeyPressedEventArgs e)
+            => Invoke_Unsafe(new[] { sender, e });
         #endregion Invoke_Unsafe
 
         #region GetActionSettingDefinition

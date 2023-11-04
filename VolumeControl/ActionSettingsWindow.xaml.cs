@@ -30,7 +30,14 @@ namespace VolumeControl
 
             // init window properties
             Owner = owner;
-            Title = hotkey.Hotkey.Name;
+            var hotkeyName = hotkey.Hotkey.Name;
+            var hasName = !string.IsNullOrWhiteSpace(hotkeyName);
+            var actionIdentifier = hotkey.ActionDefinition!.Identifier;
+            if (hasName)
+            {
+                Title = hotkeyName + $" ({actionIdentifier})";
+            }
+            else Title = actionIdentifier;
         }
         #endregion Initializers
 

@@ -1,6 +1,5 @@
 ﻿using CodingSeb.Localization;
 using System;
-using System.Collections.Generic;
 
 namespace VolumeControl.Controls
 {
@@ -12,7 +11,7 @@ namespace VolumeControl.Controls
 
             _notifyIcon.Icon = Properties.Resources.iconSilvered;
 
-            this.Items.AddRange(new List<System.Windows.Forms.ToolStripItem>()
+            this.Items.AddRange(new System.Windows.Forms.ToolStripItem[]
             { // TOOLSTRIP:
                 new System.Windows.Forms.ToolStripButton(GetShowText(), Properties.Resources.foreground, this.HandleShowHideClick),
                 new System.Windows.Forms.ToolStripButton(GetBringToFrontText(), Properties.Resources.bringtofront, this.HandleBringToFrontClick),
@@ -25,7 +24,7 @@ namespace VolumeControl.Controls
                 new System.Windows.Forms.ToolStripButton(GetOpenAppDataText(), Properties.Resources.file_inverted, this.HandleOpenAppDataClick),
                 new System.Windows.Forms.ToolStripButton(GetOpenLocationText(), Properties.Resources.file, this.HandleOpenLocationClick),
                 new System.Windows.Forms.ToolStripButton(GetCloseText(), Properties.Resources.X, this.HandleCloseClicked),
-            }.ToArray());
+            });
 
             Loc.Instance.CurrentLanguageChanged += this.Handle_CurrentLanguageChanged;
             _contextMenuStrip.VisibleChanged += this.Handle_ContextMenuVisibilityChanged;

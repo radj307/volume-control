@@ -7,12 +7,10 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using VolumeControl.Core;
 using VolumeControl.Core.Enum;
-using VolumeControl.Core.Extensions;
 using VolumeControl.Core.Input;
 using VolumeControl.Core.Input.Enums;
 using VolumeControl.Helpers;
@@ -194,10 +192,7 @@ namespace VolumeControl
         }
         private void Handle_OpenLogClick(object sender, RoutedEventArgs e)
         {
-            Process.Start(new ProcessStartInfo(VCSettings.LogFilePath)
-            {
-                UseShellExecute = true
-            })?.Dispose();
+            ShellHelper.OpenWithDefault(VCSettings.LogFilePath);
         }
         private void Handle_TargetNameBoxDoubleClick(object sender, MouseButtonEventArgs e)
         {

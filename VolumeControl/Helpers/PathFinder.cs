@@ -15,10 +15,13 @@ namespace VolumeControl.Helpers
         /// <summary>
         /// The absolute filepath of Volume Control's local appdata subdirectory.
         /// </summary>
+        /// <remarks>
+        /// <c>~/AppData/Local/radj307/VolumeControl</c>
+        /// </remarks>
         public static string ApplicationAppDataPath => _localAppData ??= FindLocalAppDataConfigDir();
         private static string? _localAppData = null;
         public static string ExecutableDirectory => _executableDirectory ??= FindExecutableDirectory();
-            private static string? _executableDirectory = null;
+        private static string? _executableDirectory = null;
         #endregion Properties
 
         #region Functions

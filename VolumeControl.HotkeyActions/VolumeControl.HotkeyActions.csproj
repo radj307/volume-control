@@ -25,6 +25,5 @@
     <ProjectReference Include="..\VolumeControl.CoreAudio\VolumeControl.CoreAudio.csproj" />
     <ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
     <ProjectReference Include="..\VolumeControl.SDK\VolumeControl.SDK.csproj" />
-    <ProjectReference Include="..\VolumeControl.TypeExtensions\VolumeControl.TypeExtensions.csproj" />
   </ItemGroup>
 </Project>

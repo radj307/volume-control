@@ -135,7 +135,7 @@
         public static bool IsSingleValue<T>(this T e) where T : struct, Enum
         {
             var e_v = Convert.ToInt64(e);
-            
+
             return e_v == 0 || (e_v & (e_v - 1)) == 0;
         }
     }

@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using VolumeControl.Core;
 using VolumeControl.Core.Input;
-using VolumeControl.Core.Input.Actions;
 using VolumeControl.CoreAudio;
 using VolumeControl.Helpers;
 using VolumeControl.Helpers.Update;
 using VolumeControl.Log;
 using VolumeControl.SDK;
 using VolumeControl.SDK.Internal;
-using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.ViewModels
 {
@@ -87,7 +84,6 @@ namespace VolumeControl.ViewModels
         /// </summary>
         public IEnumerable<string> AudioSessionProcessIdentifierAutocompleteSource { get; private set; } = null!;
         public IEnumerable<string> AudioSessionProcessNameAutocompleteSource { get; private set; } = null!;
-        public IEnumerable<string> AddonDirectories { get; set; } = GetAddonDirectories();
         public IReadOnlyList<ActionVM> Actions => _actions;
         private readonly List<ActionVM> _actions = new();
         #endregion Other
@@ -129,37 +125,6 @@ namespace VolumeControl.ViewModels
 
                 FLog.Info("Hotkey definitions were reset to default.");
             }
-        }
-        private static List<string> GetAddonDirectories()
-        {
-            List<string> l = new();
-            // check default path:
-            string defaultPath = Path.Combine(PathFinder.ApplicationAppDataPath, "Addons");
-            if (Directory.Exists(defaultPath))
-                _ = l.AddIfUnique(defaultPath);
-            // check custom directories:
-            if (Settings.CustomAddonDirectories is not null)
-            {
-                foreach (string? path in Settings.CustomAddonDirectories)
-                {
-                    if (path is null) continue;
-                    if (Directory.Exists(path))
-                    {
-                        _ = l.AddIfUnique(path);
-                        FLog.Debug($"Successfully added custom addon search directory '{path}'");
-                    }
-                    else
-                    {
-                        FLog.Debug($"'{nameof(Settings.CustomAddonDirectories)}' contains an item that wasn't found: '{path}'!");
-                    }
-                }
-            }
-            else
-            {
-                FLog.Debug($"{nameof(Settings.CustomAddonDirectories)} is null.");
-            }
-
-            return l;
         }
         /// <summary>
         /// Refreshes the list of auto completion options for the target box.
