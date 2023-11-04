@@ -276,6 +276,7 @@ namespace VolumeControl
             try
             {
                 Console.Out.WriteLine("Application is starting.");
+                Console.Out.WriteLine($"Working directory: \"{Environment.CurrentDirectory}\"");
 
                 return Main_Impl(args);
             }
