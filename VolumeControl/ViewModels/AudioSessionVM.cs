@@ -6,7 +6,6 @@ using System.Windows.Media;
 using VolumeControl.CoreAudio;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
-using VolumeControl.WPF;
 
 namespace VolumeControl.ViewModels
 {
@@ -35,6 +34,10 @@ namespace VolumeControl.ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         #endregion Events
+
+        #region Fields
+        private bool _isSelectedChanging;
+        #endregion Fields
 
         #region Properties
         AudioDeviceManagerVM AudioDeviceManagerVM { get; }
@@ -103,16 +106,9 @@ namespace VolumeControl.ViewModels
         }
         #endregion Methods
 
-        #region IDisposable Implementation
-        public void Dispose()
-        {
-            ((IDisposable)this.AudioSession).Dispose();
-            _icon = null;
-            GC.SuppressFinalize(this);
-        }
-        #endregion IDisposable Implementation
+        #region EventHandlers
 
-        private bool _isSelectedChanging;
+        #region AudioSessionMultiSelector
         private void AudioSessionMultiSelector_SessionSelected_SessionDeselected(object? sender, AudioSession e)
         {
             if (_isSelectedChanging) return; //< don't update if the source is this object
@@ -122,5 +118,18 @@ namespace VolumeControl.ViewModels
                 NotifyPropertyChanged(nameof(IsSelected));
             }
         }
+        #endregion AudioSessionMultiSelector
+
+        #endregion EventHandlers
+
+        #region IDisposable Implementation
+        ~AudioSessionVM() => Dispose();
+        public void Dispose()
+        {
+            ((IDisposable)this.AudioSession).Dispose();
+            _icon = null;
+            GC.SuppressFinalize(this);
+        }
+        #endregion IDisposable Implementation
     }
 }

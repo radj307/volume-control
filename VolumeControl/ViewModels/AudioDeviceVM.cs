@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using VolumeControl.CoreAudio;
-using VolumeControl.WPF;
 
 namespace VolumeControl.ViewModels
 {
@@ -42,10 +41,10 @@ namespace VolumeControl.ViewModels
         private ImageSource? _icon = null;
         public string Name => AudioDevice.Name;
         public string DeviceFriendlyName => AudioDevice.FullName;
-        //public ObservableImmutableList<AudioSessionVM> Sessions { get; }
         #endregion Properties
 
         #region IDisposable Implementation
+        ~AudioDeviceVM() => Dispose();
         public void Dispose()
         {
             this.AudioDevice.Dispose();
@@ -53,22 +52,5 @@ namespace VolumeControl.ViewModels
             GC.SuppressFinalize(this);
         }
         #endregion IDisposable Implementation
-
-        #region EventHandlers
-
-        #region SessionManager
-        //private void SessionManager_SessionAddedToList(object? sender, AudioSession e)
-        //{
-        //    Sessions.Add(new AudioSessionVM(e));
-        //}
-        //private void SessionManager_SessionRemovedFromList(object? sender, AudioSession e)
-        //{
-        //    var vm = Sessions.First(svm => svm.AudioSession.Equals(e));
-        //    Sessions.Remove(vm);
-        //    vm.Dispose();
-        //}
-        #endregion SessionManager
-
-        #endregion EventHandlers
     }
 }
