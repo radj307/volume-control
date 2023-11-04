@@ -3,26 +3,26 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <ErrorReport>none</ErrorReport>
-    <Description>Official Addon development SDK for the Volume Control application.</Description>
+    <Description>Official Addon SDK for the Volume Control application.</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageTags>volume-control;VolumeControl;volume-control-sdk</PackageTags>
-    <RepositoryType>git</RepositoryType>
+    <PackageTags>volume-control;VolumeControl;volume-control-sdk;VolumeControl.SDK</PackageTags>
     <RepositoryUrl>https://github.com/radj307/volume-control</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>iconSilvered.png</PackageIcon>
     <PackageProjectUrl>https://radj307.github.io/volume-control/html/index.html</PackageProjectUrl>
     <Authors>radj307</Authors>
-    <Copyright>Copyright © 2023 by $(Authors)</Copyright>
     <NeutralLanguage>en-CA</NeutralLanguage>
     <PackageReleaseNotes>Full Changelog: https://github.com/radj307/volume-control/commits/main</PackageReleaseNotes>
-    <FileVersion>6.5.0</FileVersion>
-    <Version>6.5.0</Version>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
     <UseWPF>true</UseWPF>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <FileVersion>6.5.0</FileVersion>
+    <Version>6.5.0</Version>
+    <Copyright>Copyright © 2023 by $(Authors)</Copyright>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\README.md">

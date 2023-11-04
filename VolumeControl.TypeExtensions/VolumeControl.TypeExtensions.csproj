@@ -1,24 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFramework>net6.0-windows</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<UseWindowsForms>true</UseWindowsForms>
-		<UseWPF>true</UseWPF>
-		<IncludeSymbols>true</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<Authors>radj307</Authors>
-		<Copyright>Copyright © 2022 by $(Authors)</Copyright>
-		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
-	</PropertyGroup>
-	
-	<ItemGroup>
-		<PackageReference Include="Semver" Version="2.3.0" />
-		<PackageReference Include="System.Management" Version="7.0.2" />
-	</ItemGroup>
-	
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	  <Exec Command="echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).pdb&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).xml&quot; &quot;..\publish\SDK\&quot;" />
-	</Target>
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <Authors>radj307</Authors>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>../$(MSBuildProjectName).xml</DocumentationFile>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <Version>6.5.0</Version>
+    <FileVersion>6.5.0</FileVersion>
+    <Copyright>Copyright © 2023 by $(Authors)</Copyright>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Semver" Version="2.3.0" />
+    <PackageReference Include="System.Management" Version="7.0.2" />
+  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).pdb&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).xml&quot; &quot;..\publish\SDK\&quot;" />
+  </Target>
 </Project>

@@ -11,13 +11,20 @@ param(
     [Parameter(ValueFromRemainingArguments=$true)][String[]]$PropertySetters
 )
 
+function Add-XMLAttribute([System.Xml.XmlNode] $Node, $Name, $Value)
+{
+    $attrib = $Node.OwnerDocument.CreateAttribute($Name)
+    $attrib.Value = $Value
+    $Node.Attributes.Append($attrib)
+}
+
 # Resolve Path
 $Path = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($(Get-Location), $Path))
 
 "Reading '$Path'"
 
 # Read XML file
-[xml]$CONTENT = Get-Content -Path "$Path"
+[xml]$CONTENT = New-Object xml ; $CONTENT.Load("$Path")
 
 # doing this prevents failure when there are multiple PropertyGroup nodes:
 $TARGET_NODE = $CONTENT.SelectSingleNode("//Project/PropertyGroup")
@@ -26,15 +33,24 @@ foreach ($SETTER in $PropertySetters)
 {
     $v = $SETTER -split "=",2
 
-    $previousValue = $TARGET_NODE."$($v[0])"
+    $nodeName = "$($v[0])"
+
+    $previousValue = $TARGET_NODE.$nodeName
     if ($v[1] -eq $previousValue)
     {
         "$($v[0]) was already set to $previousValue"
         continue
     }
 
-    # Set the property
-    $TARGET_NODE."$($v[0])" = $v[1]
+    if ($null -eq $previousValue)
+    { # Create the element if it doesn't exist
+        $newNode = $CONTENT.CreateElement($nodeName)
+        $TARGET_NODE.AppendChild($newNode).InnerText = $v[1]
+    }
+    else
+    { # Set the existing element
+        $TARGET_NODE.$nodeName = $v[1]
+    }
     
     if ($previousValue.Length -eq 0) {
         "Set $($v[0]) to $($v[1])"
