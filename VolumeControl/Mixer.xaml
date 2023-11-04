@@ -1764,7 +1764,7 @@
                                                                  DefaultText='Specifies the location and name of the log file. Relative paths are relative to the location of the executable.'}">
                                                     <i:Interaction.Behaviors>
                                                         <wpfBehaviors:TextBoxEnterUpdatesTextSourceBehavior />
-                                                        <wpfBehaviors:HorizontalScrollBehavior Magnitude="0.33" />
+                                                        <wpfBehaviors:TextBoxHorizontalScrollBehavior Magnitude="0.33" />
                                                     </i:Interaction.Behaviors>
                                                     <TextBox.Style>
                                                         <Style BasedOn="{StaticResource TextBoxStyle}" TargetType="{x:Type TextBox}">

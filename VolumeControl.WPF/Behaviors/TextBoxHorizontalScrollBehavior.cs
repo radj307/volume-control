@@ -5,12 +5,19 @@ using System.Windows.Input;
 
 namespace VolumeControl.WPF.Behaviors
 {
-    public class HorizontalScrollBehavior : Behavior<TextBoxBase>
+    /// <summary>
+    /// Scrolls horizontally when scrolling while holding SHIFT in <see cref="TextBoxBase"/> controls.
+    /// </summary>
+    public class TextBoxHorizontalScrollBehavior : Behavior<TextBoxBase>
     {
+        #region MagnitudeProperty
+        /// <summary>
+        /// The <see cref="DependencyProperty"/> for <see cref="Magnitude"/>.
+        /// </summary>
         public static readonly DependencyProperty MagnitudeProperty = DependencyProperty.Register(
             nameof(Magnitude),
             typeof(double),
-            typeof(HorizontalScrollBehavior),
+            typeof(TextBoxHorizontalScrollBehavior),
             new PropertyMetadata(0.33));
         /// <summary>
         /// The magnitude modifier that controls the scroll distance. 1.0 is full strength, 0.0 is none.
@@ -20,20 +27,26 @@ namespace VolumeControl.WPF.Behaviors
             get => (double)GetValue(MagnitudeProperty);
             set => SetValue(MagnitudeProperty, value);
         }
+        #endregion MagnitudeProperty
 
+        #region Behavior Method Overrides
+        /// <inheritdoc/>
         protected override void OnAttached()
         {
             base.OnAttached();
 
             AssociatedObject.PreviewMouseWheel += this.AssociatedObject_PreviewMouseWheel;
         }
+        /// <inheritdoc/>
         protected override void OnDetaching()
         {
             base.OnDetaching();
 
             AssociatedObject.PreviewMouseWheel -= this.AssociatedObject_PreviewMouseWheel;
         }
+        #endregion Behavior Method Overrides
 
+        #region EventHandlers
         private void AssociatedObject_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
@@ -42,5 +55,6 @@ namespace VolumeControl.WPF.Behaviors
                 e.Handled = true;
             }
         }
+        #endregion EventHandlers
     }
 }
