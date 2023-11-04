@@ -1,9 +1,11 @@
-﻿namespace VolumeControl.Log
+﻿using System.Collections;
+
+namespace VolumeControl.Log
 {
     /// <summary>
     /// Represents a message to be written to the log.
     /// </summary>
-    public sealed class LogMessage
+    public sealed class LogMessage : IEnumerable<object?>, IEnumerable
     {
         #region Constructor
         /// <summary>
@@ -61,7 +63,7 @@
         /// Appends the specified <paramref name="line"/> to the message.
         /// </summary>
         /// <param name="line">The content of the line.</param>
-        public void AppendLine(object? line)
+        public void Add(object? line)
         {
             Lines.Add(line);
         }
@@ -71,5 +73,10 @@
 
         #endregion Methods
 
+        #region IEnumerable<object?>
+        /// <inheritdoc/>
+        public IEnumerator<object?> GetEnumerator() => ((IEnumerable<object?>)this.Lines).GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)this.Lines).GetEnumerator();
+        #endregion
     }
 }
