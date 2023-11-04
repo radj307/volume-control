@@ -164,9 +164,6 @@ namespace VolumeControl.CoreAudio
         /// Unlike the SessionIdentifier, each SessionInstanceIdentifier is guaranteed to be unique to this <see cref="AudioSession"/> instance.
         /// </remarks>
         public string SessionInstanceIdentifier => AudioSessionControl.SessionInstanceIdentifier;
-        #endregion Properties
-
-        #region IAudioControl Implementation
         /// <inheritdoc/>
         public float NativeVolume
         {
@@ -183,6 +180,7 @@ namespace VolumeControl.CoreAudio
                 isNotifying = true;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(Volume));
+                NotifyVolumeChanged(value, Mute);
                 isNotifying = false;
             }
         }
@@ -190,15 +188,7 @@ namespace VolumeControl.CoreAudio
         public int Volume
         {
             get => VolumeLevelConverter.FromNativeVolume(NativeVolume);
-            set
-            {
-                NativeVolume = VolumeLevelConverter.ToNativeVolume(value);
-                if (isNotifying) return; //< don't duplicate propertychanged notifications
-                isNotifying = true;
-                NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(NativeVolume));
-                isNotifying = false;
-            }
+            set => NativeVolume = VolumeLevelConverter.ToNativeVolume(value);
         }
         /// <inheritdoc/>
         public bool Mute
@@ -208,9 +198,10 @@ namespace VolumeControl.CoreAudio
             {
                 SimpleAudioVolume.Mute = value;
                 NotifyPropertyChanged();
+                NotifyVolumeChanged(NativeVolume, value);
             }
         }
-        #endregion IAudioControl Implementation
+        #endregion Properties
 
         #region IVolumePeakMeter Implementation
         /// <inheritdoc/>
