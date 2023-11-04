@@ -1,396 +1,396 @@
-﻿{
+﻿﻿{
   "Actions": {
     // Audio Session Actions
     "AudioSessionActions": {
-      "GroupName": { "Italiano (Italian)": "Session" },
+      "GroupName": { "Italiano (Italian)": "Sessione" },
 
       "SharedSettings": {
         "Target Override(s)": {
           "Name": {
-            "Italiano (Italian)": "Target Override(s)"
+            "Italiano (Italian)": "Sostituzioni destinazione"
           },
           "Description": {
-            "Italiano (Italian)": "Causes this action to only affect the specified audio sessions."
+            "Italiano (Italian)": "Fa sì che questa azione abbia effetto solo sulle sessioni audio specificate."
           }
         },
         "Select Target Override(s)": {
           "Name": {
-            "Italiano (Italian)": "Select Target Override(s)"
+            "Italiano (Italian)": "Seleziona sostituzione/i destinazione"
           },
           "Description": {
-            "Italiano (Italian)": "Selects the target override sessions when the action is triggered."
+            "Italiano (Italian)": "Seleziona sessioni sostituzione destinazione quando viene attivata l'azione."
           }
         },
         "Volume Step Override": {
           "Name": {
-            "Italiano (Italian)": "Volume Step Override"
+            "Italiano (Italian)": "Sovrascrittura step volume"
           },
           "Description": {
-            "Italiano (Italian)": "Overrides the global volume step for this action."
+            "Italiano (Italian)": "Sovrascrivi step globali volume per questa zione."
           }
         }
       },
 
       "VolumeUp": {
         "Name": {
-          "Italiano (Italian)": "Volume Up"
+          "Italiano (Italian)": "Volume +"
         },
         "Description": {
-          "Italiano (Italian)": "Increases the volume of the session(s)."
+          "Italiano (Italian)": "Aumenta il volume delle sessioni."
         }
       },
       "VolumeDown": {
         "Name": {
-          "Italiano (Italian)": "Volume Down"
+          "Italiano (Italian)": "Volume -"
         },
         "Description": {
-          "Italiano (Italian)": "Decreases the volume of the session(s)."
+          "Italiano (Italian)": "Diminuisce il volume delle sessioni."
         }
       },
       "SetVolume": {
         "Name": {
-          "Italiano (Italian)": "Set Volume"
+          "Italiano (Italian)": "Imposta volume"
         },
         "Description": {
-          "Italiano (Italian)": "Sets the volume and/or mute state of the session(s)."
+          "Italiano (Italian)": "Imposta volume e/o stato disattivazione audio delle sessioni."
         },
         "Settings": {
           "Volume Level": {
             "Name": {
-              "Italiano (Italian)": "Volume Level"
+              "Italiano (Italian)": "Livello volume"
             },
             "Description": {
-              "Italiano (Italian)": "The volume level to set the target session(s) to."
+              "Italiano (Italian)": "Il livello del volume su cui impostare le sessioni destinazione."
             }
           },
           "Mute State": {
             "Name": {
-              "Italiano (Italian)": "Mute State"
+              "Italiano (Italian)": "Stato audio off"
             },
             "Description": {
-              "Italiano (Italian)": "The mute state to set the target session(s) to."
+              "Italiano (Italian)": "Lo stato audio off in cui impostare le sessioni destinazione."
             }
           },
           "Target All Sessions": {
             "Name": {
-              "Italiano (Italian)": "Target All Sessions"
+              "Italiano (Italian)": "Destinazione di tutte le sessioni"
             },
             "Description": {
-              "Italiano (Italian)": "Ignores the target override(s) and applies the action to all audio sessions when checked."
+              "Italiano (Italian)": "Quando selezionata ignora le sostituzioni destinazione e applica l'azione a tutte le sessioni audio."
             }
           }
         }
       },
       "Mute": {
         "Name": {
-          "Italiano (Italian)": "Mute"
+          "Italiano (Italian)": "Audio off"
         },
         "Description": {
-          "Italiano (Italian)": "Mutes the session(s)."
+          "Italiano (Italian)": "Audio off per le sessioni."
         }
       },
       "Unmute": {
         "Name": {
-          "Italiano (Italian)": "Unmute"
+          "Italiano (Italian)": "Audio on"
         },
         "Description": {
-          "Italiano (Italian)": "Unmutes the session(s)."
+          "Italiano (Italian)": "audio on per le sessioni."
         }
       },
       "ToggleMute": {
         "Name": {
-          "Italiano (Italian)": "Toggle Mute"
+          "Italiano (Italian)": "Attiva/disattiva audio off"
         },
         "Description": {
-          "Italiano (Italian)": "Toggles the mute state of the session(s)."
+          "Italiano (Italian)": "Attiva/disattiva stato audio off delle sessioni."
         }
       },
       "SelectNext": {
         "Name": {
-          "Italiano (Italian)": "Select Next"
+          "Italiano (Italian)": "Seleziona successiva"
         },
         "Description": {
-          "Italiano (Italian)": "Changes the current session to the next session in the list."
+          "Italiano (Italian)": "Cambia nell'elenco la sessione attuale con la sessione successiva."
         }
       },
       "SelectPrevious": {
         "Name": {
-          "Italiano (Italian)": "Select Previous"
+          "Italiano (Italian)": "Seleziona precedente"
         },
         "Description": {
-          "Italiano (Italian)": "Changes the current session to the previous session in the list."
+          "Italiano (Italian)": "Cambia nell'elenco la sessione attuale con la sessione precedente."
         }
       },
       "Deselect": {
         "Name": {
-          "Italiano (Italian)": "Deselect"
+          "Italiano (Italian)": "Deseleziona"
         },
         "Description": {
-          "Italiano (Italian)": "Unsets the current session."
+          "Italiano (Italian)": "Deseleziona la sessione attuale."
         }
       },
       "Lock": {
         "Name": {
-          "Italiano (Italian)": "Lock"
+          "Italiano (Italian)": "Blocca"
         },
         "Description": {
-          "Italiano (Italian)": "Locks the current session to prevent it from being changed."
+          "Italiano (Italian)": "Blocca la sessione attuale per impedirne la modifica."
         }
       },
       "Unlock": {
         "Name": {
-          "Italiano (Italian)": "Unlock"
+          "Italiano (Italian)": "Sblocca"
         },
         "Description": {
-          "Italiano (Italian)": "Unlocks the current session, allowing it to be changed again."
+          "Italiano (Italian)": "Sblocca la sessione attuale, consentendone la successiva modifica."
         }
       },
       "ToggleLock": {
         "Name": {
-          "Italiano (Italian)": "Toggle Lock"
+          "Italiano (Italian)": "Abilita/disabilita blocco"
         },
         "Description": {
-          "Italiano (Italian)": "Toggles whether the current session is locked or unlocked. When locked, it cannot be changed until unlocked."
+          "Italiano (Italian)": "Abilita/disabilita il blocco della sessione attuale. Quando è bloccata, non può essere modificata finché non viene sbloccata."
         }
       },
       "ToggleSelected": {
         "Name": {
-          "Italiano (Italian)": "Toggle Selected"
+          "Italiano (Italian)": "Attiva/disattiva selezionati"
         },
         "Description": {
-          "Italiano (Italian)": "Toggles whether the current session is selected or not. Multiple sessions can be selected, but only one can be the current session."
+          "Italiano (Italian)": "Attiva/disattiva la selezione della sessione attuale. È possibile selezionare più sessioni, ma solo una può essere la sessione attuale."
         }
       }
     },
 
     // Audio Device Actions
     "AudioDeviceActions": {
-      "GroupName": { "Italiano (Italian)": "Device" },
+      "GroupName": { "Italiano (Italian)": "Dispositivo" },
 
       "SharedSettings": {
         "Volume Step Override": {
           "Name": {
-            "Italiano (Italian)": "Volume Step Override"
+            "Italiano (Italian)": "Sostituzione step volume"
           },
           "Description": {
-            "Italiano (Italian)": "Overrides the global volume step for this action."
+            "Italiano (Italian)": "Sostituzioni step volume globale per questa azione."
           }
         }
       },
 
       "VolumeUp": {
         "Name": {
-          "Italiano (Italian)": "Volume Up"
+          "Italiano (Italian)": "Volume +"
         },
         "Description": {
-          "Italiano (Italian)": "Increases the volume of the selected device."
+          "Italiano (Italian)": "Aumenta volume dispositivo selezionato."
         }
       },
       "VolumeDown": {
         "Name": {
-          "Italiano (Italian)": "Volume Down"
+          "Italiano (Italian)": "Volume -"
         },
         "Description": {
-          "Italiano (Italian)": "Decreases the volume of the selected device."
+          "Italiano (Italian)": "Diminuisci volume dispositivo selezionato."
         }
       },
       "Mute": {
         "Name": {
-          "Italiano (Italian)": "Mute"
+          "Italiano (Italian)": "Audio off"
         },
         "Description": {
-          "Italiano (Italian)": "Mutes the selected device."
+          "Italiano (Italian)": "Disattiva audio dispositivo selezionato."
         }
       },
       "Unmute": {
         "Name": {
-          "Italiano (Italian)": "Unmute"
+          "Italiano (Italian)": "Audio on"
         },
         "Description": {
-          "Italiano (Italian)": "Unmutes the selected device."
+          "Italiano (Italian)": "Attiva audio dispositivo selezionato."
         }
       },
       "ToggleMute": {
         "Name": {
-          "Italiano (Italian)": "Toggle Mute"
+          "Italiano (Italian)": "Attiva/disattiva audio off"
         },
         "Description": {
-          "Italiano (Italian)": "Toggles the selected device's mute state."
+          "Italiano (Italian)": "Attiva/disattiva stato audio off dispositivo selezionato."
         }
       },
       "SelectNext": {
         "Name": {
-          "Italiano (Italian)": "Select Next"
+          "Italiano (Italian)": "Seleziona successivo"
         },
         "Description": {
-          "Italiano (Italian)": "Selects the next device in the list."
+          "Italiano (Italian)": "Seleziona nell'elenco il dispositivo successivo."
         }
       },
       "SelectPrevious": {
         "Name": {
-          "Italiano (Italian)": "Select Previous"
+          "Italiano (Italian)": "Seleziona precedente"
         },
         "Description": {
-          "Italiano (Italian)": "Selects the previous device in the list."
+          "Italiano (Italian)": "Seleziona nell'elenco il dispositivo precedente."
         }
       },
       "Deselect": {
         "Name": {
-          "Italiano (Italian)": "Deselect"
+          "Italiano (Italian)": "Deseleziona"
         },
         "Description": {
-          "Italiano (Italian)": "Deselects the selected device."
+          "Italiano (Italian)": "Deseleziona il dispositivo selezionato."
         }
       },
       "SelectDefault": {
         "Name": {
-          "Italiano (Italian)": "Select Default"
+          "Italiano (Italian)": "Seleziona predefinito"
         },
         "Description": {
-          "Italiano (Italian)": "Selects the default output device in the list."
+          "Italiano (Italian)": "Seleziona nell'elenco il dispositivo destinazione predefinito."
         }
       },
       "Lock": {
         "Name": {
-          "Italiano (Italian)": "Lock"
+          "Italiano (Italian)": "Blocca"
         },
         "Description": {
-          "Italiano (Italian)": "Locks the selected device, preventing it from being changed."
+          "Italiano (Italian)": "Blocca il dispositivo selezionato, impedendone la modifica."
         }
       },
       "Unlock": {
         "Name": {
-          "Italiano (Italian)": "Unlock"
+          "Italiano (Italian)": "Sblocca"
         },
         "Description": {
-          "Italiano (Italian)": "Unlocks the selected device, allow it to be changed."
+          "Italiano (Italian)": "Sblocca il dispositivo selezionato, consentendone la modifica."
         }
       },
       "ToggleLock": {
         "Name": {
-          "Italiano (Italian)": "Toggle Lock"
+          "Italiano (Italian)": "Abilita/disabilita blocco"
         },
         "Description": {
-          "Italiano (Italian)": "Toggles whether the selected device can be changed or not."
+          "Italiano (Italian)": "Abilita/disabilita blocco del dispositivo selezionato che può essere modificato o meno."
         }
       }
     },
 
     // Active Application Actions
     "ActiveApplicationActions": {
-      "GroupName": { "Italiano (Italian)": "Active Application" },
+      "GroupName": { "Italiano (Italian)": "Applicazione attiva" },
 
       "SharedSettings": {
         "Select Session": {
           "Name": {
-            "Italiano (Italian)": "Select Session"
+            "Italiano (Italian)": "Seleziona sessione"
           },
           "Description": {
-            "Italiano (Italian)": "Selects the session when the action is triggered."
+            "Italiano (Italian)": "Seleziona la sessione in cui viene attivata l'azione."
           }
         },
         "Volume Step Override": {
           "Name": {
-            "Italiano (Italian)": "Volume Step Override"
+            "Italiano (Italian)": "Sovrascrittura step volume"
           },
           "Description": {
-            "Italiano (Italian)": "Overrides the global volume step for this action."
+            "Italiano (Italian)": "Sovrascrivi step globali volume per questa azione."
           }
         }
       },
 
       "VolumeUp": {
         "Name": {
-          "Italiano (Italian)": "Volume Up"
+          "Italiano (Italian)": "Volume +"
         },
         "Description": {
-          "Italiano (Italian)": "Increases the volume of the current foreground application."
+          "Italiano (Italian)": "Aumenta il volume dell'applicazione attuale in primo piano."
         }
       },
       "VolumeDown": {
         "Name": {
-          "Italiano (Italian)": "Volume Down"
+          "Italiano (Italian)": "Volume -"
         },
         "Description": {
-          "Italiano (Italian)": "Decreases the volume of the current foreground application."
+          "Italiano (Italian)": "Diminuisci il volume dell'applicazione attuale in primo piano."
         }
       },
       "Mute": {
         "Name": {
-          "Italiano (Italian)": "Mute"
+          "Italiano (Italian)": "Audio off"
         },
         "Description": {
-          "Italiano (Italian)": "Mutes the current foreground application."
+          "Italiano (Italian)": "Disattiva l'audio dell'applicazione attuale in primo piano."
         }
       },
       "Unmute": {
         "Name": {
-          "Italiano (Italian)": "Unmute"
+          "Italiano (Italian)": "Audio on"
         },
         "Description": {
-          "Italiano (Italian)": "Unmutes the current foreground application."
+          "Italiano (Italian)": "Attiva l'audio dell'applicazione attuale in primo piano."
         }
       },
       "ToggleMute": {
         "Name": {
-          "Italiano (Italian)": "Toggle Mute"
+          "Italiano (Italian)": "Attiva/disattiva audio off"
         },
         "Description": {
-          "Italiano (Italian)": "(Un)Mutes the current foreground application."
+          "Italiano (Italian)": "Attiva/disattiva stato audio off dell'applicazione attuale in primo piano."
         }
       }
     },
 
     // Application Actions
     "ApplicationActions": {
-      "GroupName": { "Italiano (Italian)": "Application" },
+      "GroupName": { "Italiano (Italian)": "Applicazione" },
 
       "ToggleSessionNotifications": {
         "Name": {
-          "Italiano (Italian)": "Toggle Session Notifications"
+          "Italiano (Italian)": "Attiva/disattiva notifiche sessione"
         },
         "Description": {
-          "Italiano (Italian)": "Toggles whether Session notifications are enabled."
+          "Italiano (Italian)": "Attiva/disattiva le notifiche della sessione."
         }
       },
       "ToggleDeviceNotifications": {
         "Name": {
-          "Italiano (Italian)": "Toggle Device Notifications"
+          "Italiano (Italian)": "Attiva/disattiva notifiche dispositivo"
         },
         "Description": {
-          "Italiano (Italian)": "Toggles whether Device notifications are enabled."
+          "Italiano (Italian)": "Attiva/disattiva le notifiche del dispositivo."
         }
       },
       "BringToForeground": {
         "Name": {
-          "Italiano (Italian)": "Bring to Foreground"
+          "Italiano (Italian)": "Porta in primo piano"
         },
         "Description": {
-          "Italiano (Italian)": "Moves the Volume Control window in front of all other windows."
+          "Italiano (Italian)": "Sposta la finestra Controllo volume davanti a tutte le altre finestre."
         }
       },
       "SendToBackground": {
         "Name": {
-          "Italiano (Italian)": "Send to Background"
+          "Italiano (Italian)": "Porta in fondo"
         },
         "Description": {
-          "Italiano (Italian)": "Moves the Volume Control window behind all other windows."
+          "Italiano (Italian)": "Sposta la finestra Controllo volume dietro tutte le altre finestre."
         }
       },
       "Minimize": {
         "Name": {
-          "Italiano (Italian)": "Minimize"
+          "Italiano (Italian)": "Minimizza"
         },
         "Description": {
-          "Italiano (Italian)": "Hides the Volume Control window."
+          "Italiano (Italian)": "Nascondi la finestra Controllo volume."
         }
       },
       "Unminimize": {
         "Name": {
-          "Italiano (Italian)": "Unminimize"
+          "Italiano (Italian)": "Visualizza finestra"
         },
         "Description": {
-          "Italiano (Italian)": "Shows the Volume Control window."
+          "Italiano (Italian)": "Visualizza la finestra Controllo volume."
         }
       }
     },
@@ -401,80 +401,80 @@
 
       "NextTrack": {
         "Name": {
-          "Italiano (Italian)": "Next Track"
+          "Italiano (Italian)": "Traccia successiva"
         },
         "Description": {
-          "Italiano (Italian)": "Switches media playback to the next track."
+          "Italiano (Italian)": "Riproduci la traccia multimediale successiva."
         }
       },
       "PreviousTrack": {
         "Name": {
-          "Italiano (Italian)": "Previous Track"
+          "Italiano (Italian)": "Traccia precedente"
         },
         "Description": {
-          "Italiano (Italian)": "Switches media playback to the previous track."
+          "Italiano (Italian)": "Riproduci la traccia multimediale precedente."
         }
       },
       "TogglePlayback": {
         "Name": {
-          "Italiano (Italian)": "Toggle Playback"
+          "Italiano (Italian)": "Attiva/disattiva riproduzione"
         },
         "Description": {
-          "Italiano (Italian)": "Toggles media playback."
+          "Italiano (Italian)": "Attiva/disattiva riproduzione media."
         }
       },
       "StopPlayback": {
         "Name": {
-          "Italiano (Italian)": "Stop Playback"
+          "Italiano (Italian)": "Stop riproduzione"
         },
         "Description": {
-          "Italiano (Italian)": "Stops media playback."
+          "Italiano (Italian)": "Stop riproduzione media"
         }
       }
     },
 
     // System Actions
     "SystemActions": {
-      "GroupName": { "Italiano (Italian)": "System" },
+      "GroupName": { "Italiano (Italian)": "Sistema" },
 
       "StartProcess": {
         "Name": {
-          "Italiano (Italian)": "Start Process"
+          "Italiano (Italian)": "Avvia processo"
         },
         "Description": {
-          "Italiano (Italian)": "Starts the specified process."
+          "Italiano (Italian)": "Avvia il processo specificato."
         },
         "Settings": {
           "FileName": {
             "Name": {
-              "Italiano (Italian)": "FileName"
+              "Italiano (Italian)": "Nome file"
             },
             "Description": {
-              "Italiano (Italian)": "The absolute or relative path of the target file."
+              "Italiano (Italian)": "Il percorso assoluto o relativo del file destinazione."
             }
           },
           "Working Directory": {
             "Name": {
-              "Italiano (Italian)": "Working Directory"
+              "Italiano (Italian)": "Cartella di lavoro"
             },
             "Description": {
-              "Italiano (Italian)": "The working directory to execute the command from."
+              "Italiano (Italian)": "La cartella di lavoro in cui eseguire il comando."
             }
           },
           "Arguments": {
             "Name": {
-              "Italiano (Italian)": "Arguments"
+              "Italiano (Italian)": "Argomenti"
             },
             "Description": {
-              "Italiano (Italian)": "Commandline arguments to run the program with."
+              "Italiano (Italian)": "Argomenti riga di comando con cui eseguire il programma."
             }
           },
           "Message on Error": {
             "Name": {
-              "Italiano (Italian)": "Message on Error"
+              "Italiano (Italian)": "Messaggio errore"
             },
             "Description": {
-              "Italiano (Italian)": "Shows a messagebox if an error occurs while starting the process."
+              "Italiano (Italian)": "Se si verifica un errore durante l'avvio del processo visualizza una finestra con un messaggio."
             }
           }
         }
