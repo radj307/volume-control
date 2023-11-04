@@ -79,6 +79,10 @@ namespace VolumeControl.ViewModels
                 LockCurrentIndexOnLockSelection = true
             };
 
+            // setup the session synchronizer
+            SessionSync = new(this);
+            SessionSync.PropertyChanged += this.SessionSync_PropertyChanged;
+
             // populate the sessions lists
             Devices.Select(d => d.AudioDevice.SessionManager).ForEach(AudioSessionManager.AddSessionManager);
 
@@ -126,6 +130,7 @@ namespace VolumeControl.ViewModels
         public AudioDeviceSelector AudioDeviceSelector { get; }
         public AudioDeviceVM? SelectedDevice { get; set; }
         public AudioSessionMultiSelector AudioSessionMultiSelector { get; }
+        public SessionSyncVM SessionSync { get; }
         public bool? AllSessionsSelected
         {
             get
@@ -278,6 +283,18 @@ namespace VolumeControl.ViewModels
             }
         }
         #endregion AudioDeviceSelector
+
+        #region SessionSync
+        private void SessionSync_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == null) return;
+
+            if (e.PropertyName.Equals(nameof(SessionSyncVM.IsEnabled), StringComparison.Ordinal))
+            {
+                Settings.EnableSessionSync = SessionSync.IsEnabled;
+            }
+        }
+        #endregion SessionSync
 
         #endregion EventHandlers
     }

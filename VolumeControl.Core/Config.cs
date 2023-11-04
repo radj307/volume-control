@@ -375,6 +375,10 @@ namespace VolumeControl.Core
         /// Gets or sets the list of (process names of) hidden audio sessions.
         /// </summary>
         public ObservableImmutableList<string> HiddenSessionProcessNames { get; set; } = new();
+        /// <summary>
+        /// Gets or sets whether selected audio sessions have synchronized volume levels &amp; mute states or not.
+        /// </summary>
+        public bool EnableSessionSync { get; set; } = false;
         #endregion Audio
 
         #region Log

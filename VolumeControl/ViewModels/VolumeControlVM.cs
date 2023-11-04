@@ -29,6 +29,7 @@ namespace VolumeControl.ViewModels
             if (Settings.CheckForUpdates) Updater.CheckForUpdateNow();
 
             this.AudioAPI = new();
+            AudioAPI.SessionSync.IsEnabled = true;
 
             TargetBoxVM = new(AudioAPI.AudioSessionManager, AudioAPI.AudioSessionMultiSelector);
 
