@@ -91,21 +91,14 @@ $(document).ready(function(){initNavTree('_addon.html',''); initResizable(); });
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="autotoc_md18"></a>
 Installing Addons</h1>
-<p>The exact addon installation location depends on your version of Volume Control, but all of them are located in your local AppData directory by default.</p>
-<p><em>Tip: You can quickly open your <code>AppData/Local</code> directory in file explorer by pressing Win+R and entering <code>localappdata%</code></em> <img src="https://user-images.githubusercontent.com/1927798/228995919-8253994f-b1f6-4191-9670-aca9b466defc.gif" alt="localappdata" class="inline"/></p>
+<p>Installing an addon for Volume Control is easy, all you have to do is copy the addon's <code>.dll</code> file to the <code>Addons</code> directory.</p>
+<p>Since version <code>6.0.0</code>, the default addon location is: <br  />
+ <img src="https://github.com/radj307/volume-control/assets/1927798/3d30b63f-f72e-4bfc-af31-99879b23a3f1" alt="`C:\Users\<username>\AppData\Local\radj307\VolumeControl\Addons`" class="inline"/> <br  />
+</p>
+<p><em>Tip: To open the Addons directory quickly, press <b>Win+R</b> and enter <code>LocalAppData%/radj307/VolumeControl/Addons</code></em></p>
 <h2><a class="anchor" id="autotoc_md19"></a>
-Default Location</h2>
-<h3><a class="anchor" id="autotoc_md20"></a>
-Since v6.0.0</h3>
-<p>Starting in v6.0.0, the default addon location is <code>C:/Users/&lt;USERNAME&gt;/AppData/Local/VolumeControl/Addons</code>. <br  />
- <img src="https://user-images.githubusercontent.com/1927798/228998612-649ffd67-0c9f-4259-8b25-7e621fdc9456.png" alt="directory" class="inline"/> <br  />
- Addons can also be placed inside subdirectories.</p>
-<h3><a class="anchor" id="autotoc_md21"></a>
-Until v5.2.5</h3>
-<p>Prior to v6.0.0, the default addon location was <code>C:/Users/&lt;USERNAME&gt;/AppData/Local/radj307/Addons</code>. <br  />
- <img src="https://user-images.githubusercontent.com/1927798/228998308-9ac90cb8-0105-49b0-9f4d-c27d474740e6.png" alt="directory" class="inline"/></p>
-<h2><a class="anchor" id="autotoc_md22"></a>
-&lt;tt&gt;CustomAddonDirectories&lt;/tt&gt; (Since v5.1.0)</h2>
+CustomAddonDirectories</h2>
+<p><code>5.1.0</code> added the ability to load addons from other directories by adding the path to <code>CustomAddonDirectories</code> in <code>VolumeControl.json</code>.</p>
 <blockquote class="doxtable">
 <p>### ⚠️ Note When entering file paths in JSON, make sure you use forward slashes (<code>/</code>) instead of backslashes (<code>\</code>)! <br  />
  </p>

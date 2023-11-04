@@ -1,5 +1,8 @@
 var class_volume_control_1_1_type_extensions_1_1_reflection_extensions =
 [
+    [ "GetValue", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a77dda88057cb03d21a20131c68670986", null ],
+    [ "IsAwaitable", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a89d5a3d99374751999a0b0c89e67dd2a", null ],
+    [ "IsPublic", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#afdfecbeaace047651dcee873abebe7ed", null ],
     [ "RaiseEvent", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a1b9eb74a68f0505f59639632d80112c9", null ],
     [ "RaiseEvent", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a3e23e8c7c76f260b94da6ad4817eae28", null ],
     [ "RaiseEvent", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a9d6a05d41dbc7c6c585212b49436af25", null ],
@@ -8,5 +11,6 @@ var class_volume_control_1_1_type_extensions_1_1_reflection_extensions =
     [ "RaisePropertyChanged", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#ac6b3a4bdeb5ff20539c02ee258dd9ab8", null ],
     [ "RaisePropertyChanged", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#af169b514830290a3a00285b52c7b0b26", null ],
     [ "RaisePropertyChanged", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#afd697f7f1f14d554a18cc511996e6982", null ],
-    [ "RaisePropertyChanged", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a8aa72603df2ee7c6a9c03ad2edead01d", null ]
+    [ "RaisePropertyChanged", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a8aa72603df2ee7c6a9c03ad2edead01d", null ],
+    [ "SetValue", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a43d836a92444d9a42815ba430dc5bc8d", null ]
 ];

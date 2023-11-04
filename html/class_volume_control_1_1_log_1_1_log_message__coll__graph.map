@@ -1,3 +1,5 @@
 <map id="VolumeControl.Log.LogMessage" name="VolumeControl.Log.LogMessage">
-<area shape="rect" id="node1" title="Represents a message to be written to the log." alt="" coords="5,5,236,171"/>
+<area shape="rect" id="node1" title="Represents a message to be written to the log." alt="" coords="61,131,292,311"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,183,83"/>
+<area shape="rect" id="node3" title=" " alt="" coords="207,5,311,83"/>
 </map>

@@ -8,9 +8,9 @@
  viewBox="0.00 0.00 324.00 379.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 375)">
 <title>Graphical Class Hierarchy</title>
-<!-- Node49 -->
+<!-- Node50 -->
 <g id="node1" class="node">
-<title>Node49</title>
+<title>Node50</title>
 <g id="a_node1"><a xlink:title=" ">
 <polygon fill="none" stroke="#bfbfbf" points="0,-181 0,-200 65,-200 65,-181 0,-181"/>
 <text text-anchor="middle" x="32.5" y="-188" font-family="Helvetica,sans-Serif" font-size="10.00">Exception</text>
@@ -27,15 +27,15 @@
 </a>
 </g>
 </g>
-<!-- Node49&#45;&gt;Node0 -->
+<!-- Node50&#45;&gt;Node0 -->
 <g id="edge1" class="edge">
-<title>Node49&#45;&gt;Node0</title>
+<title>Node50&#45;&gt;Node0</title>
 <path fill="none" stroke="midnightblue" d="M37.28,-209.94C44.27,-240.47 62.2,-299.37 101,-330.5 107.81,-335.97 115.62,-340.28 123.84,-343.67"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="40.69,-209.13 35.18,-200.08 33.84,-210.59 40.69,-209.13"/>
 </g>
-<!-- Node51 -->
+<!-- Node52 -->
 <g id="node3" class="node">
-<title>Node51</title>
+<title>Node52</title>
 <g id="a_node3"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_action_setting_not_found_exception.html" target="_top" xlink:title="Represents errors that occur when a hotkey action setting wasn&#39;t found in a HotkeyPressedEventArgs in...">
 <polygon fill="none" stroke="black" points="116,-280 116,-321 301,-321 301,-280 116,-280"/>
 <text text-anchor="start" x="124" y="-309" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
@@ -44,15 +44,15 @@
 </a>
 </g>
 </g>
-<!-- Node49&#45;&gt;Node51 -->
+<!-- Node50&#45;&gt;Node52 -->
 <g id="edge2" class="edge">
-<title>Node49&#45;&gt;Node51</title>
+<title>Node50&#45;&gt;Node52</title>
 <path fill="none" stroke="midnightblue" d="M44.34,-208.85C56.06,-227.12 76.41,-254.66 101,-270.5 106.49,-274.04 112.4,-277.16 118.52,-279.93"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="47.26,-206.91 39.02,-200.25 41.3,-210.59 47.26,-206.91"/>
 </g>
-<!-- Node52 -->
+<!-- Node53 -->
 <g id="node4" class="node">
-<title>Node52</title>
+<title>Node53</title>
 <g id="a_node4"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_hotkey_registration_exception.html" target="_top" xlink:title="Represents an error that occurs while registering or unregistering a hotkey.">
 <polygon fill="none" stroke="black" points="101,-230.5 101,-260.5 316,-260.5 316,-230.5 101,-230.5"/>
 <text text-anchor="start" x="109" y="-248.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
@@ -60,15 +60,15 @@
 </a>
 </g>
 </g>
-<!-- Node49&#45;&gt;Node52 -->
+<!-- Node50&#45;&gt;Node53 -->
 <g id="edge3" class="edge">
-<title>Node49&#45;&gt;Node52</title>
+<title>Node50&#45;&gt;Node53</title>
 <path fill="none" stroke="midnightblue" d="M61.38,-204.3C73.37,-209.87 87.67,-216.02 101,-220.5 111.89,-224.16 123.58,-227.49 135.09,-230.44"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="62.86,-201.13 52.32,-200.01 59.86,-207.46 62.86,-201.13"/>
 </g>
-<!-- Node53 -->
+<!-- Node54 -->
 <g id="node5" class="node">
-<title>Node53</title>
+<title>Node54</title>
 <g id="a_node5"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_action_setting_value_type_exception.html" target="_top" xlink:title="Represents type errors that occur from the ActionSettingInstance&lt;T&gt; class.">
 <polygon fill="none" stroke="black" points="123,-170 123,-211 294,-211 294,-170 123,-170"/>
 <text text-anchor="start" x="131" y="-199" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
@@ -77,15 +77,15 @@
 </a>
 </g>
 </g>
-<!-- Node49&#45;&gt;Node53 -->
+<!-- Node50&#45;&gt;Node54 -->
 <g id="edge4" class="edge">
-<title>Node49&#45;&gt;Node53</title>
+<title>Node50&#45;&gt;Node54</title>
 <path fill="none" stroke="midnightblue" d="M75.07,-190.5C89.5,-190.5 106.25,-190.5 122.88,-190.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="75.01,-187 65.01,-190.5 75.01,-194 75.01,-187"/>
 </g>
-<!-- Node54 -->
+<!-- Node55 -->
 <g id="node6" class="node">
-<title>Node54</title>
+<title>Node55</title>
 <g id="a_node6"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_data_template_provider_type_exception.html" target="_top" xlink:title="Represents errors that occur when the specified Attributes.HotkeyActionSettingAttribute....">
 <polygon fill="none" stroke="black" points="121.5,-110 121.5,-151 295.5,-151 295.5,-110 121.5,-110"/>
 <text text-anchor="start" x="129.5" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
@@ -94,15 +94,15 @@
 </a>
 </g>
 </g>
-<!-- Node49&#45;&gt;Node54 -->
+<!-- Node50&#45;&gt;Node55 -->
 <g id="edge5" class="edge">
-<title>Node49&#45;&gt;Node54</title>
+<title>Node50&#45;&gt;Node55</title>
 <path fill="none" stroke="midnightblue" d="M62.35,-176.58C74.18,-171.17 88.09,-165.16 101,-160.5 110.21,-157.17 119.98,-153.98 129.72,-151"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="60.57,-173.55 52.98,-180.95 63.53,-179.9 60.57,-173.55"/>
 </g>
-<!-- Node55 -->
+<!-- Node56 -->
 <g id="node7" class="node">
-<title>Node55</title>
+<title>Node56</title>
 <g id="a_node7"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_provider_type_exception.html" target="_top" xlink:title="Represents errors that occur because a type that does not implement ITemplateProvider or ITemplateDic...">
 <polygon fill="none" stroke="black" points="124,-50 124,-91 293,-91 293,-50 124,-50"/>
 <text text-anchor="start" x="132" y="-79" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
@@ -111,15 +111,15 @@
 </a>
 </g>
 </g>
-<!-- Node49&#45;&gt;Node55 -->
+<!-- Node50&#45;&gt;Node56 -->
 <g id="edge6" class="edge">
-<title>Node49&#45;&gt;Node55</title>
+<title>Node50&#45;&gt;Node56</title>
 <path fill="none" stroke="midnightblue" d="M42.6,-172.01C53.64,-151.51 74.14,-118.91 101,-100.5 108.05,-95.67 115.87,-91.61 123.97,-88.2"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="39.45,-170.5 37.96,-180.99 45.66,-173.72 39.45,-170.5"/>
 </g>
-<!-- Node56 -->
+<!-- Node57 -->
 <g id="node8" class="node">
-<title>Node56</title>
+<title>Node57</title>
 <g id="a_node8"><a xlink:href="class_volume_control_1_1_log_1_1_exceptions_1_1_not_initialized_exception.html" target="_top" xlink:title="Represents errors that occur as a result of trying to access an object before it is initialized.">
 <polygon fill="none" stroke="black" points="124.5,-0.5 124.5,-30.5 292.5,-30.5 292.5,-0.5 124.5,-0.5"/>
 <text text-anchor="start" x="132.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.Exceptions.</text>
@@ -127,9 +127,9 @@
 </a>
 </g>
 </g>
-<!-- Node49&#45;&gt;Node56 -->
+<!-- Node50&#45;&gt;Node57 -->
 <g id="edge7" class="edge">
-<title>Node49&#45;&gt;Node56</title>
+<title>Node50&#45;&gt;Node57</title>
 <path fill="none" stroke="midnightblue" d="M36.68,-170.6C42.94,-138.2 60,-74.29 101,-40.5 107.96,-34.76 116.01,-30.29 124.49,-26.82"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="33.2,-170.18 34.89,-180.64 40.09,-171.41 33.2,-170.18"/>
 </g>

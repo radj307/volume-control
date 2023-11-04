@@ -98,7 +98,8 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_type_extensio
 <div class="dynheader">
 Collaboration diagram for VolumeControl.TypeExtensions.ReflectionExtensions:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_reflection_extensions__coll__graph.svg" width="238" height="220"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_reflection_extensions__coll__graph.svg" width="238" height="279"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -130,10 +131,146 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a1b9eb74a68f0505f59639632d80112c9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a1b9eb74a68f0505f59639632d80112c9">RaiseEvent</a> (this object source, string eventName, object eventArgs)</td></tr>
 <tr class="memdesc:a1b9eb74a68f0505f59639632d80112c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raises the event named <em>eventName</em>  on the object <em>source</em>  with the given <em>eventArgs</em>  parameters. <em>Src: </em>  <a href="class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a1b9eb74a68f0505f59639632d80112c9">More...</a><br /></td></tr>
 <tr class="separator:a1b9eb74a68f0505f59639632d80112c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77dda88057cb03d21a20131c68670986"><td class="memItemLeft" align="right" valign="top">static ? object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a77dda88057cb03d21a20131c68670986">GetValue</a> (this MemberInfo mInfo, object? objectInstance)</td></tr>
+<tr class="memdesc:a77dda88057cb03d21a20131c68670986"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the value of the member represented by <em>mInfo</em>  from <em>objectInstance</em> .  <a href="class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a77dda88057cb03d21a20131c68670986">More...</a><br /></td></tr>
+<tr class="separator:a77dda88057cb03d21a20131c68670986"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43d836a92444d9a42815ba430dc5bc8d"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a43d836a92444d9a42815ba430dc5bc8d">SetValue</a> (this MemberInfo mInfo, object? objectInstance, object? value)</td></tr>
+<tr class="memdesc:a43d836a92444d9a42815ba430dc5bc8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the member represented by <em>mInfo</em>  in <em>objectInstance</em>  to <em>value</em> .  <a href="class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a43d836a92444d9a42815ba430dc5bc8d">More...</a><br /></td></tr>
+<tr class="separator:a43d836a92444d9a42815ba430dc5bc8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdfecbeaace047651dcee873abebe7ed"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#afdfecbeaace047651dcee873abebe7ed">IsPublic</a> (this PropertyInfo pInfo)</td></tr>
+<tr class="memdesc:afdfecbeaace047651dcee873abebe7ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if both the getter and setter of a property are public.  <a href="class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#afdfecbeaace047651dcee873abebe7ed">More...</a><br /></td></tr>
+<tr class="separator:afdfecbeaace047651dcee873abebe7ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89d5a3d99374751999a0b0c89e67dd2a"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a89d5a3d99374751999a0b0c89e67dd2a">IsAwaitable</a> (this MethodInfo methodInfo)</td></tr>
+<tr class="memdesc:a89d5a3d99374751999a0b0c89e67dd2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the method returns a type that has a GetAwaiter() method, and thus can be <code>await</code>ed.  <a href="class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a89d5a3d99374751999a0b0c89e67dd2a">More...</a><br /></td></tr>
+<tr class="separator:a89d5a3d99374751999a0b0c89e67dd2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Extension methods that use C#'s reflection capabilities. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a77dda88057cb03d21a20131c68670986"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77dda88057cb03d21a20131c68670986">&#9670;&nbsp;</a></span>GetValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static ? object VolumeControl.TypeExtensions.ReflectionExtensions.GetValue </td>
+          <td>(</td>
+          <td class="paramtype">this MemberInfo&#160;</td>
+          <td class="paramname"><em>mInfo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">object?&#160;</td>
+          <td class="paramname"><em>objectInstance</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the value of the member represented by <em>mInfo</em>  from <em>objectInstance</em> . </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mInfo</td><td>MemberInfo</td></tr>
+    <tr><td class="paramname">objectInstance</td><td>An instance of the object that contains the member represented by <em>mInfo</em> , or <code>null</code> if the object is <code>static</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The value of the member, or <code>null</code> if <em>mInfo</em>  isn't associated with a field or property.</dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="#l00084">VolumeControl.TypeExtensions.ReflectionExtensions.RaiseEvent()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_reflection_extensions_a77dda88057cb03d21a20131c68670986_icgraph.svg" width="520" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="a89d5a3d99374751999a0b0c89e67dd2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89d5a3d99374751999a0b0c89e67dd2a">&#9670;&nbsp;</a></span>IsAwaitable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool VolumeControl.TypeExtensions.ReflectionExtensions.IsAwaitable </td>
+          <td>(</td>
+          <td class="paramtype">this MethodInfo&#160;</td>
+          <td class="paramname"><em>methodInfo</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if the method returns a type that has a GetAwaiter() method, and thus can be <code>await</code>ed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">methodInfo</td><td>(implicit) The MethodInfo instance representing the method to check.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> when the method is awaitable; otherwise, <code>false</code>.</dd></dl>
+
+</div>
+</div>
+<a id="afdfecbeaace047651dcee873abebe7ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdfecbeaace047651dcee873abebe7ed">&#9670;&nbsp;</a></span>IsPublic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool VolumeControl.TypeExtensions.ReflectionExtensions.IsPublic </td>
+          <td>(</td>
+          <td class="paramtype">this PropertyInfo&#160;</td>
+          <td class="paramname"><em>pInfo</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if both the getter and setter of a property are public. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pInfo</td><td>PropertyInfo</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> when the getter and setter methods are public; otherwise <code>false</code>.</dd></dl>
+
+</div>
+</div>
 <a id="a1b9eb74a68f0505f59639632d80112c9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1b9eb74a68f0505f59639632d80112c9">&#9670;&nbsp;</a></span>RaiseEvent() <span class="overload">[1/3]</span></h2>
 
@@ -294,6 +431,14 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="reference">References <a class="el" href="class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html#a77dda88057cb03d21a20131c68670986">VolumeControl.TypeExtensions.ReflectionExtensions.GetValue()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_reflection_extensions_a9d6a05d41dbc7c6c585212b49436af25_cgraph.svg" width="520" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 
 </div>
 </div>
@@ -641,6 +786,59 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a43d836a92444d9a42815ba430dc5bc8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43d836a92444d9a42815ba430dc5bc8d">&#9670;&nbsp;</a></span>SetValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool VolumeControl.TypeExtensions.ReflectionExtensions.SetValue </td>
+          <td>(</td>
+          <td class="paramtype">this MemberInfo&#160;</td>
+          <td class="paramname"><em>mInfo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">object?&#160;</td>
+          <td class="paramname"><em>objectInstance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">object?&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the value of the member represented by <em>mInfo</em>  in <em>objectInstance</em>  to <em>value</em> . </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mInfo</td><td>MemberInfo</td></tr>
+    <tr><td class="paramname">objectInstance</td><td>An instance of the object that contains the member represented by <em>mInfo</em> , or <code>null</code> if the object is <code>static</code>.</td></tr>
+    <tr><td class="paramname">value</td><td>The value to set this member to.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> when the value of this member was set successfully; <code>false</code> when <em>mInfo</em>  doesn't represent a field or property.</dd></dl>
 
 </div>
 </div>

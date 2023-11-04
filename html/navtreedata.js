@@ -25,14 +25,14 @@
 var NAVTREE =
 [
   [ "Volume Control", "index.html", [
-    [ "Getting Started", "index.html#autotoc_md44", [
-      [ "What It Does", "index.html#autotoc_md42", null ],
-      [ "How does it work?", "index.html#autotoc_md43", null ],
-      [ "Manual Installation", "index.html#autotoc_md45", null ]
+    [ "Getting Started", "index.html#autotoc_md41", [
+      [ "What It Does", "index.html#autotoc_md39", null ],
+      [ "How does it work?", "index.html#autotoc_md40", null ],
+      [ "Manual Installation", "index.html#autotoc_md42", null ]
     ] ],
-    [ "Usage", "index.html#autotoc_md46", [
-      [ "Contributing", "index.html#autotoc_md47", null ],
-      [ "Addon Development", "index.html#autotoc_md48", null ]
+    [ "Usage", "index.html#autotoc_md43", [
+      [ "Contributing", "index.html#autotoc_md44", null ],
+      [ "Addon Development", "index.html#autotoc_md45", null ]
     ] ],
     [ "Contributing", "md__home_runner_work_volume_control_volume_control__c_o_n_t_r_i_b_u_t_i_n_g.html", [
       [ "Guidelines for Code Contributions", "md__home_runner_work_volume_control_volume_control__c_o_n_t_r_i_b_u_t_i_n_g.html#autotoc_md1", null ],
@@ -60,37 +60,33 @@ var NAVTREE =
     ] ],
     [ "Installation for Users", "_addon.html", [
       [ "Installing Addons", "_addon.html#autotoc_md18", [
-        [ "Default Location", "_addon.html#autotoc_md19", [
-          [ "Since v6.0.0", "_addon.html#autotoc_md20", null ],
-          [ "Until v5.2.5", "_addon.html#autotoc_md21", null ]
-        ] ],
-        [ "<tt>CustomAddonDirectories</tt> (Since v5.1.0)", "_addon.html#autotoc_md22", null ]
+        [ "CustomAddonDirectories", "_addon.html#autotoc_md19", null ]
       ] ]
     ] ],
     [ "Building From Source", "md_docs__building_from_source.html", [
-      [ "From the Commandline", "md_docs__building_from_source.html#autotoc_md24", [
+      [ "From the Commandline", "md_docs__building_from_source.html#autotoc_md21", [
+        [ "Requirements", "md_docs__building_from_source.html#autotoc_md22", null ],
+        [ "Process", "md_docs__building_from_source.html#autotoc_md23", null ]
+      ] ],
+      [ "Using an IDE", "md_docs__building_from_source.html#autotoc_md24", [
         [ "Requirements", "md_docs__building_from_source.html#autotoc_md25", null ],
         [ "Process", "md_docs__building_from_source.html#autotoc_md26", null ]
-      ] ],
-      [ "Using an IDE", "md_docs__building_from_source.html#autotoc_md27", [
-        [ "Requirements", "md_docs__building_from_source.html#autotoc_md28", null ],
-        [ "Process", "md_docs__building_from_source.html#autotoc_md29", null ]
       ] ]
     ] ],
     [ "How to Contribute Translations", "md_docs__how_to_contribute_translations.html", [
-      [ "Getting Started", "md_docs__how_to_contribute_translations.html#autotoc_md31", null ],
-      [ "File Format", "md_docs__how_to_contribute_translations.html#autotoc_md32", [
-        [ "File Naming Conventions", "md_docs__how_to_contribute_translations.html#autotoc_md33", null ],
-        [ "String \"Paths\"", "md_docs__how_to_contribute_translations.html#autotoc_md34", null ]
+      [ "Getting Started", "md_docs__how_to_contribute_translations.html#autotoc_md28", null ],
+      [ "File Format", "md_docs__how_to_contribute_translations.html#autotoc_md29", [
+        [ "File Naming Conventions", "md_docs__how_to_contribute_translations.html#autotoc_md30", null ],
+        [ "String \"Paths\"", "md_docs__how_to_contribute_translations.html#autotoc_md31", null ]
       ] ],
-      [ "Edit an Existing Translation", "md_docs__how_to_contribute_translations.html#autotoc_md35", [
-        [ "Add a Missing Translated String", "md_docs__how_to_contribute_translations.html#autotoc_md36", null ],
-        [ "Change an Existing Translated String", "md_docs__how_to_contribute_translations.html#autotoc_md37", null ]
+      [ "Edit an Existing Translation", "md_docs__how_to_contribute_translations.html#autotoc_md32", [
+        [ "Add a Missing Translated String", "md_docs__how_to_contribute_translations.html#autotoc_md33", null ],
+        [ "Change an Existing Translated String", "md_docs__how_to_contribute_translations.html#autotoc_md34", null ]
       ] ],
-      [ "Create a New Translation", "md_docs__how_to_contribute_translations.html#autotoc_md38", null ],
-      [ "Push Your Changes", "md_docs__how_to_contribute_translations.html#autotoc_md39", null ],
-      [ "Submit a Pull Request", "md_docs__how_to_contribute_translations.html#autotoc_md40", [
-        [ "Updating a Pull Request", "md_docs__how_to_contribute_translations.html#autotoc_md41", null ]
+      [ "Create a New Translation", "md_docs__how_to_contribute_translations.html#autotoc_md35", null ],
+      [ "Push Your Changes", "md_docs__how_to_contribute_translations.html#autotoc_md36", null ],
+      [ "Submit a Pull Request", "md_docs__how_to_contribute_translations.html#autotoc_md37", [
+        [ "Updating a Pull Request", "md_docs__how_to_contribute_translations.html#autotoc_md38", null ]
       ] ]
     ] ],
     [ "Packages", "namespaces.html", [
@@ -122,15 +118,15 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"",
-"class_volume_control_1_1_core_1_1_config.html#aea3d84b9e3426900325dd43a356038d7",
-"class_volume_control_1_1_core_1_1_notification_config_section.html#a0f52b9f41594789e0e2635c82aa528bf",
-"class_volume_control_1_1_hotkey_actions_1_1_active_application_actions.html#a5e2832c2d36373182f02b95b15346b14",
-"class_volume_control_1_1_type_extensions_1_1_math_ext.html#afe0998f7b9f09cfbe6ce9c7a84a3a80f",
-"class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down.html#a498c80c7a9dda89685c5523f02c9fa49",
-"functions_t.html",
-"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a9d6d746abe30f3812903abc92f23e79c",
-"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a416105f8f0a94b9f64f200176154f6adac7b16c118e7c74153dc492343183d298"
+"_addon.html",
+"class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#aa79973ba79736fb52a012874a3edc3ba",
+"class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a98f2b6f68bfe07fcaf3bb0d7c89b9cb6",
+"class_volume_control_1_1_log_1_1_helpers_1_1_exception_message_helper.html#a0b664e604e743ce07dbdd802125a2dc9af31bbdd1b3e85bccd652680e16935819",
+"class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#a5c382a0c526d2e4c6b1ec5e2a5ad600a",
+"dir_174702278acb2ce19fc6258f5ac0ff87.html",
+"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a0654edaf3ba134e73c4857997fa25168",
+"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca6d3fe859ef4f9d1e8c2e75431c1b7146",
+""
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

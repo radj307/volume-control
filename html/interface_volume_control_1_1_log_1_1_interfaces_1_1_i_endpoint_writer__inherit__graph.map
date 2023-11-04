@@ -2,6 +2,7 @@
 <area shape="rect" id="node1" title="Represents an endpoint that text can be written to." alt="" coords="246,5,465,141"/>
 <area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html" title="Abstract base class for endpoint writers." alt="" coords="100,211,317,391"/>
 <area shape="rect" id="node4" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk." alt="" coords="247,461,464,627"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html" title="A log endpoint that implements IEndpointWriter and uses a MemoryStream as an endpoint." alt="" coords="393,189,611,413"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html" title="A log endpoint that implements IEndpointWriter and uses a MemoryStream as an endpoint." alt="" coords="393,189,611,413"/>
 <area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html" title="Allows using the Console as a logging endpoint." alt="" coords="5,469,223,619"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_persistent_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk, and keeps the file stream open." alt="" coords="247,675,464,825"/>
 </map>

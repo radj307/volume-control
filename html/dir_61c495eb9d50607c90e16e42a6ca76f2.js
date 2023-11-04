@@ -8,7 +8,6 @@ var dir_61c495eb9d50607c90e16e42a6ca76f2 =
     [ "IReadOnlyListExtensions.cs", null, null ],
     [ "ListExtensions.cs", null, null ],
     [ "MathExt.cs", null, null ],
-    [ "MemberInfoExtensions.cs", null, null ],
     [ "NullableBoolExtensions.cs", null, null ],
     [ "PointExtensions.cs", null, null ],
     [ "ProcessExtensions.cs", null, null ],

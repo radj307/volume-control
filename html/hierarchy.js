@@ -18,13 +18,14 @@ var hierarchy =
     [ "Behavior", null, [
       [ "VolumeControl.WPF.Behaviors.DisableMouseWheelBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_disable_mouse_wheel_behavior.html", null ],
       [ "VolumeControl.WPF.Behaviors.EscapeRemovesFocusBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html", null ],
-      [ "VolumeControl.WPF.Behaviors.HorizontalScrollBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_horizontal_scroll_behavior.html", null ],
       [ "VolumeControl.WPF.Behaviors.HyperlinkOpenInBrowserBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_hyperlink_open_in_browser_behavior.html", null ],
       [ "VolumeControl.WPF.Behaviors.MouseWheelListViewBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_list_view_behavior.html", null ],
       [ "VolumeControl.WPF.Behaviors.MouseWheelNumericUpDownBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_numeric_up_down_behavior.html", null ],
       [ "VolumeControl.WPF.Behaviors.MouseWheelRangeBaseBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_range_base_behavior.html", null ],
+      [ "VolumeControl.WPF.Behaviors.ScrollViewerHorizontalScrollBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_scroll_viewer_horizontal_scroll_behavior.html", null ],
       [ "VolumeControl.WPF.Behaviors.TextBoxAutocompleteBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_autocomplete_behavior.html", null ],
       [ "VolumeControl.WPF.Behaviors.TextBoxEnterUpdatesTextSourceBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_enter_updates_text_source_behavior.html", null ],
+      [ "VolumeControl.WPF.Behaviors.TextBoxHorizontalScrollBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_horizontal_scroll_behavior.html", null ],
       [ "VolumeControl.WPF.Behaviors.TextBoxInputFilterBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_input_filter_behavior.html", null ]
     ] ],
     [ "VolumeControl.TypeExtensions.CollectionExtensions", "class_volume_control_1_1_type_extensions_1_1_collection_extensions.html", null ],
@@ -121,6 +122,7 @@ var hierarchy =
       [ "VolumeControl.CoreAudio.AudioSessionManager", "class_volume_control_1_1_core_audio_1_1_audio_session_manager.html", null ],
       [ "VolumeControl.Log.AsyncLogWriter", "class_volume_control_1_1_log_1_1_async_log_writer.html", null ],
       [ "VolumeControl.Log.Endpoints.MemoryEndpoint", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html", null ],
+      [ "VolumeControl.Log.Endpoints.PersistentFileEndpoint", "class_volume_control_1_1_log_1_1_endpoints_1_1_persistent_file_endpoint.html", null ],
       [ "VolumeControl.Log.Helpers.ThreadedActionQueue", "class_volume_control_1_1_log_1_1_helpers_1_1_threaded_action_queue.html", [
         [ "VolumeControl.Log.AsyncLogWriter", "class_volume_control_1_1_log_1_1_async_log_writer.html", null ]
       ] ],
@@ -130,12 +132,16 @@ var hierarchy =
     [ "VolumeControl.Log.Interfaces.IEndpointWriter", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html", [
       [ "VolumeControl.Log.Endpoints.BaseEndpointWriter", "class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html", [
         [ "VolumeControl.Log.Endpoints.ConsoleEndpoint", "class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html", null ],
-        [ "VolumeControl.Log.Endpoints.FileEndpoint", "class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html", null ]
+        [ "VolumeControl.Log.Endpoints.FileEndpoint", "class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html", [
+          [ "VolumeControl.Log.Endpoints.PersistentFileEndpoint", "class_volume_control_1_1_log_1_1_endpoints_1_1_persistent_file_endpoint.html", null ]
+        ] ]
       ] ],
       [ "VolumeControl.Log.Endpoints.FileEndpoint", "class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html", null ],
       [ "VolumeControl.Log.Endpoints.MemoryEndpoint", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html", null ]
     ] ],
     [ "IEnumerable", null, [
+      [ "VolumeControl.Log.LogMessage", "class_volume_control_1_1_log_1_1_log_message.html", null ],
+      [ "VolumeControl.Log.LogMessage", "class_volume_control_1_1_log_1_1_log_message.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ]
     ] ],
@@ -229,10 +235,8 @@ var hierarchy =
       [ "VolumeControl.WPF.Converters.ConverterChain", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain.html", null ]
     ] ],
     [ "VolumeControl.TypeExtensions.ListExtensions", "class_volume_control_1_1_type_extensions_1_1_list_extensions.html", null ],
-    [ "VolumeControl.Log.LogMessage", "class_volume_control_1_1_log_1_1_log_message.html", null ],
     [ "VolumeControl.TypeExtensions.MathExt", "class_volume_control_1_1_type_extensions_1_1_math_ext.html", null ],
     [ "VolumeControl.HotkeyActions.MediaActions", "class_volume_control_1_1_hotkey_actions_1_1_media_actions.html", null ],
-    [ "VolumeControl.TypeExtensions.MemberInfoExtensions", "class_volume_control_1_1_type_extensions_1_1_member_info_extensions.html", null ],
     [ "VolumeControl.WPF.PInvoke.MINMAXINFO", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_i_n_m_a_x_i_n_f_o.html", null ],
     [ "VolumeControl.CoreAudio.Helpers.MMDeviceExtensions", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_m_m_device_extensions.html", null ],
     [ "VolumeControl.Core.Input.Enums.ModifierKeyExtensions", "class_volume_control_1_1_core_1_1_input_1_1_enums_1_1_modifier_key_extensions.html", null ],
@@ -248,7 +252,6 @@ var hierarchy =
     [ "VolumeControl.WPF.PInvoke.POINT", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_p_o_i_n_t.html", null ],
     [ "VolumeControl.TypeExtensions.PointExtensions", "class_volume_control_1_1_type_extensions_1_1_point_extensions.html", null ],
     [ "VolumeControl.TypeExtensions.ProcessExtensions", "class_volume_control_1_1_type_extensions_1_1_process_extensions.html", null ],
-    [ "VolumeControl.TypeExtensions.PropertyInfoExtensions", "class_volume_control_1_1_type_extensions_1_1_property_info_extensions.html", null ],
     [ "VolumeControl.TypeExtensions.RealNumberExtensions", "class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html", null ],
     [ "VolumeControl.WPF.PInvoke.RECT", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html", null ],
     [ "VolumeControl.TypeExtensions.ReflectionExtensions", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html", null ],

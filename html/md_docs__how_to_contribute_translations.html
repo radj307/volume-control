@@ -91,7 +91,7 @@ $(document).ready(function(){initNavTree('md_docs__how_to_contribute_translation
 <div class="contents">
 <div class="textblock"><p>This is intended as a guide for contributors looking to provide language translations for Volume Control. It describes in depth how to edit existing translations, create new translations, and submit pull requests on Github.</p>
 <p>For a comprehensive overview of how Volume Control implements translations, see the documentation for the localization nuget package we use: <a href="https://github.com/codingseb/Localization">CodingSeb.Localization</a>.</p>
-<h1><a class="anchor" id="autotoc_md31"></a>
+<h1><a class="anchor" id="autotoc_md28"></a>
 Getting Started</h1>
 <p>This is the simplest way for a complete beginner to get started; if you're already familiar with Github you can use any method that you prefer.</p>
 <ol type="1">
@@ -111,16 +111,16 @@ Getting Started</h1>
  <img src="https://i.imgur.com/799CQAo.png" alt="" class="inline"/> <br  />
 </li>
 </ol>
-<h1><a class="anchor" id="autotoc_md32"></a>
+<h1><a class="anchor" id="autotoc_md29"></a>
 File Format</h1>
 <p>The <code>VolumeControl/Localization</code> directory contains translation configuration files that are responsible for providing translated strings to Volume Control. Each translation config file should contain translated strings for exactly <b>ONE</b> (1) language. <br  />
  Translation configs can be in either JSON or YAML format, but JSON is preferred. Don't worry if you aren't familiar with JSON files, you don't need to know anything about them to provide translations *(but it will help with understanding the instructions)*.</p>
-<h2><a class="anchor" id="autotoc_md33"></a>
+<h2><a class="anchor" id="autotoc_md30"></a>
 File Naming Conventions</h2>
 <p>Translation config files must be named <code>&lt;LOCALE_ID&gt;.loc.json</code>, where <code>&lt;LOCALE_ID&gt;</code> is the 2-character <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1 language code</a> of the language defined within that file. You're probably already familiar with the locale ID of your language as you've probably seen it in other places before. If you're unsure, or just double-checking, you can find the code associated with your language under the <code>639-1</code> column of <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">this table on wikipedia</a>. <br  />
 </p>
 <p>For example, the locale ID of English is <code>en</code>, so the <code>en.loc.json</code> file contains translations for the English language.</p>
-<h2><a class="anchor" id="autotoc_md34"></a>
+<h2><a class="anchor" id="autotoc_md31"></a>
 String "Paths"</h2>
 <p>Each translated <a href="https://en.wikipedia.org/wiki/String_(computer_science)">string</a> used by Volume Control is accessed via a <b>PATH</b> that corresponds to the structure of the translation config file. These paths are named and organized in such a way as to *(loosely)* represent the underlying XAML code that defines the structure of the window. <br  />
  <b>These path names MUST be in English and cannot be changed!</b></p>
@@ -139,24 +139,24 @@ String "Paths"</h2>
 </blockquote>
 <p>If you follow the instructions in this guide, you won't need to worry about the actual structure of the translation config file beyond ensuring it matches the structure of <code>en.loc.json</code>. <br  />
 </p>
-<h1><a class="anchor" id="autotoc_md35"></a>
+<h1><a class="anchor" id="autotoc_md32"></a>
 Edit an Existing Translation</h1>
 <p>Open the translation config file *(found in <code>VolumeControl/Localization</code>)* associated with the translation you want to modify, then proceed to <a href="#add-a-missing-translated-string">Add a Missing Translated String</a> or <a href="#change-an-existing-translated-string">Change an Existing Translated String</a>. <br  />
  Removing a translated string is fairly self-explanatory; simply delete the sections you want to remove from your translation config file.</p>
-<h2><a class="anchor" id="autotoc_md36"></a>
+<h2><a class="anchor" id="autotoc_md33"></a>
 Add a Missing Translated String</h2>
 <ol type="1">
 <li>Copy the missing section(s) from <code>en.loc.json</code> and paste it into the correct position(s) in your translation config file.</li>
 <li>Change <code>English (US/CA)</code> to your language name using the find &amp; replace tool *(CTRL+F ➔ Click on the arrow icon)*.</li>
 <li>Replace the English string(s) with the translated string(s).</li>
 </ol>
-<h2><a class="anchor" id="autotoc_md37"></a>
+<h2><a class="anchor" id="autotoc_md34"></a>
 Change an Existing Translated String</h2>
 <ol type="1">
 <li>Find the string you want to change. *(CTRL+F)*</li>
 <li>Replace the string with the new translated string.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md38"></a>
+<h1><a class="anchor" id="autotoc_md35"></a>
 Create a New Translation</h1>
 <ol type="1">
 <li>Create a new file in the <code>VolumeControl/Localization</code> directory *(R+Click ➔ New File)*. <br  />
@@ -169,7 +169,7 @@ Create a New Translation</h1>
  &gt; &lsquo;"Are you sure you want to delete hotkey ${ID}?\n\n- 'Yes&amp;rsquo;     Delete the hotkey.\n- 'No'      Do not delete the hotkey.\n- 'Cancel'  Don't show this again. (Press again to delete)\n"` <br  />
  &gt; When changing these entries, be sure to use the correct number of spaces to preserve the alignment!</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md39"></a>
+<h1><a class="anchor" id="autotoc_md36"></a>
 Push Your Changes</h1>
 <p>Changes that you make in the editor will not appear in your forked repository until you <b>push</b> them.</p>
 <ol type="1">
@@ -178,7 +178,7 @@ Push Your Changes</h1>
 <li>Click <b>Commit &amp; Push</b> or press <b>CTRL+ENTER</b> to push your changes.</li>
 </ol>
 <p>Your forked repository will now contain your changes, and you're ready to submit a pull request.</p>
-<h1><a class="anchor" id="autotoc_md40"></a>
+<h1><a class="anchor" id="autotoc_md37"></a>
 Submit a Pull Request</h1>
 <p>Pull Requests (PRs) are Github's way of pushing changes across forked repositories. By submitting a pull request, you can contribute to Volume Control directly, and your Github username and picture *(if you have one)* will appear in the <b>Contributors</b> section of the main repository: <br  />
  <img src="https://i.imgur.com/au6O6ow.png" alt="" class="inline"/></p>
@@ -193,7 +193,7 @@ Submit a Pull Request</h1>
 <li>Give your PR a name and fill in any relevant information in the description field, then click <b>Create pull request</b>.</li>
 </ol>
 <p>You're all done! The developers will review your pull request and merge the changes if everything looks good, otherwise they will ask you to make changes first. For more information, see <a href="#updating-a-pull-request">Updating a Pull Request</a>.</p>
-<h2><a class="anchor" id="autotoc_md41"></a>
+<h2><a class="anchor" id="autotoc_md38"></a>
 Updating a Pull Request</h2>
 <p>If the developers ask you to make changes to your pull request before merging it, you can do this by simply pushing the changes to your forked repository as described in <a href="#pushing-your-changes">Pushing Your Changes</a>. No further action is required on your part to update the PR as this happens automatically. </p>
 </div></div><!-- contents -->

@@ -114,7 +114,8 @@ var annotated_dup =
           [ "BaseEndpointWriter", "class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html", "class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer" ],
           [ "ConsoleEndpoint", "class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html", "class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint" ],
           [ "FileEndpoint", "class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html", "class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint" ],
-          [ "MemoryEndpoint", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint" ]
+          [ "MemoryEndpoint", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html", "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint" ],
+          [ "PersistentFileEndpoint", "class_volume_control_1_1_log_1_1_endpoints_1_1_persistent_file_endpoint.html", "class_volume_control_1_1_log_1_1_endpoints_1_1_persistent_file_endpoint" ]
         ] ],
         [ "Exceptions", "namespace_volume_control_1_1_log_1_1_exceptions.html", [
           [ "NotInitializedException", "class_volume_control_1_1_log_1_1_exceptions_1_1_not_initialized_exception.html", "class_volume_control_1_1_log_1_1_exceptions_1_1_not_initialized_exception" ]
@@ -151,8 +152,6 @@ var annotated_dup =
         [ "IReadOnlyListExtensions", "class_volume_control_1_1_type_extensions_1_1_i_read_only_list_extensions.html", "class_volume_control_1_1_type_extensions_1_1_i_read_only_list_extensions" ],
         [ "ListExtensions", "class_volume_control_1_1_type_extensions_1_1_list_extensions.html", "class_volume_control_1_1_type_extensions_1_1_list_extensions" ],
         [ "MathExt", "class_volume_control_1_1_type_extensions_1_1_math_ext.html", "class_volume_control_1_1_type_extensions_1_1_math_ext" ],
-        [ "MemberInfoExtensions", "class_volume_control_1_1_type_extensions_1_1_member_info_extensions.html", "class_volume_control_1_1_type_extensions_1_1_member_info_extensions" ],
-        [ "PropertyInfoExtensions", "class_volume_control_1_1_type_extensions_1_1_property_info_extensions.html", "class_volume_control_1_1_type_extensions_1_1_property_info_extensions" ],
         [ "NullableBoolExtensions", "class_volume_control_1_1_type_extensions_1_1_nullable_bool_extensions.html", "class_volume_control_1_1_type_extensions_1_1_nullable_bool_extensions" ],
         [ "PointExtensions", "class_volume_control_1_1_type_extensions_1_1_point_extensions.html", "class_volume_control_1_1_type_extensions_1_1_point_extensions" ],
         [ "ProcessExtensions", "class_volume_control_1_1_type_extensions_1_1_process_extensions.html", "class_volume_control_1_1_type_extensions_1_1_process_extensions" ],
@@ -169,13 +168,14 @@ var annotated_dup =
         [ "Behaviors", "namespace_volume_control_1_1_w_p_f_1_1_behaviors.html", [
           [ "DisableMouseWheelBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_disable_mouse_wheel_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_disable_mouse_wheel_behavior" ],
           [ "EscapeRemovesFocusBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior" ],
-          [ "HorizontalScrollBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_horizontal_scroll_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_horizontal_scroll_behavior" ],
           [ "HyperlinkOpenInBrowserBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_hyperlink_open_in_browser_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_hyperlink_open_in_browser_behavior" ],
           [ "MouseWheelListViewBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_list_view_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_list_view_behavior" ],
           [ "MouseWheelNumericUpDownBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_numeric_up_down_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_numeric_up_down_behavior" ],
           [ "MouseWheelRangeBaseBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_range_base_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_range_base_behavior" ],
+          [ "ScrollViewerHorizontalScrollBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_scroll_viewer_horizontal_scroll_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_scroll_viewer_horizontal_scroll_behavior" ],
           [ "TextBoxAutocompleteBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_autocomplete_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_autocomplete_behavior" ],
           [ "TextBoxEnterUpdatesTextSourceBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_enter_updates_text_source_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_enter_updates_text_source_behavior" ],
+          [ "TextBoxHorizontalScrollBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_horizontal_scroll_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_horizontal_scroll_behavior" ],
           [ "TextBoxInputFilterBehavior", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_input_filter_behavior.html", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_input_filter_behavior" ]
         ] ],
         [ "Bindings", "namespace_volume_control_1_1_w_p_f_1_1_bindings.html", [

@@ -4,4 +4,5 @@
 <area shape="rect" id="node5" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk." alt="" coords="247,403,464,568"/>
 <area shape="rect" id="node2" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html" title="Represents an endpoint that text can be written to." alt="" coords="67,5,214,127"/>
 <area shape="rect" id="node3" title=" " alt="" coords="239,27,416,105"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_persistent_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk, and keeps the file stream open." alt="" coords="247,616,464,767"/>
 </map>

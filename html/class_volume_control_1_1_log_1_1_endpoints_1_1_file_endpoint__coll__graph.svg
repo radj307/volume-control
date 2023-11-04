@@ -16,14 +16,14 @@
 <text text-anchor="start" x="32.5" y="-111.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.Endpoints.</text>
 <text text-anchor="middle" x="106" y="-100.5" font-family="Helvetica,sans-Serif" font-size="10.00">FileEndpoint</text>
 <polyline fill="none" stroke="black" points="24.5,-93.5 187.5,-93.5 "/>
-<text text-anchor="start" x="32.5" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Path</text>
-<text text-anchor="start" x="32.5" y="-70.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ PathIsEmpty</text>
-<polyline fill="none" stroke="black" points="24.5,-63.5 187.5,-63.5 "/>
-<text text-anchor="start" x="32.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FileEndpoint()</text>
-<text text-anchor="start" x="32.5" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GetStreamWriter()</text>
-<text text-anchor="start" x="32.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GetTextWriter()</text>
-<text text-anchor="start" x="32.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Reset()</text>
-<text text-anchor="start" x="32.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">~ GetWriter()</text>
+<text text-anchor="start" x="32.5" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FileInfo</text>
+<text text-anchor="start" x="32.5" y="-70.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Path</text>
+<text text-anchor="start" x="32.5" y="-59.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ PathIsEmpty</text>
+<polyline fill="none" stroke="black" points="24.5,-52.5 187.5,-52.5 "/>
+<text text-anchor="start" x="32.5" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FileEndpoint()</text>
+<text text-anchor="start" x="32.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GetStreamWriter()</text>
+<text text-anchor="start" x="32.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GetTextWriter()</text>
+<text text-anchor="start" x="32.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Reset()</text>
 </a>
 </g>
 </g>
