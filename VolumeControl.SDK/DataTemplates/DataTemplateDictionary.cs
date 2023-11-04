@@ -20,7 +20,6 @@ namespace VolumeControl.SDK.DataTemplates
         public DataTemplateDictionary()
         {
             InitializeComponent();
-
         }
         #endregion Constructor
 

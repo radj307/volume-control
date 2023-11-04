@@ -13,7 +13,7 @@
     x:ClassModifier="public">
     <!--  Converters  -->
 
-    <!--  DataTemplates  -->
+    <!--  String  -->
     <core:ActionSettingDataTemplate
         x:Key="StringDataTemplate"
         DataType="{x:Type actionSettings:IActionSettingInstance}"
@@ -22,6 +22,8 @@
             <TextBox Style="{StaticResource RoundedTextBoxStyle}" Text="{Binding Value, UpdateSourceTrigger=LostFocus}" />
         </Grid>
     </core:ActionSettingDataTemplate>
+
+    <!--  Bool  -->
     <core:ActionSettingDataTemplate
         x:Key="BooleanDataTemplate"
         DataType="{x:Type actionSettings:IActionSettingInstance}"
@@ -29,6 +31,7 @@
         <CheckBox IsChecked="{Binding Value, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
     </core:ActionSettingDataTemplate>
 
+    <!--  VolumeLevel/VolumeStep (int) NumericUpDowns  -->
     <core:ActionSettingDataTemplate
         x:Key="VolumeLevelDataTemplate"
         DataType="{x:Type actionSettings:IActionSettingInstance}"
@@ -63,6 +66,42 @@
             </i:Interaction.Behaviors>
         </controls:NumericUpDown>
     </core:ActionSettingDataTemplate>
+
+    <!--  Int32  -->
+    <core:ActionSettingDataTemplate
+        x:Key="Int32DataTemplate"
+        DataType="{x:Type actionSettings:IActionSettingInstance}"
+        ValueType="{x:Type sys:Int32}">
+        <controls:NumericUpDown
+            Margin="3,1"
+            HorizontalAlignment="Stretch"
+            Style="{StaticResource NumericUpDownStyle}"
+            Value="{Binding Value, UpdateSourceTrigger=PropertyChanged}">
+            <i:Interaction.Behaviors>
+                <wpfBehaviors:MouseWheelNumericUpDownBehavior Amount="1" />
+            </i:Interaction.Behaviors>
+        </controls:NumericUpDown>
+    </core:ActionSettingDataTemplate>
+
+    <!--  Decimal  -->
+    <core:ActionSettingDataTemplate
+        x:Key="DecimalDataTemplate"
+        DataType="{x:Type actionSettings:IActionSettingInstance}"
+        ValueType="{x:Type sys:Decimal}">
+        <controls:NumericUpDown
+            Margin="3,1"
+            HorizontalAlignment="Stretch"
+            Style="{StaticResource NumericUpDownStyle}"
+            Value="{Binding Value, UpdateSourceTrigger=PropertyChanged}">
+            <i:Interaction.Behaviors>
+                <wpfBehaviors:MouseWheelNumericUpDownBehavior Amount="1" />
+            </i:Interaction.Behaviors>
+        </controls:NumericUpDown>
+    </core:ActionSettingDataTemplate>
+
+    <core:ActionSettingDataTemplate x:Key="DoubleDataTemplate" DataType="{x:Type actionSettings:IActionSettingInstance}" />
+
+    <!--  ActionTargetSpecifier  -->
     <core:ActionSettingDataTemplate
         x:Key="ActionTargetSpecifierDataTemplate"
         DataType="{x:Type actionSettings:IActionSettingInstance}"
