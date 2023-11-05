@@ -1,5 +1,6 @@
 var namespace_volume_control =
 [
+    [ "Summary:", "md_docs__addon_development.html#autotoc_md11", null ],
     [ "Core", "namespace_volume_control_1_1_core.html", "namespace_volume_control_1_1_core" ],
     [ "CoreAudio", "namespace_volume_control_1_1_core_audio.html", "namespace_volume_control_1_1_core_audio" ],
     [ "HotkeyActions", "namespace_volume_control_1_1_hotkey_actions.html", "namespace_volume_control_1_1_hotkey_actions" ],

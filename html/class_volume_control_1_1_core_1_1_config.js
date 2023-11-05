@@ -21,6 +21,7 @@ var class_volume_control_1_1_core_1_1_config =
     [ "DeviceListNotificationConfig", "class_volume_control_1_1_core_1_1_config.html#ad97fb52ffbeb3172380e85880f06a671", null ],
     [ "EnableDeviceControl", "class_volume_control_1_1_core_1_1_config.html#a1b52d493042197f26f914414bce1109f", null ],
     [ "EnableLogging", "class_volume_control_1_1_core_1_1_config.html#a342055f03cf42c0b60a7a635b612917c", null ],
+    [ "EnableSessionSync", "class_volume_control_1_1_core_1_1_config.html#af07a1e82c40ce9ef61983c325d2efff8", null ],
     [ "HiddenSessionProcessNames", "class_volume_control_1_1_core_1_1_config.html#aeb7965013c0d6e98452d6ddb76b71563", null ],
     [ "Hotkeys", "class_volume_control_1_1_core_1_1_config.html#a5916666c0ab21a38dc92ec91879defa2", null ],
     [ "KeepRelativePosition", "class_volume_control_1_1_core_1_1_config.html#aa21e507e40d4f47e43e6015d85d17629", null ],

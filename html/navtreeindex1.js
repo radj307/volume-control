@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#a8ed367114c5aa067a3a01b6969df8406":[8,0,0,0,4,6,15],
 "class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#aa79973ba79736fb52a012874a3edc3ba":[8,0,0,0,4,6,1],
 "class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#aaa4e6d47e4cc375b65398bc0231efcac":[8,0,0,0,4,6,3],
 "class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#aab7a408b9cff1e26155690b0e306fe80":[8,0,0,0,4,6,8],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a7ec79fdd731728590d8ca948bca51521":[8,0,0,1,8,27],
 "class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a865d4f3af30e93d9dfc4a89340807aa9":[8,0,0,1,8,11],
 "class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a92af88aa6fc937e9d95df1f29d5b1192":[8,0,0,1,8,7],
-"class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a9503528e0f5df1a72c573d8fe136386f":[8,0,0,1,8,17],
-"class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a98ea90db21f6e928b546d4c7010f878d":[8,0,0,1,8,5]
+"class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a9503528e0f5df1a72c573d8fe136386f":[8,0,0,1,8,17]
 };

@@ -1,5 +1,6 @@
 var NAVTREEINDEX3 =
 {
+"class_volume_control_1_1_log_1_1_helpers_1_1_exception_message_helper.html#a0b664e604e743ce07dbdd802125a2dc9ae5d626203c784e4c5a6f42577b7b8390":[8,0,0,3,2,0,0,5],
 "class_volume_control_1_1_log_1_1_helpers_1_1_exception_message_helper.html#a0b664e604e743ce07dbdd802125a2dc9af31bbdd1b3e85bccd652680e16935819":[8,0,0,3,2,0,0,6],
 "class_volume_control_1_1_log_1_1_helpers_1_1_exception_message_helper.html#a0b664e604e743ce07dbdd802125a2dc9af6068daa29dbb05a7ead1e3b5a48bbee":[8,0,0,3,2,0,0,8],
 "class_volume_control_1_1_log_1_1_helpers_1_1_exception_message_helper.html#a0b664e604e743ce07dbdd802125a2dc9afe5b6cd4d7a31615bbec8d1505089d87":[8,0,0,3,2,0,0,9],
@@ -248,6 +249,5 @@ var NAVTREEINDEX3 =
 "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#aecfcb5f7db75042469b290c724c55fb9":[8,0,0,6,7,26],
 "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#af956b35105c395b936c0938150213ae5":[8,0,0,6,7,0],
 "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#afaa2314dbed8181d9a625508ee4ee9d0":[8,0,0,6,7,25],
-"class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html":[8,0,0,6,2,0],
-"class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#a3eaa4d99cebde18661999df90a1e3615":[8,0,0,6,2,0,3]
+"class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html":[8,0,0,6,2,0]
 };

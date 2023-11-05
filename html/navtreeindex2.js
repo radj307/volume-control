@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a98ea90db21f6e928b546d4c7010f878d":[8,0,0,1,8,5],
 "class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a98f2b6f68bfe07fcaf3bb0d7c89b9cb6":[8,0,0,1,8,20],
 "class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a9faf566ac2546ae6d3bfd31de046f264":[8,0,0,1,8,0],
 "class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#aa3cb94cf00ac6d3aeb3ed380640eaeda":[8,0,0,1,8,22],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "class_volume_control_1_1_log_1_1_helpers_1_1_exception_message_helper.html#a0b664e604e743ce07dbdd802125a2dc9a7674d71f85bb9701690f8d0c844a775d":[8,0,0,3,2,0,0,7],
 "class_volume_control_1_1_log_1_1_helpers_1_1_exception_message_helper.html#a0b664e604e743ce07dbdd802125a2dc9aa8356f602863b44f69d7583086d3fab9":[8,0,0,3,2,0,0,3],
 "class_volume_control_1_1_log_1_1_helpers_1_1_exception_message_helper.html#a0b664e604e743ce07dbdd802125a2dc9ab1c94ca2fbc3e78fc30069c8d0f01680":[8,0,0,3,2,0,0,11],
-"class_volume_control_1_1_log_1_1_helpers_1_1_exception_message_helper.html#a0b664e604e743ce07dbdd802125a2dc9ad861e22088ac2204369274eb062f34ed":[8,0,0,3,2,0,0,2],
-"class_volume_control_1_1_log_1_1_helpers_1_1_exception_message_helper.html#a0b664e604e743ce07dbdd802125a2dc9ae5d626203c784e4c5a6f42577b7b8390":[8,0,0,3,2,0,0,5]
+"class_volume_control_1_1_log_1_1_helpers_1_1_exception_message_helper.html#a0b664e604e743ce07dbdd802125a2dc9ad861e22088ac2204369274eb062f34ed":[8,0,0,3,2,0,0,2]
 };
