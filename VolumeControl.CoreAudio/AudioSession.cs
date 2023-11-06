@@ -175,12 +175,13 @@ namespace VolumeControl.CoreAudio
                 else if (value > 1.0f)
                     value = 1.0f;
 
+                if (value == NativeVolume) return;
+
                 SimpleAudioVolume.MasterVolume = value;
                 if (isNotifying) return; //< don't duplicate propertychanged notifications
                 isNotifying = true;
-                NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(Volume));
                 NotifyVolumeChanged(value, Mute);
+                NotifyPropertyChanged();
                 isNotifying = false;
             }
         }
@@ -188,7 +189,11 @@ namespace VolumeControl.CoreAudio
         public int Volume
         {
             get => VolumeLevelConverter.FromNativeVolume(NativeVolume);
-            set => NativeVolume = VolumeLevelConverter.ToNativeVolume(value);
+            set
+            {
+                NativeVolume = VolumeLevelConverter.ToNativeVolume(value);
+                NotifyPropertyChanged();
+            }
         }
         /// <inheritdoc/>
         public bool Mute
@@ -196,9 +201,11 @@ namespace VolumeControl.CoreAudio
             get => SimpleAudioVolume.Mute;
             set
             {
+                if (value == Mute) return;
+
                 SimpleAudioVolume.Mute = value;
-                NotifyPropertyChanged();
                 NotifyVolumeChanged(NativeVolume, value);
+                NotifyPropertyChanged();
             }
         }
         #endregion Properties

@@ -80,8 +80,7 @@ namespace VolumeControl.ViewModels
             };
 
             // setup the session synchronizer
-            SessionSync = new(this);
-            SessionSync.PropertyChanged += this.SessionSync_PropertyChanged;
+            //SessionSync = new(this, initialState: false);
 
             // populate the sessions lists
             Devices.Select(d => d.AudioDevice.SessionManager).ForEach(AudioSessionManager.AddSessionManager);
@@ -104,6 +103,9 @@ namespace VolumeControl.ViewModels
             AudioSessionMultiSelector.SessionSelected += this.AudioSessionMultiSelector_SessionSelected;
             AudioSessionMultiSelector.SessionDeselected += this.AudioSessionMultiSelector_SessionDeselected;
             AudioSessionMultiSelector.CurrentSessionChanged += this.AudioSessionMultiSelector_CurrentSessionChanged;
+
+            // enable session sync
+            //SessionSync.IsEnabled = Settings.EnableSessionSync;
 
             if (doDebugLogging) FLog.Debug($"Successfully initialized {AudioSessionManager.Sessions.Count + AudioSessionManager.HiddenSessions.Count} {(AudioSessionManager.HiddenSessions.Count == 0 ? "" : $"({AudioSessionManager.HiddenSessions.Count} hidden)")} audio sessions.");
 
@@ -130,7 +132,7 @@ namespace VolumeControl.ViewModels
         public AudioDeviceSelector AudioDeviceSelector { get; }
         public AudioDeviceVM? SelectedDevice { get; set; }
         public AudioSessionMultiSelector AudioSessionMultiSelector { get; }
-        public SessionSyncVM SessionSync { get; }
+       // public SessionSyncVM SessionSync { get; }
         public bool? AllSessionsSelected
         {
             get
@@ -283,18 +285,6 @@ namespace VolumeControl.ViewModels
             }
         }
         #endregion AudioDeviceSelector
-
-        #region SessionSync
-        private void SessionSync_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == null) return;
-
-            if (e.PropertyName.Equals(nameof(SessionSyncVM.IsEnabled), StringComparison.Ordinal))
-            {
-                Settings.EnableSessionSync = SessionSync.IsEnabled;
-            }
-        }
-        #endregion SessionSync
 
         #endregion EventHandlers
     }

@@ -25,6 +25,9 @@
     <Copyright>Copyright © 2023 by $(Authors)</Copyright>
   </PropertyGroup>
   <ItemGroup>
+    <Content Remove="C:\Users\Administrator\.nuget\packages\radj307.appreconfig\2.3.0\contentFiles\any\net6.0\Resources\gear-split.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -44,7 +47,9 @@
     <PackageReference Include="PropertyChanged.Fody" Version="4.1.0">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="radj307.AppReconfig" Version="2.3.0" />
+    <PackageReference Include="radj307.AppReconfig" Version="2.3.1">
+      <PrivateAssets>Resources</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VolumeControl.CoreAudio\VolumeControl.CoreAudio.csproj">

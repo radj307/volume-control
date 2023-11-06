@@ -39,7 +39,7 @@ namespace VolumeControl.Helpers
             /// <param name="sourceFileName">Optional source file name.</param>
             public void LoadFromStream(Stream stream, LocalizationLoader loader, string resourceName)
             {
-                using var reader = new StreamReader(stream, System.Text.Encoding.UTF8, true, leaveOpen: true);
+                using var reader = new StreamReader(stream, System.Text.Encoding.UTF8, true);
                 string content = reader.ReadToEnd();
                 LoadFromString(content, loader, resourceName);
             }

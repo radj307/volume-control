@@ -1,5 +1,4 @@
 ﻿using VolumeControl.CoreAudio.Interfaces;
-using VolumeControl.CoreAudio.Structs;
 
 namespace VolumeControl.CoreAudio.Helpers
 {
@@ -49,18 +48,6 @@ namespace VolumeControl.CoreAudio.Helpers
         /// <param name="audioControl">(implicit) <see cref="IAudioControl"/> instance.</param>
         public static void ToggleMute(this IAudioControl audioControl)
             => audioControl.Mute = !audioControl.Mute;
-        /// <summary>
-        /// Sets the volume level &amp; mute state to the values in the specified <paramref name="volumeState"/>, if they're set.
-        /// </summary>
-        /// <param name="audioControl">(implicit) <see cref="IAudioControl"/> instance.</param>
-        /// <param name="volumeState"><see cref="VolumeState"/> instance containing the values to set.</param>
-        public static void SetState(this IAudioControl audioControl, VolumeState volumeState)
-        {
-            if (volumeState.HasVolume)
-                audioControl.Volume = volumeState.Volume;
-            if (volumeState.HasMute)
-                audioControl.Mute = volumeState.Mute;
-        }
         /// <summary>
         /// Sets the volume level &amp; mute state to the values in the specified <paramref name="other"/> instance.
         /// </summary>

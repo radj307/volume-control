@@ -14,7 +14,7 @@
     <NeutralLanguage>en-CA</NeutralLanguage>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/radj307/volume-control</RepositoryUrl>
-    <Copyright>Copyright © 2023 by $(Authors)</Copyright>
+    <Copyright>Copyright © 2023 $(Authors)</Copyright>
     <ApplicationIcon>Resources\icons\iconSilvered.ico</ApplicationIcon>
     <Company>radj307</Company>
     <Product>Volume Control</Product>
@@ -35,6 +35,9 @@
   </PropertyGroup>
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
     <EmbeddedResource Include="Localization\zz.loc.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="C:\Users\Administrator\.nuget\packages\radj307.appreconfig\2.3.0\contentFiles\any\net6.0\Resources\gear-split.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Localization\de.loc.json" />

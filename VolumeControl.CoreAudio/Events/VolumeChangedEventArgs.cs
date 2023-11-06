@@ -7,7 +7,7 @@ namespace VolumeControl.CoreAudio.Events
     /// <summary>
     /// Contains event data for the <see cref="VolumeChangedEventHandler"/> event type.
     /// </summary>
-    public sealed class VolumeChangedEventArgs : EventArgs, IReadOnlyAudioControl
+    public sealed class VolumeChangedEventArgs : EventArgs
     {
         #region Constructor
         /// <summary>
@@ -16,8 +16,8 @@ namespace VolumeControl.CoreAudio.Events
         /// <param name="data">The <see cref="AudioVolumeNotificationData"/> object from the underlying event.</param>
         internal VolumeChangedEventArgs(AudioVolumeNotificationData data)
         {
-            NativeVolume = data.MasterVolume;
-            Volume = VolumeLevelConverter.FromNativeVolume(NativeVolume);
+            NewNativeVolume = data.MasterVolume;
+            Volume = VolumeLevelConverter.FromNativeVolume(NewNativeVolume);
             Mute = data.Muted;
         }
         /// <summary>
@@ -27,15 +27,15 @@ namespace VolumeControl.CoreAudio.Events
         /// <param name="newMute">The new mute state.</param>
         internal VolumeChangedEventArgs(float newVolume, bool newMute)
         {
-            NativeVolume = newVolume;
-            Volume = VolumeLevelConverter.FromNativeVolume(NativeVolume);
+            NewNativeVolume = newVolume;
+            Volume = VolumeLevelConverter.FromNativeVolume(NewNativeVolume);
             Mute = newMute;
         }
         #endregion Constructor
 
         #region Properties
         /// <inheritdoc/>
-        public float NativeVolume { get; }
+        public float NewNativeVolume { get; }
         /// <inheritdoc/>
         public int Volume { get; }
         /// <inheritdoc/>
