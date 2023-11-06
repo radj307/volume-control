@@ -145,7 +145,7 @@ namespace VolumeControl.TypeExtensions
         /// </summary>
         /// <typeparam name="T">The type of enum being operated on.</typeparam>
         /// <param name="e">(implicit) Enum value to operate on.</param>
-        /// <returns>An enumerable containing all of the individual flags that were set in the enum value.</returns>
+        /// <returns>An array of the flags that were set in the enum value; when no flags were set, the array contains 1 zero value.</returns>
         public static T[] GetSingleValues<T>(this T e) where T : struct, Enum
         {
             var e_v = Convert.ToInt64(e);

@@ -1,5 +1,5 @@
-﻿using VolumeControl.Core.Input;
-using VolumeControl.Core.Input.Enums;
+﻿using VolumeControl.Core.Extensions;
+using VolumeControl.Core.Input;
 
 namespace VolumeControl.Core.Input
 {
