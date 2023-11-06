@@ -21,7 +21,7 @@
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <FileVersion>6.5.1</FileVersion>
-    <Version>6.5.1</Version>
+    <Version>6.5.1-dbg1</Version>
     <Copyright>Copyright © 2023 by $(Authors)</Copyright>
   </PropertyGroup>
   <ItemGroup>

@@ -1,0 +1,781 @@
+{
+    "LanguageName": {
+      "Magyar (Hungarian)": "Hungarian"
+    },
+    "VolumeControl": {
+      "MainWindow": {
+        "CaptionBar": {
+          "Title": {
+            "Content": {
+              "Magyar (Hungarian)": "Volume Control"
+            }
+          },
+          "BugReport": {
+            "Content": {
+              "Magyar (Hungarian)": "✏"
+            },
+            "Tooltip": {
+              "Magyar (Hungarian)": "Hiba bejelentése"
+            }
+          }
+        },
+        "Mixer": {
+          "TabHeader": {
+            "Magyar (Hungarian)": "Keverő"
+          },
+          "TargetBox": {
+            "Watermark": {
+              "Magyar (Hungarian)": "Folyamat ID vagy Név"
+            },
+            "LockTarget": {
+              "Magyar (Hungarian)": "Zárolás"
+            }
+          },
+          "MixerGrid": {
+            "Selected": {
+              "Header": {
+                "Tooltip": {
+                  "Magyar (Hungarian)": "Összes munkamenet kijelölése"
+                }
+              }
+            },
+            "PID": {
+              "Header": {
+                "Magyar (Hungarian)": "PID"
+              }
+            },
+            "Name": {
+              "Header": {
+                "Magyar (Hungarian)": "Név"
+              }
+            },
+            "Mute": {
+              "Header": {
+                "Magyar (Hungarian)": "Némítás"
+              }
+            },
+            "Volume": {
+              "Header": {
+                "Magyar (Hungarian)": "Hangerő"
+              }
+            },
+            "Select": {
+              "Button": {
+                "Magyar (Hungarian)": "Kiválasztás"
+              }
+            }
+          }
+        },
+        "Hotkeys": {
+          "TabHeader": {
+            "Magyar (Hungarian)": "Gyorsgombok"
+          },
+          "ControlRow": {
+            "VolumeStep": {
+              "Content": {
+                "Magyar (Hungarian)": "Hangerő Lépték"
+              },
+              "Tooltip": {
+                "Magyar (Hungarian)": "Ez az a szám mellyel növelődik a hangerő minden gombnyomásnál."
+              }
+            },
+            "ResetToDefault": {
+              "Content": {
+                "Magyar (Hungarian)": "Alaphelyzetbe állítás"
+              },
+              "Tooltip": {
+                "Magyar (Hungarian)": "Minden gyorsgomb visszaállítása az alapértelmezett értékre."
+              }
+            }
+          },
+          "HotkeyGrid": {
+            "Active": {
+              "Header": {
+                "Tooltip": {
+                  "Magyar (Hungarian)": "Minden gyorsgomb kijelölése."
+                }
+              }
+            },
+            "Name": {
+              "Header": {
+                "Magyar (Hungarian)": "Név"
+              }
+            },
+            "Key": {
+              "Header": {
+                "Magyar (Hungarian)": "Gomb"
+              },
+              "KeySelector": {
+                "Content": {
+                  "Magyar (Hungarian)": "🖮"
+                },
+                "Tooltip": {
+                  "Magyar (Hungarian)": "Az egér gombot nyomva tartva, nyomd le a gombot a kiválasztáshoz. A regisztrált gyorsgombok továbbra is aktiválhatók."
+                }
+              }
+            },
+            "Alt": {
+              "Header": {
+                "Magyar (Hungarian)": "Alt"
+              }
+            },
+            "Ctrl": {
+              "Header": {
+                "Magyar (Hungarian)": "Ctrl"
+              }
+            },
+            "Shift": {
+              "Header": {
+                "Magyar (Hungarian)": "Shift"
+              }
+            },
+            "Windows": {
+              "Header": {
+                "Magyar (Hungarian)": "Win"
+              }
+            },
+            "Action": {
+              "Header": {
+                "Magyar (Hungarian)": "Művelet"
+              }
+            }
+          },
+          "CreateNewHotkeyButton": {
+            "Content": {
+              "Magyar (Hungarian)": "Új Gyorsgomb Létrehozása"
+            },
+            "Tooltip": {
+              "Magyar (Hungarian)": "Létrehoz egy új, üres gyorsgombot."
+            }
+          }
+        },
+        "Settings": {
+          "TabHeader": {
+            "Magyar (Hungarian)": "Beállítások"
+          },
+          "Language": {
+            "Header": {
+              "Magyar (Hungarian)": "Nyelv"
+            },
+            "CustomLocations": {
+              "Magyar (Hungarian)": "Egyéni Helyek"
+            },
+            "Reload": {
+              "Content": {
+                "Magyar (Hungarian)": "Újratöltés"
+              },
+              "Tooltip": {
+                "Magyar (Hungarian)": "Minden nyelv beállítás újratöltése."
+              }
+            }
+          },
+          "Audio": {
+            "Header": {
+              "Magyar (Hungarian)": "Hang"
+            },
+            "AdditionalSettings": {
+              "Header": {
+                "Content": {
+                  "Magyar (Hungarian)": "További Beállítások"
+                },
+                "Tooltip": {}
+              },
+              "ShowPeakMeters": {
+                "Content": {
+                  "Magyar (Hungarian)": "Hangerő Mérték Mutatása"
+                },
+                "Tooltip": {
+                  "Magyar (Hungarian)": "Hangerő mértékek mutatása a Keverőben."
+                }
+              },
+              "UpdateInterval": {
+                "Content": {
+                  "Magyar (Hungarian)": "Frissítési Intervallum"
+                },
+                "Tooltip": {
+                  "Magyar (Hungarian)": "Időtartam, milliszekundumban, minden hangerő mérték frissítés között a Keverőben."
+                }
+              },
+              "EnableDeviceControl": {
+                "Content": {
+                  "Magyar (Hungarian)": "Mutasd az Eszköz Kezelőt"
+                },
+                "Tooltip": {
+                  "Magyar (Hungarian)": "Hangerő és némítás megjelenítése a Hang Eszközökben."
+                }
+              }
+            },
+            "DeviceGrid": {
+              "Enabled": {
+                "Header": {
+                  "Tooltip": {
+                    "Magyar (Hungarian)": "Minden eszköz be-/kijelőlése az eszköz listában."
+                  }
+                },
+                "Tooltip": {
+                  "Magyar (Hungarian)": "Felvehetsz vagy kizárhatsz eszközöket innen."
+                }
+              },
+              "Name": {
+                "Header": {
+                  "Magyar (Hungarian)": "Eszköz Neve"
+                }
+              },
+              "Interface": {
+                "Header": {
+                  "Magyar (Hungarian)": "Interfész Neve"
+                }
+              },
+              "Mute": {
+                "Header": {
+                  "Magyar (Hungarian)": "Némítás"
+                }
+              },
+              "Volume": {
+                "Header": {
+                  "Magyar (Hungarian)": "Hangerő"
+                }
+              }
+            }
+          },
+          "Notifications": {
+            "Header": {
+              "Magyar (Hungarian)": "Értesítések"
+            },
+            "AdditionalSettings": {
+              "Header": {
+                "Content": {
+                  "Magyar (Hungarian)": "További Beállítások"
+                },
+                "Tooltip": {}
+              },
+              "ResetPosition": {
+                "Content": {
+                  "Magyar (Hungarian)": "Értesítése Pozíció Visszaállítása"
+                },
+                "Tooltip": {
+                  "Magyar (Hungarian)": "Az értesítési ablak pozíciójának visszaállítása az alapértelmezett értékre."
+                }
+              },
+              "ForceHide": {
+                "Content": {
+                  "Magyar (Hungarian)": "Elrejtés"
+                },
+                "Tooltip": {
+                  "Magyar (Hungarian)": "Az értesítési ablak elrejtése, ha nincs aktív értesítés."
+                }
+              },
+              "HiddenSessions": {
+                "Content": {
+                  "Magyar (Hungarian)": "Rejtett Munkamenetek"
+                },
+                "Tooltip": {}
+              }
+            },
+            "Enable": {
+              "Content": {
+                "Magyar (Hungarian)": "Engedélyezés"
+              },
+              "Tooltip": {
+                "Magyar (Hungarian)": "Értesítési ablak bekapcsolása."
+              }
+            },
+            "OnVolumeChange": {
+              "Content": {
+                "Magyar (Hungarian)": "Hangerő Változtatáskor"
+              },
+              "Tooltip": {
+                "Magyar (Hungarian)": "Értesítési ablak megjelenítése, amikor a hangerő változik."
+              }
+            },
+            "Timeout": {
+              "Content": {
+                "Magyar (Hungarian)": "Időkorlát"
+              },
+              "Tooltip": {
+                "Magyar (Hungarian)": "Időtartam, milliszekundumban, amíg az értesítési ablak megjelenik."
+              }
+            },
+            "SessionListNotificationConfig": {
+              "Header": {
+                "Content": {
+                  "Magyar (Hungarian)": "Munkamenet Értesítési Beállítások"
+                },
+                "Tooltip": {}
+              }
+            },
+            "DeviceListNotificationConfig": {
+              "Header": {
+                "Content": {
+                  "Magyar (Hungarian)": "Eszköz Értesítési Beállítások"
+                },
+                "Tooltip": {}
+              }
+            }
+          },
+          "Log": {
+            "Header": {
+              "Magyar (Hungarian)": "Napló"
+            },
+            "Enable": {
+              "Content": {
+                "Magyar (Hungarian)": "Engedélyezés"
+              }
+            },
+            "Filter": {
+              "Text": {
+                "Magyar (Hungarian)": "Szűrő"
+              }
+            },
+            "Path": {
+              "Tooltip": {
+                "Magyar (Hungarian)": "Naplófájl neve és elérési útjának beállítása. A relatív elérési utak a végrehajtható fájl helyéhez viszonyítanak."
+              },
+              "WatermarkText": {
+                "Magyar (Hungarian)": "A Napló Elérési Útja"
+              }
+            },
+            "OpenButton": {
+              "Content": {
+                "Magyar (Hungarian)": "Megnyitás"
+              },
+              "Tooltip": {
+                "Magyar (Hungarian)": "Naplófájl megnyitása a rendszer alapértelmezett szövegszerkesztőjében."
+              }
+            }
+          },
+          "Application": {
+            "Header": {
+              "Magyar (Hungarian)": "Alkalmazás"
+            },
+            "RunAtStartup": {
+              "Content": {
+                "Magyar (Hungarian)": "Indításkor Futtatás"
+              },
+              "Tooltip": {
+                "Magyar (Hungarian)": "Számítógép indításakor a Volume Control automatikusan elindul."
+              },
+              "AltTooltip": {
+                "Magyar (Hungarian)": "Egy másik Volume Control példány elindul a gép indításakor. Ezt megváltoztatva lecserélődik az."
+              }
+            },
+            "StartMinimized": {
+              "Content": {
+                "Magyar (Hungarian)": "Elrejtés Indításkor"
+              },
+              "Tooltip": {
+                "Magyar (Hungarian)": "A Volume Control elrejtése a számítógép indításakor."
+              }
+            },
+            "MultiInstance": {
+              "Content": {
+                "Magyar (Hungarian)": "Több Példány"
+              },
+              "Tooltip": {
+                "Magyar (Hungarian)": "Több Volume Control példány futtatása egyszerre, ha különböző konfigurációs fájlt használnak."
+              }
+            },
+            "ShowInTaskbar": {
+              "Content": {
+                "Magyar (Hungarian)": "Megjelenítés a Tálcán"
+              },
+              "Tooltip": {}
+            },
+            "AlwaysOnTop": {
+              "Content": {
+                "Magyar (Hungarian)": "Mindig Legfelül"
+              },
+              "Tooltip": {}
+            },
+            "ShowIcons": {
+              "Content": {
+                "Magyar (Hungarian)": "Ikonok Mutatása"
+              },
+              "Tooltip": {
+                "Magyar (Hungarian)": "Amikor be van kapcsolva, a program megpróbálja mutatni az ikonokat melyek a hang eszközhöz és a folyamathoz tartoznak. (Néhány ikon hiányozhat ha felhasználóként van futtatva.)"
+              }
+            },
+            "KeepRelativePosition": {
+              "Content": {
+                "Magyar (Hungarian)": "Relatív Pozíció Megőrzése"
+              },
+              "Tooltip": {
+                "Magyar (Hungarian)": "A fő ablak relatív pozíciójának megörzése a legközelebbi sarokhoz a monitoron, amikor a felbontás változik."
+              }
+            }
+          },
+          "Updates": {
+            "Header": {
+              "Magyar (Hungarian)": "Frissítések"
+            },
+            "CheckNow": {
+              "Content": {
+                "Magyar (Hungarian)": "Ellenőrzés Most"
+              },
+              "Tooltip": {
+                "Magyar (Hungarian)": "Manuális ellenőrzés új verzió iránt a Volume Controlhoz."
+              }
+            },
+            "OnStartup": {
+              "Content": {
+                "Magyar (Hungarian)": "Indításkor"
+              },
+              "Tooltip": {
+                "Magyar (Hungarian)": "Új verzió ellenőrzése a Volume Controlhoz a program indításakor."
+              }
+            },
+            "ShowPrompt": {
+              "Content": {
+                "Magyar (Hungarian)": "Ablak Mutatása"
+              },
+              "Tooltip": {
+                "Magyar (Hungarian)": "Ablak megjelenítése, ha új verzió érhető el, különben egy ikon jelenik meg az ablak jobb felső sarkában."
+              }
+            }
+          }
+        },
+        "About": {
+          "TabHeader": {
+            "Magyar (Hungarian)": "Névjegy"
+          },
+          "ReportABug": {
+            "Content": {
+              "Magyar (Hungarian)": "Hiba bejelentése"
+            },
+            "Tooltip": {
+              "Magyar (Hungarian)": "Hiba bejelentése a Volume Control fejlesztőinek."
+            }
+          },
+          "OpenWebsite": {
+            "Content": {
+              "Magyar (Hungarian)": "Hivatalos Honlap"
+            },
+            "Tooltip": {
+              "Magyar (Hungarian)": "A Volume Control hivatalos honlapjának megnyitása a böngészőben."
+            }
+          },
+          "ShowDebugInfo": {
+            "Header": {
+              "Content": {
+                "Magyar (Hungarian)": "Hibakeresési Információk Mutatása"
+              },
+              "Tooltip": {}
+            },
+            "ConfigPath": {
+              "Content": {
+                "Magyar (Hungarian)": ""
+              },
+              "Tooltip": {
+                "Magyar (Hungarian)": ""
+              }
+            }
+          }
+        }
+      },
+  
+      "ListNotification": {
+        "Options": {
+          "Header": {
+            "Magyar (Hungarian)": "Beállítások"
+          },
+          "ShowControls": {
+            "Content": {
+              "Magyar (Hungarian)": "Irányítás Mutatása"
+            },
+            "Tooltip": {
+              "Magyar (Hungarian)": "A listaelemek melletti speciális vezérlőelemek láthatóságának átkapcsolása."
+            }
+          },
+          "DragRequiresAlt": {
+            "Content": {
+              "Magyar (Hungarian)": "Mozgatáshoz Szükséges Alt"
+            },
+            "Tooltip": {
+              "Magyar (Hungarian)": "Ha be van jelölve, az ALT billentyűt lenyomva kell tartani ahhoz, hogy az értesítési ablakot az egérrel mozgatni lehessen."
+            }
+          },
+          "SavePosition": {
+            "Content": {
+              "Magyar (Hungarian)": "Pozíció Mentése"
+            },
+            "Tooltip": {}
+          },
+          "DoFadeIn": {
+            "Content": {
+              "Magyar (Hungarian)": "Elhalványulás Be"
+            },
+            "Tooltip": {
+              "Magyar (Hungarian)": "Ha be van jelölve, az értesítési ablak az azonnali megjelenés helyett egy elhalványulás animációt jelenít meg.."
+            }
+          },
+          "FadeInDuration": {
+            "Tooltip": {
+              "Magyar (Hungarian)": "Elhalványulás időtartamának beállítása, milliszekundumban."
+            }
+          },
+          "DoFadeOut": {
+            "Content": {
+              "Magyar (Hungarian)": "Elhalványulás Ki"
+            },
+            "Tooltip": {
+              "Magyar (Hungarian)": "Ha be van jelölve, az értesítési ablak az azonnali megjelenés helyett egy elhalványulás animációt jelenít meg.."
+            }
+          },
+          "FadeOutDuration": {
+            "Tooltip": {
+              "Magyar (Hungarian)": "Elhalványulás időtartamának beállítása, milliszekundumban."
+            }
+          }
+        }
+      },
+  
+      "ActionSettingsWindow": {
+        "DataTemplateErrorTextBlock": {
+          "Tooltip": {
+            "Magyar (Hungarian)": "Ehhez az értéktípushoz nem áll rendelkezésre DataTemplate!"
+          }
+        },
+        "ToggleActionSetting": {
+          "Content": {
+            "Magyar (Hungarian)": "Bekapcsolás"
+          },
+          "Tooltip": {
+            "Magyar (Hungarian)": "Ez a művelet beállítása engedélyezve van, ha be van jelölve."
+          }
+        },
+        "ActionTargetSpecifierDataTemplate": {
+          "AddTargetBox": {
+            "DefaultText": {
+              "Magyar (Hungarian)": "Cél Név..."
+            }
+          }
+        }
+      },
+  
+      "Dialogs": {
+        "AnotherInstanceIsRunning": {
+          "MultiInstance": {
+            "Magyar (Hungarian)": "A Volume Control egy másik példánya a következő címen található konfigurációs fájlt használja: '${PATH}'!"
+          },
+          "SingleInstance": {
+            "Magyar (Hungarian)": "A Volume Control egy másik példány jelenleg is fut."
+          }
+        },
+        "UpdatePrompt": {
+          "DontShowInFutureMsg": {
+            "Magyar (Hungarian)": "Frissítési ablakok nem lesznek megjelenítve a jövőben."
+          },
+          "NewVersionAvailableFormatMsg": {
+            "Magyar (Hungarian)": "Egy új verzió elérhető a Volume Controlból!\nEl akarsz látogatni a megjelenés oldalára?\nJelenlegi Verzió:  ${CURRENT_VERSION}\nLegújabb Verzió:   ${LATEST_VERSION}\n\nNyomd meg az 'Igen' gombot, hogy oda menj.\nKattints a 'Nem'-re ha nem szeretnéd most frissíteni.\nKattints a 'Mégse' gombra ha nem akarsz a jövőben ilyet látni."
+          }
+        },
+        "RemoveHotkey": {
+          "Message": {
+            "Magyar (Hungarian)": "Biztosan törölni szeretnéd a gyorsgombot? ${ID}?\n\n- 'Igen'     Gyorsgomb törlése.\n- 'Nem'      A gyorsgomb nem lesz törölve.\n- 'Mégsem'  Ne mutasd ezt többet. (Nyomd meg mégegyszer a törléshez)\n"
+          },
+          "Caption": {
+            "Magyar (Hungarian)": "Törlés Megerősítése"
+          }
+        },
+        "MultiInstanceChanged": {
+          "Message": {
+            "Magyar (Hungarian)": "A Több Példány beállítás módosítása a Volume Control újraindítása után lép hatályba.\n\nMost szeretné újraindítani az alkalmazást?"
+          },
+          "Caption": {
+            "Magyar (Hungarian)": "Alkalmazás Újraindítás Szükséges"
+          }
+        }
+      },
+  
+      "NotifyIcon": {
+        "BringToFront": {
+          "Magyar (Hungarian)": "Előrehozás"
+        },
+        "Hide": {
+          "Magyar (Hungarian)": "Elrejtés"
+        },
+        "Show": {
+          "Magyar (Hungarian)": "Mutasd"
+        },
+        "OpenLocation": {
+          "Magyar (Hungarian)": "Program Helyének Megnyitása"
+        },
+        "OpenAppData": {
+          "Magyar (Hungarian)": "AppData megnyitása"
+        },
+        "Close": {
+          "Magyar (Hungarian)": "Bezárás"
+        }
+      }
+    },
+  
+    "Enums": {
+      "ENotificationViewMode": {
+        "ControlBar": {
+          "Magyar (Hungarian)": "Vezérlő Sáv"
+        },
+        "SelectedItemOnly": {
+          "Magyar (Hungarian)": "Csak Kijelölt Elem"
+        },
+        "AllItems": {
+          "Magyar (Hungarian)": "Minden Elem"
+        }
+      },
+      "EFriendlyKey": {
+        "None": { "Magyar (Hungarian)": "Semmi" },
+        "Cancel": { "Magyar (Hungarian)": "Cancel" },
+        "Backspace": { "Magyar (Hungarian)": "Backspace" },
+        "Tab": { "Magyar (Hungarian)": "Tab" },
+        "Clear": { "Magyar (Hungarian)": "Clear" },
+        "Enter": { "Magyar (Hungarian)": "Enter" },
+        "PauseBreak": { "Magyar (Hungarian)": "PauseBreak" },
+        "CapsLock": { "Magyar (Hungarian)": "CapsLock" },
+        "Escape": { "Magyar (Hungarian)": "Escape" },
+        "Space": { "Magyar (Hungarian)": "Space" },
+        "PageUp": { "Magyar (Hungarian)": "PageUp" },
+        "PageDown": { "Magyar (Hungarian)": "PageDown" },
+        "End": { "Magyar (Hungarian)": "End" },
+        "Home": { "Magyar (Hungarian)": "Home" },
+        "LeftArrow": { "Magyar (Hungarian)": "LeftArrow" },
+        "UpArrow": { "Magyar (Hungarian)": "UpArrow" },
+        "RightArrow": { "Magyar (Hungarian)": "RightArrow" },
+        "DownArrow": { "Magyar (Hungarian)": "DownArrow" },
+        "Select": { "Magyar (Hungarian)": "Select" },
+        "Print": { "Magyar (Hungarian)": "Print" },
+        "Execute": { "Magyar (Hungarian)": "Execute" },
+        "PrintScreen": { "Magyar (Hungarian)": "PrintScreen" },
+        "Insert": { "Magyar (Hungarian)": "Insert" },
+        "Delete": { "Magyar (Hungarian)": "Delete" },
+        "Help": { "Magyar (Hungarian)": "Help" },
+        "D0": { "Magyar (Hungarian)": "0" },
+        "D1": { "Magyar (Hungarian)": "1" },
+        "D2": { "Magyar (Hungarian)": "2" },
+        "D3": { "Magyar (Hungarian)": "3" },
+        "D4": { "Magyar (Hungarian)": "4" },
+        "D5": { "Magyar (Hungarian)": "5" },
+        "D6": { "Magyar (Hungarian)": "6" },
+        "D7": { "Magyar (Hungarian)": "7" },
+        "D8": { "Magyar (Hungarian)": "8" },
+        "D9": { "Magyar (Hungarian)": "9" },
+        "A": { "Magyar (Hungarian)": "A" },
+        "B": { "Magyar (Hungarian)": "B" },
+        "C": { "Magyar (Hungarian)": "C" },
+        "D": { "Magyar (Hungarian)": "D" },
+        "E": { "Magyar (Hungarian)": "E" },
+        "F": { "Magyar (Hungarian)": "F" },
+        "G": { "Magyar (Hungarian)": "G" },
+        "H": { "Magyar (Hungarian)": "H" },
+        "I": { "Magyar (Hungarian)": "I" },
+        "J": { "Magyar (Hungarian)": "J" },
+        "K": { "Magyar (Hungarian)": "K" },
+        "L": { "Magyar (Hungarian)": "L" },
+        "M": { "Magyar (Hungarian)": "M" },
+        "N": { "Magyar (Hungarian)": "N" },
+        "O": { "Magyar (Hungarian)": "O" },
+        "P": { "Magyar (Hungarian)": "P" },
+        "Q": { "Magyar (Hungarian)": "Q" },
+        "R": { "Magyar (Hungarian)": "R" },
+        "S": { "Magyar (Hungarian)": "S" },
+        "T": { "Magyar (Hungarian)": "T" },
+        "U": { "Magyar (Hungarian)": "U" },
+        "V": { "Magyar (Hungarian)": "V" },
+        "W": { "Magyar (Hungarian)": "W" },
+        "X": { "Magyar (Hungarian)": "X" },
+        "Y": { "Magyar (Hungarian)": "Y" },
+        "Z": { "Magyar (Hungarian)": "Z" },
+        "Apps": { "Magyar (Hungarian)": "Apps" },
+        "Sleep": { "Magyar (Hungarian)": "Sleep" },
+        "NumPad0": { "Magyar (Hungarian)": "NumPad0" },
+        "NumPad1": { "Magyar (Hungarian)": "NumPad1" },
+        "NumPad2": { "Magyar (Hungarian)": "NumPad2" },
+        "NumPad3": { "Magyar (Hungarian)": "NumPad3" },
+        "NumPad4": { "Magyar (Hungarian)": "NumPad4" },
+        "NumPad5": { "Magyar (Hungarian)": "NumPad5" },
+        "NumPad6": { "Magyar (Hungarian)": "NumPad6" },
+        "NumPad7": { "Magyar (Hungarian)": "NumPad7" },
+        "NumPad8": { "Magyar (Hungarian)": "NumPad8" },
+        "NumPad9": { "Magyar (Hungarian)": "NumPad9" },
+        "NumPadMultiply": { "Magyar (Hungarian)": "NumPadMultiply" },
+        "NumPadAdd": { "Magyar (Hungarian)": "NumPadAdd" },
+        "Separator": { "Magyar (Hungarian)": "Separator" },
+        "NumPadSubtract": { "Magyar (Hungarian)": "NumPadSubtract" },
+        "NumPadDecimal": { "Magyar (Hungarian)": "NumPadDecimal" },
+        "NumPadDivide": { "Magyar (Hungarian)": "NumPadDivide" },
+        "F1": { "Magyar (Hungarian)": "F1" },
+        "F2": { "Magyar (Hungarian)": "F2" },
+        "F3": { "Magyar (Hungarian)": "F3" },
+        "F4": { "Magyar (Hungarian)": "F4" },
+        "F5": { "Magyar (Hungarian)": "F5" },
+        "F6": { "Magyar (Hungarian)": "F6" },
+        "F7": { "Magyar (Hungarian)": "F7" },
+        "F8": { "Magyar (Hungarian)": "F8" },
+        "F9": { "Magyar (Hungarian)": "F9" },
+        "F10": { "Magyar (Hungarian)": "F10" },
+        "F11": { "Magyar (Hungarian)": "F11" },
+        "F12": { "Magyar (Hungarian)": "F12" },
+        "F13": { "Magyar (Hungarian)": "F13" },
+        "F14": { "Magyar (Hungarian)": "F14" },
+        "F15": { "Magyar (Hungarian)": "F15" },
+        "F16": { "Magyar (Hungarian)": "F16" },
+        "F17": { "Magyar (Hungarian)": "F17" },
+        "F18": { "Magyar (Hungarian)": "F18" },
+        "F19": { "Magyar (Hungarian)": "F19" },
+        "F20": { "Magyar (Hungarian)": "F20" },
+        "F21": { "Magyar (Hungarian)": "F21" },
+        "F22": { "Magyar (Hungarian)": "F22" },
+        "F23": { "Magyar (Hungarian)": "F23" },
+        "F24": { "Magyar (Hungarian)": "F24" },
+        "NumLock": { "Magyar (Hungarian)": "NumLock" },
+        "ScrollLock": { "Magyar (Hungarian)": "ScrollLock" },
+        "BrowserBack": { "Magyar (Hungarian)": "BrowserBack" },
+        "BrowserForward": { "Magyar (Hungarian)": "BrowserForward" },
+        "BrowserRefresh": { "Magyar (Hungarian)": "BrowserRefresh" },
+        "BrowserStop": { "Magyar (Hungarian)": "BrowserStop" },
+        "BrowserSearch": { "Magyar (Hungarian)": "BrowserSearch" },
+        "BrowserFavorites": { "Magyar (Hungarian)": "BrowserFavorites" },
+        "BrowserHome": { "Magyar (Hungarian)": "BrowserHome" },
+        "VolumeMute": { "Magyar (Hungarian)": "VolumeMute" },
+        "VolumeDown": { "Magyar (Hungarian)": "VolumeDown" },
+        "VolumeUp": { "Magyar (Hungarian)": "VolumeUp" },
+        "MediaNextTrack": { "Magyar (Hungarian)": "MediaNextTrack" },
+        "MediaPreviousTrack": { "Magyar (Hungarian)": "MediaPreviousTrack" },
+        "MediaStop": { "Magyar (Hungarian)": "MediaStop" },
+        "MediaPlayPause": { "Magyar (Hungarian)": "MediaPlayPause" },
+        "LaunchMail": { "Magyar (Hungarian)": "LaunchMail" },
+        "SelectMedia": { "Magyar (Hungarian)": "SelectMedia" },
+        "LaunchApplication1": { "Magyar (Hungarian)": "LaunchApplication1" },
+        "LaunchApplication2": { "Magyar (Hungarian)": "LaunchApplication2" },
+        "Semicolon": { "Magyar (Hungarian)": "Semicolon" },
+        "Equals": { "Magyar (Hungarian)": "Equals" },
+        "Comma": { "Magyar (Hungarian)": "Comma" },
+        "Dash": { "Magyar (Hungarian)": "Dash" },
+        "Period": { "Magyar (Hungarian)": "Period" },
+        "ForwardSlash": { "Magyar (Hungarian)": "ForwardSlash" },
+        "Grave": { "Magyar (Hungarian)": "Grave" },
+        "OpenBracket": { "Magyar (Hungarian)": "OpenBracket" },
+        "BackSlash": { "Magyar (Hungarian)": "BackSlash" },
+        "CloseBracket": { "Magyar (Hungarian)": "CloseBracket" },
+        "Quote": { "Magyar (Hungarian)": "Quote" },
+        "Oem8": { "Magyar (Hungarian)": "Oem8" },
+        "OemBackslash": { "Magyar (Hungarian)": "OemBackslash" },
+        "ImeProcess": { "Magyar (Hungarian)": "ImeProcess" },
+        "Attn": { "Magyar (Hungarian)": "Attn" },
+        "CrSel": { "Magyar (Hungarian)": "CrSel" },
+        "ExSel": { "Magyar (Hungarian)": "ExSel" },
+        "EraseEof": { "Magyar (Hungarian)": "EraseEof" },
+        "Play": { "Magyar (Hungarian)": "Play" },
+        "Zoom": { "Magyar (Hungarian)": "Zoom" },
+        "Pa1": { "Magyar (Hungarian)": "Pa1" },
+        "OemClear": { "Magyar (Hungarian)": "OemClear" },
+        "ImeKanaMode": { "Magyar (Hungarian)": "ImeKanaMode" },
+        "ImeJunjaMode": { "Magyar (Hungarian)": "ImeJunjaMode" },
+        "ImeFinalMode": { "Magyar (Hungarian)": "ImeFinalMode" },
+        "ImeHanjaMode": { "Magyar (Hungarian)": "ImeHanjaMode" },
+        "ImeConvert": { "Magyar (Hungarian)": "ImeConvert" },
+        "ImeNonConvert": { "Magyar (Hungarian)": "ImeNonConvert" },
+        "ImeAccept": { "Magyar (Hungarian)": "ImeAccept" },
+        "ImeModeChange": { "Magyar (Hungarian)": "ImeModeChange" }
+  
+      }
+    }
+  }
