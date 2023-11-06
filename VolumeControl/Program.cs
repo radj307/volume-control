@@ -343,6 +343,7 @@ namespace VolumeControl
             // Initialize the log now that we aren't potentially overwriting another instance's log file
             FLog.Initialize(Settings.LogPath, Settings.EnableLogging, Settings.LogFilter, Settings.LogClearOnInitialize);
 #if DEBUG
+            FLog.Log.IsAsyncEnabled = false;
             // show all log message types in debug mode
             FLog.Log.EventTypeFilter = EventType.DEBUG | EventType.INFO | EventType.WARN | EventType.ERROR | EventType.FATAL | EventType.TRACE;
             // open the log file in debug mode
