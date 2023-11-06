@@ -9,7 +9,7 @@ namespace VolumeControl.Core.Input.Actions
     /// <summary>
     /// Represents the definition of a hotkey action, including metadata and the reflection classes for targeting the method.
     /// </summary>
-    [DebuggerDisplay("Identifier = {Identifier}")]
+    [DebuggerDisplay("Identifier = {Identifier}, Method = {ActionMethodInfo.Name}")]
     public class HotkeyActionDefinition
     {
         #region Constructors
@@ -71,7 +71,7 @@ namespace VolumeControl.Core.Input.Actions
         /// </summary>
         public Type ActionGroupType { get; }
         /// <summary>
-        /// Gets the instance of the hotkey action group that this action belongs to.
+        /// Gets the class instance of the hotkey action group that this action belongs to.
         /// </summary>
         public object? ActionGroupInstance { get; }
         /// <summary>
@@ -79,7 +79,7 @@ namespace VolumeControl.Core.Input.Actions
         /// </summary>
         /// <remarks>
         /// <b>Do not use this to invoke the method!</b><br/>
-        /// Use <see cref="HotkeyActionInstance.Invoke(object, HotkeyPressedEventArgs)"/> instead!
+        /// Use <see cref="HotkeyActionInstance.Invoke(IHotkey, HotkeyPressedEventArgs)"/> instead!
         /// </remarks>
         public MethodInfo ActionMethodInfo { get; }
         #endregion Reflection
@@ -163,21 +163,16 @@ namespace VolumeControl.Core.Input.Actions
 
         #region Invoke_Unsafe
         /// <summary>
-        /// Directly invokes the method specified by <see cref="ActionMethodInfo"/> with the specified <paramref name="parameters"/>.
+        /// Directly invokes the method specified by <see cref="ActionMethodInfo"/> with the parameters expected by <see cref="HotkeyPressedEventHandler"/>.
         /// </summary>
         /// <remarks>
         /// <b>Does not catch exceptions!</b>
         /// </remarks>
-        /// <param name="parameters">Parameters to invoke the method with. These must match the parameters accepted by the actual method.</param>
+        /// <param name="sender">The hotkey that triggered the action.</param>
+        /// <param name="e">The event arguments for the action.</param>
         /// <returns>The return value from <see cref="ActionMethodInfo"/>.</returns>
-        private object? Invoke_Unsafe(object?[] parameters)
-            => ActionMethodInfo.Invoke(ActionGroupInstance, parameters);
-        /// <summary>
-        /// Directly invokes the method specified by <see cref="ActionMethodInfo"/> with the parameters expected by <see cref="HotkeyPressedEventHandler"/>.
-        /// </summary>
-        /// <inheritdoc cref="Invoke_Unsafe(object?[])"/>
-        internal object? Invoke_Unsafe(object sender, HotkeyPressedEventArgs e)
-            => Invoke_Unsafe(new[] { sender, e });
+        internal object? Invoke_Unsafe(IHotkey sender, HotkeyPressedEventArgs e)
+            => ActionMethodInfo.Invoke(ActionGroupInstance, new object[] { sender, e });
         #endregion Invoke_Unsafe
 
         #region GetActionSettingDefinition

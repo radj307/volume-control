@@ -1,4 +1,6 @@
-﻿namespace VolumeControl.TypeExtensions
+﻿using System.Runtime.InteropServices;
+
+namespace VolumeControl.TypeExtensions
 {
     /// <summary>
     /// Extensions for any <see cref="Enum"/> type.
@@ -137,6 +139,32 @@
             var e_v = Convert.ToInt64(e);
 
             return e_v == 0 || (e_v & (e_v - 1)) == 0;
+        }
+        /// <summary>
+        /// Gets the flags that are set in the enum value as individual values.
+        /// </summary>
+        /// <typeparam name="T">The type of enum being operated on.</typeparam>
+        /// <param name="e">(implicit) Enum value to operate on.</param>
+        /// <returns>An enumerable containing all of the individual flags that were set in the enum value.</returns>
+        public static T[] GetSingleValues<T>(this T e) where T : struct, Enum
+        {
+            var e_v = Convert.ToInt64(e);
+            if (e_v == 0)
+                return new[] { e };
+
+            List<T> l = new();
+
+            for (int i = 0, bit = 0x1, bitCount = 8 * Marshal.SizeOf(Enum.GetUnderlyingType(typeof(T)));
+                i < bitCount;
+                ++i, bit = (0x1 << i))
+            {
+                if ((e_v & bit) != 0)
+                {
+                    l.Add((T)Enum.ToObject(typeof(T), bit));
+                }
+            }
+
+            return l.ToArray();
         }
     }
 }

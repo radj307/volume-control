@@ -1,11 +1,12 @@
-﻿using VolumeControl.Core.Input.Enums;
+﻿using VolumeControl.Core.Input;
+using VolumeControl.Core.Input.Enums;
 
 namespace VolumeControl.Core.Input
 {
     /// <summary>
     /// Defines extension methods for the <see cref="IHotkey"/> interface.
     /// </summary>
-    public static class IHotkey_Extensions
+    public static class HotkeyExtensions
     {
         /// <summary>
         /// Returns a <see cref="string"/> that represents the current hotkey object's key combination.

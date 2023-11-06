@@ -1,6 +1,7 @@
 ﻿using InputSimulatorEx;
 using InputSimulatorEx.Native;
 using VolumeControl.Core.Enum;
+using VolumeControl.Core.Extensions;
 using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Core
@@ -42,6 +43,13 @@ namespace VolumeControl.Core
         /// <param name="modifiers">Any number of <see cref="EVirtualKeyCode"/> modifier keys.</param>
         /// <inheritdoc cref="SendKey(VirtualKeyCode, VirtualKeyCode[])"/>
         public static void SendKey(EVirtualKeyCode vk, params EVirtualKeyCode[] modifiers) => SendKey(vk.GetVirtualKeyCodeEx(), modifiers.ConvertEach(evk => evk.GetVirtualKeyCodeEx()).ToArray());
+        /// <inheritdoc cref="SendKey(VirtualKeyCode, VirtualKeyCode[])"/>
+        /// <param name="key">The key to simulate being pressed.</param>
+        /// <param name="modifierKeys">The modifier keys to simulate being pressed.</param>
+        public static void SendKey(System.Windows.Input.Key key, System.Windows.Input.ModifierKeys modifierKeys)
+            => Keyboard.ModifiedKeyStroke(
+                modifierKeys.GetSingleValues().Select(mod => (VirtualKeyCode)System.Windows.Input.KeyInterop.VirtualKeyFromKey(mod.ToKey())),
+                (VirtualKeyCode)System.Windows.Input.KeyInterop.VirtualKeyFromKey(key));
         /// <summary>
         /// Synthesizes key presses to 'type' the given <see cref="char"/>.
         /// </summary>
