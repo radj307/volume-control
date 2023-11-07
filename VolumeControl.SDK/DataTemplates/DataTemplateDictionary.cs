@@ -11,7 +11,7 @@ namespace VolumeControl.SDK.DataTemplates
     /// Provides all of the default <see cref="DataTemplate"/> instances used by the built-in hotkey actions.
     /// </summary>
     [DataTemplateProvider]
-    public partial class DataTemplateDictionary : ResourceDictionary, ITemplateDictionaryProvider
+    public partial class DataTemplateDictionary : ResourceDictionaryTemplateProvider, ITemplateDictionaryProvider
     {
         #region Constructor
         /// <summary>
@@ -26,23 +26,6 @@ namespace VolumeControl.SDK.DataTemplates
         #region Properties
         private static VCAPI VCAPI => VCAPI.Default;
         #endregion Properties
-
-        #region IMultiDataTemplateProvider Implementation
-        /// <inheritdoc/>
-        public ActionSettingDataTemplate? ProvideDataTemplate(string key) => base[key] as ActionSettingDataTemplate;
-        /// <inheritdoc/>
-        public ActionSettingDataTemplate? ProvideDataTemplate(Type valueType)
-        {
-            foreach (var (_, value) in this.Cast<DictionaryEntry>())
-            {
-                if (value is ActionSettingDataTemplate actionSettingDataTemplate && actionSettingDataTemplate.SupportsValueType(valueType))
-                {
-                    return actionSettingDataTemplate;
-                }
-            }
-            return null;
-        }
-        #endregion IMultiDataTemplateProvider Implementation
 
         #region EventHandlers
 

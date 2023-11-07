@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections;
+using System.Windows;
 using VolumeControl.Core.Attributes;
 
 namespace VolumeControl.Core
@@ -64,7 +65,7 @@ namespace VolumeControl.Core
     /// <remarks>
     /// Any public, non-static, non-abstract class that implements this interface can be specified for <see cref="HotkeyActionSettingAttribute.DataTemplateProviderType"/>.
     /// </remarks>
-    public interface ITemplateDictionaryProvider
+    public interface ITemplateDictionaryProvider : IEnumerable
     {
         /// <summary>
         /// Provides the <see cref="ActionSettingDataTemplate"/> instance with the specified <paramref name="key"/>.
@@ -81,5 +82,34 @@ namespace VolumeControl.Core
         /// <param name="valueType">The value type to get a <see cref="DataTemplate"/> for.</param>
         /// <returns>An <see cref="ActionSettingDataTemplate"/> instance for the specified <paramref name="valueType"/> if one was found; otherwise <see langword="null"/>.</returns>
         ActionSettingDataTemplate? ProvideDataTemplate(Type valueType);
+        /// <summary>
+        /// Gets the contents of the dictionary as an enumerable collection of <see cref="DictionaryEntry"/> instances.
+        /// </summary>
+        /// <returns>An enumerable collection of all of the <see cref="DictionaryEntry"/> pairs in this instance.</returns>
+        IEnumerable<DictionaryEntry> AsEnumerable();
+    }
+    /// <summary>
+    /// Abstract <see cref="ITemplateDictionaryProvider"/> base implementation that inherits from <see cref="ResourceDictionary"/>.
+    /// </summary>
+    public abstract class ResourceDictionaryTemplateProvider : ResourceDictionary, ITemplateDictionaryProvider
+    {
+        #region ITemplateDictionaryProvider
+        /// <inheritdoc/>
+        public virtual ActionSettingDataTemplate? ProvideDataTemplate(string key) => base[key] as ActionSettingDataTemplate;
+        /// <inheritdoc/>
+        public virtual ActionSettingDataTemplate? ProvideDataTemplate(Type valueType)
+        {
+            foreach (var (_, value) in this.Cast<DictionaryEntry>())
+            {
+                if (value is ActionSettingDataTemplate actionSettingDataTemplate && actionSettingDataTemplate.SupportsValueType(valueType))
+                {
+                    return actionSettingDataTemplate;
+                }
+            }
+            return null;
+        }
+        /// <inheritdoc/>
+        public IEnumerable<DictionaryEntry> AsEnumerable() => this.Cast<DictionaryEntry>();
+        #endregion ITemplateDictionaryProvider
     }
 }

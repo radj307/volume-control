@@ -1,6 +1,9 @@
-﻿using System.Windows;
+﻿using System.Collections;
+using System.Text;
+using System.Windows;
 using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Helpers;
+using VolumeControl.Core.Input.Actions.Settings;
 using VolumeControl.Core.Input.Exceptions;
 using VolumeControl.Log;
 
@@ -208,12 +211,50 @@ namespace VolumeControl.Core.Input
             }
             else if (TryCreateDictionaryProvider(dictionaryProviderType, out dictionaryProvider))
             {
-                if (dictionaryProvider is ResourceDictionary resourceDictionary)
-                {
+                _templateDictionaryProviders.Add(dictionaryProvider);
 
+                // validate this provider, and print its templates to the log
+                LogMessage? traceMessage = FLog.FilterEventType(EventType.TRACE)
+                    ? new(EventType.TRACE, $"[{nameof(TemplateProviderManager)}] Dictionary provider \"{dictionaryProviderType}\" provides {{{{count}}}} templates:")
+                    : null;
+                int count = 0;
+                foreach (var (key, value) in dictionaryProvider.AsEnumerable())
+                {
+                    if (value is ActionSettingDataTemplate actionSettingDataTemplate)
+                    {
+                        if (key is not string)
+                        {
+                            FLog.Warning(
+                                $"[{nameof(TemplateProviderManager)}] An ActionSettingDataTemplate in dictionary provider \"{dictionaryProviderType}\" does not specify a key string; it will not be usable for action settings!",
+                                $"                                    This can be resolved by specifying a key for the offending ActionSettingDataTemplate definition.");
+                        }
+                        var dataType = actionSettingDataTemplate.DataType as Type;
+                        if (dataType == null || !dataType.Equals(typeof(IActionSettingInstance)))
+                        {
+                            FLog.Warning(
+                                $"[{nameof(TemplateProviderManager)}] ActionSettingDataTemplate \"{key}\" in dictionary provider \"{dictionaryProviderType}\" specifies unexpected DataType \"{dataType?.ToString() ?? ""}\".",
+                                $"                                    This can be resolved by changing DataType to \"{typeof(IActionSettingInstance)}\".");
+                        }
+                        if (actionSettingDataTemplate.ValueType == null && !actionSettingDataTemplate.IsExplicit)
+                        {
+                            FLog.Warning(
+                                $"[{nameof(TemplateProviderManager)}] ActionSettingDataTemplate \"{key}\" in dictionary provider \"{dictionaryProviderType}\" does not specify a ValueType, and isn't explicit!",
+                                $"                                    This can be resolved by changing {nameof(ActionSettingDataTemplate.ValueType)} to the action setting value type that it is used for, or by setting {nameof(ActionSettingDataTemplate.IsExplicit)} to \"True\".");
+                        }
+                        traceMessage?.Add($"+ ActionSettingDataTemplate \"{key}\"{StringHelper.IndentWithPattern(40, 5 + (key as string)?.Length ?? 0)}\"{actionSettingDataTemplate.ValueType}\"{(actionSettingDataTemplate.IsExplicit ? " (Explicit)" : "")}");
+                        ++count;
+                    }
+                    else if (value is DataTemplate dataTemplate)
+                    {
+                        FLog.Debug($"[{nameof(TemplateProviderManager)}] DataTemplate \"{key}\" in dictionary provider \"{dictionaryProviderType}\" will not be used for action settings because it is not of type \"{typeof(ActionSettingDataTemplate)}\".");
+                    }
+                }
+                if (traceMessage != null)
+                {
+                    traceMessage.Lines[0] = ((string)traceMessage.Lines[0]!).Replace("{{count}}", count.ToString());
+                    FLog.LogMessage(traceMessage);
                 }
 
-                _templateDictionaryProviders.Add(dictionaryProvider);
                 return true;
             }
             else return false;

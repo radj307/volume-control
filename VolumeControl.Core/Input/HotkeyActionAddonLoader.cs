@@ -6,6 +6,7 @@ using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Helpers;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.Core.Input.Actions.Settings;
+using VolumeControl.Core.Input.Exceptions;
 using VolumeControl.Log;
 
 namespace VolumeControl.Core.Input
@@ -155,6 +156,7 @@ namespace VolumeControl.Core.Input
                 object? groupInst = null;
                 int loadedActionsFromTypeCount = 0, //< tracks the number of actions that were loaded from the current type
                     methodsWithActionAttrCount = 0; //< tracks the number of methods in the current type with HotkeyActionAttribute
+                bool typeIsStatic = type.IsAbstract && type.IsSealed; //< C# makes static types abstract & sealed
 
                 // enumerate through all public methods in this type:
                 for (int j = 0, j_max = publicMethods.Length; j < j_max; ++j)
@@ -175,12 +177,13 @@ namespace VolumeControl.Core.Input
                         continue;
                     }
 
-                    // get the action setting definitions for this method
+                    // get the action settings for this method
                     List<ActionSettingDefinition> actionSettingDefs = new();
 
                     if (FLog.FilterEventType(EventType.DEBUG))
                         FLog.Debug($"[ActionAddonLoader] Loading action setting definitions for \"{method.GetFullMethodName()}\"");
 
+                    // enumerate action setting attributes
                     foreach (var actionSettingAttribute in method.GetCustomAttributes<HotkeyActionSettingAttribute>())
                     {
                         var providerType = actionSettingAttribute.DataTemplateProviderType
@@ -195,13 +198,14 @@ namespace VolumeControl.Core.Input
                         }
                         catch (Exception ex)
                         {
-                            FLog.Error($"[ActionAddonLoader] An exception occurred while searching for a DataTemplate for setting \"{actionSettingAttribute.Name}\":", ex);
+                            FLog.Error($"[ActionAddonLoader] An exception occurred while searching for a DataTemplate for setting \"{actionSettingAttribute.Name}\" on method \"{method.Name}\":", ex);
                         }
 
                         if (dataTemplate == null)
                         {
-                            // TODO: Log error
-                            //        No data template found for action setting
+                            FLog.Error(
+                                $"[ActionAddonLoader] Failed to get a DataTemplate for setting \"{actionSettingAttribute.Name}\" on method \"{method.Name}\"!",
+                                $"                    This can be resolved by specifying a data template provider that supports type \"{actionSettingAttribute.ValueType}\"");
                         }
 
                         actionSettingDefs.Add(new(actionSettingAttribute.Name, actionSettingAttribute.ValueType, actionSettingAttribute.DefaultValue, actionSettingAttribute.Description, actionSettingAttribute.IsToggleable, actionSettingAttribute.StartsEnabled, dataTemplate));
@@ -215,23 +219,48 @@ namespace VolumeControl.Core.Input
                             .GroupBy(d => d.Name)
                             .Where(g => g.Count() > 1)
                             .Select(g => $"\"{g.Key}\""));
-                        FLog.Error($"[ActionAddonLoader] {method.GetFullMethodName()} was skipped because multiple settings have the same name: {duplicateNames}!");
+                        FLog.Error(
+                            $"[ActionAddonLoader] {method.GetFullMethodName()} was skipped because multiple settings have the same name: {duplicateNames}!",
+                            $"                    This can be resolved by removing one or both of the offending settings.");
                         continue;
                     }
 
                     var actionGroupColorString = actionAttribute.GroupColorOverride ?? actionGroupAttribute.GroupColor;
 
+                    // create the hotkey action definition for this method
                     HotkeyActionDefinition? hotkeyActionDefinition;
-                    if (!method.IsStatic)
+                    if (!typeIsStatic && !method.IsStatic)
                     { // non-static method
-                        try
-                        { // create an instance of this type if one doesn't exist yet:
-                            groupInst ??= Activator.CreateInstance(type)!;
-                        }
-                        catch (Exception ex)
-                        {
-                            FLog.Error($"[ActionAddonLoader] {method.GetFullMethodName()} was skipped because constructor of type {type.Name} threw an exception:", ex);
-                            continue;
+                        if (groupInst == null)
+                        { // create a new instance because one doesn't exist
+                            // ensure this type isn't abstract before we try to instantiate it
+                            if (type.IsAbstract)
+                            {
+                                FLog.Error(
+                                    $"[ActionAddonLoader] {method.GetFullMethodName()} cannot be loaded because class {type.Name} is abstract!",
+                                    $"                    This can be resolved by not defining {type.Name} as \"abstract\", or defining {method.Name} as \"static\".");
+                                continue;
+                            }
+
+                            // find a valid constructor
+                            if (type.GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, Array.Empty<Type>()) is not ConstructorInfo ctor)
+                            { // no valid constructor was found; log this error
+                                FLog.Error(
+                                    $"[ActionAddonLoader] {method.GetFullMethodName()} was skipped because class {type.Name} does not define a parameterless constructor!",
+                                    $"                    This can be resolved by removing all constructors with parameters. If your class needs to initialize something, do that inside a parameterless constructor.");
+                                continue;
+                            }
+
+                            // create a new instance using the constructor
+                            try
+                            {
+                                groupInst = ctor.Invoke(Array.Empty<object>())!;
+                            }
+                            catch (Exception ex)
+                            {
+                                FLog.Error($"[ActionAddonLoader] {method.GetFullMethodName()} was skipped because the constructor for type {type.Name} threw an exception:", ex);
+                                continue;
+                            }
                         }
 
                         hotkeyActionDefinition = new(
