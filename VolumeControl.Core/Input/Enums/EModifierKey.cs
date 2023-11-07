@@ -1,7 +1,4 @@
-﻿using System.Text;
-using VolumeControl.TypeExtensions;
-
-namespace VolumeControl.Core.Input.Enums
+﻿namespace VolumeControl.Core.Input.Enums
 {
     /// <summary>
     /// Represents modifier keys that must be held down when pressing a hotkey's primary key for the hotkey press to be registered.

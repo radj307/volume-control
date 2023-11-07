@@ -132,7 +132,7 @@ namespace VolumeControl.ViewModels
         public AudioDeviceSelector AudioDeviceSelector { get; }
         public AudioDeviceVM? SelectedDevice { get; set; }
         public AudioSessionMultiSelector AudioSessionMultiSelector { get; }
-       // public SessionSyncVM SessionSync { get; }
+        // public SessionSyncVM SessionSync { get; }
         public bool? AllSessionsSelected
         {
             get

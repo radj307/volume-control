@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using VolumeControl.Core;
 using VolumeControl.Core.Attributes;

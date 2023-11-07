@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Helpers;
 using VolumeControl.Core.Input.Actions.Settings;

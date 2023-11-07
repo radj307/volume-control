@@ -6,7 +6,6 @@ using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Helpers;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.Core.Input.Actions.Settings;
-using VolumeControl.Core.Input.Exceptions;
 using VolumeControl.Log;
 
 namespace VolumeControl.Core.Input
