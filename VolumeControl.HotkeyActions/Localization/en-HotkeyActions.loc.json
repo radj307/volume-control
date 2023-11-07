@@ -297,6 +297,7 @@
       "GroupName": { "English (US/CA)": "Active Application" },
 
       "SharedSettings": {
+        // vvvvvvvvvv  the key used here is the default name of the action setting.
         "Select Session": {
           "Name": {
             "English (US/CA)": "Select Session"
