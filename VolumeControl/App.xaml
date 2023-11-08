@@ -46,6 +46,7 @@
 
             <!--  Window Colors  -->
             <Color x:Key="WindowBackgroundColor">#D222</Color>
+            <SolidColorBrush x:Key="WindowBackgroundBrush" Color="{StaticResource WindowBackgroundColor}" />
             <SolidColorBrush x:Key="WindowBorderBrush">#D0252525</SolidColorBrush>
             <Thickness x:Key="WindowBorderThickness">3</Thickness>
             <SolidColorBrush x:Key="UpdateIconBrush">Yellow</SolidColorBrush>

@@ -22,7 +22,7 @@
     xmlns:wpfBehaviors="clr-namespace:VolumeControl.WPF.Behaviors;assembly=VolumeControl.WPF"
     x:Name="window"
     Title="Volume Control"
-    DataContext="{RelativeSource Self}"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
     FontFamily="{StaticResource InterFont}"
     FontSize="{StaticResource GlobalFontSize}"
     Icon="/Resources/icons/iconSilvered.ico"
@@ -509,12 +509,10 @@
         </ResourceDictionary>
     </Window.Resources>
     <!--  ( Window Background )  -->
-    <Window.Background>
-        <SolidColorBrush Color="{StaticResource WindowBackgroundColor}" />
-    </Window.Background>
     <Window.Style>
         <Style TargetType="{x:Type Window}">
             <Setter Property="ShowInTaskbar" Value="{Binding ShowInTaskbar, Source={StaticResource Settings}, Mode=OneWay}" />
+            <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}" />
         </Style>
     </Window.Style>
 
