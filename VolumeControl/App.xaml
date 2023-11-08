@@ -418,6 +418,7 @@
                 x:Key="RoundedTextBoxStyle"
                 BasedOn="{StaticResource TextBoxStyle}"
                 TargetType="{x:Type TextBox}">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type TextBox}">
@@ -440,8 +441,11 @@
                                 <Trigger SourceName="border" Property="IsMouseOver" Value="True">
                                     <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
                                 </Trigger>
-                                <Trigger SourceName="border" Property="IsKeyboardFocusWithin" Value="True">
-                                    <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
+                                <Trigger Property="IsKeyboardFocused" Value="True">
+                                    <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
+                                </Trigger>
+                                <Trigger Property="IsFocused" Value="True">
+                                    <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -838,7 +842,7 @@
                 <Setter Property="Focusable" Value="False" />
                 <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="Template" Value="{StaticResource ExpanderTemplate}" />
-                <Setter Property="FocusVisualStyle" Value="{DynamicResource CustomFocusVisualStyle}" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
             <!--  TextBoxWithCompletionOptions Style  -->
             <Style x:Key="TextBoxWithCompletionOptionsStyle" TargetType="{x:Type controls:TextBoxWithCompletionOptions}">

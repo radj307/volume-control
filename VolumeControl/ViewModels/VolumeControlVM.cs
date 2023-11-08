@@ -112,6 +112,7 @@ namespace VolumeControl.ViewModels
         public TargetBoxVM TargetBoxVM { get; }
         public NotificationConfigSectionVM SessionConfigVM { get; }
         public NotificationConfigSectionVM DeviceConfigVM { get; }
+        public bool IsNotificationConfigAdditionalSettingsExpanderOpen { get; set; } = false;
         #endregion Properties
 
         #region Methods

@@ -43,6 +43,7 @@
     <None Remove="Localization\de.loc.json" />
     <None Remove="Localization\en.loc.json" />
     <None Remove="Localization\fr.loc.json" />
+    <None Remove="Localization\hu.loc.json" />
     <None Remove="Localization\it.loc.json" />
     <None Remove="Localization\pt.loc.json" />
     <None Remove="Localization\zz.loc.json" />
@@ -64,6 +65,7 @@
     <EmbeddedResource Include="Localization\de.loc.json" />
     <EmbeddedResource Include="Localization\en.loc.json" />
     <EmbeddedResource Include="Localization\fr.loc.json" />
+    <EmbeddedResource Include="Localization\hu.loc.json" />
     <EmbeddedResource Include="Localization\it.loc.json" />
     <EmbeddedResource Include="Localization\pt.loc.json" />
   </ItemGroup>

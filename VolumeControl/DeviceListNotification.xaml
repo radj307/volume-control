@@ -40,10 +40,6 @@
                 <BooleanToVisibilityConverter />
             </conv:ConverterChain>
             <conv:BooleanInverter x:Key="InvertConverter" />
-            <conv:BoolToBrushConverter
-                x:Key="SelectedItemBackgroundBrushConverter"
-                WhenFalse="{Binding DeviceConfigVM.UnlockedAccentBrush, Source={StaticResource Settings}}"
-                WhenTrue="{Binding DeviceConfigVM.LockedAccentBrush, Source={StaticResource Settings}}" />
 
             <!--  Styles  -->
             <Style BasedOn="{StaticResource CheckBoxStyle}" TargetType="{x:Type CheckBox}" />
@@ -205,10 +201,21 @@
     <Border
         Padding="9"
         Background="{Binding VM.BackgroundBrush}"
-        BorderBrush="{Binding AudioAPI.AudioDeviceSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}"
         BorderThickness="7"
         CornerRadius="{Binding VM.ConfigSection.CornerRadius}"
         RenderOptions.EdgeMode="Aliased">
+        <Border.Style>
+            <Style TargetType="{x:Type Border}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding AudioAPI.AudioDeviceSelector.LockSelection, Source={StaticResource Settings}}" Value="True">
+                        <Setter Property="BorderBrush" Value="{Binding DeviceConfigVM.LockedAccentBrush, Source={StaticResource Settings}}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding AudioAPI.AudioDeviceSelector.LockSelection, Source={StaticResource Settings}}" Value="False">
+                        <Setter Property="BorderBrush" Value="{Binding DeviceConfigVM.UnlockedAccentBrush, Source={StaticResource Settings}}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -244,10 +251,26 @@
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
-                                <Setter Property="FontWeight" Value="Bold" />
-                                <Setter Property="Background" Value="{Binding AudioAPI.AudioDeviceSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
-                            </DataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
+                                    <Condition Binding="{Binding AudioAPI.AudioDeviceSelector.LockSelection, Source={StaticResource Settings}}" Value="True" />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                    <Setter Property="Background" Value="{Binding DeviceConfigVM.LockedAccentBrush, Source={StaticResource Settings}}" />
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
+                                    <Condition Binding="{Binding AudioAPI.AudioDeviceSelector.LockSelection, Source={StaticResource Settings}}" Value="False" />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                    <Setter Property="Background" Value="{Binding DeviceConfigVM.UnlockedAccentBrush, Source={StaticResource Settings}}" />
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
                         </Style.Triggers>
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                         <Setter Property="FocusVisualStyle" Value="{x:Null}" />

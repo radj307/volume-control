@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
@@ -11,13 +12,27 @@ namespace VolumeControl.WPF.Converters
     /// </summary>
     public sealed class MultiBindingBooleanConverter : IMultiValueConverter
     {
+        readonly TypeConverter _boolConverter = TypeDescriptor.GetConverter(typeof(bool));
+
+        private bool ConvertToBool(object? obj)
+        {
+            try
+            {
+                return obj != null && System.Convert.ToBoolean(obj);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Failed to convert value \"{obj}\" of type \"{obj?.GetType()}\" to bool!", ex);
+            }
+        }
         /// <inheritdoc/>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
+
             if (parameter is null || System.Convert.ToBoolean(parameter))
-                return values.All(i => System.Convert.ToBoolean(i));
+                return values.All(ConvertToBool);
             else
-                return values.Any(i => System.Convert.ToBoolean(i));
+                return values.Any(ConvertToBool);
         }
         /// <inheritdoc/>
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
@@ -26,7 +41,7 @@ namespace VolumeControl.WPF.Converters
 
             object[] arr = new object[len];
 
-            bool val = System.Convert.ToBoolean(value);
+            bool val = (bool)value;
 
             for (int i = 0; i < len; ++i)
             {

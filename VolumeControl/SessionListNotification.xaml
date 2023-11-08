@@ -39,10 +39,6 @@
                 <BooleanToVisibilityConverter />
             </conv:ConverterChain>
             <conv:BooleanInverter x:Key="InvertConverter" />
-            <conv:BoolToBrushConverter
-                x:Key="SelectedItemBackgroundBrushConverter"
-                WhenFalse="{Binding SessionConfigVM.UnlockedAccentBrush, Source={StaticResource Settings}}"
-                WhenTrue="{Binding SessionConfigVM.LockedAccentBrush, Source={StaticResource Settings}}" />
             <conv:ConverterChain x:Key="InvertedBooleanToVisibilityConverter">
                 <conv:BooleanInverter />
                 <BooleanToVisibilityConverter />
@@ -211,10 +207,21 @@
     <Border
         Padding="9"
         Background="{Binding SessionConfigVM.BackgroundBrush, Source={StaticResource Settings}}"
-        BorderBrush="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}"
         BorderThickness="7"
         CornerRadius="{Binding SessionConfigVM.ConfigSection.CornerRadius, Source={StaticResource Settings}}"
         RenderOptions.EdgeMode="Aliased">
+        <Border.Style>
+            <Style TargetType="{x:Type Border}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}}" Value="True">
+                        <Setter Property="BorderBrush" Value="{Binding SessionConfigVM.LockedAccentBrush, Source={StaticResource Settings}}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}}" Value="False">
+                        <Setter Property="BorderBrush" Value="{Binding SessionConfigVM.UnlockedAccentBrush, Source={StaticResource Settings}}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -268,17 +275,45 @@
                                     <Condition Binding="{Binding AudioAPI.AudioSessionMultiSelector.HasSelectedSessions, Source={StaticResource Settings}}" Value="False" />
                                     <!--  Binds to ListViewItem.IsSelected:  -->
                                     <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
+                                    <Condition Binding="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}}" Value="True" />
                                 </MultiDataTrigger.Conditions>
                                 <MultiDataTrigger.Setters>
-                                    <Setter Property="Background" Value="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
+                                    <Setter Property="Background" Value="{Binding SessionConfigVM.LockedAccentBrush, Source={StaticResource Settings}}" />
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding AudioAPI.AudioSessionMultiSelector.HasSelectedSessions, Source={StaticResource Settings}}" Value="False" />
+                                    <!--  Binds to ListViewItem.IsSelected:  -->
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
+                                    <Condition Binding="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}}" Value="False" />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter Property="Background" Value="{Binding SessionConfigVM.UnlockedAccentBrush, Source={StaticResource Settings}}" />
                                     <Setter Property="FontWeight" Value="Bold" />
                                 </MultiDataTrigger.Setters>
                             </MultiDataTrigger>
 
                             <!--  Binds to AudioSessionVM.IsSelected:  -->
-                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                <Setter Property="Background" Value="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}, Converter={StaticResource SelectedItemBackgroundBrushConverter}}" />
-                            </DataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected}" Value="True" />
+                                    <Condition Binding="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}}" Value="True" />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter Property="Background" Value="{Binding SessionConfigVM.LockedAccentBrush, Source={StaticResource Settings}}" />
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected}" Value="True" />
+                                    <Condition Binding="{Binding AudioAPI.AudioSessionMultiSelector.LockSelection, Source={StaticResource Settings}}" Value="False" />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter Property="Background" Value="{Binding SessionConfigVM.UnlockedAccentBrush, Source={StaticResource Settings}}" />
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
                         </Style.Triggers>
                         <Setter Property="BorderThickness" Value="1.5" />
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />

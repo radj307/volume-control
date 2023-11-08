@@ -53,7 +53,7 @@
                         <RowDefinition Height="26" />
                         <RowDefinition Height="26" />
                         <RowDefinition Height="26" />
-                        <RowDefinition Height="26" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <!--  Row 0 ; Column 0-1  -->
@@ -132,7 +132,6 @@
                         Width="{Binding ActualWidth, ElementName=BigBastard}"
                         Margin="5,0"
                         HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Center"
                         IsEnabled="{b:MultiBinding {Binding ConfigSection.Enabled},
                                                    {Binding IsChecked, ElementName=EnableNotificationFadeInCheckbox},
                                                    Converter={StaticResource MultiBindingBooleanConverter}}"
@@ -147,7 +146,6 @@
                         Grid.Row="3"
                         Margin="5,3,3,3"
                         HorizontalAlignment="Left"
-                        HorizontalContentAlignment="Center"
                         Content="{Tr 'VolumeControl.ListNotification.Options.DoFadeOut.Content',
                                      DefaultText='Fade Out'}"
                         IsChecked="{Binding ConfigSection.DoFadeOut, UpdateSourceTrigger=PropertyChanged}"
@@ -170,31 +168,140 @@
                                      DefaultText='Specifies the duration of the fade-out animation in milliseconds.'}" />
 
                     <!--  Row 4 ; Column 0-1  -->
-                    <TextBlock
+
+                    <Expander
                         Grid.Row="4"
                         Grid.ColumnSpan="2"
-                        Margin="8,1"
-                        Panel.ZIndex="1"
-                        Style="{StaticResource WatermarkTextBlockStyle}"
-                        Text="View Mode" />
-                    <ComboBox
-                        Grid.Row="4"
-                        Grid.ColumnSpan="2"
-                        Margin="3,1"
-                        Panel.ZIndex="0"
-                        IsEditable="False"
-                        ItemsSource="{Binding FlagsVM.Items}"
-                        SelectionChanged="ComboBox_RemoveSelection"
-                        Style="{StaticResource ComboBoxStyle}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <CheckBox
-                                    Content="{Binding Name}"
-                                    IsChecked="{Binding IsSet}"
-                                    Style="{StaticResource CheckBoxStyle}" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+                        IsExpanded="{Binding IsNotificationConfigAdditionalSettingsExpanderOpen, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource ExpanderStyle}">
+                        <Expander.Header>
+                            <Grid>
+                                <TextBlock
+                                    Margin="8,1"
+                                    Panel.ZIndex="1"
+                                    Style="{StaticResource WatermarkTextBlockStyle}"
+                                    Text="View Mode" />
+                                <ComboBox
+                                    Margin="3,1"
+                                    Panel.ZIndex="0"
+                                    IsEditable="False"
+                                    ItemsSource="{Binding FlagsVM.Items}"
+                                    SelectionChanged="ComboBox_RemoveSelection"
+                                    Style="{StaticResource ComboBoxStyle}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox
+                                                Content="{Binding Name}"
+                                                IsChecked="{Binding IsSet}"
+                                                Style="{StaticResource CheckBoxStyle}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </Grid>
+                        </Expander.Header>
+
+                        <Grid HorizontalAlignment="Center">
+                            <Grid.Resources>
+                                <Style BasedOn="{StaticResource RoundedTextBoxStyle}" TargetType="{x:Type TextBox}">
+                                    <Setter Property="MaxLength" Value="9" />
+                                    <Setter Property="Margin" Value="5,3,3,3" />
+                                    <Setter Property="ToolTipService.BetweenShowDelay" Value="100" />
+                                    <Setter Property="ToolTipService.InitialShowDelay" Value="200" />
+                                </Style>
+                                <Style TargetType="{x:Type Ellipse}">
+                                    <Setter Property="Width" Value="15" />
+                                    <Setter Property="Height" Value="15" />
+                                    <Setter Property="HorizontalAlignment" Value="Left" />
+                                    <Setter Property="Stroke" Value="{StaticResource TextBoxBackground}" />
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <!--  Row 0 ; Col 0-1  -->
+                            <TextBox
+                                Grid.Column="0"
+                                Text="{Binding ConfigSection.BackgroundColor}"
+                                ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.ColorPicker.Background.Tooltip',
+                                             DefaultText='Sets the background color of the notification window.'}">
+                                <i:Interaction.Behaviors>
+                                    <wpfBehaviors:TextBoxEnterUpdatesTextSourceBehavior />
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                            <Ellipse Grid.Column="1" Fill="{Binding BackgroundBrush}" />
+                            <!--  Row 0 ; Col 2-3  -->
+                            <TextBox
+                                Grid.Column="2"
+                                Text="{Binding ConfigSection.TextColor}"
+                                ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.ColorPicker.Foreground.Tooltip',
+                                             DefaultText='Sets the text color of the notification window.'}">
+                                <i:Interaction.Behaviors>
+                                    <wpfBehaviors:TextBoxEnterUpdatesTextSourceBehavior />
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                            <Ellipse Grid.Column="3" Fill="{Binding ForegroundBrush}" />
+
+                            <!--  Row 1 ; Col 0-1  -->
+                            <TextBox
+                                Grid.Row="1"
+                                Text="{Binding ConfigSection.LockedColor}"
+                                ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.ColorPicker.LockedAccent.Tooltip',
+                                             DefaultText='Sets the accent color of the notification window when selection is locked.'}">
+                                <i:Interaction.Behaviors>
+                                    <wpfBehaviors:TextBoxEnterUpdatesTextSourceBehavior />
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                            <Ellipse
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Fill="{Binding LockedAccentBrush}" />
+                            <!--  Row 1 ; Col 2-3  -->
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Text="{Binding ConfigSection.UnlockedColor}"
+                                ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.ColorPicker.UnlockedAccent.Tooltip',
+                                             DefaultText='Sets the accent color of the notification window when selection is unlocked.'}">
+                                <i:Interaction.Behaviors>
+                                    <wpfBehaviors:TextBoxEnterUpdatesTextSourceBehavior />
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                            <Ellipse
+                                Grid.Row="1"
+                                Grid.Column="3"
+                                Fill="{Binding UnlockedAccentBrush}" />
+
+                            <!--  Row 2 ; Col 0-3  -->
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.ColumnSpan="2"
+                                Margin="5,3"
+                                Style="{StaticResource TextBlockStyle}"
+                                Text="{Tr 'VolumeControl.MainWindow.Settings.Notifications.CornerRadius.Content',
+                                          DefaultText='Corner Radius:'}" />
+                            <TextBox
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Grid.ColumnSpan="2"
+                                MaxLength="-1"
+                                Text="{Binding ConfigSection.CornerRadius}"
+                                ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.CornerRadius.Tooltip',
+                                             DefaultText='The radius of the corners of the notification window. Starts at the top-left corner and goes clockwise.'}">
+                                <i:Interaction.Behaviors>
+                                    <wpfBehaviors:TextBoxEnterUpdatesTextSourceBehavior />
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                        </Grid>
+                    </Expander>
                 </Grid>
             </DataTemplate>
 

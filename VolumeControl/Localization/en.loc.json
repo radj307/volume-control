@@ -311,6 +311,36 @@
               },
               "Tooltip": {}
             }
+          },
+          "ColorPicker": {
+            "Background": {
+              "Tooltip": {
+                "English (US/CA)": "Sets the background color of the notification window."
+              }
+            },
+            "Foreground": {
+              "Tooltip": {
+                "English (US/CA)": "Sets the text color of the notification window."
+              }
+            },
+            "LockedAccent": {
+              "Tooltip": {
+                "English (US/CA)": "Sets the accent color of the notification window when selection is locked."
+              }
+            },
+            "UnlockedAccent": {
+              "Tooltip": {
+                "English (US/CA)": "Sets the accent color of the notification window when selection is unlocked."
+              }
+            }
+          },
+          "CornerRadius": {
+            "Content": {
+              "English (US/CA)": "Corner Radius:"
+            },
+            "Tooltip": {
+              "English (US/CA)": "The radius of the corners of the notification window. Starts at the top-left corner and goes clockwise."
+            }
           }
         },
         "Log": {
