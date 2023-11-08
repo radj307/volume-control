@@ -100,7 +100,10 @@ namespace VolumeControl.CoreAudio
         public AudioSessionControl2 AudioSessionControl { get; }
         internal SimpleAudioVolume SimpleAudioVolume => AudioSessionControl.SimpleAudioVolume!; //< constructor throws if null
         internal AudioMeterInformation AudioMeterInformation => AudioSessionControl.AudioMeterInformation!; //< constructor throws if null
-
+        /// <summary>
+        /// Gets the DataFlow direction of this audio session.
+        /// </summary>
+        public DataFlow DataFlow => AudioDevice.DataFlow;
         /// <summary>
         /// Gets the process ID of the process associated with this <see cref="AudioSession"/> instance.
         /// </summary>

@@ -379,6 +379,10 @@ namespace VolumeControl.Core
         /// Gets or sets whether selected audio sessions have synchronized volume levels &amp; mute states or not.
         /// </summary>
         public bool EnableSessionSync { get; set; } = false;
+        /// <summary>
+        /// Gets or sets a value that indicates whether input devices are loaded by the AudioDeviceManager.
+        /// </summary>
+        public bool EnableInputDevices { get; set; } = false;
         #endregion Audio
 
         #region Log

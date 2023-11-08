@@ -396,7 +396,7 @@ namespace VolumeControl.CoreAudio
         /// <param name="session">An <see cref="AudioSession"/> instance to add to the list.</param>
         internal void AddSession(AudioSession session)
         {
-            if (_sessions.Any(s => s.PID.Equals(session.PID)))
+            if (_sessions.Any(s => s.PID.Equals(session.PID) && s.DataFlow.Equals(session.DataFlow)))
                 return; // don't add duplicate sessions
 
             // allow handlers to edit the session's initial name:

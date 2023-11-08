@@ -38,7 +38,6 @@ namespace VolumeControl.CoreAudio
                 CreateAndAddDeviceIfUnique(mmDevice);
             }
         }
-
         /// <summary>
         /// Creates a new <see cref="AudioDeviceManager"/> instance.
         /// </summary>

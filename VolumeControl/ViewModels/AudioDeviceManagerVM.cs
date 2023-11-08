@@ -28,7 +28,7 @@ namespace VolumeControl.ViewModels
 
             // # INIT DEVICES #
             // setup the device manager
-            AudioDeviceManager = new(DataFlow.Render);
+            AudioDeviceManager = new(Settings.EnableInputDevices ? DataFlow.All : DataFlow.Render);
 
             // setup the devices list
             Devices = new();

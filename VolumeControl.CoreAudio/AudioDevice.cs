@@ -84,7 +84,10 @@ namespace VolumeControl.CoreAudio
         /// Gets the <see cref="AudioDeviceSessionManager"/> instance that manages this <see cref="AudioDevice"/> instance's <see cref="AudioSession"/>s.
         /// </summary>
         public AudioDeviceSessionManager SessionManager { get; }
-
+        /// <summary>
+        /// Gets the DataFlow direction of this audio device.
+        /// </summary>
+        public DataFlow DataFlow => MMDevice.DataFlow;
         /// <summary>
         /// Gets the full name of this <see cref="AudioDevice"/> instance, including both the device name and the interface name.
         /// </summary>
