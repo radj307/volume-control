@@ -5,9 +5,9 @@
     <Nullable>enable</Nullable>
     <Configurations>Debug;Release</Configurations>
     <Authors>radj307</Authors>
-    <Version>6.5.1-dbg1</Version>
-    <FileVersion>6.5.1</FileVersion>
-    <Copyright>Copyright © 2023 by $(Authors)</Copyright>
+    <Version>6.5.2</Version>
+    <FileVersion>6.5.2</FileVersion>
+    <Copyright>Copyright © 2022-2023 by $(Authors)</Copyright>
   </PropertyGroup>
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
     <EmbeddedResource Include="Localization\zz-HotkeyActions.loc.json" />

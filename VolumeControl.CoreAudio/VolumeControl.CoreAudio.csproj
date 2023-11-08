@@ -9,9 +9,9 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DocumentationFile>../$(MSBuildProjectName).xml</DocumentationFile>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
-    <Version>6.5.1-dbg1</Version>
-    <FileVersion>6.5.1</FileVersion>
-    <Copyright>Copyright © 2023 by $(Authors)</Copyright>
+    <Version>6.5.2</Version>
+    <FileVersion>6.5.2</FileVersion>
+    <Copyright>Copyright © 2022-2023 by $(Authors)</Copyright>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />

@@ -20,9 +20,9 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <FileVersion>6.5.1</FileVersion>
-    <Version>6.5.1-dbg1</Version>
-    <Copyright>Copyright © 2023 by $(Authors)</Copyright>
+    <FileVersion>6.5.2</FileVersion>
+    <Version>6.5.2</Version>
+    <Copyright>Copyright © 2022-2023 by $(Authors)</Copyright>
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="C:\Users\Administrator\.nuget\packages\radj307.appreconfig\2.3.0\contentFiles\any\net6.0\Resources\gear-split.ico" />
