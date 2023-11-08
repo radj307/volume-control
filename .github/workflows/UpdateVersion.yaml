@@ -26,7 +26,7 @@ jobs:
                 $tag = $(git describe --tags --abbrev=0)
                 $tag -cmatch '(?<MAJOR>\d+?)\.(?<MINOR>\d+?)\.(?<PATCH>\d+?)(?<EXTRA>.*)' > $null
                 $tag_3_part = $Matches.MAJOR + '.' + $Matches.MINOR + '.' + $Matches.PATCH
-                $copyright = "Copyright © $((Get-Date).Year) by `$`(Authors`)"
+                $copyright = "Copyright © 2022-$((Get-Date).Year) by `$`(Authors`)"
                 
                 .\SetVersion.ps1 -Path VolumeControl.Log/VolumeControl.Log.csproj                           Version=$tag FileVersion=$tag_3_part Copyright=$copyright
                 .\SetVersion.ps1 -Path VolumeControl.TypeExtensions/VolumeControl.TypeExtensions.csproj     Version=$tag FileVersion=$tag_3_part Copyright=$copyright
