@@ -31,10 +31,6 @@ namespace VolumeControl.CoreAudio
         }
         #endregion Constructor
 
-        #region Fields
-        private bool _noResolveCurrentIndex = false;
-        #endregion Fields
-
         #region Properties
         AudioSessionManager AudioSessionManager { get; }
         private IReadOnlyList<AudioSession> Sessions => AudioSessionManager.Sessions;
@@ -121,8 +117,6 @@ namespace VolumeControl.CoreAudio
                 if (LockCurrentIndex) return;
 
                 _currentIndex = value;
-
-                _noResolveCurrentIndex = _currentIndex == -1;
 
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(CurrentSession));
