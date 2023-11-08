@@ -78,18 +78,17 @@ jobs:
         with:
           path:  ${{github.workspace}}
 
-      - name: Stage Artifacts
+      - name: Debug
         run:  |
               cd ${{github.workspace}}/sdk
               zip -T9 ../SDK.zip ./*
               cd ${{github.workspace}}
-
-      - run:  ls -lAghR
+              ls -lAghR
 
       - name: 'Create Release'
-        uses: softprops/action-gh-release@v1
+        uses: radj307/action-gh-release@main
         with:
           draft: true
           files: |
-                 "${{ github.workspace }}/build-windows/*.exe"
-                 "${{ github.workspace }}/SDK.zip"
+                 build-windows/*.exe
+                 SDK.zip
