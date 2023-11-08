@@ -91,6 +91,6 @@ jobs:
         with:
           draft:                    true
           fail_on_unmatched_files:  true
-          files:      |
-                      build-windows/*.exe
-                      SDK.zip
+          files: |
+                 build-windows/*.exe
+                 SDK.zip
