@@ -89,9 +89,7 @@ jobs:
       - name: 'Create Release'
         uses: softprops/action-gh-release@v1
         with:
-          draft:                    true
-          fail_on_unmatched_files:  true
-          files:      |
-                      ${{github.workspace}}/build-windows/VolumeControl.exe
-                      ${{github.workspace}}/build-windows/VolumeControl-Installer.exe
-                      ${{github.workspace}}/SDK.zip
+          draft: true
+          files: |
+                 "${{ github.workspace }}/build-windows/*.exe"
+                 "${{ github.workspace }}/SDK.zip"
