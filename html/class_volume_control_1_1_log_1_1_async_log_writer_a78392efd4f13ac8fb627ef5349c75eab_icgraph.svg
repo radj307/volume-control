@@ -37,7 +37,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html#af2289ce471cef3768db5357e3817f4ab" target="_top" xlink:title="Invokes the method specified by the HotkeyActionDefinition">
+<g id="a_node3"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html#a9b4465da766fa2f363699dbd1324c98c" target="_top" xlink:title="Invokes the method specified by the HotkeyActionDefinition">
 <polygon fill="none" stroke="black" points="0,-0.5 0,-30.5 197,-30.5 197,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
 <text text-anchor="middle" x="98.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Actions.HotkeyActionInstance.Invoke</text>

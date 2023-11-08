@@ -101,12 +101,14 @@ Set <a class="el" href="class_volume_control_1_1_core_1_1_action_setting_data_te
 <div class="dynheader">
 Inheritance diagram for VolumeControl.Core.ITemplateDictionaryProvider:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="interface_volume_control_1_1_core_1_1_i_template_dictionary_provider__inherit__graph.svg" width="266" height="287"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="interface_volume_control_1_1_core_1_1_i_template_dictionary_provider__inherit__graph.svg" width="319" height="567"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Core.ITemplateDictionaryProvider:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="interface_volume_control_1_1_core_1_1_i_template_dictionary_provider__coll__graph.svg" width="231" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="interface_volume_control_1_1_core_1_1_i_template_dictionary_provider__coll__graph.svg" width="231" height="258"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -117,6 +119,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5a7cd0c0a028d9283339389e461adf66"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_volume_control_1_1_core_1_1_action_setting_data_template.html">ActionSettingDataTemplate</a>?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_core_1_1_i_template_dictionary_provider.html#a5a7cd0c0a028d9283339389e461adf66">ProvideDataTemplate</a> (Type valueType)</td></tr>
 <tr class="memdesc:a5a7cd0c0a028d9283339389e461adf66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides an <a class="el" href="class_volume_control_1_1_core_1_1_action_setting_data_template.html" title="Extends the DataTemplate class with metadata specific to action setting data template providers.">ActionSettingDataTemplate</a> for the specified <em>valueType</em> .  <a href="interface_volume_control_1_1_core_1_1_i_template_dictionary_provider.html#a5a7cd0c0a028d9283339389e461adf66">More...</a><br /></td></tr>
 <tr class="separator:a5a7cd0c0a028d9283339389e461adf66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab378a698eda3ea223a1b33a4a9a6e07e"><td class="memItemLeft" align="right" valign="top">IEnumerable&lt; DictionaryEntry &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_core_1_1_i_template_dictionary_provider.html#ab378a698eda3ea223a1b33a4a9a6e07e">AsEnumerable</a> ()</td></tr>
+<tr class="memdesc:ab378a698eda3ea223a1b33a4a9a6e07e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the contents of the dictionary as an enumerable collection of DictionaryEntry instances.  <a href="interface_volume_control_1_1_core_1_1_i_template_dictionary_provider.html#ab378a698eda3ea223a1b33a4a9a6e07e">More...</a><br /></td></tr>
+<tr class="separator:ab378a698eda3ea223a1b33a4a9a6e07e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>An alternative to <a class="el" href="interface_volume_control_1_1_core_1_1_i_template_provider.html" title="Provides a DataTemplate instance constructed in codebehind using FrameworkElementFactory.">ITemplateProvider</a> that can be combined with a ResourceDictionary (with a codebehind) to define many data templates in XAML and provide them for action settings based on a key string and/or value type.<br  />
@@ -125,6 +130,28 @@ Public Member Functions</h2></td></tr>
 Set <a class="el" href="class_volume_control_1_1_core_1_1_action_setting_data_template.html#a3ac4dae35b37e463ea9bc20f8841b19c" title="Gets or sets the type of value supported by this action setting data template.">ActionSettingDataTemplate.ValueType</a> to the type of value that the data template supports. </p>
 <p>Any public, non-static, non-abstract class that implements this interface can be specified for HotkeyActionSettingAttribute.DataTemplateProviderType. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab378a698eda3ea223a1b33a4a9a6e07e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab378a698eda3ea223a1b33a4a9a6e07e">&#9670;&nbsp;</a></span>AsEnumerable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">IEnumerable&lt;DictionaryEntry&gt; VolumeControl.Core.ITemplateDictionaryProvider.AsEnumerable </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the contents of the dictionary as an enumerable collection of DictionaryEntry instances. </p>
+<dl class="section return"><dt>Returns</dt><dd>An enumerable collection of all of the DictionaryEntry pairs in this instance.</dd></dl>
+
+<p>Implemented in <a class="el" href="class_volume_control_1_1_core_1_1_resource_dictionary_template_provider.html#ae5613f2b679db011671d407d8fe3c1a4">VolumeControl.Core.ResourceDictionaryTemplateProvider</a>.</p>
+
+</div>
+</div>
 <a id="a3874905ca7b96d751eaca304771cddce"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3874905ca7b96d751eaca304771cddce">&#9670;&nbsp;</a></span>ProvideDataTemplate() <span class="overload">[1/2]</span></h2>
 
@@ -150,7 +177,7 @@ Set <a class="el" href="class_volume_control_1_1_core_1_1_action_setting_data_te
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>DataTemplate instance with the specified <em>key</em>  if it exists; otherwise <code>null</code>.</dd></dl>
 
-<p>Implemented in <a class="el" href="class_volume_control_1_1_s_d_k_1_1_data_templates_1_1_data_template_dictionary.html#ab1c00b97e312cd71e7551056e6a2dd1a">VolumeControl.SDK.DataTemplates.DataTemplateDictionary</a>.</p>
+<p>Implemented in <a class="el" href="class_volume_control_1_1_core_1_1_resource_dictionary_template_provider.html#a2bb10b2944faee99f6322d4eebcbee56">VolumeControl.Core.ResourceDictionaryTemplateProvider</a>.</p>
 
 </div>
 </div>
@@ -180,12 +207,12 @@ Set <a class="el" href="class_volume_control_1_1_core_1_1_action_setting_data_te
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An <a class="el" href="class_volume_control_1_1_core_1_1_action_setting_data_template.html" title="Extends the DataTemplate class with metadata specific to action setting data template providers.">ActionSettingDataTemplate</a> instance for the specified <em>valueType</em>  if one was found; otherwise <code>null</code>.</dd></dl>
 
-<p>Implemented in <a class="el" href="class_volume_control_1_1_s_d_k_1_1_data_templates_1_1_data_template_dictionary.html#a4f54b3300e6653df1f0aabbdfcb0863f">VolumeControl.SDK.DataTemplates.DataTemplateDictionary</a>.</p>
+<p>Implemented in <a class="el" href="class_volume_control_1_1_core_1_1_resource_dictionary_template_provider.html#a38350a1fb69e9a8002dab13f5f6845c6">VolumeControl.Core.ResourceDictionaryTemplateProvider</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this interface was generated from the following file:<ul>
-<li>/home/runner/work/volume-control/volume-control/VolumeControl.Core/<a class="el" href="">DataTemplateProvider.cs</a></li>
+<li>/home/runner/work/volume-control/volume-control/VolumeControl.Core/<a class="el" href="">ITemplateDictionaryProvider.cs</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

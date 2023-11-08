@@ -1,4 +1,9 @@
 <map id="VolumeControl.Core.Input.TemplateProviderManager.TryGetDictionaryProvider" name="VolumeControl.Core.Input.TemplateProviderManager.TryGetDictionaryProvider">
-<area shape="rect" id="node1" title="Attempts to get the dictionaryProvider &#160;instance with the specified dictionaryProviderType ." alt="" coords="5,5,244,61"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a45dcb0ab3fcfe3333722b73ce9d0bbd8" title="Gets the index of the ITemplateDictionaryProvider type specified by dictionaryProviderType &#160;in Dictio..." alt="" coords="292,5,539,61"/>
+<area shape="rect" id="node1" title="Attempts to get the dictionaryProvider &#160;instance with the specified dictionaryProviderType ." alt="" coords="5,137,244,193"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_message.html#a7f2820d285ce326acf4bdb2a0456710b" title="Appends the specified line &#160;to the message." alt="" coords="292,5,551,32"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_f_log.html#aa25eeb75847c93ffc7ecbc4d2982d6ab" title=" " alt="" coords="308,56,535,83"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_log_1_1_f_log.html#a4dcec7039adc7659b074ba4122cea0f8" title=" " alt="" coords="313,107,530,149"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a45dcb0ab3fcfe3333722b73ce9d0bbd8" title="Gets the index of the ITemplateDictionaryProvider type specified by dictionaryProviderType &#160;in Dictio..." alt="" coords="298,173,545,229"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_log_1_1_f_log.html#a85772588881c3b883612f2238ecb5c1c" title=" " alt="" coords="318,254,525,295"/>
+<area shape="rect" id="node7" href="$class_volume_control_1_1_log_1_1_f_log.html#a94e8675763cb9b451120d7e4fed4f9d0" title=" " alt="" coords="303,320,540,347"/>
 </map>

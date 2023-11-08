@@ -11,8 +11,12 @@ var annotated_dup =
         [ "Enum", "namespace_volume_control_1_1_core_1_1_enum.html", [
           [ "EVirtualKeyCodeExtensions", "class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions.html", "class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions" ]
         ] ],
+        [ "Events", "namespace_volume_control_1_1_core_1_1_events.html", [
+          [ "InterruptEventArgs", "class_volume_control_1_1_core_1_1_events_1_1_interrupt_event_args.html", "class_volume_control_1_1_core_1_1_events_1_1_interrupt_event_args" ]
+        ] ],
         [ "Extensions", "namespace_volume_control_1_1_core_1_1_extensions.html", [
-          [ "KeyboardDeviceExtensions", "class_volume_control_1_1_core_1_1_extensions_1_1_keyboard_device_extensions.html", "class_volume_control_1_1_core_1_1_extensions_1_1_keyboard_device_extensions" ]
+          [ "KeyboardDeviceExtensions", "class_volume_control_1_1_core_1_1_extensions_1_1_keyboard_device_extensions.html", "class_volume_control_1_1_core_1_1_extensions_1_1_keyboard_device_extensions" ],
+          [ "KeyExtensions", "class_volume_control_1_1_core_1_1_extensions_1_1_key_extensions.html", "class_volume_control_1_1_core_1_1_extensions_1_1_key_extensions" ]
         ] ],
         [ "Helpers", "namespace_volume_control_1_1_core_1_1_helpers.html", [
           [ "GetWin32Error", "class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error.html", "class_volume_control_1_1_core_1_1_helpers_1_1_get_win32_error" ],
@@ -29,9 +33,6 @@ var annotated_dup =
             [ "HotkeyActionInstance", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance" ],
             [ "HotkeyActionManager", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_manager.html", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_manager" ]
           ] ],
-          [ "Enums", "namespace_volume_control_1_1_core_1_1_input_1_1_enums.html", [
-            [ "ModifierKeyExtensions", "class_volume_control_1_1_core_1_1_input_1_1_enums_1_1_modifier_key_extensions.html", "class_volume_control_1_1_core_1_1_input_1_1_enums_1_1_modifier_key_extensions" ]
-          ] ],
           [ "Exceptions", "namespace_volume_control_1_1_core_1_1_input_1_1_exceptions.html", [
             [ "ActionSettingNotFoundException", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_action_setting_not_found_exception.html", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_action_setting_not_found_exception" ],
             [ "HotkeyRegistrationException", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_hotkey_registration_exception.html", null ],
@@ -45,13 +46,13 @@ var annotated_dup =
           ] ],
           [ "Hotkey", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey" ],
           [ "HotkeyActionAddonLoader", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader" ],
+          [ "HotkeyExtensions", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_extensions.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_extensions" ],
           [ "HotkeyManager", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager" ],
           [ "HotkeyMessageHookAbstractor", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_message_hook_abstractor.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_message_hook_abstractor" ],
           [ "HotkeyPressedEventArgs", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args" ],
           [ "HotkeyRegisteringEventArgs", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_registering_event_args.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_registering_event_args" ],
           [ "HotkeyWithError", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error" ],
           [ "IHotkey", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey" ],
-          [ "IHotkey_Extensions", "class_volume_control_1_1_core_1_1_input_1_1_i_hotkey___extensions.html", "class_volume_control_1_1_core_1_1_input_1_1_i_hotkey___extensions" ],
           [ "IHotkeyMessageHook", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook.html", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook" ],
           [ "TemplateProviderManager", "class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html", "class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager" ]
         ] ],
@@ -61,11 +62,12 @@ var annotated_dup =
         [ "ActionSettingDataTemplate", "class_volume_control_1_1_core_1_1_action_setting_data_template.html", "class_volume_control_1_1_core_1_1_action_setting_data_template" ],
         [ "ActionTargetSpecifier", "class_volume_control_1_1_core_1_1_action_target_specifier.html", "class_volume_control_1_1_core_1_1_action_target_specifier" ],
         [ "Config", "class_volume_control_1_1_core_1_1_config.html", "class_volume_control_1_1_core_1_1_config" ],
-        [ "ITemplateProvider", "interface_volume_control_1_1_core_1_1_i_template_provider.html", "interface_volume_control_1_1_core_1_1_i_template_provider" ],
-        [ "ITemplateDictionaryProvider", "interface_volume_control_1_1_core_1_1_i_template_dictionary_provider.html", "interface_volume_control_1_1_core_1_1_i_template_dictionary_provider" ],
         [ "EmbeddedResourceNotFoundException", "class_volume_control_1_1_core_1_1_embedded_resource_not_found_exception.html", "class_volume_control_1_1_core_1_1_embedded_resource_not_found_exception" ],
         [ "InputSimulator", "class_volume_control_1_1_core_1_1_input_simulator.html", "class_volume_control_1_1_core_1_1_input_simulator" ],
+        [ "ITemplateDictionaryProvider", "interface_volume_control_1_1_core_1_1_i_template_dictionary_provider.html", "interface_volume_control_1_1_core_1_1_i_template_dictionary_provider" ],
+        [ "ITemplateProvider", "interface_volume_control_1_1_core_1_1_i_template_provider.html", "interface_volume_control_1_1_core_1_1_i_template_provider" ],
         [ "NotificationConfigSection", "class_volume_control_1_1_core_1_1_notification_config_section.html", "class_volume_control_1_1_core_1_1_notification_config_section" ],
+        [ "ResourceDictionaryTemplateProvider", "class_volume_control_1_1_core_1_1_resource_dictionary_template_provider.html", "class_volume_control_1_1_core_1_1_resource_dictionary_template_provider" ],
         [ "User32", "class_volume_control_1_1_core_1_1_user32.html", "class_volume_control_1_1_core_1_1_user32" ]
       ] ],
       [ "CoreAudio", "namespace_volume_control_1_1_core_audio.html", [
@@ -76,9 +78,8 @@ var annotated_dup =
           [ "VolumeChangedEventArgs", "class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args.html", "class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args" ]
         ] ],
         [ "Helpers", "namespace_volume_control_1_1_core_audio_1_1_helpers.html", [
-          [ "IAudioControlExtensions", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_i_audio_control_extensions.html", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_i_audio_control_extensions" ],
+          [ "AudioControlExtensions", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions" ],
           [ "MMDeviceExtensions", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_m_m_device_extensions.html", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_m_m_device_extensions" ],
-          [ "VolumeControlExtensions", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_volume_control_extensions.html", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_volume_control_extensions" ],
           [ "VolumeLevelConverter", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_volume_level_converter.html", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_volume_level_converter" ]
         ] ],
         [ "Interfaces", "namespace_volume_control_1_1_core_audio_1_1_interfaces.html", [
@@ -87,10 +88,7 @@ var annotated_dup =
           [ "IAudioPeakMeter", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_peak_meter.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_peak_meter" ],
           [ "IAudioSelector", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_selector.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_selector" ],
           [ "IHideableAudioControl", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_hideable_audio_control.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_hideable_audio_control" ],
-          [ "IReadOnlyAudioControl", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control" ],
-          [ "IReadOnlyVolumeControl", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_volume_control.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_volume_control" ],
-          [ "IVolumeControl", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_volume_control.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_volume_control" ],
-          [ "IVolumePeakMeter", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_volume_peak_meter.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_volume_peak_meter" ]
+          [ "IReadOnlyAudioControl", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control" ]
         ] ],
         [ "AudioDevice", "class_volume_control_1_1_core_audio_1_1_audio_device.html", "class_volume_control_1_1_core_audio_1_1_audio_device" ],
         [ "AudioDeviceManager", "class_volume_control_1_1_core_audio_1_1_audio_device_manager.html", "class_volume_control_1_1_core_audio_1_1_audio_device_manager" ],
@@ -145,6 +143,7 @@ var annotated_dup =
       ] ],
       [ "TypeExtensions", "namespace_volume_control_1_1_type_extensions.html", [
         [ "ArrayExtensions", "class_volume_control_1_1_type_extensions_1_1_array_extensions.html", "class_volume_control_1_1_type_extensions_1_1_array_extensions" ],
+        [ "BoolExtensions", "class_volume_control_1_1_type_extensions_1_1_bool_extensions.html", "class_volume_control_1_1_type_extensions_1_1_bool_extensions" ],
         [ "CollectionExtensions", "class_volume_control_1_1_type_extensions_1_1_collection_extensions.html", "class_volume_control_1_1_type_extensions_1_1_collection_extensions" ],
         [ "EnumerableExtensions", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions" ],
         [ "EnumExtensions", "class_volume_control_1_1_type_extensions_1_1_enum_extensions.html", "class_volume_control_1_1_type_extensions_1_1_enum_extensions" ],

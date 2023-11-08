@@ -1,0 +1,7 @@
+<map id="VolumeControl.Core.ResourceDictionaryTemplateProvider" name="VolumeControl.Core.ResourceDictionaryTemplateProvider">
+<area shape="rect" id="node1" title="Abstract ITemplateDictionaryProvider base implementation that inherits from ResourceDictionary." alt="" coords="73,285,289,407"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_s_d_k_1_1_data_templates_1_1_data_template_dictionary.html" title="Provides all of the default DataTemplate instances used by the built&#45;in hotkey actions." alt="" coords="54,455,309,547"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,145,155,223"/>
+<area shape="rect" id="node3" href="$interface_volume_control_1_1_core_1_1_i_template_dictionary_provider.html" title="An alternative to ITemplateProvider that can be combined with a ResourceDictionary (with a codebehind..." alt="" coords="179,131,386,237"/>
+<area shape="rect" id="node4" title=" " alt="" coords="231,5,335,83"/>
+</map>

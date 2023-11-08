@@ -1,3 +1,4 @@
 <map id="VolumeControl.Core.ITemplateDictionaryProvider" name="VolumeControl.Core.ITemplateDictionaryProvider">
-<area shape="rect" id="node1" title="An alternative to ITemplateProvider that can be combined with a ResourceDictionary (with a codebehind..." alt="" coords="5,5,225,112"/>
+<area shape="rect" id="node1" title="An alternative to ITemplateProvider that can be combined with a ResourceDictionary (with a codebehind..." alt="" coords="5,131,225,252"/>
+<area shape="rect" id="node2" title=" " alt="" coords="63,5,167,83"/>
 </map>

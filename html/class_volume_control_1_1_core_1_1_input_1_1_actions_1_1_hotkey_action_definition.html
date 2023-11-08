@@ -126,7 +126,7 @@ Properties</h2></td></tr>
 <tr class="memdesc:ad070a1009aa6d514c66f0be53f26ae9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the class type of the hotkey action group that this action belongs to.  <a href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_definition.html#ad070a1009aa6d514c66f0be53f26ae9c">More...</a><br /></td></tr>
 <tr class="separator:ad070a1009aa6d514c66f0be53f26ae9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9147edf54a911d687a9e25997410916"><td class="memItemLeft" align="right" valign="top">object?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_definition.html#aa9147edf54a911d687a9e25997410916">ActionGroupInstance</a><code> [get]</code></td></tr>
-<tr class="memdesc:aa9147edf54a911d687a9e25997410916"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the instance of the hotkey action group that this action belongs to.  <a href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_definition.html#aa9147edf54a911d687a9e25997410916">More...</a><br /></td></tr>
+<tr class="memdesc:aa9147edf54a911d687a9e25997410916"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the class instance of the hotkey action group that this action belongs to.  <a href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_definition.html#aa9147edf54a911d687a9e25997410916">More...</a><br /></td></tr>
 <tr class="separator:aa9147edf54a911d687a9e25997410916"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f7077b46875fa94ce84eb538595916e"><td class="memItemLeft" align="right" valign="top">MethodInfo&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_definition.html#a6f7077b46875fa94ce84eb538595916e">ActionMethodInfo</a><code> [get]</code></td></tr>
 <tr class="memdesc:a6f7077b46875fa94ce84eb538595916e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the method info for the action method that this action represents.  <a href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_definition.html#a6f7077b46875fa94ce84eb538595916e">More...</a><br /></td></tr>
@@ -320,13 +320,6 @@ Properties</h2></td></tr>
 <p>Creates a new <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html" title="An instance of a hotkey action.">HotkeyActionInstance</a> instance from this definition. </p>
 <dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html" title="An instance of a hotkey action.">HotkeyActionInstance</a> object.</dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="#l00128">VolumeControl.Core.Input.HotkeyActionAddonLoader.LoadActions()</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_definition_aabbaa28f08c319d4d3af5d19c2e9ef17_icgraph.svg" width="563" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
 </div>
 </div>
 <a id="a7abd3cf78f784976d292454ca1e6fa8a"></a>
@@ -417,7 +410,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Gets the instance of the hotkey action group that this action belongs to. </p>
+<p>Gets the class instance of the hotkey action group that this action belongs to. </p>
 
 <p class="reference">Referenced by <a class="el" href="#l00026">VolumeControl.Core.Input.Actions.HotkeyActionDefinition.HotkeyActionDefinition()</a>.</p>
 
@@ -471,7 +464,7 @@ Here is the caller graph for this function:</div>
 
 <p>Gets the method info for the action method that this action represents. </p>
 <p><b>Do not use this to invoke the method!</b><br  />
- Use <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html#af2289ce471cef3768db5357e3817f4ab" title="Invokes the method specified by the HotkeyActionDefinition">HotkeyActionInstance.Invoke(object, HotkeyPressedEventArgs)</a> instead! </p>
+ Use <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html#a9b4465da766fa2f363699dbd1324c98c" title="Invokes the method specified by the HotkeyActionDefinition">HotkeyActionInstance.Invoke(IHotkey, HotkeyPressedEventArgs)</a> instead! </p>
 
 <p class="reference">Referenced by <a class="el" href="#l00026">VolumeControl.Core.Input.Actions.HotkeyActionDefinition.HotkeyActionDefinition()</a>.</p>
 
@@ -499,7 +492,7 @@ Here is the caller graph for this function:</div>
 
 <p>Gets the action setting definitions of this action. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00190">VolumeControl.Core.Input.Actions.HotkeyActionDefinition.GetActionSettingDefinition()</a>, and <a class="el" href="#l00026">VolumeControl.Core.Input.Actions.HotkeyActionDefinition.HotkeyActionDefinition()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00185">VolumeControl.Core.Input.Actions.HotkeyActionDefinition.GetActionSettingDefinition()</a>, and <a class="el" href="#l00026">VolumeControl.Core.Input.Actions.HotkeyActionDefinition.HotkeyActionDefinition()</a>.</p>
 
 </div>
 </div>

@@ -98,7 +98,8 @@ $(document).ready(function(){initNavTree('interface_volume_control_1_1_core_audi
 <div class="dynheader">
 Inheritance diagram for VolumeControl.CoreAudio.Interfaces.IReadOnlyAudioControl:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control__inherit__graph.svg" width="467" height="536"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.CoreAudio.Interfaces.IReadOnlyAudioControl:</div>
@@ -109,13 +110,13 @@ Collaboration diagram for VolumeControl.CoreAudio.Interfaces.IReadOnlyAudioContr
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:ae078e80176767fae57fd5e2af2c6b28d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html#ae078e80176767fae57fd5e2af2c6b28d">NativeVolume</a><code> [get]</code></td></tr>
-<tr class="memdesc:ae078e80176767fae57fd5e2af2c6b28d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the volume level of the audio instance, in the native float format.  <a href="interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html#ae078e80176767fae57fd5e2af2c6b28d">More...</a><br /></td></tr>
+<tr class="memdesc:ae078e80176767fae57fd5e2af2c6b28d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the volume level, in the native float format.  <a href="interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html#ae078e80176767fae57fd5e2af2c6b28d">More...</a><br /></td></tr>
 <tr class="separator:ae078e80176767fae57fd5e2af2c6b28d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5510ba421cbd583846edb0a8badc8c5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html#af5510ba421cbd583846edb0a8badc8c5">Volume</a><code> [get]</code></td></tr>
-<tr class="memdesc:af5510ba421cbd583846edb0a8badc8c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the volume level of the audio instance.  <a href="interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html#af5510ba421cbd583846edb0a8badc8c5">More...</a><br /></td></tr>
+<tr class="memdesc:af5510ba421cbd583846edb0a8badc8c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the volume level.  <a href="interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html#af5510ba421cbd583846edb0a8badc8c5">More...</a><br /></td></tr>
 <tr class="separator:af5510ba421cbd583846edb0a8badc8c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa39132fae51dd52766c295b9c921d5da"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html#aa39132fae51dd52766c295b9c921d5da">Mute</a><code> [get]</code></td></tr>
-<tr class="memdesc:aa39132fae51dd52766c295b9c921d5da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the mute state of the audio instance.  <a href="interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html#aa39132fae51dd52766c295b9c921d5da">More...</a><br /></td></tr>
+<tr class="memdesc:aa39132fae51dd52766c295b9c921d5da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the mute state.  <a href="interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html#aa39132fae51dd52766c295b9c921d5da">More...</a><br /></td></tr>
 <tr class="separator:aa39132fae51dd52766c295b9c921d5da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -141,7 +142,9 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Gets the mute state of the audio instance. </p>
+<p>Gets the mute state. </p>
+
+<p class="reference">Referenced by <a class="el" href="#l00066">VolumeControl.CoreAudio.Helpers.AudioControlExtensions.SetState()</a>.</p>
 
 </div>
 </div>
@@ -165,8 +168,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Gets the volume level of the audio instance, in the native float format. </p>
-<p>Range: <b>0.0</b> - <b>1.0</b> </p>
+<p>Gets the volume level, in the native float format. </p>
+<dl class="section return"><dt>Returns</dt><dd>A float between <b>0.0</b> and <b>1.0</b>.</dd></dl>
 
 </div>
 </div>
@@ -190,8 +193,10 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Gets the volume level of the audio instance. </p>
-<p>Range: <b>0</b> - <b>100</b> </p>
+<p>Gets the volume level. </p>
+<dl class="section return"><dt>Returns</dt><dd>An int between <b>0</b> and <b>100</b>.</dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="#l00066">VolumeControl.CoreAudio.Helpers.AudioControlExtensions.SetState()</a>.</p>
 
 </div>
 </div>

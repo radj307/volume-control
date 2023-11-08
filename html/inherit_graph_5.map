@@ -1,3 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_volume_control_1_1_core_1_1_extensions_1_1_keyboard_device_extensions.html" title="Extension methods for the KeyboardDevice class." alt="" coords="5,5,236,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,166,93,193"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_events_1_1_interrupt_event_args.html" title="Event arguments that include an incoming and outgoing value, as well as a settable Handled property t..." alt="" coords="178,5,382,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_is_hidden_event_args.html" title="Event arguments for the PreviewSessionIsHiddenEventHandler event type." alt="" coords="165,71,395,127"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_is_selected_event_args.html" title="Event arguments object for the PreviewSessionIsSelectedEventHandler event type." alt="" coords="161,151,399,207"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_name_event_args.html" title="Event arguments for the preview session name event, which allows session display names to be changed ..." alt="" coords="141,232,419,273"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args.html" title="Contains event data for the VolumeChangedEventHandler event type." alt="" coords="159,297,401,339"/>
 </map>

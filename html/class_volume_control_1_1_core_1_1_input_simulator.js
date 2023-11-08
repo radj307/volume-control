@@ -1,6 +1,7 @@
 var class_volume_control_1_1_core_1_1_input_simulator =
 [
     [ "SendKey", "class_volume_control_1_1_core_1_1_input_simulator.html#a122567eab17040f14dfdb66eb96fb246", null ],
+    [ "SendKey", "class_volume_control_1_1_core_1_1_input_simulator.html#ad41fbadc18ab390a610a77dfc2f8329b", null ],
     [ "SendKey", "class_volume_control_1_1_core_1_1_input_simulator.html#a802e47de0e443a22056d589518b58d20", null ],
     [ "SendText", "class_volume_control_1_1_core_1_1_input_simulator.html#a4abca3e21f959095d42a48ec190e6fd4", null ],
     [ "SendText", "class_volume_control_1_1_core_1_1_input_simulator.html#a6135f285ce440b5c1c84723cd638a5c4", null ],

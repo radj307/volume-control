@@ -1,5 +1,13 @@
 var NAVTREEINDEX4 =
 {
+"class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#ae0f3b4e1a0b6e3ff927b627afafdc5ff":[8,0,0,6,7,15],
+"class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#ae4016432966cc8243963ae8ff0b51931":[8,0,0,6,7,16],
+"class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#ae7ae64404ec2c028f274aa83533a95e6":[8,0,0,6,7,19],
+"class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#aeb9b21fd1bc8000547964bd5250f8aca":[8,0,0,6,7,2],
+"class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#aecfcb5f7db75042469b290c724c55fb9":[8,0,0,6,7,26],
+"class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#af956b35105c395b936c0938150213ae5":[8,0,0,6,7,0],
+"class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#afaa2314dbed8181d9a625508ee4ee9d0":[8,0,0,6,7,25],
+"class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html":[8,0,0,6,2,0],
 "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#a3eaa4d99cebde18661999df90a1e3615":[8,0,0,6,2,0,3],
 "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#a5c382a0c526d2e4c6b1ec5e2a5ad600a":[8,0,0,6,2,0,10],
 "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#a6ea73dae659fee86898cd8751e9eac3a":[8,0,0,6,2,0,1],
@@ -241,13 +249,5 @@ var NAVTREEINDEX4 =
 "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix.html":[8,0,0,6,12],
 "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix.html#ac223553aa5b0c3e10fdc452baaf81306":[8,0,0,6,12,0],
 "class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html":[8,0,0,6,6,1],
-"class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html#a115e291b35e6256ff28fbf46f989b2aa":[8,0,0,6,6,1,0],
-"class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html#a4874dbc6e95678ba553dafddfe948357":[8,0,0,6,6,1,2],
-"class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html#ab64e60440b54f8c6e02157a99b5fb6fe":[8,0,0,6,6,1,1],
-"class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html#afae05d1f45f1584a11e78ac3318c417d":[8,0,0,6,6,1,3],
-"class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html":[8,0,0,6,13],
-"class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html#a2a93ca4faed21f0aac1d791a781e396a":[8,0,0,6,13,1],
-"class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html#ae1d05b0322c8ff6efcef70a2538ba1fb":[8,0,0,6,13,0],
-"class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html#af3958c64d6b5bae2bcf558dacacba07a":[8,0,0,6,13,2],
-"classes.html":[8,1]
+"class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html#a115e291b35e6256ff28fbf46f989b2aa":[8,0,0,6,6,1,0]
 };

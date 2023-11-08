@@ -1,5 +1,4 @@
 <map id="VolumeControl.CoreAudio.Events.VolumeChangedEventArgs" name="VolumeControl.CoreAudio.Events.VolumeChangedEventArgs">
-<area shape="rect" id="node1" title="Contains event data for the VolumeChangedEventHandler event type." alt="" coords="5,160,248,296"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,20,93,97"/>
-<area shape="rect" id="node3" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html" title="Represents an audio instance with a read&#45;only volume level and mute state." alt="" coords="117,5,291,112"/>
+<area shape="rect" id="node1" title="Contains event data for the VolumeChangedEventHandler event type." alt="" coords="5,131,248,267"/>
+<area shape="rect" id="node2" title=" " alt="" coords="83,5,171,83"/>
 </map>
