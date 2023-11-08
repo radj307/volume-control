@@ -23,7 +23,7 @@ AppName={#AppName}
 AppVersion={#AppVersion}
 AppVerName={#AppName} {#AppVersion}
 
-AppCopyright=Copyright © {#CurrentYear} {#AppPublisher}
+AppCopyright=Copyright © 2022-{#CurrentYear} {#AppPublisher}
 AppPublisherURL={#AppURL}
 AppSupportURL={#AppURL}
 AppUpdatesURL={#AppURL}
