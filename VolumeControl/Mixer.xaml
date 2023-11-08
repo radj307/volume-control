@@ -2003,10 +2003,12 @@
                                         <CheckBox
                                             Grid.Row="2"
                                             Grid.Column="1"
-                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Application.EnableInputDevices.Content'}"
+                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Application.EnableInputDevices.Content',
+                                                         DefaultText='Capture Device Support'}"
                                             IsChecked="{Binding AudioAPI.EnableInputDeviceSupport, Source={StaticResource Settings}}"
                                             Style="{StaticResource ApplicationSettingsCheckboxStyle}"
-                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.EnableInputDevices.Tooltip'}" />
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.EnableInputDevices.Tooltip',
+                                                         DefaultText='Enables support for capture devices &amp; sessions that record audio.'}" />
 
                                         <!--  Row 0-1 ; Column 2  -->
                                         <CheckBox

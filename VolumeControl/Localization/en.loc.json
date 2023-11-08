@@ -422,7 +422,7 @@
               "English (US/CA)": "Show Icons"
             },
             "Tooltip": {
-              "English (US/CA)": "When enabled, the program will attempt to display the icon associated with audio devices and sessions. ( Some icons may be missing when running as user. )"
+              "English (US/CA)": "Enables displaying device & session icons."
             }
           },
           "KeepRelativePosition": {
@@ -435,10 +435,10 @@
           },
           "EnableInputDevices": {
             "Content": {
-              "English (US/CA)": "Input Device Support"
+              "English (US/CA)": "Capture Device Support"
             },
             "Tooltip": {
-              "English (US/CA)": "Enables support for input devices & sessions."
+              "English (US/CA)": "Enables support for capture devices & sessions that record audio."
             }
           }
         },
