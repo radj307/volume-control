@@ -34,6 +34,7 @@ namespace VolumeControl.ViewModels
         #region Fields
         private bool _removingCurrentSession = false;
         private bool _isSettingTarget = false;
+        private bool _isSavingTarget = false;
         private IEnumerable<string> _duplicateSessionNames;
         #endregion Fields
 
@@ -88,10 +89,12 @@ namespace VolumeControl.ViewModels
         }
         private void SaveTarget()
         {
+            _isSavingTarget = true;
             Settings.TargetSession = AudioSessionMultiSelector.CurrentSession?.GetTargetInfo() ?? new()
             {
                 ProcessName = TargetText
             };
+            _isSavingTarget = false;
         }
         private IEnumerable<string> GetDuplicateSessionNames()
             => from session in AudioSessionManager.Sessions
@@ -168,7 +171,7 @@ namespace VolumeControl.ViewModels
         #region Settings
         private void Settings_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (_isSettingTarget || e.PropertyName == null) return;
+            if (_isSavingTarget || _isSettingTarget || e.PropertyName == null) return;
 
             if (e.PropertyName.Equals(nameof(Config.TargetSession), StringComparison.Ordinal))
             {
