@@ -1,4 +1,5 @@
-﻿using VolumeControl.CoreAudio.Events;
+﻿using CoreAudio;
+using VolumeControl.CoreAudio.Events;
 using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.CoreAudio
@@ -168,6 +169,30 @@ namespace VolumeControl.CoreAudio
         /// Finds the audio session whose owning process has the given <paramref name="processId"/>.
         /// </summary>
         /// <param name="processId">A Process ID to search for. See <see cref="AudioSession.PID"/>.</param>
+        /// <param name="dataFlow">The data flow type of the session to search for.</param>
+        /// <param name="includeHiddenSessions">When <see langword="true"/>, also searches the hidden sessions; otherwise when <see langword="false"/>, only searches through visible sessions.</param>
+        /// <returns>The <see cref="AudioSession"/> with the given <paramref name="processId"/> if found; otherwise <see langword="null"/>.</returns>
+        public AudioSession? FindSessionWithPID(uint processId, DataFlow? dataFlow, bool includeHiddenSessions = false)
+        { // don't use FindSession here, this way is more than 2x faster:
+            for (int i = 0, max = Sessions.Count; i < max; ++i)
+            {
+                AudioSession session = Sessions[i];
+                if (session.PID == processId && session.DataFlow == dataFlow) return session;
+            }
+            if (includeHiddenSessions)
+            {
+                for (int i = 0, max = HiddenSessions.Count; i < max; ++i)
+                {
+                    AudioSession session = HiddenSessions[i];
+                    if (session.PID == processId && session.DataFlow == dataFlow) return session;
+                }
+            }
+            return null;
+        }
+        /// <summary>
+        /// Finds the audio session whose owning process has the given <paramref name="processId"/>.
+        /// </summary>
+        /// <param name="processId">A Process ID to search for. See <see cref="AudioSession.PID"/>.</param>
         /// <param name="includeHiddenSessions">When <see langword="true"/>, also searches the hidden sessions; otherwise when <see langword="false"/>, only searches through visible sessions.</param>
         /// <returns>The <see cref="AudioSession"/> with the given <paramref name="processId"/> if found; otherwise <see langword="null"/>.</returns>
         public AudioSession? FindSessionWithPID(uint processId, bool includeHiddenSessions = false)
@@ -223,6 +248,35 @@ namespace VolumeControl.CoreAudio
         #endregion FindSessionWithProcessName
 
         #region FindSessionWithName
+        /// <summary>
+        /// Finds the audio session whose owning process has the given <paramref name="sessionName"/>.
+        /// </summary>
+        /// <param name="sessionName">A Name or Process Name to search for. See <see cref="AudioSession.Name"/> &amp; <see cref="AudioSession.ProcessName"/>.</param>
+        /// <param name="dataFlow">The data flow type of the session to search for.</param>
+        /// <param name="stringComparison">The <see cref="StringComparison"/> type to use when comparing process name strings.</param>
+        /// <param name="includeHiddenSessions">When <see langword="true"/>, also searches the hidden sessions; otherwise when <see langword="false"/>, only searches through visible sessions.</param>
+        /// <returns>The first <see cref="AudioSession"/> with the given <paramref name="sessionName"/> if found; otherwise <see langword="null"/>.</returns>
+        public AudioSession? FindSessionWithName(string sessionName, DataFlow? dataFlow, StringComparison stringComparison = StringComparison.Ordinal, bool includeHiddenSessions = false)
+        {
+            if (sessionName.Length == 0) return null;
+
+            for (int i = 0, max = Sessions.Count; i < max; ++i)
+            {
+                AudioSession session = Sessions[i];
+                if ((dataFlow == null || session.DataFlow == dataFlow) && session.HasMatchingName(sessionName, stringComparison))
+                    return session;
+            }
+            if (includeHiddenSessions)
+            {
+                for (int i = 0, max = HiddenSessions.Count; i < max; ++i)
+                {
+                    AudioSession session = HiddenSessions[i];
+                    if ((dataFlow == null || session.DataFlow == dataFlow) && session.HasMatchingName(sessionName, stringComparison))
+                        return session;
+                }
+            }
+            return null;
+        }
         /// <summary>
         /// Finds the audio session whose owning process has the given <paramref name="sessionName"/>.
         /// </summary>
@@ -302,31 +356,43 @@ namespace VolumeControl.CoreAudio
         {
             // remove preceding/trailing whitespace & colons (separator char)
             string s = processIdentifier.Trim(AudioSession.ProcessIdentifierSeparatorChar, ' ', '\t', '\v', '\r', '\n');
-
             if (s.Length == 0) return null;
+            
+            var segments = s.Split(AudioSession.ProcessIdentifierSeparatorChar, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
-            int delimIndex = s.IndexOf(AudioSession.ProcessIdentifierSeparatorChar);
+            // parse the data flow segment
+            DataFlow? dataFlow = null;
+            if (segments.Length >= 3 && segments[2].Length >= 1)
+            {
+                var ch = segments[2][0];
 
-            if (delimIndex == -1)
-            { // no separator; only 1 segment is present:
+                if (ch == AudioSession.ProcessIdentifierInputChar)
+                    dataFlow = DataFlow.Capture;
+                else if (ch == AudioSession.ProcessIdentifierOutputChar)
+                    dataFlow = DataFlow.Render;
+            }
+
+            if (segments.Length >= 2)
+            { // both PID & PNAME segments exist:
+                string name = segments[1];
+
+                if (uint.TryParse(segments[0], out uint pid)
+                    && FindSessionWithPID(pid, dataFlow, includeHiddenSessions) is AudioSession session
+                    && session.HasMatchingName(name, stringComparison))
+                { // found a session with a matching process ID and ProcessName
+                    return session;
+                }
+                else return FindSessionWithName(name, dataFlow, stringComparison, includeHiddenSessions);
+            }
+            else
+            { // only 1 segment is present
+                s = segments[0];
                 if (s.All(char.IsNumber))
                     return FindSessionWithPID(uint.Parse(s), includeHiddenSessions);
                 else
                 { // ProcessName segment is present:
                     return FindSessionWithName(s, stringComparison, includeHiddenSessions); //< check both Name & ProcessName
                 }
-            }
-            else
-            { // both of the segments exist:
-                string name = s[(delimIndex + 1)..];
-
-                if (uint.TryParse(s[..delimIndex], out uint pid)
-                    && FindSessionWithPID(pid, includeHiddenSessions) is AudioSession session
-                    && session.HasMatchingName(name, stringComparison))
-                { // found a session with a matching process ID and ProcessName
-                    return session;
-                }
-                else return FindSessionWithName(name, stringComparison, includeHiddenSessions);
             }
         }
         #endregion FindSessionWithSimilarProcessIdentifier

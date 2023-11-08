@@ -264,6 +264,16 @@
         },
         "Description": {
           "English (US/CA)": "Selects the default output device in the list."
+        },
+        "Settings": {
+          "Input Device": {
+            "Name": {
+              "English (US/CA)": "Input Device"
+            },
+            "Description": {
+              "English (US/CA)": "When checked, selects the default input device; when unchecked, selects the default output device. Does nothing when input device support is not enabled."
+            }
+          }
         }
       },
       "Lock": {

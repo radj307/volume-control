@@ -21,7 +21,7 @@ namespace VolumeControl.CoreAudio
         /// <param name="deviceEnumerator">The <see cref="MMDeviceEnumerator"/> instance to use.</param>
         public AudioDeviceManager(DataFlow deviceDataFlow, MMDeviceEnumerator deviceEnumerator)
         {
-            DeviceDataFlow = deviceDataFlow;
+            _deviceDataFlow = deviceDataFlow;
             _devices = new();
             // initialize core audio api objects
             _eventContext = deviceEnumerator.eventContext;
@@ -81,7 +81,17 @@ namespace VolumeControl.CoreAudio
         /// <summary>
         /// Gets the <see cref="DataFlow"/> type of the audio devices managed by this <see cref="AudioDeviceManager"/> instance.
         /// </summary>
-        public DataFlow DeviceDataFlow { get; }
+        public DataFlow DeviceDataFlow
+        {
+            get => _deviceDataFlow;
+            set
+            {
+                _deviceDataFlow = value;
+
+                ReloadAudioDevices();
+            }
+        }
+        private DataFlow _deviceDataFlow;
         #endregion Properties
 
         #region Methods
@@ -104,6 +114,29 @@ namespace VolumeControl.CoreAudio
         #endregion Methods (FindDevice)
 
         /// <summary>
+        /// (Re)loads all active audio devices.
+        /// </summary>
+        private void ReloadAudioDevices()
+        {
+            if (DeviceDataFlow == DataFlow.All)
+            { // load input devices
+                foreach (var mmDevice in _deviceEnumerator.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active))
+                {
+                    CreateAndAddDeviceIfUnique(mmDevice);
+                }
+            }
+            else
+            { // unload input devices
+                for (int i = Devices.Count - 1; i >= 0; --i)
+                {
+                    var device = Devices[i];
+                    if (device.DataFlow == DataFlow.Capture)
+                        RemoveDevice(device);
+                }
+            }
+        }
+
+        /// <summary>
         /// Creates a new <see cref="AudioDevice"/> from the given <paramref name="mmDevice"/> and adds it to the <see cref="Devices"/> list, and triggers the <see cref="DeviceAddedToList"/> event.
         /// </summary>
         /// <param name="mmDevice">The <see cref="MMDevice"/> instance to create a new <see cref="AudioDevice"/> from.</param>
@@ -122,16 +155,29 @@ namespace VolumeControl.CoreAudio
             }
             else return null;
         }
+        private bool RemoveDevice(AudioDevice device)
+        {
+            if (_devices.Remove(device))
+            {
+                NotifyDeviceRemovedFromList(device);
+                
+                device.Dispose();
+
+                return true;
+            }
+            else return false;
+        }
         /// <summary>
-        /// Gets the default device for the specified <paramref name="deviceRole"/>.
+        /// Gets the default device for the specified <paramref name="dataFlow"/> &amp; <paramref name="deviceRole"/>.
         /// </summary>
+        /// <param name="dataFlow">The <see cref="DataFlow"/> of the target device.</param>
         /// <param name="deviceRole">The <see cref="Role"/> of the target device.</param>
-        /// <returns>The default <see cref="AudioDevice"/> instance if one was found; otherwise <see langword="null"/>.</returns>
-        public AudioDevice? GetDefaultDevice(Role deviceRole)
+        /// <returns>The default <see cref="AudioDevice"/> instance if one was found; otherwise, <see langword="null"/>.</returns>
+        public AudioDevice? GetDefaultDevice(DataFlow dataFlow, Role deviceRole)
         {
             try
             {
-                var defaultEndpointMMDevice = _deviceEnumerator.GetDefaultAudioEndpoint(DeviceDataFlow, deviceRole);
+                var defaultEndpointMMDevice = _deviceEnumerator.GetDefaultAudioEndpoint(dataFlow, deviceRole);
 
                 return FindDeviceByID(defaultEndpointMMDevice.ID);
             }
@@ -168,13 +214,9 @@ namespace VolumeControl.CoreAudio
                 {
                     NotifyDeviceStateChanged(existingAudioDevice);
 
-                    _devices.Remove(existingAudioDevice);
+                    RemoveDevice(existingAudioDevice);
 
                     FLog.Debug($"{nameof(AudioDevice)} '{existingAudioDevice.Name}' state changed to {mmDevice.State:G}; removed it from the list.");
-
-                    NotifyDeviceRemovedFromList(existingAudioDevice);
-
-                    existingAudioDevice.Dispose();
                 }
                 else
                 {
@@ -205,13 +247,9 @@ namespace VolumeControl.CoreAudio
         {
             if (FindDeviceByID(e.DeviceId) is AudioDevice audioDevice)
             {
-                _devices.Remove(audioDevice);
+                RemoveDevice(audioDevice);
 
                 FLog.Debug($"{nameof(AudioDevice)} '{audioDevice.Name}' was removed from the system; it was removed from the list.");
-
-                NotifyDeviceRemovedFromList(audioDevice);
-
-                audioDevice.Dispose();
             }
         }
         private void DeviceNotificationClient_DefaultDeviceChanged(object? sender, DefaultDeviceChangedEventArgs e)

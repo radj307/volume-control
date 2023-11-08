@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using CoreAudio;
+using System.ComponentModel;
 using VolumeControl.Core;
 using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Input;
@@ -16,8 +17,12 @@ namespace VolumeControl.HotkeyActions
     public sealed class AudioDeviceActions
     {
         #region Fields
+        // volume step
         private const string Setting_VolumeStep_Name = "Volume Step Override";
         private const string Setting_VolumeStep_Description = "Overrides the global volume step for this action.";
+        // input/output
+        private const string Setting_InputDevice_Name = "Input Device";
+        private const string Setting_InputDevice_Description = "When checked, selects the default input device; when unchecked, selects the default output device. Does nothing when input device support is not enabled.";
         #endregion Fields
 
         #region Properties
@@ -111,9 +116,12 @@ namespace VolumeControl.HotkeyActions
             VCAPI.ShowDeviceListNotification();
         }
         [HotkeyAction(Description = "Selects the default output device in the list.")]
-        public void SelectDefault(object? sender, HandledEventArgs e)
+        [HotkeyActionSetting(Setting_InputDevice_Name, typeof(bool), Description = Setting_InputDevice_Description)]
+        public void SelectDefault(object? sender, HotkeyPressedEventArgs e)
         {
-            AudioDeviceSelector.SelectDefaultDevice();
+            AudioDeviceSelector.SelectDefaultDevice(VCAPI.Settings.EnableInputDevices && e.GetValue<bool>(Setting_InputDevice_Name)
+                ? DataFlow.Capture
+                : DataFlow.Render);
 
             VCAPI.ShowDeviceListNotification();
         }

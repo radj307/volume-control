@@ -29,7 +29,7 @@ namespace VolumeControl.CoreAudio
             Name = AudioSessionControl.DisplayName.Length > 0 && !AudioSessionControl.DisplayName.StartsWith('@')
                 ? AudioSessionControl.DisplayName
                 : ProcessName;
-            ProcessIdentifier = $"{PID}{ProcessIdentifierSeparatorChar}{ProcessName}";
+            ProcessIdentifier = $"{PID}{ProcessIdentifierSeparatorChar}{ProcessName}{ProcessIdentifierSeparatorChar}{(DataFlow == DataFlow.Capture ? ProcessIdentifierInputChar : ProcessIdentifierOutputChar)}";
 
             if (AudioSessionControl.SimpleAudioVolume is null)
                 throw new NullReferenceException($"{nameof(AudioSession)} '{ProcessName}' ({PID}) {nameof(AudioSessionControl2.SimpleAudioVolume)} is null!");
@@ -87,6 +87,14 @@ namespace VolumeControl.CoreAudio
         /// The character that separates the PID &amp; ProcessName components of ProcessIdentifier strings.
         /// </summary>
         public const char ProcessIdentifierSeparatorChar = ':';
+        /// <summary>
+        /// The character used in the process identifier to indicate that a session is a capture session.
+        /// </summary>
+        public const char ProcessIdentifierInputChar = 'I';
+        /// <summary>
+        /// The character used in the process identifier to indicate that a session is a render session.
+        /// </summary>
+        public const char ProcessIdentifierOutputChar = 'O';
         #endregion Fields
 
         #region Properties

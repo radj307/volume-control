@@ -151,7 +151,7 @@ namespace VolumeControl.ViewModels
         }
         #endregion Methods
 
-        #region Methods (EventHandlers)
+        #region EventHandlers
         /// <summary>
         /// Updates <see cref="TargetSessionText"/> &amp; <see cref="TargetSessionLocked"/> with fresh values from <see cref="VCAPI.AudioSessionManager"/>.
         /// </summary>
@@ -169,7 +169,7 @@ namespace VolumeControl.ViewModels
         /// </summary>
         private void AudioSessionManager_AddedOrRemovedSession(object? sender, AudioSession e)
             => RefreshSessionAutoCompleteSources();
-        #endregion Methods (EventHandlers)
+        #endregion EventHandlers
 
         #region IDisposable Implementation
         protected virtual void Dispose(bool disposing)

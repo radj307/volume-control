@@ -1945,7 +1945,7 @@
                                             <RowDefinition />
                                             <RowDefinition />
                                         </Grid.RowDefinitions>
-                                        <!--  Row 0-1 ; Column 0  -->
+                                        <!--  Row 0-2 ; Column 0  -->
                                         <CheckBox
                                             Content="{Tr 'VolumeControl.MainWindow.Settings.Application.RunAtStartup.Content',
                                                          DefaultText='Run at Startup'}"
@@ -1980,7 +1980,7 @@
                                             ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.KeepRelativePosition.Tooltip',
                                                          DefaultText='Keeps the main window in the same position relative to the nearest screen corner when its size changes.'}" />
 
-                                        <!--  Row 0-1 ; Column 1  -->
+                                        <!--  Row 0-2 ; Column 1  -->
                                         <CheckBox
                                             Grid.Column="1"
                                             Checked="MultiInstanceCheckbox_CheckStateChanged"
@@ -2000,6 +2000,13 @@
                                             Style="{StaticResource ApplicationSettingsCheckboxStyle}"
                                             ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.ShowIcons.Tooltip',
                                                          DefaultText='When enabled, the program will attempt to display the icon associated with audio devices and sessions. ( Some icons may be missing when running as user. )'}" />
+                                        <CheckBox
+                                            Grid.Row="2"
+                                            Grid.Column="1"
+                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Application.EnableInputDevices.Content'}"
+                                            IsChecked="{Binding AudioAPI.EnableInputDeviceSupport, Source={StaticResource Settings}}"
+                                            Style="{StaticResource ApplicationSettingsCheckboxStyle}"
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.EnableInputDevices.Tooltip'}" />
 
                                         <!--  Row 0-1 ; Column 2  -->
                                         <CheckBox

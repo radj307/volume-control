@@ -160,11 +160,15 @@ namespace VolumeControl.CoreAudio
         /// <remarks>
         /// Does nothing if <see cref="LockSelection"/> == <see langword="true"/>.
         /// </remarks>
-        public void SelectDefaultDevice()
+        /// <param name="dataFlow">Whether to get the default input or output device. Passing <see cref="DataFlow.All"/> will cause an exception.</param>
+        /// <exception cref="ArgumentException"><paramref name="dataFlow"/> was set to <see cref="DataFlow.All"/>.</exception>
+        public void SelectDefaultDevice(DataFlow dataFlow = DataFlow.Render)
         {
-            if (LockSelection) return;
+            if (dataFlow == DataFlow.All)
+                throw new ArgumentException($"{nameof(DataFlow)}.{nameof(DataFlow.All)} is not valid for {nameof(SelectDefaultDevice)}!", nameof(dataFlow));
+            else if (LockSelection) return;
 
-            Selected = AudioDeviceManager.GetDefaultDevice(Role.Multimedia);
+            Selected = AudioDeviceManager.GetDefaultDevice(dataFlow, Role.Multimedia);
         }
         /// <summary>
         /// Changes the <see cref="Selected"/> item to whatever is specified by <see cref="Config.TargetDeviceID"/>

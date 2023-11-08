@@ -432,6 +432,14 @@
             "Tooltip": {
               "English (US/CA)": "Keeps the main window in the same position relative to the nearest screen corner when its size changes."
             }
+          },
+          "EnableInputDevices": {
+            "Content": {
+              "English (US/CA)": "Input Device Support"
+            },
+            "Tooltip": {
+              "English (US/CA)": "Enables support for input devices & sessions."
+            }
           }
         },
         "Updates": {

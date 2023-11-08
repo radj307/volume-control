@@ -132,7 +132,6 @@ namespace VolumeControl.ViewModels
         public AudioDeviceSelector AudioDeviceSelector { get; }
         public AudioDeviceVM? SelectedDevice { get; set; }
         public AudioSessionMultiSelector AudioSessionMultiSelector { get; }
-        // public SessionSyncVM SessionSync { get; }
         public bool? AllSessionsSelected
         {
             get
@@ -144,7 +143,23 @@ namespace VolumeControl.ViewModels
                 else if (selected == 0) return false;
                 else return null;
             }
-            set => AudioSessionMultiSelector.SetAllSessionSelectionStates(value == true);
+            set
+            {
+                AudioSessionMultiSelector.SetAllSessionSelectionStates(value == true);
+                NotifyPropertyChanged();
+            }
+        }
+        public bool EnableInputDeviceSupport
+        {
+            get => Settings.EnableInputDevices;
+            set
+            {
+                Settings.EnableInputDevices = value;
+                AudioDeviceManager.DeviceDataFlow = value
+                    ? DataFlow.All
+                    : DataFlow.Render;
+                NotifyPropertyChanged();
+            }
         }
         #endregion Properties
 
