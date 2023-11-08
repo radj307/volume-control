@@ -7,25 +7,24 @@ on:
     types:
       - 'completed'
 
-defaults:
-  run:
-    shell:  |
-            pwsh -noninteractive -command "try {{ $ErrorActionPreference='Stop'; . '{0}' }} catch {{ Write-Error ""FAILED: $_""; throw; }} if ((Test-Path -LiteralPath variable:\LASTEXITCODE)) {{ exit $LASTEXITCODE }}"
-            
 jobs:
-  build-release: # Only run on successful version update action
+  build-portable-release:
     runs-on:  windows-latest
     if:       ${{ github.event.workflow_run.conclusion == 'success' }}
     env:
       DOTNET_NOLOGO:                true
       DOTNET_CLI_TELEMETRY_OPTOUT:  true
-
+    defaults:
+      run:
+        shell:  |
+                pwsh -noninteractive -command "try {{ $ErrorActionPreference='Stop'; . '{0}' }} catch {{ Write-Error ""FAILED: $_""; throw; }} if ((Test-Path -LiteralPath variable:\LASTEXITCODE)) {{ exit $LASTEXITCODE }}"
+            
     steps:
       - uses: actions/checkout@v4
         with:
           ref: '${{ github.ref }}'
 
-      - uses: actions/setup-dotnet@main
+      - uses: actions/setup-dotnet@v3.2.0
         with:
           dotnet-version:   6.0.x
           
@@ -37,6 +36,43 @@ jobs:
         
       - name:   Stage Binary (Portable Version)
         run:    foreach($file in $((dir "publish" | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
+
+      - name:   Upload Executable Artifact
+        uses:   actions/upload-artifact@v3
+        with:
+          name: portable
+          path: '${{github.workspace}}/STAGING/*'
+          if-no-files-found: error
+
+      - name:   Upload SDK Artifact
+        uses:   actions/upload-artifact@v3
+        with:
+          name: sdk
+          path: '${{github.workspace}}/publish/SDK/*'
+          if-no-files-found: error
+          
+  build-installer-release:
+    runs-on:  windows-latest
+    if:       ${{ github.event.workflow_run.conclusion == 'success' }}
+    env:
+      DOTNET_NOLOGO:                true
+      DOTNET_CLI_TELEMETRY_OPTOUT:  true 
+    defaults:
+      run:
+        shell:  |
+                pwsh -noninteractive -command "try {{ $ErrorActionPreference='Stop'; . '{0}' }} catch {{ Write-Error ""FAILED: $_""; throw; }} if ((Test-Path -LiteralPath variable:\LASTEXITCODE)) {{ exit $LASTEXITCODE }}"
+            
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: '${{ github.ref }}'
+
+      - uses: actions/setup-dotnet@v3.2.0
+        with:
+          dotnet-version:   6.0.x
+          
+      - name:   Create Staging Directory
+        run:    mkdir "STAGING"
 
       - name:   Prepare Installer Prerequisites
         run:    git clone https://github.com/DomGries/InnoDependencyInstaller
@@ -56,20 +92,12 @@ jobs:
       - name:   Upload Executable Artifact
         uses:   actions/upload-artifact@v3
         with:
-          name: build-windows
+          name: installer
           path: '${{github.workspace}}/STAGING/*'
           if-no-files-found: error
 
-      - name:   Upload SDK Artifact
-        uses:   actions/upload-artifact@v3
-        with:
-          name: sdk
-          path: '${{github.workspace}}/publish/SDK/*'
-          if-no-files-found: error
-
-  # Create the release using the uploaded artifact on github:
   create-release:
-    needs:    build-release
+    needs: [ build-portable-release, build-installer-release ]
     runs-on:  ubuntu-latest
 
     steps:
@@ -78,19 +106,16 @@ jobs:
         with:
           path:  ${{github.workspace}}
 
-      - name: Stage Artifacts
+      - name: Create SDK Archive
         run:  |
-              cd ${{github.workspace}}/sdk
-              zip -T9 ../SDK.zip ./*
-              cd ${{github.workspace}}
-
-      - run:  ls -lAghR
+              zip -T9 ./SDK.zip sdk/*
+              rm -rf sdk
+              ls -lAghR
 
       - name: 'Create Release'
         uses: softprops/action-gh-release@v1
         with:
-          draft:                    true
-          fail_on_unmatched_files:  true
+          draft: true
           files: |
-                 build-windows/*.exe
-                 SDK.zip
+                 '*/*.exe'
+                 'SDK.zip'
