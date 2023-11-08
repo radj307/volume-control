@@ -2,7 +2,7 @@ var class_volume_control_1_1_core_audio_1_1_audio_device_selector =
 [
     [ "AudioDeviceSelector", "class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a139e061b6f96ab63535b4ad5f18cc7ce", null ],
     [ "DeselectDevice", "class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a96f595fdb67cc751ed8a479e01a8aebf", null ],
-    [ "SelectDefaultDevice", "class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#aa034046c08eabe307454d98622e9a3b8", null ],
+    [ "SelectDefaultDevice", "class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a4fb014a268ce81931a8f790e7020cfa7", null ],
     [ "SelectNextDevice", "class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#acf199a90afa5d0dfb3665675f49e8c4f", null ],
     [ "SelectPreviousDevice", "class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a211260112d4ad4afa37261d92136aa40", null ],
     [ "AudioDeviceManager", "class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#aa70c8b69ace7fea4a99592d1f38d37bd", null ],

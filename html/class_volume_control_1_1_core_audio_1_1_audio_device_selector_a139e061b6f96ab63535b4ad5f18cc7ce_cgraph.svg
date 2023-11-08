@@ -68,7 +68,7 @@ var sectionId = 'dynsection-2';
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#aa034046c08eabe307454d98622e9a3b8" target="_top" xlink:title="Changes the Selected item to the default Multimedia audio device.">
+<g id="a_node2"><a xlink:href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a4fb014a268ce81931a8f790e7020cfa7" target="_top" xlink:title="Changes the Selected item to the default Multimedia audio device.">
 <polygon fill="none" stroke="black" points="218,-17 218,-58 404,-58 404,-17 218,-17"/>
 <text text-anchor="start" x="226" y="-46" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.CoreAudio.</text>
 <text text-anchor="start" x="226" y="-35" font-family="Helvetica,sans-Serif" font-size="10.00">AudioDeviceSelector.SelectDefault</text>
@@ -85,7 +85,7 @@ var sectionId = 'dynsection-2';
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#a4cb7f138bdd481ea15b97ed57664ddcb" target="_top" xlink:title="Gets the default device for the specified deviceRole .">
+<g id="a_node3"><a xlink:href="class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#ac6aac6e1b31328d60c9ff21a11890151" target="_top" xlink:title="Gets the default device for the specified dataFlow &#160;&amp; deviceRole .">
 <polygon fill="none" stroke="black" points="440,-17 440,-58 616,-58 616,-17 440,-17"/>
 <text text-anchor="start" x="448" y="-46" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.CoreAudio.</text>
 <text text-anchor="start" x="448" y="-35" font-family="Helvetica,sans-Serif" font-size="10.00">AudioDeviceManager.GetDefault</text>

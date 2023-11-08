@@ -133,7 +133,7 @@ var sectionId = 'dynsection-8';
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a32d7855fa82b1806411aa54d64e4c099" target="_top" xlink:title=" ">
+<g id="a_node6"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#abc58db58ed561f5f0cac45eea2d3e8eb" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="651,-0.5 651,-30.5 796,-30.5 796,-0.5 651,-0.5"/>
 <text text-anchor="start" x="659" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
 <text text-anchor="middle" x="723.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Hotkey.Dispose</text>

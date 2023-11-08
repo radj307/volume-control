@@ -3,7 +3,7 @@ var class_volume_control_1_1_hotkey_actions_1_1_audio_device_actions =
     [ "Deselect", "class_volume_control_1_1_hotkey_actions_1_1_audio_device_actions.html#a09a6d6dc9a2d92e122853812e959edb4", null ],
     [ "Lock", "class_volume_control_1_1_hotkey_actions_1_1_audio_device_actions.html#ae24f5946d488817f790c852d1b7d62b7", null ],
     [ "Mute", "class_volume_control_1_1_hotkey_actions_1_1_audio_device_actions.html#a0bf4459d7279b27686778c0498601b7a", null ],
-    [ "SelectDefault", "class_volume_control_1_1_hotkey_actions_1_1_audio_device_actions.html#a3ea0e7f74eb1015d378fe7d746b5a87f", null ],
+    [ "SelectDefault", "class_volume_control_1_1_hotkey_actions_1_1_audio_device_actions.html#a0807a76d30f30d2a25aeffb4dc29847f", null ],
     [ "SelectNext", "class_volume_control_1_1_hotkey_actions_1_1_audio_device_actions.html#a4a5afb71365ee9e5f91216edaa7d52f7", null ],
     [ "SelectPrevious", "class_volume_control_1_1_hotkey_actions_1_1_audio_device_actions.html#a2fbce7b47b5d6a8bc258e121cae2aa29", null ],
     [ "ToggleLock", "class_volume_control_1_1_hotkey_actions_1_1_audio_device_actions.html#a63ce435900295cb7b6020a519296c02a", null ],

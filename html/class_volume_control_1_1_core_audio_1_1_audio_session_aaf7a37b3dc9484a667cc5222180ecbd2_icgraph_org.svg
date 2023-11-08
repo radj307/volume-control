@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a002328df0dfce68e90f191d7c2b48496" target="_top" xlink:title="Finds the audio session whose owning process has the given sessionName .">
+<g id="a_node2"><a xlink:href="class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a8cb176f9d911b56b7df5c8cd4be3dd59" target="_top" xlink:title="Finds the audio session whose owning process has the given sessionName .">
 <polygon fill="none" stroke="black" points="221,-25.5 221,-66.5 406,-66.5 406,-25.5 221,-25.5"/>
 <text text-anchor="start" x="229" y="-54.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.CoreAudio.</text>
 <text text-anchor="start" x="229" y="-43.5" font-family="Helvetica,sans-Serif" font-size="10.00">AudioSessionManager.FindSession</text>

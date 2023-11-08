@@ -255,9 +255,9 @@ only controls <em>within</em> the window may use transparent background effects.
 <tr class="memitem:aeb7965013c0d6e98452d6ddb76b71563"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html">ObservableImmutableList</a>&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#aeb7965013c0d6e98452d6ddb76b71563">HiddenSessionProcessNames</a> = new()<code> [get, set]</code></td></tr>
 <tr class="memdesc:aeb7965013c0d6e98452d6ddb76b71563"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the list of (process names of) hidden audio sessions.  <a href="class_volume_control_1_1_core_1_1_config.html#aeb7965013c0d6e98452d6ddb76b71563">More...</a><br /></td></tr>
 <tr class="separator:aeb7965013c0d6e98452d6ddb76b71563"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af07a1e82c40ce9ef61983c325d2efff8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#af07a1e82c40ce9ef61983c325d2efff8">EnableSessionSync</a> = false<code> [get, set]</code></td></tr>
-<tr class="memdesc:af07a1e82c40ce9ef61983c325d2efff8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets whether selected audio sessions have synchronized volume levels &amp; mute states or not.  <a href="class_volume_control_1_1_core_1_1_config.html#af07a1e82c40ce9ef61983c325d2efff8">More...</a><br /></td></tr>
-<tr class="separator:af07a1e82c40ce9ef61983c325d2efff8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae80d9680f2016e04838778bcebf841e9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#ae80d9680f2016e04838778bcebf841e9">EnableInputDevices</a> = false<code> [get, set]</code></td></tr>
+<tr class="memdesc:ae80d9680f2016e04838778bcebf841e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets a value that indicates whether input devices are loaded by the AudioDeviceManager.  <a href="class_volume_control_1_1_core_1_1_config.html#ae80d9680f2016e04838778bcebf841e9">More...</a><br /></td></tr>
+<tr class="separator:ae80d9680f2016e04838778bcebf841e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a342055f03cf42c0b60a7a635b612917c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#a342055f03cf42c0b60a7a635b612917c">EnableLogging</a> = true<code> [get, set]</code></td></tr>
 <tr class="memdesc:a342055f03cf42c0b60a7a635b612917c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets whether the log is enabled or not.  <a href="class_volume_control_1_1_core_1_1_config.html#a342055f03cf42c0b60a7a635b612917c">More...</a><br /></td></tr>
 <tr class="separator:a342055f03cf42c0b60a7a635b612917c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -759,6 +759,30 @@ only controls <em>within</em> the window may use transparent background effects.
 
 </div>
 </div>
+<a id="ae80d9680f2016e04838778bcebf841e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae80d9680f2016e04838778bcebf841e9">&#9670;&nbsp;</a></span>EnableInputDevices</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VolumeControl.Core.Config.EnableInputDevices = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets or sets a value that indicates whether input devices are loaded by the AudioDeviceManager. </p>
+
+</div>
+</div>
 <a id="a342055f03cf42c0b60a7a635b612917c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a342055f03cf42c0b60a7a635b612917c">&#9670;&nbsp;</a></span>EnableLogging</h2>
 
@@ -781,30 +805,6 @@ only controls <em>within</em> the window may use transparent background effects.
 
 <p>Gets or sets whether the log is enabled or not. </p>
 <p><b>Default: <code>true</code></b></p>
-
-</div>
-</div>
-<a id="af07a1e82c40ce9ef61983c325d2efff8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af07a1e82c40ce9ef61983c325d2efff8">&#9670;&nbsp;</a></span>EnableSessionSync</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool VolumeControl.Core.Config.EnableSessionSync = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets or sets whether selected audio sessions have synchronized volume levels &amp; mute states or not. </p>
 
 </div>
 </div>

@@ -122,9 +122,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a96f595fdb67cc751ed8a479e01a8aebf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a96f595fdb67cc751ed8a479e01a8aebf">DeselectDevice</a> ()</td></tr>
 <tr class="memdesc:a96f595fdb67cc751ed8a479e01a8aebf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a49ebb6fc1da58cc4636a25fd9d2da38c" title="Gets or the sets the selected item.">Selected</a> item to <code>null</code>.  <a href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a96f595fdb67cc751ed8a479e01a8aebf">More...</a><br /></td></tr>
 <tr class="separator:a96f595fdb67cc751ed8a479e01a8aebf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa034046c08eabe307454d98622e9a3b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#aa034046c08eabe307454d98622e9a3b8">SelectDefaultDevice</a> ()</td></tr>
-<tr class="memdesc:aa034046c08eabe307454d98622e9a3b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a49ebb6fc1da58cc4636a25fd9d2da38c" title="Gets or the sets the selected item.">Selected</a> item to the default Multimedia audio device.  <a href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#aa034046c08eabe307454d98622e9a3b8">More...</a><br /></td></tr>
-<tr class="separator:aa034046c08eabe307454d98622e9a3b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fb014a268ce81931a8f790e7020cfa7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a4fb014a268ce81931a8f790e7020cfa7">SelectDefaultDevice</a> (DataFlow dataFlow=DataFlow.Render)</td></tr>
+<tr class="memdesc:a4fb014a268ce81931a8f790e7020cfa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a49ebb6fc1da58cc4636a25fd9d2da38c" title="Gets or the sets the selected item.">Selected</a> item to the default Multimedia audio device.  <a href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a4fb014a268ce81931a8f790e7020cfa7">More...</a><br /></td></tr>
+<tr class="separator:a4fb014a268ce81931a8f790e7020cfa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
@@ -178,11 +178,12 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00058">VolumeControl.CoreAudio.AudioDeviceManager.DeviceRemovedFromList</a>, and <a class="el" href="#l00163">VolumeControl.CoreAudio.AudioDeviceSelector.SelectDefaultDevice()</a>.</p>
+<p class="reference">References <a class="el" href="#l00057">VolumeControl.CoreAudio.AudioDeviceManager.DeviceRemovedFromList</a>, and <a class="el" href="#l00165">VolumeControl.CoreAudio.AudioDeviceSelector.SelectDefaultDevice()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_audio_1_1_audio_device_selector_a139e061b6f96ab63535b4ad5f18cc7ce_cgraph.svg" width="100%" height="378"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_audio_1_1_audio_device_selector_a139e061b6f96ab63535b4ad5f18cc7ce_cgraph.svg" width="100%" height="378"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 
 </div>
@@ -210,8 +211,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="aa034046c08eabe307454d98622e9a3b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa034046c08eabe307454d98622e9a3b8">&#9670;&nbsp;</a></span>SelectDefaultDevice()</h2>
+<a id="a4fb014a268ce81931a8f790e7020cfa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fb014a268ce81931a8f790e7020cfa7">&#9670;&nbsp;</a></span>SelectDefaultDevice()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -219,7 +220,8 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">void VolumeControl.CoreAudio.AudioDeviceSelector.SelectDefaultDevice </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">DataFlow&#160;</td>
+          <td class="paramname"><em>dataFlow</em> = <code>DataFlow.Render</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -227,19 +229,33 @@ Here is the call graph for this function:</div>
 
 <p>Changes the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a49ebb6fc1da58cc4636a25fd9d2da38c" title="Gets or the sets the selected item.">Selected</a> item to the default Multimedia audio device. </p>
 <p>Does nothing if <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a79deaa2e45edbdbc78914e5e81bded75">LockSelection</a> == <code>true</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dataFlow</td><td>Whether to get the default input or output device. Passing DataFlow.All will cause an exception.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ArgumentException</td><td><em>dataFlow</em>  was set to DataFlow.All.</td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="reference">References <a class="el" href="#l00131">VolumeControl.CoreAudio.AudioDeviceManager.GetDefaultDevice()</a>, <a class="el" href="#l00093">VolumeControl.CoreAudio.AudioDeviceSelector.LockSelection</a>, and <a class="el" href="#l00046">VolumeControl.CoreAudio.AudioDeviceSelector.Selected</a>.</p>
+<p class="reference">References <a class="el" href="#l00176">VolumeControl.CoreAudio.AudioDeviceManager.GetDefaultDevice()</a>, <a class="el" href="#l00093">VolumeControl.CoreAudio.AudioDeviceSelector.LockSelection</a>, and <a class="el" href="#l00046">VolumeControl.CoreAudio.AudioDeviceSelector.Selected</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="#l00020">VolumeControl.CoreAudio.AudioDeviceSelector.AudioDeviceSelector()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_audio_1_1_audio_device_selector_aa034046c08eabe307454d98622e9a3b8_cgraph.svg" width="100%" height="378"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_audio_1_1_audio_device_selector_a4fb014a268ce81931a8f790e7020cfa7_cgraph.svg" width="100%" height="378"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_audio_1_1_audio_device_selector_aa034046c08eabe307454d98622e9a3b8_icgraph.svg" width="550" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_audio_1_1_audio_device_selector_a4fb014a268ce81931a8f790e7020cfa7_icgraph.svg" width="550" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 
 </div>
@@ -262,7 +278,7 @@ Here is the caller graph for this function:</div>
 <p>Changes the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a49ebb6fc1da58cc4636a25fd9d2da38c" title="Gets or the sets the selected item.">Selected</a> item to the next session in the list, looping back if necessary. </p>
 <p>Does nothing if <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a79deaa2e45edbdbc78914e5e81bded75">LockSelection</a> == <code>true</code>. </p>
 
-<p class="reference">References <a class="el" href="#l00077">VolumeControl.CoreAudio.AudioDeviceManager.Devices</a>, <a class="el" href="#l00093">VolumeControl.CoreAudio.AudioDeviceSelector.LockSelection</a>, and <a class="el" href="#l00076">VolumeControl.CoreAudio.AudioDeviceSelector.SelectedIndex</a>.</p>
+<p class="reference">References <a class="el" href="#l00076">VolumeControl.CoreAudio.AudioDeviceManager.Devices</a>, <a class="el" href="#l00093">VolumeControl.CoreAudio.AudioDeviceSelector.LockSelection</a>, and <a class="el" href="#l00076">VolumeControl.CoreAudio.AudioDeviceSelector.SelectedIndex</a>.</p>
 
 </div>
 </div>
@@ -284,7 +300,7 @@ Here is the caller graph for this function:</div>
 <p>Changes the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a49ebb6fc1da58cc4636a25fd9d2da38c" title="Gets or the sets the selected item.">Selected</a> item to the previous session in the list, looping back if necessary. </p>
 <p>Does nothing if <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a79deaa2e45edbdbc78914e5e81bded75">LockSelection</a> == <code>true</code>. </p>
 
-<p class="reference">References <a class="el" href="#l00077">VolumeControl.CoreAudio.AudioDeviceManager.Devices</a>, <a class="el" href="#l00093">VolumeControl.CoreAudio.AudioDeviceSelector.LockSelection</a>, and <a class="el" href="#l00076">VolumeControl.CoreAudio.AudioDeviceSelector.SelectedIndex</a>.</p>
+<p class="reference">References <a class="el" href="#l00076">VolumeControl.CoreAudio.AudioDeviceManager.Devices</a>, <a class="el" href="#l00093">VolumeControl.CoreAudio.AudioDeviceSelector.LockSelection</a>, and <a class="el" href="#l00076">VolumeControl.CoreAudio.AudioDeviceSelector.SelectedIndex</a>.</p>
 
 </div>
 </div>
@@ -312,7 +328,7 @@ Here is the caller graph for this function:</div>
 <p>Gets or the sets the selected item. </p>
 <p>Cannot be changed if <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a79deaa2e45edbdbc78914e5e81bded75">LockSelection</a> == <code>true</code>. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00151">VolumeControl.CoreAudio.AudioDeviceSelector.DeselectDevice()</a>, and <a class="el" href="#l00163">VolumeControl.CoreAudio.AudioDeviceSelector.SelectDefaultDevice()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00151">VolumeControl.CoreAudio.AudioDeviceSelector.DeselectDevice()</a>, and <a class="el" href="#l00165">VolumeControl.CoreAudio.AudioDeviceSelector.SelectDefaultDevice()</a>.</p>
 
 </div>
 </div>

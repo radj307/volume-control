@@ -1,6 +1,6 @@
 <map id="VolumeControl.Core.Input.Hotkey" name="VolumeControl.Core.Input.Hotkey">
-<area shape="rect" id="node1" title="A hotkey that executes an action when pressed." alt="" coords="189,403,388,832"/>
-<area shape="rect" id="node6" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html" title="A Hotkey that also tracks and reports registration errors." alt="" coords="192,880,385,1031"/>
+<area shape="rect" id="node1" title="A hotkey that executes an action when pressed." alt="" coords="189,403,388,817"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html" title="A Hotkey that also tracks and reports registration errors." alt="" coords="192,865,385,1016"/>
 <area shape="rect" id="node2" href="$interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html" title="Represents a Win32 global hotkey." alt="" coords="229,131,348,355"/>
 <area shape="rect" id="node3" href="$interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook.html" title="Represents an object that can be added to the hotkey message hook system." alt="" coords="207,5,371,83"/>
 <area shape="rect" id="node4" title=" " alt="" coords="5,5,183,83"/>

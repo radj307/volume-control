@@ -1,5 +1,10 @@
 var NAVTREEINDEX4 =
 {
+"class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#ab49b4f0cfb01cde8a1af156270e4619c":[8,0,0,6,7,9],
+"class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#ab8b8346d2e87e3ffdf247a9d8860aad4":[8,0,0,6,7,8],
+"class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#ab989a7a2b06b592f0e849197e5c8f23b":[8,0,0,6,7,24],
+"class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#ac7a6af548080592edbf83b53e9381eb7":[8,0,0,6,7,18],
+"class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#adddafe8122042ae0e79d4400b8fca5ec":[8,0,0,6,7,1],
 "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#ae0f3b4e1a0b6e3ff927b627afafdc5ff":[8,0,0,6,7,15],
 "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#ae4016432966cc8243963ae8ff0b51931":[8,0,0,6,7,16],
 "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#ae7ae64404ec2c028f274aa83533a95e6":[8,0,0,6,7,19],
@@ -244,10 +249,5 @@ var NAVTREEINDEX4 =
 "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#a9199163b5a7a5e7b5838efce4eebace2":[8,0,0,6,11,1],
 "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#aa230dd8a62955dc0455f6ce2a84c2f61":[8,0,0,6,11,0],
 "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#ac375922fcbe751d605d86b2fab01b17d":[8,0,0,6,11,2],
-"class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#af0585367ed6c7c839158d03f4fd73830":[8,0,0,6,11,4],
-"class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#afe72189fce6b397473696a1b3cf2b5ac":[8,0,0,6,11,3],
-"class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix.html":[8,0,0,6,12],
-"class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix.html#ac223553aa5b0c3e10fdc452baaf81306":[8,0,0,6,12,0],
-"class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html":[8,0,0,6,6,1],
-"class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html#a115e291b35e6256ff28fbf46f989b2aa":[8,0,0,6,6,1,0]
+"class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#af0585367ed6c7c839158d03f4fd73830":[8,0,0,6,11,4]
 };

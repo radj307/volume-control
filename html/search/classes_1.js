@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['baseendpointwriter_1202',['BaseEndpointWriter',['../class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html',1,'VolumeControl::Log::Endpoints']]],
-  ['bindabletimer_1203',['BindableTimer',['../class_volume_control_1_1_w_p_f_1_1_bindable_timer.html',1,'VolumeControl::WPF']]],
-  ['booleaninverter_1204',['BooleanInverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_boolean_inverter.html',1,'VolumeControl::WPF::Converters']]],
-  ['boolextensions_1205',['BoolExtensions',['../class_volume_control_1_1_type_extensions_1_1_bool_extensions.html',1,'VolumeControl::TypeExtensions']]],
-  ['booltobrushconverter_1206',['BoolToBrushConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_brush_converter.html',1,'VolumeControl::WPF::Converters']]],
-  ['booltocheckvisibleconverter_1207',['BoolToCheckVisibleConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_check_visible_converter.html',1,'VolumeControl::WPF::Converters']]],
-  ['booltothicknessconverter_1208',['BoolToThicknessConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter.html',1,'VolumeControl::WPF::Converters']]],
-  ['brushanimation_1209',['BrushAnimation',['../class_volume_control_1_1_w_p_f_1_1_animations_1_1_brush_animation.html',1,'VolumeControl::WPF::Animations']]]
+  ['baseendpointwriter_1206',['BaseEndpointWriter',['../class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html',1,'VolumeControl::Log::Endpoints']]],
+  ['bindabletimer_1207',['BindableTimer',['../class_volume_control_1_1_w_p_f_1_1_bindable_timer.html',1,'VolumeControl::WPF']]],
+  ['booleaninverter_1208',['BooleanInverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_boolean_inverter.html',1,'VolumeControl::WPF::Converters']]],
+  ['boolextensions_1209',['BoolExtensions',['../class_volume_control_1_1_type_extensions_1_1_bool_extensions.html',1,'VolumeControl::TypeExtensions']]],
+  ['booltobrushconverter_1210',['BoolToBrushConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_brush_converter.html',1,'VolumeControl::WPF::Converters']]],
+  ['booltocheckvisibleconverter_1211',['BoolToCheckVisibleConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_check_visible_converter.html',1,'VolumeControl::WPF::Converters']]],
+  ['booltothicknessconverter_1212',['BoolToThicknessConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter.html',1,'VolumeControl::WPF::Converters']]],
+  ['brushanimation_1213',['BrushAnimation',['../class_volume_control_1_1_w_p_f_1_1_animations_1_1_brush_animation.html',1,'VolumeControl::WPF::Animations']]]
 ];

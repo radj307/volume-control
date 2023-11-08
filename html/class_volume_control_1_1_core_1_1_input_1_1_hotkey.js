@@ -5,7 +5,6 @@ var class_volume_control_1_1_core_1_1_input_1_1_hotkey =
     [ "Hotkey", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a6bc4900f143e22c6103bf35ae55b16d7", null ],
     [ "Hotkey", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a01a39e0e3e80f74bf394deb52efadb1e", null ],
     [ "Dispose", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#abc58db58ed561f5f0cac45eea2d3e8eb", null ],
-    [ "Dispose", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a32d7855fa82b1806411aa54d64e4c099", null ],
     [ "GetNewID", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#a1fd7fba5f867f685108e249ff892df77", null ],
     [ "NotifyPropertyChanged", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#af1b38ffd4641fc08ac64b72da5cb232a", null ],
     [ "RegisterHotkey", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#afd2231b9bc5bff921f137b5af2ec351e", null ],

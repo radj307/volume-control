@@ -1,5 +1,5 @@
 <map id="VolumeControl.CoreAudio.AudioSession" name="VolumeControl.CoreAudio.AudioSession">
-<area shape="rect" id="node1" title="A single audio session running on an audio device." alt="" coords="297,315,536,671"/>
+<area shape="rect" id="node1" title="A single audio session running on an audio device." alt="" coords="297,315,536,700"/>
 <area shape="rect" id="node2" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_control.html" title="Represents an audio instance with a controllable volume level and mute state." alt="" coords="5,5,135,112"/>
 <area shape="rect" id="node4" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_hideable_audio_control.html" title="Represents an audio instance that can be prevented from becoming selected." alt="" coords="47,175,215,252"/>
 <area shape="rect" id="node3" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html" title="Represents an audio instance with a read&#45;only volume level and mute state." alt="" coords="239,160,413,267"/>

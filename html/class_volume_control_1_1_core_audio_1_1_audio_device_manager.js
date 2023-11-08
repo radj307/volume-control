@@ -5,7 +5,7 @@ var class_volume_control_1_1_core_audio_1_1_audio_device_manager =
     [ "Dispose", "class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#ad7656dc7f2722fe9ed1d6df4deb6421a", null ],
     [ "FindDeviceByID", "class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#ae55cdb8375a591e11e444aa62dd355a9", null ],
     [ "FindDeviceByMMDevice", "class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#ac013b9712050fbce091fe4de7750938e", null ],
-    [ "GetDefaultDevice", "class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#a4cb7f138bdd481ea15b97ed57664ddcb", null ],
+    [ "GetDefaultDevice", "class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#ac6aac6e1b31328d60c9ff21a11890151", null ],
     [ "DeviceDataFlow", "class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#a2080a29d5cf859351d196258c1868dbb", null ],
     [ "Devices", "class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#a0b9bc46411027398c8ba66376f8e34fa", null ],
     [ "DeviceAddedToList", "class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#af31e88a903345df33104d316f171bc37", null ],

@@ -2,6 +2,6 @@
 <area shape="rect" id="node1" title="Represents an object that can be added to the hotkey message hook system." alt="" coords="183,5,377,97"/>
 <area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_message_hook_abstractor.html" title="Maintains a single message hook for multiple hotkeys with the same key combination to allow them all ..." alt="" coords="5,160,291,369"/>
 <area shape="rect" id="node3" href="$interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html" title="Represents a Win32 global hotkey." alt="" coords="315,145,509,384"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html" title="A hotkey that executes an action when pressed." alt="" coords="313,432,511,861"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html" title="A Hotkey that also tracks and reports registration errors." alt="" coords="315,909,509,1060"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html" title="A hotkey that executes an action when pressed." alt="" coords="313,432,511,847"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html" title="A Hotkey that also tracks and reports registration errors." alt="" coords="315,895,509,1045"/>
 </map>
