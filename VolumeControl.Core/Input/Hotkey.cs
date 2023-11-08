@@ -27,39 +27,15 @@ namespace VolumeControl.Core.Input
             Name = name;
             Key = key;
             Modifiers = modifiers;
-            IsRegistered = isRegistered;
             Action = actionInstance;
+            IsRegistered = isRegistered;
         }
         /// <inheritdoc cref="Hotkey(string, EFriendlyKey, EModifierKey, bool, HotkeyActionInstance)"/>
-        public Hotkey(string name, EFriendlyKey key, EModifierKey modifiers, bool isRegistered)
-        {
-            ID = WindowsHotkeyAPI.NextID; //< get assigned a unique ID
-            Name = name;
-            Key = key;
-            Modifiers = modifiers;
-            IsRegistered = isRegistered;
-            Action = null;
-        }
+        public Hotkey(string name, EFriendlyKey key, EModifierKey modifiers, bool isRegistered) : this(name, key, modifiers, isRegistered, null!) { }
         /// <inheritdoc cref="Hotkey(string, EFriendlyKey, EModifierKey, bool, HotkeyActionInstance)"/>
-        public Hotkey(EFriendlyKey key, EModifierKey modifiers, bool isRegistered, HotkeyActionInstance actionInstance)
-        {
-            ID = WindowsHotkeyAPI.NextID; //< get assigned a unique ID
-            Name = string.Empty;
-            Key = key;
-            Modifiers = modifiers;
-            IsRegistered = isRegistered;
-            Action = actionInstance;
-        }
+        public Hotkey(EFriendlyKey key, EModifierKey modifiers, bool isRegistered, HotkeyActionInstance actionInstance) : this(string.Empty, key, modifiers, isRegistered, actionInstance) { }
         /// <inheritdoc cref="Hotkey(string, EFriendlyKey, EModifierKey, bool, HotkeyActionInstance)"/>
-        public Hotkey(EFriendlyKey key, EModifierKey modifiers, bool isRegistered)
-        {
-            ID = WindowsHotkeyAPI.NextID; //< get assigned a unique ID
-            Name = string.Empty;
-            Key = key;
-            Modifiers = modifiers;
-            IsRegistered = isRegistered;
-            Action = null;
-        }
+        public Hotkey(EFriendlyKey key, EModifierKey modifiers, bool isRegistered) : this(key, modifiers, isRegistered, null!) { }
         #endregion Constructor
 
         #region Properties
@@ -353,24 +329,14 @@ namespace VolumeControl.Core.Input
         #endregion Methods
 
         #region IDisposable Implementation
-        private bool disposedValue;
-        /// <inheritdoc cref="Dispose()"/>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                Unregister();
-                disposedValue = true;
-            }
-        }
         /// <summary>
         /// Cleans up the <see cref="Hotkey"/> instance by unregistering it, if necessary.
         /// </summary>
-        ~Hotkey() => Dispose(disposing: false);
+        ~Hotkey() => Dispose();
         /// <inheritdoc/>
         public void Dispose()
         {
-            Dispose(disposing: true);
+            _isRegistered = !Unregister();
             GC.SuppressFinalize(this);
         }
         #endregion IDisposable Implementation
