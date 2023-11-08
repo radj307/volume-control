@@ -31,7 +31,7 @@ jobs:
       - name:   Create Staging Directory
         run:    mkdir "STAGING"
 
-      - name:   Build VolumeControl Binary (Portable Version)
+      - name:   Build VolumeControl Binary
         run:    dotnet publish VolumeControl -c Release -p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
         
       - name:   Stage Binary (Portable Version)
@@ -77,7 +77,7 @@ jobs:
       - name:   Prepare Installer Prerequisites
         run:    git clone https://github.com/DomGries/InnoDependencyInstaller
 
-      - name:   Build VolumeControl Binary (Installer Version)
+      - name:   Build VolumeControl Binary
         run:    dotnet publish VolumeControl -c Release-ForInstaller -p:PublishProfile="VolumeControl/Properties/PublishProfiles/PublishForInstaller.pubxml"
 
       - name:   Compile VolumeControl Installer
@@ -116,6 +116,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           draft: true
+          fail_on_unmatched_files: true
           files: |
-                 '*/*.exe'
-                 'SDK.zip'
+                 **/*.exe
+                 SDK.zip
