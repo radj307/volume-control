@@ -8,12 +8,7 @@ body:
       value:  |
               Thank you for taking the time to fill out a localization issue form!
               
-              If you know how to translate from English to your desired language, please consider submitting a pull request to fix the issue yourself.
-
-  - type: markdown
-    attributes:
-      value:  |
-              Thank you for taking the time to fill out a localization issue form!
+              If you know how to translate from English to your desired language, consider [becoming a contributor](https://github.com/radj307/volume-control/wiki/Contributing-Translations) to fix the issue.
 
   - type: input
     id: version
