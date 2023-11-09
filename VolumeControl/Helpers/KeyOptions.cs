@@ -72,6 +72,10 @@ namespace VolumeControl.Helpers
             public static implicit operator EFriendlyKey(FriendlyKeyVM inst) => inst.Key;
             #endregion Operators
 
+            #region Methods
+            public override string ToString() => Name;
+            #endregion Methods
+
             #region EventHandlers
             private void Instance_CurrentLanguageChanged(object? sender, CurrentLanguageChangedEventArgs e)
                 => NotifyPropertyChanged(nameof(Name));

@@ -37,6 +37,7 @@ namespace VolumeControl.WPF.Behaviors
             base.OnAttached();
 
             AssociatedObject.PreviewMouseWheel += this.AssociatedObject_PreviewMouseWheel;
+            WpfAddTiltScrollEventHook.AddPreviewMouseWheelHorizontalHandler(AssociatedObject, AssociatedObject_PreviewMouseWheelHorizontal);
         }
         /// <inheritdoc/>
         protected override void OnDetaching()
@@ -44,6 +45,7 @@ namespace VolumeControl.WPF.Behaviors
             base.OnDetaching();
 
             AssociatedObject.PreviewMouseWheel -= this.AssociatedObject_PreviewMouseWheel;
+            WpfAddTiltScrollEventHook.RemovePreviewMouseWheelHorizontalHandler(AssociatedObject, AssociatedObject_PreviewMouseWheelHorizontal);
         }
         #endregion Behavior Method Overrides
 
@@ -55,6 +57,11 @@ namespace VolumeControl.WPF.Behaviors
                 AssociatedObject.ScrollToHorizontalOffset(AssociatedObject.HorizontalOffset - e.Delta * Magnitude);
                 e.Handled = true;
             }
+        }
+        private void AssociatedObject_PreviewMouseWheelHorizontal(object sender, MouseWheelHorizontalEventArgs e)
+        {
+            AssociatedObject.ScrollToHorizontalOffset(AssociatedObject.HorizontalOffset - e.HorizontalDelta * Magnitude);
+            e.Handled = true;
         }
         #endregion EventHandlers
     }

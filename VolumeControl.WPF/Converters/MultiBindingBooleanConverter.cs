@@ -8,7 +8,7 @@ namespace VolumeControl.WPF.Converters
 {
     /// <summary>
     /// <see cref="IMultiValueConverter"/> for multiple boolean inputs that accepts and returns a list of booleans.<br/>
-    /// Any non-boolean types are converted using <see cref="System.Convert.ToBoolean(object)"/>.
+    /// Any non-boolean types are converted using <see cref="Convert.ToBoolean(object)"/>.
     /// </summary>
     public sealed class MultiBindingBooleanConverter : IMultiValueConverter
     {

@@ -1,23 +1,27 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Interop;
 using VolumeControl.WPF.PInvoke;
 
 namespace VolumeControl.WPF
 {
     /// <summary>
-    /// Adds a message hook handler that fixes a bug with WPF windows that have their <see cref="Window.WindowStyle"/> property set to <see cref="WindowStyle.None"/>.
+    /// Provides a window message hook that fixes a bug when maximizing WPF windows that use <see cref="WindowStyle.None"/>.
     /// </summary>
-    public static class HWndHookWPFMaximizeBugFix
+    public static class WpfMaximizeBugFixHook
     {
-        private const int WM_GETMINMAXINFO = 0x0024;
+        #region Methods
 
-        /// <inheritdoc cref="HWndHookWPFMaximizeBugFix"/>
-        /// <remarks>This is an extension method provided by <see cref="HWndHookWPFMaximizeBugFix"/>.</remarks>
-        /// <param name="hook">The hook object.</param>
-        public static void AddMaximizeBugFixHandler(this HWndHook hook) => hook.AddHook(HandleMaximizeBug);
+        #region GetHook
+        /// <summary>
+        /// Gets the <see cref="WpfMaximizeBugFixHook"/> <see cref="HwndSourceHook"/> instance.
+        /// </summary>
+        public static HwndSourceHook GetHook() => WndProcHook;
+        #endregion GetHook
 
-        private static IntPtr HandleMaximizeBug(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        #region (Private) WndProcHook
+        private static IntPtr WndProcHook(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             switch (msg)
             {
@@ -28,17 +32,22 @@ namespace VolumeControl.WPF
             }
             return IntPtr.Zero;
         }
+        #endregion (Private) WndProcHook
 
-        private static void WmGetMinMaxInfo(System.IntPtr hwnd, System.IntPtr lParam)
+        #endregion Methods
+
+        #region P/Invoke
+        private const int WM_GETMINMAXINFO = 0x0024;
+
+        private static void WmGetMinMaxInfo(IntPtr hwnd, IntPtr lParam)
         {
-
             MINMAXINFO mmi = Marshal.PtrToStructure<MINMAXINFO>(lParam);
 
             // Adjust the maximized size and position to fit the work area of the correct monitor
             int MONITOR_DEFAULTTONEAREST = 0x00000002;
             IntPtr monitor = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
 
-            if (monitor != System.IntPtr.Zero)
+            if (monitor != IntPtr.Zero)
             {
 
                 var monitorInfo = new MONITORINFO();
@@ -53,11 +62,10 @@ namespace VolumeControl.WPF
 
             Marshal.StructureToPtr(mmi, lParam, true);
         }
-
         [DllImport("user32")]
         internal static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
-
         [DllImport("User32")]
         internal static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
+        #endregion P/Invoke
     }
 }

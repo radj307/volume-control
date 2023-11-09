@@ -93,7 +93,7 @@ namespace VolumeControl.WPF.Behaviors
         #endregion Methods
 
         #region EventHandlers
-        private void AssociatedObject_KeyEvent(object sender, System.Windows.Input.KeyEventArgs e)
+        private void AssociatedObject_KeyEvent(object sender, KeyEventArgs e)
         {
             switch (e.Key)
             {

@@ -18,9 +18,9 @@ namespace VolumeControl.Helpers
             FLog.Debug($"{nameof(VCSettings)} initializing...");
 
             // Initialize the HWndHook
-            this.MainWindowHandle = WindowHandleGetter.GetWindowHandle();
-            this.HWndHook = new(WindowHandleGetter.GetHwndSource(this.MainWindowHandle));
-            this.HWndHook.AddMaximizeBugFixHandler();
+            MainWindowHandle = WindowHandleGetter.GetWindowHandle();
+            WindowHookManager = new(WindowHandleGetter.GetHwndSource(this.MainWindowHandle), FLog.Log);
+            WindowHookManager.AddHooks(WpfMaximizeBugFixHook.GetHook(), WpfAddTiltScrollEventHook.GetHook());
 
             FLog.Debug($"Executable location: '{this.ExecutablePath}'",
                       $"Working directory:   '{Environment.CurrentDirectory}'");
@@ -55,7 +55,7 @@ namespace VolumeControl.Helpers
         /// <inheritdoc/>
         public IntPtr MainWindowHandle { get; }
         /// <inheritdoc/>
-        public HWndHook HWndHook { get; }
+        public HwndSourceHookManager WindowHookManager { get; }
         /// <inheritdoc/>
         public string ExecutablePath => PathFinder.ExecutableDirectory;
         /// <inheritdoc/>
