@@ -311,6 +311,36 @@
               },
               "Tooltip": {}
             }
+          },
+          "ColorPicker": {
+            "Background": {
+              "Tooltip": {
+                "Italiano (Italian)": "Imposta il colore di sfondo della finestra di notifica."
+              }
+            },
+            "Foreground": {
+              "Tooltip": {
+                "Italiano (Italian)": "Imposta il colore del testo della finestra di notifica."
+              }
+            },
+            "LockedAccent": {
+              "Tooltip": {
+                "Italiano (Italian)": "Imposta il colore di evidenziazione della finestra di notifica quando la selezione è bloccata."
+              }
+            },
+            "UnlockedAccent": {
+              "Tooltip": {
+                "Italiano (Italian)": "Imposta il colore di evidenziazione della finestra di notifica quando la selezione è sbloccata."
+              }
+            }
+          },
+          "CornerRadius": {
+            "Content": {
+              "Italiano (Italian)": "Raggio angolo:"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Il raggio degli angoli della finestra di notifica.\nInizia dall'angolo in alto a sinistra e procede in senso orario."
+            }
           }
         },
         "Log": {
@@ -402,11 +432,6 @@
             "Tooltip": {
               "Italiano (Italian)": "Quando la dimensione della finestra cambia mantieni la finestra principale nella stessa posizione rispetto all'angolo dello schermo più vicino "
             }
-          }
-        },
-        "Updates": {
-          "Header": {
-            "Italiano (Italian)": "Aggiornamenti"
           },
           "CheckNow": {
             "Content": {
@@ -415,6 +440,11 @@
             "Tooltip": {
               "Italiano (Italian)": "Verifica manualmente la presenza di nuove versioni di Volume Control."
             }
+          }
+        },
+        "Updates": {
+          "Header": {
+            "Italiano (Italian)": "Aggiornamenti"
           },
           "OnStartup": {
             "Content": {
@@ -430,6 +460,14 @@
             },
             "Tooltip": {
               "Italiano (Italian)": "Quando questo è selezionato, ti verrà chiesto di aggiornare sotto forma di messaggio in una finestra; in caso contrario, vedrai un'icona nell'angolo in alto a destra."
+            }
+          },
+          "ShowPrompt": {
+            "Content": {
+              "Italiano (Italian)": "Visualizza prompt"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Quando questa opzione è selezionata, verrà richiesto di aggiornare sotto forma di una finestra di messaggio.\nAltrimenti vedrai un'icona nell'angolo in alto a destra."
             }
           }
         }
