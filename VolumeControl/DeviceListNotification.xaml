@@ -42,7 +42,6 @@
             <conv:BooleanInverter x:Key="InvertConverter" />
 
             <!--  Styles  -->
-            <Style BasedOn="{StaticResource CheckBoxStyle}" TargetType="{x:Type CheckBox}" />
             <Style BasedOn="{StaticResource TextBoxStyle}" TargetType="{x:Type TextBox}">
                 <Setter Property="Background" Value="#0000" />
                 <Setter Property="BorderThickness" Value="0" />
@@ -137,7 +136,17 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         Foreground="{Binding DeviceConfigVM.ForegroundBrush, Source={StaticResource Settings}}"
-                        Text="{Binding Name}" />
+                        Text="{Binding Name}">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding AudioDevice.DataFlow}" Value="Capture">
+                                        <Setter Property="FontStyle" Value="Oblique" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </Grid>
             </DataTemplate>
             <DataTemplate x:Key="DeviceDisplayAlwaysBoldWidthDataTemplate" DataType="{x:Type vm:AudioDeviceVM}">
@@ -163,7 +172,17 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         Foreground="{Binding DeviceConfigVM.ForegroundBrush, Source={StaticResource Settings}}"
-                        Text="{Binding Name}" />
+                        Text="{Binding Name}">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding AudioDevice.DataFlow}" Value="Capture">
+                                        <Setter Property="FontStyle" Value="Oblique" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                     <!--  Always Bold TextBlock (Keeps correct width)  -->
                     <TextBlock
                         Grid.Column="1"

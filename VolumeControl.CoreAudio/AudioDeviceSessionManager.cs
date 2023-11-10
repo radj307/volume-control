@@ -37,13 +37,17 @@ namespace VolumeControl.CoreAudio
 
                 foreach (var audioSessionControl in AudioSessionManager2.Sessions)
                 {
-                    if (audioSessionControl.State == AudioSessionState.AudioSessionStateExpired)
+                    switch (audioSessionControl.State)
                     {
+                    case AudioSessionState.AudioSessionStateExpired:
                         if (showTraceLogMessages)
                             FLog.Trace($"[{nameof(AudioDeviceSessionManager)}] Ignoring expired session with {nameof(audioSessionControl.ProcessID)} {audioSessionControl.ProcessID} and {nameof(audioSessionControl.SessionInstanceIdentifier)} \"{audioSessionControl.SessionInstanceIdentifier}\".");
-                        continue;
+                        break;
+                    case AudioSessionState.AudioSessionStateInactive: //< add inactive sessions too
+                    case AudioSessionState.AudioSessionStateActive:
+                        CreateAndAddSessionIfUnique(audioSessionControl);
+                        break;
                     }
-                    CreateAndAddSessionIfUnique(audioSessionControl);
                 }
             }
         }

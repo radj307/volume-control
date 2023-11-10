@@ -28,7 +28,8 @@ namespace VolumeControl
             // setup the tray icon
             TrayIcon = new(() => this.MainWindow.Visibility == Visibility.Visible)
             {
-                Tooltip = $"Volume Control {version}"
+                Tooltip = $"Volume Control {version}",
+                Background = (System.Windows.Media.Color)FindResource("ContextMenuBackgroundColor"),
             };
             TrayIcon.DoubleClick += (s, e) =>
             {
@@ -103,7 +104,9 @@ namespace VolumeControl
                 $"Sender: \"{sender}\" ({sender.GetType()})",
                 $"Thread: \"{e.Dispatcher.Thread.Name}\"",
                 e.Exception);
-            e.Handled = true;
+#if DEBUG
+            throw new Exception("Unhandled dispatcher exception!", e.Exception);
+#endif
         }
         #endregion App
 
@@ -161,6 +164,17 @@ namespace VolumeControl
             Microsoft.Xaml.Behaviors.Interaction.GetBehaviors(textBox).Add(escapeRemovesFocusBehavior);
         }
         #endregion TextBox
+
+        #region ScrollViewer
+        private void ScrollViewer_Loaded_AttachHorizontalScrollBehavior(object sender, RoutedEventArgs e)
+        {
+            var scrollViewer = (ScrollViewer)sender;
+
+            WPF.Behaviors.ScrollViewerHorizontalScrollBehavior behavior = new();
+            behavior.Attach(scrollViewer);
+            Microsoft.Xaml.Behaviors.Interaction.GetBehaviors(scrollViewer).Add(behavior);
+        }
+        #endregion ScrollViewer
 
         #endregion EventHandlers
     }

@@ -81,7 +81,11 @@ namespace VolumeControl.Log.Endpoints
             /// </summary>
             public new void Dispose()
             {
-                Flush(); //< calls to Dispose() may expect that the stream is flushed
+                try
+                {
+                    Flush(); //< calls to Dispose() may expect that the stream is flushed
+                }
+                catch { }
                 if (!CanClose) return;
                 base.Dispose();
                 GC.SuppressFinalize(this);

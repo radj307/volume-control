@@ -45,7 +45,6 @@
             </conv:ConverterChain>
 
             <!--  Styles  -->
-            <Style BasedOn="{StaticResource CheckBoxStyle}" TargetType="{x:Type CheckBox}" />
             <Style BasedOn="{StaticResource TextBoxStyle}" TargetType="{x:Type TextBox}">
                 <Setter Property="Background" Value="#0000" />
                 <Setter Property="BorderThickness" Value="0" />
@@ -142,7 +141,17 @@
                         VerticalAlignment="Center"
                         FontSize="13"
                         Foreground="{Binding SessionConfigVM.ForegroundBrush, Source={StaticResource Settings}}"
-                        Text="{Binding Name}" />
+                        Text="{Binding Name}">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding AudioSession.DataFlow}" Value="Capture">
+                                        <Setter Property="FontStyle" Value="Oblique" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </Grid>
             </DataTemplate>
             <DataTemplate x:Key="SessionDisplayAlwaysBoldWidthDataTemplate" DataType="{x:Type vm:AudioSessionVM}">
@@ -169,7 +178,17 @@
                         VerticalAlignment="Center"
                         FontSize="13"
                         Foreground="{Binding SessionConfigVM.ForegroundBrush, Source={StaticResource Settings}}"
-                        Text="{Binding Name}" />
+                        Text="{Binding Name}">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding AudioSession.DataFlow}" Value="Capture">
+                                        <Setter Property="FontStyle" Value="Oblique" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                     <!--  Always Bold TextBlock (Keeps correct width)  -->
                     <TextBlock
                         Grid.Column="1"
@@ -208,8 +227,7 @@
         Padding="9"
         Background="{Binding SessionConfigVM.BackgroundBrush, Source={StaticResource Settings}}"
         BorderThickness="7"
-        CornerRadius="{Binding SessionConfigVM.ConfigSection.CornerRadius, Source={StaticResource Settings}}"
-        RenderOptions.EdgeMode="Aliased">
+        CornerRadius="{Binding SessionConfigVM.ConfigSection.CornerRadius, Source={StaticResource Settings}}">
         <Border.Style>
             <Style TargetType="{x:Type Border}">
                 <Style.Triggers>

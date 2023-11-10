@@ -174,8 +174,13 @@ namespace VolumeControl
             {
                 // cleanup the notify icon if the program crashes (if it shuts down normally, it is correctly disposed of)
                 app.TrayIcon.Dispose(); //< do this before literally ANYTHING else
-
                 FLog.Fatal("App exited because of an unhandled exception:", ex);
+                FLog.Log.Flush();
+                try
+                {
+                    FLog.Log.Dispose();
+                }
+                catch { }
 
                 WriteCrashDump(File.ReadAllText(Settings.LogPath));
 

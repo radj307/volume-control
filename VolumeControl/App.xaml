@@ -51,6 +51,9 @@
             <Thickness x:Key="WindowBorderThickness">3</Thickness>
             <SolidColorBrush x:Key="UpdateIconBrush">Yellow</SolidColorBrush>
             <SolidColorBrush x:Key="NotificationBackgroundBrush">#252525</SolidColorBrush>
+            <Color x:Key="ContextMenuBackgroundColor">#484848</Color>
+            <SolidColorBrush x:Key="ContextMenuBackgroundBrush" Color="{StaticResource ContextMenuBackgroundColor}" />
+            <SolidColorBrush x:Key="ContextMenuForegroundBrush">WhiteSmoke</SolidColorBrush>
 
             <!--  Tabs  -->
             <SolidColorBrush x:Key="TabBackgroundBrush">#383838</SolidColorBrush>
@@ -64,9 +67,14 @@
 
             <!--  TextBox Colors  -->
             <SolidColorBrush x:Key="TextBoxBackground">#1F1F1F</SolidColorBrush>
-            <SolidColorBrush x:Key="TextBoxForeground">WhiteSmoke</SolidColorBrush>
-            <SolidColorBrush x:Key="TextBoxForegroundDark">LightGray</SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxBackgroundDisabled">#2F2F2F</SolidColorBrush>
+            <SolidColorBrush x:Key="TextBoxBackgroundMouseOver">#282828</SolidColorBrush>
+            <SolidColorBrush x:Key="TextBoxForeground">
+                <!--  #F5F5F5 is the hex code for WhiteSmoke  -->
+                #F5F5F5
+            </SolidColorBrush>
+            <SolidColorBrush x:Key="TextBoxForegroundColor">#C5C5FF</SolidColorBrush>
+            <SolidColorBrush x:Key="TextBoxForegroundDark">LightGray</SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxSelectionBrush">#569DE5</SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxWatermarkForeground">#9A9A9A</SolidColorBrush>
 
@@ -74,6 +82,8 @@
             <SolidColorBrush x:Key="HeaderBackgroundBrush">#222</SolidColorBrush>
             <SolidColorBrush x:Key="GridRowBrush">#444</SolidColorBrush>
             <SolidColorBrush x:Key="GridRowAltBrush">#555</SolidColorBrush>
+            <SolidColorBrush x:Key="GridSecondaryRowBrush">#445</SolidColorBrush>
+            <SolidColorBrush x:Key="GridSecondaryRowAltBrush">#556</SolidColorBrush>
             <SolidColorBrush x:Key="GridHorizontalLineBrush">#222</SolidColorBrush>
 
             <LinearGradientBrush x:Key="AccentGradient" StartPoint="0.05,0" EndPoint="0.95,1">
@@ -115,10 +125,16 @@
             <Color x:Key="GrayForegroundColor">#B0B0B0</Color>
             <Color x:Key="GrayForegroundFocusedColor">#909090</Color>
 
-            <SolidColorBrush x:Key="SelectionForegroundBrush" Color="#4CF" />
+            <Color x:Key="SelectionDimBackgroundColor">#54CF</Color>
+            <Color x:Key="SelectionBackgroundColor">#94CF</Color>
+            <Color x:Key="SelectionForegroundColor">#4CF</Color>
+            <Color x:Key="SelectionBorderGradientStartColor">#4AF</Color>
+            <Color x:Key="SelectionBorderGradientEndColor">#4CF</Color>
+
+            <SolidColorBrush x:Key="SelectionForegroundBrush" Color="{StaticResource SelectionForegroundColor}" />
             <LinearGradientBrush x:Key="SelectionBorderBrush" StartPoint="0.2,0" EndPoint="0.8,1">
-                <GradientStop Offset="0" Color="#4AF" />
-                <GradientStop Offset="1" Color="#4CF" />
+                <GradientStop Offset="0" Color="{StaticResource SelectionBorderGradientStartColor}" />
+                <GradientStop Offset="1" Color="{StaticResource SelectionBorderGradientEndColor}" />
             </LinearGradientBrush>
             <Thickness x:Key="SelectionBorderThickness">1</Thickness>
 
@@ -284,6 +300,7 @@
                 <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
+            <Style BasedOn="{StaticResource CheckBoxStyle}" TargetType="{x:Type CheckBox}" />
             <!--  Button  -->
             <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
                 <Style.Triggers>
@@ -912,12 +929,14 @@
                     <Trigger Property="IsEnabled" Value="True">
                         <Setter Property="Foreground" Value="WhiteSmoke" />
                     </Trigger>
-                    <!--  Focused  -->
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
+                    </Trigger>
                     <Trigger Property="IsFocused" Value="True">
                         <Setter Property="BorderBrush" Value="{StaticResource SelectionBorderBrush}" />
-                        <Setter Property="BorderThickness" Value="{StaticResource SelectionBorderThickness}" />
                     </Trigger>
                 </Style.Triggers>
+                <Setter Property="BorderThickness" Value="{StaticResource SelectionBorderThickness}" />
                 <Setter Property="SnapsToDevicePixels" Value="true" />
                 <Setter Property="OverridesDefaultStyle" Value="true" />
                 <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
@@ -1047,6 +1066,14 @@
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
+            <Style TargetType="{x:Type ScrollViewer}">
+                <EventSetter Event="Loaded" Handler="ScrollViewer_Loaded_AttachHorizontalScrollBehavior" />
+            </Style>
+            <Style x:Key="ContextMenuStyle" TargetType="{x:Type ContextMenu}">
+                <Setter Property="Background" Value="{StaticResource ContextMenuBackgroundBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource ContextMenuForegroundBrush}" />
+            </Style>
+            <Style BasedOn="{StaticResource ContextMenuStyle}" TargetType="{x:Type ContextMenu}" />
 
         </ResourceDictionary>
     </Application.Resources>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Media;
 using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Controls
@@ -107,10 +108,20 @@ namespace VolumeControl.Controls
             get => _contextMenuStrip.BackColor;
             set => _contextMenuStrip.BackColor = value;
         }
+        public Color Background
+        {
+            get => BackColor.ToWpfColor();
+            set => BackColor = value.ToFormsColor();
+        }
         public System.Drawing.Color ForeColor
         {
             get => _contextMenuStrip.ForeColor;
             set => _contextMenuStrip.ForeColor = value;
+        }
+        public Color Foreground
+        {
+            get => ForeColor.ToWpfColor();
+            set => ForeColor = value.ToFormsColor();
         }
         public bool DropShadowEnabled
         {

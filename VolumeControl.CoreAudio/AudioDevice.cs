@@ -29,7 +29,7 @@ namespace VolumeControl.CoreAudio
             if (MMDevice.AudioMeterInformation is null)
                 throw new NullReferenceException($"{nameof(AudioDevice)} '{Name}' has a null {nameof(MMDevice.AudioMeterInformation)} property!");
 
-            SessionManager = new(this); //< TODO: try-catch?
+            SessionManager = new(this);
 
             AudioEndpointVolume.OnVolumeNotification += AudioEndpointVolume_OnVolumeNotification;
 
