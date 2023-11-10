@@ -169,25 +169,29 @@ namespace VolumeControl
         }
         private void Handle_BrowseForLogFilePathClick(object sender, RoutedEventArgs e)
         {
-            string myDir = Path.GetDirectoryName(this.VCSettings.ExecutablePath) ?? string.Empty;
-            if (Path.GetDirectoryName(this.VCSettings.LogFilePath) is not string initial || initial.Length == 0)
-            {
-                initial = myDir;
-            }
+            string initialPath = Path.GetFullPath(Settings.LogPath);
 
-            var sfd = new SaveFileDialog
+            var sfd = new SaveFileDialog()
             {
                 OverwritePrompt = false,
                 DefaultExt = "log",
-                InitialDirectory = initial,
+                InitialDirectory = initialPath,
                 Title = "Choose a location to save the log file.",
-                FileName = VCSettings.LogFilePath
+                FileName = Path.GetFileName(initialPath),
             };
-            _ = sfd.ShowDialog(this);
-            string path = Path.GetRelativePath(myDir, sfd.FileName);
-            if (!path.Equals(logPath.Text, StringComparison.Ordinal))
+            sfd.ShowDialog(this);
+
+            var path = Path.GetFullPath(sfd.FileName);
+            if (!path.Equals(initialPath, StringComparison.OrdinalIgnoreCase))
             {
-                logPath.Text = path;
+                if (ShellHelper.CanWriteToDirectory(Path.GetDirectoryName(path)!))
+                {
+                    logPath.Text = path; //< updates the actual log path via data binding
+                }
+                else
+                {
+                    MessageBox.Show($"The application does not have write access to the specified directory:\n\"{path}\"\nThe log path was not changed.", "Cancelled");
+                }
             }
         }
         private void Handle_OpenLogClick(object sender, RoutedEventArgs e)
