@@ -40,7 +40,6 @@ body:
       options:
         - Installer  (VolumeControl-Installer.exe)
         - Portable   (VolumeControl.exe)
-        - Both
       multiple:    true
     validations:
       required:    true
