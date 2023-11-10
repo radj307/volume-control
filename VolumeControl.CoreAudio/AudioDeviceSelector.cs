@@ -68,6 +68,7 @@ namespace VolumeControl.CoreAudio
 
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(SelectedIndex));
+                NotifySelectedDeviceChanged(_selected);
             }
         }
         private AudioDevice? _selected;
@@ -105,6 +106,11 @@ namespace VolumeControl.CoreAudio
         /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        /// <summary>
+        /// Occurs when the selected device is changed for any reason.
+        /// </summary>
+        public event EventHandler<AudioDevice?>? SelectedDeviceChanged;
+        private void NotifySelectedDeviceChanged(AudioDevice? selectedDevice) => SelectedDeviceChanged?.Invoke(this, selectedDevice);
         #endregion Events
 
         #region Methods

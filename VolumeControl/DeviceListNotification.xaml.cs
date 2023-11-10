@@ -10,6 +10,7 @@ using VolumeControl.Helpers;
 using VolumeControl.Log;
 using VolumeControl.SDK;
 using VolumeControl.SDK.Internal;
+using VolumeControl.TypeExtensions;
 using VolumeControl.ViewModels;
 using VolumeControl.WPF;
 
@@ -55,6 +56,7 @@ namespace VolumeControl
             Settings.DeviceListNotificationConfig.PropertyChanged += this.DeviceListNotificationConfig_PropertyChanged;
 
             VCSettings.DeviceConfigVM.FlagsVM.StateChanged += this.FlagsVM_StateChanged;
+            VCSettings.AudioAPI.AudioDeviceSelector.SelectedDeviceChanged += this.AudioDeviceSelector_SelectedDeviceChanged;
 
             // bind to the show event
             VCEvents.ShowDeviceListNotification += this.VCEvents_ShowDeviceListNotification;
@@ -106,7 +108,7 @@ namespace VolumeControl
                 _fadingIn = false;
             }
         }
-        private bool IsHiddenByViewMode => VM.FlagsVM.State == ENotificationViewMode.Nothing;
+        private bool IsHiddenByViewMode => VM.FlagsVM.State == ENotificationViewMode.Nothing || (VM.FlagsVM.State.HasAllFlags(ENotificationViewMode.ControlBar, ENotificationViewMode.SelectedItemOnly) && VCSettings.AudioAPI.SelectedDevice == null);
         #endregion Properties
 
         #region Methods
@@ -510,12 +512,20 @@ namespace VolumeControl
         #region FlagsVM
         private void FlagsVM_StateChanged(object? sender, (ENotificationViewMode NewState, ENotificationViewMode ChangedFlags) e)
         {
-            if (e.NewState == ENotificationViewMode.Nothing)
-            {
+            if (IsHiddenByViewMode)
                 HideNowNoFadeOut();
-            }
         }
         #endregion FlagsVM
+
+        #region AudioDeviceSelector
+        private void AudioDeviceSelector_SelectedDeviceChanged(object? sender, CoreAudio.AudioDevice? e)
+        {
+            if (e != null) return;
+
+            if (IsHiddenByViewMode)
+                HideNowNoFadeOut();
+        }
+        #endregion AudioDeviceSelector
 
         #endregion EventHandlers
     }

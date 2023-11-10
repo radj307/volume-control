@@ -10,6 +10,7 @@ using VolumeControl.Core.Enum;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
 using VolumeControl.SDK.Internal;
+using VolumeControl.TypeExtensions;
 using VolumeControl.ViewModels;
 using VolumeControl.WPF;
 
@@ -55,6 +56,9 @@ namespace VolumeControl
             Settings.SessionListNotificationConfig.PropertyChanged += this.SessionListNotificationConfig_PropertyChanged;
 
             VCSettings.SessionConfigVM.FlagsVM.StateChanged += this.FlagsVM_StateChanged;
+            VCSettings.AudioAPI.AudioSessionMultiSelector.CurrentSessionChanged += this.AudioSessionMultiSelector_CurrentSessionChanged;
+            VCSettings.AudioAPI.AudioSessionMultiSelector.SessionSelected += this.AudioSessionMultiSelector_SessionSelectedOrDeselected;
+            VCSettings.AudioAPI.AudioSessionMultiSelector.SessionDeselected += this.AudioSessionMultiSelector_SessionSelectedOrDeselected;
 
             // bind to the show event
             VCEvents.ShowSessionListNotification += this.VCEvents_ShowSessionListNotification;
@@ -106,7 +110,7 @@ namespace VolumeControl
                 _fadingIn = false;
             }
         }
-        private bool IsHiddenByViewMode => VM.FlagsVM.State == ENotificationViewMode.Nothing;
+        private bool IsHiddenByViewMode => VM.FlagsVM.State == ENotificationViewMode.Nothing || (VM.FlagsVM.State.HasAllFlags(ENotificationViewMode.ControlBar, ENotificationViewMode.SelectedItemOnly) && VCSettings.AudioAPI.CurrentSession == null && VCSettings.AudioAPI.SelectedSessions.Count == 0);
         #endregion Properties
 
         #region Methods
@@ -506,12 +510,25 @@ namespace VolumeControl
         #region FlagsVM
         private void FlagsVM_StateChanged(object? sender, (ENotificationViewMode NewState, ENotificationViewMode ChangedFlags) e)
         {
-            if (e.NewState == ENotificationViewMode.Nothing)
-            {
+            if (IsHiddenByViewMode)
                 HideNowNoFadeOut();
-            }
         }
         #endregion FlagsVM
+
+        #region AudioSessionMultiSelector
+        private void AudioSessionMultiSelector_CurrentSessionChanged(object? sender, CoreAudio.AudioSession? e)
+        {
+            if (e != null) return;
+
+            if (IsHiddenByViewMode)
+                HideNowNoFadeOut();
+        }
+        private void AudioSessionMultiSelector_SessionSelectedOrDeselected(object? sender, CoreAudio.AudioSession e)
+        {
+            if (IsHiddenByViewMode)
+                HideNowNoFadeOut();
+        }
+        #endregion AudioSessionMultiSelector
 
         #endregion EventHandlers
     }

@@ -114,7 +114,7 @@ namespace VolumeControl.CoreAudio
             get => _currentIndex;
             set
             {
-                if (LockCurrentIndex) return;
+                if (LockCurrentIndex || value == _currentIndex) return;
 
                 _currentIndex = value;
 
@@ -143,7 +143,7 @@ namespace VolumeControl.CoreAudio
             get => CurrentIndex == -1 ? null : Sessions[CurrentIndex];
             set
             {
-                if (LockCurrentIndex) return;
+                if (LockCurrentIndex || value == CurrentSession) return;
 
                 if (value == null)
                 {

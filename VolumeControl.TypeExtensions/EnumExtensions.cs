@@ -37,7 +37,7 @@ namespace VolumeControl.TypeExtensions
         /// <returns>True when <paramref name="e"/> is equal to at least one value from <paramref name="other"/></returns>
         public static bool HasAnyFlag<T>(this T e, IEnumerable<T> other) where T : struct, Enum
         {
-            foreach (T? o in other)
+            foreach (T o in other)
             {
                 if (e.HasFlag(o))
                     return true;
@@ -49,6 +49,24 @@ namespace VolumeControl.TypeExtensions
         /// <param name="other">Any number of other enums of type <typeparamref name="T"/>.</param>
         /// <inheritdoc cref="EqualsAny{T}(T, IEnumerable{T})"/>
         public static bool HasAnyFlag<T>(this T e, params T[] other) where T : struct, Enum => e.HasAnyFlag(other.AsEnumerable());
+        /// <summary>
+        /// Checks if the enum value has all of the specified <paramref name="flags"/> set.
+        /// </summary>
+        /// <typeparam name="T">The enum type.</typeparam>
+        /// <param name="e">(implicit) The enum value to check.</param>
+        /// <param name="flags">The flags to check.</param>
+        /// <returns><see langword="true"/> when the enum value has all of the <paramref name="flags"/> set; otherwise, <see langword="false"/>.</returns>
+        public static bool HasAllFlags<T>(this T e, IEnumerable<T> flags) where T : struct, Enum
+        {
+            foreach (T flag in flags)
+            {
+                if (!e.HasFlag(flag))
+                    return false;
+            }
+            return true;
+        }
+        /// <inheritdoc cref="HasAllFlags{T}(T, IEnumerable{T})"/>
+        public static bool HasAllFlags<T>(this T e, params T[] flags) where T : struct, Enum => e.HasAllFlags((IEnumerable<T>)flags);
         /// <summary>
         /// Returns the enum value with the specified <paramref name="flag"/> changed.
         /// </summary>
