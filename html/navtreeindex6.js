@@ -1,5 +1,13 @@
 var NAVTREEINDEX6 =
 {
+"md_docs__how_to_contribute_translations.html#autotoc_md32":[6,5,0],
+"namespace_volume_control.html":[7,0,0],
+"namespace_volume_control_1_1_core.html":[7,0,0,1],
+"namespace_volume_control_1_1_core_1_1_attributes.html":[7,0,0,1,0],
+"namespace_volume_control_1_1_core_1_1_enum.html":[7,0,0,1,1],
+"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168":[7,0,0,1,1,3],
+"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a02129bb861061d1a052c592e2dc6b383":[7,0,0,1,1,3,173],
+"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a0244b961095e64d9def7dd41cc95f97d":[7,0,0,1,1,3,93],
 "namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a0654edaf3ba134e73c4857997fa25168":[7,0,0,1,1,3,18],
 "namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a06be37eebe1ffa9120f4e6481b46ebd2":[7,0,0,1,1,3,68],
 "namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a085878fe40225b7544f51a9464df8b7d":[7,0,0,1,1,3,71],
@@ -241,13 +249,5 @@ var NAVTREEINDEX6 =
 "namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca56d8353718e6fdc78b8d69078a2cdb94":[7,0,0,1,5,1,0,94],
 "namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca57cec4137b614c87cb4e24a3d003a3e0":[7,0,0,1,5,1,0,59],
 "namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca58128f86a422083be4855fea828bf457":[7,0,0,1,5,1,0,73],
-"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca58be47db9455679e6a44df2eff9c9fa6":[7,0,0,1,5,1,0,125],
-"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca5c6ba25104401c9ee0650230fc6ba413":[7,0,0,1,5,1,0,3],
-"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca5dbc98dcc983a70728bd082d1a47546e":[7,0,0,1,5,1,0,53],
-"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca61e9c06ea9a85a5088a499df6458d276":[7,0,0,1,5,1,0,57],
-"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca63724eb8f83875a8d21dd82b1554a790":[7,0,0,1,5,1,0,65],
-"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca643b0662422d1d0dffa3fca2e2bf28a8":[7,0,0,1,5,1,0,89],
-"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca6459802957e30f21f9bf15f81094f160":[7,0,0,1,5,1,0,137],
-"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca672c56a1e1c76b75f47f303823edbfe2":[7,0,0,1,5,1,0,67],
-"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca69691c7bdcc3ce6d5d8a1361f22d04ac":[7,0,0,1,5,1,0,47]
+"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca58be47db9455679e6a44df2eff9c9fa6":[7,0,0,1,5,1,0,125]
 };

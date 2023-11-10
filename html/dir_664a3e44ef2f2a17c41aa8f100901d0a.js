@@ -12,7 +12,8 @@ var dir_664a3e44ef2f2a17c41aa8f100901d0a =
     [ "DataTemplateTypeBinding.cs", null, null ],
     [ "DataTemplateTypeBindingSelector.cs", null, null ],
     [ "FilteredTextItemsSource.cs", null, null ],
-    [ "HWndHook.cs", null, null ],
-    [ "HWndHookWPFMaximizeBugFix.cs", null, null ],
-    [ "WindowHandleGetter.cs", null, null ]
+    [ "VisualTreeHelperExtensions.cs", null, null ],
+    [ "WindowHandleGetter.cs", null, null ],
+    [ "WpfAddTiltScrollEventHook.cs", null, null ],
+    [ "WpfMaximizeBugFixHook.cs", null, null ]
 ];

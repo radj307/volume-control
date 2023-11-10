@@ -158,7 +158,8 @@ var annotated_dup =
         [ "ReflectionExtensions", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions" ],
         [ "StringExtensions", "class_volume_control_1_1_type_extensions_1_1_string_extensions.html", "class_volume_control_1_1_type_extensions_1_1_string_extensions" ],
         [ "TimerExtensions", "class_volume_control_1_1_type_extensions_1_1_timer_extensions.html", "class_volume_control_1_1_type_extensions_1_1_timer_extensions" ],
-        [ "TypeExtensions", "class_volume_control_1_1_type_extensions_1_1_type_extensions.html", "class_volume_control_1_1_type_extensions_1_1_type_extensions" ]
+        [ "TypeExtensions", "class_volume_control_1_1_type_extensions_1_1_type_extensions.html", "class_volume_control_1_1_type_extensions_1_1_type_extensions" ],
+        [ "WinFormsInterop", "class_volume_control_1_1_type_extensions_1_1_win_forms_interop.html", "class_volume_control_1_1_type_extensions_1_1_win_forms_interop" ]
       ] ],
       [ "WPF", "namespace_volume_control_1_1_w_p_f.html", [
         [ "Animations", "namespace_volume_control_1_1_w_p_f_1_1_animations.html", [
@@ -214,9 +215,11 @@ var annotated_dup =
         [ "DataTemplateTypeBinding", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding.html", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding" ],
         [ "DataTemplateTypeBindingSelector", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding_selector.html", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding_selector" ],
         [ "FilteredTextItemsSource", "class_volume_control_1_1_w_p_f_1_1_filtered_text_items_source.html", "class_volume_control_1_1_w_p_f_1_1_filtered_text_items_source" ],
-        [ "HWndHook", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook" ],
-        [ "HWndHookWPFMaximizeBugFix", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix.html", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix" ],
-        [ "WindowHandleGetter", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter" ]
+        [ "VisualTreeHelpers", "class_volume_control_1_1_w_p_f_1_1_visual_tree_helpers.html", "class_volume_control_1_1_w_p_f_1_1_visual_tree_helpers" ],
+        [ "WindowHandleGetter", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter" ],
+        [ "MouseWheelHorizontalEventArgs", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_horizontal_event_args.html", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_horizontal_event_args" ],
+        [ "WpfAddTiltScrollEventHook", "class_volume_control_1_1_w_p_f_1_1_wpf_add_tilt_scroll_event_hook.html", "class_volume_control_1_1_w_p_f_1_1_wpf_add_tilt_scroll_event_hook" ],
+        [ "WpfMaximizeBugFixHook", "class_volume_control_1_1_w_p_f_1_1_wpf_maximize_bug_fix_hook.html", "class_volume_control_1_1_w_p_f_1_1_wpf_maximize_bug_fix_hook" ]
       ] ]
     ] ]
 ];

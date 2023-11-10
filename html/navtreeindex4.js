@@ -1,5 +1,8 @@
 var NAVTREEINDEX4 =
 {
+"class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#a6e10edd81983ac5bb0113e5f628268fa":[8,0,0,6,7,10],
+"class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#a8212ba18a357c96cb1f1817496cc84ac":[8,0,0,6,7,3],
+"class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#aaac4009158ceb727ac53f92ae7eb1535":[8,0,0,6,7,13],
 "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#ab49b4f0cfb01cde8a1af156270e4619c":[8,0,0,6,7,9],
 "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#ab8b8346d2e87e3ffdf247a9d8860aad4":[8,0,0,6,7,8],
 "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#ab989a7a2b06b592f0e849197e5c8f23b":[8,0,0,6,7,24],
@@ -242,12 +245,9 @@ var NAVTREEINDEX4 =
 "class_volume_control_1_1_w_p_f_1_1_filtered_text_items_source.html#ab5040302bafcd81197aa5b017484afba":[8,0,0,6,10,3],
 "class_volume_control_1_1_w_p_f_1_1_filtered_text_items_source.html#adb34df77d823391e79db480db5a9ebe9":[8,0,0,6,10,6],
 "class_volume_control_1_1_w_p_f_1_1_filtered_text_items_source.html#ae320ce276387bfade32e03ebd25a5580":[8,0,0,6,10,1],
-"class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html":[8,0,0,6,11],
-"class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#a11026fa8097d50d650d179598b6a1128":[8,0,0,6,11,7],
-"class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#a6eead053f85e8a938d3631cde4919d56":[8,0,0,6,11,6],
-"class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#a868775e4b7d5ddf507899f279feb7231":[8,0,0,6,11,5],
-"class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#a9199163b5a7a5e7b5838efce4eebace2":[8,0,0,6,11,1],
-"class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#aa230dd8a62955dc0455f6ce2a84c2f61":[8,0,0,6,11,0],
-"class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#ac375922fcbe751d605d86b2fab01b17d":[8,0,0,6,11,2],
-"class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#af0585367ed6c7c839158d03f4fd73830":[8,0,0,6,11,4]
+"class_volume_control_1_1_w_p_f_1_1_mouse_wheel_horizontal_event_args.html":[8,0,0,6,13],
+"class_volume_control_1_1_w_p_f_1_1_mouse_wheel_horizontal_event_args.html#a72a81384f746b43f566b63ed4ad1c6bf":[8,0,0,6,13,0],
+"class_volume_control_1_1_w_p_f_1_1_mouse_wheel_horizontal_event_args.html#a7e7cb0e5320926c45f464b1f78938c2c":[8,0,0,6,13,1],
+"class_volume_control_1_1_w_p_f_1_1_mouse_wheel_horizontal_event_args.html#aef0b0dd48be9cbc8143eb0ff7ca63932":[8,0,0,6,13,2],
+"class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html":[8,0,0,6,6,1]
 };

@@ -1,0 +1,3 @@
+<map id="VolumeControl.WPF.WpfMaximizeBugFixHook" name="VolumeControl.WPF.WpfMaximizeBugFixHook">
+<area shape="rect" id="node1" title="Provides a window message hook that fixes a bug when maximizing WPF windows that use WindowStyle...." alt="" coords="5,5,248,127"/>
+</map>

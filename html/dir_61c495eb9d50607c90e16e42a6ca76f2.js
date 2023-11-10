@@ -16,5 +16,6 @@ var dir_61c495eb9d50607c90e16e42a6ca76f2 =
     [ "ReflectionExtensions.cs", null, null ],
     [ "StringExtensions.cs", null, null ],
     [ "TimerExtensions.cs", null, null ],
-    [ "TypeExtensions.cs", null, null ]
+    [ "TypeExtensions.cs", null, null ],
+    [ "WinFormsInterop.cs", null, null ]
 ];

@@ -1,0 +1,5 @@
+<map id="VolumeControl.WPF.WpfAddTiltScrollEventHook.RemovePreviewMouseWheelHorizontalHandler" name="VolumeControl.WPF.WpfAddTiltScrollEventHook.RemovePreviewMouseWheelHorizontalHandler">
+<area shape="rect" id="node1" title="Removes the specified handler &#160;from the PreviewMouseWheelHorizontalEvent." alt="" coords="320,45,580,101"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_scroll_viewer_horizontal_scroll_behavior.html#aaafc40efe99949c47faabdee5104170d" title=" " alt="" coords="5,5,272,61"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_horizontal_scroll_behavior.html#af6da2297216c6b24b9a50e4ada300a15" title=" " alt="" coords="19,85,258,141"/>
+</map>

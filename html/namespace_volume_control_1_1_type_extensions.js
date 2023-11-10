@@ -16,5 +16,6 @@ var namespace_volume_control_1_1_type_extensions =
     [ "ReflectionExtensions", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html", "class_volume_control_1_1_type_extensions_1_1_reflection_extensions" ],
     [ "StringExtensions", "class_volume_control_1_1_type_extensions_1_1_string_extensions.html", "class_volume_control_1_1_type_extensions_1_1_string_extensions" ],
     [ "TimerExtensions", "class_volume_control_1_1_type_extensions_1_1_timer_extensions.html", "class_volume_control_1_1_type_extensions_1_1_timer_extensions" ],
-    [ "TypeExtensions", "class_volume_control_1_1_type_extensions_1_1_type_extensions.html", "class_volume_control_1_1_type_extensions_1_1_type_extensions" ]
+    [ "TypeExtensions", "class_volume_control_1_1_type_extensions_1_1_type_extensions.html", "class_volume_control_1_1_type_extensions_1_1_type_extensions" ],
+    [ "WinFormsInterop", "class_volume_control_1_1_type_extensions_1_1_win_forms_interop.html", "class_volume_control_1_1_type_extensions_1_1_win_forms_interop" ]
 ];

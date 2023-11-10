@@ -84,7 +84,6 @@ var hierarchy =
     [ "VolumeControl.Core.Input.Actions.HotkeyActionManager", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_manager.html", null ],
     [ "VolumeControl.Core.Input.HotkeyExtensions", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_extensions.html", null ],
     [ "VolumeControl.Core.Input.HotkeyManager", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html", null ],
-    [ "VolumeControl.WPF.HWndHookWPFMaximizeBugFix", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix.html", null ],
     [ "VolumeControl.CoreAudio.Interfaces.IAudioControl", "interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_control.html", [
       [ "VolumeControl.CoreAudio.AudioDevice", "class_volume_control_1_1_core_audio_1_1_audio_device.html", null ],
       [ "VolumeControl.CoreAudio.AudioSession", "class_volume_control_1_1_core_audio_1_1_audio_session.html", null ],
@@ -129,8 +128,7 @@ var hierarchy =
       [ "VolumeControl.Log.Helpers.ThreadedActionQueue", "class_volume_control_1_1_log_1_1_helpers_1_1_threaded_action_queue.html", [
         [ "VolumeControl.Log.AsyncLogWriter", "class_volume_control_1_1_log_1_1_async_log_writer.html", null ]
       ] ],
-      [ "VolumeControl.WPF.BindableTimer", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html", null ],
-      [ "VolumeControl.WPF.HWndHook", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html", null ]
+      [ "VolumeControl.WPF.BindableTimer", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html", null ]
     ] ],
     [ "VolumeControl.Log.Interfaces.IEndpointWriter", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html", [
       [ "VolumeControl.Log.Endpoints.BaseEndpointWriter", "class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html", [
@@ -242,6 +240,9 @@ var hierarchy =
     [ "VolumeControl.WPF.PInvoke.MINMAXINFO", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_i_n_m_a_x_i_n_f_o.html", null ],
     [ "VolumeControl.CoreAudio.Helpers.MMDeviceExtensions", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_m_m_device_extensions.html", null ],
     [ "VolumeControl.WPF.PInvoke.MONITORINFO", "class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html", null ],
+    [ "MouseEventArgs", null, [
+      [ "VolumeControl.WPF.MouseWheelHorizontalEventArgs", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_horizontal_event_args.html", null ]
+    ] ],
     [ "System.Windows.Data.MultiBinding", null, [
       [ "VolumeControl.WPF.Bindings.MultiBinding", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html", null ]
     ] ],
@@ -276,6 +277,10 @@ var hierarchy =
     ] ],
     [ "VolumeControl.SDK.VCAPI", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html", null ],
     [ "VolumeControl.SDK.Internal.VCEvents", "class_volume_control_1_1_s_d_k_1_1_internal_1_1_v_c_events.html", null ],
+    [ "VolumeControl.WPF.VisualTreeHelpers", "class_volume_control_1_1_w_p_f_1_1_visual_tree_helpers.html", null ],
     [ "VolumeControl.CoreAudio.Helpers.VolumeLevelConverter", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_volume_level_converter.html", null ],
-    [ "VolumeControl.WPF.WindowHandleGetter", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html", null ]
+    [ "VolumeControl.WPF.WindowHandleGetter", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html", null ],
+    [ "VolumeControl.TypeExtensions.WinFormsInterop", "class_volume_control_1_1_type_extensions_1_1_win_forms_interop.html", null ],
+    [ "VolumeControl.WPF.WpfAddTiltScrollEventHook", "class_volume_control_1_1_w_p_f_1_1_wpf_add_tilt_scroll_event_hook.html", null ],
+    [ "VolumeControl.WPF.WpfMaximizeBugFixHook", "class_volume_control_1_1_w_p_f_1_1_wpf_maximize_bug_fix_hook.html", null ]
 ];
