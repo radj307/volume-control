@@ -223,6 +223,8 @@ namespace VolumeControl.CoreAudio
         #region Add/Remove SelectedSession
         private void AddSelectedSession(AudioSession audioSession)
         {
+            if (SelectedSessions.Contains(audioSession)) return;
+
             var hadSelectedSessions = HasSelectedSessions;
             _selectedSessions.Add(audioSession);
             if (!hadSelectedSessions)
