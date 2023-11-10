@@ -180,7 +180,7 @@ var sectionId = 'dynsection-0';
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html" target="_top" xlink:title="A Hotkey that also tracks and reports registration errors.">
+<g id="a_node6"><a xlink:href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html" target="_top" xlink:title="A Hotkey that also maintains an error state property.">
 <polygon fill="none" stroke="black" points="135,-0.5 135,-112.5 280,-112.5 280,-0.5 135,-0.5"/>
 <text text-anchor="start" x="143" y="-100.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
 <text text-anchor="middle" x="207.5" y="-89.5" font-family="Helvetica,sans-Serif" font-size="10.00">HotkeyWithError</text>

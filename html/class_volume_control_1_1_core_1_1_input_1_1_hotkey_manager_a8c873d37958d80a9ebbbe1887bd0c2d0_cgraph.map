@@ -1,5 +1,5 @@
 <map id="VolumeControl.Core.Input.HotkeyManager.ClearHotkeys" name="VolumeControl.Core.Input.HotkeyManager.ClearHotkeys">
 <area shape="rect" id="node1" title="Removes all hotkeys from the manager." alt="" coords="5,5,220,47"/>
 <area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#a8c582a292d4a72ef3caada32eff31cfe" title="Removes the specified hotkey &#160;from the manager." alt="" coords="268,5,496,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#abc58db58ed561f5f0cac45eea2d3e8eb" title=" " alt="" coords="544,5,737,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#abc58db58ed561f5f0cac45eea2d3e8eb" title="Cleans up the Hotkey instance by unregistering it, if necessary." alt="" coords="544,5,737,47"/>
 </map>

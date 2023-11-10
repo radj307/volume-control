@@ -112,15 +112,15 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ad76f316e0e15748512d984dc1bcee873"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a416105f8f0a94b9f64f200176154f6ad">EModifierKey</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_extensions_1_1_key_extensions.html#ad76f316e0e15748512d984dc1bcee873">SetFlagState</a> (this <a class="el" href="namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a416105f8f0a94b9f64f200176154f6ad">EModifierKey</a> m, <a class="el" href="namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a416105f8f0a94b9f64f200176154f6ad">EModifierKey</a> flag, bool state)</td></tr>
 <tr class="memdesc:ad76f316e0e15748512d984dc1bcee873"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets or unsets the bit specified by <em>flag</em>  in <code>ref</code> <em>m</em> .  <a href="class_volume_control_1_1_core_1_1_extensions_1_1_key_extensions.html#ad76f316e0e15748512d984dc1bcee873">More...</a><br /></td></tr>
 <tr class="separator:ad76f316e0e15748512d984dc1bcee873"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb3ec4bc486a1c0c34dc03515553a6cf"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_extensions_1_1_key_extensions.html#adb3ec4bc486a1c0c34dc03515553a6cf">GetStringRepresentation</a> (this <a class="el" href="namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a416105f8f0a94b9f64f200176154f6ad">EModifierKey</a> m)</td></tr>
-<tr class="memdesc:adb3ec4bc486a1c0c34dc03515553a6cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the string representation of the EModifierKey specified by <em>m</em> .  <a href="class_volume_control_1_1_core_1_1_extensions_1_1_key_extensions.html#adb3ec4bc486a1c0c34dc03515553a6cf">More...</a><br /></td></tr>
-<tr class="separator:adb3ec4bc486a1c0c34dc03515553a6cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bf908f2ac638101f563325d79a3e0e1"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_extensions_1_1_key_extensions.html#a5bf908f2ac638101f563325d79a3e0e1">GetStringRepresentation</a> (this <a class="el" href="namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a416105f8f0a94b9f64f200176154f6ad">EModifierKey</a> m, bool insertSpaces=false, char separator='+', bool includeNone=false)</td></tr>
+<tr class="memdesc:a5bf908f2ac638101f563325d79a3e0e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the string representation of the EModifierKey specified by <em>m</em> .  <a href="class_volume_control_1_1_core_1_1_extensions_1_1_key_extensions.html#a5bf908f2ac638101f563325d79a3e0e1">More...</a><br /></td></tr>
+<tr class="separator:a5bf908f2ac638101f563325d79a3e0e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Defines extension methods for various types of Key/ModifierKey enumerations. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="adb3ec4bc486a1c0c34dc03515553a6cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb3ec4bc486a1c0c34dc03515553a6cf">&#9670;&nbsp;</a></span>GetStringRepresentation()</h2>
+<a id="a5bf908f2ac638101f563325d79a3e0e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bf908f2ac638101f563325d79a3e0e1">&#9670;&nbsp;</a></span>GetStringRepresentation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -132,8 +132,30 @@ Static Public Member Functions</h2></td></tr>
           <td class="memname">static string VolumeControl.Core.Extensions.KeyExtensions.GetStringRepresentation </td>
           <td>(</td>
           <td class="paramtype">this <a class="el" href="namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a416105f8f0a94b9f64f200176154f6ad">EModifierKey</a>&#160;</td>
-          <td class="paramname"><em>m</em></td><td>)</td>
+          <td class="paramname"><em>m</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>insertSpaces</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>separator</em> = <code>'+'</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>includeNone</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -147,6 +169,9 @@ Static Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">m</td><td>EModifierKey</td></tr>
+    <tr><td class="paramname">insertSpaces</td><td>When <code>true</code>, inserts spaces between the enum names &amp; the separator characters.</td></tr>
+    <tr><td class="paramname">separator</td><td>The separator character to use between enum names.</td></tr>
+    <tr><td class="paramname">includeNone</td><td>When the modifier key is EModifierKey.None and this is <code>true</code>, the returned string is "None"; otherwise, returns a blank string.</td></tr>
   </table>
   </dd>
 </dl>

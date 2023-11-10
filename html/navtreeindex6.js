@@ -1,5 +1,7 @@
 var NAVTREEINDEX6 =
 {
+"md_docs__how_to_contribute_translations.html#autotoc_md30":[6,4],
+"md_docs__how_to_contribute_translations.html#autotoc_md31":[6,5],
 "md_docs__how_to_contribute_translations.html#autotoc_md32":[6,5,0],
 "namespace_volume_control.html":[7,0,0],
 "namespace_volume_control_1_1_core.html":[7,0,0,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX6 =
 "namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca51d77ec4c0726881b5371a0738cd1c17":[7,0,0,1,5,1,0,115],
 "namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca5206560a306a2e085a437fd258eb57ce":[7,0,0,1,5,1,0,56],
 "namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca56d8353718e6fdc78b8d69078a2cdb94":[7,0,0,1,5,1,0,94],
-"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca57cec4137b614c87cb4e24a3d003a3e0":[7,0,0,1,5,1,0,59],
-"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca58128f86a422083be4855fea828bf457":[7,0,0,1,5,1,0,73],
-"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca58be47db9455679e6a44df2eff9c9fa6":[7,0,0,1,5,1,0,125]
+"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca57cec4137b614c87cb4e24a3d003a3e0":[7,0,0,1,5,1,0,59]
 };

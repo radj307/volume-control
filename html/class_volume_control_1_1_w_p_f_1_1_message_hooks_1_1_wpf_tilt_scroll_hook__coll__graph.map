@@ -1,0 +1,3 @@
+<map id="VolumeControl.WPF.MessageHooks.WpfTiltScrollHook" name="VolumeControl.WPF.MessageHooks.WpfTiltScrollHook">
+<area shape="rect" id="node1" title="Provides a window message hook that adds support for horizontal scrolling with tiltable mouse wheels." alt="" coords="5,5,216,97"/>
+</map>

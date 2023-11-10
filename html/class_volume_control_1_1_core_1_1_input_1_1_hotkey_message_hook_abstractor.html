@@ -159,7 +159,7 @@ Events</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Maintains a single message hook for multiple hotkeys with the same key combination to allow them all to be "registered" at the same time. </p>
-<p>Hotkeys are automatically removed when they are unregistered (which occurs during re-registration). </p>
+<p>Hotkeys are automatically removed when they are unregistered (which occurs during re-registration). Anything that uses this must ensure the instance is removed when no hotkeys remain. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a71604ca6e31b9136101ab7d693678eb4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a71604ca6e31b9136101ab7d693678eb4">&#9670;&nbsp;</a></span>HotkeyMessageHookAbstractor()</h2>
@@ -212,9 +212,9 @@ Events</h2></td></tr>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00040">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.HasStarted</a>, <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_message_hook_abstractor.html#a51b2aae49470b4962f1c86a26fe3b911">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.HotkeyHasManagedKeyCombination()</a>, <a class="el" href="#l00033">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.Hotkeys</a>, <a class="el" href="#l00020">VolumeControl.Core.Input.IHotkey.ID</a>, <a class="el" href="#l00053">VolumeControl.Core.Input.IHotkey.IsRegistered</a>, <a class="el" href="#l00024">VolumeControl.Core.Input.IHotkey.Key</a>, <a class="el" href="#l00044">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.ManagedKey</a>, <a class="el" href="#l00048">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.ManagedModifiers</a>, <a class="el" href="#l00028">VolumeControl.Core.Input.IHotkey.Modifiers</a>, <a class="el" href="#l00080">VolumeControl.Core.Input.IHotkey.Unregistered</a>, and <a class="el" href="#l00076">VolumeControl.Core.Input.IHotkey.Unregistering</a>.</p>
+<p class="reference">References <a class="el" href="#l00041">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.HasStarted</a>, <a class="el" href="class_volume_control_1_1_core_1_1_input_1_1_hotkey_message_hook_abstractor.html#a51b2aae49470b4962f1c86a26fe3b911">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.HotkeyHasManagedKeyCombination()</a>, <a class="el" href="#l00034">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.Hotkeys</a>, <a class="el" href="#l00020">VolumeControl.Core.Input.IHotkey.ID</a>, <a class="el" href="#l00053">VolumeControl.Core.Input.IHotkey.IsRegistered</a>, <a class="el" href="#l00024">VolumeControl.Core.Input.IHotkey.Key</a>, <a class="el" href="#l00045">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.ManagedKey</a>, <a class="el" href="#l00049">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.ManagedModifiers</a>, <a class="el" href="#l00028">VolumeControl.Core.Input.IHotkey.Modifiers</a>, <a class="el" href="#l00080">VolumeControl.Core.Input.IHotkey.Unregistered</a>, and <a class="el" href="#l00076">VolumeControl.Core.Input.IHotkey.Unregistering</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="#l00153">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.AddHotkeys()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00154">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.AddHotkeys()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -259,7 +259,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00115">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.AddHotkey()</a>.</p>
+<p class="reference">References <a class="el" href="#l00116">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.AddHotkey()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -293,7 +293,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> when the <em>hotkey</em>  does have the same key combination; otherwise <code>false</code>.</dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="#l00115">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.AddHotkey()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00116">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.AddHotkey()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -332,7 +332,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00033">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.Hotkeys</a>, <a class="el" href="#l00020">VolumeControl.Core.Input.IHotkey.ID</a>, <a class="el" href="#l00053">VolumeControl.Core.Input.IHotkey.IsRegistered</a>, <a class="el" href="#l00080">VolumeControl.Core.Input.IHotkey.Unregistered</a>, and <a class="el" href="#l00076">VolumeControl.Core.Input.IHotkey.Unregistering</a>.</p>
+<p class="reference">References <a class="el" href="#l00034">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.Hotkeys</a>, <a class="el" href="#l00020">VolumeControl.Core.Input.IHotkey.ID</a>, <a class="el" href="#l00053">VolumeControl.Core.Input.IHotkey.IsRegistered</a>, <a class="el" href="#l00080">VolumeControl.Core.Input.IHotkey.Unregistered</a>, and <a class="el" href="#l00076">VolumeControl.Core.Input.IHotkey.Unregistering</a>.</p>
 
 </div>
 </div>
@@ -359,7 +359,7 @@ Here is the caller graph for this function:</div>
 
 <p>Gets whether this instance has started managing a specific key combination yet. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00115">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.AddHotkey()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00116">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.AddHotkey()</a>.</p>
 
 </div>
 </div>
@@ -385,7 +385,7 @@ Here is the caller graph for this function:</div>
 
 <p>Gets the list of hotkeys currently using this message hook abstractor. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00115">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.AddHotkey()</a>, and <a class="el" href="#l00168">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.RemoveHotkey()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00116">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.AddHotkey()</a>, and <a class="el" href="#l00169">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.RemoveHotkey()</a>.</p>
 
 </div>
 </div>
@@ -411,7 +411,7 @@ Here is the caller graph for this function:</div>
 
 <p>Gets the key in the key combination that this instance manages. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00115">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.AddHotkey()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00116">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.AddHotkey()</a>.</p>
 
 </div>
 </div>
@@ -437,7 +437,7 @@ Here is the caller graph for this function:</div>
 
 <p>Gets the modifier keys in the key combination that this instance manages. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00115">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.AddHotkey()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00116">VolumeControl.Core.Input.HotkeyMessageHookAbstractor.AddHotkey()</a>.</p>
 
 </div>
 </div>

@@ -4,5 +4,5 @@
 <area shape="rect" id="node2" href="$interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook.html" title="Represents an object that can be added to the hotkey message hook system." alt="" coords="5,5,169,83"/>
 <area shape="rect" id="node3" title=" " alt="" coords="193,5,371,83"/>
 <area shape="rect" id="node4" title=" " alt="" coords="395,5,494,83"/>
-<area shape="rect" id="node6" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html" title="A Hotkey that also tracks and reports registration errors." alt="" coords="185,880,379,1031"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html" title="A Hotkey that also maintains an error state property." alt="" coords="185,880,379,1031"/>
 </map>

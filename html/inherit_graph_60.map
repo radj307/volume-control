@@ -27,7 +27,7 @@
 <area shape="rect" id="node27" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html" title="A log endpoint that implements IEndpointWriter and uses a MemoryStream as an endpoint." alt="" coords="551,785,768,826"/>
 <area shape="rect" id="node28" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_persistent_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk, and keeps the file stream open." alt="" coords="1108,602,1325,643"/>
 <area shape="rect" id="node29" href="$class_volume_control_1_1_log_1_1_helpers_1_1_threaded_action_queue.html" title="Manages a background thread to execute queued actions." alt="" coords="558,419,761,461"/>
-<area shape="rect" id="node21" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html" title="A Hotkey that also tracks and reports registration errors." alt="" coords="1120,1149,1313,1190"/>
+<area shape="rect" id="node21" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html" title="A Hotkey that also maintains an error state property." alt="" coords="1120,1149,1313,1190"/>
 <area shape="rect" id="node30" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html" title="Represents an endpoint that text can be written to." alt="" coords="259,843,477,885"/>
 <area shape="rect" id="node31" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html" title="Abstract base class for endpoint writers." alt="" coords="551,953,768,994"/>
 <area shape="rect" id="node33" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk." alt="" coords="836,843,1053,885"/>

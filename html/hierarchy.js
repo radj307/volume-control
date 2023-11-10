@@ -78,6 +78,7 @@ var hierarchy =
       [ "VolumeControl.Core.Input.HotkeyPressedEventArgs", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html", null ],
       [ "VolumeControl.Core.Input.HotkeyRegisteringEventArgs", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_registering_event_args.html", null ]
     ] ],
+    [ "VolumeControl.WPF.HorizontalScroll", "class_volume_control_1_1_w_p_f_1_1_horizontal_scroll.html", null ],
     [ "VolumeControl.Core.Input.HotkeyActionAddonLoader", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html", null ],
     [ "VolumeControl.Core.Input.Actions.HotkeyActionDefinition", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_definition.html", null ],
     [ "VolumeControl.Core.Input.Actions.HotkeyActionInstance", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html", null ],
@@ -281,6 +282,6 @@ var hierarchy =
     [ "VolumeControl.CoreAudio.Helpers.VolumeLevelConverter", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_volume_level_converter.html", null ],
     [ "VolumeControl.WPF.WindowHandleGetter", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html", null ],
     [ "VolumeControl.TypeExtensions.WinFormsInterop", "class_volume_control_1_1_type_extensions_1_1_win_forms_interop.html", null ],
-    [ "VolumeControl.WPF.WpfAddTiltScrollEventHook", "class_volume_control_1_1_w_p_f_1_1_wpf_add_tilt_scroll_event_hook.html", null ],
-    [ "VolumeControl.WPF.WpfMaximizeBugFixHook", "class_volume_control_1_1_w_p_f_1_1_wpf_maximize_bug_fix_hook.html", null ]
+    [ "VolumeControl.WPF.MessageHooks.WpfMaximizeBugFixHook", "class_volume_control_1_1_w_p_f_1_1_message_hooks_1_1_wpf_maximize_bug_fix_hook.html", null ],
+    [ "VolumeControl.WPF.MessageHooks.WpfTiltScrollHook", "class_volume_control_1_1_w_p_f_1_1_message_hooks_1_1_wpf_tilt_scroll_hook.html", null ]
 ];

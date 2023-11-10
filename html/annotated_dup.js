@@ -205,6 +205,10 @@ var annotated_dup =
           [ "SquaredCornerRadiusConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter" ],
           [ "TagDoubleConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_tag_double_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_tag_double_converter" ]
         ] ],
+        [ "MessageHooks", "namespace_volume_control_1_1_w_p_f_1_1_message_hooks.html", [
+          [ "WpfMaximizeBugFixHook", "class_volume_control_1_1_w_p_f_1_1_message_hooks_1_1_wpf_maximize_bug_fix_hook.html", "class_volume_control_1_1_w_p_f_1_1_message_hooks_1_1_wpf_maximize_bug_fix_hook" ],
+          [ "WpfTiltScrollHook", "class_volume_control_1_1_w_p_f_1_1_message_hooks_1_1_wpf_tilt_scroll_hook.html", "class_volume_control_1_1_w_p_f_1_1_message_hooks_1_1_wpf_tilt_scroll_hook" ]
+        ] ],
         [ "PInvoke", "namespace_volume_control_1_1_w_p_f_1_1_p_invoke.html", [
           [ "MINMAXINFO", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_i_n_m_a_x_i_n_f_o.html", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_i_n_m_a_x_i_n_f_o" ],
           [ "MONITORINFO", "class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html", "class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o" ],
@@ -215,11 +219,10 @@ var annotated_dup =
         [ "DataTemplateTypeBinding", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding.html", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding" ],
         [ "DataTemplateTypeBindingSelector", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding_selector.html", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding_selector" ],
         [ "FilteredTextItemsSource", "class_volume_control_1_1_w_p_f_1_1_filtered_text_items_source.html", "class_volume_control_1_1_w_p_f_1_1_filtered_text_items_source" ],
-        [ "VisualTreeHelpers", "class_volume_control_1_1_w_p_f_1_1_visual_tree_helpers.html", "class_volume_control_1_1_w_p_f_1_1_visual_tree_helpers" ],
-        [ "WindowHandleGetter", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter" ],
         [ "MouseWheelHorizontalEventArgs", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_horizontal_event_args.html", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_horizontal_event_args" ],
-        [ "WpfAddTiltScrollEventHook", "class_volume_control_1_1_w_p_f_1_1_wpf_add_tilt_scroll_event_hook.html", "class_volume_control_1_1_w_p_f_1_1_wpf_add_tilt_scroll_event_hook" ],
-        [ "WpfMaximizeBugFixHook", "class_volume_control_1_1_w_p_f_1_1_wpf_maximize_bug_fix_hook.html", "class_volume_control_1_1_w_p_f_1_1_wpf_maximize_bug_fix_hook" ]
+        [ "HorizontalScroll", "class_volume_control_1_1_w_p_f_1_1_horizontal_scroll.html", "class_volume_control_1_1_w_p_f_1_1_horizontal_scroll" ],
+        [ "VisualTreeHelpers", "class_volume_control_1_1_w_p_f_1_1_visual_tree_helpers.html", "class_volume_control_1_1_w_p_f_1_1_visual_tree_helpers" ],
+        [ "WindowHandleGetter", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter" ]
       ] ]
     ] ]
 ];

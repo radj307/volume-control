@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="A Hotkey that also tracks and reports registration errors.">
+<g id="a_node1"><a xlink:title="A Hotkey that also maintains an error state property.">
 <polygon fill="#bfbfbf" stroke="black" points="140,-0.5 140,-112.5 285,-112.5 285,-0.5 140,-0.5"/>
 <text text-anchor="start" x="148" y="-100.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Input.</text>
 <text text-anchor="middle" x="212.5" y="-89.5" font-family="Helvetica,sans-Serif" font-size="10.00">HotkeyWithError</text>
