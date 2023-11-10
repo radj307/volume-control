@@ -150,6 +150,9 @@ Events</h2></td></tr>
 <tr class="memitem:a85573116dadaabaa0baead57c74990f9"><td class="memItemLeft" align="right" valign="top"><a id="a85573116dadaabaa0baead57c74990f9"></a>
 PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a85573116dadaabaa0baead57c74990f9">PropertyChanged</a></td></tr>
 <tr class="separator:a85573116dadaabaa0baead57c74990f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5865c94d159a6efb2273ce29550ca3f8"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device.html">AudioDevice</a>?&gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a5865c94d159a6efb2273ce29550ca3f8">SelectedDeviceChanged</a></td></tr>
+<tr class="memdesc:a5865c94d159a6efb2273ce29550ca3f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Occurs when the selected device is changed for any reason.  <a href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a5865c94d159a6efb2273ce29550ca3f8">More...</a><br /></td></tr>
+<tr class="separator:a5865c94d159a6efb2273ce29550ca3f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manages the currently "selected" <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device.html" title="An audio endpoint device.">AudioDevice</a> instance for a given <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_manager.html" title="Manages a list of AudioDevice instances and related events.">CoreAudio.AudioDeviceManager</a> object. </p>
@@ -178,7 +181,7 @@ PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom">
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00057">VolumeControl.CoreAudio.AudioDeviceManager.DeviceRemovedFromList</a>, and <a class="el" href="#l00165">VolumeControl.CoreAudio.AudioDeviceSelector.SelectDefaultDevice()</a>.</p>
+<p class="reference">References <a class="el" href="#l00057">VolumeControl.CoreAudio.AudioDeviceManager.DeviceRemovedFromList</a>, and <a class="el" href="#l00171">VolumeControl.CoreAudio.AudioDeviceSelector.SelectDefaultDevice()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -206,7 +209,7 @@ Here is the call graph for this function:</div>
 <p>Changes the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a49ebb6fc1da58cc4636a25fd9d2da38c" title="Gets or the sets the selected item.">Selected</a> item to <code>null</code>. </p>
 <p>Does nothing if <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a79deaa2e45edbdbc78914e5e81bded75">LockSelection</a> == <code>true</code>. </p>
 
-<p class="reference">References <a class="el" href="#l00093">VolumeControl.CoreAudio.AudioDeviceSelector.LockSelection</a>, and <a class="el" href="#l00046">VolumeControl.CoreAudio.AudioDeviceSelector.Selected</a>.</p>
+<p class="reference">References <a class="el" href="#l00094">VolumeControl.CoreAudio.AudioDeviceSelector.LockSelection</a>, and <a class="el" href="#l00046">VolumeControl.CoreAudio.AudioDeviceSelector.Selected</a>.</p>
 
 </div>
 </div>
@@ -241,7 +244,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00176">VolumeControl.CoreAudio.AudioDeviceManager.GetDefaultDevice()</a>, <a class="el" href="#l00093">VolumeControl.CoreAudio.AudioDeviceSelector.LockSelection</a>, and <a class="el" href="#l00046">VolumeControl.CoreAudio.AudioDeviceSelector.Selected</a>.</p>
+<p class="reference">References <a class="el" href="#l00176">VolumeControl.CoreAudio.AudioDeviceManager.GetDefaultDevice()</a>, <a class="el" href="#l00094">VolumeControl.CoreAudio.AudioDeviceSelector.LockSelection</a>, and <a class="el" href="#l00046">VolumeControl.CoreAudio.AudioDeviceSelector.Selected</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="#l00020">VolumeControl.CoreAudio.AudioDeviceSelector.AudioDeviceSelector()</a>.</p>
 <div class="dynheader">
@@ -275,7 +278,7 @@ Here is the caller graph for this function:</div>
 <p>Changes the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a49ebb6fc1da58cc4636a25fd9d2da38c" title="Gets or the sets the selected item.">Selected</a> item to the next session in the list, looping back if necessary. </p>
 <p>Does nothing if <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a79deaa2e45edbdbc78914e5e81bded75">LockSelection</a> == <code>true</code>. </p>
 
-<p class="reference">References <a class="el" href="#l00076">VolumeControl.CoreAudio.AudioDeviceManager.Devices</a>, <a class="el" href="#l00093">VolumeControl.CoreAudio.AudioDeviceSelector.LockSelection</a>, and <a class="el" href="#l00076">VolumeControl.CoreAudio.AudioDeviceSelector.SelectedIndex</a>.</p>
+<p class="reference">References <a class="el" href="#l00076">VolumeControl.CoreAudio.AudioDeviceManager.Devices</a>, <a class="el" href="#l00094">VolumeControl.CoreAudio.AudioDeviceSelector.LockSelection</a>, and <a class="el" href="#l00077">VolumeControl.CoreAudio.AudioDeviceSelector.SelectedIndex</a>.</p>
 
 </div>
 </div>
@@ -297,7 +300,7 @@ Here is the caller graph for this function:</div>
 <p>Changes the <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a49ebb6fc1da58cc4636a25fd9d2da38c" title="Gets or the sets the selected item.">Selected</a> item to the previous session in the list, looping back if necessary. </p>
 <p>Does nothing if <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a79deaa2e45edbdbc78914e5e81bded75">LockSelection</a> == <code>true</code>. </p>
 
-<p class="reference">References <a class="el" href="#l00076">VolumeControl.CoreAudio.AudioDeviceManager.Devices</a>, <a class="el" href="#l00093">VolumeControl.CoreAudio.AudioDeviceSelector.LockSelection</a>, and <a class="el" href="#l00076">VolumeControl.CoreAudio.AudioDeviceSelector.SelectedIndex</a>.</p>
+<p class="reference">References <a class="el" href="#l00076">VolumeControl.CoreAudio.AudioDeviceManager.Devices</a>, <a class="el" href="#l00094">VolumeControl.CoreAudio.AudioDeviceSelector.LockSelection</a>, and <a class="el" href="#l00077">VolumeControl.CoreAudio.AudioDeviceSelector.SelectedIndex</a>.</p>
 
 </div>
 </div>
@@ -325,7 +328,24 @@ Here is the caller graph for this function:</div>
 <p>Gets or the sets the selected item. </p>
 <p>Cannot be changed if <a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a79deaa2e45edbdbc78914e5e81bded75">LockSelection</a> == <code>true</code>. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00151">VolumeControl.CoreAudio.AudioDeviceSelector.DeselectDevice()</a>, and <a class="el" href="#l00165">VolumeControl.CoreAudio.AudioDeviceSelector.SelectDefaultDevice()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00157">VolumeControl.CoreAudio.AudioDeviceSelector.DeselectDevice()</a>, and <a class="el" href="#l00171">VolumeControl.CoreAudio.AudioDeviceSelector.SelectDefaultDevice()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Event Documentation</h2>
+<a id="a5865c94d159a6efb2273ce29550ca3f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5865c94d159a6efb2273ce29550ca3f8">&#9670;&nbsp;</a></span>SelectedDeviceChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EventHandler&lt;<a class="el" href="class_volume_control_1_1_core_audio_1_1_audio_device.html">AudioDevice</a>?&gt;? VolumeControl.CoreAudio.AudioDeviceSelector.SelectedDeviceChanged</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Occurs when the selected device is changed for any reason. </p>
 
 </div>
 </div>

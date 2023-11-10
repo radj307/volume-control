@@ -98,7 +98,8 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_type_extensio
 <div class="dynheader">
 Collaboration diagram for VolumeControl.TypeExtensions.EnumExtensions:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_enum_extensions__coll__graph.svg" width="238" height="235"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_enum_extensions__coll__graph.svg" width="238" height="264"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -113,6 +114,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a6812e53c55521fa2f45fef15970a3404"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3049a4c3865a4ea807e707b779b2fc5e"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#a3049a4c3865a4ea807e707b779b2fc5e">HasAnyFlag&lt; T &gt;</a> (this T e, params T[] other)</td></tr>
 <tr class="separator:a3049a4c3865a4ea807e707b779b2fc5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5d05c86c31aaa767218798c7e925639"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#ad5d05c86c31aaa767218798c7e925639">HasAllFlags&lt; T &gt;</a> (this T e, IEnumerable&lt; T &gt; flags)</td></tr>
+<tr class="memdesc:ad5d05c86c31aaa767218798c7e925639"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the enum value has all of the specified <em>flags</em>  set.  <a href="class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#ad5d05c86c31aaa767218798c7e925639">More...</a><br /></td></tr>
+<tr class="separator:ad5d05c86c31aaa767218798c7e925639"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cca4fce62f67696060902baa2df1457"><td class="memItemLeft" align="right" valign="top"><a id="a4cca4fce62f67696060902baa2df1457"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#a4cca4fce62f67696060902baa2df1457">HasAllFlags&lt; T &gt;</a> (this T e, params T[] flags)</td></tr>
+<tr class="separator:a4cca4fce62f67696060902baa2df1457"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a3aa1f89023f408ff75763decf9ac1b"><td class="memItemLeft" align="right" valign="top">static T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#a6a3aa1f89023f408ff75763decf9ac1b">SetFlagState&lt; T &gt;</a> (this T e, T flag, bool state)</td></tr>
 <tr class="memdesc:a6a3aa1f89023f408ff75763decf9ac1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the enum value with the specified <em>flag</em>  changed.  <a href="class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#a6a3aa1f89023f408ff75763decf9ac1b">More...</a><br /></td></tr>
 <tr class="separator:a6a3aa1f89023f408ff75763decf9ac1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -338,6 +345,67 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An array of the flags that were set in the enum value; when no flags were set, the array contains 1 zero value.</dd></dl>
+<div class="typeconstraint">
+<dl><dt><b>Type Constraints</b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>struct</em></td><td>&#160;</td></tr>
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>Enum</em></td><td>&#160;</td></tr>
+</table>
+</dd>
+</dl>
+</div>
+
+</div>
+</div>
+<a id="ad5d05c86c31aaa767218798c7e925639"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5d05c86c31aaa767218798c7e925639">&#9670;&nbsp;</a></span>HasAllFlags&lt; T &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool VolumeControl.TypeExtensions.EnumExtensions.HasAllFlags&lt; T &gt; </td>
+          <td>(</td>
+          <td class="paramtype">this T&#160;</td>
+          <td class="paramname"><em>e</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IEnumerable&lt; T &gt;&#160;</td>
+          <td class="paramname"><em>flags</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if the enum value has all of the specified <em>flags</em>  set. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The enum type.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">e</td><td>(implicit) The enum value to check.</td></tr>
+    <tr><td class="paramname">flags</td><td>The flags to check.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> when the enum value has all of the <em>flags</em>  set; otherwise, <code>false</code>.</dd></dl>
 <div class="typeconstraint">
 <dl><dt><b>Type Constraints</b></dt><dd>
 <table border="0" cellspacing="2" cellpadding="0">
