@@ -71,9 +71,6 @@ namespace VolumeControl.ViewModels
         #endregion Constructor
 
         #region Fields
-        #region PrivateFields
-        private bool disposedValue;
-        #endregion PrivateFields
         public readonly UpdateChecker Updater;
         #endregion Fields
 
@@ -103,11 +100,8 @@ namespace VolumeControl.ViewModels
         public string UpdateVersion { get; internal set; } = string.Empty;
         #endregion Statics
 
-        #region ParentObjects
         public AudioDeviceManagerVM AudioAPI { get; }
         public HotkeyManagerVM HotkeyAPI { get; }
-        #endregion ParentObjects
-
         public AddonLoader AddonLoader { get; }
         public TargetBoxVM TargetBoxVM { get; }
         public NotificationConfigSectionVM SessionConfigVM { get; }
@@ -172,26 +166,14 @@ namespace VolumeControl.ViewModels
         #endregion EventHandlers
 
         #region IDisposable Implementation
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                    // Dispose of objects
-                    this.HotkeyAPI?.Dispose();
-
-                disposedValue = true;
-            }
-        }
+        ~VolumeControlVM() => Dispose();
         /// <inheritdoc/>
-        public void Dispose()
+        public override void Dispose()
         {
-            this.Dispose(disposing: true);
+            HotkeyAPI.Dispose();
+            AudioAPI.Dispose();
+            base.Dispose();
             GC.SuppressFinalize(this);
-        }
-        ~VolumeControlVM()
-        {
-            this.Dispose(disposing: true);
         }
         #endregion IDisposable Implementation
     }

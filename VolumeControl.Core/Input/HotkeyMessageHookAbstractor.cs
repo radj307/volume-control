@@ -9,6 +9,7 @@ namespace VolumeControl.Core.Input
     /// </summary>
     /// <remarks>
     /// Hotkeys are automatically removed when they are unregistered (which occurs during re-registration).
+    /// Anything that uses this must ensure the instance is removed when no hotkeys remain.
     /// </remarks>
     public class HotkeyMessageHookAbstractor : IHotkeyMessageHook
     {

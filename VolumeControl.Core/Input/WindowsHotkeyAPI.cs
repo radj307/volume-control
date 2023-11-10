@@ -3,6 +3,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using VolumeControl.Core.Helpers;
 using VolumeControl.Core.Input.Exceptions;
+using VolumeControl.Log;
 
 namespace VolumeControl.Core.Input
 {
@@ -61,12 +62,22 @@ namespace VolumeControl.Core.Input
         class MessageOnlyWindow : IDisposable
         {
             #region Constructor
-            internal MessageOnlyWindow() => hWndSource = new(0, 0, 0, 0, 0, 0, 0, null, HWND_MESSAGE);
-            #endregion Constructor
+            internal MessageOnlyWindow()
+            {
+                hWndSource = new(0, 0, 0, 0, 0, 0, 0, null, HWND_MESSAGE);
+                hWndSource.Disposed += this.HWndSource_Disposed;
 
-            #region Finalizer
-            ~MessageOnlyWindow() => this.Dispose();
-            #endregion Finalizer
+                // make sure the HwndSource is valid and can receive messages
+                if (TestHwndSource())
+                {
+                    FLog.Trace($"[{nameof(WindowsHotkeyAPI)}] Message-only window successfully initialized.");
+                }
+                else
+                {
+                    FLog.Critical($"[{nameof(WindowsHotkeyAPI)}] Failed to create a message-only window; hotkeys will not work!");
+                }
+            }
+            #endregion Constructor
 
             #region Fields
             /// <summary>
@@ -84,13 +95,64 @@ namespace VolumeControl.Core.Input
             #endregion Properties
 
             #region Methods
+
+            #region AddHook
             /// <inheritdoc cref="HwndSource.AddHook(HwndSourceHook)"/>
             public void AddHook(HwndSourceHook hook) => hWndSource.AddHook(hook);
+            #endregion AddHook
+
+            #region RemoveHook
             /// <inheritdoc cref="HwndSource.RemoveHook(HwndSourceHook)"/>
             public void RemoveHook(HwndSourceHook hook) => hWndSource.RemoveHook(hook);
+            #endregion RemoveHook
+
+            #region TestHwndSource
+            private bool TestHwndSource()
+            {
+                const int WM_NULL = 0;
+                bool received = false;
+
+                // create a temporary hook to receive the test message & set received to true
+                var testHook = new HwndSourceHook((IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled) =>
+                {
+                    switch (msg)
+                    {
+                    case WM_NULL:
+                        received = true;
+                        break;
+                    }
+                    return IntPtr.Zero;
+                });
+
+                hWndSource.AddHook(testHook);
+                _ = SendMessage(hWndSource.Handle, WM_NULL, 0, 0);
+                hWndSource.RemoveHook(testHook);
+
+                return received;
+            }
+            #endregion TestHwndSource
+
+            #region (P/Invoke)
+            [DllImport("user32.dll")]
+            private static extern int SendMessage(IntPtr hWnd, uint Msg, long wParam, long lParam);
+            #endregion (P/Invoke)
+
             #endregion Methods
 
+            #region EventHandlers
+
+            #region HwndSource
+            private void HWndSource_Disposed(object? sender, EventArgs e)
+            {
+                FLog.Trace($"[{nameof(WindowsHotkeyAPI)}] Disposed of message-only window.");
+                Dispose();
+            }
+            #endregion HwndSource
+
+            #endregion EventHandlers
+
             #region IDisposable Implementation
+            ~MessageOnlyWindow() => this.Dispose();
             /// <inheritdoc/>
             public void Dispose()
             {
@@ -130,11 +192,17 @@ namespace VolumeControl.Core.Input
         public static void Register(IHotkey hotkey)
         {
             if (RegisterHotKey(_messageOnlyWindow.Handle, hotkey.ID, (uint)hotkey.Modifiers, (uint)KeyInterop.VirtualKeyFromKey((Key)hotkey.Key)) != 0)
+            {
                 AddHook(hotkey);
+                if (FLog.FilterEventType(EventType.TRACE))
+                    FLog.Trace($"[{nameof(WindowsHotkeyAPI)}] Successfully registered hotkey {hotkey.ID} \"{hotkey.Name}\" ({hotkey.GetStringRepresentation()})");
+            }
             else
             { // failure
                 (int hr, string msg) = GetWin32Error.GetLastWin32Error();
-                throw new HotkeyRegistrationException(hr, msg);
+                var ex = new HotkeyRegistrationException(hr, msg);
+                FLog.Error($"[{nameof(WindowsHotkeyAPI)}] An error occurred while registering hotkey {hotkey.ID} \"{hotkey.Name}\" ({hotkey.GetStringRepresentation()}):", ex);
+                throw ex;
             }
         }
         /// <summary>
@@ -162,11 +230,18 @@ namespace VolumeControl.Core.Input
         public static void Unregister(IHotkey hotkey)
         {
             if (UnregisterHotKey(_messageOnlyWindow.Handle, hotkey.ID) != 0)
+            {
                 RemoveHook(hotkey);
+                if (FLog.FilterEventType(EventType.TRACE))
+                    FLog.Trace($"[{nameof(WindowsHotkeyAPI)}] Successfully unregistered hotkey {hotkey.ID} \"{hotkey.Name}\" ({hotkey.GetStringRepresentation()})");
+            }
             else
             { // failure
                 (int hr, string msg) = GetWin32Error.GetLastWin32Error();
-                throw new HotkeyRegistrationException(hr, msg);
+                var ex = new HotkeyRegistrationException(hr, msg);
+                if (FLog.FilterEventType(EventType.TRACE))
+                    FLog.Trace($"[{nameof(WindowsHotkeyAPI)}] An exception occurred while unregistering hotkey {hotkey.ID} \"{hotkey.Name}\" ({hotkey.GetStringRepresentation()}):", ex);
+                throw ex;
             }
         }
         /// <summary>

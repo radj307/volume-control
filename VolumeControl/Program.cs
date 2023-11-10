@@ -66,7 +66,7 @@ namespace VolumeControl
 #if RELEASE_FORINSTALLER // use the application's AppData directory for the config file
             Settings = new(Path.Combine(PathFinder.ApplicationAppDataPath, "VolumeControl.json"));
 
-            if (Settings.LogPath == Config.DefaultLogPath && !CanWriteToDirectory(exeDir))
+            if (Settings.LogPath == Config.DefaultLogPath && !ShellHelper.CanWriteToDirectory(exeDir))
                 Settings.LogPath = Path.Combine(PathFinder.ApplicationAppDataPath, "VolumeControl.log");
 #else
             Settings = new("VolumeControl.json");
@@ -268,39 +268,6 @@ namespace VolumeControl
             sw.Close();
 
             sw.Dispose();
-        }
-        private static bool CanWriteToDirectory(string path)
-        {
-            if (string.IsNullOrEmpty(path)) return false;
-            const FileSystemRights writeDataPermission = FileSystemRights.WriteData;
-
-            try
-            {
-                WindowsIdentity identity = WindowsIdentity.GetCurrent();
-                bool identityHasGroups = identity.Groups != null;
-
-                DirectoryInfo di = new DirectoryInfo(path);
-                DirectorySecurity acl = di.GetAccessControl(AccessControlSections.All);
-                AuthorizationRuleCollection rules = acl.GetAccessRules(true, true, typeof(NTAccount));
-
-                //Go through the rules returned from the DirectorySecurity
-                foreach (AuthorizationRule rule in rules)
-                {
-                    var ruleIdentityRef = rule.IdentityReference;
-                    if (ruleIdentityRef == identity.Owner || (identityHasGroups && identity.Groups!.Contains(ruleIdentityRef)))
-                    {
-                        var accessRule = (FileSystemAccessRule)rule;
-
-                        if (accessRule.AccessControlType == AccessControlType.Allow
-                            && accessRule.FileSystemRights.HasFlag(writeDataPermission))
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-            catch { }
-            return false;
         }
         #endregion (Private)
 

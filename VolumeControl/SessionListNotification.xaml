@@ -98,6 +98,8 @@
                             <behaviour:IntervalUpdateBinding
                                 EnableTimer="{Binding ShowPeakMeters, Source={StaticResource Settings}}"
                                 Interval="{Binding PeakMeterUpdateIntervalMs, Source={StaticResource Settings}}"
+                                ThrowWhenPropertyIsMissing="False"
+                                ThrowWhenPropertyIsNull="False"
                                 Property="{x:Static FrameworkElement.TagProperty}" />
                         </i:Interaction.Behaviors>
                     </Slider>

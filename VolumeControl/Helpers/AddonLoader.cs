@@ -78,9 +78,14 @@ namespace VolumeControl.Helpers
         #region (Private) LoadAddonsFromDirectory
         private static void LoadAddonsFromDirectory(string directoryPath, bool recursive, VolumeControlVM inst, TemplateProviderManager providerManager)
         {
-            FLog.Trace($"[{nameof(AddonLoader)}] Searching for DLLs in directory \"{directoryPath}\".");
+            bool showTraceMessages = FLog.FilterEventType(EventType.TRACE);
+            if (showTraceMessages)
+                FLog.Trace($"[{nameof(AddonLoader)}] Searching for addon DLLs in directory \"{directoryPath}\".");
+            int totalCount = 0;
+            int loadedCount = 0;
             foreach (string dllPath in Directory.EnumerateFiles(directoryPath, "*.dll", new EnumerationOptions() { MatchCasing = MatchCasing.CaseInsensitive, RecurseSubdirectories = recursive, }))
             {
+                ++totalCount;
                 // get file version info
                 var dllName = Path.GetFileName(dllPath);
                 var versionInfo = System.Diagnostics.FileVersionInfo.GetVersionInfo(dllPath);
@@ -124,12 +129,18 @@ namespace VolumeControl.Helpers
 
                     // load actions from addon assembly
                     inst.HotkeyAPI.HotkeyManager.HotkeyActionManager.AddActionDefinitions(HotkeyActionAddonLoader.LoadActions(providerManager, exportedTypes));
+                    ++loadedCount;
                 }
                 catch (Exception ex)
                 {
                     FLog.Critical($"[{nameof(AddonLoader)}] Failed to load addon DLL \"{dllPath}\" due to an exception!", ex);
                 }
             }
+            if (!showTraceMessages) return;
+            if (totalCount == 0)
+                FLog.Trace($"[{nameof(AddonLoader)}] No addon DLLs found in directory \"{directoryPath}\".");
+            else
+                FLog.Trace($"[{nameof(AddonLoader)}] Loaded {loadedCount}/{totalCount} addon DLLs from directory \"{directoryPath}\".");
         }
         #endregion (Private) LoadAddonsFromDirectory
 

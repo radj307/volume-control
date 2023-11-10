@@ -19,7 +19,7 @@ namespace VolumeControl.ViewModels
     /// ViewModel for the <see cref="CoreAudio.AudioDeviceManager"/> class.
     /// Implements all of the VolumeControl.CoreAudio assembly for the view.
     /// </summary>
-    public sealed class AudioDeviceManagerVM : DependencyObject, INotifyPropertyChanged
+    public sealed class AudioDeviceManagerVM : DependencyObject, INotifyPropertyChanged, IDisposable
     {
         public AudioDeviceManagerVM()
         {
@@ -302,5 +302,17 @@ namespace VolumeControl.ViewModels
         #endregion AudioDeviceSelector
 
         #endregion EventHandlers
+
+        #region IDisposable
+        ~AudioDeviceManagerVM() => Dispose();
+        public void Dispose()
+        {
+            CurrentSession?.Dispose();
+            SelectedDevice?.Dispose();
+            AudioSessionManager.Dispose();
+            AudioDeviceManager.Dispose();
+            GC.SuppressFinalize(this);
+        }
+        #endregion IDisposable
     }
 }

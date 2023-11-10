@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using VolumeControl.WPF.MessageHooks;
 
 namespace VolumeControl.WPF.Behaviors
 {
@@ -37,7 +38,7 @@ namespace VolumeControl.WPF.Behaviors
             base.OnAttached();
 
             AssociatedObject.PreviewMouseWheel += this.AssociatedObject_PreviewMouseWheel;
-            WpfAddTiltScrollEventHook.AddPreviewMouseWheelHorizontalHandler(AssociatedObject, AssociatedObject_PreviewMouseWheelHorizontal);
+            HorizontalScroll.AddPreviewMouseWheelHorizontalHandler(AssociatedObject, AssociatedObject_PreviewMouseWheelHorizontal);
         }
         /// <inheritdoc/>
         protected override void OnDetaching()
@@ -45,7 +46,7 @@ namespace VolumeControl.WPF.Behaviors
             base.OnDetaching();
 
             AssociatedObject.PreviewMouseWheel -= this.AssociatedObject_PreviewMouseWheel;
-            WpfAddTiltScrollEventHook.RemovePreviewMouseWheelHorizontalHandler(AssociatedObject, AssociatedObject_PreviewMouseWheelHorizontal);
+            HorizontalScroll.RemovePreviewMouseWheelHorizontalHandler(AssociatedObject, AssociatedObject_PreviewMouseWheelHorizontal);
         }
         #endregion Behavior Method Overrides
 

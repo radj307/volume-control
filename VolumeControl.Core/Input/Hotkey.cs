@@ -328,17 +328,17 @@ namespace VolumeControl.Core.Input
 
         #endregion Methods
 
-        #region IDisposable Implementation
+        #region IDisposable
+        /// <inheritdoc cref="Dispose"/>
+        ~Hotkey() => Dispose();
         /// <summary>
         /// Cleans up the <see cref="Hotkey"/> instance by unregistering it, if necessary.
         /// </summary>
-        ~Hotkey() => Dispose();
-        /// <inheritdoc/>
         public void Dispose()
         {
             _isRegistered = !Unregister();
             GC.SuppressFinalize(this);
         }
-        #endregion IDisposable Implementation
+        #endregion IDisposable
     }
 }

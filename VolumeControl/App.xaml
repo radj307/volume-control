@@ -61,9 +61,12 @@
             <SolidColorBrush x:Key="TabBorderBrush">#444</SolidColorBrush>
 
             <!--  Misc Colors  -->
+            <SolidColorBrush x:Key="HeaderBackgroundBrush">#222</SolidColorBrush>
             <SolidColorBrush x:Key="HeaderForegroundBrush">LightGray</SolidColorBrush>
             <SolidColorBrush x:Key="BorderBrush">#3d3d3d</SolidColorBrush>
             <SolidColorBrush x:Key="CancelRed">#EA11</SolidColorBrush>
+            <Color x:Key="CaptionForegroundColor">LightGray</Color>
+            <SolidColorBrush x:Key="CaptionForegroundBrush" Color="{StaticResource CaptionForegroundColor}" />
 
             <!--  TextBox Colors  -->
             <SolidColorBrush x:Key="TextBoxBackground">#1F1F1F</SolidColorBrush>
@@ -79,7 +82,6 @@
             <SolidColorBrush x:Key="TextBoxWatermarkForeground">#9A9A9A</SolidColorBrush>
 
             <!--  Data Grid Colors  -->
-            <SolidColorBrush x:Key="HeaderBackgroundBrush">#222</SolidColorBrush>
             <SolidColorBrush x:Key="GridRowBrush">#444</SolidColorBrush>
             <SolidColorBrush x:Key="GridRowAltBrush">#555</SolidColorBrush>
             <SolidColorBrush x:Key="GridSecondaryRowBrush">#445</SolidColorBrush>
@@ -363,6 +365,39 @@
                 <Setter Property="Background" Value="{StaticResource AccentGradientRed}" />
                 <Setter Property="Foreground" Value="Black" />
                 <Setter Property="FontWeight" Value="DemiBold" />
+            </Style>
+            <Style x:Key="CaptionButtonStyle" TargetType="{x:Type Button}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border
+                                x:Name="ButtonMouseOver"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                RenderOptions.EdgeMode="Aliased"
+                                Style="{StaticResource BorderStyle}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="ButtonMouseOver" Property="Background" Value="#22FFFFFF" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="ButtonMouseOver" Property="Background" Value="#44FFFFFF" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="FontWeight" Value="Black" />
+                <Setter Property="Background" Value="#0000" />
+                <Setter Property="Foreground" Value="{StaticResource CaptionForegroundBrush}" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
             <!--  ToggleButton  -->
             <Style x:Key="ToggleButtonStyle" TargetType="{x:Type ToggleButton}">

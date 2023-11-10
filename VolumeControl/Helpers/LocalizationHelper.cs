@@ -154,14 +154,6 @@ namespace VolumeControl.Helpers
             // load the default translation configs
             ReloadTranslations(keepCurrentLanguage: false);
 
-            // setup logging for missing translation keys
-            //  (Missing translation event is broken)
-            //if (logMissingTranslations || Settings.LogMissingTranslations)
-            //{
-            //    Loc.MissingTranslationFound += Loc_MissingTranslationFound;
-            //    Loc.LogOutMissingTranslations = true;
-            //}
-
             // set the current language
             Loc.Instance.CurrentLanguage = Settings.LanguageName;
             Loc.Instance.CurrentLanguageChanged += LocInstance_CurrentLanguageChanged;

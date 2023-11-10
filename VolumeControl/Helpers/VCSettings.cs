@@ -7,23 +7,25 @@ using VolumeControl.Helpers.Win32;
 using VolumeControl.Log;
 using VolumeControl.WPF;
 using VolumeControl.WPF.Collections;
+using VolumeControl.WPF.MessageHooks;
 
 namespace VolumeControl.Helpers
 {
-    public abstract class VCSettings : INotifyPropertyChanged
+    public abstract class VCSettings : INotifyPropertyChanged, IDisposable
     {
         #region Constructors
         public VCSettings()
         {
-            FLog.Debug($"{nameof(VCSettings)} initializing...");
+            FLog.Debug($"[{nameof(VCSettings)}] initializing...");
 
             // Initialize the HWndHook
             MainWindowHandle = WindowHandleGetter.GetWindowHandle();
             WindowHookManager = new(WindowHandleGetter.GetHwndSource(this.MainWindowHandle), FLog.Log);
-            WindowHookManager.AddHooks(WpfMaximizeBugFixHook.GetHook(), WpfAddTiltScrollEventHook.GetHook());
+            WindowHookManager.AddHooks(WpfMaximizeBugFixHook.Hook, WpfTiltScrollHook.Hook);
 
-            FLog.Debug($"Executable location: '{this.ExecutablePath}'",
-                      $"Working directory:   '{Environment.CurrentDirectory}'");
+            FLog.Debug(
+                $"Executable location: '{this.ExecutablePath}'",
+                $"Working directory:   '{Environment.CurrentDirectory}'");
 
             // Get the current version number (version config property has already been updated)
             this.CurrentVersion = Settings.__VERSION__;
@@ -43,7 +45,7 @@ namespace VolumeControl.Helpers
 #       endif
             FLog.Info(GetWindowsVersion());
 
-            FLog.Debug($"{nameof(VCSettings)} initialization completed.");
+            FLog.Debug($"[{nameof(VCSettings)}] initialization completed.");
         }
         #endregion Constructors
 
@@ -216,5 +218,14 @@ namespace VolumeControl.Helpers
             return version;
         }
         #endregion Methods
+
+        #region IDisposable
+        ~VCSettings() => Dispose();
+        public virtual void Dispose()
+        {
+            WindowHookManager.Dispose();
+            GC.SuppressFinalize(this);
+        }
+        #endregion IDisposable
     }
 }

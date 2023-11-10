@@ -104,6 +104,7 @@ namespace VolumeControl
                 $"Sender: \"{sender}\" ({sender.GetType()})",
                 $"Thread: \"{e.Dispatcher.Thread.Name}\"",
                 e.Exception);
+            e.Handled = true;
 #if DEBUG
             throw new Exception("Unhandled dispatcher exception!", e.Exception);
 #endif

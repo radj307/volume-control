@@ -52,9 +52,7 @@ namespace VolumeControl.ViewModels
 
                 _targetText = trimmedValue;
 
-                _isSettingTarget = true;
                 SetTarget(_targetText);
-                _isSettingTarget = false;
 
                 NotifyPropertyChanged();
 
@@ -78,12 +76,16 @@ namespace VolumeControl.ViewModels
                 : string.Empty;
             if (notify) NotifyPropertyChanged(nameof(TargetText));
         }
-        private void SetTarget(string target)
+        private void SetTarget(string target, bool setToNullIfNotFound = true)
         {
             _isSettingTarget = true;
             if (AudioSessionManager.FindSessionWithSimilarProcessIdentifier(target) is AudioSession session)
             {
                 AudioSessionMultiSelector.CurrentSession = session;
+            }
+            else if (setToNullIfNotFound)
+            {
+                AudioSessionMultiSelector.CurrentSession = null;
             }
             _isSettingTarget = false;
         }

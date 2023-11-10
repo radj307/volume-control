@@ -951,10 +951,7 @@
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
                                             <!--  Select  -->
-                                            <DataGridTemplateColumn
-                                                Width="Auto"
-                                                Header=""
-                                                IsReadOnly="True">
+                                            <DataGridTemplateColumn Width="Auto" IsReadOnly="True">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate DataType="{x:Type vm:AudioSessionVM}">
                                                         <Button

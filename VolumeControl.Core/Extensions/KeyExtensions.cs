@@ -75,16 +75,23 @@ namespace VolumeControl.Core.Extensions
         /// Gets the string representation of the <see cref="EModifierKey"/> specified by <paramref name="m"/>.
         /// </summary>
         /// <param name="m"><see cref="EModifierKey"/></param>
+        /// <param name="insertSpaces">When <see langword="true"/>, inserts spaces between the enum names &amp; the separator characters.</param>
+        /// <param name="separator">The separator character to use between enum names.</param>
+        /// <param name="includeNone">When the modifier key is <see cref="EModifierKey.None"/> and this is <see langword="true"/>, the returned string is "None"; otherwise, returns a blank string.</param>
         /// <returns>The <see cref="string"/> representation of <paramref name="m"/> in the form "Shift+Ctrl+Alt".</returns>
-        public static string GetStringRepresentation(this EModifierKey m)
+        public static string GetStringRepresentation(this EModifierKey m, bool insertSpaces = false, char separator = '+', bool includeNone = false)
         {
             var values = m.GetSingleValues();
 
             if (values.Length == 1)
+            {
+                if (!includeNone && values[0] == EModifierKey.None)
+                    return string.Empty;
                 return string.Format("{0:G}", values[0]);
+            }
 
             var sb = new StringBuilder();
-
+            
             for (int i = 0, i_max = values.Length; i < i_max; ++i)
             {
                 var value = values[i];
@@ -98,7 +105,11 @@ namespace VolumeControl.Core.Extensions
                     break;
                 }
                 if (i != i_max - 1)
-                    sb.Append('+');
+                {
+                    if (insertSpaces) sb.Append(' ');
+                    sb.Append(separator);
+                    if (insertSpaces) sb.Append(' ');
+                }
             }
 
             return sb.ToString();

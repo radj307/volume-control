@@ -4,7 +4,7 @@ using VolumeControl.Core.Input.Enums;
 namespace VolumeControl.Core.Input
 {
     /// <summary>
-    /// A <see cref="Hotkey"/> that also tracks and reports registration errors.
+    /// A <see cref="Hotkey"/> that also maintains an error state property.
     /// </summary>
     public class HotkeyWithError : Hotkey
     {

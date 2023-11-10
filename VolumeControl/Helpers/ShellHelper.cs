@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using VolumeControl.Log;
 
 namespace VolumeControl.Helpers
@@ -132,5 +134,46 @@ namespace VolumeControl.Helpers
             }
         }
         #endregion OpenFolderAndSelectItem
+
+        #region CanWriteToDirectory
+        /// <summary>
+        /// Checks if the application has write access to the specified <paramref name="directoryPath"/>.
+        /// </summary>
+        /// <param name="directoryPath">The path to the directory to check.</param>
+        /// <returns><see langword="true"/> when the application can write to <paramref name="directoryPath"/>; otherwise, <see langword="false"/>.</returns>
+        public static bool CanWriteToDirectory(string directoryPath)
+        {
+            if (string.IsNullOrEmpty(directoryPath)) return false;
+            const FileSystemRights writeDataPermission = FileSystemRights.WriteData;
+
+            try
+            {
+                WindowsIdentity identity = WindowsIdentity.GetCurrent();
+                bool identityHasGroups = identity.Groups != null;
+
+                DirectoryInfo di = new DirectoryInfo(directoryPath);
+                DirectorySecurity acl = di.GetAccessControl(AccessControlSections.All);
+                AuthorizationRuleCollection rules = acl.GetAccessRules(true, true, typeof(NTAccount));
+
+                //Go through the rules returned from the DirectorySecurity
+                foreach (AuthorizationRule rule in rules)
+                {
+                    var ruleIdentityRef = rule.IdentityReference;
+                    if (ruleIdentityRef == identity.Owner || (identityHasGroups && identity.Groups!.Contains(ruleIdentityRef)))
+                    {
+                        var accessRule = (FileSystemAccessRule)rule;
+
+                        if (accessRule.AccessControlType == AccessControlType.Allow
+                            && accessRule.FileSystemRights.HasFlag(writeDataPermission))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch { }
+            return false;
+        }
+        #endregion CanWriteToDirectory
     }
 }

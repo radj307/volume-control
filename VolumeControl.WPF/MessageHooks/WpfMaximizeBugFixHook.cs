@@ -4,21 +4,21 @@ using System.Windows;
 using System.Windows.Interop;
 using VolumeControl.WPF.PInvoke;
 
-namespace VolumeControl.WPF
+namespace VolumeControl.WPF.MessageHooks
 {
     /// <summary>
     /// Provides a window message hook that fixes a bug when maximizing WPF windows that use <see cref="WindowStyle.None"/>.
     /// </summary>
     public static class WpfMaximizeBugFixHook
     {
-        #region Methods
-
-        #region GetHook
+        #region Properties
         /// <summary>
-        /// Gets the <see cref="WpfMaximizeBugFixHook"/> <see cref="HwndSourceHook"/> instance.
+        /// Gets the <see cref="HwndSourceHook"/> delegate that handles maximize messages.
         /// </summary>
-        public static HwndSourceHook GetHook() => WndProcHook;
-        #endregion GetHook
+        public static HwndSourceHook Hook { get; } = WndProcHook;
+        #endregion Properties
+
+        #region Methods
 
         #region (Private) WndProcHook
         private static IntPtr WndProcHook(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
