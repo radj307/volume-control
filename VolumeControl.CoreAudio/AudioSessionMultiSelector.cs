@@ -227,14 +227,15 @@ namespace VolumeControl.CoreAudio
 
             var hadSelectedSessions = HasSelectedSessions;
             _selectedSessions.Add(audioSession);
-            if (!hadSelectedSessions)
+            if (!hadSelectedSessions) // there are selected sessions now
                 NotifyPropertyChanged(nameof(HasSelectedSessions));
         }
         private bool RemoveSelectedSession(AudioSession audioSession)
         {
-            if (_selectedSessions.Remove(audioSession) && _selectedSessions.Count == 0)
+            if (_selectedSessions.Remove(audioSession))
             {
-                NotifyPropertyChanged(nameof(HasSelectedSessions));
+                if (_selectedSessions.Count == 0) // there are not selected sessions anymore
+                    NotifyPropertyChanged(nameof(HasSelectedSessions));
                 return true;
             }
             return false;
