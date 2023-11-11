@@ -384,6 +384,8 @@ namespace VolumeControl.WPF.Controls
             var popup = (System.Windows.Controls.Primitives.Popup)sender;
             var window = Window.GetWindow(popup);
 
+            if (window == null || popup == null) return;
+
             // fix position when the window's location changes:
             window.LocationChanged += (s, e) =>
             {

@@ -22,20 +22,20 @@ namespace VolumeControl.CoreAudio
         internal AudioDeviceSessionManager(AudioDevice audioDevice)
         {
             AudioDevice = audioDevice;
-            AudioSessionManager2 = AudioDevice.AudioSessionManager;
 
             _sessions = new();
 
-            AudioSessionManager2.OnSessionCreated += this.AudioSessionManager_OnSessionCreated;
+            AudioDevice.SessionCreated += this.AudioDevice_SessionCreated;
 
             bool showTraceLogMessages = FLog.FilterEventType(EventType.TRACE);
 
-            if (AudioSessionManager2.Sessions is not null)
-            { // populate the sessions list
+            var sessionCollection = AudioDevice.GetAllSessionControls();
+            if (sessionCollection != null)
+            {
                 if (showTraceLogMessages)
-                    FLog.Trace($"[{nameof(AudioDeviceSessionManager)}] {nameof(AudioDevice)} instance \"{AudioDevice}\" has {AudioSessionManager2.Sessions.Count} associated session{(AudioSessionManager2.Sessions.Count != 1 ? "s" : "")}. Initializing them now...");
+                    FLog.Trace($"[{nameof(AudioDeviceSessionManager)}] {nameof(AudioDevice)} instance \"{AudioDevice}\" has {sessionCollection.Count} associated session{(sessionCollection.Count != 1 ? "s" : "")}. Initializing them now...");
 
-                foreach (var audioSessionControl in AudioSessionManager2.Sessions)
+                foreach (var audioSessionControl in sessionCollection)
                 {
                     switch (audioSessionControl.State)
                     {
@@ -50,6 +50,8 @@ namespace VolumeControl.CoreAudio
                     }
                 }
             }
+            else if (showTraceLogMessages)
+                FLog.Trace($"[{nameof(AudioDeviceSessionManager)}] {nameof(AudioDevice)} instance \"{AudioDevice}\" does not have any sessions! (Session collection was null!)");
         }
         #endregion Constructor
 
@@ -71,7 +73,6 @@ namespace VolumeControl.CoreAudio
         /// Gets the <see cref="CoreAudio.AudioDevice"/> instance that this <see cref="AudioDeviceSessionManager"/> instance is managing.
         /// </summary>
         public AudioDevice AudioDevice { get; }
-        AudioSessionManager2 AudioSessionManager2 { get; }
         /// <summary>
         /// Gets the list of <see cref="AudioSession"/> instances.
         /// </summary>
@@ -126,7 +127,10 @@ namespace VolumeControl.CoreAudio
                 }
                 catch (Exception ex)
                 {
-                    FLog.Error($"[{nameof(AudioDeviceSessionManager)}] An exception occurred while creating an {nameof(AudioSession)} instance for session with (ProcessID: {audioSessionControl.ProcessID}, DisplayName: {audioSessionControl.DisplayName}, SessionInstanceIdentifier: {audioSessionControl.SessionInstanceIdentifier})!", ex);
+                    FLog.Critical($"[{nameof(AudioDeviceSessionManager)}] An exception occurred while creating an {nameof(AudioSession)} instance for session with (ProcessID: {audioSessionControl.ProcessID}, DisplayName: {audioSessionControl.DisplayName}, SessionInstanceIdentifier: {audioSessionControl.SessionInstanceIdentifier})!", ex);
+#if DEBUG
+                    throw;
+#endif
                 }
             }
             return null;
@@ -166,11 +170,11 @@ namespace VolumeControl.CoreAudio
         #endregion Session
 
         #region AudioSessionManager
-        private void AudioSessionManager_OnSessionCreated(object sender, IAudioSessionControl2 newSessionControl)
+        private void AudioDevice_SessionCreated(object? sender, IAudioSessionControl2 newSessionControl)
         {
             newSessionControl.GetSessionInstanceIdentifier(out string newSessionInstanceIdentifier);
-            AudioSessionManager2.RefreshSessions();
-            if (AudioSessionManager2.Sessions?.FirstOrDefault(session => session.SessionInstanceIdentifier.Equals(newSessionInstanceIdentifier, StringComparison.Ordinal)) is AudioSessionControl2 audioSessionControl)
+            AudioDevice.RefreshSessions();
+            if (AudioDevice.GetSessionControl(newSessionInstanceIdentifier) is AudioSessionControl2 audioSessionControl)
             {
                 if (CreateAndAddSessionIfUnique(audioSessionControl) is AudioSession newAudioSession)
                 {

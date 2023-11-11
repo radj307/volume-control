@@ -79,19 +79,20 @@ namespace VolumeControl.ViewModels
                 LockCurrentIndexOnLockSelection = true
             };
 
-            // setup the session synchronizer
-            //SessionSync = new(this, initialState: false);
-
             // populate the sessions lists
             Devices.Select(d => d.AudioDevice.SessionManager).ForEach(AudioSessionManager.AddSessionManager);
 
             // select all previously-selected sessions
-            foreach (var item in Settings.SelectedSessions)
+            for (int i = 0, i_max = Settings.SelectedSessions.Count; i < i_max; ++i)
             {
-                if (AudioSessionManager.FindSessionWithSimilarProcessIdentifier(item.ProcessIdentifier, StringComparison.OrdinalIgnoreCase) is AudioSession session)
+                var targetInfo = Settings.SelectedSessions[i];
+
+                if (AudioSessionManager.FindSessionWithSimilarProcessIdentifier(targetInfo.ProcessIdentifier, StringComparison.OrdinalIgnoreCase) is AudioSession session)
                 {
+                    // update the target info instance
+                    Settings.SelectedSessions[i] = session.GetTargetInfo();
                     AudioSessionMultiSelector.SetSessionIsSelected(session, true);
-                    this.SelectedSessions.Add(GetAudioSessionVM(session)!);
+                    SelectedSessions.Add(GetAudioSessionVM(session)!);
                 }
             }
             // set the current session

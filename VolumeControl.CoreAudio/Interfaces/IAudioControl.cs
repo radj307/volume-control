@@ -1,4 +1,6 @@
-﻿namespace VolumeControl.CoreAudio.Interfaces
+﻿using CoreAudio;
+
+namespace VolumeControl.CoreAudio.Interfaces
 {
     /// <summary>
     /// Represents an audio instance with a controllable volume level and mute state.
@@ -23,5 +25,9 @@
         /// Gets or sets the mute state of the audio instance.
         /// </summary>
         bool Mute { get; set; }
+        /// <summary>
+        /// Gets whether this audio control is a capture or render instance.
+        /// </summary>
+        DataFlow DataFlow { get; }
     }
 }

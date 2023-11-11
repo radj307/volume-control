@@ -10,32 +10,23 @@ namespace VolumeControl.CoreAudio.Events
     public sealed class VolumeChangedEventArgs : EventArgs
     {
         #region Constructor
-        /// <summary>
-        /// Creates a new <see cref="VolumeChangedEventArgs"/> instance with the given <paramref name="data"/>.
-        /// </summary>
-        /// <param name="data">The <see cref="AudioVolumeNotificationData"/> object from the underlying event.</param>
-        internal VolumeChangedEventArgs(AudioVolumeNotificationData data)
+        internal VolumeChangedEventArgs(float newNativeVolume, bool newMute)
         {
-            NewNativeVolume = data.MasterVolume;
-            Volume = VolumeLevelConverter.FromNativeVolume(NewNativeVolume);
-            Mute = data.Muted;
+            NativeVolume = newNativeVolume;
+            Volume = VolumeLevelConverter.FromNativeVolume(NativeVolume);
+            Mute = newMute;
         }
-        /// <summary>
-        /// Creates a new <see cref="VolumeChangedEventArgs"/> instance with the given <paramref name="newVolume"/> &amp; <paramref name="newMute"/> values.
-        /// </summary>
-        /// <param name="newVolume">The new volume level.</param>
-        /// <param name="newMute">The new mute state.</param>
-        internal VolumeChangedEventArgs(float newVolume, bool newMute)
+        internal VolumeChangedEventArgs(int newVolume, bool newMute)
         {
-            NewNativeVolume = newVolume;
-            Volume = VolumeLevelConverter.FromNativeVolume(NewNativeVolume);
+            NativeVolume = VolumeLevelConverter.ToNativeVolume(newVolume);
+            Volume = newVolume;
             Mute = newMute;
         }
         #endregion Constructor
 
         #region Properties
         /// <inheritdoc/>
-        public float NewNativeVolume { get; }
+        public float NativeVolume { get; }
         /// <inheritdoc/>
         public int Volume { get; }
         /// <inheritdoc/>

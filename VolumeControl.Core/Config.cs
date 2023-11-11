@@ -234,8 +234,8 @@ namespace VolumeControl.Core
         /// </summary>
         public NotificationConfigSection DeviceListNotificationConfig { get; set; } = new()
         {
-            LockedColor = Color.FromRgb(0x49, 0x80, 0x49),
-            UnlockedColor = Color.FromRgb(0xA7, 0x33, 0x74),
+            LockedColor = Color.FromRgb(0xA7, 0x33, 0x74),
+            UnlockedColor = Color.FromRgb(0x49, 0x80, 0x49),
         };
         /// <summary>
         /// Gets or sets whether the notification can be dragged without holding down the ALT key.

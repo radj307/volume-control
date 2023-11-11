@@ -223,7 +223,7 @@ namespace VolumeControl.Helpers
         ~VCSettings() => Dispose();
         public virtual void Dispose()
         {
-            WindowHookManager.Dispose();
+            WindowHookManager?.Dispose();
             GC.SuppressFinalize(this);
         }
         #endregion IDisposable

@@ -7,6 +7,7 @@ using VolumeControl.Core;
 using VolumeControl.Core.Input;
 using VolumeControl.Core.Input.Json;
 using VolumeControl.Log;
+using VolumeControl.TypeExtensions;
 using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.ViewModels
@@ -146,10 +147,7 @@ namespace VolumeControl.ViewModels
         #region IDisposable Implementation
         public void Dispose()
         {
-            foreach (var hk in Hotkeys)
-            {
-                hk.Dispose();
-            }
+            Hotkeys?.DisposeAll();
             GC.SuppressFinalize(this);
         }
         #endregion IDisposable Implementation

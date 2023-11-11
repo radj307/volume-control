@@ -110,5 +110,18 @@ namespace VolumeControl.TypeExtensions
 
             return l.AsEnumerable();
         }
+        /// <summary>
+        /// Calls <see cref="IDisposable.Dispose"/> on all of the elements in the collection.
+        /// </summary>
+        /// <typeparam name="T">Enumerable element type that implements <see cref="IDisposable"/>.</typeparam>
+        /// <param name="enumerable">(implicit) The enumerable collection to dispose of.</param>
+        public static void DisposeAll<T>(this IEnumerable<T> enumerable) where T : IDisposable
+        {
+            var array = enumerable.ToArray();
+            for (int i = array.Length - 1; i >= 0; --i)
+            {
+                array[i].Dispose();
+            }
+        }
     }
 }

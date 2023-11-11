@@ -51,7 +51,7 @@
             <Thickness x:Key="WindowBorderThickness">3</Thickness>
             <SolidColorBrush x:Key="UpdateIconBrush">Yellow</SolidColorBrush>
             <SolidColorBrush x:Key="NotificationBackgroundBrush">#252525</SolidColorBrush>
-            <Color x:Key="ContextMenuBackgroundColor">#484848</Color>
+            <Color x:Key="ContextMenuBackgroundColor">#414141</Color>
             <SolidColorBrush x:Key="ContextMenuBackgroundBrush" Color="{StaticResource ContextMenuBackgroundColor}" />
             <SolidColorBrush x:Key="ContextMenuForegroundBrush">WhiteSmoke</SolidColorBrush>
 

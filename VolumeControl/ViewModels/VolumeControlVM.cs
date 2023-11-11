@@ -170,8 +170,8 @@ namespace VolumeControl.ViewModels
         /// <inheritdoc/>
         public override void Dispose()
         {
-            HotkeyAPI.Dispose();
-            AudioAPI.Dispose();
+            HotkeyAPI?.Dispose();
+            AudioAPI?.Dispose();
             base.Dispose();
             GC.SuppressFinalize(this);
         }
