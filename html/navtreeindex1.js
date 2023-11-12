@@ -1,6 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"class_volume_control_1_1_core_1_1_config.html#ad0b6ca70c6dac8357bc6cdf68841c2ab":[8,0,0,0,9,34],
 "class_volume_control_1_1_core_1_1_config.html#ad958fb5ef12aab1044c6447711171da2":[8,0,0,0,9,46],
 "class_volume_control_1_1_core_1_1_config.html#ad97fb52ffbeb3172380e85880f06a671":[8,0,0,0,9,18],
 "class_volume_control_1_1_core_1_1_config.html#ae5efc7fbc66e99e7157cfbcd6ac63f0e":[8,0,0,0,9,39],
@@ -249,5 +248,6 @@ var NAVTREEINDEX1 =
 "class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a9bd894368873eca8a4fe4231ad30d8a4aff9e17d020c43413f4add77fb2fd0b14":[8,0,0,0,5,13,0,2],
 "class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#ab05a1e9263dfe8ccd7b6166abefd84d5":[8,0,0,0,5,13,7],
 "class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#acfcbafeff4989d44913efe0f90a0a337":[8,0,0,0,5,13,4],
-"class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#ae13db6bd3f8d24c189bbd2427d190d1e":[8,0,0,0,5,13,10]
+"class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#ae13db6bd3f8d24c189bbd2427d190d1e":[8,0,0,0,5,13,10],
+"class_volume_control_1_1_core_1_1_input_simulator.html":[8,0,0,0,11]
 };

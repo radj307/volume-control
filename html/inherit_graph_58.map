@@ -1,4 +1,14 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,13,152,39"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_animations_1_1_brush_animation.html" title="Animation type that transitions between two arbitrary Brush instances." alt="" coords="200,5,431,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,339,85,366"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_disable_mouse_wheel_behavior.html" title="Behavior that prevent the mouse wheel from triggering events." alt="" coords="167,5,390,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html" title="Removes logical and/or keyboard focus from the attached control when the Escape key is pressed." alt="" coords="167,71,391,112"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_hyperlink_open_in_browser_behavior.html" title="Hyperlink behavior that opens the link in the default browser." alt="" coords="157,136,400,177"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_list_view_behavior.html" title="Behavior&lt;T&gt; that enables the mouse wheel to increment/decrement the selected item in a ListView." alt="" coords="167,201,390,243"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_numeric_up_down_behavior.html" title="Behavior&lt;T&gt; that enables the mouse wheel to change the value of NumericUpDown controls." alt="" coords="141,267,416,308"/>
+<area shape="rect" id="node7" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_range_base_behavior.html" title="Behavior&lt;T&gt; that enables the mouse wheel to change the value of controls based on RangeBase." alt="" coords="160,332,397,373"/>
+<area shape="rect" id="node8" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_scroll_viewer_horizontal_scroll_behavior.html" title="Scrolls horizontally when scrolling while holding SHIFT in TextBoxBase controls." alt="" coords="147,397,411,439"/>
+<area shape="rect" id="node9" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_autocomplete_behavior.html" title="Behavior that implements autocomplete suggestions for TextBox controls." alt="" coords="167,463,390,504"/>
+<area shape="rect" id="node10" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_enter_updates_text_source_behavior.html" title="Forces the TextBox.Text property&#39;s data binding to update its source when the Enter key is pressed or..." alt="" coords="133,528,424,569"/>
+<area shape="rect" id="node11" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_horizontal_scroll_behavior.html" title="Scrolls horizontally when scrolling while holding SHIFT in TextBoxBase controls." alt="" coords="161,593,396,635"/>
+<area shape="rect" id="node12" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_input_filter_behavior.html" title="TextBox behavior that uses regular expressions to only allow certain types of input." alt="" coords="167,659,390,700"/>
 </map>

@@ -127,7 +127,6 @@ var annotated_dup =
           [ "ILogWriter", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html", "interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer" ]
         ] ],
         [ "AsyncLogWriter", "class_volume_control_1_1_log_1_1_async_log_writer.html", "class_volume_control_1_1_log_1_1_async_log_writer" ],
-        [ "DebugUtils", "class_volume_control_1_1_log_1_1_debug_utils.html", "class_volume_control_1_1_log_1_1_debug_utils" ],
         [ "FLog", "class_volume_control_1_1_log_1_1_f_log.html", "class_volume_control_1_1_log_1_1_f_log" ],
         [ "LogMessage", "class_volume_control_1_1_log_1_1_log_message.html", "class_volume_control_1_1_log_1_1_log_message" ]
       ] ],

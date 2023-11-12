@@ -46,7 +46,6 @@ var hierarchy =
     [ "DataTemplateSelector", null, [
       [ "VolumeControl.WPF.DataTemplateTypeBindingSelector", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding_selector.html", null ]
     ] ],
-    [ "VolumeControl.Log.DebugUtils", "class_volume_control_1_1_log_1_1_debug_utils.html", null ],
     [ "DependencyObject", null, [
       [ "VolumeControl.WPF.BindableTimer", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html", null ],
       [ "VolumeControl.WPF.Converters.BoolToBrushConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_brush_converter.html", null ],

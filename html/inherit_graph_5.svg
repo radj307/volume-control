@@ -8,9 +8,9 @@
  viewBox="0.00 0.00 318.00 258.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 254)">
 <title>Graphical Class Hierarchy</title>
-<!-- Node46 -->
+<!-- Node45 -->
 <g id="node1" class="node">
-<title>Node46</title>
+<title>Node45</title>
 <g id="a_node1"><a xlink:title=" ">
 <polygon fill="none" stroke="#bfbfbf" points="0,-110 0,-129 66,-129 66,-110 0,-110"/>
 <text text-anchor="middle" x="33" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">EventArgs</text>
@@ -27,15 +27,15 @@
 </a>
 </g>
 </g>
-<!-- Node46&#45;&gt;Node0 -->
+<!-- Node45&#45;&gt;Node0 -->
 <g id="edge1" class="edge">
-<title>Node46&#45;&gt;Node0</title>
+<title>Node45&#45;&gt;Node0</title>
 <path fill="none" stroke="midnightblue" d="M43.08,-138.17C54.12,-158.83 74.71,-191.58 102,-209.5 110.31,-214.95 119.69,-219.22 129.33,-222.55"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="46.12,-136.42 38.45,-129.11 39.89,-139.61 46.12,-136.42"/>
 </g>
-<!-- Node48 -->
+<!-- Node47 -->
 <g id="node3" class="node">
-<title>Node48</title>
+<title>Node47</title>
 <g id="a_node3"><a xlink:href="class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_is_hidden_event_args.html" target="_top" xlink:title="Event arguments for the PreviewSessionIsHiddenEventHandler event type.">
 <polygon fill="none" stroke="black" points="120,-159 120,-200 292,-200 292,-159 120,-159"/>
 <text text-anchor="start" x="128" y="-188" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.CoreAudio.</text>
@@ -44,15 +44,15 @@
 </a>
 </g>
 </g>
-<!-- Node46&#45;&gt;Node48 -->
+<!-- Node45&#45;&gt;Node47 -->
 <g id="edge2" class="edge">
-<title>Node46&#45;&gt;Node48</title>
+<title>Node45&#45;&gt;Node47</title>
 <path fill="none" stroke="midnightblue" d="M63.36,-133.47C75.22,-138.84 89.12,-144.81 102,-149.5 111.01,-152.78 120.57,-155.96 130.08,-158.94"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="64.5,-130.14 53.95,-129.13 61.57,-136.5 64.5,-130.14"/>
 </g>
-<!-- Node49 -->
+<!-- Node48 -->
 <g id="node4" class="node">
-<title>Node49</title>
+<title>Node48</title>
 <g id="a_node4"><a xlink:href="class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_is_selected_event_args.html" target="_top" xlink:title="Event arguments object for the PreviewSessionIsSelectedEventHandler event type.">
 <polygon fill="none" stroke="black" points="116.5,-99 116.5,-140 295.5,-140 295.5,-99 116.5,-99"/>
 <text text-anchor="start" x="124.5" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.CoreAudio.</text>
@@ -61,15 +61,15 @@
 </a>
 </g>
 </g>
-<!-- Node46&#45;&gt;Node49 -->
+<!-- Node45&#45;&gt;Node48 -->
 <g id="edge3" class="edge">
-<title>Node46&#45;&gt;Node49</title>
+<title>Node45&#45;&gt;Node48</title>
 <path fill="none" stroke="midnightblue" d="M76.44,-119.5C88.65,-119.5 102.43,-119.5 116.33,-119.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="76.16,-116 66.16,-119.5 76.16,-123 76.16,-116"/>
 </g>
-<!-- Node50 -->
+<!-- Node49 -->
 <g id="node5" class="node">
-<title>Node50</title>
+<title>Node49</title>
 <g id="a_node5"><a xlink:href="class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_name_event_args.html" target="_top" xlink:title="Event arguments for the preview session name event, which allows session display names to be changed ...">
 <polygon fill="none" stroke="black" points="102,-49.5 102,-79.5 310,-79.5 310,-49.5 102,-49.5"/>
 <text text-anchor="start" x="110" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.CoreAudio.</text>
@@ -77,15 +77,15 @@
 </a>
 </g>
 </g>
-<!-- Node46&#45;&gt;Node50 -->
+<!-- Node45&#45;&gt;Node49 -->
 <g id="edge4" class="edge">
-<title>Node46&#45;&gt;Node50</title>
+<title>Node45&#45;&gt;Node49</title>
 <path fill="none" stroke="midnightblue" d="M62.37,-105.63C74.4,-100.11 88.69,-94.01 102,-89.5 112.8,-85.84 124.42,-82.48 135.81,-79.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="60.85,-102.49 53.27,-109.9 63.81,-108.82 60.85,-102.49"/>
 </g>
-<!-- Node51 -->
+<!-- Node50 -->
 <g id="node6" class="node">
-<title>Node51</title>
+<title>Node50</title>
 <g id="a_node6"><a xlink:href="class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args.html" target="_top" xlink:title="Contains event data for the VolumeChangedEventHandler event type.">
 <polygon fill="none" stroke="black" points="115,-0.5 115,-30.5 297,-30.5 297,-0.5 115,-0.5"/>
 <text text-anchor="start" x="123" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.CoreAudio.</text>
@@ -93,9 +93,9 @@
 </a>
 </g>
 </g>
-<!-- Node46&#45;&gt;Node51 -->
+<!-- Node45&#45;&gt;Node50 -->
 <g id="edge5" class="edge">
-<title>Node46&#45;&gt;Node51</title>
+<title>Node45&#45;&gt;Node50</title>
 <path fill="none" stroke="midnightblue" d="M44.89,-101.2C56.67,-83.01 77.16,-55.7 102,-40.5 108.36,-36.61 115.28,-33.33 122.43,-30.55"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="41.87,-99.43 39.54,-109.77 47.8,-103.14 41.87,-99.43"/>
 </g>

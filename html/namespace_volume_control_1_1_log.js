@@ -5,7 +5,6 @@ var namespace_volume_control_1_1_log =
     [ "Helpers", "namespace_volume_control_1_1_log_1_1_helpers.html", "namespace_volume_control_1_1_log_1_1_helpers" ],
     [ "Interfaces", "namespace_volume_control_1_1_log_1_1_interfaces.html", "namespace_volume_control_1_1_log_1_1_interfaces" ],
     [ "AsyncLogWriter", "class_volume_control_1_1_log_1_1_async_log_writer.html", "class_volume_control_1_1_log_1_1_async_log_writer" ],
-    [ "DebugUtils", "class_volume_control_1_1_log_1_1_debug_utils.html", "class_volume_control_1_1_log_1_1_debug_utils" ],
     [ "FLog", "class_volume_control_1_1_log_1_1_f_log.html", "class_volume_control_1_1_log_1_1_f_log" ],
     [ "LogMessage", "class_volume_control_1_1_log_1_1_log_message.html", "class_volume_control_1_1_log_1_1_log_message" ],
     [ "EventType", "namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590", [
