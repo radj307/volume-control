@@ -170,7 +170,6 @@
                                      DefaultText='Specifies the duration of the fade-out animation in milliseconds.'}" />
 
                     <!--  Row 4 ; Column 0-1  -->
-
                     <Expander
                         Grid.Row="4"
                         Grid.ColumnSpan="2"

@@ -94,7 +94,11 @@ namespace VolumeControl
 #else
             Settings = new("VolumeControl.json");
 #endif
-            Settings.Load();
+
+            if (args.Contains("--reset-config"))
+                Settings.Save(); //< reset the config by overwriting it with the default settings
+            else
+                Settings.Load(); //< load the previous config
             Settings.AttachReflectivePropertyChangedHandlers();
 
             // Multi instance gate
