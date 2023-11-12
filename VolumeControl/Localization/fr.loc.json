@@ -348,8 +348,11 @@
         "DontShowInFutureMsg": {
           "Français (French)": "Les invites de mise à jour ne seront plus affichées à l'avenir."
         },
-        "NewVersionAvailableFormatMsg": {
-          "Français (French)": "Une nouvelle version de Volume Control est disponible !\nVoulez-vous aller à la page des communiqués ?\nVersion actuelle:  ${CURRENT_VERSION}\nVersion la plus Récente:   ${LATEST_VERSION}\n\nCliquez sur 'Oui' pour accéder à la page des communiqués.\nCliquez sur 'Non' si vous ne souhaitez pas effectuer la mise à jour maintenant.\nCliquez sur 'Annuler' pour désactiver ces invites."
+        "NewVersionAvailableMessage": {
+          "Français (French)": "Une nouvelle version de Volume Control est disponible !\nVoulez-vous aller à la page des communiqués ?\nVersion actuelle:  ${CURRENT_VERSION}\nVersion la plus Récente:   ${LATEST_VERSION}"
+        },
+        "NewVersionAvailableOptions_OpenBrowser": {
+          "Français (French)": "Cliquez sur 'Oui' pour accéder à la page des communiqués.\nCliquez sur 'Non' si vous ne souhaitez pas effectuer la mise à jour maintenant.\nCliquez sur 'Annuler' pour désactiver ces invites."
         }
       }
     },

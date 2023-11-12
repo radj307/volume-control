@@ -428,8 +428,11 @@
         "DontShowInFutureMsg": {
           "German (DE/DE)": "Aktualisierungshinweise werden zukünftig nicht mehr angezeigt."
         },
-        "NewVersionAvailableFormatMsg": {
-          "German (DE/DE)": "Eine neue Volume Control Version ist verfügbar!\nSoll die Seite mit den Veröffentlichungen geöffnet werden?\nDerzeitige Version:  ${CURRENT_VERSION}\nNeuste Version   ${LATEST_VERSION}\n\nDrücke 'Ja' um die Seite mit den Veröffentlichungen zu öffnen.\nDrücke 'Nein' falls du jetzt kein Update machen möchtest.\nDrücke 'Abbrechen' um diese Hinweise abzuschalten."
+        "NewVersionAvailableMessage": {
+          "German (DE/DE)": "Eine neue Volume Control Version ist verfügbar!\nSoll die Seite mit den Veröffentlichungen geöffnet werden?\nDerzeitige Version:  ${CURRENT_VERSION}\nNeuste Version   ${LATEST_VERSION}"
+        },
+        "NewVersionAvailableOptions_OpenBrowser": {
+          "German (DE/DE)": "Drücke 'Ja' um die Seite mit den Veröffentlichungen zu öffnen.\nDrücke 'Nein' falls du jetzt kein Update machen möchtest.\nDrücke 'Abbrechen' um diese Hinweise abzuschalten."
         }
       }
     },

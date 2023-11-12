@@ -565,8 +565,11 @@
           "DontShowInFutureMsg": {
             "Magyar (Hungarian)": "Frissítési ablakok nem lesznek megjelenítve a jövőben."
           },
-          "NewVersionAvailableFormatMsg": {
-            "Magyar (Hungarian)": "Egy új verzió elérhető a Volume Controlból!\nEl akarsz látogatni a megjelenés oldalára?\nJelenlegi Verzió:  ${CURRENT_VERSION}\nLegújabb Verzió:   ${LATEST_VERSION}\n\nNyomd meg az 'Igen' gombot, hogy oda menj.\nKattints a 'Nem'-re ha nem szeretnéd most frissíteni.\nKattints a 'Mégse' gombra ha nem akarsz a jövőben ilyet látni."
+          "NewVersionAvailableMessage": {
+            "Magyar (Hungarian)": "Egy új verzió elérhető a Volume Controlból!\nEl akarsz látogatni a megjelenés oldalára?\nJelenlegi Verzió:  ${CURRENT_VERSION}\nLegújabb Verzió:   ${LATEST_VERSION}"
+          },
+          "NewVersionAvailableOptions_OpenBrowser": {
+            "Magyar (Hungarian)": "Nyomd meg az 'Igen' gombot, hogy oda menj.\nKattints a 'Nem'-re ha nem szeretnéd most frissíteni.\nKattints a 'Mégse' gombra ha nem akarsz a jövőben ilyet látni."
           }
         },
         "RemoveHotkey": {

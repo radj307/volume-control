@@ -461,14 +461,6 @@
             "Tooltip": {
               "Italiano (Italian)": "Quando questo è selezionato, ti verrà chiesto di aggiornare sotto forma di messaggio in una finestra; in caso contrario, vedrai un'icona nell'angolo in alto a destra."
             }
-          },
-          "ShowPrompt": {
-            "Content": {
-              "Italiano (Italian)": "Visualizza prompt"
-            },
-            "Tooltip": {
-              "Italiano (Italian)": "Quando questa opzione è selezionata, verrà richiesto di aggiornare sotto forma di una finestra di messaggio.\nAltrimenti vedrai un'icona nell'angolo in alto a destra."
-            }
           }
         }
       },
@@ -603,8 +595,11 @@
         "DontShowInFutureMsg": {
           "Italiano (Italian)": "In futuro non verranno visualizzate le richieste di aggiornamento ."
         },
-        "NewVersionAvailableFormatMsg": {
-          "Italiano (Italian)": "È disponibile una nuova versione di Volume Control!\nVuoi andare alla pagina di download?\nVersione attuale:  ${CURRENT_VERSION}\nVersioen aggiornata:   ${LATEST_VERSION}\n\nSeleziona 'Sì' per andare alla pagina di download.\nSeleziona 'No' se non vuoi aggiornare ora.\nSeleziona 'Annulla' per disabilitare questa richiesta."
+        "NewVersionAvailableMessage": {
+          "Italiano (Italian)": "È disponibile una nuova versione di Volume Control!\nVersione attuale:  ${CURRENT_VERSION}\nVersioen aggiornata:   ${LATEST_VERSION}"
+        },
+        "NewVersionAvailableOptions_OpenBrowser": {
+          "Italiano (Italian)": "Seleziona 'Sì' per andare alla pagina di download.\nSeleziona 'No' se non vuoi aggiornare ora.\nSeleziona 'Annulla' per disabilitare questa richiesta."
         }
       },
       "RemoveHotkey": {

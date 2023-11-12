@@ -314,14 +314,6 @@ namespace VolumeControl.Helpers
         }
         #endregion Loc.Instance
 
-        #region Loc
-        //private static void Loc_MissingTranslationFound(object? sender, LocalizationMissingTranslationEventArgs e)
-        //{
-        //    string languageName = e.LanguageId ?? Loc.Instance.CurrentLanguage;
-        //    LogWriter?.Error($"[{nameof(LocalizationHelper)}] Language \"{languageName}\" is missing translation \"{e.TextId}\"");
-        //}
-        #endregion Loc
-
         #endregion EventHandlers
     }
 }

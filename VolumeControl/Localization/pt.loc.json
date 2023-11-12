@@ -348,8 +348,11 @@
         "DontShowInFutureMsg": {
           "Portuguese (Portugal)": "Os avisos de actualização não serão mostrados no futuro."
         },
-        "NewVersionAvailableFormatMsg": {
-          "Portuguese (Portugal)": "Uma nova versão do Volume Control está disponível!\nQuer ir para a página de lançamentos?\nVersão Atual:  ${CURRENT_VERSION}\nVersão Mais Recente:   ${LATEST_VERSION}\n\nClique em 'Sim' para ir para a página de lançamentos.\nClique em 'Não' se não quiser atualizar agora.\nClique em 'Cancelar' para desactivar estes avisos."
+        "NewVersionAvailableMessage": {
+          "Portuguese (Portugal)": "Uma nova versão do Volume Control está disponível!\nQuer ir para a página de lançamentos?\nVersão Atual:  ${CURRENT_VERSION}\nVersão Mais Recente:   ${LATEST_VERSION}"
+        },
+        "NewVersionAvailableOptions_OpenBrowser": {
+          "Portuguese (Portugal)": "Clique em 'Sim' para ir para a página de lançamentos.\nClique em 'Não' se não quiser atualizar agora.\nClique em 'Cancelar' para desactivar estes avisos."
         }
       }
     },
