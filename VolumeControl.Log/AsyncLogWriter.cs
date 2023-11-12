@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -132,11 +133,6 @@ namespace VolumeControl.Log
         #region (Private) WriteLogMessage
         private void WriteLogMessage(LogMessage message)
         {
-            if (!FilterEventType(message.EventType))
-            { // event type is not enabled; don't show it
-                return;
-            }
-
             lock (Endpoint)
             {
                 if (!Endpoint.IsWritingEnabled) return;
@@ -202,6 +198,8 @@ namespace VolumeControl.Log
         }
         private static string? ObjectToString(object lineObject, bool isRecursed = false)
         {
+            lineObject.GetType();
+
             if (lineObject is Exception ex)
             { // expand exception
                 return ExceptionMessageHelper.MakeExceptionMessage(ex, BlankLineHeader, Environment.NewLine, 2, ExceptionMessageHelper.MessageParts.All);
@@ -242,11 +240,7 @@ namespace VolumeControl.Log
         #endregion (Private/Internal)
 
         #region FilterEventType
-        /// <summary>
-        /// Checks if messages with the specified <paramref name="eventType"/> are shown in the log.
-        /// </summary>
-        /// <param name="eventType">An <see cref="EventType"/> to check.</param>
-        /// <returns><see langword="true"/> when the <paramref name="eventType"/> is shown; otherwise <see langword="false"/>.</returns>
+        /// <inheritdoc/>
         public bool FilterEventType(EventType eventType)
         {
             return eventType == EventType.NONE
@@ -281,16 +275,12 @@ namespace VolumeControl.Log
         #endregion ResetEndpoint
 
         #region LogMessage
-        /// <summary>
-        /// Writes the specified <paramref name="logMessage"/> to the log.
-        /// </summary>
-        /// <remarks>
-        /// When IsAsyncEnabled is <see langword="true"/>, the message is written asynchronously;
-        /// otherwise, the message is written synchronously and the caller will be blocked until the message has been written.
-        /// </remarks>
-        /// <param name="logMessage">The message to write to the log.</param>
-        public void LogMessage(LogMessage logMessage)
+        /// <inheritdoc/>
+        public bool LogMessage(LogMessage logMessage)
         {
+            if (!FilterEventType(logMessage.EventType))
+                return false;
+
             if (IsAsyncEnabled)
             {
                 Enqueue(() => WriteLogMessage(logMessage));
@@ -299,53 +289,43 @@ namespace VolumeControl.Log
             {
                 WriteLogMessage(logMessage);
             }
+            return true;
         }
         #endregion LogMessage
 
         #region EventType Writer Methods
-        /// <summary>
-        /// Queues writing a <see cref="EventType.TRACE"/> message with the specified <paramref name="lines"/>.
-        /// </summary>
-        /// <param name="lines">Any number of objects. Each object will be written on a new line. <see langword="null"/> objects and blank strings are skipped.</param>
-        public void Trace(params object?[] lines) => LogMessage(new(EventType.TRACE, lines));
-        /// <summary>
-        /// Queues writing a <see cref="EventType.DEBUG"/> message with the specified <paramref name="lines"/>.
-        /// </summary>
-        /// <param name="lines">Any number of objects. Each object will be written on a new line. <see langword="null"/> objects and blank strings are skipped.</param>
-        public void Debug(params object?[] lines) => LogMessage(new(EventType.DEBUG, lines));
-        /// <summary>
-        /// Queues writing a <see cref="EventType.INFO"/> message with the specified <paramref name="lines"/>.
-        /// </summary>
-        /// <param name="lines">Any number of objects. Each object will be written on a new line. <see langword="null"/> objects and blank strings are skipped.</param>
-        public void Info(params object?[] lines) => LogMessage(new(EventType.INFO, lines));
-        /// <summary>
-        /// Queues writing a <see cref="EventType.WARN"/> message with the specified <paramref name="lines"/>.
-        /// </summary>
-        /// <param name="lines">Any number of objects. Each object will be written on a new line. <see langword="null"/> objects and blank strings are skipped.</param>
-        public void Warning(params object?[] lines) => LogMessage(new(EventType.WARN, lines));
-        /// <summary>
-        /// Queues writing a <see cref="EventType.ERROR"/> message with the specified <paramref name="lines"/>.
-        /// </summary>
-        /// <param name="lines">Any number of objects. Each object will be written on a new line. <see langword="null"/> objects and blank strings are skipped.</param>
-        public void Error(params object?[] lines) => LogMessage(new(EventType.ERROR, lines));
-        /// <summary>
-        /// Queues writing a <see cref="EventType.FATAL"/> message with the specified <paramref name="lines"/>.
-        /// </summary>
-        /// <param name="lines">Any number of objects. Each object will be written on a new line. <see langword="null"/> objects and blank strings are skipped.</param>
-        public void Fatal(params object?[] lines) => LogMessage(new(EventType.FATAL, lines));
-        /// <summary>
-        /// Queues writing a <see cref="EventType.CRITICAL"/> message with the specified <paramref name="lines"/>.
-        /// </summary>
-        /// <param name="lines">Any number of objects. Each object will be written on a new line. <see langword="null"/> objects and blank strings are skipped.</param>
-        public void Critical(params object?[] lines) => LogMessage(new(EventType.CRITICAL, lines));
-        /// <summary>
-        /// Queues writing a <see cref="EventType.NONE"/> message with the specified <paramref name="lines"/>.
-        /// </summary>
-        /// <remarks>
-        /// This produces a message with no event type header, but a timestamp is still shown.
-        /// </remarks>
-        /// <param name="lines">Any number of objects. Each object will be written on a new line. <see langword="null"/> objects and blank strings are skipped.</param>
-        public void Blank(params object?[] lines) => LogMessage(new(EventType.NONE, lines));
+        /// <inheritdoc/>
+        public bool Trace(params object?[] lines) => LogMessage(new(EventType.TRACE, lines));
+        /// <inheritdoc/>
+        public bool Trace(LogMessage logMessage) => LogMessage(logMessage.SetEventType(EventType.TRACE));
+        /// <inheritdoc/>
+        public bool Debug(params object?[] lines) => LogMessage(new(EventType.DEBUG, lines));
+        /// <inheritdoc/>
+        public bool Debug(LogMessage logMessage) => LogMessage(logMessage.SetEventType(EventType.DEBUG));
+        /// <inheritdoc/>
+        public bool Info(params object?[] lines) => LogMessage(new(EventType.INFO, lines));
+        /// <inheritdoc/>
+        public bool Info(LogMessage logMessage) => LogMessage(logMessage.SetEventType(EventType.INFO));
+        /// <inheritdoc/>
+        public bool Warning(params object?[] lines) => LogMessage(new(EventType.WARN, lines));
+        /// <inheritdoc/>
+        public bool Warning(LogMessage logMessage) => LogMessage(logMessage.SetEventType(EventType.WARN));
+        /// <inheritdoc/>
+        public bool Error(params object?[] lines) => LogMessage(new(EventType.ERROR, lines));
+        /// <inheritdoc/>
+        public bool Error(LogMessage logMessage) => LogMessage(logMessage.SetEventType(EventType.ERROR));
+        /// <inheritdoc/>
+        public bool Fatal(params object?[] lines) => LogMessage(new(EventType.FATAL, lines));
+        /// <inheritdoc/>
+        public bool Fatal(LogMessage logMessage) => LogMessage(logMessage.SetEventType(EventType.FATAL));
+        /// <inheritdoc/>
+        public bool Critical(params object?[] lines) => LogMessage(new(EventType.CRITICAL, lines));
+        /// <inheritdoc/>
+        public bool Critical(LogMessage logMessage) => LogMessage(logMessage.SetEventType(EventType.CRITICAL));
+        /// <inheritdoc/>
+        public bool Blank(params object?[] lines) => LogMessage(new(EventType.NONE, lines));
+        /// <inheritdoc/>
+        public bool Blank(LogMessage logMessage) => LogMessage(logMessage.SetEventType(EventType.NONE));
         #endregion EventType Writer Methods
 
         #region DisableAsyncNoFlush
