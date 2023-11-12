@@ -129,7 +129,7 @@ namespace VolumeControl.Helpers
         public static void Initialize(bool overwriteExistingTranslationConfigs, bool logMissingTranslations, ILogWriter? log)
         {
             if (IsInitialized)
-                throw new InvalidOperationException($"{nameof(LocalizationHelper)} has already been initialized!");
+                throw new InvalidOperationException($"[{nameof(LocalizationHelper)}] has already been initialized!");
             IsInitialized = true;
 
             LogWriter = log;
@@ -210,7 +210,7 @@ namespace VolumeControl.Helpers
                     // WriteStreamToFileAsync disposes of the stream for us:
                     writeTasks.Add(WriteStreamToFileAsync(assembly.GetManifestResourceStream(resourcePath)!, outputFilePath));
 
-                    LogWriter?.Debug($"{nameof(LocalizationHelper)} Writing \"{resourceName}\" to \"{outputFilePath}\"");
+                    LogWriter?.Debug($"[{nameof(LocalizationHelper)}] Writing \"{resourceName}\" to \"{outputFilePath}\"");
                 }
             }
 
