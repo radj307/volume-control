@@ -91,6 +91,7 @@ namespace VolumeControl.ViewModels
                 {
                     // update the target info instance
                     Settings.SelectedSessions[i] = session.GetTargetInfo();
+                    // select the session
                     AudioSessionMultiSelector.SetSessionIsSelected(session, true);
                     SelectedSessions.Add(GetAudioSessionVM(session)!);
                 }
@@ -104,9 +105,6 @@ namespace VolumeControl.ViewModels
             AudioSessionMultiSelector.SessionSelected += this.AudioSessionMultiSelector_SessionSelected;
             AudioSessionMultiSelector.SessionDeselected += this.AudioSessionMultiSelector_SessionDeselected;
             AudioSessionMultiSelector.CurrentSessionChanged += this.AudioSessionMultiSelector_CurrentSessionChanged;
-
-            // enable session sync
-            //SessionSync.IsEnabled = Settings.EnableSessionSync;
 
             if (doDebugLogging) FLog.Debug($"Successfully initialized {AudioSessionManager.Sessions.Count + AudioSessionManager.HiddenSessions.Count} {(AudioSessionManager.HiddenSessions.Count == 0 ? "" : $"({AudioSessionManager.HiddenSessions.Count} hidden)")} audio sessions.");
 
