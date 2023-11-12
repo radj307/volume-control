@@ -89,6 +89,12 @@ namespace VolumeControl.Helpers
             get => Settings.StartMinimized;
             set => Settings.StartMinimized = value;
         }
+        /// <inheritdoc cref="Config.RestoreMainWindowPosition"/>
+        public bool RestoreMainWindowPosition
+        {
+            get => Settings.RestoreMainWindowPosition;
+            set => Settings.RestoreMainWindowPosition = value;
+        }
         /// <inheritdoc cref="Config.CheckForUpdates"/>
         public bool CheckForUpdates
         {

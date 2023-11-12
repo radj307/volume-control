@@ -23,6 +23,7 @@
     xmlns:wpfBehaviors="clr-namespace:VolumeControl.WPF.Behaviors;assembly=VolumeControl.WPF"
     x:Name="window"
     Title="Volume Control"
+    Closing="window_Closing"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
     FontFamily="{StaticResource InterFont}"
     FontSize="{StaticResource GlobalFontSize}"
@@ -2074,6 +2075,12 @@
                                             Style="{StaticResource ApplicationSettingsCheckboxStyle}"
                                             ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.AlwaysOnTop.Tooltip',
                                                          DefaultText=' '}" />
+                                        <CheckBox
+                                            Grid.Row="2"
+                                            Grid.Column="2"
+                                            Content="Save Position"
+                                            IsChecked="{Binding RestoreMainWindowPosition, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                                            Style="{StaticResource ApplicationSettingsCheckboxStyle}" />
                                     </Grid>
                                 </Grid>
                                 <!--  ▼ Application Settings ▼  -->

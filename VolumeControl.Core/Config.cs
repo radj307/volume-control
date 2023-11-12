@@ -3,7 +3,9 @@ using Semver;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Media;
+using VolumeControl.Core.Enum;
 using VolumeControl.Core.Input.Enums;
 using VolumeControl.Core.Input.Json;
 using VolumeControl.Core.Structs;
@@ -222,6 +224,18 @@ namespace VolumeControl.Core
         /// </summary>
         /// <returns><see langword="true"/> when the main window </returns>
         public bool KeepRelativePosition { get; set; } = false;
+        /// <summary>
+        /// Gets or sets whether the main window should have its last known position restored when the application starts.
+        /// </summary>
+        public bool RestoreMainWindowPosition { get; set; } = false;
+        /// <summary>
+        /// Gets or sets the origin corner to use when restoring the main window's position.
+        /// </summary>
+        public EScreenCorner MainWindowOriginCorner { get; set; } = EScreenCorner.TopLeft;
+        /// <summary>
+        /// Gets or sets the position to restore the main window to when the application starts.
+        /// </summary>
+        public Point? MainWindowPosition { get; set; } = null;
         #endregion Main
 
         #region Notifications

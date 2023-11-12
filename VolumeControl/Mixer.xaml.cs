@@ -61,7 +61,19 @@ namespace VolumeControl
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _loaded = true;
+            if (!_loaded)
+            {
+                _loaded = true;
+
+                // restore previous position
+                if (Settings.RestoreMainWindowPosition && Settings.MainWindowPosition.HasValue)
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        this.SetPosAtCorner(Settings.MainWindowOriginCorner, Settings.MainWindowPosition.Value);
+                    });
+                }
+            }
         }
         #endregion Setup
 
@@ -338,6 +350,16 @@ namespace VolumeControl
             {
                 Application.Current.Shutdown(Program.EXITCODE_RESTARTING); //< this waits for the method to return; doing this first seems to prevent crashes
                 Process.Start(VCSettings.ExecutablePath, "--wait-for-mutex")?.Dispose();
+            }
+        }
+        private void window_Closing(object sender, CancelEventArgs e)
+        {
+            // save current position
+            if (Settings.RestoreMainWindowPosition)
+            {
+                var corner = this.GetCurrentScreenCorner();
+                Settings.MainWindowOriginCorner = corner;
+                Settings.MainWindowPosition = this.GetPosAtCorner(corner);
             }
         }
 
