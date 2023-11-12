@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using VolumeControl.CoreAudio.Events;
 using VolumeControl.CoreAudio.Interfaces;
+using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.CoreAudio
@@ -223,12 +224,19 @@ namespace VolumeControl.CoreAudio
         #region Add/Remove SelectedSession
         private void AddSelectedSession(AudioSession audioSession)
         {
-            if (SelectedSessions.Contains(audioSession)) return;
+            if (SelectedSessions.Contains(audioSession))
+            {
+                FLog.Warning($"[{nameof(AudioSessionMultiSelector)}] Session \"{audioSession.Name}\" is already selected, but {nameof(AddSelectedSession)} was called again!");
+                return;
+            }
 
             var hadSelectedSessions = HasSelectedSessions;
             _selectedSessions.Add(audioSession);
             if (!hadSelectedSessions) // there are selected sessions now
                 NotifyPropertyChanged(nameof(HasSelectedSessions));
+
+            if (FLog.FilterEventType(EventType.TRACE))
+                FLog.Trace($"[{nameof(AudioSessionMultiSelector)}] Session \"{audioSession.Name}\" was selected.");
         }
         private bool RemoveSelectedSession(AudioSession audioSession)
         {
@@ -236,6 +244,9 @@ namespace VolumeControl.CoreAudio
             {
                 if (_selectedSessions.Count == 0) // there are not selected sessions anymore
                     NotifyPropertyChanged(nameof(HasSelectedSessions));
+
+                if (FLog.FilterEventType(EventType.TRACE))
+                    FLog.Trace($"[{nameof(AudioSessionMultiSelector)}] Session \"{audioSession.Name}\" was deselected.");
                 return true;
             }
             return false;
