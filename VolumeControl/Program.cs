@@ -25,6 +25,31 @@ namespace VolumeControl
         private const string appMutexIdentifier = "VolumeControlSingleInstance"; //< Don't change this without also changing the installer script (vcsetup.iss)
         private static Mutex appMutex = null!;
         private static Config Settings = null!;
+        /// <summary>
+        /// Occurs when the application failed to start.
+        /// </summary>
+        public const int EXITCODE_FAILED = -1;
+        /// <summary>
+        /// Occurs when the application succeeded.
+        /// </summary>
+        public const int EXITCODE_SUCCESS = 0;
+        /// <summary>
+        /// Occurs when the application closed due to a fatal error.
+        /// </summary>
+        public const int EXITCODE_ERROR = 1;
+        /// <summary>
+        /// Occurs when the application failed to acquire the mutex because another instance has it locked.
+        /// </summary>
+        public const int EXITCODE_MUTEX = 2;
+        /// <summary>
+        /// Occurs when the application is restarting itself.
+        /// </summary>
+        public const int EXITCODE_RESTARTING = 3;
+        /// <summary>
+        /// Occurs when the application launched the installer for a new version, and is shutting down to let it take over.
+        /// Only used in RELEASE_FORINSTALLER configuration.
+        /// </summary>
+        public const int EXITCODE_UPDATING = 4;
         #endregion Fields
 
         #region Methods
@@ -47,7 +72,7 @@ namespace VolumeControl
 #if DEBUG
                 throw; //< rethrow in DEBUG configuration
 #else
-                return 1; //< otherwise return error
+                return EXITCODE_ERROR; //< otherwise return error
 #endif
             }
         }
@@ -96,7 +121,7 @@ namespace VolumeControl
                     Console.Error.WriteLine($"Failed to acquire mutex \"{appMutexName}\" because another instance of Volume Control is using it!");
                     LocalizationHelper.Initialize(false, false, null);
                     MessageBox.Show(Loc.Tr($"VolumeControl.Dialogs.AnotherInstanceIsRunning.{(Settings.AllowMultipleDistinctInstances ? "MultiInstance" : "SingleInstance")}", "Another instance of Volume Control is already running!").Replace("${PATH}", Settings.Location));
-                    return 2;
+                    return EXITCODE_MUTEX;
                 }
             }
             else Console.Out.WriteLine($"Acquired mutex \"{appMutexName}\".");
@@ -164,7 +189,7 @@ namespace VolumeControl
 
             // create the application class
             var app = new App();
-            int rc = -1;
+            int rc = EXITCODE_FAILED;
             try
             {
                 rc = app.Run();
@@ -174,7 +199,7 @@ namespace VolumeControl
             {
                 // cleanup the notify icon if the program crashes (if it shuts down normally, it is correctly disposed of)
                 app.TrayIcon.Dispose(); //< do this before literally ANYTHING else
-                FLog.Fatal("App exited because of an unhandled exception:", ex);
+                FLog.Fatal($"App exited with code {rc} because of an unhandled exception:", ex);
                 FLog.Log.Flush();
                 try
                 {

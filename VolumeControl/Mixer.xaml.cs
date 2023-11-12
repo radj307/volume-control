@@ -205,7 +205,7 @@ namespace VolumeControl
         }
         private void Handle_MinimizeClick(object sender, RoutedEventArgs e) => this.Hide();
         private void Handle_MaximizeClick(object sender, RoutedEventArgs e) => this.WindowState = WindowState.Maximized;
-        private void Handle_CloseClick(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
+        private void Handle_CloseClick(object sender, RoutedEventArgs e) => Application.Current.Shutdown(Program.EXITCODE_SUCCESS);
         private void Handle_CheckForUpdatesClick(object sender, RoutedEventArgs e) => this.VCSettings.Updater.CheckForUpdateNow();
         private void ComboBox_RemoveSelection(object sender, SelectionChangedEventArgs e)
         {
@@ -336,7 +336,7 @@ namespace VolumeControl
                             MessageBoxResult.OK)
                 == MessageBoxResult.OK)
             {
-                Application.Current.Shutdown(); //< this waits for the method to return; doing this first seems to prevent crashes
+                Application.Current.Shutdown(Program.EXITCODE_RESTARTING); //< this waits for the method to return; doing this first seems to prevent crashes
                 Process.Start(VCSettings.ExecutablePath, "--wait-for-mutex")?.Dispose();
             }
         }

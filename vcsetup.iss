@@ -52,6 +52,7 @@ ArchitecturesInstallIn64BitMode=x64
 DefaultDirName={autopf}\VolumeControl
 DisableProgramGroupPage=yes
 ; OutputDir=publish
+;DON'T CHANGE THIS ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ without also changing the name in UpdateChecker.cs
 OutputBaseFilename=VolumeControl-Installer_{#AppVersion}
 SetupIconFile=VolumeControl\Resources\icons\iconSilveredInstall.ico
 Compression=lzma

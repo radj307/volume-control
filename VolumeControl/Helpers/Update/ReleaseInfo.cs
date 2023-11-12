@@ -18,11 +18,11 @@ namespace VolumeControl.Helpers.Update
         /// Creates a new <see cref="ReleaseInfo"/> struct.
         /// </summary>
         /// <param name="responsePacket">The <see cref="GithubReleaseHttpResponse"/> packet received from the API.</param>
-        public ReleaseInfo(GithubReleaseHttpResponse responsePacket) => _packet = responsePacket;
+        public ReleaseInfo(GithubReleaseHttpResponse responsePacket) => packet = responsePacket;
         #endregion Constructor
 
         #region Fields
-        private readonly GithubReleaseHttpResponse _packet;
+        internal readonly GithubReleaseHttpResponse packet;
         #endregion Fields
 
         #region Properties
@@ -57,12 +57,12 @@ namespace VolumeControl.Helpers.Update
         /// <summary>
         /// The version number of the release represented by this struct.
         /// </summary>
-        public SemVersion Version => _version ??= (_packet.tag_name.GetSemVer() ?? new(-1));
+        public SemVersion Version => _version ??= (packet.tag_name.GetSemVer() ?? new(-1));
         private SemVersion? _version = null;
         /// <summary>
         /// The HTML URL of the release.
         /// </summary>
-        public string URL => _packet.html_url;
+        public string URL => packet.html_url;
         #endregion Properties
 
         #region Methods

@@ -603,8 +603,30 @@
         "DontShowInFutureMsg": {
           "English (US/CA)": "Update prompts will not be shown in the future."
         },
-        "NewVersionAvailableFormatMsg": {
-          "English (US/CA)": "A new version of Volume Control is available!\nDo you want to go to the releases page?\nCurrent Version:  ${CURRENT_VERSION}\nLatest Version:   ${LATEST_VERSION}\n\nClick 'Yes' to go to the releases page.\nClick 'No' if you don't want to update right now.\nClick 'Cancel' to disable these prompts."
+        "NewVersionAvailableMessage": {
+          "English (US/CA)": "A new version of Volume Control is available!\nDo you want to go to the releases page?\nCurrent Version:  ${CURRENT_VERSION}\nLatest Version:   ${LATEST_VERSION}"
+        },
+        "NewVersionAvailableOptions_AutoUpdate": {
+          "English (US/CA)": "Click 'Yes' to install the latest release.\nClick 'No' if you don't want to update right now.\nClick 'Cancel' to disable these prompts."
+        },
+        "NewVersionAvailableOptions_OpenBrowser": {
+          "English (US/CA)": "Click 'Yes' to go to the releases page.\nClick 'No' if you don't want to update right now.\nClick 'Cancel' to disable these prompts."
+        },
+        "DownloadFailed": {
+          "Caption": {
+            "English (US/CA)": "Download Failed"
+          },
+          "Message": {
+            "English (US/CA)": "An error occurred while downloading the installer, check the log for more information."
+          }
+        },
+        "StartFailed": {
+          "Caption": {
+            "English (US/CA)": "Failed to Start Installer"
+          },
+          "Message": {
+            "English (US/CA)": "Failed to start the installer, but it was downloaded successfully.\nYour system permissions may not allow running applications from your downloads folder.\n\nYou will have to start the installer manually."
+          }
         }
       },
       "RemoveHotkey": {
