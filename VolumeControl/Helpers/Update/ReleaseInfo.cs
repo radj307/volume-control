@@ -3,6 +3,7 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Reflection;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
 
@@ -66,6 +67,22 @@ namespace VolumeControl.Helpers.Update
         #endregion Properties
 
         #region Methods
+        public bool TryGetAsset(string nameStartsWith, StringComparison stringComparison, out GithubAssetHttpResponse asset)
+        {
+            foreach (var packetAsset in packet.assets)
+            {
+                if (packetAsset.name.StartsWith(nameStartsWith))
+                {
+                    asset = packetAsset;
+                    return true;
+                }
+            }
+            asset = default!;
+            return false;
+        }
+        public bool TryGetAsset(string nameStartsWith, out GithubAssetHttpResponse asset)
+            => TryGetAsset(nameStartsWith, StringComparison.OrdinalIgnoreCase, out asset);
+
         /// <inheritdoc/>
         public int CompareTo(ReleaseInfo other) => this.Version.CompareSortOrderTo(other.Version);
         /// <inheritdoc/>

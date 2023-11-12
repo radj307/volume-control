@@ -142,13 +142,11 @@ namespace VolumeControl.Helpers.Update
                 {
                     FLog.Info($"[{nameof(Update)}] User indicated they want to update to version {releaseInfo.Version}.");
 #if RELEASE_FORINSTALLER
-                    const string installerAssetNameStartsWith = "VolumeControl-Installer";
-                    var installerAsset = releaseInfo.packet.assets.FirstOrDefault(a => a.name.StartsWith(installerAssetNameStartsWith));
-                    if (string.IsNullOrEmpty(installerAsset.url))
+                    const string installerAssetNamePrefix = "VolumeControl-Installer";
+                    if (!releaseInfo.TryGetAsset(installerAssetNamePrefix, out var installerAsset))
                     { // failed to find a release asset with the specified name
                         FLog.Error(
-                            $"[{nameof(Update)}] Failed to download installer for \"{releaseInfo.Version}\"; couldn't find a release asset beginning with \"{installerAssetNameStartsWith}\"!",
-                            $"                   Found assets: \"{string.Join("\", \"", releaseInfo.packet.assets.Select(a => a.name))}\"");
+                            $"[{nameof(Update)}] Failed to download installer for \"{releaseInfo.Version}\"; couldn't find a release asset beginning with \"{installerAssetNamePrefix}\"!");
                         MessageBox.Show("", "Update Failed!", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
