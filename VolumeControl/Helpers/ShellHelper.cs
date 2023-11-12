@@ -17,19 +17,24 @@ namespace VolumeControl.Helpers
         /// <param name="appPath">The path of the application to start.</param>
         /// <param name="workingDirectory">The working directory to open the specified application in.</param>
         /// <param name="arguments">Commandline arguments for the application.</param>
-        public static void OpenIn(string appPath, string workingDirectory, string arguments)
+        /// <returns><see langword="true"/> when the process was started successfully; otherwise, <see langword="false"/>.</returns>
+        public static bool OpenIn(string appPath, string workingDirectory, string arguments)
         {
-            Process.Start(new ProcessStartInfo(appPath)
+            using var proc = new Process()
             {
-                WorkingDirectory = workingDirectory,
-                Arguments = arguments,
-            })?.Dispose();
+                StartInfo = new ProcessStartInfo(appPath)
+                {
+                    WorkingDirectory = workingDirectory,
+                    Arguments = arguments,
+                }
+            };
+            return proc.Start();
         }
         /// <summary>
         /// Starts an application in the specified <paramref name="workingDirectory"/> as a new process.
         /// </summary>
         /// <inheritdoc cref="OpenIn(string, string, string)"/>
-        public static void OpenIn(string appPath, string workingDirectory)
+        public static bool OpenIn(string appPath, string workingDirectory)
             => OpenIn(appPath, workingDirectory, string.Empty);
         #endregion OpenIn
 
@@ -39,13 +44,13 @@ namespace VolumeControl.Helpers
         /// </summary>
         /// <param name="appPath">The path of the application to start.</param>
         /// <param name="arguments">Commandline arguments for the application.</param>
-        public static void Open(string appPath, string arguments)
+        public static bool Open(string appPath, string arguments)
             => OpenIn(appPath, Environment.CurrentDirectory, arguments);
         /// <summary>
         /// Starts an application in the current directory.
         /// </summary>
         /// <param name="appPath">The path of the application to start.</param>
-        public static void Open(string appPath)
+        public static bool Open(string appPath)
             => OpenIn(appPath, Environment.CurrentDirectory, string.Empty);
         #endregion Open
 
@@ -56,17 +61,22 @@ namespace VolumeControl.Helpers
         /// <param name="filePath">The path of the file to open.</param>
         /// <param name="appBasePath">The directory where the application to use to open the file is located.</param>
         /// <param name="args">Commandline arguments for the application.</param>
-        public static void OpenWith(string filePath, string appBasePath, string args)
+        /// <returns><see langword="true"/> when the process was started successfully; otherwise, <see langword="false"/>.</returns>
+        public static bool OpenWith(string filePath, string appBasePath, string args)
         {
-            Process.Start(new ProcessStartInfo(filePath)
+            using var proc = new Process()
             {
-                UseShellExecute = true,
-                WorkingDirectory = appBasePath,
-                Arguments = args,
-            })?.Dispose();
+                StartInfo = new ProcessStartInfo(filePath)
+                {
+                    UseShellExecute = true,
+                    WorkingDirectory = appBasePath,
+                    Arguments = args,
+                }
+            };
+            return proc.Start();
         }
         /// <inheritdoc cref="OpenWith(string, string, string)"/>
-        public static void OpenWith(string filePath, string appBasePath)
+        public static bool OpenWith(string filePath, string appBasePath)
             => OpenWith(filePath, appBasePath, string.Empty);
         #endregion OpenWith
 
@@ -75,9 +85,12 @@ namespace VolumeControl.Helpers
         /// Opens the specified <paramref name="filePath"/> with the default application for that filetype.
         /// </summary>
         /// <param name="filePath">The path of the file to open.</param>
-        public static void OpenWithDefault(string filePath)
+        /// <returns><see langword="true"/> when the process was started successfully; otherwise, <see langword="false"/>.</returns>
+        public static bool OpenWithDefault(string filePath)
         {
-            Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true })?.Dispose();
+            if (string.IsNullOrEmpty(filePath)) return false;
+            using var proc = new Process() { StartInfo = new ProcessStartInfo(filePath) { UseShellExecute = true } };
+            return proc.Start();
         }
         #endregion OpenWithDefault
 
