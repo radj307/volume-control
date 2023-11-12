@@ -1,5 +1,8 @@
 var NAVTREEINDEX3 =
 {
+"class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html#a436d7288029dcf922f6c51f7dde21222":[8,0,0,1,1,0,5],
+"class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html#a517af3216aacdf1174f4189c97df42ed":[8,0,0,1,1,0,7],
+"class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html#a5205e9683527b848d26a7fd0067890ce":[8,0,0,1,1,0,6],
 "class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html#aa2a8e43e94801c943b2bb0ffbcc5c1a5":[8,0,0,1,1,0,4],
 "class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html#ae13ee66b78e093735c12b00bc2a3dff1":[8,0,0,1,1,0,3],
 "class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html#aebe0924e1e4a4c6eda0cfdb0850d9cff":[8,0,0,1,1,0,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX3 =
 "class_volume_control_1_1_type_extensions_1_1_collection_extensions.html#a98d501e4dae4700c016b56ed84614606":[8,0,0,5,2,2],
 "class_volume_control_1_1_type_extensions_1_1_collection_extensions.html#ab1f722d58491bbdd8c63aa0c4dae45f2":[8,0,0,5,2,1],
 "class_volume_control_1_1_type_extensions_1_1_enum_extensions.html":[8,0,0,5,4],
-"class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#a0620a79b426ea9a48a8b8905a7757496":[8,0,0,5,4,10],
-"class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#a10c279dd229963b8da7bce0d01274adf":[8,0,0,5,4,8],
-"class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#a11a568c23edfd90cce3d46376630c6f2":[8,0,0,5,4,3],
-"class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#a1f4743503179c0ff7c001479b3ec90d7":[8,0,0,5,4,2]
+"class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#a0620a79b426ea9a48a8b8905a7757496":[8,0,0,5,4,10]
 };

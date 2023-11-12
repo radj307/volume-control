@@ -1,5 +1,8 @@
 var NAVTREEINDEX8 =
 {
+"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227cab7b67f517f7a29e5734ab453e5adc69b":[7,0,0,1,5,1,0,128],
+"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227cab9ece18c950afbfa6b0fdbfa4ff731d3":[7,0,0,1,5,1,0,54],
+"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227cabec4386b816c0db1696a9906734d2df6":[7,0,0,1,5,1,0,72],
 "namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227cabf54024481cd2ad6bbb9ae44b7312472":[7,0,0,1,5,1,0,21],
 "namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227cac1d9f50f86825a1a2302ec2449c17196":[7,0,0,1,5,1,0,42],
 "namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227cac217f6ce95cedd93797ca32d55e18165":[7,0,0,1,5,1,0,148],

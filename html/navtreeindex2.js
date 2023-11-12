@@ -1,5 +1,8 @@
 var NAVTREEINDEX2 =
 {
+"class_volume_control_1_1_core_1_1_input_simulator.html":[8,0,0,0,11],
+"class_volume_control_1_1_core_1_1_input_simulator.html#a072fe976390232fb93f4a3a5a3de7797":[8,0,0,0,11,7],
+"class_volume_control_1_1_core_1_1_input_simulator.html#a122567eab17040f14dfdb66eb96fb246":[8,0,0,0,11,0],
 "class_volume_control_1_1_core_1_1_input_simulator.html#a4abca3e21f959095d42a48ec190e6fd4":[8,0,0,0,11,3],
 "class_volume_control_1_1_core_1_1_input_simulator.html#a4d1fc46d84f07b279576734bf1de8684":[8,0,0,0,11,6],
 "class_volume_control_1_1_core_1_1_input_simulator.html#a6135f285ce440b5c1c84723cd638a5c4":[8,0,0,0,11,4],
@@ -246,8 +249,5 @@ var NAVTREEINDEX2 =
 "class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args.html#aa3ac814ffa6e30495b833ab114b8e934":[8,0,0,1,0,3,1],
 "class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html":[8,0,0,1,1,0],
 "class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html#a320e7be9c756cd7e5557ce8d07ac1162":[8,0,0,1,1,0,2],
-"class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html#a3eafff85a8ef6dd7ea951a074c992977":[8,0,0,1,1,0,0],
-"class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html#a436d7288029dcf922f6c51f7dde21222":[8,0,0,1,1,0,5],
-"class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html#a517af3216aacdf1174f4189c97df42ed":[8,0,0,1,1,0,7],
-"class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html#a5205e9683527b848d26a7fd0067890ce":[8,0,0,1,1,0,6]
+"class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html#a3eafff85a8ef6dd7ea951a074c992977":[8,0,0,1,1,0,0]
 };

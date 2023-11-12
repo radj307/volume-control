@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['keyboarddeviceextensions_1294',['KeyboardDeviceExtensions',['../class_volume_control_1_1_core_1_1_extensions_1_1_keyboard_device_extensions.html',1,'VolumeControl::Core::Extensions']]],
-  ['keyextensions_1295',['KeyExtensions',['../class_volume_control_1_1_core_1_1_extensions_1_1_key_extensions.html',1,'VolumeControl::Core::Extensions']]]
+  ['keyboarddeviceextensions_1297',['KeyboardDeviceExtensions',['../class_volume_control_1_1_core_1_1_extensions_1_1_keyboard_device_extensions.html',1,'VolumeControl::Core::Extensions']]],
+  ['keyextensions_1298',['KeyExtensions',['../class_volume_control_1_1_core_1_1_extensions_1_1_key_extensions.html',1,'VolumeControl::Core::Extensions']]]
 ];
