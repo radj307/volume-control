@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -38,10 +37,6 @@ namespace VolumeControl.Helpers.Update
         public void CheckForUpdateNow()
         {
             ReleaseInfo latest = ReleaseInfo.Latest;
-
-            // FIX WHEN DONE
-            this.ShowUpdatePrompt(latest);
-            // FIX WHEN DONE
 
             if (latest.CompareTo(this.CurrentVersion) > 0)
             {
