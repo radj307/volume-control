@@ -1,5 +1,6 @@
 var class_volume_control_1_1_type_extensions_1_1_enumerable_extensions =
 [
+    [ "DisposeAll< T >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#aadf14d91ada1b07dbfa9ccf3ebe57808", null ],
     [ "ForEach< T >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a9bb73a4a2641317c209c402fcd35ffb0", null ],
     [ "ForEach< T, TReturn >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a338c28376cc799dd187ae1e143da8ed8", null ],
     [ "ForwardForEach< T >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#ae1b177ed562cdf5d03d34c26f99f83af", null ],

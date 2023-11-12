@@ -1,8 +1,8 @@
 <map id="VolumeControl.Log.AsyncLogWriter" name="VolumeControl.Log.AsyncLogWriter">
-<area shape="rect" id="node1" title="Asynchonously writes messages to the log endpoint." alt="" coords="260,404,471,819"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_helpers_1_1_threaded_action_queue.html" title="Manages a background thread to execute queued actions." alt="" coords="77,161,267,312"/>
+<area shape="rect" id="node1" title="Asynchonously writes messages to the log endpoint." alt="" coords="260,419,471,775"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_helpers_1_1_threaded_action_queue.html" title="Manages a background thread to execute queued actions." alt="" coords="77,169,267,319"/>
 <area shape="rect" id="node3" title=" " alt="" coords="5,5,104,83"/>
-<area shape="rect" id="node4" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html" title="Represents a log writer instance." alt="" coords="292,132,439,341"/>
-<area shape="rect" id="node5" title=" " alt="" coords="463,198,641,275"/>
-<area shape="rect" id="node6" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html" title="Represents an endpoint that text can be written to." alt="" coords="665,169,884,305"/>
+<area shape="rect" id="node4" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html" title="Represents a log writer instance." alt="" coords="292,132,439,356"/>
+<area shape="rect" id="node5" title=" " alt="" coords="463,205,641,283"/>
+<area shape="rect" id="node6" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html" title="Represents an endpoint that text can be written to." alt="" coords="665,176,884,312"/>
 </map>

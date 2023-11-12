@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_volume_control_1_1_log_1_1_async_log_writer.html#afc8294e6ff6c4897619ee4116cb02b9f" target="_top" xlink:title="Writes the specified logMessage &#160;to the log.">
+<g id="a_node2"><a xlink:href="class_volume_control_1_1_log_1_1_async_log_writer.html#a3c401702e65b85ab4733c733e7a08b8c" target="_top" xlink:title="Writes the specified logMessage &#160;to the log, if its event type is enabled by the filter.">
 <polygon fill="none" stroke="black" points="0,-0.5 0,-30.5 158,-30.5 158,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.AsyncLog</text>
 <text text-anchor="middle" x="79" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Writer.LogMessage</text>

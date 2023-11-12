@@ -38,7 +38,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="class_volume_control_1_1_log_1_1_f_log.html#adbdeeb85b00761bffe708833e6556492" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="class_volume_control_1_1_log_1_1_f_log.html#ac7a8c27d69096fadba3f4b55cd405857" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="227,-0.5 227,-19.5 391,-19.5 391,-0.5 227,-0.5"/>
 <text text-anchor="middle" x="309" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.FLog.Trace</text>
 </a>

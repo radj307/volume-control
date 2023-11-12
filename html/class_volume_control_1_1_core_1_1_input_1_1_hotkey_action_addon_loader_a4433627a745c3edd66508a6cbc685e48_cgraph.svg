@@ -67,7 +67,7 @@ var sectionId = 'dynsection-1';
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_volume_control_1_1_log_1_1_async_log_writer.html#aa1c61e979b3f9bb69784da07de4d64e0" target="_top" xlink:title="Queues writing a EventType.DEBUG message with the specified lines .">
+<g id="a_node2"><a xlink:href="class_volume_control_1_1_log_1_1_async_log_writer.html#ae3c31ea63b3b7dfc04a08f42a2a3ab8a" target="_top" xlink:title="Queues writing an EventType.DEBUG message with the specified lines .">
 <polygon fill="none" stroke="black" points="259.5,-384.5 259.5,-414.5 417.5,-414.5 417.5,-384.5 259.5,-384.5"/>
 <text text-anchor="start" x="267.5" y="-402.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.AsyncLog</text>
 <text text-anchor="middle" x="338.5" y="-391.5" font-family="Helvetica,sans-Serif" font-size="10.00">Writer.Debug</text>
@@ -83,7 +83,7 @@ var sectionId = 'dynsection-1';
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="class_volume_control_1_1_log_1_1_f_log.html#aa25eeb75847c93ffc7ecbc4d2982d6ab" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="class_volume_control_1_1_log_1_1_f_log.html#afe0e1fa95fcbb5d00e0c48be61b87eb0" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="709,-93 709,-112 879,-112 879,-93 709,-93"/>
 <text text-anchor="middle" x="794" y="-100" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.FLog.Debug</text>
 </a>
@@ -98,7 +98,7 @@ var sectionId = 'dynsection-1';
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="class_volume_control_1_1_log_1_1_f_log.html#ad09321e60c917e6a06243fa7743f412d" target="_top" xlink:title=" ">
+<g id="a_node4"><a xlink:href="class_volume_control_1_1_log_1_1_f_log.html#a3f7c162caaa5e1ca78eff52678cd3813" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="485,-507 485,-526 646,-526 646,-507 485,-507"/>
 <text text-anchor="middle" x="565.5" y="-514" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.FLog.Error</text>
 </a>
@@ -162,7 +162,7 @@ var sectionId = 'dynsection-1';
 <!-- Node17 -->
 <g id="node17" class="node">
 <title>Node17</title>
-<g id="a_node17"><a xlink:href="class_volume_control_1_1_log_1_1_async_log_writer.html#abc333e4213798ea77274dd28ef009268" target="_top" xlink:title="Queues writing a EventType.TRACE message with the specified lines .">
+<g id="a_node17"><a xlink:href="class_volume_control_1_1_log_1_1_async_log_writer.html#afb0da92d957da7dd6d92c86335f7ebce" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="259.5,-0.5 259.5,-30.5 417.5,-30.5 417.5,-0.5 259.5,-0.5"/>
 <text text-anchor="start" x="267.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.AsyncLog</text>
 <text text-anchor="middle" x="338.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Writer.Trace</text>
@@ -213,7 +213,7 @@ var sectionId = 'dynsection-1';
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
-<g id="a_node9"><a xlink:href="class_volume_control_1_1_log_1_1_f_log.html#adbdeeb85b00761bffe708833e6556492" target="_top" xlink:title=" ">
+<g id="a_node9"><a xlink:href="class_volume_control_1_1_log_1_1_f_log.html#ac7a8c27d69096fadba3f4b55cd405857" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="712,-388 712,-407 876,-407 876,-388 712,-388"/>
 <text text-anchor="middle" x="794" y="-395" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.FLog.Trace</text>
 </a>
@@ -245,7 +245,7 @@ var sectionId = 'dynsection-1';
 <!-- Node14 -->
 <g id="node14" class="node">
 <title>Node14</title>
-<g id="a_node14"><a xlink:href="class_volume_control_1_1_log_1_1_f_log.html#a94e8675763cb9b451120d7e4fed4f9d0" target="_top" xlink:title=" ">
+<g id="a_node14"><a xlink:href="class_volume_control_1_1_log_1_1_f_log.html#af4ed552556c83a4c76016fe6b4d103d4" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="705,-279 705,-298 883,-298 883,-279 705,-279"/>
 <text text-anchor="middle" x="794" y="-286" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.FLog.Warning</text>
 </a>
@@ -301,7 +301,7 @@ var sectionId = 'dynsection-1';
 <!-- Node11 -->
 <g id="node11" class="node">
 <title>Node11</title>
-<g id="a_node11"><a xlink:href="class_volume_control_1_1_log_1_1_log_message.html#a7f2820d285ce326acf4bdb2a0456710b" target="_top" xlink:title="Appends the specified line &#160;to the message.">
+<g id="a_node11"><a xlink:href="class_volume_control_1_1_log_1_1_log_message.html#a58f384161f2f0f7388add93e27b6ad77" target="_top" xlink:title="Appends the specified line &#160;to the message.">
 <polygon fill="none" stroke="black" points="697,-131 697,-150 891,-150 891,-131 697,-131"/>
 <text text-anchor="middle" x="794" y="-138" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.LogMessage.Add</text>
 </a>

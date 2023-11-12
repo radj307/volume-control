@@ -1,6 +1,6 @@
 <map id="VolumeControl.CoreAudio.Interfaces.IAudioControl" name="VolumeControl.CoreAudio.Interfaces.IAudioControl">
-<area shape="rect" id="node1" title="Represents an audio instance with a controllable volume level and mute state." alt="" coords="140,5,333,127"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_device.html" title="An audio endpoint device." alt="" coords="5,175,199,501"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device." alt="" coords="195,549,433,935"/>
-<area shape="rect" id="node4" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_hideable_audio_control.html" title="Represents an audio instance that can be prevented from becoming selected." alt="" coords="274,292,511,384"/>
+<area shape="rect" id="node1" title="Represents an audio instance with a controllable volume level and mute state." alt="" coords="140,5,333,141"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_device.html" title="An audio endpoint device." alt="" coords="5,189,199,531"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device." alt="" coords="195,579,433,964"/>
+<area shape="rect" id="node4" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_hideable_audio_control.html" title="Represents an audio instance that can be prevented from becoming selected." alt="" coords="274,314,511,406"/>
 </map>

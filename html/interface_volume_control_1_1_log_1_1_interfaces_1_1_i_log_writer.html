@@ -98,12 +98,14 @@ $(document).ready(function(){initNavTree('interface_volume_control_1_1_log_1_1_i
 <div class="dynheader">
 Inheritance diagram for VolumeControl.Log.Interfaces.ILogWriter:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Log.Interfaces.ILogWriter:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer__coll__graph.svg" width="230" height="235"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer__coll__graph.svg" width="230" height="250"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -111,45 +113,95 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acd8d92c934af1a6645069ecf9616a389"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#acd8d92c934af1a6645069ecf9616a389">FilterEventType</a> (<a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590">EventType</a> eventType)</td></tr>
 <tr class="memdesc:acd8d92c934af1a6645069ecf9616a389"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if messages with the specified <em>eventType</em>  are shown in the log.  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#acd8d92c934af1a6645069ecf9616a389">More...</a><br /></td></tr>
 <tr class="separator:acd8d92c934af1a6645069ecf9616a389"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6acba4e6770277fd3d5da7650f3b626"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#ad6acba4e6770277fd3d5da7650f3b626">LogMessage</a> (<a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a> logMessage)</td></tr>
-<tr class="memdesc:ad6acba4e6770277fd3d5da7650f3b626"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the specified <em>logMessage</em>  to the log.  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#ad6acba4e6770277fd3d5da7650f3b626">More...</a><br /></td></tr>
-<tr class="separator:ad6acba4e6770277fd3d5da7650f3b626"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71f0e406603ddf13da874bbfab89c85d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a71f0e406603ddf13da874bbfab89c85d">Trace</a> (params object?[] lines)</td></tr>
-<tr class="memdesc:a71f0e406603ddf13da874bbfab89c85d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing a <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a2d3e4144aa384b18849ab9a8abad74d6" title="Message contains debugging information that is only situationally useful.">EventType.TRACE</a> message with the specified <em>lines</em> .  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a71f0e406603ddf13da874bbfab89c85d">More...</a><br /></td></tr>
-<tr class="separator:a71f0e406603ddf13da874bbfab89c85d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cca3dfa53585c95bc326ff847d548a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a6cca3dfa53585c95bc326ff847d548a9">Debug</a> (params object?[] lines)</td></tr>
-<tr class="memdesc:a6cca3dfa53585c95bc326ff847d548a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing a <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590adc30ec20708ef7b0f641ef78b7880a15" title="Message contains debugging information.">EventType.DEBUG</a> message with the specified <em>lines</em> .  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a6cca3dfa53585c95bc326ff847d548a9">More...</a><br /></td></tr>
-<tr class="separator:a6cca3dfa53585c95bc326ff847d548a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28886815d9fbcbfa429b23c5aae80a06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a28886815d9fbcbfa429b23c5aae80a06">Info</a> (params object?[] lines)</td></tr>
-<tr class="memdesc:a28886815d9fbcbfa429b23c5aae80a06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing a <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a551b723eafd6a31d444fcb2f5920fbd3" title="Message contains information that isn&#39;t related to an error or warning.">EventType.INFO</a> message with the specified <em>lines</em> .  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a28886815d9fbcbfa429b23c5aae80a06">More...</a><br /></td></tr>
-<tr class="separator:a28886815d9fbcbfa429b23c5aae80a06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f9212addf7b4e8bc44c059437865ee6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a5f9212addf7b4e8bc44c059437865ee6">Warning</a> (params object?[] lines)</td></tr>
-<tr class="memdesc:a5f9212addf7b4e8bc44c059437865ee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing a <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a32bd8a1db2275458673903bdb84cb277" title="Messages related to a warning or very minor error.">EventType.WARN</a> message with the specified <em>lines</em> .  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a5f9212addf7b4e8bc44c059437865ee6">More...</a><br /></td></tr>
-<tr class="separator:a5f9212addf7b4e8bc44c059437865ee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abff079f06feea6a4364de0219454cc88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#abff079f06feea6a4364de0219454cc88">Error</a> (params object?[] lines)</td></tr>
-<tr class="memdesc:abff079f06feea6a4364de0219454cc88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing a <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590abb1ca97ec761fc37101737ba0aa2e7c5" title="Messages related to an error.">EventType.ERROR</a> message with the specified <em>lines</em> .  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#abff079f06feea6a4364de0219454cc88">More...</a><br /></td></tr>
-<tr class="separator:abff079f06feea6a4364de0219454cc88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4166e8b6e1249be8da45ac781a80cbf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#ac4166e8b6e1249be8da45ac781a80cbf">Fatal</a> (params object?[] lines)</td></tr>
-<tr class="memdesc:ac4166e8b6e1249be8da45ac781a80cbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing a <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a19da7170bea36556dde582519795f3fc" title="Messages related to a significant error that the application cannot recover from.">EventType.FATAL</a> message with the specified <em>lines</em> .  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#ac4166e8b6e1249be8da45ac781a80cbf">More...</a><br /></td></tr>
-<tr class="separator:ac4166e8b6e1249be8da45ac781a80cbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a940a508144fb87532d0c8bf950b7d4f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a940a508144fb87532d0c8bf950b7d4f4">Critical</a> (params object?[] lines)</td></tr>
-<tr class="memdesc:a940a508144fb87532d0c8bf950b7d4f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing a <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a99cd1c61610c76a57cb8d10d6df6b870" title="Messages related to a significant error of critical importance.">EventType.CRITICAL</a> message with the specified <em>lines</em> .  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a940a508144fb87532d0c8bf950b7d4f4">More...</a><br /></td></tr>
-<tr class="separator:a940a508144fb87532d0c8bf950b7d4f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9e61d0eea03e69fc71c133978c4960b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#ab9e61d0eea03e69fc71c133978c4960b">Blank</a> (params object?[] lines)</td></tr>
-<tr class="memdesc:ab9e61d0eea03e69fc71c133978c4960b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing a <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590ab50339a10e1de285ac99d4c3990b8693" title="Not an event type.">EventType.NONE</a> message with the specified <em>lines</em> .  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#ab9e61d0eea03e69fc71c133978c4960b">More...</a><br /></td></tr>
-<tr class="separator:ab9e61d0eea03e69fc71c133978c4960b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad035421925d8008b1668f71b168a91b3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#ad035421925d8008b1668f71b168a91b3">LogMessage</a> (<a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a> logMessage)</td></tr>
+<tr class="memdesc:ad035421925d8008b1668f71b168a91b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the specified <em>logMessage</em>  to the log, if its event type is enabled by the filter.  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#ad035421925d8008b1668f71b168a91b3">More...</a><br /></td></tr>
+<tr class="separator:ad035421925d8008b1668f71b168a91b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cb65d9bb3ff2b2c9a3575673694c752"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a8cb65d9bb3ff2b2c9a3575673694c752">Trace</a> (<a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a> logMessage)</td></tr>
+<tr class="memdesc:a8cb65d9bb3ff2b2c9a3575673694c752"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a2d3e4144aa384b18849ab9a8abad74d6" title="Message contains debugging information that is only situationally useful.">EventType.TRACE</a> log message.  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a8cb65d9bb3ff2b2c9a3575673694c752">More...</a><br /></td></tr>
+<tr class="separator:a8cb65d9bb3ff2b2c9a3575673694c752"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe1512ce29b3bbb7f47ffc74e07e3fcb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#afe1512ce29b3bbb7f47ffc74e07e3fcb">Debug</a> (params object?[] lines)</td></tr>
+<tr class="memdesc:afe1512ce29b3bbb7f47ffc74e07e3fcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590adc30ec20708ef7b0f641ef78b7880a15" title="Message contains debugging information.">EventType.DEBUG</a> message with the specified <em>lines</em> .  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#afe1512ce29b3bbb7f47ffc74e07e3fcb">More...</a><br /></td></tr>
+<tr class="separator:afe1512ce29b3bbb7f47ffc74e07e3fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5090eb7dd41fc55a2f4ff8392d4e9237"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a5090eb7dd41fc55a2f4ff8392d4e9237">Debug</a> (<a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a> logMessage)</td></tr>
+<tr class="memdesc:a5090eb7dd41fc55a2f4ff8392d4e9237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590adc30ec20708ef7b0f641ef78b7880a15" title="Message contains debugging information.">EventType.DEBUG</a> log message.  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a5090eb7dd41fc55a2f4ff8392d4e9237">More...</a><br /></td></tr>
+<tr class="separator:a5090eb7dd41fc55a2f4ff8392d4e9237"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a30dc2c0b3da6a98bd030bbf862efa0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a0a30dc2c0b3da6a98bd030bbf862efa0">Info</a> (params object?[] lines)</td></tr>
+<tr class="memdesc:a0a30dc2c0b3da6a98bd030bbf862efa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a551b723eafd6a31d444fcb2f5920fbd3" title="Message contains information that isn&#39;t related to an error or warning.">EventType.INFO</a> message with the specified <em>lines</em> .  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a0a30dc2c0b3da6a98bd030bbf862efa0">More...</a><br /></td></tr>
+<tr class="separator:a0a30dc2c0b3da6a98bd030bbf862efa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4feebda5e73ef57cb811f42bd1c6ff88"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a4feebda5e73ef57cb811f42bd1c6ff88">Info</a> (<a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a> logMessage)</td></tr>
+<tr class="memdesc:a4feebda5e73ef57cb811f42bd1c6ff88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a551b723eafd6a31d444fcb2f5920fbd3" title="Message contains information that isn&#39;t related to an error or warning.">EventType.INFO</a> log message.  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a4feebda5e73ef57cb811f42bd1c6ff88">More...</a><br /></td></tr>
+<tr class="separator:a4feebda5e73ef57cb811f42bd1c6ff88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cc0afd4a9afc046691a0b0d904cd7bc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a7cc0afd4a9afc046691a0b0d904cd7bc">Warning</a> (params object?[] lines)</td></tr>
+<tr class="memdesc:a7cc0afd4a9afc046691a0b0d904cd7bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a32bd8a1db2275458673903bdb84cb277" title="Messages related to a warning or very minor error.">EventType.WARN</a> message with the specified <em>lines</em> .  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a7cc0afd4a9afc046691a0b0d904cd7bc">More...</a><br /></td></tr>
+<tr class="separator:a7cc0afd4a9afc046691a0b0d904cd7bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adffdb84dcd0f50900729826549cad42c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#adffdb84dcd0f50900729826549cad42c">Warning</a> (<a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a> logMessage)</td></tr>
+<tr class="memdesc:adffdb84dcd0f50900729826549cad42c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a32bd8a1db2275458673903bdb84cb277" title="Messages related to a warning or very minor error.">EventType.WARN</a> log message.  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#adffdb84dcd0f50900729826549cad42c">More...</a><br /></td></tr>
+<tr class="separator:adffdb84dcd0f50900729826549cad42c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0603a553c1dfd0e93ed4bc157eb329ad"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a0603a553c1dfd0e93ed4bc157eb329ad">Error</a> (params object?[] lines)</td></tr>
+<tr class="memdesc:a0603a553c1dfd0e93ed4bc157eb329ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590abb1ca97ec761fc37101737ba0aa2e7c5" title="Messages related to an error.">EventType.ERROR</a> message with the specified <em>lines</em> .  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a0603a553c1dfd0e93ed4bc157eb329ad">More...</a><br /></td></tr>
+<tr class="separator:a0603a553c1dfd0e93ed4bc157eb329ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8e28a2237ed90bf156d3efccf2a4d95"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#ad8e28a2237ed90bf156d3efccf2a4d95">Error</a> (<a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a> logMessage)</td></tr>
+<tr class="memdesc:ad8e28a2237ed90bf156d3efccf2a4d95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590abb1ca97ec761fc37101737ba0aa2e7c5" title="Messages related to an error.">EventType.ERROR</a> log message.  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#ad8e28a2237ed90bf156d3efccf2a4d95">More...</a><br /></td></tr>
+<tr class="separator:ad8e28a2237ed90bf156d3efccf2a4d95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75c5216be919e9da18933fc6ae15d2f0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a75c5216be919e9da18933fc6ae15d2f0">Fatal</a> (params object?[] lines)</td></tr>
+<tr class="memdesc:a75c5216be919e9da18933fc6ae15d2f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a19da7170bea36556dde582519795f3fc" title="Messages related to a significant error that the application cannot recover from.">EventType.FATAL</a> message with the specified <em>lines</em> .  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a75c5216be919e9da18933fc6ae15d2f0">More...</a><br /></td></tr>
+<tr class="separator:a75c5216be919e9da18933fc6ae15d2f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b26afc2f9c1b87e19362403369b53bf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a8b26afc2f9c1b87e19362403369b53bf">Fatal</a> (<a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a> logMessage)</td></tr>
+<tr class="memdesc:a8b26afc2f9c1b87e19362403369b53bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a19da7170bea36556dde582519795f3fc" title="Messages related to a significant error that the application cannot recover from.">EventType.FATAL</a> log message.  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a8b26afc2f9c1b87e19362403369b53bf">More...</a><br /></td></tr>
+<tr class="separator:a8b26afc2f9c1b87e19362403369b53bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7376ba520683cb733e8d2a785937d6b9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a7376ba520683cb733e8d2a785937d6b9">Critical</a> (params object?[] lines)</td></tr>
+<tr class="memdesc:a7376ba520683cb733e8d2a785937d6b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a99cd1c61610c76a57cb8d10d6df6b870" title="Messages related to a significant error of critical importance.">EventType.CRITICAL</a> message with the specified <em>lines</em> .  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a7376ba520683cb733e8d2a785937d6b9">More...</a><br /></td></tr>
+<tr class="separator:a7376ba520683cb733e8d2a785937d6b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb6cdb72882ca013975a92854819447d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#abb6cdb72882ca013975a92854819447d">Critical</a> (<a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a> logMessage)</td></tr>
+<tr class="memdesc:abb6cdb72882ca013975a92854819447d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a99cd1c61610c76a57cb8d10d6df6b870" title="Messages related to a significant error of critical importance.">EventType.CRITICAL</a> log message.  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#abb6cdb72882ca013975a92854819447d">More...</a><br /></td></tr>
+<tr class="separator:abb6cdb72882ca013975a92854819447d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0e9f33c745cd0563d329bde39ad373b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#ab0e9f33c745cd0563d329bde39ad373b">Blank</a> (params object?[] lines)</td></tr>
+<tr class="memdesc:ab0e9f33c745cd0563d329bde39ad373b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590ab50339a10e1de285ac99d4c3990b8693" title="Not an event type.">EventType.NONE</a> message with the specified <em>lines</em> .  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#ab0e9f33c745cd0563d329bde39ad373b">More...</a><br /></td></tr>
+<tr class="separator:ab0e9f33c745cd0563d329bde39ad373b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad415e4f6fb8928414d6c5df917f278f7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#ad415e4f6fb8928414d6c5df917f278f7">Blank</a> (<a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a> logMessage)</td></tr>
+<tr class="memdesc:ad415e4f6fb8928414d6c5df917f278f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590ab50339a10e1de285ac99d4c3990b8693" title="Not an event type.">EventType.NONE</a> log message.  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#ad415e4f6fb8928414d6c5df917f278f7">More...</a><br /></td></tr>
+<tr class="separator:ad415e4f6fb8928414d6c5df917f278f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a log writer instance. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab9e61d0eea03e69fc71c133978c4960b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9e61d0eea03e69fc71c133978c4960b">&#9670;&nbsp;</a></span>Blank()</h2>
+<a id="ad415e4f6fb8928414d6c5df917f278f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad415e4f6fb8928414d6c5df917f278f7">&#9670;&nbsp;</a></span>Blank() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void VolumeControl.Log.Interfaces.ILogWriter.Blank </td>
+          <td class="memname">bool VolumeControl.Log.Interfaces.ILogWriter.Blank </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a>&#160;</td>
+          <td class="paramname"><em>logMessage</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590ab50339a10e1de285ac99d4c3990b8693" title="Not an event type.">EventType.NONE</a> log message. </p>
+<p>This produces a message with no event type header, but a timestamp is still shown. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">logMessage</td><td>A <a class="el" href="class_volume_control_1_1_log_1_1_log_message.html" title="Represents a message to be written to the log.">Log.LogMessage</a> instance to write.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#affdac4be4dbdadd48fa808dedb2f39df">VolumeControl.Log.AsyncLogWriter</a>.</p>
+
+</div>
+</div>
+<a id="ab0e9f33c745cd0563d329bde39ad373b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0e9f33c745cd0563d329bde39ad373b">&#9670;&nbsp;</a></span>Blank() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VolumeControl.Log.Interfaces.ILogWriter.Blank </td>
           <td>(</td>
           <td class="paramtype">params object?[]&#160;</td>
           <td class="paramname"><em>lines</em></td><td>)</td>
@@ -158,7 +210,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Queues writing a <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590ab50339a10e1de285ac99d4c3990b8693" title="Not an event type.">EventType.NONE</a> message with the specified <em>lines</em> . </p>
+<p>Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590ab50339a10e1de285ac99d4c3990b8693" title="Not an event type.">EventType.NONE</a> message with the specified <em>lines</em> . </p>
 <p>This produces a message with no event type header, but a timestamp is still shown. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -167,18 +219,46 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#aa178f94973d906bbd81981f2ea244bce">VolumeControl.Log.AsyncLogWriter</a>.</p>
+<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#ae83d81d9311a1b07eae65eb5a4ff0e3e">VolumeControl.Log.AsyncLogWriter</a>.</p>
 
 </div>
 </div>
-<a id="a940a508144fb87532d0c8bf950b7d4f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a940a508144fb87532d0c8bf950b7d4f4">&#9670;&nbsp;</a></span>Critical()</h2>
+<a id="abb6cdb72882ca013975a92854819447d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb6cdb72882ca013975a92854819447d">&#9670;&nbsp;</a></span>Critical() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void VolumeControl.Log.Interfaces.ILogWriter.Critical </td>
+          <td class="memname">bool VolumeControl.Log.Interfaces.ILogWriter.Critical </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a>&#160;</td>
+          <td class="paramname"><em>logMessage</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a99cd1c61610c76a57cb8d10d6df6b870" title="Messages related to a significant error of critical importance.">EventType.CRITICAL</a> log message. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">logMessage</td><td>A <a class="el" href="class_volume_control_1_1_log_1_1_log_message.html" title="Represents a message to be written to the log.">Log.LogMessage</a> instance to write.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#a96d9eda655197e532f0aa3754c0ffcc7">VolumeControl.Log.AsyncLogWriter</a>.</p>
+
+</div>
+</div>
+<a id="a7376ba520683cb733e8d2a785937d6b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7376ba520683cb733e8d2a785937d6b9">&#9670;&nbsp;</a></span>Critical() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VolumeControl.Log.Interfaces.ILogWriter.Critical </td>
           <td>(</td>
           <td class="paramtype">params object?[]&#160;</td>
           <td class="paramname"><em>lines</em></td><td>)</td>
@@ -187,7 +267,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Queues writing a <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a99cd1c61610c76a57cb8d10d6df6b870" title="Messages related to a significant error of critical importance.">EventType.CRITICAL</a> message with the specified <em>lines</em> . </p>
+<p>Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a99cd1c61610c76a57cb8d10d6df6b870" title="Messages related to a significant error of critical importance.">EventType.CRITICAL</a> message with the specified <em>lines</em> . </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lines</td><td>Any number of objects. Each object will be written on a new line. <code>null</code> objects and blank strings are skipped.</td></tr>
@@ -195,18 +275,46 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#abdb2dfbba21b8a633c293d25870e80e4">VolumeControl.Log.AsyncLogWriter</a>.</p>
+<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#a56153ccd9a7024bd202753d897256c95">VolumeControl.Log.AsyncLogWriter</a>.</p>
 
 </div>
 </div>
-<a id="a6cca3dfa53585c95bc326ff847d548a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6cca3dfa53585c95bc326ff847d548a9">&#9670;&nbsp;</a></span>Debug()</h2>
+<a id="a5090eb7dd41fc55a2f4ff8392d4e9237"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5090eb7dd41fc55a2f4ff8392d4e9237">&#9670;&nbsp;</a></span>Debug() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void VolumeControl.Log.Interfaces.ILogWriter.Debug </td>
+          <td class="memname">bool VolumeControl.Log.Interfaces.ILogWriter.Debug </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a>&#160;</td>
+          <td class="paramname"><em>logMessage</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590adc30ec20708ef7b0f641ef78b7880a15" title="Message contains debugging information.">EventType.DEBUG</a> log message. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">logMessage</td><td>A <a class="el" href="class_volume_control_1_1_log_1_1_log_message.html" title="Represents a message to be written to the log.">Log.LogMessage</a> instance to write.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#acdd6c65b471e8b638a9f0b0358583632">VolumeControl.Log.AsyncLogWriter</a>.</p>
+
+</div>
+</div>
+<a id="afe1512ce29b3bbb7f47ffc74e07e3fcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe1512ce29b3bbb7f47ffc74e07e3fcb">&#9670;&nbsp;</a></span>Debug() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VolumeControl.Log.Interfaces.ILogWriter.Debug </td>
           <td>(</td>
           <td class="paramtype">params object?[]&#160;</td>
           <td class="paramname"><em>lines</em></td><td>)</td>
@@ -215,7 +323,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Queues writing a <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590adc30ec20708ef7b0f641ef78b7880a15" title="Message contains debugging information.">EventType.DEBUG</a> message with the specified <em>lines</em> . </p>
+<p>Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590adc30ec20708ef7b0f641ef78b7880a15" title="Message contains debugging information.">EventType.DEBUG</a> message with the specified <em>lines</em> . </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lines</td><td>Any number of objects. Each object will be written on a new line. <code>null</code> objects and blank strings are skipped.</td></tr>
@@ -223,18 +331,46 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#aa1c61e979b3f9bb69784da07de4d64e0">VolumeControl.Log.AsyncLogWriter</a>.</p>
+<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#ae3c31ea63b3b7dfc04a08f42a2a3ab8a">VolumeControl.Log.AsyncLogWriter</a>.</p>
 
 </div>
 </div>
-<a id="abff079f06feea6a4364de0219454cc88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abff079f06feea6a4364de0219454cc88">&#9670;&nbsp;</a></span>Error()</h2>
+<a id="ad8e28a2237ed90bf156d3efccf2a4d95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8e28a2237ed90bf156d3efccf2a4d95">&#9670;&nbsp;</a></span>Error() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void VolumeControl.Log.Interfaces.ILogWriter.Error </td>
+          <td class="memname">bool VolumeControl.Log.Interfaces.ILogWriter.Error </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a>&#160;</td>
+          <td class="paramname"><em>logMessage</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590abb1ca97ec761fc37101737ba0aa2e7c5" title="Messages related to an error.">EventType.ERROR</a> log message. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">logMessage</td><td>A <a class="el" href="class_volume_control_1_1_log_1_1_log_message.html" title="Represents a message to be written to the log.">Log.LogMessage</a> instance to write.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#ae70c9d52e05a553b3b34a14ee545a155">VolumeControl.Log.AsyncLogWriter</a>.</p>
+
+</div>
+</div>
+<a id="a0603a553c1dfd0e93ed4bc157eb329ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0603a553c1dfd0e93ed4bc157eb329ad">&#9670;&nbsp;</a></span>Error() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VolumeControl.Log.Interfaces.ILogWriter.Error </td>
           <td>(</td>
           <td class="paramtype">params object?[]&#160;</td>
           <td class="paramname"><em>lines</em></td><td>)</td>
@@ -243,7 +379,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Queues writing a <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590abb1ca97ec761fc37101737ba0aa2e7c5" title="Messages related to an error.">EventType.ERROR</a> message with the specified <em>lines</em> . </p>
+<p>Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590abb1ca97ec761fc37101737ba0aa2e7c5" title="Messages related to an error.">EventType.ERROR</a> message with the specified <em>lines</em> . </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lines</td><td>Any number of objects. Each object will be written on a new line. <code>null</code> objects and blank strings are skipped.</td></tr>
@@ -251,18 +387,46 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#a78392efd4f13ac8fb627ef5349c75eab">VolumeControl.Log.AsyncLogWriter</a>.</p>
+<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#a886d7f3650df1b5a21a2c00984475d33">VolumeControl.Log.AsyncLogWriter</a>.</p>
 
 </div>
 </div>
-<a id="ac4166e8b6e1249be8da45ac781a80cbf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4166e8b6e1249be8da45ac781a80cbf">&#9670;&nbsp;</a></span>Fatal()</h2>
+<a id="a8b26afc2f9c1b87e19362403369b53bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b26afc2f9c1b87e19362403369b53bf">&#9670;&nbsp;</a></span>Fatal() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void VolumeControl.Log.Interfaces.ILogWriter.Fatal </td>
+          <td class="memname">bool VolumeControl.Log.Interfaces.ILogWriter.Fatal </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a>&#160;</td>
+          <td class="paramname"><em>logMessage</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a19da7170bea36556dde582519795f3fc" title="Messages related to a significant error that the application cannot recover from.">EventType.FATAL</a> log message. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">logMessage</td><td>A <a class="el" href="class_volume_control_1_1_log_1_1_log_message.html" title="Represents a message to be written to the log.">Log.LogMessage</a> instance to write.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#aa8be841963c1ba62600d3672d89de30b">VolumeControl.Log.AsyncLogWriter</a>.</p>
+
+</div>
+</div>
+<a id="a75c5216be919e9da18933fc6ae15d2f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75c5216be919e9da18933fc6ae15d2f0">&#9670;&nbsp;</a></span>Fatal() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VolumeControl.Log.Interfaces.ILogWriter.Fatal </td>
           <td>(</td>
           <td class="paramtype">params object?[]&#160;</td>
           <td class="paramname"><em>lines</em></td><td>)</td>
@@ -271,7 +435,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Queues writing a <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a19da7170bea36556dde582519795f3fc" title="Messages related to a significant error that the application cannot recover from.">EventType.FATAL</a> message with the specified <em>lines</em> . </p>
+<p>Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a19da7170bea36556dde582519795f3fc" title="Messages related to a significant error that the application cannot recover from.">EventType.FATAL</a> message with the specified <em>lines</em> . </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lines</td><td>Any number of objects. Each object will be written on a new line. <code>null</code> objects and blank strings are skipped.</td></tr>
@@ -279,7 +443,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#ad73f47c5e247c2e655c91b9bb4e192d6">VolumeControl.Log.AsyncLogWriter</a>.</p>
+<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#ae87834dc82ec485343f3265bc50289d7">VolumeControl.Log.AsyncLogWriter</a>.</p>
 
 </div>
 </div>
@@ -312,42 +476,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a28886815d9fbcbfa429b23c5aae80a06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28886815d9fbcbfa429b23c5aae80a06">&#9670;&nbsp;</a></span>Info()</h2>
+<a id="a4feebda5e73ef57cb811f42bd1c6ff88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4feebda5e73ef57cb811f42bd1c6ff88">&#9670;&nbsp;</a></span>Info() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void VolumeControl.Log.Interfaces.ILogWriter.Info </td>
-          <td>(</td>
-          <td class="paramtype">params object?[]&#160;</td>
-          <td class="paramname"><em>lines</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Queues writing a <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a551b723eafd6a31d444fcb2f5920fbd3" title="Message contains information that isn&#39;t related to an error or warning.">EventType.INFO</a> message with the specified <em>lines</em> . </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">lines</td><td>Any number of objects. Each object will be written on a new line. <code>null</code> objects and blank strings are skipped.</td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#afc3cbffb26f2fa01c6f87e7ea3adb4ca">VolumeControl.Log.AsyncLogWriter</a>.</p>
-
-</div>
-</div>
-<a id="ad6acba4e6770277fd3d5da7650f3b626"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6acba4e6770277fd3d5da7650f3b626">&#9670;&nbsp;</a></span>LogMessage()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void VolumeControl.Log.Interfaces.ILogWriter.LogMessage </td>
+          <td class="memname">bool VolumeControl.Log.Interfaces.ILogWriter.Info </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a>&#160;</td>
           <td class="paramname"><em>logMessage</em></td><td>)</td>
@@ -356,27 +492,26 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Writes the specified <em>logMessage</em>  to the log. </p>
-<p>When IsAsyncEnabled is <code>true</code>, the message is added to the queue and written asynchronously; otherwise, the message is blocking and the message is written synchronously. </p>
+<p>Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a551b723eafd6a31d444fcb2f5920fbd3" title="Message contains information that isn&#39;t related to an error or warning.">EventType.INFO</a> log message. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">logMessage</td><td></td></tr>
+    <tr><td class="paramname">logMessage</td><td>A <a class="el" href="class_volume_control_1_1_log_1_1_log_message.html" title="Represents a message to be written to the log.">Log.LogMessage</a> instance to write.</td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#afc8294e6ff6c4897619ee4116cb02b9f">VolumeControl.Log.AsyncLogWriter</a>.</p>
+<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#a968fd8d77afae9626e4aa601103f9e83">VolumeControl.Log.AsyncLogWriter</a>.</p>
 
 </div>
 </div>
-<a id="a71f0e406603ddf13da874bbfab89c85d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71f0e406603ddf13da874bbfab89c85d">&#9670;&nbsp;</a></span>Trace()</h2>
+<a id="a0a30dc2c0b3da6a98bd030bbf862efa0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a30dc2c0b3da6a98bd030bbf862efa0">&#9670;&nbsp;</a></span>Info() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void VolumeControl.Log.Interfaces.ILogWriter.Trace </td>
+          <td class="memname">bool VolumeControl.Log.Interfaces.ILogWriter.Info </td>
           <td>(</td>
           <td class="paramtype">params object?[]&#160;</td>
           <td class="paramname"><em>lines</em></td><td>)</td>
@@ -385,7 +520,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Queues writing a <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a2d3e4144aa384b18849ab9a8abad74d6" title="Message contains debugging information that is only situationally useful.">EventType.TRACE</a> message with the specified <em>lines</em> . </p>
+<p>Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a551b723eafd6a31d444fcb2f5920fbd3" title="Message contains information that isn&#39;t related to an error or warning.">EventType.INFO</a> message with the specified <em>lines</em> . </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lines</td><td>Any number of objects. Each object will be written on a new line. <code>null</code> objects and blank strings are skipped.</td></tr>
@@ -393,18 +528,104 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#abc333e4213798ea77274dd28ef009268">VolumeControl.Log.AsyncLogWriter</a>.</p>
+<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#a327822bc8ca65e984390020e223ac8b0">VolumeControl.Log.AsyncLogWriter</a>.</p>
 
 </div>
 </div>
-<a id="a5f9212addf7b4e8bc44c059437865ee6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f9212addf7b4e8bc44c059437865ee6">&#9670;&nbsp;</a></span>Warning()</h2>
+<a id="ad035421925d8008b1668f71b168a91b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad035421925d8008b1668f71b168a91b3">&#9670;&nbsp;</a></span>LogMessage()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void VolumeControl.Log.Interfaces.ILogWriter.Warning </td>
+          <td class="memname">bool VolumeControl.Log.Interfaces.ILogWriter.LogMessage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a>&#160;</td>
+          <td class="paramname"><em>logMessage</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Writes the specified <em>logMessage</em>  to the log, if its event type is enabled by the filter. </p>
+<p>When IsAsyncEnabled is <code>true</code>, the message is written asynchronously; otherwise, the message is written synchronously and the caller will be blocked until the message has been written. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">logMessage</td><td>The message to write to the log.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> when the <em>logMessage</em> 's event type is enabled; otherwise, <code>false</code>.</dd></dl>
+
+<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#a3c401702e65b85ab4733c733e7a08b8c">VolumeControl.Log.AsyncLogWriter</a>.</p>
+
+</div>
+</div>
+<a id="a8cb65d9bb3ff2b2c9a3575673694c752"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cb65d9bb3ff2b2c9a3575673694c752">&#9670;&nbsp;</a></span>Trace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VolumeControl.Log.Interfaces.ILogWriter.Trace </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a>&#160;</td>
+          <td class="paramname"><em>logMessage</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a2d3e4144aa384b18849ab9a8abad74d6" title="Message contains debugging information that is only situationally useful.">EventType.TRACE</a> log message. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">logMessage</td><td>A <a class="el" href="class_volume_control_1_1_log_1_1_log_message.html" title="Represents a message to be written to the log.">Log.LogMessage</a> instance to write.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#a18d4aed7c3776b372a3704c548c240a6">VolumeControl.Log.AsyncLogWriter</a>.</p>
+
+</div>
+</div>
+<a id="adffdb84dcd0f50900729826549cad42c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adffdb84dcd0f50900729826549cad42c">&#9670;&nbsp;</a></span>Warning() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VolumeControl.Log.Interfaces.ILogWriter.Warning </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a>&#160;</td>
+          <td class="paramname"><em>logMessage</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a32bd8a1db2275458673903bdb84cb277" title="Messages related to a warning or very minor error.">EventType.WARN</a> log message. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">logMessage</td><td>A <a class="el" href="class_volume_control_1_1_log_1_1_log_message.html" title="Represents a message to be written to the log.">Log.LogMessage</a> instance to write.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#ab2106b5a1aee88c2252f968c50a239c0">VolumeControl.Log.AsyncLogWriter</a>.</p>
+
+</div>
+</div>
+<a id="a7cc0afd4a9afc046691a0b0d904cd7bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cc0afd4a9afc046691a0b0d904cd7bc">&#9670;&nbsp;</a></span>Warning() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VolumeControl.Log.Interfaces.ILogWriter.Warning </td>
           <td>(</td>
           <td class="paramtype">params object?[]&#160;</td>
           <td class="paramname"><em>lines</em></td><td>)</td>
@@ -413,7 +634,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Queues writing a <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a32bd8a1db2275458673903bdb84cb277" title="Messages related to a warning or very minor error.">EventType.WARN</a> message with the specified <em>lines</em> . </p>
+<p>Queues writing an <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590a32bd8a1db2275458673903bdb84cb277" title="Messages related to a warning or very minor error.">EventType.WARN</a> message with the specified <em>lines</em> . </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lines</td><td>Any number of objects. Each object will be written on a new line. <code>null</code> objects and blank strings are skipped.</td></tr>
@@ -421,7 +642,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#a17cb5e9f907870f87ab333d48465c099">VolumeControl.Log.AsyncLogWriter</a>.</p>
+<p>Implemented in <a class="el" href="class_volume_control_1_1_log_1_1_async_log_writer.html#adea4fbd3f5a33416a52dd0224f4b51a3">VolumeControl.Log.AsyncLogWriter</a>.</p>
 
 </div>
 </div>

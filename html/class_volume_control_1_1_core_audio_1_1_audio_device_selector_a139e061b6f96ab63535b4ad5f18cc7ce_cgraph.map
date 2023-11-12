@@ -2,6 +2,6 @@
 <area shape="rect" id="node1" title="Creates a new AudioDeviceSelector instance bound to the given audioDeviceManager ." alt="" coords="5,20,248,76"/>
 <area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a4fb014a268ce81931a8f790e7020cfa7" title="Changes the Selected item to the default Multimedia audio device." alt="" coords="296,20,544,76"/>
 <area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#ac6aac6e1b31328d60c9ff21a11890151" title="Gets the default device for the specified dataFlow &#160;&amp; deviceRole ." alt="" coords="592,20,827,76"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_log_1_1_f_log.html#ad09321e60c917e6a06243fa7743f412d" title=" " alt="" coords="901,5,1115,32"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_log_1_1_f_log.html#a3f7c162caaa5e1ca78eff52678cd3813" title=" " alt="" coords="901,5,1115,32"/>
 <area shape="rect" id="node5" href="$class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#ae55cdb8375a591e11e444aa62dd355a9" title="Gets the AudioDevice instance associated with the given deviceID &#160;string. (MMDevice...." alt="" coords="875,57,1141,98"/>
 </map>

@@ -26,36 +26,37 @@
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:href="class_volume_control_1_1_core_audio_1_1_audio_device.html" target="_top" xlink:title="An audio endpoint device.">
-<polygon fill="none" stroke="black" points="0,-22.5 0,-266.5 145,-266.5 145,-22.5 0,-22.5"/>
-<text text-anchor="start" x="8" y="-254.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.CoreAudio.</text>
-<text text-anchor="middle" x="72.5" y="-243.5" font-family="Helvetica,sans-Serif" font-size="10.00">AudioDevice</text>
-<polyline fill="none" stroke="black" points="0,-236.5 145,-236.5 "/>
-<text text-anchor="start" x="8" y="-224.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ MMDevice</text>
-<text text-anchor="start" x="8" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AudioEndpointVolume</text>
-<text text-anchor="start" x="8" y="-202.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AudioSessionManager</text>
-<text text-anchor="start" x="8" y="-191.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AudioMeterInformation</text>
-<text text-anchor="start" x="8" y="-180.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SessionManager</text>
-<text text-anchor="start" x="8" y="-169.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DataFlow</text>
-<text text-anchor="start" x="8" y="-158.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FullName</text>
-<text text-anchor="start" x="8" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
-<text text-anchor="start" x="8" y="-136.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ID</text>
-<text text-anchor="start" x="8" y="-125.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IsDefault</text>
-<text text-anchor="start" x="8" y="-114.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IconPath</text>
-<text text-anchor="start" x="8" y="-103.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ NativeVolume</text>
-<text text-anchor="start" x="8" y="-92.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Volume</text>
-<text text-anchor="start" x="8" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Mute</text>
-<text text-anchor="start" x="8" y="-70.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ PeakMeterValue</text>
-<polyline fill="none" stroke="black" points="0,-63.5 145,-63.5 "/>
-<text text-anchor="start" x="8" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Dispose()</text>
-<text text-anchor="start" x="8" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ToString()</text>
-<text text-anchor="start" x="8" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">~ AudioDevice()</text>
+<polygon fill="none" stroke="black" points="0,-17 0,-272 145,-272 145,-17 0,-17"/>
+<text text-anchor="start" x="8" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.CoreAudio.</text>
+<text text-anchor="middle" x="72.5" y="-249" font-family="Helvetica,sans-Serif" font-size="10.00">AudioDevice</text>
+<polyline fill="none" stroke="black" points="0,-242 145,-242 "/>
+<text text-anchor="start" x="8" y="-230" font-family="Helvetica,sans-Serif" font-size="10.00">+ MMDevice</text>
+<text text-anchor="start" x="8" y="-219" font-family="Helvetica,sans-Serif" font-size="10.00">+ AudioMeterInformation</text>
+<text text-anchor="start" x="8" y="-208" font-family="Helvetica,sans-Serif" font-size="10.00">+ SessionManager</text>
+<text text-anchor="start" x="8" y="-197" font-family="Helvetica,sans-Serif" font-size="10.00">+ DataFlow</text>
+<text text-anchor="start" x="8" y="-186" font-family="Helvetica,sans-Serif" font-size="10.00">+ FullName</text>
+<text text-anchor="start" x="8" y="-175" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
+<text text-anchor="start" x="8" y="-164" font-family="Helvetica,sans-Serif" font-size="10.00">+ ID</text>
+<text text-anchor="start" x="8" y="-153" font-family="Helvetica,sans-Serif" font-size="10.00">+ IsDefault</text>
+<text text-anchor="start" x="8" y="-142" font-family="Helvetica,sans-Serif" font-size="10.00">+ IconPath</text>
+<text text-anchor="start" x="8" y="-131" font-family="Helvetica,sans-Serif" font-size="10.00">+ NativeVolume</text>
+<text text-anchor="start" x="8" y="-120" font-family="Helvetica,sans-Serif" font-size="10.00">+ Volume</text>
+<text text-anchor="start" x="8" y="-109" font-family="Helvetica,sans-Serif" font-size="10.00">+ Mute</text>
+<text text-anchor="start" x="8" y="-98" font-family="Helvetica,sans-Serif" font-size="10.00">+ PeakMeterValue</text>
+<polyline fill="none" stroke="black" points="0,-91 145,-91 "/>
+<text text-anchor="start" x="8" y="-79" font-family="Helvetica,sans-Serif" font-size="10.00">+ Dispose()</text>
+<text text-anchor="start" x="8" y="-68" font-family="Helvetica,sans-Serif" font-size="10.00">+ ToString()</text>
+<text text-anchor="start" x="8" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">~ AudioDevice()</text>
+<text text-anchor="start" x="8" y="-46" font-family="Helvetica,sans-Serif" font-size="10.00">~ RefreshSessions()</text>
+<text text-anchor="start" x="8" y="-35" font-family="Helvetica,sans-Serif" font-size="10.00">~ GetSessionControl()</text>
+<text text-anchor="start" x="8" y="-24" font-family="Helvetica,sans-Serif" font-size="10.00">~ GetAllSessionControls()</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M144.39,-315.63C138.28,-301.17 131.12,-284.25 123.74,-266.78"/>
+<path fill="none" stroke="midnightblue" d="M144.43,-315.73C138.96,-302.79 132.65,-287.86 126.09,-272.33"/>
 <polygon fill="none" stroke="midnightblue" points="141.32,-317.37 148.44,-325.22 147.77,-314.65 141.32,-317.37"/>
 </g>
 <!-- Node3 -->

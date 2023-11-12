@@ -1,4 +1,4 @@
 <map id="VolumeControl.Log.Interfaces.ILogWriter" name="VolumeControl.Log.Interfaces.ILogWriter">
-<area shape="rect" id="node1" title="Represents a log writer instance." alt="" coords="5,5,224,229"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_async_log_writer.html" title="Asynchonously writes messages to the log endpoint." alt="" coords="9,277,220,707"/>
+<area shape="rect" id="node1" title="Represents a log writer instance." alt="" coords="5,5,224,244"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_async_log_writer.html" title="Asynchonously writes messages to the log endpoint." alt="" coords="9,292,220,663"/>
 </map>

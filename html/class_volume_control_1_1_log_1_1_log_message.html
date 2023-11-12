@@ -87,6 +87,7 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_log_1_1_log_m
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#properties">Properties</a> &#124;
 <a href="class_volume_control_1_1_log_1_1_log_message-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -99,12 +100,14 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_log_1_1_log_m
 <div class="dynheader">
 Inheritance diagram for VolumeControl.Log.LogMessage:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_message__inherit__graph.svg" width="318" height="316"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_message__inherit__graph.svg" width="318" height="360"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Log.LogMessage:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_message__coll__graph.svg" width="318" height="316"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_message__coll__graph.svg" width="318" height="360"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -115,21 +118,36 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a18bf0d84b7c6ed7ed62ae76da71ed444"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html#a18bf0d84b7c6ed7ed62ae76da71ed444">LogMessage</a> (<a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590">EventType</a> eventType)</td></tr>
 <tr class="memdesc:a18bf0d84b7c6ed7ed62ae76da71ed444"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new empty <a class="el" href="class_volume_control_1_1_log_1_1_log_message.html" title="Represents a message to be written to the log.">LogMessage</a> instance with the specified <em>eventType</em> .  <a href="class_volume_control_1_1_log_1_1_log_message.html#a18bf0d84b7c6ed7ed62ae76da71ed444">More...</a><br /></td></tr>
 <tr class="separator:a18bf0d84b7c6ed7ed62ae76da71ed444"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f2820d285ce326acf4bdb2a0456710b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html#a7f2820d285ce326acf4bdb2a0456710b">Add</a> (object? line)</td></tr>
-<tr class="memdesc:a7f2820d285ce326acf4bdb2a0456710b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends the specified <em>line</em>  to the message.  <a href="class_volume_control_1_1_log_1_1_log_message.html#a7f2820d285ce326acf4bdb2a0456710b">More...</a><br /></td></tr>
-<tr class="separator:a7f2820d285ce326acf4bdb2a0456710b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3230968ccec8969002158007646c0ad2"><td class="memItemLeft" align="right" valign="top"><a id="a3230968ccec8969002158007646c0ad2"></a>
-override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html#a3230968ccec8969002158007646c0ad2">ToString</a> ()</td></tr>
+<tr class="memitem:a4044552901c9de4e872cbee72c51e220"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html#a4044552901c9de4e872cbee72c51e220">LogMessage</a> (params object?[] lines)</td></tr>
+<tr class="memdesc:a4044552901c9de4e872cbee72c51e220"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_volume_control_1_1_log_1_1_log_message.html" title="Represents a message to be written to the log.">LogMessage</a> instance with the specified <em>lines</em>  and an undefined EventType.  <a href="class_volume_control_1_1_log_1_1_log_message.html#a4044552901c9de4e872cbee72c51e220">More...</a><br /></td></tr>
+<tr class="separator:a4044552901c9de4e872cbee72c51e220"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3230968ccec8969002158007646c0ad2"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html#a3230968ccec8969002158007646c0ad2">ToString</a> ()</td></tr>
+<tr class="memdesc:a3230968ccec8969002158007646c0ad2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the contents of the log message as a single string.  <a href="class_volume_control_1_1_log_1_1_log_message.html#a3230968ccec8969002158007646c0ad2">More...</a><br /></td></tr>
 <tr class="separator:a3230968ccec8969002158007646c0ad2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58f384161f2f0f7388add93e27b6ad77"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html#a58f384161f2f0f7388add93e27b6ad77">Add</a> (object? line)</td></tr>
+<tr class="memdesc:a58f384161f2f0f7388add93e27b6ad77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends the specified <em>line</em>  to the message.  <a href="class_volume_control_1_1_log_1_1_log_message.html#a58f384161f2f0f7388add93e27b6ad77">More...</a><br /></td></tr>
+<tr class="separator:a58f384161f2f0f7388add93e27b6ad77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a9bfc3a7b1bd3aea0c4a1aa14fd0bfe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html#a1a9bfc3a7b1bd3aea0c4a1aa14fd0bfe">SetEventType</a> (<a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590">EventType</a> eventType)</td></tr>
+<tr class="memdesc:a1a9bfc3a7b1bd3aea0c4a1aa14fd0bfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pipeline method that sets the event type of this log message.  <a href="class_volume_control_1_1_log_1_1_log_message.html#a1a9bfc3a7b1bd3aea0c4a1aa14fd0bfe">More...</a><br /></td></tr>
+<tr class="separator:a1a9bfc3a7b1bd3aea0c4a1aa14fd0bfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05db1c1d7652b98ed991f20bac15a401"><td class="memItemLeft" align="right" valign="top"><a id="a05db1c1d7652b98ed991f20bac15a401"></a>
 IEnumerator&lt; object?&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html#a05db1c1d7652b98ed991f20bac15a401">GetEnumerator</a> ()</td></tr>
 <tr class="separator:a05db1c1d7652b98ed991f20bac15a401"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:af2caf0c00b1f88b63959014e17f3dc01"><td class="memItemLeft" align="right" valign="top">static implicit&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html#af2caf0c00b1f88b63959014e17f3dc01">operator LogMessage</a> (string s)</td></tr>
+<tr class="memdesc:af2caf0c00b1f88b63959014e17f3dc01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a string to a new <a class="el" href="class_volume_control_1_1_log_1_1_log_message.html" title="Represents a message to be written to the log.">LogMessage</a> instance.  <a href="class_volume_control_1_1_log_1_1_log_message.html#af2caf0c00b1f88b63959014e17f3dc01">More...</a><br /></td></tr>
+<tr class="separator:af2caf0c00b1f88b63959014e17f3dc01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:a33a7895d25663dfa719285c58efc0cc1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590">EventType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html#a33a7895d25663dfa719285c58efc0cc1">EventType</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a33a7895d25663dfa719285c58efc0cc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the event type of this message.  <a href="class_volume_control_1_1_log_1_1_log_message.html#a33a7895d25663dfa719285c58efc0cc1">More...</a><br /></td></tr>
 <tr class="separator:a33a7895d25663dfa719285c58efc0cc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a876f71883dbdda9446b2464dca4aafa4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html#a876f71883dbdda9446b2464dca4aafa4">HasEventType</a><code> [get]</code></td></tr>
+<tr class="memdesc:a876f71883dbdda9446b2464dca4aafa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets whether this <a class="el" href="class_volume_control_1_1_log_1_1_log_message.html" title="Represents a message to be written to the log.">LogMessage</a> instance has an EventType or not.  <a href="class_volume_control_1_1_log_1_1_log_message.html#a876f71883dbdda9446b2464dca4aafa4">More...</a><br /></td></tr>
+<tr class="separator:a876f71883dbdda9446b2464dca4aafa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a012bc5eaffee995f5947ac2b942f7ac3"><td class="memItemLeft" align="right" valign="top">List&lt; object?&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html#a012bc5eaffee995f5947ac2b942f7ac3">Lines</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a012bc5eaffee995f5947ac2b942f7ac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the lines in this message.  <a href="class_volume_control_1_1_log_1_1_log_message.html#a012bc5eaffee995f5947ac2b942f7ac3">More...</a><br /></td></tr>
 <tr class="separator:a012bc5eaffee995f5947ac2b942f7ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,7 +159,7 @@ Properties</h2></td></tr>
 <div class="textblock"><p>Represents a message to be written to the log. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa90c627117a53716a45f55cc7d6e488a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa90c627117a53716a45f55cc7d6e488a">&#9670;&nbsp;</a></span>LogMessage() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa90c627117a53716a45f55cc7d6e488a">&#9670;&nbsp;</a></span>LogMessage() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -170,17 +188,17 @@ Properties</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">eventType</td><td>The <a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590" title="Determines the header used to print formatted log messages.">Log.EventType</a> of this message.</td></tr>
-    <tr><td class="paramname">lines</td><td>The lines in this message.</td></tr>
+    <tr><td class="paramname">lines</td><td>The contents of the message, where each element represents one "line".</td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00040">VolumeControl.Log.LogMessage.Lines</a>.</p>
+<p class="reference">References <a class="el" href="#l00053">VolumeControl.Log.LogMessage.Lines</a>.</p>
 
 </div>
 </div>
 <a id="a18bf0d84b7c6ed7ed62ae76da71ed444"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18bf0d84b7c6ed7ed62ae76da71ed444">&#9670;&nbsp;</a></span>LogMessage() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a18bf0d84b7c6ed7ed62ae76da71ed444">&#9670;&nbsp;</a></span>LogMessage() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -203,19 +221,47 @@ Properties</h2></td></tr>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00040">VolumeControl.Log.LogMessage.Lines</a>.</p>
+<p class="reference">References <a class="el" href="#l00053">VolumeControl.Log.LogMessage.Lines</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7f2820d285ce326acf4bdb2a0456710b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f2820d285ce326acf4bdb2a0456710b">&#9670;&nbsp;</a></span>Add()</h2>
+<a id="a4044552901c9de4e872cbee72c51e220"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4044552901c9de4e872cbee72c51e220">&#9670;&nbsp;</a></span>LogMessage() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void VolumeControl.Log.LogMessage.Add </td>
+          <td class="memname">VolumeControl.Log.LogMessage.LogMessage </td>
+          <td>(</td>
+          <td class="paramtype">params object?[]&#160;</td>
+          <td class="paramname"><em>lines</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a new <a class="el" href="class_volume_control_1_1_log_1_1_log_message.html" title="Represents a message to be written to the log.">LogMessage</a> instance with the specified <em>lines</em>  and an undefined EventType. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lines</td><td>The contents of the message, where each element represents one "line".</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="reference">References <a class="el" href="#l00053">VolumeControl.Log.LogMessage.Lines</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a58f384161f2f0f7388add93e27b6ad77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58f384161f2f0f7388add93e27b6ad77">&#9670;&nbsp;</a></span>Add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a> VolumeControl.Log.LogMessage.Add </td>
           <td>(</td>
           <td class="paramtype">object?&#160;</td>
           <td class="paramname"><em>line</em></td><td>)</td>
@@ -231,15 +277,97 @@ Properties</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>This instance.</dd></dl>
 
-<p class="reference">References <a class="el" href="#l00040">VolumeControl.Log.LogMessage.Lines</a>.</p>
+<p class="reference">References <a class="el" href="#l00053">VolumeControl.Log.LogMessage.Lines</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="#l00193">VolumeControl.Core.Input.TemplateProviderManager.TryGetDictionaryProvider()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_message_a7f2820d285ce326acf4bdb2a0456710b_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_message_a58f384161f2f0f7388add93e27b6ad77_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
+</div>
+
+</div>
+</div>
+<a id="af2caf0c00b1f88b63959014e17f3dc01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2caf0c00b1f88b63959014e17f3dc01">&#9670;&nbsp;</a></span>operator LogMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static implicit VolumeControl.Log.LogMessage.operator <a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a> </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts a string to a new <a class="el" href="class_volume_control_1_1_log_1_1_log_message.html" title="Represents a message to be written to the log.">LogMessage</a> instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td>The string to convert.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a1a9bfc3a7b1bd3aea0c4a1aa14fd0bfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a9bfc3a7b1bd3aea0c4a1aa14fd0bfe">&#9670;&nbsp;</a></span>SetEventType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_volume_control_1_1_log_1_1_log_message.html">LogMessage</a> VolumeControl.Log.LogMessage.SetEventType </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_volume_control_1_1_log.html#a7bdd79a1443a7bf40773bcffc0d63590">EventType</a>&#160;</td>
+          <td class="paramname"><em>eventType</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pipeline method that sets the event type of this log message. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">eventType</td><td>The EventType to use for this log message.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>This instance.</dd></dl>
+
+</div>
+</div>
+<a id="a3230968ccec8969002158007646c0ad2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3230968ccec8969002158007646c0ad2">&#9670;&nbsp;</a></span>ToString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">override string VolumeControl.Log.LogMessage.ToString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the contents of the log message as a single string. </p>
 
 </div>
 </div>
@@ -265,6 +393,32 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Gets or sets the event type of this message. </p>
+
+<p class="reference">Referenced by <a class="el" href="#l00279">VolumeControl.Log.AsyncLogWriter.LogMessage()</a>.</p>
+
+</div>
+</div>
+<a id="a876f71883dbdda9446b2464dca4aafa4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a876f71883dbdda9446b2464dca4aafa4">&#9670;&nbsp;</a></span>HasEventType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VolumeControl.Log.LogMessage.HasEventType</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets whether this <a class="el" href="class_volume_control_1_1_log_1_1_log_message.html" title="Represents a message to be written to the log.">LogMessage</a> instance has an EventType or not. </p>
 
 </div>
 </div>
@@ -314,7 +468,7 @@ Here is the caller graph for this function:</div>
 
 <p>Gets or sets the lines in this message. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00066">VolumeControl.Log.LogMessage.Add()</a>, <a class="el" href="#l00016">VolumeControl.Log.LogMessage.LogMessage()</a>, and <a class="el" href="#l00193">VolumeControl.Core.Input.TemplateProviderManager.TryGetDictionaryProvider()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00083">VolumeControl.Log.LogMessage.Add()</a>, <a class="el" href="#l00016">VolumeControl.Log.LogMessage.LogMessage()</a>, and <a class="el" href="#l00193">VolumeControl.Core.Input.TemplateProviderManager.TryGetDictionaryProvider()</a>.</p>
 
 </div>
 </div>

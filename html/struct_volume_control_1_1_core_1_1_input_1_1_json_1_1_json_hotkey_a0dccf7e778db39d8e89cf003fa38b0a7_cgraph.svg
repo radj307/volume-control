@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_volume_control_1_1_log_1_1_f_log.html#ad09321e60c917e6a06243fa7743f412d" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="class_volume_control_1_1_log_1_1_f_log.html#a3f7c162caaa5e1ca78eff52678cd3813" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="218.5,-110.5 218.5,-129.5 379.5,-129.5 379.5,-110.5 218.5,-110.5"/>
 <text text-anchor="middle" x="299" y="-117.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.FLog.Error</text>
 </a>

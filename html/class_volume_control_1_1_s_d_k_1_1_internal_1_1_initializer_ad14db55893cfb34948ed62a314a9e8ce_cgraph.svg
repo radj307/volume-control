@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_volume_control_1_1_log_1_1_async_log_writer.html#a78392efd4f13ac8fb627ef5349c75eab" target="_top" xlink:title="Queues writing a EventType.ERROR message with the specified lines .">
+<g id="a_node2"><a xlink:href="class_volume_control_1_1_log_1_1_async_log_writer.html#a886d7f3650df1b5a21a2c00984475d33" target="_top" xlink:title="Queues writing an EventType.ERROR message with the specified lines .">
 <polygon fill="none" stroke="black" points="191,-0.5 191,-30.5 349,-30.5 349,-0.5 191,-0.5"/>
 <text text-anchor="start" x="199" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Log.AsyncLog</text>
 <text text-anchor="middle" x="270" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Writer.Error</text>
