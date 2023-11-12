@@ -433,9 +433,17 @@
               "English (US/CA)": "Keeps the main window in the same position relative to the nearest screen corner when its size changes."
             }
           },
+          "RestorePosition": {
+            "Content": {
+              "English (US/CA)": "Restore Position"
+            },
+            "Tooltip": {
+              "English (US/CA)": "Restores the previous position of the main window when you start the program."
+            }
+          },
           "EnableInputDevices": {
             "Content": {
-              "English (US/CA)": "Capture Device Support"
+              "English (US/CA)": "Audio Input Support"
             },
             "Tooltip": {
               "English (US/CA)": "Enables support for capture devices & sessions that record audio."

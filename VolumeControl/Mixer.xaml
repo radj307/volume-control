@@ -2044,12 +2044,12 @@
                                         <CheckBox
                                             Grid.Row="2"
                                             Grid.Column="1"
-                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Application.EnableInputDevices.Content',
-                                                         DefaultText='Capture Device Support'}"
-                                            IsChecked="{Binding AudioAPI.EnableInputDeviceSupport, Source={StaticResource Settings}}"
+                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Application.RestorePosition.Content',
+                                                         DefaultText='Restore Position'}"
+                                            IsChecked="{Binding RestoreMainWindowPosition, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource ApplicationSettingsCheckboxStyle}"
-                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.EnableInputDevices.Tooltip',
-                                                         DefaultText='Enables support for capture devices &amp; sessions that record audio.'}" />
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.RestorePosition.Tooltip',
+                                                         DefaultText='Restores the previous position of the main window when you start the program.'}" />
 
                                         <!--  Row 0-1 ; Column 2  -->
                                         <CheckBox
@@ -2078,9 +2078,13 @@
                                         <CheckBox
                                             Grid.Row="2"
                                             Grid.Column="2"
-                                            Content="Save Position"
-                                            IsChecked="{Binding RestoreMainWindowPosition, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                                            Style="{StaticResource ApplicationSettingsCheckboxStyle}" />
+                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Application.EnableInputDevices.Content',
+                                                         DefaultText='Audio Input Support'}"
+                                            IsChecked="{Binding AudioAPI.EnableInputDeviceSupport, Source={StaticResource Settings}}"
+                                            Style="{StaticResource ApplicationSettingsCheckboxStyle}"
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.EnableInputDevices.Tooltip',
+                                                         DefaultText='Enables support for capture devices &amp; sessions that record audio.'}" />
+
                                     </Grid>
                                 </Grid>
                                 <!--  ▼ Application Settings ▼  -->
