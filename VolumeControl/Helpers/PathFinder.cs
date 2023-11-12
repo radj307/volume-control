@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using VolumeControl.Log;
 
 namespace VolumeControl.Helpers
@@ -20,7 +21,15 @@ namespace VolumeControl.Helpers
         /// </remarks>
         public static string ApplicationAppDataPath => _localAppData ??= FindLocalAppDataConfigDir();
         private static string? _localAppData = null;
-        public static string ExecutableDirectory => _executableDirectory ??= FindExecutableDirectory();
+        /// <summary>
+        /// The path of Volume Control's executable.
+        /// </summary>
+        public static string ExecutablePath => _executablePath ??= FindExecutablePath();
+        private static string? _executablePath = null;
+        /// <summary>
+        /// The directory that Volume Control's executable is located in.
+        /// </summary>
+        public static string ExecutableDirectory => _executableDirectory ??= Path.GetDirectoryName(FindExecutablePath()) ?? AppDomain.CurrentDomain.BaseDirectory;
         private static string? _executableDirectory = null;
         #endregion Properties
 
@@ -44,10 +53,10 @@ namespace VolumeControl.Helpers
             }
             return path;
         }
-        private static string FindExecutableDirectory()
+        private static string FindExecutablePath()
         {
             using var proc = Process.GetCurrentProcess();
-            return Path.GetDirectoryName(proc.MainModule?.FileName) ?? AppDomain.CurrentDomain.BaseDirectory;
+            return proc.MainModule?.FileName!;
         }
         #endregion Functions
     }

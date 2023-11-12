@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using VolumeControl.Log;
 
@@ -7,100 +8,66 @@ namespace VolumeControl.Helpers.Win32
 {
     internal static class RunAtStartupHelper
     {
-        #region Private Constants
+        #region Constructor
+        static RunAtStartupHelper() => ExecutablePath = PathFinder.ExecutablePath;
+        #endregion Constructor
+
+        #region Fields
+        static readonly string ExecutablePath;
         /// <summary>
-        /// The friendly registry path prefix shown to users for use in `regedit.msc`
+        /// The name of the value for the app.
         /// </summary>
-        private const string RegistryRunAtStartupKeyFriendlyPrefix = @"Computer\HKEY_CURRENT_USER\";
-        /// <summary>
-        /// The path to the Run registry key.<br/>
-        /// This is relative to the <see cref="Registry.CurrentUser"/> key.
-        /// </summary>
-        private const string RegistryRunAtStartupKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
-        /// <summary>
-        /// The name of the registry value for VolumeControl's run-on-startup feature.<br/>
-        /// The actual value of the registry value is the filepath pointing to `VolumeControl.exe`.<br/>
-        /// This name is used by Windows 
-        /// </summary>
-        private const string RegistryRunAtStartupValueName = "VolumeControl";
-        #endregion Private Constants
+        const string ValueName = "VolumeControl";
+        #endregion Fields
 
         #region Properties
-        private static string RunKeyFullPath => $"{RegistryRunAtStartupKeyFriendlyPrefix}{RegistryRunAtStartupKeyPath}";
         /// <summary>
-        /// Gets or sets the registry value named by <see cref="RegistryRunAtStartupValueName"/>, located in the <see langword="HKEY_CURRENT_USER"/> subkey specified by <see cref="RegistryRunAtStartupKeyPath"/>
+        /// Gets or sets whether run at startup is enabled for Volume Control or not.
         /// </summary>
-        public static string? Value
+        [DisallowNull] //< setting this to null isn't allowed
+        public static bool? IsEnabled
         {
-            get
-            {
-                try
-                {
-                    if (Registry.CurrentUser.OpenSubKey(RegistryRunAtStartupKeyPath, false) is RegistryKey runkey)
-                    {
-                        if (runkey.GetValueNames().Contains(RegistryRunAtStartupValueName))
-                        {
-                            RegistryValueKind valueKind = runkey.GetValueKind(RegistryRunAtStartupValueName);
-                            if (valueKind.Equals(RegistryValueKind.String))
-                                return runkey.GetValue(RegistryRunAtStartupValueName)?.ToString();
-                            else FLog.Warning($"{nameof(RunAtStartupHelper)}:  Unexpected type '{valueKind:G}' for value '{RunKeyFullPath}\\{RegistryRunAtStartupValueName}'; expected type '{RegistryValueKind.String:G}'");
-                        }
-                        // else; value doesn't exist so return null.
-                    }
-                    else
-                    {
-                        FLog.Error($"{nameof(RunAtStartupHelper)}:  Failed to open registry key '{RunKeyFullPath}' for reading!");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    FLog.Error($"{nameof(RunAtStartupHelper)}:  Exception thrown while attempting to read registry value named '{RegistryRunAtStartupValueName}' from registry key '{RunKeyFullPath}':", ex);
-                }
-                return null;
-            }
+            get => RegistryHelper.IsRunAtStartupEnabled(ValueName, ExecutablePath);
             set
             {
-                try
-                {
-                    if (Registry.CurrentUser.OpenSubKey(RegistryRunAtStartupKeyPath, true) is RegistryKey runkey)
+                ArgumentNullException.ThrowIfNull(value, nameof(value));
+
+                if (value.Value)
+                { // enable
+                    try
                     {
-                        if (value is null)
-                        {
-                            if (runkey.GetValueNames().Contains(RegistryRunAtStartupValueName))
-                                runkey.DeleteValue(RegistryRunAtStartupValueName);
-                            // else; value doesn't exist so don't try to delete it.
-                        }
+                        if (RegistryHelper.EnableRunAtStartup(ValueName, ExecutablePath))
+                            FLog.Info($"[{nameof(RunAtStartupHelper)}] Enabled run at startup.");
                         else
-                        {
-                            runkey.SetValue(RegistryRunAtStartupValueName, value);
-                        }
+                            FLog.Error($"[{nameof(RunAtStartupHelper)}] Failed to enable run at startup!");
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        FLog.Error($"{nameof(RunAtStartupHelper)}:  Failed to open registry key '{RunKeyFullPath}' for writing!");
+                        FLog.Error($"[{nameof(RunAtStartupHelper)}] Failed to enable run at startup due to exception:", ex);
+#if DEBUG
+                        throw;
+#endif
                     }
                 }
-                catch (Exception ex)
-                {
-                    FLog.Error($"{nameof(RunAtStartupHelper)}:  Exception thrown while attempting to write value named '{RegistryRunAtStartupValueName}' to registry key '{RunKeyFullPath}':", ex);
+                else
+                { // disable
+                    try
+                    {
+                        if (RegistryHelper.DisableRunAtStartup(ValueName))
+                            FLog.Info($"[{nameof(RunAtStartupHelper)}] Disabled run at startup.");
+                        else
+                            FLog.Error($"[{nameof(RunAtStartupHelper)}] Failed to disable run at startup!");
+                    }
+                    catch (Exception ex)
+                    {
+                        FLog.Error($"[{nameof(RunAtStartupHelper)}] Failed to disable run at startup due to exception:", ex);
+#if DEBUG
+                        throw;
+#endif
+                    }
                 }
             }
         }
         #endregion Properties
-
-        #region Methods
-        /// <summary>
-        /// Checks if the <see cref="Value"/> property is equal to <paramref name="other"/>.<br/><br/>
-        /// You can use this to compare a <see langword="string"/> to the registry value named by <see cref="RegistryRunAtStartupValueName"/> located in the CurrentUser subkey specified by <see cref="RegistryRunAtStartupKeyPath"/>.
-        /// </summary>
-        /// <param name="other">A string to compare to the <see cref="Value"/> property.</param>
-        /// <returns><see langword="true"/> when (<see cref="Value"/> == <paramref name="other"/>); otherwise <see langword="false"/></returns>
-        public static bool ValueEquals(string other) => other.Equals(Value, StringComparison.Ordinal);
-        /// <summary>
-        /// Checks if <see cref="Value"/> is set to <see langword="null"/>.
-        /// </summary>
-        /// <returns><see langword="true"/> when <see cref="Value"/> is <see langword="null"/>; otherwise <see langword="false"/>.</returns>
-        public static bool ValueEqualsNull() => Value == null;
-        #endregion Methods
     }
 }

@@ -80,8 +80,8 @@ namespace VolumeControl.Helpers
         /// <inheritdoc cref="Config.RunAtStartup"/>
         public bool? RunAtStartup
         {
-            get => !RunAtStartupHelper.ValueEquals(this.ExecutablePath) && !RunAtStartupHelper.ValueEqualsNull() ? null : Settings.RunAtStartup;
-            set => RunAtStartupHelper.Value = (Settings.RunAtStartup = value ?? false) ? this.ExecutablePath : null;
+            get => RunAtStartupHelper.IsEnabled;
+            set => RunAtStartupHelper.IsEnabled = Settings.RunAtStartup = value ?? false;
         }
         /// <inheritdoc cref="Config.StartMinimized"/>
         public bool StartMinimized
