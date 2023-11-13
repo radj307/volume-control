@@ -440,11 +440,6 @@
             "Tooltip": {
               "Italiano (Italian)": "Verifica manualmente la presenza di nuove versioni di Volume Control."
             }
-          }
-        },
-        "Updates": {
-          "Header": {
-            "Italiano (Italian)": "Aggiornamenti"
           },
           "OnStartup": {
             "Content": {
@@ -453,13 +448,34 @@
             "Tooltip": {
               "Italiano (Italian)": "Verifica la presenza di nuove versioni di Volume Control all'avvio dell'applicazione."
             }
+          }
+        },
+        "Updates": {
+          "Header": {
+            "Italiano (Italian)": "Aggiornamenti"
+          },
+          "CheckNow": {
+            "Content": {
+              "Italiano (Italian)": "Controlla"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Controlla manualmente la disponibilità di nuove versioni di Volume Control."
+            }
+          },
+          "OnStartup": {
+            "Content": {
+              "Italiano (Italian)": "All'avvio"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "All'avvio verifica disponibilità aggiornamenti del programma."
+            }
           },
           "ShowPrompt": {
             "Content": {
               "Italiano (Italian)": "Visualizza prompt"
             },
             "Tooltip": {
-              "Italiano (Italian)": "Quando questo è selezionato, ti verrà chiesto di aggiornare sotto forma di messaggio in una finestra; in caso contrario, vedrai un'icona nell'angolo in alto a destra."
+              "Italiano (Italian)": "Quando questa opzione è selezionata, verrà richiesto di aggiornare sotto forma di una finestra di messaggio; altrimenti vedrai un'icona nell'angolo in alto a destra."
             }
           }
         }
@@ -596,10 +612,29 @@
           "Italiano (Italian)": "In futuro non verranno visualizzate le richieste di aggiornamento ."
         },
         "NewVersionAvailableMessage": {
-          "Italiano (Italian)": "È disponibile una nuova versione di Volume Control!\nVersione attuale:  ${CURRENT_VERSION}\nVersioen aggiornata:   ${LATEST_VERSION}"
+          "Italiano (Italian)": "È disponibile una nuova versione di Volume Control!\nVersione attuale:  ${CURRENT_VERSION}\nVersione aggiornata:   ${LATEST_VERSION}"
+        },
+        "NewVersionAvailableOptions_AutoUpdate": {
+          "Italiano (Italian)": "Fai clic su 'Sì' per installare la versione più recente.\nFai clic su 'No' se non vuoi aggiornare adesso.\nFai clic su 'Annulla' per annullare queste richieste."
         },
         "NewVersionAvailableOptions_OpenBrowser": {
           "Italiano (Italian)": "Seleziona 'Sì' per andare alla pagina di download.\nSeleziona 'No' se non vuoi aggiornare ora.\nSeleziona 'Annulla' per disabilitare questa richiesta."
+        },
+        "DownloadFailed": {
+          "Caption": {
+            "Italiano (Italian)": "Download fallito"
+          },
+          "Message": {
+            "Italiano (Italian)": "Si è verificato un errore durante il download del programma di installazione, per altre info controlla il registro eventi."
+          }
+        },
+        "StartFailed": {
+          "Caption": {
+            "Italiano (Italian))": "Avvio instalalzione fallito"
+          },
+          "Message": {
+            "Italiano (Italian)": "Il programma di installazione è stato scaricato correttamnte ma è impossibile avviare il programma di installazione.\nLe autorizzazioni di sistema potrebbero non consentire l'esecuzione di applicazioni dalla cartella dei download.\n\nDovrai avviare il programma di installazione manualmente."
+          }
         }
       },
       "RemoveHotkey": {
