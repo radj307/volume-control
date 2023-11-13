@@ -192,6 +192,15 @@ namespace VolumeControl.Helpers.Win32
         }
         #endregion (Private) IsToggleRunValueSetToEnabled
 
+        #region (Private) GetEnabledIsToggleRunValue
+        private static byte[] GetEnabledIsToggleRunValue()
+        {
+            var b = new byte[24];
+            b[1] = 2;
+            return b;
+        }
+        #endregion (Private) GetEnabledIsToggleRunValue
+
         #region EnableRunAtStartup
         /// <summary>
         /// Enables run at startup for the specified application.
@@ -218,7 +227,8 @@ namespace VolumeControl.Helpers.Win32
                 else return true; //< run at startup is already enabled for this instance
             }
 
-            return SetValue(BaseKey.HKEY_CURRENT_USER, RunKeyPath, valueName, executablePath);
+            return SetValue(BaseKey.HKEY_CURRENT_USER, RunKeyPath, valueName, executablePath) //< set the executable path for run at startup
+                && SetValue(BaseKey.HKEY_CURRENT_USER, ToggleRunKeyPath, valueName, GetEnabledIsToggleRunValue()); //< enable run at startup
         }
         #endregion EnableRunAtStartup
 
