@@ -20,8 +20,8 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <FileVersion>6.6.0</FileVersion>
-    <Version>6.6.0</Version>
+    <FileVersion>6.6.1</FileVersion>
+    <Version>6.6.1</Version>
     <Copyright>Copyright © 2022-2023 by $(Authors)</Copyright>
   </PropertyGroup>
   <ItemGroup>
