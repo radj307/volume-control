@@ -1,4 +1,5 @@
-﻿using CodingSeb.Localization;
+﻿using Localization;
+using Localization.Events;
 using System;
 using System.ComponentModel;
 using VolumeControl.Core;

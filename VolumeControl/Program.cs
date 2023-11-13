@@ -1,4 +1,4 @@
-﻿using CodingSeb.Localization;
+﻿using Localization;
 using Semver;
 using System;
 using System.IO;

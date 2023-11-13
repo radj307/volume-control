@@ -1,4 +1,4 @@
-﻿using CodingSeb.Localization;
+﻿using Localization;
 using System;
 using System.ComponentModel;
 using System.Linq;

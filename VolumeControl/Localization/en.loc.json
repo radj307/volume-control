@@ -203,6 +203,12 @@
               "Tooltip": {
                 "English (US/CA)": "Toggle the visibility of volume & mute controls in the Audio Devices section."
               }
+            },
+            "HiddenSessions": {
+              "Content": {
+                "English (US/CA)": "Hidden Sessions"
+              },
+              "Tooltip": {}
             }
           },
           "DeviceGrid": {

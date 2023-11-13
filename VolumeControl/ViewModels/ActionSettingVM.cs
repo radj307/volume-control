@@ -1,4 +1,6 @@
-﻿using CodingSeb.Localization;
+﻿using Localization;
+using Localization.Events;
+using Microsoft.VisualBasic;
 using PropertyChanged;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.Core.Input.Actions.Settings;
@@ -19,8 +21,8 @@ namespace VolumeControl.ViewModels
 
             _localizationBasePath = $"Actions.{actionDefinition.ActionGroupType.Name}";
 
-            DisplayName = GetTranslatedName();
-            DisplayDescription = GetTranslatedDescription();
+            DisplayName = GetTranslatedProperty("Name", ActionSettingInstance.Name)!;
+            DisplayDescription = GetTranslatedProperty("Description", ActionSettingInstance.Description);
 
             Loc.Instance.CurrentLanguageChanged += this.LocInstance_CurrentLanguageChanged;
         }
@@ -44,63 +46,19 @@ namespace VolumeControl.ViewModels
         #endregion Properties
 
         #region Methods
-        private string GetTranslatedName()
+        private string? GetTranslatedProperty(string propertyName, string? defaultValue)
         {
-            var missingTranslationsAreLogged = Loc.LogOutMissingTranslations;
-            if (missingTranslationsAreLogged)
-                Loc.LogOutMissingTranslations = false;
+            if (!Loc.Instance.Languages.TryGetValue(Loc.Instance.CurrentLanguageName, out var langDict))
+                return defaultValue; //< there is no current language
 
-            try
-            {
-                const string defaultString = "$";
-                string name;
+            // check the action JSON object for a value
+            if (langDict.TryGetValue(_localizationBasePath + HotkeyActionDefinition.ActionMethodInfo.Name + '.' + propertyName, out var value))
+                return value;
+            // check the group's shared settings JSON object for a value
+            if (langDict.TryGetValue(_localizationBasePath + ".SharedSettings." + ActionSettingInstance.Name + '.' + propertyName, out value))
+                return value;
 
-                // check the action JSON object for a setting definition
-                name = Loc.Tr(_localizationBasePath + HotkeyActionDefinition.ActionMethodInfo.Name + ".Name", defaultText: defaultString);
-                if (!name.Equals(defaultString, System.StringComparison.Ordinal))
-                    return name;
-
-                // check the group's shared settings JSON object for a setting definition
-                name = Loc.Tr(_localizationBasePath + ".SharedSettings." + ActionSettingInstance.Name + ".Name", defaultText: defaultString);
-                if (!name.Equals(defaultString, System.StringComparison.Ordinal))
-                    return name;
-
-                return ActionSettingInstance.Name;
-            }
-            finally
-            {
-                if (missingTranslationsAreLogged)
-                    Loc.LogOutMissingTranslations = true;
-            }
-        }
-        private string? GetTranslatedDescription()
-        {
-            var missingTranslationsAreLogged = Loc.LogOutMissingTranslations;
-            if (missingTranslationsAreLogged)
-                Loc.LogOutMissingTranslations = false;
-
-            try
-            {
-                const string defaultString = "$";
-                string description;
-
-                // check the action JSON object for a setting definition
-                description = Loc.Tr(_localizationBasePath + HotkeyActionDefinition.ActionMethodInfo.Name + ".Description", defaultText: defaultString);
-                if (!description.Equals(defaultString, System.StringComparison.Ordinal))
-                    return description;
-
-                // check the group's shared settings JSON object for a setting definition
-                description = Loc.Tr(_localizationBasePath + ".SharedSettings." + ActionSettingInstance.Name + ".Description", defaultText: defaultString);
-                if (!description.Equals(defaultString, System.StringComparison.Ordinal))
-                    return description;
-
-                return ActionSettingInstance.Description;
-            }
-            finally
-            {
-                if (missingTranslationsAreLogged)
-                    Loc.LogOutMissingTranslations = true;
-            }
+            return defaultValue;
         }
         #endregion Methods
 
@@ -109,8 +67,8 @@ namespace VolumeControl.ViewModels
         #region Loc.Instance
         private void LocInstance_CurrentLanguageChanged(object? sender, CurrentLanguageChangedEventArgs e)
         {
-            DisplayName = GetTranslatedName();
-            DisplayDescription = GetTranslatedDescription();
+            DisplayName = GetTranslatedProperty("Name", ActionSettingInstance.Name)!;
+            DisplayDescription = GetTranslatedProperty("Description", ActionSettingInstance.Description);
         }
         #endregion Loc.Instance
 
@@ -151,33 +109,18 @@ namespace VolumeControl.ViewModels
         #region Methods
         private string? GetTranslatedGroupName()
         {
-            var missingTranslationsAreLogged = Loc.LogOutMissingTranslations;
-            if (missingTranslationsAreLogged)
-                Loc.LogOutMissingTranslations = false;
-
-            try
-            {
-                const string defaultString = "$";
-                string groupName;
-
-                // check the action JSON object for a group name override:
-                groupName = Loc.Tr(_localizationBasePath + HotkeyActionDefinition.ActionMethodInfo.Name + ".GroupName", defaultText: defaultString);
-                if (!groupName.Equals(defaultString, System.StringComparison.Ordinal))
-                    return groupName;
-
-                // check the group JSON object for a group name:
-                groupName = Loc.Tr(_localizationBasePath + ".GroupName", defaultText: defaultString);
-                if (!groupName.Equals(defaultString, System.StringComparison.Ordinal))
-                    return groupName;
-
-                // else, return the default group name
+            if (!Loc.Instance.Languages.TryGetValue(Loc.Instance.CurrentLanguageName, out var langDict))
                 return HotkeyActionDefinition.GroupName;
-            }
-            finally
-            {
-                if (missingTranslationsAreLogged)
-                    Loc.LogOutMissingTranslations = true;
-            }
+
+            // check the action JSON object for a group name override:
+            if (langDict.TryGetValue(_localizationBasePath + HotkeyActionDefinition.ActionMethodInfo.Name + ".GroupName", out var value))
+                return value;
+            // check the group JSON object for a group name:
+            if (langDict.TryGetValue(_localizationBasePath + ".GroupName", out value))
+                return value;
+
+            // else, return the default group name
+            return HotkeyActionDefinition.GroupName;
         }
         private string GetTranslatedName()
             => Loc.Tr(_localizationBasePath + '.' + HotkeyActionDefinition.ActionMethodInfo.Name + ".Name", defaultText: HotkeyActionDefinition.Name);

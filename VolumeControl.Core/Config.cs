@@ -160,7 +160,7 @@ namespace VolumeControl.Core
         /// <summary>
         /// Gets or sets whether missing translation keys cause a log message to be written.
         /// </summary>
-        public bool LogMissingTranslations { get; set; } = false;
+        public bool LogMissingTranslations { get; set; } = true;
         /// <summary>
         /// Gets or sets a list of additional directories to load localization packages from.
         /// </summary>

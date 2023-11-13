@@ -1,4 +1,4 @@
-﻿using CodingSeb.Localization;
+﻿using Localization;
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;
@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using VolumeControl.Core;
 using VolumeControl.Core.Enum;
+using VolumeControl.Core.Extensions;
 using VolumeControl.Core.Input;
 using VolumeControl.Core.Input.Enums;
 using VolumeControl.Helpers;
@@ -361,6 +362,11 @@ namespace VolumeControl
                 Settings.MainWindowOriginCorner = corner;
                 Settings.MainWindowPosition = this.GetPosAtCorner(corner);
             }
+        }
+        private void window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Keyboard.PrimaryDevice.IsModifierKeyDown(EModifierKey.Alt))
+                this.DragMove();
         }
 
         #region KeySelectorToggleButton

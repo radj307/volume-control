@@ -1,4 +1,5 @@
-﻿using CodingSeb.Localization;
+﻿using Localization;
+using Localization.Events;
 using System;
 
 namespace VolumeControl.Controls
@@ -48,7 +49,6 @@ namespace VolumeControl.Controls
         #endregion TranslationGetters
 
         #region Events
-
         private void Handle_CurrentLanguageChanged(object? sender, CurrentLanguageChangedEventArgs e)
         {
             this.Items[_idx_ShowHide].Text = GetShowHideText(_mainWindowVisibilityChecker());

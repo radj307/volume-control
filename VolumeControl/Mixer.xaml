@@ -13,7 +13,7 @@
     xmlns:helpers="clr-namespace:VolumeControl.Helpers"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:input="clr-namespace:VolumeControl.Core.Input;assembly=VolumeControl.Core"
-    xmlns:loc="clr-namespace:CodingSeb.Localization;assembly=CodingSeb.Localization"
+    xmlns:loc="clr-namespace:Localization;assembly=Localization"
     xmlns:local="clr-namespace:VolumeControl"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:rsc="clr-namespace:VolumeControl.Properties"
@@ -30,6 +30,7 @@
     Icon="/Resources/icons/iconSilvered.ico"
     Initialized="Window_Initialized"
     Loaded="Window_Loaded"
+    PreviewMouseDown="window_PreviewMouseDown"
     ResizeMode="CanMinimize"
     SizeToContent="WidthAndHeight"
     UseLayoutRounding="True"
@@ -1328,8 +1329,8 @@
                                         <ComboBox
                                             Margin="5,3"
                                             HorizontalAlignment="Stretch"
-                                            ItemsSource="{Binding AvailableLanguages, Mode=OneWay, Source={x:Static loc:Loc.Instance}}"
-                                            SelectedItem="{Binding CurrentLanguage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Source={x:Static loc:Loc.Instance}}"
+                                            ItemsSource="{Binding AvailableLanguageNames, Mode=OneWay, Source={x:Static loc:Loc.Instance}}"
+                                            SelectedItem="{Binding CurrentLanguageName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Source={x:Static loc:Loc.Instance}}"
                                             Style="{StaticResource ComboBoxStyle}" />
 
                                         <Button
@@ -1339,7 +1340,7 @@
                                             Content="{Tr 'VolumeControl.MainWindow.Settings.Language.Reload.Content',
                                                          DefaultText='Reload'}"
                                             Style="{StaticResource ButtonStyle}"
-                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Language.Regenerate.Tooltip',
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Language.Reload.Tooltip',
                                                          DefaultText='Forcibly (re)create all of the default localization packages.'}" />
                                     </Grid>
                                 </Grid>
@@ -1446,8 +1447,7 @@
                                                         Style="{StaticResource TextBlockStyle}"
                                                         Text="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.HiddenSessions.Content',
                                                                   DefaultText='Hidden Sessions'}"
-                                                        ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.HiddenSessions.Tooltip',
-                                                                     DefaultText=' '}" />
+                                                        ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.HiddenSessions.Tooltip'}" />
                                                     <ListBox
                                                         x:Name="HiddenSessionProcessNamesListBox"
                                                         Grid.Row="1"
