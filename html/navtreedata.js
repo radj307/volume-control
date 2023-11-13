@@ -28,11 +28,9 @@ var NAVTREE =
     [ "Getting Started", "index.html#autotoc_md35", [
       [ "What It Does", "index.html#autotoc_md33", null ],
       [ "How does it work?", "index.html#autotoc_md34", null ],
-      [ "Manual Installation", "index.html#autotoc_md36", null ]
-    ] ],
-    [ "Usage", "index.html#autotoc_md37", [
-      [ "Contributing", "index.html#autotoc_md38", null ],
-      [ "Addon Development", "index.html#autotoc_md39", null ]
+      [ "Manual Installation", "index.html#autotoc_md36", null ],
+      [ "Contributing", "index.html#autotoc_md37", null ],
+      [ "Addon Development", "index.html#autotoc_md38", null ]
     ] ],
     [ "Contributing", "md__home_runner_work_volume_control_volume_control__c_o_n_t_r_i_b_u_t_i_n_g.html", [
       [ "Guidelines for Code Contributions", "md__home_runner_work_volume_control_volume_control__c_o_n_t_r_i_b_u_t_i_n_g.html#autotoc_md1", null ],
@@ -109,15 +107,15 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"",
-"class_volume_control_1_1_core_1_1_config.html#ad958fb5ef12aab1044c6447711171da2",
-"class_volume_control_1_1_core_1_1_input_simulator.html#a072fe976390232fb93f4a3a5a3de7797",
-"class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html#a517af3216aacdf1174f4189c97df42ed",
-"class_volume_control_1_1_type_extensions_1_1_enum_extensions.html#a6812e53c55521fa2f45fef15970a3404",
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a791a3f88229eb4a12ff6060f2194e63c",
-"functions_func.html",
-"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a55e6774c5d0729f281b9b4d7dc56a746",
-"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227cac217f6ce95cedd93797ca32d55e18165"
+"_addon.html",
+"class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html#ae2785436ffe7017e45bc67c5f53fba6d",
+"class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a002328df0dfce68e90f191d7c2b48496",
+"class_volume_control_1_1_log_1_1_f_log.html#a6a27b7e683d0c872900c694978f339d2",
+"class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_horizontal_scroll_behavior.html#a4cea26379bf75a917ce2409c3d72f779",
+"class_volume_control_1_1_w_p_f_1_1_data_template_type_binding.html#a9760e8c8790fb44703a24ce4fbec85d9",
+"interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#afe1512ce29b3bbb7f47ffc74e07e3fcb",
+"namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca1faf42f2823f184eb2c9f0dffe5d73f2",
+"struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html#af1d0670ef39ed97f5f1299e63d20262c"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
