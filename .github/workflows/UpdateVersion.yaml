@@ -23,19 +23,19 @@ jobs:
 
       - name:   Update .csproj Version Numbers
         run:    |
-                $tag = $(git describe --tags --abbrev=0)
+                $tag = $( git describe --tags --abbrev=0 )
                 $tag -cmatch '(?<MAJOR>\d+?)\.(?<MINOR>\d+?)\.(?<PATCH>\d+?)(?<EXTRA>.*)' > $null
                 $tag_3_part = $Matches.MAJOR + '.' + $Matches.MINOR + '.' + $Matches.PATCH
                 $copyright = "Copyright © 2022-$((Get-Date).Year) by `$`(Authors`)"
                 
-                .\SetVersion.ps1 -Path VolumeControl.Log/VolumeControl.Log.csproj                           Version=$tag FileVersion=$tag_3_part Copyright=$copyright
-                .\SetVersion.ps1 -Path VolumeControl.TypeExtensions/VolumeControl.TypeExtensions.csproj     Version=$tag FileVersion=$tag_3_part Copyright=$copyright
-                .\SetVersion.ps1 -Path VolumeControl.WPF/VolumeControl.WPF.csproj                           Version=$tag FileVersion=$tag_3_part Copyright=$copyright
-                .\SetVersion.ps1 -Path VolumeControl.HotkeyActions/VolumeControl.HotkeyActions.csproj       Version=$tag FileVersion=$tag_3_part Copyright=$copyright
-                .\SetVersion.ps1 -Path VolumeControl.CoreAudio/VolumeControl.CoreAudio.csproj               Version=$tag FileVersion=$tag_3_part Copyright=$copyright
-                .\SetVersion.ps1 -Path VolumeControl.Core/VolumeControl.Core.csproj                         Version=$tag FileVersion=$tag_3_part Copyright=$copyright
-                .\SetVersion.ps1 -Path VolumeControl.SDK/VolumeControl.SDK.csproj                           Version=$tag FileVersion=$tag_3_part Copyright=$copyright
-                .\SetVersion.ps1 -Path VolumeControl/VolumeControl.csproj                                   Version=$tag FileVersion=$tag_3_part Copyright=$copyright
+                .\.github\workflows\scripts\SetProperty.ps1 -Path VolumeControl.Log/VolumeControl.Log.csproj                           Version=$tag FileVersion=$tag_3_part Copyright=$copyright
+                .\.github\workflows\scripts\SetProperty.ps1 -Path VolumeControl.TypeExtensions/VolumeControl.TypeExtensions.csproj     Version=$tag FileVersion=$tag_3_part Copyright=$copyright
+                .\.github\workflows\scripts\SetProperty.ps1 -Path VolumeControl.WPF/VolumeControl.WPF.csproj                           Version=$tag FileVersion=$tag_3_part Copyright=$copyright
+                .\.github\workflows\scripts\SetProperty.ps1 -Path VolumeControl.HotkeyActions/VolumeControl.HotkeyActions.csproj       Version=$tag FileVersion=$tag_3_part Copyright=$copyright
+                .\.github\workflows\scripts\SetProperty.ps1 -Path VolumeControl.CoreAudio/VolumeControl.CoreAudio.csproj               Version=$tag FileVersion=$tag_3_part Copyright=$copyright
+                .\.github\workflows\scripts\SetProperty.ps1 -Path VolumeControl.Core/VolumeControl.Core.csproj                         Version=$tag FileVersion=$tag_3_part Copyright=$copyright
+                .\.github\workflows\scripts\SetProperty.ps1 -Path VolumeControl.SDK/VolumeControl.SDK.csproj                           Version=$tag FileVersion=$tag_3_part Copyright=$copyright
+                .\.github\workflows\scripts\SetProperty.ps1 -Path VolumeControl/VolumeControl.csproj                                   Version=$tag FileVersion=$tag_3_part Copyright=$copyright
 
       - name:   Push Changes
         run:    |
