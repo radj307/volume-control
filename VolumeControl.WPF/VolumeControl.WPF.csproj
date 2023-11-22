@@ -10,8 +10,8 @@
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>../$(MSBuildProjectName).xml</DocumentationFile>
-    <Version>6.6.2</Version>
-    <FileVersion>6.6.2</FileVersion>
+    <Version>6.6.3</Version>
+    <FileVersion>6.6.3</FileVersion>
     <Copyright>Copyright © 2022-2023 by $(Authors)</Copyright>
   </PropertyGroup>
   <ItemGroup>
