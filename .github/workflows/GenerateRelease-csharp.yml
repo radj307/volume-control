@@ -6,6 +6,7 @@ on:
       - 'Update Version'
     types:
       - 'completed'
+  workflow_dispatch:
 
 jobs:
   build-portable-release:
