@@ -1,17 +1,15 @@
 ﻿using Localization;
-using Localization.Events;
 using Localization.Json;
 using Localization.Yaml;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using VolumeControl.Core;
 using VolumeControl.Log;
 using VolumeControl.Log.Interfaces;
-using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Helpers
 {
@@ -19,23 +17,20 @@ namespace VolumeControl.Helpers
     {
         #region Fields
         private const string _baseResourcePath = $"{nameof(VolumeControl)}.Localization.";
-        private static string _defaultTranslationConfigDirectory = Path.Combine(PathFinder.ApplicationAppDataPath, "Localization");
         private static readonly Regex LanguageConfigNameRegex = new(@"([a-z]{2}\.loc\.(?:json|yaml|yml))$", RegexOptions.Compiled);
         #endregion Fields
 
         #region Properties
         private static Config Settings => Config.Default;
         private static ILogWriter? LogWriter { get; set; }
-        private static JsonTranslationLoader JsonLoader { get; set; } = null!;
-        private static YamlTranslationLoader YamlLoader { get; set; } = null!;
-        private static List<(Assembly Assembly, string ManifestResourceName)> AddonManifestResourceConfigs { get; } = new();
+        private static List<(Assembly Assembly, string ManifestResourceName, ITranslationLoader Loader)> AddonManifestResourceConfigs { get; } = new();
         public static bool IsInitialized { get; private set; }
         #endregion Properties
 
         #region Methods
 
         #region Initialize
-        public static void Initialize(bool overwriteExistingTranslationConfigs, bool logMissingTranslations, ILogWriter? log)
+        public static void Initialize(bool overwriteExisting, bool logMissingTranslations, ILogWriter? log)
         {
             if (IsInitialized)
                 throw new InvalidOperationException($"[{nameof(LocalizationHelper)}] has already been initialized!");
@@ -44,21 +39,10 @@ namespace VolumeControl.Helpers
             LogWriter = log;
 
             // create file loaders
-            if (Loc.Instance.TranslationLoaders.Count == 0)
-            {
-                JsonLoader = Loc.Instance.AddTranslationLoader<JsonTranslationLoader>();
-                YamlLoader = Loc.Instance.AddTranslationLoader<YamlTranslationLoader>();
-            }
-
-            // set the default translation config directory
-            if (Settings.CreateTranslationConfigsInLocalDirectory)
-                _defaultTranslationConfigDirectory = Path.Combine(PathFinder.ExecutableDirectory, "Localization");
-
-            // create the default translation configs
-            if (Settings.CreateTranslationConfigs)
-            {
-                WriteEmbeddedTranslationConfigs(overwriteExistingTranslationConfigs);
-            }
+            Loc.Instance.AddTranslationLoader<JsonSingleTranslationLoader>();
+            Loc.Instance.AddTranslationLoader<JsonTranslationLoader>();
+            Loc.Instance.AddTranslationLoader<YamlSingleTranslationLoader>();
+            Loc.Instance.AddTranslationLoader<YamlTranslationLoader>();
 
             // use blank string instead of key when no default text was provided
             Loc.Instance.UseKeyAsFallback = false;
@@ -71,178 +55,120 @@ namespace VolumeControl.Helpers
             }
 
             // load the default translation configs
-            ReloadTranslations(keepCurrentLanguage: false);
+            ReloadTranslations(clearCurrentLanguage: true);
 
             // set the current language
             Loc.Instance.CurrentLanguageName = Settings.LanguageName;
             Loc.Instance.CurrentLanguageChanged += LocInstance_CurrentLanguageChanged;
+            // set the fallback language to english
+            Loc.Instance.FallbackLanguageName = Loc.Instance.AvailableLanguageNames.FirstOrDefault(langName => langName.StartsWith("English", StringComparison.OrdinalIgnoreCase));
         }
 
-        private static void Instance_MissingTranslationStringRequested(object sender, MissingTranslationStringRequestedEventArgs e)
-        {
-            FLog.Warning($"[{nameof(LocalizationHelper)}] Language \"{e.LanguageName}\" is missing translation \"{e.StringPath}\"");
-        }
-#endregion Initialize
+        #endregion Initialize
 
-#region (Private) WriteStreamToFileAsync
-        private static async Task WriteStreamToFileAsync(Stream stream, string filePath)
+        #region LoadFromManifestResource
+        public static void LoadFromManifestResource(Assembly addonAssembly, string resourceName, ITranslationLoader? translationLoader = null)
         {
-            if (stream.Length == 0)
+            string? serial = null;
+            using (var stream = addonAssembly.GetManifestResourceStream(resourceName))
             {
-                await stream.DisposeAsync();
-                return;
+                if (stream == null) return;
+                using var reader = new StreamReader(stream);
+                serial = reader.ReadToEnd();
             }
+            if (serial == null) return;
+
             try
             {
-                using var fileStream = File.Open(filePath, FileMode.Create, FileAccess.Write, FileShare.Read);
-
-                await stream.CopyToAsync(fileStream);
-                await fileStream.FlushAsync();
-            }
-            catch (Exception ex)
-            {
-                LogWriter?.Error($"[{nameof(LocalizationHelper)}] Failed to write resource stream to file \"{filePath}\" due to an exception:", ex);
-            }
-            await stream.DisposeAsync();
-        }
-#endregion (Private) WriteStreamToFileAsync
-
-#region (Private) WriteEmbeddedTranslationConfigs
-        private static void WriteEmbeddedTranslationConfigs(bool overwriteExisting)
-        {
-            // create directory if it doesn't exist
-            Directory.CreateDirectory(_defaultTranslationConfigDirectory);
-
-            var assembly = Assembly.GetExecutingAssembly();
-            var writeTasks = new List<Task>();
-
-            foreach (var resourcePath in assembly.GetManifestResourceNames())
-            {
-                if (!resourcePath.StartsWith(_baseResourcePath, StringComparison.Ordinal)) continue;
-                else if (!LanguageConfigNameRegex.IsMatch(resourcePath))
-                {
-                    LogWriter?.Error($"[{nameof(LocalizationHelper)}] Translation config \"{resourcePath}\" does not have a valid name, and was skipped.");
-                    continue;
-                }
-
-                string resourceName = resourcePath[_baseResourcePath.Length..];
-                string outputFilePath = Path.Combine(_defaultTranslationConfigDirectory, resourceName);
-
-                bool fileAlreadyExists = File.Exists(outputFilePath);
-                if (overwriteExisting || !fileAlreadyExists)
-                {
-                    // WriteStreamToFileAsync disposes of the stream for us:
-                    writeTasks.Add(WriteStreamToFileAsync(assembly.GetManifestResourceStream(resourcePath)!, outputFilePath));
-
-                    LogWriter?.Debug($"[{nameof(LocalizationHelper)}] Writing \"{resourceName}\" to \"{outputFilePath}\"");
-                }
-            }
-
-            Task.WhenAll(writeTasks).GetAwaiter().GetResult();
-        }
-#endregion (Private) WriteEmbeddedTranslationConfigs
-
-#region LoadFromDirectory
-        /// <summary>
-        /// Loads all translation configs in the specified <paramref name="directoryPath"/>.
-        /// </summary>
-        /// <remarks>
-        /// If the specified <paramref name="directoryPath"/> doesn't exist, the method returns immediately.
-        /// </remarks>
-        /// <param name="directoryPath">The directory path to load translation configs from.</param>
-        public static void LoadFromDirectory(string directoryPath)
-        {
-            if (!Directory.Exists(directoryPath))
-            {
-                LogWriter?.Error($"[{nameof(LocalizationHelper)}] Directory \"{directoryPath}\" doesn't exist!");
-                return;
-            }
-            else
-            {
-                LogWriter?.Trace($"[{nameof(LocalizationHelper)}] Searching for translation configs in directory \"{directoryPath}\"");
-            }
-
-            int successfullyLoadedConfigsCount = 0;
-
-            foreach (var filePath in Directory.EnumerateFiles(directoryPath))
-            {
-                if (!LanguageConfigNameRegex.IsMatch(filePath))
-                {
-                    LogWriter?.Warning($"[{nameof(LocalizationHelper)}] Skipped loading \"{filePath}\" because its name is invalid!");
-                    continue;
-                }
-
                 try
                 {
-                    Loc.Instance.LoadFromFile(filePath);
-                    ++successfullyLoadedConfigsCount;
-                    LogWriter?.Trace($"[{nameof(LocalizationHelper)}] Successfully loaded language config \"{filePath}\"");
+                    if (translationLoader != null && Loc.Instance.LoadFromString(translationLoader, serial))
+                    {
+                        AddonManifestResourceConfigs.Add((addonAssembly, resourceName, translationLoader));
+                        return;
+                    }
                 }
-                catch (Exception ex)
+                catch { }
+
+                foreach (var loader in Loc.Instance.TranslationLoaders)
                 {
-                    LogWriter?.Error($"[{nameof(LocalizationHelper)}] Failed to load language config \"{filePath}\" due to an exception:", ex);
+                    try
+                    {
+                        if (Loc.Instance.LoadFromString(loader, serial))
+                        {
+                            AddonManifestResourceConfigs.Add((addonAssembly, resourceName, loader));
+                            return;
+                        }
+                    }
+                    catch { }
                 }
             }
-
-            LogWriter?.Trace($"[{nameof(LocalizationHelper)}] Loaded {successfullyLoadedConfigsCount} translation config{(successfullyLoadedConfigsCount != 1 ? "s" : "")} from directory \"{directoryPath}\".");
+            finally
+            {
+                LogWriter?.Trace($"[{nameof(LocalizationHelper)}] Assembly \"{addonAssembly.FullName}\" adds translation config \"{resourceName}\".");
+            }
         }
-#endregion LoadFromDirectory
+        #endregion LoadFromManifestResource
 
-#region (Private) GetStreamContents
-        private static string? GetStreamContents(Stream? stream)
+        #region ReloadTranslations
+        public static void ReloadTranslations(bool clearCurrentLanguage = false)
         {
-            if (stream == null) return null;
+            LogWriter?.Trace($"[{nameof(LocalizationHelper)}] Reloading translation configs.");
+            Loc.Instance.ClearLanguages(clearCurrentLanguage);
 
-            using var reader = new StreamReader(stream);
+            // load the built-in translation configs
+            var assembly = Assembly.GetExecutingAssembly();
+            foreach (var resourceName in assembly.GetManifestResourceNames())
+            {
+                if (LanguageConfigNameRegex.IsMatch(resourceName))
+                {
+                    string? serial = null;
+                    using (var stream = assembly.GetManifestResourceStream(resourceName))
+                    {
+                        if (stream == null) continue;
+                        using var reader = new StreamReader(stream);
+                        serial = reader.ReadToEnd();
+                    }
 
-            return reader.ReadToEnd();
-        }
-#endregion (Private) GetStreamContents
+                    if (Loc.Instance.GetTranslationLoaderForPath(resourceName) is ITranslationLoader translationLoader)
+                    {
+                        try
+                        {
+                            if (Loc.Instance.LoadFromString(translationLoader, serial))
+                            {
+                                continue;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            LogWriter?.Warning($"[{nameof(LocalizationHelper)}] Failed to load {resourceName} with loader {translationLoader.GetType().Name} due to exception:", ex);
+                        }
+                    }
 
-#region LoadFromManifestResource
-        public static void LoadFromManifestResource(Assembly addonAssembly, string resourceName)
-        {
-            if (JsonLoader.CanLoadFile(resourceName))
-                Loc.Instance.LoadFromString(JsonLoader, GetStreamContents(addonAssembly.GetManifestResourceStream(resourceName)));
-            else if (YamlLoader.CanLoadFile(resourceName))
-                Loc.Instance.LoadFromString(YamlLoader, GetStreamContents(addonAssembly.GetManifestResourceStream(resourceName)));
-            AddonManifestResourceConfigs.AddIfUnique((addonAssembly, resourceName));
-        }
-#endregion LoadFromManifestResource
-
-#region ReloadTranslations
-        public static void ReloadTranslations(bool keepCurrentLanguage = true)
-        {
-            var currentLanguage = Loc.Instance.CurrentLanguageName;
-
-            LogWriter?.Trace($"[{nameof(LocalizationHelper)}] Reloading all translation configs.");
-            Loc.Instance.ClearLanguages();
-
-            LoadFromDirectory(_defaultTranslationConfigDirectory);
+                    Loc.Instance.LoadFromString(serial);
+                }
+            }
 
             foreach (var directoryPath in Settings.CustomLocalizationDirectories)
             {
-                LoadFromDirectory(directoryPath);
+                Loc.Instance.LoadFromDirectory(directoryPath);
             }
 
-            foreach (var (addonAssembly, resourceName) in AddonManifestResourceConfigs)
+            foreach (var (addonAssembly, resourceName, loader) in AddonManifestResourceConfigs)
             {
                 using var stream = addonAssembly.GetManifestResourceStream(resourceName);
                 if (stream == null) continue;
                 using var reader = new StreamReader(stream);
-                Loc.Instance.LoadFromString(JsonLoader, reader.ReadToEnd());
+                Loc.Instance.LoadFromString(loader, reader.ReadToEnd());
             }
-
-            if (keepCurrentLanguage)
-                Loc.Instance.CurrentLanguageName = currentLanguage;
         }
-#endregion ReloadTranslations
+        #endregion ReloadTranslations
 
-#endregion Methods
+        #endregion Methods
 
-#region EventHandlers
+        #region EventHandlers
 
-#region Loc.Instance
+        #region Loc.Instance
         private static void LocInstance_CurrentLanguageChanged(object? sender, CurrentLanguageChangedEventArgs e)
         { // update the language in the settings
             if (!e.NewLanguageName.Equals(Settings.LanguageName, StringComparison.Ordinal))
@@ -252,8 +178,16 @@ namespace VolumeControl.Helpers
                 LogWriter?.Info($"[{nameof(LocalizationHelper)}] Language changed to \"{e.NewLanguageName}\" (was \"{e.OldLanguageName}\")");
             }
         }
-#endregion Loc.Instance
+        private static void Instance_MissingTranslationStringRequested(object sender, MissingTranslationRequestedEventArgs e)
+        {
+            string? keyString = e.Key;
+            if (e.Keys?.Count() > 0)
+                keyString = '"' + string.Join("\", \"", e.Keys) + '"';
+            if (keyString != null)
+                FLog.Warning($"[{nameof(LocalizationHelper)}] \"{e.LanguageName}\" is missing a translation for key \"{keyString}\"");
+        }
+        #endregion Loc.Instance
 
-#endregion EventHandlers
+        #endregion EventHandlers
     }
 }
