@@ -99,7 +99,8 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_core_1_1_help
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Core.Helpers.StringHelper:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper__coll__graph.svg" width="222" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper__coll__graph.svg" width="222" height="191"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
@@ -142,6 +143,9 @@ static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 <tr class="memitem:ac6fef1c41cae4764d15d196f1ea06d2c"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#ac6fef1c41cae4764d15d196f1ea06d2c">GetFullMethodName</a> (this MethodInfo method)</td></tr>
 <tr class="memdesc:ac6fef1c41cae4764d15d196f1ea06d2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the name of the method.  <a href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#ac6fef1c41cae4764d15d196f1ea06d2c">More...</a><br /></td></tr>
 <tr class="separator:ac6fef1c41cae4764d15d196f1ea06d2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac444a0a25f88eeecea4fc701974a9a77"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#ac444a0a25f88eeecea4fc701974a9a77">PartialFormat</a> (string format, params(int, object)[] formatArgs)</td></tr>
+<tr class="memdesc:ac444a0a25f88eeecea4fc701974a9a77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emulates string.Format(string, object?[]), but allows partial formatting for specific arguments rather than all of them at once.  <a href="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper.html#ac444a0a25f88eeecea4fc701974a9a77">More...</a><br /></td></tr>
+<tr class="separator:ac444a0a25f88eeecea4fc701974a9a77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Defines helper methods &amp; extension methods for creating nicely-formatted strings. </p>
@@ -407,7 +411,7 @@ static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An indentation string made up of alternating characters with the requested length.</dd></dl>
 
-<p class="reference">References <a class="el" href="#l00025">VolumeControl.Core.Helpers.StringHelper.MakeAlternatingPattern()</a>.</p>
+<p class="reference">References <a class="el" href="#l00026">VolumeControl.Core.Helpers.StringHelper.MakeAlternatingPattern()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -482,12 +486,50 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="#l00074">VolumeControl.Core.Helpers.StringHelper.IndentWithPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00075">VolumeControl.Core.Helpers.StringHelper.IndentWithPattern()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_helpers_1_1_string_helper_a26b798cd90097e9a348969e612b0d7c9_icgraph.svg" width="540" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
+
+</div>
+</div>
+<a id="ac444a0a25f88eeecea4fc701974a9a77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac444a0a25f88eeecea4fc701974a9a77">&#9670;&nbsp;</a></span>PartialFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static string VolumeControl.Core.Helpers.StringHelper.PartialFormat </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>format</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">params(int, object)[]&#160;</td>
+          <td class="paramname"><em>formatArgs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Emulates string.Format(string, object?[]), but allows partial formatting for specific arguments rather than all of them at once. </p>
 
 </div>
 </div>

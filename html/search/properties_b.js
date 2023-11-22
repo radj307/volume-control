@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['languagename_2295',['LanguageName',['../class_volume_control_1_1_core_1_1_config.html#a3264ec7458bee9443d2f05192ced3e66',1,'VolumeControl::Core::Config']]],
-  ['lines_2296',['Lines',['../class_volume_control_1_1_log_1_1_log_message.html#a012bc5eaffee995f5947ac2b942f7ac3',1,'VolumeControl::Log::LogMessage']]],
+  ['languagename_2294',['LanguageName',['../class_volume_control_1_1_core_1_1_config.html#a3264ec7458bee9443d2f05192ced3e66',1,'VolumeControl::Core::Config']]],
+  ['lines_2295',['Lines',['../class_volume_control_1_1_log_1_1_log_message.html#a012bc5eaffee995f5947ac2b942f7ac3',1,'VolumeControl::Log::LogMessage']]],
+  ['localizationdirectories_2296',['LocalizationDirectories',['../class_volume_control_1_1_core_1_1_config.html#aed2efb6780ac2ea67f4e6539509489fc',1,'VolumeControl::Core::Config']]],
   ['lockcurrentindex_2297',['LockCurrentIndex',['../class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a5438318041a2d66887743a151e4653be',1,'VolumeControl.CoreAudio.AudioSessionMultiSelector.LockCurrentIndex()'],['../interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_multi_selector.html#a0d80b0aba42a85e67a69373fb59882b7',1,'VolumeControl.CoreAudio.Interfaces.IAudioMultiSelector.LockCurrentIndex()']]],
   ['lockcurrentindexonlockselection_2298',['LockCurrentIndexOnLockSelection',['../class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a543805d06de565c310f812a474da3b54',1,'VolumeControl::CoreAudio::AudioSessionMultiSelector']]],
   ['lockedcolor_2299',['LockedColor',['../class_volume_control_1_1_core_1_1_notification_config_section.html#ad29b6649ace8cffdcd3ee94b325beb7e',1,'VolumeControl::Core::NotificationConfigSection']]],

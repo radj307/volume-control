@@ -22,13 +22,14 @@ var searchData=
   ['bottom_101',['Bottom',['../namespace_volume_control_1_1_w_p_f_1_1_converters.html#aec18b4fe0c01480d12fbf7075fca3917a2ad9d63b69c4a10a5cc9cad923133bc4',1,'VolumeControl::WPF::Converters']]],
   ['bottomleft_102',['BottomLeft',['../namespace_volume_control_1_1_core_1_1_enum.html#aca56ed2e295e884a71fbb14e4c927648a98e5a1c44509157ebcaf46c515c78875',1,'VolumeControl.Core.Enum.BottomLeft()'],['../namespace_volume_control_1_1_w_p_f_1_1_converters.html#aec18b4fe0c01480d12fbf7075fca3917a98e5a1c44509157ebcaf46c515c78875',1,'VolumeControl.WPF.Converters.BottomLeft()']]],
   ['bottomright_103',['BottomRight',['../namespace_volume_control_1_1_core_1_1_enum.html#aca56ed2e295e884a71fbb14e4c927648a9146bfc669fddc88db2c4d89297d0e9a',1,'VolumeControl.Core.Enum.BottomRight()'],['../namespace_volume_control_1_1_w_p_f_1_1_converters.html#aec18b4fe0c01480d12fbf7075fca3917a9146bfc669fddc88db2c4d89297d0e9a',1,'VolumeControl.WPF.Converters.BottomRight()']]],
-  ['browserback_104',['BrowserBack',['../namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca3b9bacad47d80ba436ab9fca2a0afe7d',1,'VolumeControl::Core::Input::Enums']]],
-  ['browserfavorites_105',['BrowserFavorites',['../namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227cafed6c72bae0544ff39d0a157f66fbabe',1,'VolumeControl::Core::Input::Enums']]],
-  ['browserforward_106',['BrowserForward',['../namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227cadfef0402778ce8430205b2c875a39cba',1,'VolumeControl::Core::Input::Enums']]],
-  ['browserhome_107',['BrowserHome',['../namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227cab5fb5a50989498163b49c9bf1aaec11e',1,'VolumeControl::Core::Input::Enums']]],
-  ['browserrefresh_108',['BrowserRefresh',['../namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca8e30d8ea7dc1b7d08e09cdc18b23a9fe',1,'VolumeControl::Core::Input::Enums']]],
-  ['browsersearch_109',['BrowserSearch',['../namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227cac8814ad5c2f158da619f899f38c972b5',1,'VolumeControl::Core::Input::Enums']]],
-  ['browserstop_110',['BrowserStop',['../namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227cacf296841951f298b60a689521eccea2e',1,'VolumeControl::Core::Input::Enums']]],
-  ['brushanimation_111',['BrushAnimation',['../class_volume_control_1_1_w_p_f_1_1_animations_1_1_brush_animation.html',1,'VolumeControl::WPF::Animations']]],
-  ['building_20from_20source_112',['Building From Source',['../md_docs__building_from_source.html',1,'']]]
+  ['bound_104',['Bound',['../class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html#a535f97a5ca0c30d6a296df56f197b640',1,'VolumeControl::TypeExtensions::RealNumberExtensions']]],
+  ['browserback_105',['BrowserBack',['../namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca3b9bacad47d80ba436ab9fca2a0afe7d',1,'VolumeControl::Core::Input::Enums']]],
+  ['browserfavorites_106',['BrowserFavorites',['../namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227cafed6c72bae0544ff39d0a157f66fbabe',1,'VolumeControl::Core::Input::Enums']]],
+  ['browserforward_107',['BrowserForward',['../namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227cadfef0402778ce8430205b2c875a39cba',1,'VolumeControl::Core::Input::Enums']]],
+  ['browserhome_108',['BrowserHome',['../namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227cab5fb5a50989498163b49c9bf1aaec11e',1,'VolumeControl::Core::Input::Enums']]],
+  ['browserrefresh_109',['BrowserRefresh',['../namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227ca8e30d8ea7dc1b7d08e09cdc18b23a9fe',1,'VolumeControl::Core::Input::Enums']]],
+  ['browsersearch_110',['BrowserSearch',['../namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227cac8814ad5c2f158da619f899f38c972b5',1,'VolumeControl::Core::Input::Enums']]],
+  ['browserstop_111',['BrowserStop',['../namespace_volume_control_1_1_core_1_1_input_1_1_enums.html#a0f170db34c39c47a0dce9cfa2f17227cacf296841951f298b60a689521eccea2e',1,'VolumeControl::Core::Input::Enums']]],
+  ['brushanimation_112',['BrushAnimation',['../class_volume_control_1_1_w_p_f_1_1_animations_1_1_brush_animation.html',1,'VolumeControl::WPF::Animations']]],
+  ['building_20from_20source_113',['Building From Source',['../md_docs__building_from_source.html',1,'']]]
 ];

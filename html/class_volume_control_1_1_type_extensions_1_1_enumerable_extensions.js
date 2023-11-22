@@ -1,11 +1,10 @@
 var class_volume_control_1_1_type_extensions_1_1_enumerable_extensions =
 [
-    [ "DisposeAll< T >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#aadf14d91ada1b07dbfa9ccf3ebe57808", null ],
-    [ "ForEach< T >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a9bb73a4a2641317c209c402fcd35ffb0", null ],
-    [ "ForEach< T, TReturn >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a338c28376cc799dd187ae1e143da8ed8", null ],
-    [ "ForwardForEach< T >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#ae1b177ed562cdf5d03d34c26f99f83af", null ],
-    [ "SelectIf< T, TVar >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a0bcd5184906c3477289a1d188e370cb4", null ],
-    [ "SelectIfUnique< TIn, TResult >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a7186745ed4979c3a936a2e40ab47eafd", null ],
-    [ "ToPairs< TIn, TOut1, TOut2 >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a9929ff512122a071474c6ad04f73376a", null ],
-    [ "WithType< T >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a71b740e1b3b4faefa6d9f63866db6a32", null ]
+    [ "DisposeAll< T >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#ad1ae0ebc18f74914cffff41b8fae2bc3", null ],
+    [ "ForEach< TSource >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a37a99fb343f682b014470593aba1d07d", null ],
+    [ "ForEach< TSource, TDiscardedResult >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#ad8b7785069ecfca2065c313a84635a4f", null ],
+    [ "Select< TResult >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a543777d78d814f87090b56199e7301b1", null ],
+    [ "SelectIf< TSource, TResult >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a69d5d8f17647cbb7d39884b60c13c8d7", null ],
+    [ "SelectIfUnique< TSource, TResult >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a4aa7748a06ab62d3d7dfa7dc2b386ac8", null ],
+    [ "SelectValue< TSource, TResult >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a89d719809c9b9ef04392bed515bd68d5", null ]
 ];

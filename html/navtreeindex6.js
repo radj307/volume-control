@@ -1,6 +1,5 @@
 var NAVTREEINDEX6 =
 {
-"functions_func.html":[7,3,1,0],
 "functions_func.html":[7,3,1],
 "functions_func_b.html":[7,3,1,1],
 "functions_func_c.html":[7,3,1,2],
@@ -249,5 +248,6 @@ var NAVTREEINDEX6 =
 "namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a4eee68d4a815237addd263e10c44a788":[6,0,0,1,1,3,65],
 "namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a51ad109f6c335d9d278326bfca27ce5b":[6,0,0,1,1,3,87],
 "namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a5206560a306a2e085a437fd258eb57ce":[6,0,0,1,1,3,171],
-"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a55e6774c5d0729f281b9b4d7dc56a746":[6,0,0,1,1,3,6]
+"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a55e6774c5d0729f281b9b4d7dc56a746":[6,0,0,1,1,3,6],
+"namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a57cec4137b614c87cb4e24a3d003a3e0":[6,0,0,1,1,3,174]
 };
