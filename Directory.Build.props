@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+	<PropertyGroup>
+		<!--  This prevents the commit hash from being appended to the version number in .NET 8+ (see https://github.com/dotnet/msbuild/issues/9434 & https://learn.microsoft.com/en-us/dotnet/core/compatibility/sdk/8.0/source-link)  -->
+		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+	</PropertyGroup>
+</Project>
