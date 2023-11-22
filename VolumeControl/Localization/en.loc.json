@@ -1,513 +1,299 @@
 {
+  "$LanguageName": "English (US/CA)",
+
   "VolumeControl": {
     "MainWindow": {
       "CaptionBar": {
         "Title": {
-          "Content": {
-            "English (US/CA)": "Volume Control"
-          }
+          "Content": "Volume Control"
         },
         "BugReport": {
-          "Content": {
-            "English (US/CA)": "✏"
-          },
-          "Tooltip": {
-            "English (US/CA)": "Report a Bug"
-          }
+          "Content": "✏",
+          "Tooltip": "Report a Bug"
         }
       },
       "Mixer": {
-        "TabHeader": {
-          "English (US/CA)": "Mixer"
-        },
+        "TabHeader": "Mixer",
         "TargetBox": {
-          "Watermark": {
-            "English (US/CA)": "Process ID or Name"
-          },
-          "LockTarget": {
-            "English (US/CA)": "Lock"
-          }
+          "Watermark": "Process ID or Name",
+          "LockTarget": "Lock"
         },
         "MixerGrid": {
           "Selected": {
             "Header": {
-              "Tooltip": {
-                "English (US/CA)": "(De)selects all sessions."
-              }
+              "Tooltip": "(De)selects all sessions."
             }
           },
           "PID": {
-            "Header": {
-              "English (US/CA)": "PID"
-            }
+            "Header": "PID"
           },
           "Name": {
-            "Header": {
-              "English (US/CA)": "Name"
-            }
+            "Header": "Name"
           },
           "Mute": {
-            "Header": {
-              "English (US/CA)": "Mute"
-            }
+            "Header": "Mute"
           },
           "Volume": {
-            "Header": {
-              "English (US/CA)": "Volume"
-            }
+            "Header": "Volume"
           },
           "Select": {
-            "Button": {
-              "English (US/CA)": "Select"
-            }
+            "Button": "Select"
           }
         }
       },
       "Hotkeys": {
-        "TabHeader": {
-          "English (US/CA)": "Hotkeys"
-        },
+        "TabHeader": "Hotkeys",
         "ControlRow": {
           "VolumeStep": {
-            "Content": {
-              "English (US/CA)": "Volume Step"
-            },
-            "Tooltip": {
-              "English (US/CA)": "This is the number of volume 'ticks' that change each time you press the volume up or down hotkeys."
-            }
+            "Content": "Volume Step",
+            "Tooltip": "This is the number of volume 'ticks' that change each time you press the volume up or down hotkeys."
           },
           "ResetToDefault": {
-            "Content": {
-              "English (US/CA)": "Reset To Default"
-            },
-            "Tooltip": {
-              "English (US/CA)": "Resets all hotkeys to the default preset."
-            }
+            "Content": "Reset To Default",
+            "Tooltip": "Resets all hotkeys to the default preset."
           }
         },
         "HotkeyGrid": {
           "Active": {
             "Header": {
-              "Tooltip": {
-                "English (US/CA)": "(Un)registers all hotkeys in the list."
-              }
+              "Tooltip": "(Un)registers all hotkeys in the list."
             }
           },
           "Name": {
-            "Header": {
-              "English (US/CA)": "Name"
-            }
+            "Header": "Name"
           },
           "Key": {
-            "Header": {
-              "English (US/CA)": "Key"
-            },
+            "Header": "Key",
             "KeySelector": {
-              "Content": {
-                "English (US/CA)": "🖮"
-              },
-              "Tooltip": {
-                "English (US/CA)": "Click and hold with the mouse, then press a key to select it. Registered hotkeys can still be triggered."
-              }
+              "Content": "🖮",
+              "Tooltip": "Click and hold with the mouse, then press a key to select it. Registered hotkeys can still be triggered."
             }
           },
           "Alt": {
-            "Header": {
-              "English (US/CA)": "Alt"
-            }
+            "Header": "Alt"
           },
           "Ctrl": {
-            "Header": {
-              "English (US/CA)": "Ctrl"
-            }
+            "Header": "Ctrl"
           },
           "Shift": {
-            "Header": {
-              "English (US/CA)": "Shift"
-            }
+            "Header": "Shift"
           },
           "Windows": {
-            "Header": {
-              "English (US/CA)": "Win"
-            }
+            "Header": "Win"
           },
           "Action": {
-            "Header": {
-              "English (US/CA)": "Action"
-            }
+            "Header": "Action"
           }
         },
         "CreateNewHotkeyButton": {
-          "Content": {
-            "English (US/CA)": "Create New Hotkey"
-          },
-          "Tooltip": {
-            "English (US/CA)": "Creates a new blank hotkey entry."
-          }
+          "Content": "Create New Hotkey",
+          "Tooltip": "Creates a new blank hotkey entry."
         }
       },
       "Settings": {
-        "TabHeader": {
-          "English (US/CA)": "Settings"
-        },
+        "TabHeader": "Settings",
         "Language": {
-          "Header": {
-            "English (US/CA)": "Language"
-          },
-          "CustomLocations": {
-            "English (US/CA)": "Custom Locations"
-          },
+          "Header": "Language",
+          "CustomLocations": "Custom Locations",
           "Reload": {
-            "Content": {
-              "English (US/CA)": "Reload"
-            },
-            "Tooltip": {
-              "English (US/CA)": "Reloads all language config files from disk."
-            }
+            "Content": "Reload",
+            "Tooltip": "Reloads all language config files from disk."
           }
         },
         "Audio": {
-          "Header": {
-            "English (US/CA)": "Audio"
-          },
+          "Header": "Audio",
           "AdditionalSettings": {
             "Header": {
-              "Content": {
-                "English (US/CA)": "Additional Settings"
-              },
+              "Content": "Additional Settings",
               "Tooltip": {}
             },
             "ShowPeakMeters": {
-              "Content": {
-                "English (US/CA)": "Show Peak Meters"
-              },
-              "Tooltip": {
-                "English (US/CA)": "Toggle the audio peaking meters shown in the Mixer."
-              }
+              "Content": "Show Peak Meters",
+              "Tooltip": "Toggle the audio peaking meters shown in the Mixer."
             },
             "UpdateInterval": {
-              "Content": {
-                "English (US/CA)": "Update Interval"
-              },
-              "Tooltip": {
-                "English (US/CA)": "The amount of time, in milliseconds, between each update of the peak meters in the Mixer."
-              }
+              "Content": "Update Interval",
+              "Tooltip": "The amount of time, in milliseconds, between each update of the peak meters in the Mixer."
             },
             "EnableDeviceControl": {
-              "Content": {
-                "English (US/CA)": "Show Device Controls"
-              },
-              "Tooltip": {
-                "English (US/CA)": "Toggle the visibility of volume & mute controls in the Audio Devices section."
-              }
+              "Content": "Show Device Controls",
+              "Tooltip": "Toggle the visibility of volume & mute controls in the Audio Devices section."
             },
             "HiddenSessions": {
-              "Content": {
-                "English (US/CA)": "Hidden Sessions"
-              },
+              "Content": "Hidden Sessions",
               "Tooltip": {}
             }
           },
           "DeviceGrid": {
             "Enabled": {
               "Header": {
-                "Tooltip": {
-                  "English (US/CA)": "Checks/Unchecks all devices in the list."
-                }
+                "Tooltip": "Checks/Unchecks all devices in the list."
               },
-              "Tooltip": {
-                "English (US/CA)": "You can include or exclude specific devices from here."
-              }
+              "Tooltip": "You can include or exclude specific devices from here."
             },
             "Name": {
-              "Header": {
-                "English (US/CA)": "Device Name"
-              }
+              "Header": "Device Name"
             },
             "Interface": {
-              "Header": {
-                "English (US/CA)": "Interface Name"
-              }
+              "Header": "Interface Name"
             },
             "Mute": {
-              "Header": {
-                "English (US/CA)": "Mute"
-              }
+              "Header": "Mute"
             },
             "Volume": {
-              "Header": {
-                "English (US/CA)": "Volume"
-              }
+              "Header": "Volume"
             }
           }
         },
         "Notifications": {
-          "Header": {
-            "English (US/CA)": "Notifications"
-          },
+          "Header": "Notifications",
           "AdditionalSettings": {
             "Header": {
-              "Content": {
-                "English (US/CA)": "Additional Settings"
-              },
+              "Content": "Additional Settings",
               "Tooltip": {}
             },
             "ResetPosition": {
-              "Content": {
-                "English (US/CA)": "Reset Notification Position"
-              },
-              "Tooltip": {
-                "English (US/CA)": "Resets the position of the list notification in case it goes missing from the viewport."
-              }
+              "Content": "Reset Notification Position",
+              "Tooltip": "Resets the position of the list notification in case it goes missing from the viewport."
             },
             "ForceHide": {
-              "Content": {
-                "English (US/CA)": "Hide"
-              },
-              "Tooltip": {
-                "English (US/CA)": "Forces the notification window to disappear."
-              }
+              "Content": "Hide",
+              "Tooltip": "Forces the notification window to disappear."
             },
             "HiddenSessions": {
-              "Content": {
-                "English (US/CA)": "Hidden Sessions"
-              },
+              "Content": "Hidden Sessions",
               "Tooltip": {}
             }
           },
           "Enable": {
-            "Content": {
-              "English (US/CA)": "Enable"
-            },
-            "Tooltip": {
-              "English (US/CA)": "Enables the notification window."
-            }
+            "Content": "Enable",
+            "Tooltip": "Enables the notification window."
           },
           "OnVolumeChange": {
-            "Content": {
-              "English (US/CA)": "On Volume Change"
-            },
-            "Tooltip": {
-              "English (US/CA)": "Show notifications when changing the volume or mute state."
-            }
+            "Content": "On Volume Change",
+            "Tooltip": "Show notifications when changing the volume or mute state."
           },
           "Timeout": {
-            "Content": {
-              "English (US/CA)": "Timeout"
-            },
-            "Tooltip": {
-              "English (US/CA)": "The amount of time in milliseconds that notifications will remain visible after being triggered."
-            }
+            "Content": "Timeout",
+            "Tooltip": "The amount of time in milliseconds that notifications will remain visible after being triggered."
           },
           "SessionListNotificationConfig": {
             "Header": {
-              "Content": {
-                "English (US/CA)": "Session Notification Options"
-              },
+              "Content": "Session Notification Options",
               "Tooltip": {}
             }
           },
           "DeviceListNotificationConfig": {
             "Header": {
-              "Content": {
-                "English (US/CA)": "Device Notification Options"
-              },
+              "Content": "Device Notification Options",
               "Tooltip": {}
             }
           },
           "ColorPicker": {
             "Background": {
-              "Tooltip": {
-                "English (US/CA)": "Sets the background color of the notification window."
-              }
+              "Tooltip": "Sets the background color of the notification window."
             },
             "Foreground": {
-              "Tooltip": {
-                "English (US/CA)": "Sets the text color of the notification window."
-              }
+              "Tooltip": "Sets the text color of the notification window."
             },
             "LockedAccent": {
-              "Tooltip": {
-                "English (US/CA)": "Sets the accent color of the notification window when selection is locked."
-              }
+              "Tooltip": "Sets the accent color of the notification window when selection is locked."
             },
             "UnlockedAccent": {
-              "Tooltip": {
-                "English (US/CA)": "Sets the accent color of the notification window when selection is unlocked."
-              }
+              "Tooltip": "Sets the accent color of the notification window when selection is unlocked."
             }
           },
           "CornerRadius": {
-            "Content": {
-              "English (US/CA)": "Corner Radius:"
-            },
-            "Tooltip": {
-              "English (US/CA)": "The radius of the corners of the notification window. Starts at the top-left corner and goes clockwise."
-            }
+            "Content": "Corner Radius:",
+            "Tooltip": "The radius of the corners of the notification window. Starts at the top-left corner and goes clockwise."
           }
         },
         "Log": {
-          "Header": {
-            "English (US/CA)": "Event Logging"
-          },
+          "Header": "Event Logging",
           "Enable": {
-            "Content": {
-              "English (US/CA)": "Enable"
-            }
+            "Content": "Enable"
           },
           "Filter": {
-            "Text": {
-              "English (US/CA)": "Filter"
-            }
+            "Text": "Filter"
           },
           "Path": {
-            "Tooltip": {
-              "English (US/CA)": "Specifies the location and name of the log file. Relative paths are relative to the location of the executable."
-            },
-            "WatermarkText": {
-              "English (US/CA)": "Path to Log File"
-            }
+            "Tooltip": "Specifies the location and name of the log file. Relative paths are relative to the location of the executable.",
+            "WatermarkText": "Path to Log File"
           },
           "OpenButton": {
-            "Content": {
-              "English (US/CA)": "Open"
-            },
-            "Tooltip": {
-              "English (US/CA)": "Opens the log file in the default application."
-            }
+            "Content": "Open",
+            "Tooltip": "Opens the log file in the default application."
           }
         },
         "Application": {
-          "Header": {
-            "English (US/CA)": "Application"
-          },
+          "Header": "Application",
           "RunAtStartup": {
-            "Content": {
-              "English (US/CA)": "Run at Startup"
-            },
-            "Tooltip": {
-              "English (US/CA)": "When enabled, Volume Control will start when you log in."
-            },
-            "AltTooltip": {
-              "English (US/CA)": "Another Volume Control instance is set to run at startup. Changing this will replace it."
-            }
+            "Content": "Run at Startup",
+            "Tooltip": "When enabled, Volume Control will start when you log in.",
+            "AltTooltip": "Another Volume Control instance is set to run at startup. Changing this will replace it."
           },
           "StartMinimized": {
-            "Content": {
-              "English (US/CA)": "Start Minimized"
-            },
-            "Tooltip": {
-              "English (US/CA)": "When enabled, Volume Control will minimize itself when it starts up."
-            }
+            "Content": "Start Minimized",
+            "Tooltip": "When enabled, Volume Control will minimize itself when it starts up."
           },
           "MultiInstance": {
-            "Content": {
-              "English (US/CA)": "Multi-Instance"
-            },
-            "Tooltip": {
-              "English (US/CA)": "Allows multiple Volume Control instances to run at the same time, so long as they use a different config file."
-            }
+            "Content": "Multi-Instance",
+            "Tooltip": "Allows multiple Volume Control instances to run at the same time, so long as they use a different config file."
           },
           "ShowInTaskbar": {
-            "Content": {
-              "English (US/CA)": "Show in Taskbar"
-            },
+            "Content": "Show in Taskbar",
             "Tooltip": {}
           },
           "AlwaysOnTop": {
-            "Content": {
-              "English (US/CA)": "Always on Top"
-            },
+            "Content": "Always on Top",
             "Tooltip": {}
           },
           "ShowIcons": {
-            "Content": {
-              "English (US/CA)": "Show Icons"
-            },
-            "Tooltip": {
-              "English (US/CA)": "Enables displaying device & session icons."
-            }
+            "Content": "Show Icons",
+            "Tooltip": "Enables displaying device & session icons."
           },
           "KeepRelativePosition": {
-            "Content": {
-              "English (US/CA)": "Keep Relative Position"
-            },
-            "Tooltip": {
-              "English (US/CA)": "Keeps the main window in the same position relative to the nearest screen corner when its size changes."
-            }
+            "Content": "Keep Relative Position",
+            "Tooltip": "Keeps the main window in the same position relative to the nearest screen corner when its size changes."
           },
           "RestorePosition": {
-            "Content": {
-              "English (US/CA)": "Restore Position"
-            },
-            "Tooltip": {
-              "English (US/CA)": "Restores the previous position of the main window when you start the program."
-            }
+            "Content": "Restore Position",
+            "Tooltip": "Restores the previous position of the main window when you start the program."
           },
           "EnableInputDevices": {
-            "Content": {
-              "English (US/CA)": "Audio Input Support"
-            },
-            "Tooltip": {
-              "English (US/CA)": "Enables support for capture devices & sessions that record audio."
-            }
+            "Content": "Audio Input Support",
+            "Tooltip": "Enables support for capture devices & sessions that record audio."
           }
         },
         "Updates": {
-          "Header": {
-            "English (US/CA)": "Updates"
-          },
+          "Header": "Updates",
           "CheckNow": {
-            "Content": {
-              "English (US/CA)": "Check Now"
-            },
-            "Tooltip": {
-              "English (US/CA)": "Manually check for new versions of Volume Control."
-            }
+            "Content": "Check Now",
+            "Tooltip": "Manually check for new versions of Volume Control."
           },
           "OnStartup": {
-            "Content": {
-              "English (US/CA)": "On Startup"
-            },
-            "Tooltip": {
-              "English (US/CA)": "Check for new versions of Volume Control on startup."
-            }
+            "Content": "On Startup",
+            "Tooltip": "Check for new versions of Volume Control on startup."
           },
           "ShowPrompt": {
-            "Content": {
-              "English (US/CA)": "Show Prompt"
-            },
-            "Tooltip": {
-              "English (US/CA)": "When this is checked, you'll be prompted to update in the form of a message box; otherwise, you'll see an icon in the top-right corner."
-            }
+            "Content": "Show Prompt",
+            "Tooltip": "When this is checked, you'll be prompted to update in the form of a message box; otherwise, you'll see an icon in the top-right corner."
           }
         }
       },
       "About": {
-        "TabHeader": {
-          "English (US/CA)": "About"
-        },
+        "TabHeader": "About",
         "ReportABug": {
-          "Content": {
-            "English (US/CA)": "Report a Bug"
-          },
-          "Tooltip": {
-            "English (US/CA)": "Let us know that something isn't working correctly"
-          }
+          "Content": "Report a Bug",
+          "Tooltip": "Let us know that something isn't working correctly"
         },
         "OpenWebsite": {
-          "Content": {
-            "English (US/CA)": "Official Website"
-          },
-          "Tooltip": {
-            "English (US/CA)": "Open the official Volume Control website in your default browser"
-          }
+          "Content": "Official Website",
+          "Tooltip": "Open the official Volume Control website in your default browser"
         },
         "ShowDebugInfo": {
           "Header": {
-            "Content": {
-              "English (US/CA)": "Show Debug Info"
-            },
+            "Content": "Show Debug Info",
             "Tooltip": {}
           },
           "ConfigPath": {
@@ -524,173 +310,95 @@
 
     "ListNotification": {
       "Options": {
-        "Header": {
-          "English (US/CA)": "Options"
-        },
+        "Header": "Options",
         "ShowControls": {
-          "Content": {
-            "English (US/CA)": "Show Controls"
-          },
-          "Tooltip": {
-            "English (US/CA)": "Toggles the visibility of advanced controls next to list items."
-          }
+          "Content": "Show Controls",
+          "Tooltip": "Toggles the visibility of advanced controls next to list items."
         },
         "DragRequiresAlt": {
-          "Content": {
-            "English (US/CA)": "Drag Requires Alt"
-          },
-          "Tooltip": {
-            "English (US/CA)": "When checked, the ALT key must be held down in order to drag the notification window around with the mouse."
-          }
+          "Content": "Drag Requires Alt",
+          "Tooltip": "When checked, the ALT key must be held down in order to drag the notification window around with the mouse."
         },
         "SavePosition": {
-          "Content": {
-            "English (US/CA)": "Save Position"
-          },
+          "Content": "Save Position",
           "Tooltip": {}
         },
         "DoFadeIn": {
-          "Content": {
-            "English (US/CA)": "Fade In"
-          },
-          "Tooltip": {
-            "English (US/CA)": "When checked, the notification window shows a fade-in animation instead of instantly appearing."
-          }
+          "Content": "Fade In",
+          "Tooltip": "When checked, the notification window shows a fade-in animation instead of instantly appearing."
         },
         "FadeInDuration": {
-          "Tooltip": {
-            "English (US/CA)": "Specifies the duration of the fade-in animation in milliseconds."
-          }
+          "Tooltip": "Specifies the duration of the fade-in animation in milliseconds."
         },
         "DoFadeOut": {
-          "Content": {
-            "English (US/CA)": "Fade Out"
-          },
-          "Tooltip": {
-            "English (US/CA)": "When checked, the notification window shows a fade-out animation instead of instantly disappearing."
-          }
+          "Content": "Fade Out",
+          "Tooltip": "When checked, the notification window shows a fade-out animation instead of instantly disappearing."
         },
         "FadeOutDuration": {
-          "Tooltip": {
-            "English (US/CA)": "Specifies the duration of the fade-out animation in milliseconds."
-          }
+          "Tooltip": "Specifies the duration of the fade-out animation in milliseconds."
         }
       }
     },
 
     "ActionSettingsWindow": {
       "DataTemplateErrorTextBlock": {
-        "Tooltip": {
-          "English (US/CA)": "No DataTemplate is available for this value type!"
-        }
+        "Tooltip": "No DataTemplate is available for this value type!"
       },
       "ToggleActionSetting": {
-        "Content": {
-          "English (US/CA)": "Enable"
-        },
-        "Tooltip": {
-          "English (US/CA)": "This action setting is enabled when checked."
-        }
+        "Content": "Enable",
+        "Tooltip": "This action setting is enabled when checked."
       },
       "ActionTargetSpecifierDataTemplate": {
         "AddTargetBox": {
-          "DefaultText": {
-            "English (US/CA)": "Target Name..."
-          }
+          "DefaultText": "Target Name..."
         }
       }
     },
 
     "Dialogs": {
       "AnotherInstanceIsRunning": {
-        "MultiInstance": {
-          "English (US/CA)": "Another instance of Volume Control is using the config file located at '${PATH}'!"
-        },
-        "SingleInstance": {
-          "English (US/CA)": "Another instance of Volume Control is already running!"
-        }
+        "MultiInstance": "Another instance of Volume Control is using the config file located at '${PATH}'!",
+        "SingleInstance": "Another instance of Volume Control is already running!"
       },
       "UpdatePrompt": {
-        "DontShowInFutureMsg": {
-          "English (US/CA)": "Update prompts will not be shown in the future."
-        },
-        "NewVersionAvailableMessage": {
-          "English (US/CA)": "A new version of Volume Control is available!\nDo you want to go to the releases page?\nCurrent Version:  ${CURRENT_VERSION}\nLatest Version:   ${LATEST_VERSION}"
-        },
-        "NewVersionAvailableOptions_AutoUpdate": {
-          "English (US/CA)": "Click 'Yes' to install the latest release.\nClick 'No' if you don't want to update right now.\nClick 'Cancel' to disable these prompts."
-        },
-        "NewVersionAvailableOptions_OpenBrowser": {
-          "English (US/CA)": "Click 'Yes' to go to the releases page.\nClick 'No' if you don't want to update right now.\nClick 'Cancel' to disable these prompts."
-        },
+        "DontShowInFutureMsg": "Update prompts will not be shown in the future.",
+        "NewVersionAvailableMessage": "A new version of Volume Control is available!\nDo you want to go to the releases page?\nCurrent Version:  ${CURRENT_VERSION}\nLatest Version:   ${LATEST_VERSION}",
+        "NewVersionAvailableOptions_AutoUpdate": "Click 'Yes' to install the latest release.\nClick 'No' if you don't want to update right now.\nClick 'Cancel' to disable these prompts.",
+        "NewVersionAvailableOptions_OpenBrowser": "Click 'Yes' to go to the releases page.\nClick 'No' if you don't want to update right now.\nClick 'Cancel' to disable these prompts.",
         "DownloadFailed": {
-          "Caption": {
-            "English (US/CA)": "Download Failed"
-          },
-          "Message": {
-            "English (US/CA)": "An error occurred while downloading the installer, check the log for more information."
-          }
+          "Caption": "Download Failed",
+          "Message": "An error occurred while downloading the installer, check the log for more information."
         },
         "StartFailed": {
-          "Caption": {
-            "English (US/CA)": "Failed to Start Installer"
-          },
-          "Message": {
-            "English (US/CA)": "Failed to start the installer, but it was downloaded successfully.\nYour system permissions may not allow running applications from your downloads folder.\n\nYou will have to start the installer manually."
-          }
+          "Caption": "Failed to Start Installer",
+          "Message": "Failed to start the installer, but it was downloaded successfully.\nYour system permissions may not allow running applications from your downloads folder.\n\nYou will have to start the installer manually."
         }
       },
       "RemoveHotkey": {
-        "Message": {
-          "English (US/CA)": "Are you sure you want to delete hotkey ${ID}?\n\n- 'Yes'     Delete the hotkey.\n- 'No'      Do not delete the hotkey.\n- 'Cancel'  Don't show this again. (Press again to delete)\n"
-        },
-        "Caption": {
-          "English (US/CA)": "Confirm Delete"
-        }
+        "Message": "Are you sure you want to delete hotkey ${ID}?\n\n- 'Yes'     Delete the hotkey.\n- 'No'      Do not delete the hotkey.\n- 'Cancel'  Don't show this again. (Press again to delete)\n",
+        "Caption": "Confirm Delete"
       },
       "MultiInstanceChanged": {
-        "Message": {
-          "English (US/CA)": "Changes to the MultiInstance setting will take effect after you restart Volume Control.\n\nDo you want to restart the application now?"
-        },
-        "Caption": {
-          "English (US/CA)": "Application Restart Required"
-        }
+        "Message": "Changes to the MultiInstance setting will take effect after you restart Volume Control.\n\nDo you want to restart the application now?",
+        "Caption": "Application Restart Required"
       }
     },
 
     "NotifyIcon": {
-      "BringToFront": {
-        "English (US/CA)": "Bring to Front"
-      },
-      "Hide": {
-        "English (US/CA)": "Hide"
-      },
-      "Show": {
-        "English (US/CA)": "Show"
-      },
-      "OpenLocation": {
-        "English (US/CA)": "Open Location"
-      },
-      "OpenAppData": {
-        "English (US/CA)": "Open AppData"
-      },
-      "Close": {
-        "English (US/CA)": "Close"
-      }
+      "BringToFront": "Bring to Front",
+      "Hide": "Hide",
+      "Show": "Show",
+      "OpenLocation": "Open Location",
+      "OpenAppData": "Open AppData",
+      "Close": "Close"
     }
   },
 
   "Enums": {
     "ENotificationViewMode": {
-      "ControlBar": {
-        "English (US/CA)": "Control Bar"
-      },
-      "SelectedItemOnly": {
-        "English (US/CA)": "Selected Item Only"
-      },
-      "AllItems": {
-        "English (US/CA)": "All Items"
-      }
+      "ControlBar": "Control Bar",
+      "SelectedItemOnly": "Selected Item Only",
+      "AllItems": "All Items"
     },
     "EFriendlyKey": {
       "None": { "English (US/CA)": "None" },
@@ -851,26 +559,14 @@
   },
 
   "DefaultHotkeyNames": {
-    "Volume Up": {
-      "English (US/CA)": "Volume Up"
-    },
-    "Volume Down": {
-      "English (US/CA)": "Volume Down"
-    },
-    "Toggle Mute": {
-      "English (US/CA)": "Toggle Mute"
-    },
-    "Next Session": {
-      "English (US/CA)": "Next Session"
-    },
-    "Previous Session": {
-      "English (US/CA)": "Previous Session"
-    },
+    "Volume Up": "Volume Up",
+    "Volume Down": "Volume Down",
+    "Toggle Mute": "Toggle Mute",
+    "Next Session": "Next Session",
+    "Previous Session": "Previous Session",
     "Un/Lock Session": {
       "English (US/CA)": "Un/Lock Session"
     },
-    "Toggle Selected": {
-      "English (US/CA)": "Toggle Selected"
-    }
+    "Toggle Selected": "Toggle Selected"
   }
 }
