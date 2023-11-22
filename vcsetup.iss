@@ -65,6 +65,7 @@ Name: "french";     MessagesFile: "compiler:Languages\French.isl"
 Name: "german";     MessagesFile: "compiler:Languages\German.isl"
 Name: "italian";    MessagesFile: "compiler:Languages\Italian.isl"
 Name: "portuguese"; MessagesFile: "compiler:Languages\Portuguese.isl"
+Name: "hungarian"; MessagesFile: "compiler:Languages\Hungarian.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
