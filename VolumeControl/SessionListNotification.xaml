@@ -380,7 +380,6 @@
                     </Style>
                 </Grid.Style>
 
-                <Border Background="{Binding SessionConfigVM.BackgroundBrush, Source={StaticResource Settings}}" />
                 <ItemsControl
                     x:Name="MultiSelectionControls"
                     Margin="2"

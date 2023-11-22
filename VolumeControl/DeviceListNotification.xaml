@@ -332,7 +332,6 @@
                     </Style>
                 </Grid.Style>
 
-                <Border Background="{Binding DeviceConfigVM.BackgroundBrush, Source={StaticResource Settings}}" />
                 <ContentControl
                     Margin="2"
                     Content="{Binding AudioAPI.SelectedDevice, Source={StaticResource Settings}}"
