@@ -30,7 +30,7 @@ namespace VolumeControl.Helpers
         #region Methods
 
         #region Initialize
-        public static void Initialize(bool overwriteExisting, bool logMissingTranslations, ILogWriter? log)
+        public static void Initialize(bool logMissingTranslations, ILogWriter? log)
         {
             if (IsInitialized)
                 throw new InvalidOperationException($"[{nameof(LocalizationHelper)}] has already been initialized!");
