@@ -5,122 +5,118 @@ namespace VolumeControl.TypeExtensions
     /// <summary>Extensions for the <see cref="IEnumerable"/> interface type.</summary>
     public static class EnumerableExtensions
     {
-        /// <summary>Gets an enumerable list of all items of type <typeparamref name="T"/> from <paramref name="enumerable"/></summary>
-        /// <typeparam name="T">Target type to search for and to return.</typeparam>
-        /// <param name="enumerable">Any enumerable object.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> list.</returns>
-        public static IEnumerable<T> WithType<T>(this IEnumerable enumerable)
-        {
-            List<T> l = new();
-            foreach (object? item in enumerable)
-                if (item is T match) l.Add(match);
-            return l.AsEnumerable();
-        }
-        /// <summary>Similar to the regular Select Linq method except that it only includes selected values that are unique.</summary>
-        /// <typeparam name="TIn">Input Type</typeparam>
+        /// <summary>
+        /// Similar to the regular Select Linq method except that it only includes selected values that are unique.
+        /// </summary>
+        /// <typeparam name="TSource">Input Type</typeparam>
         /// <typeparam name="TResult">Output Type</typeparam>
-        /// <param name="enumerable">Any enumerable <typeparamref name="TIn"/> type.</param>
+        /// <param name="source">Any enumerable <typeparamref name="TSource"/> type.</param>
         /// <param name="selector">A selector method.</param>
         /// <returns><see cref="IEnumerable"/> of type <typeparamref name="TResult"/>, where each item is unique as determined by the generic Equals() method.</returns>
-        public static IEnumerable<TResult> SelectIfUnique<TIn, TResult>(this IEnumerable<TIn> enumerable, Func<TIn, TResult> selector)
+        public static IEnumerable<TResult> SelectIfUnique<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
         {
-            List<TResult> l = new();
-            foreach (TIn item in enumerable)
+            HashSet<TResult> processedItems = new();
+            foreach (TSource item in source)
             {
-                if (selector(item) is TResult selected && !l.Contains(selected))
-                    l.Add(selected);
+                if (selector(item) is TResult selected && !processedItems.Contains(selected))
+                {
+                    processedItems.Add(selected);
+                    yield return selected;
+                }
             }
-
-            return l.AsEnumerable();
         }
-        /// <summary>Performs the specified <paramref name="action"/> on each <paramref name="enumerable"/> element.</summary>
-        public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
+        /// <summary>
+        /// Performs the specified <paramref name="action"/> on each <paramref name="source"/> element.
+        /// </summary>
+        public static void ForEach<TSource>(this IEnumerable<TSource> source, Action<TSource> action)
         {
-            foreach (T? item in enumerable)
+            foreach (var item in source)
             {
                 action(item);
             }
         }
         /// <summary>
-        /// Performs the specified <paramref name="func"/> on each <paramref name="enumerable"/> element.
+        /// Performs the specified <paramref name="func"/> on each <paramref name="source"/> element, and discards the result.
         /// </summary>
-        /// <typeparam name="T">The type of object contained by the <paramref name="enumerable"/>.</typeparam>
-        /// <typeparam name="TReturn">The type that is returned by the specified <paramref name="func"/>. Returned values are ignored.</typeparam>
-        public static void ForEach<T, TReturn>(this IEnumerable<T> enumerable, Func<T, TReturn> func)
+        /// <typeparam name="TSource">The type of object contained by the <paramref name="source"/>.</typeparam>
+        /// <typeparam name="TDiscardedResult">The type that is returned by the specified <paramref name="func"/>. Returned values are ignored.</typeparam>
+        public static void ForEach<TSource, TDiscardedResult>(this IEnumerable<TSource> source, Func<TSource, TDiscardedResult> func)
         {
-            foreach (T? item in enumerable)
+            foreach (var item in source)
             {
                 func(item);
             }
         }
         /// <summary>
-        /// Performs the specified <paramref name="action"/> on each <paramref name="enumerable"/> element.
+        /// Does the same thing as the standard Linq Select() method, except this one uses a <paramref name="predicate"/> and applies the <paramref name="selector"/> only when the predicate returns <see langword="true"/>.
         /// </summary>
-        /// <returns><paramref name="enumerable"/>, allowing this method to be used in a pipeline.</returns>
-        public static IEnumerable<T> ForwardForEach<T>(this IEnumerable<T> enumerable, Action<T> action) where T : class
-        {
-            foreach (T? item in enumerable)
-                action(item);
-            return enumerable;
-        }
-        /// <summary>
-        /// Does the same thing as the standard Linq Select() method, except this one uses a <paramref name="predicate"/> and applies the <paramref name="keySelector"/> only when the predicate returns <see langword="true"/>.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TVar"></typeparam>
-        /// <param name="enumerable"></param>
-        /// <param name="keySelector"></param>
-        /// <param name="predicate">A predicate to apply to each item in <paramref name="enumerable"/>.<br/>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="selector"></param>
+        /// <param name="predicate">A predicate to apply to each item in <paramref name="source"/>.<br/>
         /// Return values are handled as follows:
         /// <list type="table">
-        /// <item><term><see langword="true"/></term><description>Applies <paramref name="keySelector"/> to the item, adding it to the returned enumerable.</description></item>
-        /// <item><term><see langword="false"/></term><description>Skips the item, and does not apply the <paramref name="keySelector"/>.</description></item>
+        /// <item><term><see langword="true"/></term><description>Applies <paramref name="selector"/> to the item, adding it to the returned enumerable.</description></item>
+        /// <item><term><see langword="false"/></term><description>Skips the item, and does not apply the <paramref name="selector"/>.</description></item>
         /// </list>
         /// </param>
-        /// <returns>Enumerable with values selected in the items of <paramref name="enumerable"/> by the <paramref name="keySelector"/>, excluding those filtered out by <paramref name="predicate"/>.</returns>
-        public static IEnumerable<TVar> SelectIf<T, TVar>(this IEnumerable<T> enumerable, Func<T, TVar> keySelector, Predicate<T> predicate)
+        /// <returns>Enumerable with values selected in the items of <paramref name="source"/> by the <paramref name="selector"/>, excluding those filtered out by <paramref name="predicate"/>.</returns>
+        public static IEnumerable<TResult> SelectIf<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector, Func<TSource, bool> predicate)
         {
-            List<TVar> l = new();
-            foreach (T item in enumerable)
+            foreach (TSource item in source)
             {
                 if (predicate(item))
-                    l.Add(keySelector(item));
+                {
+                    yield return selector(item);
+                }
             }
-
-            return l.AsEnumerable();
         }
         /// <summary>
-        /// Gets a list of pairs from the enumerable.
+        /// Selects non-<see langword="null"/> values from the enumerable using the specified <paramref name="selector"/>.
         /// </summary>
-        /// <typeparam name="TIn">Input type</typeparam>
-        /// <typeparam name="TOut1">Output item type 1</typeparam>
-        /// <typeparam name="TOut2">Output item type 2</typeparam>
-        /// <param name="enumerable">(implicit) Enumerable.</param>
-        /// <param name="item1Selector">Selector for the first item in the pair.</param>
-        /// <param name="item2Selector">Selector for the second item in the pair.</param>
-        /// <returns>A list of <typeparamref name="TOut1"/>-<typeparamref name="TOut2"/> pairs.</returns>
-        public static IEnumerable<(TOut1, TOut2)> ToPairs<TIn, TOut1, TOut2>(this IEnumerable<TIn> enumerable, Func<TIn, TOut1> item1Selector, Func<TIn, TOut2> item2Selector)
+        /// <typeparam name="TSource">The type of element in the enumerable.</typeparam>
+        /// <typeparam name="TResult">The type of element in the resulting enumerable.</typeparam>
+        /// <param name="source">The enumerable to apply the <paramref name="selector"/> to.</param>
+        /// <param name="selector">A function that accepts a parameter of type <typeparamref name="TSource"/> and returns a <typeparamref name="TResult"/> instance, or <see langword="null"/>. When this returns <see langword="null"/> the item does not appear in the resulting enumeration.</param>
+        /// <returns>The resulting elements of type <typeparamref name="TResult"/> that aren't <see langword="null"/>.</returns>
+        public static IEnumerable<TResult> SelectValue<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult?> selector)
         {
-            List<(TOut1, TOut2)> l = new();
-
-            foreach (var item in enumerable)
+            foreach (var item in source)
             {
-                l.Add((item1Selector(item), item2Selector(item)));
+                if (selector(item) is TResult value)
+                {
+                    yield return value;
+                }
             }
-
-            return l.AsEnumerable();
+        }
+        /// <summary>
+        /// Applies the specified <paramref name="selector"/> to each element and returns the resulting values.
+        /// </summary>
+        /// <typeparam name="TResult">The type returned by the specified <paramref name="selector"/>.</typeparam>
+        /// <param name="source">An untyped enumerable instance to use as the source.</param>
+        /// <param name="selector">A selector method that accepts an untyped object and returns a <typeparamref name="TResult"/> instance.</param>
+        /// <returns>The enumeration after applying the <paramref name="selector"/> to each element.</returns>
+        public static IEnumerable<TResult> Select<TResult>(this IEnumerable source, Func<object, TResult> selector)
+        {
+            ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(selector);
+            foreach (var obj in source)
+            {
+                yield return selector(obj);
+            }
         }
         /// <summary>
         /// Calls <see cref="IDisposable.Dispose"/> on all of the elements in the collection.
         /// </summary>
         /// <typeparam name="T">Enumerable element type that implements <see cref="IDisposable"/>.</typeparam>
-        /// <param name="enumerable">(implicit) The enumerable collection to dispose of.</param>
-        public static void DisposeAll<T>(this IEnumerable<T> enumerable) where T : IDisposable
+        /// <param name="source">(implicit) The enumerable collection to dispose of.</param>
+        public static void DisposeAll<T>(this IEnumerable<T> source) where T : IDisposable
         {
-            var array = enumerable.ToArray();
-            for (int i = array.Length - 1; i >= 0; --i)
+            ArgumentNullException.ThrowIfNull(source);
+            foreach (var item in source)
             {
-                array[i].Dispose();
+                item?.Dispose();
             }
         }
     }

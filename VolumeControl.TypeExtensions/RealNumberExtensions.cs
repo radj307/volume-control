@@ -6,6 +6,13 @@
     public static class RealNumberExtensions
     {
         /// <summary>
+        /// Clamps the value between the specified <paramref name="min"/> &amp; <paramref name="max"/>.
+        /// </summary>
+        public static float Bound(this float value, float min, float max)
+        {
+            return Math.Max(min, Math.Min(max, value));
+        }
+        /// <summary>
         /// Compares two <see cref="double"/> types for equality using <see cref="double.Epsilon"/>.
         /// </summary>
         /// <param name="n">This number.</param>
