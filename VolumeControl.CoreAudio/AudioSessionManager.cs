@@ -609,9 +609,9 @@ namespace VolumeControl.CoreAudio
         /// <inheritdoc/>
         public void Dispose()
         {
-            Sessions.ForEach(s => s.Dispose());
-            HiddenSessions.ForEach(s => s.Dispose());
-            SessionManagers.ForEach(sm => sm.Dispose());
+            Sessions.DisposeAll();
+            HiddenSessions.DisposeAll();
+            SessionManagers.DisposeAll();
             GC.SuppressFinalize(this);
         }
         #endregion IDisposable Implementation

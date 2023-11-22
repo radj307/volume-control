@@ -33,8 +33,8 @@ namespace VolumeControl.ViewModels
 
         #region Fields
         private bool _removingCurrentSession = false;
-        private bool _isSettingTarget = false;
-        private bool _isSavingTarget = false;
+        private bool _settingTarget = false;
+        private bool _savingTarget = false;
         private IEnumerable<string> _duplicateSessionNames;
         #endregion Fields
 
@@ -68,17 +68,21 @@ namespace VolumeControl.ViewModels
         #endregion Events
 
         #region Methods
-        private void UpdateTargetText(bool notify = true)
+
+        #region (Private) SetTargetTextTo
+        private void SetTargetTextTo(AudioSession? session)
         {
-            var currentSession = AudioSessionMultiSelector.CurrentSession;
-            _targetText = currentSession != null
-                ? GetSessionName(currentSession)!
+            _targetText = session != null
+                ? GetSessionName(session)!
                 : string.Empty;
-            if (notify) NotifyPropertyChanged(nameof(TargetText));
+            NotifyPropertyChanged(nameof(TargetText));
         }
+        #endregion (Private) SetTargetTextTo
+
+        #region (Private) SetTarget
         private void SetTarget(string target, bool setToNullIfNotFound = true)
         {
-            _isSettingTarget = true;
+            _settingTarget = true;
             if (AudioSessionManager.FindSessionWithSimilarProcessIdentifier(target) is AudioSession session)
             {
                 AudioSessionMultiSelector.CurrentSession = session;
@@ -87,22 +91,31 @@ namespace VolumeControl.ViewModels
             {
                 AudioSessionMultiSelector.CurrentSession = null;
             }
-            _isSettingTarget = false;
+            _settingTarget = false;
         }
+        #endregion (Private) SetTarget
+
+        #region (Private) SaveTarget
         private void SaveTarget()
         {
-            _isSavingTarget = true;
+            _savingTarget = true;
             Settings.TargetSession = AudioSessionMultiSelector.CurrentSession?.GetTargetInfo() ?? new()
             {
                 ProcessName = TargetText
             };
-            _isSavingTarget = false;
+            _savingTarget = false;
         }
+        #endregion (Private) SaveTarget
+
+        #region (Private) GetDuplicateSessionNames
         private IEnumerable<string> GetDuplicateSessionNames()
             => from session in AudioSessionManager.Sessions
                group session.ProcessName by session.ProcessName into g
                where g.Count() > 1
                select g.Key;
+        #endregion (Private) GetDuplicateSessionNames
+
+        #region (Private) GetSessionName
         private string? GetSessionName(AudioSession? session)
         {
             if (session == null)
@@ -112,6 +125,8 @@ namespace VolumeControl.ViewModels
             else
                 return session.Name;
         }
+        #endregion (Private) GetSessionName
+
         #endregion Methods
 
         #region EventHandlers
@@ -145,12 +160,12 @@ namespace VolumeControl.ViewModels
                 if (e.HasMatchingName(targetText, StringComparison.OrdinalIgnoreCase)
                     || (int.TryParse(targetText, out int value) && value == e.PID))
                 {
-                    _isSettingTarget = true;
+                    _settingTarget = true;
                     AudioSessionMultiSelector.CurrentSession = e;
                     SaveTarget();
                     if (isProcessIdentifier) // update the process identifier if that's what we have
-                        UpdateTargetText();
-                    _isSettingTarget = false;
+                        SetTargetTextTo(e);
+                    _settingTarget = false;
                 }
                 // else this isn't our session
             }
@@ -160,11 +175,11 @@ namespace VolumeControl.ViewModels
         #region AudioSessionMultiSelector
         private void AudioSessionMultiSelector_CurrentSessionChanged(object? sender, AudioSession? e)
         {
-            if (_isSettingTarget) return;
+            if (_settingTarget) return;
 
             if (e != null)
             {
-                UpdateTargetText();
+                SetTargetTextTo(e);
             }
             SaveTarget();
         }
@@ -173,7 +188,7 @@ namespace VolumeControl.ViewModels
         #region Settings
         private void Settings_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (_isSavingTarget || _isSettingTarget || e.PropertyName == null) return;
+            if (_savingTarget || _settingTarget || e.PropertyName == null) return;
 
             if (e.PropertyName.Equals(nameof(Config.TargetSession), StringComparison.Ordinal))
             {

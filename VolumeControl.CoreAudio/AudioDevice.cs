@@ -1,13 +1,12 @@
 ﻿using CoreAudio;
 using CoreAudio.Interfaces;
-using Newtonsoft.Json.Linq;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 using VolumeControl.CoreAudio.Events;
 using VolumeControl.CoreAudio.Helpers;
 using VolumeControl.CoreAudio.Interfaces;
 using VolumeControl.Log;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.CoreAudio
 {
@@ -125,11 +124,7 @@ namespace VolumeControl.CoreAudio
             }
             set
             {
-                if (value < 0.0f)
-                    value = 0.0f;
-                else if (value > 1.0f)
-                    value = 1.0f;
-
+                value = value.Bound(0f, 1f);
                 if (value == NativeVolume) return;
 
                 SetVolume(value);

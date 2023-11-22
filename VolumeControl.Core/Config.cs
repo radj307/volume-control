@@ -149,23 +149,14 @@ namespace VolumeControl.Core
         /// <remarks><b>Default: "English (US/CA)"</b></remarks>
         public string LanguageName { get; set; } = "English (US/CA)";
         /// <summary>
-        /// Gets or sets whether the program should create the default translation files if they don't already exist.
-        /// </summary>
-        /// <remarks><b>Default: <see langword="true"/></b></remarks>
-        public bool CreateTranslationConfigs { get; set; } = true;
-        /// <summary>
-        /// Gets or sets whether the program creates the default translation configs in the appdata directory, or the same directory as the executable.
-        /// </summary>
-        public bool CreateTranslationConfigsInLocalDirectory { get; set; } = false;
-        /// <summary>
         /// Gets or sets whether missing translation keys cause a log message to be written.
         /// </summary>
         public bool LogMissingTranslations { get; set; } = true;
         /// <summary>
-        /// Gets or sets a list of additional directories to load localization packages from.
+        /// Gets or sets a list of directories to load localization packages from.
         /// </summary>
         /// <remarks><b>Default: {}</b></remarks>
-        public ObservableImmutableList<string> CustomLocalizationDirectories { get; set; } = new();
+        public ObservableImmutableList<string> LocalizationDirectories { get; set; } = new();
         /// <summary>
         /// Gets or sets whether multiple distinct instances of Volume Control are allowed to run concurrently.<br/>
         /// In this case, <i>distinct</i> means that each instance is using a different config file.<br/><br/>

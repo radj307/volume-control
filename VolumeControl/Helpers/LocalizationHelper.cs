@@ -54,6 +54,9 @@ namespace VolumeControl.Helpers
                 Loc.Instance.MissingTranslationStringRequested += Instance_MissingTranslationStringRequested;
             }
 
+            // print log messages when loading new languages
+            Loc.Instance.LanguageAdded += Instance_LanguageAdded;
+
             // load the default translation configs
             ReloadTranslations(clearCurrentLanguage: true);
 
@@ -63,7 +66,6 @@ namespace VolumeControl.Helpers
             // set the fallback language to english
             Loc.Instance.FallbackLanguageName = Loc.Instance.AvailableLanguageNames.FirstOrDefault(langName => langName.StartsWith("English", StringComparison.OrdinalIgnoreCase));
         }
-
         #endregion Initialize
 
         #region LoadFromManifestResource
@@ -130,26 +132,11 @@ namespace VolumeControl.Helpers
                         serial = reader.ReadToEnd();
                     }
 
-                    if (Loc.Instance.GetTranslationLoaderForPath(resourceName) is ITranslationLoader translationLoader)
-                    {
-                        try
-                        {
-                            if (Loc.Instance.LoadFromString(translationLoader, serial))
-                            {
-                                continue;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            LogWriter?.Warning($"[{nameof(LocalizationHelper)}] Failed to load {resourceName} with loader {translationLoader.GetType().Name} due to exception:", ex);
-                        }
-                    }
-
                     Loc.Instance.LoadFromString(serial);
                 }
             }
 
-            foreach (var directoryPath in Settings.CustomLocalizationDirectories)
+            foreach (var directoryPath in Settings.LocalizationDirectories)
             {
                 Loc.Instance.LoadFromDirectory(directoryPath);
             }
@@ -184,7 +171,11 @@ namespace VolumeControl.Helpers
             if (e.Keys?.Count() > 0)
                 keyString = '"' + string.Join("\", \"", e.Keys) + '"';
             if (keyString != null)
-                FLog.Warning($"[{nameof(LocalizationHelper)}] \"{e.LanguageName}\" is missing a translation for key \"{keyString}\"");
+                LogWriter?.Warning($"[{nameof(LocalizationHelper)}] \"{e.LanguageName}\" is missing a translation for key \"{keyString}\"");
+        }
+        private static void Instance_LanguageAdded(object? sender, LanguageEventArgs e)
+        {
+            LogWriter?.Debug($"[{nameof(LocalizationHelper)}] Loaded language \"{e.LanguageName}\" with {e.Translations.Count} translations.");
         }
         #endregion Loc.Instance
 

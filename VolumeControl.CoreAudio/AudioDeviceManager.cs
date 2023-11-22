@@ -272,7 +272,7 @@ namespace VolumeControl.CoreAudio
         /// <inheritdoc/>
         public void Dispose()
         {
-            Devices.ForEach(d => d.Dispose());
+            Devices.DisposeAll();
             GC.SuppressFinalize(this);
         }
         #endregion IDisposable Implementation

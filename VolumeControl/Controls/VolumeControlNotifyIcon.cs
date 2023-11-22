@@ -1,5 +1,4 @@
 ﻿using Localization;
-using Localization.Events;
 using System;
 
 namespace VolumeControl.Controls

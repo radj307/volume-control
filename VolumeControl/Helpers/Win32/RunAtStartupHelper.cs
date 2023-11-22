@@ -1,7 +1,5 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using VolumeControl.Log;
 
 namespace VolumeControl.Helpers.Win32

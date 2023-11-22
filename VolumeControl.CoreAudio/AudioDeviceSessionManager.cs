@@ -203,7 +203,7 @@ namespace VolumeControl.CoreAudio
         public void Dispose()
         {
             AudioDevice.Dispose();
-            Sessions.ForEach(s => s.Dispose());
+            Sessions.DisposeAll();
             GC.SuppressFinalize(this);
         }
         #endregion IDisposable Implementation

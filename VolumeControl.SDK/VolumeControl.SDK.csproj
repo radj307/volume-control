@@ -49,8 +49,8 @@
     <PackageReference Include="radj307.AppReconfig" Version="2.3.1">
       <PrivateAssets>Resources</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="radj307.Localization" Version="0.0.0" />
-    <PackageReference Include="radj307.Localization.WPF" Version="0.0.0" />
+    <PackageReference Include="radj307.Localization" Version="0.3.2" />
+    <PackageReference Include="radj307.Localization.WPF" Version="0.3.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VolumeControl.CoreAudio\VolumeControl.CoreAudio.csproj">

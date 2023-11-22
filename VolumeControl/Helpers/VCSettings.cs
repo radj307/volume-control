@@ -109,8 +109,8 @@ namespace VolumeControl.Helpers
         }
         public ObservableImmutableList<string> CustomLocalizationDirectories
         {
-            get => Settings.CustomLocalizationDirectories;
-            set => Settings.CustomLocalizationDirectories = value;
+            get => Settings.LocalizationDirectories;
+            set => Settings.LocalizationDirectories = value;
         }
         public ObservableImmutableList<string> CustomAddonDirectories
         {

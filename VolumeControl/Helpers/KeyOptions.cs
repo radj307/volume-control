@@ -1,5 +1,4 @@
 ﻿using Localization;
-using Localization.Events;
 using System;
 using System.Collections;
 using System.Collections.Generic;

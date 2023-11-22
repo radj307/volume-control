@@ -2,8 +2,8 @@
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using VolumeControl.Log;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Helpers
 {
@@ -56,7 +56,7 @@ namespace VolumeControl.Helpers
         private static string FindExecutablePath()
         {
             using var proc = Process.GetCurrentProcess();
-            return proc.MainModule?.FileName!;
+            return proc.GetMainModulePath() ?? proc.GetMainModulePathWMI()!;
         }
         #endregion Functions
     }

@@ -1,6 +1,4 @@
 ﻿using Localization;
-using Localization.Events;
-using Microsoft.VisualBasic;
 using PropertyChanged;
 using VolumeControl.Core.Input.Actions;
 using VolumeControl.Core.Input.Actions.Settings;

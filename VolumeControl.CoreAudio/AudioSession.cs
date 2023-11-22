@@ -7,6 +7,7 @@ using VolumeControl.CoreAudio.Events;
 using VolumeControl.CoreAudio.Helpers;
 using VolumeControl.CoreAudio.Interfaces;
 using VolumeControl.Log;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.CoreAudio
 {
@@ -20,7 +21,7 @@ namespace VolumeControl.CoreAudio
         {
             bool showTraceLogMessages = FLog.FilterEventType(EventType.TRACE);
 
-            AudioDevice = owningDevice;
+            _audioDeviceRef = new(owningDevice);
             AudioSessionControl = audioSessionControl2;
 
             PID = AudioSessionControl.ProcessID;
@@ -101,7 +102,8 @@ namespace VolumeControl.CoreAudio
         /// <summary>
         /// Gets the <see cref="CoreAudio.AudioDevice"/> that this <see cref="AudioSession"/> instance is running on.
         /// </summary>
-        public AudioDevice AudioDevice { get; }
+        public AudioDevice AudioDevice => _audioDeviceRef.TryGetTarget(out var device) ? device : null!;
+        private readonly WeakReference<AudioDevice> _audioDeviceRef;
         /// <summary>
         /// Gets the <see cref="AudioSessionControl2"/> controller instance associated with this <see cref="AudioSession"/> instance.
         /// </summary>
@@ -181,18 +183,14 @@ namespace VolumeControl.CoreAudio
             get => SimpleAudioVolume.MasterVolume;
             set
             {
-                if (value < 0.0f)
-                    value = 0.0f;
-                else if (value > 1.0f)
-                    value = 1.0f;
-
+                value = value.Bound(0f, 1f);
                 if (value == NativeVolume) return;
 
                 SimpleAudioVolume.MasterVolume = value;
                 if (isNotifying) return; //< don't duplicate propertychanged notifications
                 isNotifying = true;
-                NotifyVolumeChanged(value, Mute);
                 NotifyPropertyChanged();
+                NotifyVolumeChanged(value, Mute);
                 isNotifying = false;
             }
         }
@@ -215,8 +213,8 @@ namespace VolumeControl.CoreAudio
                 if (value == Mute) return;
 
                 SimpleAudioVolume.Mute = value;
-                NotifyVolumeChanged(NativeVolume, value);
                 NotifyPropertyChanged();
+                NotifyVolumeChanged(NativeVolume, value);
             }
         }
         #endregion Properties
