@@ -627,7 +627,7 @@
         },
         "StartFailed": {
           "Caption": {
-            "Italiano (Italian))": "Avvio instalalzione fallito"
+            "Italiano (Italian)": "Avvio instalalzione fallito"
           },
           "Message": {
             "Italiano (Italian)": "Il programma di installazione è stato scaricato correttamnte ma è impossibile avviare il programma di installazione.\nLe autorizzazioni di sistema potrebbero non consentire l'esecuzione di applicazioni dalla cartella dei download.\n\nDovrai avviare il programma di installazione manualmente."
