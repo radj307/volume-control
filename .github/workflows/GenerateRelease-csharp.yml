@@ -39,7 +39,7 @@ jobs:
         run:    |
                 $ExeVersion = $(Get-Item publish/VolumeControl.exe).VersionInfo.ProductVersion
                 $CsprojVersion = $(.\.github\workflows\scripts\SetProperty.ps1 VolumeControl/VolumeControl.csproj Version -Quiet)
-                if ($ExeVersion -ne $CsprojVersion) { echo "The executable's product version differs from the one in the CSPROJ file!" ; exit 1 }
+                if ($ExeVersion -ne $CsprojVersion) { echo "The executable's product version ($ExeVersion) differs from the one in the CSPROJ file ($CsprojVersion)!" ; exit 1 }
         
       - name:   Stage Binary (Portable Version)
         run:    foreach($file in $((dir "publish" | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
@@ -91,7 +91,7 @@ jobs:
         run:    |
                 $ExeVersion = $(Get-Item publish/installer/VolumeControl.exe).VersionInfo.ProductVersion
                 $CsprojVersion = $(.\.github\workflows\scripts\SetProperty.ps1 VolumeControl/VolumeControl.csproj Version -Quiet)
-                if ($ExeVersion -ne $CsprojVersion) { echo "The executable's product version differs from the one in the CSPROJ file!" ; exit 1 }
+                if ($ExeVersion -ne $CsprojVersion) { echo "The executable's product version ($ExeVersion) differs from the one in the CSPROJ file ($CsprojVersion)!" ; exit 1 }
 
       - name:   Compile VolumeControl Installer
         uses:   Minionguyjpro/Inno-Setup-Action@v1.1.0
