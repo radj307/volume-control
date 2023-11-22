@@ -4,7 +4,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Description>Official Addon SDK for the Volume Control application.</Description>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageTags>volume-control;VolumeControl;volume-control-sdk;VolumeControl.SDK</PackageTags>
     <RepositoryUrl>https://github.com/radj307/volume-control</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
