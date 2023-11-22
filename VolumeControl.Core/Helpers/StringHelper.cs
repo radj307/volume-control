@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace VolumeControl.Core.Helpers
 {
@@ -241,5 +242,47 @@ namespace VolumeControl.Core.Helpers
         public static string GetFullMethodName(this MethodInfo method)
             => GetFullMethodName(method, MethodNamePart.FullDeclaringTypeName | MethodNamePart.GenericParameters | MethodNamePart.Parameters | MethodNamePart.NonVoidReturnType);
         #endregion GetFullMethodName
+
+        #region PartialFormat
+        /// <summary>
+        /// Emulates <see cref="string.Format(string, object?[])"/>, but allows partial formatting for specific arguments rather than all of them at once.
+        /// </summary>
+        public static string PartialFormat(string format, params (int, object)[] formatArgs)
+        {
+            var matches = Regex.Matches(format, @"{(\d+)(,-{0,1}\d+){0,1}(:[\w!@#$%^&*()_+-=\/\\|;:'"",.<>?`~]+){0,1}}");
+
+            if (matches.Count == 0)
+                return format;
+
+            int providedCount = formatArgs.Length;
+
+            bool TryGetArgForIndex(int index, out object arg)
+            {
+                for (int i = 0; i < providedCount; ++i)
+                {
+                    var (k, v) = formatArgs[i];
+                    if (k == index)
+                    {
+                        arg = v;
+                        return true;
+                    }
+                }
+                arg = null!;
+                return false;
+            }
+            List<object> args = new();
+
+            foreach (var m in (IEnumerable<Match>)matches)
+            {
+                var argIndex = int.Parse(m.Groups[1].Value);
+
+                if (TryGetArgForIndex(argIndex, out var arg))
+                    args.Add(string.Format(m.Value.Replace(m.Groups[1].Value, "0"), arg));
+                else args.Add(m.Value);
+            }
+
+            return string.Format(format, args.ToArray());
+        }
+        #endregion PartialFormat
     }
 }
