@@ -199,6 +199,12 @@
               },
               "Tooltip": {
                 "Italiano (Italian)": "Attiva/disattiva visualizzazione controlli volume e muto nella sezione Dispositivi audio."
+            },
+            "HiddenSessions": {
+              "Content": {
+                "Italiano (Italian)": "Sessioni nascoste"
+              },
+              "Tooltip": {}
               }
             }
           },
