@@ -138,6 +138,10 @@ namespace VolumeControl
             ShellHelper.OpenWithDefault(Settings.LogPath);
 #endif
 
+            FLog.Info(
+                $"Config Path: \"{Settings.Location}\"",
+                $"Log Path:    \"{Settings.LogPath}\"");
+
             // write commandline arguments to the log if they were specified
             if (args.Length > 0)
             {
