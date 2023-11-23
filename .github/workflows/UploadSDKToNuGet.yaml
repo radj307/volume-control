@@ -36,7 +36,7 @@ jobs:
       - name:   Upload Packages
         run:    >
                 foreach ($pkg in $(Get-ChildItem -Filter *.nupkg)) {
-                  dotnet push $pkg.Name -k ${{ github.token }} -s https://nuget.pkg.github.com/radj307/index.json --skip-duplicate
+                  dotnet nuget push $pkg.Name -k ${{ github.token }} -s https://nuget.pkg.github.com/radj307/index.json --skip-duplicate
                   dotnet nuget push $pkg.Name -k ${{ secrets.NUGET_API_KEY_VOLUMECONTROLSDK }} -s https://api.nuget.org/v3/index.json --skip-duplicate
                 }
         
