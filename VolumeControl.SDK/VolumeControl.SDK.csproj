@@ -22,6 +22,7 @@
     <FileVersion>6.6.3</FileVersion>
     <Version>6.6.3</Version>
     <Copyright>Copyright © 2022-2023 by $(Authors)</Copyright>
+    <DocumentationFile>../publish/$(MSBuildProjectName).xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="C:\Users\Administrator\.nuget\packages\radj307.appreconfig\2.3.0\contentFiles\any\net6.0\Resources\gear-split.ico" />

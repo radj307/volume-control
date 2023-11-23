@@ -31,10 +31,11 @@ jobs:
       - name:   Build Package
         run:    |
                 dotnet build -c Release
-                dotnet pack ./VolumeControl.SDK/VolumeControl.SDK.csproj --noLogo -c Release -o . --include-symbols
+                dotnet pack ./VolumeControl.SDK/VolumeControl.SDK.csproj --noLogo -c Release -o publish --include-symbols
 
       - name:   Upload Packages
         run:    >
+                cd publish;
                 foreach ($pkg in $(Get-ChildItem -Filter *.nupkg)) {
                   dotnet nuget push $pkg.Name -k ${{ github.token }} -s https://nuget.pkg.github.com/radj307/index.json --skip-duplicate
                   dotnet nuget push $pkg.Name -k ${{ secrets.NUGET_API_KEY_VOLUMECONTROLSDK }} -s https://api.nuget.org/v3/index.json --skip-duplicate

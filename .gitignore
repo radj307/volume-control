@@ -34,5 +34,3 @@ publish/
 /gh-pages
 /*.nupkg
 InnoDependencyInstaller/
-/VolumeControl.SDK.xml
-/*.xml

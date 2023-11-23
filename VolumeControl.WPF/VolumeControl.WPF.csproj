@@ -9,10 +9,10 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <DocumentationFile>../$(MSBuildProjectName).xml</DocumentationFile>
     <Version>6.6.3</Version>
     <FileVersion>6.6.3</FileVersion>
     <Copyright>Copyright © 2022-2023 by $(Authors)</Copyright>
+    <DocumentationFile>../publish/$(MSBuildProjectName).xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Fody" Version="6.8.0">
@@ -31,6 +31,11 @@
   <ItemGroup>
     <ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
     <ProjectReference Include="..\VolumeControl.TypeExtensions\VolumeControl.TypeExtensions.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="CustomMessageBox\CustomMessageBox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).pdb&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).xml&quot; &quot;..\publish\SDK\&quot;" />

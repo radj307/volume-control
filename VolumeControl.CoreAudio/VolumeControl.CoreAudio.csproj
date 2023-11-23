@@ -7,11 +7,11 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <DocumentationFile>../$(MSBuildProjectName).xml</DocumentationFile>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <Version>6.6.3</Version>
     <FileVersion>6.6.3</FileVersion>
     <Copyright>Copyright © 2022-2023 by $(Authors)</Copyright>
+    <DocumentationFile>../publish/$(MSBuildProjectName).xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
