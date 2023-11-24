@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
+using VolumeControl.WPF.Extensions;
 
 namespace VolumeControl.WPF
 {
@@ -26,6 +27,7 @@ namespace VolumeControl.WPF
                 Enabled = this.Enabled,
                 Interval = this.Interval,
             };
+            Timer.Elapsed += NotifyElapsed;
         }
         /// <summary>
         /// Initializes a new instance of the <see cref='BindableTimer'/> class, setting the <see cref='Interval'/> property to the period specified by <paramref name="interval"/>.
@@ -64,10 +66,16 @@ namespace VolumeControl.WPF
 
         #region Events
         /// <inheritdoc cref="System.Timers.Timer.Elapsed"/>
-        public event System.Timers.ElapsedEventHandler? Elapsed
+        public event System.Timers.ElapsedEventHandler? Elapsed;
+        private void NotifyElapsed(object? sender, System.Timers.ElapsedEventArgs e)
         {
-            add => Timer.Elapsed += value;
-            remove => Timer.Elapsed -= value;
+            // disable the timer
+            Dispatcher.InvokeIfRequired(() =>
+            {
+                if (!AutoReset) Enabled = false;
+            });
+            // invoke the elapsed event (discard the original sender, which is private)
+            Elapsed?.Invoke(this, e);
         }
         #endregion Events
 
@@ -84,11 +92,7 @@ namespace VolumeControl.WPF
         public bool Enabled
         {
             get => (bool)GetValue(EnabledProperty);
-            set
-            {
-                if (disposedValue) throw new ObjectDisposedException(typeof(BindableTimer).FullName);
-                SetValue(EnabledProperty, value);
-            }
+            set => SetValue(EnabledProperty, value);
         }
         private static void OnEnabledPropertyChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
         {
@@ -269,6 +273,10 @@ namespace VolumeControl.WPF
         #endregion IComponent Implementation
 
         #region IDisposable Implementation
+        /// <summary>
+        /// Disposes of the <see cref="BindableTimer"/> instance and the underlying timer object.
+        /// </summary>
+        ~BindableTimer() => Dispose(disposing: true);
         private void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -283,10 +291,11 @@ namespace VolumeControl.WPF
                 disposedValue = true;
             }
         }
-        /// <inheritdoc/>
+        /// <summary>
+        /// Disposes of the <see cref="BindableTimer"/> instance and the underlying timer object.
+        /// </summary>
         public void Dispose()
         {
-            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }

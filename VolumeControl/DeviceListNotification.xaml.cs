@@ -6,13 +6,15 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using VolumeControl.Core;
 using VolumeControl.Core.Enum;
-using VolumeControl.Helpers;
+using VolumeControl.Core.Extensions;
+using VolumeControl.Core.Input.Enums;
 using VolumeControl.Log;
 using VolumeControl.SDK;
 using VolumeControl.SDK.Internal;
 using VolumeControl.TypeExtensions;
 using VolumeControl.ViewModels;
 using VolumeControl.WPF;
+using VolumeControl.WPF.Extensions;
 
 namespace VolumeControl
 {
@@ -21,6 +23,7 @@ namespace VolumeControl
     /// </summary>
     public partial class DeviceListNotification : Window
     {
+        #region Constructor
         public DeviceListNotification()
         {
             InitializeComponent();
@@ -61,6 +64,7 @@ namespace VolumeControl
             // bind to the show event
             VCEvents.ShowDeviceListNotification += this.VCEvents_ShowDeviceListNotification;
         }
+        #endregion Constructor
 
         #region Fields
         private readonly BindableTimer _timer;
@@ -474,14 +478,35 @@ namespace VolumeControl
         /// </summary>
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (!e.ChangedButton.Equals(MouseButton.Left)) return;
+            if (!e.ChangedButton.Equals(MouseButton.Left)
+                || e.LeftButton != MouseButtonState.Pressed
+                || (Settings.NotificationMoveRequiresAlt && !(Keyboard.PrimaryDevice.IsModifierKeyDown(EModifierKey.Alt))))
+                return; //< don't do anything if the left mouse button wasn't pressed or if NotificationMoveRequiresAlt is enabled & ALT isn't pressed
 
-            if (Mouse.LeftButton.Equals(MouseButtonState.Pressed))
+            this.DragMove();
+            e.Handled = true;
+        }
+        /// <summary>
+        /// Allows dragging the window around with the mouse from anywhere (including on top of controls) when ALT is held down
+        /// </summary>
+        private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!e.ChangedButton.Equals(MouseButton.Left)
+                || e.LeftButton != MouseButtonState.Pressed
+                || !Keyboard.PrimaryDevice.IsModifierKeyDown(EModifierKey.Alt))
+                return; //< don't do anything if the left mouse button wasn't pressed or if ALT isn't pressed
+
+            this.DragMove();
+            e.Handled = true;
+        }
+        /// <summary>
+        /// Prevents controls from capturing the mouse &amp; preventing the Window's MouseLeave event from triggering
+        /// </summary>
+        private void Window_IsMouseCaptureWithinChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue && sender is FrameworkElement element)
             {
-                if (Settings.NotificationMoveRequiresAlt && !(Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)))
-                    return;
-                this.DragMove();
-                e.Handled = true;
+                element.ReleaseMouseCapture(); //< release mouse capture so MouseLeave will trigger properly
             }
         }
         /// <summary>

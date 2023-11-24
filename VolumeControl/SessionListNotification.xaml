@@ -22,6 +22,8 @@
     MouseDown="Window_MouseDown"
     MouseEnter="Window_MouseEnter"
     MouseLeave="Window_MouseLeave"
+    IsMouseCaptureWithinChanged="Window_IsMouseCaptureWithinChanged"
+    PreviewMouseDown="Window_PreviewMouseDown"
     ResizeMode="NoResize"
     ShowActivated="False"
     ShowInTaskbar="False"
