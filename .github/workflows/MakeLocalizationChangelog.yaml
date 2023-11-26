@@ -1,0 +1,59 @@
+name: Update Localization Changelog
+
+# Triggers when changes were made to localization files on the main branch
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'VolumeControl/Localization/*.loc*'
+      - 'VolumeControl.HotkeyActions/Localization/*.loc*'
+
+jobs:
+  update-changelog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          persist-credentials: true
+
+        # Get changed files
+      - uses: tj-actions/changed-files@v40.1.1
+        id: changes
+        with:
+          include_all_old_new_renamed_files: true
+          files: |
+            VolumeControl/Localization/*.loc*
+            VolumeControl.HotkeyActions/Localization/*.loc*
+
+        # Build issue comment
+      - name: "[body.md]: Start building comment body"
+        run: |
+          touch body.md
+          printf  "**Commit:** %s  \n"   "${{ github.sha }}"   >> body.md
+          printf  "**User:**   @%s  \n"  "${{ github.actor }}" >> body.md
+
+      - name: "[body.md]: Append renamed files"
+        if: ${{ steps.changes.outputs.all_old_new_renamed_files_count > 0 }}
+        run: |
+          printf  "\n### Renamed Files\n"  >> body.md
+          for file in ${{ steps.changes.outputs.include_all_old_new_renamed_files }}; do
+            printf -- "- %s  \n"  "$file"  >> body.md
+          done
+
+      - name: "[body.md]: Append changed files"
+        if: ${{ steps.changes.outputs.all_changed_files_count > 0 }}
+        run: |
+          printf  "\n### Changed Files\n"  >> body.md
+          for file in ${{ steps.changes.outputs.all_changed_files }}; do
+            printf -- "- %s  \n"  "$file"  >> body.md
+          done
+
+        # Add comment to changelog issue
+      - name: Add Comment to Changelog
+        uses: peter-evans/create-or-update-comment@v3.1.0
+        with:
+          issue-number: 133
+          body-path: 'body.md'
+          
