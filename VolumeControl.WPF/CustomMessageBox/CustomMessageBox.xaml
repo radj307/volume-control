@@ -1,0 +1,259 @@
+﻿<Window
+    x:Class="VolumeControl.WPF.CustomMessageBox.CustomMessageBox"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cmb="clr-namespace:VolumeControl.WPF.CustomMessageBox"
+    xmlns:conv="clr-namespace:VolumeControl.WPF.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    Title="{Binding Data.Title}"
+    MinWidth="100"
+    MinHeight="60"
+    d:Title="CustomMessageBox"
+    AllowsTransparency="True"
+    Background="#0000"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    FontSize="12"
+    Foreground="WhiteSmoke"
+    Loaded="Window_Loaded"
+    MouseDown="Window_MouseDown"
+    PreviewMouseDown="Window_PreviewMouseDown"
+    ResizeMode="NoResize"
+    ShowActivated="True"
+    SizeToContent="WidthAndHeight"
+    WindowStartupLocation="Manual"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+        <conv:ConverterChain x:Key="NotNullToVis">
+            <conv:NullToBooleanConverter />
+            <conv:BooleanInverter />
+            <BooleanToVisibilityConverter />
+        </conv:ConverterChain>
+        <conv:EnumHasFlagConverter x:Key="HasFlag" />
+
+    </Window.Resources>
+
+    <Border
+        d:Background="#303030"
+        d:BorderBrush="#555"
+        d:BorderThickness="3"
+        d:CornerRadius="5"
+        Background="{Binding Data.Appearance.BackgroundBrush}"
+        BorderBrush="{Binding Data.Appearance.BorderBrush}"
+        BorderThickness="{Binding Data.Appearance.BorderThickness}"
+        CornerRadius="{Binding Data.Appearance.CornerRadius}">
+        <Border.Style>
+            <Style TargetType="{x:Type Border}">
+                <Style.Triggers>
+                    <!--  RtlReading Option  -->
+                    <DataTrigger Binding="{Binding Data.Options, RelativeSource={RelativeSource AncestorType={x:Type cmb:CustomMessageBox}}, Converter={StaticResource HasFlag}, ConverterParameter={x:Static cmb:CustomMessageBoxOptions.RtlReading}}" Value="True">
+                        <Setter Property="FlowDirection" Value="RightToLeft" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        <Border.Resources>
+            <Style TargetType="{x:Type TextBlock}">
+                <Style.Triggers>
+                    <!--  RightAlign Option  -->
+                    <DataTrigger Binding="{Binding Data.Options, RelativeSource={RelativeSource AncestorType={x:Type cmb:CustomMessageBox}}, Converter={StaticResource HasFlag}, ConverterParameter={x:Static cmb:CustomMessageBoxOptions.RightAlign}}" Value="True">
+                        <Setter Property="TextAlignment" Value="Right" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Resources>
+        <DockPanel>
+            <!--  CaptionBar  -->
+            <Grid
+                Height="{Binding Data.Appearance.CaptionHeight}"
+                Background="{Binding Data.Appearance.CaptionBackgroundBrush}"
+                DockPanel.Dock="Top"
+                Visibility="{Binding Data.ShowCaptionBar, Converter={StaticResource BoolToVis}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                    MaxWidth="{Binding Data.Appearance.CaptionHeight}"
+                    Source="{Binding Icon}" />
+
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    d:FontSize="14"
+                    d:Foreground="LightGray"
+                    FontSize="{Binding Data.Appearance.CaptionFontSize}"
+                    FontWeight="SemiBold"
+                    Foreground="{Binding Data.Appearance.CaptionForegroundBrush}"
+                    Text="{Binding Title}" />
+
+                <Button
+                    x:Name="CloseWindowButton"
+                    Grid.Column="2"
+                    Click="CloseWindowButton_Click"
+                    Content="❌"
+                    Cursor="Hand"
+                    IsCancel="{Binding Data.EnableEscapeKey}"
+                    IsTabStop="False">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border
+                                            x:Name="ButtonMouseOver"
+                                            Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            RenderOptions.EdgeMode="Aliased">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter d:Value="#2FFF" TargetName="ButtonMouseOver" Property="Background" Value="{Binding Data.Appearance.CaptionButtonMouseOverBackgroundBrush, RelativeSource={RelativeSource AncestorType={x:Type cmb:CustomMessageBox}}}" />
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter d:Value="#4FFF" TargetName="ButtonMouseOver" Property="Background" Value="{Binding Data.Appearance.CaptionButtonPressedBackgroundBrush, RelativeSource={RelativeSource AncestorType={x:Type cmb:CustomMessageBox}}}" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Setter Property="Width" Value="{Binding Data.Appearance.CaptionHeight, RelativeSource={RelativeSource AncestorType={x:Type cmb:CustomMessageBox}}}" />
+                            <Setter Property="Height" Value="{Binding Data.Appearance.CaptionHeight, RelativeSource={RelativeSource AncestorType={x:Type cmb:CustomMessageBox}}}" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="FontWeight" Value="Black" />
+                            <Setter Property="Background" Value="#00000000" />
+                            <Setter d:Value="LightGray" Property="Foreground" Value="{Binding Data.Appearance.CaptionForegroundBrush, RelativeSource={RelativeSource AncestorType={x:Type cmb:CustomMessageBox}}}" />
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
+
+            <!--  Result Buttons  -->
+            <ItemsControl
+                x:Name="ButtonsPanel"
+                Padding="10"
+                HorizontalAlignment="{Binding Data.Appearance.ButtonPanelAlignment}"
+                HorizontalContentAlignment="Stretch"
+                d:HorizontalAlignment="Right"
+                DockPanel.Dock="Bottom"
+                IsTabStop="False"
+                ItemsSource="{Binding Data.Buttons}">
+                <d:ItemsControl.Items>
+                    <d:Button Content="OK" />
+                </d:ItemsControl.Items>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type cmb:CustomMessageBoxButton}">
+                        <Button
+                            x:Name="ResultButton"
+                            Click="ResultButton_Click"
+                            ClickMode="Release"
+                            Content="{Binding Content}"
+                            FocusVisualStyle="{x:Null}">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border
+                                                    x:Name="border"
+                                                    Margin="{TemplateBinding Margin}"
+                                                    Padding="{TemplateBinding Padding}"
+                                                    d:CornerRadius="5"
+                                                    Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    CornerRadius="{Binding Data.Appearance.ButtonCornerRadius, RelativeSource={RelativeSource AncestorType={x:Type cmb:CustomMessageBox}}}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter d:Value="#AAA" TargetName="border" Property="Background" Value="{Binding Data.Appearance.ButtonMouseOverBackgroundBrush, RelativeSource={RelativeSource AncestorType={x:Type cmb:CustomMessageBox}}}" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsPressed" Value="True">
+                                                        <Setter d:Value="#CCC" TargetName="border" Property="Background" Value="{Binding Data.Appearance.ButtonPressedBackgroundBrush, RelativeSource={RelativeSource AncestorType={x:Type cmb:CustomMessageBox}}}" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsFocused" Value="True">
+                                                        <Setter d:Value="#3BE" TargetName="border" Property="BorderBrush" Value="{Binding Data.Appearance.ButtonBorderBrushFocused, RelativeSource={RelativeSource AncestorType={x:Type cmb:CustomMessageBox}}}" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+
+                                    <Setter d:Value="#999" Property="Background" Value="{Binding Data.Appearance.ButtonBackgroundBrush, RelativeSource={RelativeSource AncestorType={x:Type cmb:CustomMessageBox}}}" />
+                                    <Setter d:Value="#222" Property="Foreground" Value="{Binding Data.Appearance.ButtonForegroundBrush, RelativeSource={RelativeSource AncestorType={x:Type cmb:CustomMessageBox}}}" />
+                                    <Setter d:Value="12" Property="FontSize" Value="{Binding Data.Appearance.ButtonFontSize, RelativeSource={RelativeSource AncestorType={x:Type cmb:CustomMessageBox}}}" />
+                                    <Setter d:Value="Bold" Property="FontWeight" Value="{Binding Data.Appearance.ButtonFontWeight, RelativeSource={RelativeSource AncestorType={x:Type cmb:CustomMessageBox}}}" />
+
+                                    <Setter d:Value="Transparent" Property="BorderBrush" Value="{Binding Data.Appearance.ButtonBorderBrush, RelativeSource={RelativeSource AncestorType={x:Type cmb:CustomMessageBox}}}" />
+                                    <Setter d:Value="1" Property="BorderThickness" Value="{Binding Data.Appearance.ButtonBorderThickness, RelativeSource={RelativeSource AncestorType={x:Type cmb:CustomMessageBox}}}" />
+
+                                    <Setter d:Value="6,1.5" Property="Padding" Value="{Binding Data.Appearance.ButtonPadding, RelativeSource={RelativeSource AncestorType={x:Type cmb:CustomMessageBox}}}" />
+                                    <Setter Property="Margin" Value="3,0" />
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!--  Content  -->
+            <ContentControl
+                x:Name="ContentContentControl"
+                Margin="15,6"
+                HorizontalAlignment="{Binding Data.Appearance.ContentPanelAlignment}"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                d:DockPanel.Dock="Bottom"
+                d:FontSize="12"
+                Content="{Binding Data.Content}"
+                DockPanel.Dock="{Binding Data.Appearance.ContentPanelDock}"
+                FontSize="{Binding Data.Appearance.ContentFontSize}"
+                IsTabStop="False"
+                Visibility="{Binding Data.Content, Converter={StaticResource NotNullToVis}}">
+                <d:ContentControl.Content>
+                    <d:StackPanel Orientation="Horizontal">
+                        <d:TextBox Margin="0,3" Text="Some Textbox" />
+                        <d:CheckBox Margin="5,3" Content="XYZ" />
+                    </d:StackPanel>
+                </d:ContentControl.Content>
+            </ContentControl>
+
+            <!--  Message  -->
+            <TextBlock
+                x:Name="MessageTextBlock"
+                Margin="15,6"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                d:FontSize="12"
+                d:Text="Message text goes here. Lorem ipsum etcetera"
+                FontSize="{Binding Data.Appearance.MessageFontSize}"
+                Text="{Binding Data.Message}"
+                TextAlignment="{Binding Data.Appearance.MessageTextAlignment}"
+                TextWrapping="Wrap"
+                Visibility="{Binding Data.Message, Converter={StaticResource NotNullToVis}}" />
+        </DockPanel>
+    </Border>
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" GlassFrameThickness="0" />
+    </WindowChrome.WindowChrome>
+</Window>

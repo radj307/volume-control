@@ -18,9 +18,7 @@
         x:Key="StringDataTemplate"
         DataType="{x:Type actionSettings:IActionSettingInstance}"
         ValueType="{x:Type sys:String}">
-        <Grid>
-            <TextBox Style="{StaticResource RoundedTextBoxStyle}" Text="{Binding Value, UpdateSourceTrigger=LostFocus}" />
-        </Grid>
+        <TextBox Style="{StaticResource RoundedTextBoxStyle}" Text="{Binding Value, UpdateSourceTrigger=LostFocus}" />
     </core:ActionSettingDataTemplate>
 
     <!--  Bool  -->

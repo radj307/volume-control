@@ -11,6 +11,7 @@ using VolumeControl.Core.Input.Json;
 using VolumeControl.Core.Structs;
 using VolumeControl.Log;
 using VolumeControl.WPF.Collections;
+using VolumeControl.WPF.Extensions;
 
 namespace VolumeControl.Core
 {
@@ -94,6 +95,12 @@ namespace VolumeControl.Core
             if (FLog.FilterEventType(EventType.TRACE))
                 FLog.Trace($"Saved {nameof(Config)} (Caller: \"{callerName}\")");
             base.Save(formatting);
+        }
+        public override bool Load()
+        {
+            if (FLog.IsInitialized && FLog.FilterEventType(EventType.TRACE))
+                FLog.Trace($"Loaded {nameof(Config)} from {Location}.");
+            return base.Load();
         }
         #endregion Method Overrides
 
@@ -222,6 +229,7 @@ namespace VolumeControl.Core
         /// <summary>
         /// Gets or sets the origin corner to use when restoring the main window's position.
         /// </summary>
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public EScreenCorner MainWindowOriginCorner { get; set; } = EScreenCorner.TopLeft;
         /// <summary>
         /// Gets or sets the position to restore the main window to when the application starts.

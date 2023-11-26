@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Windows;
-using VolumeControl.Core.Enum;
 using VolumeControl.TypeExtensions;
 
-namespace VolumeControl.Helpers
+namespace VolumeControl.WPF.Extensions
 {
     /// <summary>
     /// Extension methods for the <see cref="Window"/> class and other helper functions for manipulating screen space coordinates and positioning windows.
@@ -37,7 +36,7 @@ namespace VolumeControl.Helpers
         /// <param name="wnd">(Implicit) A <see cref="Window"/> instance.</param>
         /// <returns>A <see cref="Point"/> containing the x/y coordinates of the window's centerpoint.</returns>
         public static Point GetPosAtCenterPoint(this Window wnd)
-            => new(wnd.Left + (wnd.Width / 2), wnd.Top + (wnd.Height / 2));
+            => new(wnd.Left + wnd.Width / 2, wnd.Top + wnd.Height / 2);
         /// <summary>
         /// Sets the position of the window, using the window's center as an origin point.
         /// </summary>
@@ -57,7 +56,7 @@ namespace VolumeControl.Helpers
         /// <param name="wnd">(Implicit) A <see cref="Window"/> instance.</param>
         /// <param name="corner">The corner to check</param>
         /// <returns>The position of the window at the specified <paramref name="corner"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Invalid <see cref="Core.Enum.EScreenCorner"/> enumeration.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Invalid <see cref="EScreenCorner"/> enumeration.</exception>
         public static Point GetPosAtCorner(this Window wnd, EScreenCorner corner)
         {
             var compositionTarget = PresentationSource.FromVisual(wnd)?.CompositionTarget;
@@ -110,6 +109,14 @@ namespace VolumeControl.Helpers
             => wnd.GetPosAtCorner(wnd.GetCurrentScreenCorner());
         #endregion GetPosAtCurrentCorner
 
+        #region GetDefaultScreen
+        /// <summary>
+        /// Gets the primary screen.
+        /// </summary>
+        /// <returns></returns>
+        public static System.Windows.Forms.Screen GetDefaultScreen() => System.Windows.Forms.Screen.PrimaryScreen;
+        #endregion GetDefaultScreen
+
         #region GetCurrentScreen
         /// <summary>
         /// Gets the screen that contains the centerpoint of the window.
@@ -132,10 +139,10 @@ namespace VolumeControl.Helpers
 
         #region GetCurrentScreenCorner
         /// <summary>
-        /// Gets the closest <see cref="Core.Enum.EScreenCorner"/> to the window's centerpoint.
+        /// Gets the closest <see cref="EScreenCorner"/> to the window's centerpoint.
         /// </summary>
         /// <param name="wnd">(Implicit) A <see cref="Window"/> instance.</param>
-        /// <returns>The closest <see cref="Core.Enum.EScreenCorner"/> to the window's centerpoint.</returns>
+        /// <returns>The closest <see cref="EScreenCorner"/> to the window's centerpoint.</returns>
         public static EScreenCorner GetCurrentScreenCorner(this Window wnd)
             => GetClosestScreenCornerFromPoint(wnd.GetPosAtCenterPoint());
         #endregion GetCurrentScreenCorner
@@ -157,7 +164,7 @@ namespace VolumeControl.Helpers
         /// <param name="screen">A <see cref="System.Windows.Forms.Screen"/> instance to get the centerpoint of.</param>
         /// <returns>A <see cref="Point"/> containing the absolute x/y coordinates of the specified <paramref name="screen"/>'s centerpoint.</returns>
         public static Point GetScreenCenterPoint(System.Windows.Forms.Screen screen)
-            => new(screen.WorkingArea.Left + (screen.WorkingArea.Width / 2), screen.WorkingArea.Top + (screen.WorkingArea.Height / 2));
+            => new(screen.WorkingArea.Left + screen.WorkingArea.Width / 2, screen.WorkingArea.Top + screen.WorkingArea.Height / 2);
         #endregion GetScreenCenterPoint
 
         #region GetClosestScreenCornerFromPoint
@@ -166,7 +173,7 @@ namespace VolumeControl.Helpers
         /// </summary>
         /// <param name="screen">The <see cref="System.Windows.Forms.Screen"/> instance to use.</param>
         /// <param name="point">An x/y coordinate specifying a point on the <paramref name="screen"/>.</param>
-        /// <returns>The <see cref="Core.Enum.EScreenCorner"/> representing the corner of the <paramref name="screen"/> that is closest to the given <paramref name="point"/>.</returns>
+        /// <returns>The <see cref="EScreenCorner"/> representing the corner of the <paramref name="screen"/> that is closest to the given <paramref name="point"/>.</returns>
         public static EScreenCorner GetClosestScreenCornerFromPoint(System.Windows.Forms.Screen screen, Point point)
         {
             // automatic corner selection is enabled:

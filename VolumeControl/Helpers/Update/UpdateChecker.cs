@@ -153,9 +153,10 @@ namespace VolumeControl.Helpers.Update
                     // download the release asset
                     if (DownloadReleaseAsset(installerAsset, KnownFolders.GetPath(KnownFolder.Downloads)) is string installerPath)
                     { // start the installer
+                        ShellHelper.OpenWithDefault(releaseInfo.URL); //< open the changelog
                         if (ShellHelper.OpenWithDefault(installerPath))
                         {
-                            FLog.Info($"[{nameof(Update)}] Started \"{installerPath}\"; closing the application.");
+                            FLog.Info($"[{nameof(Update)}] Started \"{installerPath}\"; closing the application & opening \"{releaseInfo.URL}\" in the default browser.");
                             Application.Current.Shutdown(Program.EXITCODE_UPDATING);
                         }
                         else
@@ -167,13 +168,13 @@ namespace VolumeControl.Helpers.Update
                                 MessageBoxImage.Error);
                         }
                     }
-                    else
-                    {
-                        MessageBox.Show(
+                    else if (MessageBox.Show(
                             Loc.Tr("VolumeControl.Dialogs.UpdatePrompt.DownloadFailed.Message", "An error occurred while downloading the installer, check the log for more information."),
                             Loc.Tr("VolumeControl.Dialogs.UpdatePrompt.DownloadFailed.Caption", "Download Failed"),
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Error);
+                            MessageBoxButton.YesNo,
+                            MessageBoxImage.Error) == MessageBoxResult.Yes)
+                    {
+                        ShellHelper.OpenWithDefault(releaseInfo.URL); //< open the releases page
                     }
 #else
                     // open the release URL

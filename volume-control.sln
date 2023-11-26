@@ -11,6 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.WPF", "Volume
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFiles", "{0FC57F73-5E25-404B-9E86-8EDA0E96F2BC}"
 	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
 		SetVersion.ps1 = SetVersion.ps1
 		vcsetup.iss = vcsetup.iss
 	EndProjectSection

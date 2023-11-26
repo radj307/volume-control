@@ -73,6 +73,21 @@ namespace VolumeControl.TypeExtensions
             }
         }
         /// <summary>
+        /// Selects non-<see langword="null"/> values from the enumerable.
+        /// </summary>
+        /// <typeparam name="TSource">The type of element in the enumerable.</typeparam>
+        /// <returns>The resulting elements that aren't <see langword="null"/>.</returns>
+        public static IEnumerable<TSource> SelectValues<TSource>(this IEnumerable<TSource> source)
+        {
+            foreach (var item in source)
+            {
+                if (item is TSource value)
+                {
+                    yield return value;
+                }
+            }
+        }
+        /// <summary>
         /// Selects non-<see langword="null"/> values from the enumerable using the specified <paramref name="selector"/>.
         /// </summary>
         /// <typeparam name="TSource">The type of element in the enumerable.</typeparam>
@@ -80,7 +95,7 @@ namespace VolumeControl.TypeExtensions
         /// <param name="source">The enumerable to apply the <paramref name="selector"/> to.</param>
         /// <param name="selector">A function that accepts a parameter of type <typeparamref name="TSource"/> and returns a <typeparamref name="TResult"/> instance, or <see langword="null"/>. When this returns <see langword="null"/> the item does not appear in the resulting enumeration.</param>
         /// <returns>The resulting elements of type <typeparamref name="TResult"/> that aren't <see langword="null"/>.</returns>
-        public static IEnumerable<TResult> SelectValue<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult?> selector)
+        public static IEnumerable<TResult> SelectValues<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult?> selector)
         {
             foreach (var item in source)
             {

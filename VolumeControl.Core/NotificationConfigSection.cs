@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 using VolumeControl.Core.Enum;
+using VolumeControl.WPF.Extensions;
 
 namespace VolumeControl.Core
 {
@@ -51,6 +52,7 @@ namespace VolumeControl.Core
         /// <summary>
         /// Gets or sets the corner from which ListNotification size transform operations are rooted.
         /// </summary>
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public EScreenCorner PositionOriginCorner { get; set; } = EScreenCorner.TopLeft;
         /// <summary>
         /// Gets or sets whether the notification window slowly fades in instead of appearing instantly.

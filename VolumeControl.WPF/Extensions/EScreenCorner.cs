@@ -1,12 +1,8 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-
-namespace VolumeControl.Core.Enum
+﻿namespace VolumeControl.WPF.Extensions
 {
     /// <summary>
     /// Defines the corners of a screen. (Rectangle)
     /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
     public enum EScreenCorner : byte
     {
         /// <summary>(⬉) The upper-left corner of the screen.</summary>

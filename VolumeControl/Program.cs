@@ -10,10 +10,12 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
 using VolumeControl.Core;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
+using VolumeControl.WPF.CustomMessageBox;
 
 namespace VolumeControl
 {
@@ -57,6 +59,48 @@ namespace VolumeControl
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static int Main(string[] args)
         {
+            //var sb = new StringBuilder();
+            //for (int i = 0; i < 4; ++i)
+            //{
+            //    sb.Append(new string('#', 100));
+            //    sb.AppendLine();
+            //}
+            //switch (CustomMessageBox.Show(new()
+            //{
+            //    Title = "Caption",
+            //    Message = "This is a message\n" + sb.ToString(),
+            //    Content = new TextBox() { Text = "Hello World!" },
+            //    Buttons =
+            //    {
+            //        "OK",
+            //        "No",
+            //    },
+            //    DefaultResult = "OK",
+            //    EnableEscapeKey = true,
+            //})?.ToMessageBoxResult())
+            //{
+            //case MessageBoxResult.OK:
+            //    break;
+            //case MessageBoxResult.No:
+            //    break;
+            //}
+            //if (CustomMessageBox.Show(new()
+            //{
+            //    Title = "Caption",
+            //    Message = "This is a message\n" + sb.ToString(),
+            //    Content = new TextBox() { Text = "Hello World!" },
+            //    Buttons =
+            //    {
+            //        "OK",
+            //        "Do the thing",
+            //    },
+            //    DefaultResult = "OK",
+            //    EnableEscapeKey = true,
+            //}) != MessageBoxResult.OK)
+            //{
+
+            //}
+            //return 0;
             try
             {
                 Console.Out.WriteLine("Application is starting.");
@@ -94,11 +138,17 @@ namespace VolumeControl
 #else
             Settings = new("VolumeControl.json");
 #endif
+            bool settingsFileWasPresentAtStartup = false;
 
             if (args.Contains("--reset-config"))
+            {
                 Settings.Save(); //< reset the config by overwriting it with the default settings
-            else
-                Settings.Load(); //< load the previous config
+                Console.WriteLine($"Config file was reset. ({Settings.Location})");
+            }
+            else if (Settings.Load()) //< load the previous config
+            {
+                settingsFileWasPresentAtStartup = true;
+            }
             Settings.AttachReflectivePropertyChangedHandlers();
 
             // Multi instance gate
@@ -138,20 +188,20 @@ namespace VolumeControl
             ShellHelper.OpenWithDefault(Settings.LogPath);
 #endif
 
+            // write the config & log filepaths to the log
             FLog.Info(
                 $"Config Path: \"{Settings.Location}\"",
                 $"Log Path:    \"{Settings.LogPath}\"");
 
+            // write whether the config already existed to the log
+            if (settingsFileWasPresentAtStartup)
+                FLog.Info($"Settings file was present at startup.");
+            else
+                FLog.Info($"Settings file didn't exist at startup, so it was created.");
+
             // write commandline arguments to the log if they were specified
             if (args.Length > 0)
-            {
-                var msg = new LogMessage(EventType.INFO, $"Commandline arguments were included:");
-                for (int i = 0, i_max = args.Length; i < i_max; ++i)
-                {
-                    msg.Add($" [{i}] \"{args[i]}\"");
-                }
-                FLog.LogMessage(msg);
-            }
+                FLog.Info($"Commandline arguments: \"{string.Join("\", \"", args)}\"");
 
             // Get program information:
             SemVersion version = GetProgramVersion();
@@ -181,15 +231,16 @@ namespace VolumeControl
             }
 
             // Update the version number in the config
+#if !DEBUG
             if (versionChanged)
+#endif
             {
                 FLog.Info($"Config version is {Settings.__VERSION__}, settings will be migrated to version {version}.");
+
+                // update the version number in the config
+                Settings.__VERSION__ = version;
+                Settings.Save();
             }
-#if DEBUG
-            versionChanged = true;
-#endif
-            // update the version number in the config
-            Settings.__VERSION__ = version;
 
             // create the application class
             var app = new App();

@@ -367,7 +367,7 @@
         "NewVersionAvailableOptions_OpenBrowser": "Click 'Yes' to go to the releases page.\nClick 'No' if you don't want to update right now.\nClick 'Cancel' to disable these prompts.",
         "DownloadFailed": {
           "Caption": "Download Failed",
-          "Message": "An error occurred while downloading the installer, check the log for more information."
+          "Message": "An error occurred while downloading the installer, check the log for more information.\nDo you want to open the releases page?"
         },
         "StartFailed": {
           "Caption": "Failed to Start Installer",

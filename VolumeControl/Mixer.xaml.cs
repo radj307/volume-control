@@ -10,7 +10,6 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using VolumeControl.Core;
-using VolumeControl.Core.Enum;
 using VolumeControl.Core.Extensions;
 using VolumeControl.Core.Input;
 using VolumeControl.Core.Input.Enums;
@@ -21,6 +20,7 @@ using VolumeControl.SDK.Internal;
 using VolumeControl.ViewModels;
 using VolumeControl.WPF;
 using VolumeControl.WPF.Controls;
+using VolumeControl.WPF.Extensions;
 
 namespace VolumeControl
 {
@@ -171,7 +171,8 @@ namespace VolumeControl
                 }
             }
 
-            FLog.Debug($"User is removing hotkey {id} ({this.HotkeyAPI.HotkeyManager.GetHotkey(id)?.GetStringRepresentation()})");
+            var hk = this.HotkeyAPI.HotkeyManager.GetHotkey(id);
+            FLog.Debug($"User is removing hotkey {id} {hk?.Name}{(hk == null || hk.Name.Length == 0 ? "" : " ")}({hk?.GetStringRepresentation()})");
 
             this.HotkeyAPI.HotkeyManager.RemoveHotkey(id);
         }

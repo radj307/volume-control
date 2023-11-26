@@ -216,7 +216,7 @@
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition />
                                                     </Grid.ColumnDefinitions>
 
                                                     <CheckBox
@@ -232,6 +232,8 @@
                                                         x:Name="ContentControl"
                                                         Grid.Column="1"
                                                         Margin="5,3"
+                                                        HorizontalAlignment="Stretch"
+                                                        HorizontalContentAlignment="Stretch"
                                                         Content="{Binding ActionSettingInstance}"
                                                         ContentTemplate="{Binding ActionSettingInstance.ActionSettingDefinition.DataTemplate, TargetNullValue={StaticResource DataTemplateErrorDataTemplate}}"
                                                         IsEnabled="{Binding ActionSettingInstance.IsEnabled}"
