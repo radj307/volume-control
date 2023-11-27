@@ -47,7 +47,7 @@ jobs:
         run: |
           printf -- "\n### Changed Files\n<ul>"  >> body.md
           for file in ${{ steps.changes.outputs.all_changed_files }}; do
-            printf -- "  <li><a href=\"../blob/${{ github.sha }}/%s\">%s</a>  \n  <details> <summary>diff</summary>\n  <pre>\n\n%s\n\n  </pre>\n  </details>\n"  "$file" "$file" "$(git diff -p HEAD HEAD~1 VolumeControl/Localization/en.loc.json | tail -n +5 | awk '$0="> "$0')" >> body.md
+            printf -- "- [\`%s\`](../blob/${{ github.sha }}/%s)  \n  \`\`\`diff\n%s\n  \`\`\`\n"  "$file" "$file" "$(git diff -p HEAD HEAD~1 VolumeControl/Localization/en.loc.json | tail -n +6 | awk '$0="  "$0')" >> body.md
           done
           printf -- "</ul>\n"  >> body.md
 
