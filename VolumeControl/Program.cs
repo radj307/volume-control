@@ -10,12 +10,10 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
 using VolumeControl.Core;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
-using VolumeControl.WPF.CustomMessageBox;
 
 namespace VolumeControl
 {
