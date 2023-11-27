@@ -35,19 +35,20 @@ jobs:
           printf  "**User:**   @%s  \n"  "${{ github.actor }}" >> body.md
 
       - name: "[body.md]: Append renamed files"
-        if: ${{ steps.changes.outputs.all_old_new_renamed_files_count > 0 }}
+        if: steps.changes.outputs.all_old_new_renamed_files_count != 0
         run: |
           printf  "\n### Renamed Files\n"  >> body.md
           for file in ${{ steps.changes.outputs.include_all_old_new_renamed_files }}; do
             printf -- "- %s  \n"  "$file"  >> body.md
           done
-
+          
       - name: "[body.md]: Append changed files"
-        if: ${{ steps.changes.outputs.all_changed_files_count > 0 }}
+        if: steps.changes.outputs.all_changed_files_count != 0
         run: |
           printf  "\n### Changed Files\n"  >> body.md
           for file in ${{ steps.changes.outputs.all_changed_files }}; do
-            printf -- "- %s  \n"  "$file"  >> body.md
+            printf -- "- [%s](../blob/${{ github.sha }}/%s)  \n"  "$file" "$file"  >> body.md
+            printf -- "  <details> <summary>diff</summary>\n  <pre>\n  %s\n  </pre>\n  </details>\n"  "$(git diff -p HEAD HEAD~1 VolumeControl/Localization/en.loc.json | tail -n +5 | awk '$0="  "$0')" >> body.md
           done
 
         # Add comment to changelog issue
