@@ -45,11 +45,10 @@ jobs:
       - name: "[body.md]: Append changed files"
         if: steps.changes.outputs.all_changed_files_count != 0
         run: |
-          printf -- "\n### Changed Files\n<ul>"  >> body.md
+          printf -- "\n### Changed Files\n"  >> body.md
           for file in ${{ steps.changes.outputs.all_changed_files }}; do
             printf -- "- [\`%s\`](../blob/${{ github.sha }}/%s)  \n  \`\`\`diff\n%s\n  \`\`\`\n"  "$file" "$file" "$(git diff -p HEAD HEAD~1 VolumeControl/Localization/en.loc.json | tail -n +6 | awk '$0="  "$0')" >> body.md
           done
-          printf -- "</ul>\n"  >> body.md
 
         # Add comment to changelog issue
       - name: Add Comment to Changelog
