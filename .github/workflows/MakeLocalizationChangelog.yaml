@@ -1,12 +1,12 @@
 name: Update Localization Changelog
 
-# Triggers when changes were made to localization files on the main branch
+# Triggers when changes were made to the english translation config on the main branch
 on:
   push:
     branches: [ main ]
     paths:
-      - 'VolumeControl/Localization/*.loc*'
-      - 'VolumeControl.HotkeyActions/Localization/*.loc*'
+      - 'VolumeControl/Localization/en.loc*'
+      - 'VolumeControl.HotkeyActions/Localization/en.loc*'
 
 jobs:
   update-changelog:
@@ -28,32 +28,23 @@ jobs:
             VolumeControl.HotkeyActions/Localization/*.loc*
 
         # Build issue comment
-      - name: "[body.md]: Start building comment body"
+      - name: "Build comment body"
+        if: steps.changes.outputs.modified_files_count != 0
         run: |
-          touch body.md
-          printf  "**Commit:** %s  \n"   "${{ github.sha }}"   >> body.md
-          printf  "**User:**   @%s  \n"  "${{ github.actor }}" >> body.md
+          printf -- "| Date | Commit | User |\n"  >> body.md
+          printf -- "|------|--------|------|\n"  >> body.md
+          printf -- "| %s   | %s     | %s   |\n\n"  "$(date +%F)" "${{ github.sha }}" "${{ github.actor }}"  >> body.md
 
-      - name: "[body.md]: Append renamed files"
-        if: steps.changes.outputs.all_old_new_renamed_files_count != 0
-        run: |
-          printf  "\n### Renamed Files\n"  >> body.md
-          for file in ${{ steps.changes.outputs.include_all_old_new_renamed_files }}; do
-            printf -- "- %s  \n"  "$file"  >> body.md
-          done
-          
-      - name: "[body.md]: Append changed files"
-        if: steps.changes.outputs.all_changed_files_count != 0
-        run: |
-          printf -- "\n### Changed Files\n"  >> body.md
-          for file in ${{ steps.changes.outputs.all_changed_files }}; do
-            printf -- "- [\`%s\`](../blob/${{ github.sha }}/%s)  \n  \`\`\`diff\n%s\n  \`\`\`\n"  "$file" "$file" "$(git diff -p HEAD HEAD~1 VolumeControl/Localization/en.loc.json | tail -n +6 | awk '$0="  "$0')" >> body.md
+          for file in ${{ steps.changes.outputs.modified_files }}; do
+            printf -- "- [\`%s\`](../blob/${{ github.sha }}/%s)  \n  \`\`\`diff\n%s\n  \`\`\`\n"  "$file" "$file" "$(git diff -p HEAD HEAD~1 VolumeControl/Localization/en.loc.json | tail -n +6 | awk '$0="  "$0')"  >> body.md
           done
 
         # Add comment to changelog issue
       - name: Add Comment to Changelog
+        if: steps.changes.outputs.modified_files_count != 0
         uses: peter-evans/create-or-update-comment@v3.1.0
         with:
-          issue-number: 133
+          issue-number: 134
           body-path: 'body.md'
+          comment-id: 2011344889
           
