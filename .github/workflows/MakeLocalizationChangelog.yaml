@@ -46,5 +46,4 @@ jobs:
         with:
           issue-number: 134
           body-path: 'body.md'
-          comment-id: 2011344889
           
