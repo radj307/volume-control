@@ -35,10 +35,10 @@ jobs:
           printf -- "|------|--------|------|\n"  >> body.md
           printf -- "| %s   | %s     | %s   |\n\n"  "$(date +%F)" "${{ github.sha }}" "${{ github.actor }}"  >> body.md
 
-          printf -- "**Commit Message:** \n$(git show -s --format=%s)\n\n"  >> body.md
+          printf -- "**Commit Message:** \n$(git show -s --format=%B)\n"  >> body.md
 
           for file in ${{ steps.changes.outputs.modified_files }}; do
-            printf -- "- [\`%s\`](../blob/${{ github.sha }}/%s)  \n  \`\`\`diff\n%s\n  \`\`\`\n"  "$file" "$file" "$(git diff -p HEAD HEAD~1 VolumeControl/Localization/en.loc.json | tail -n +6 | awk '$0="  "$0')"  >> body.md
+            printf -- "- [\`%s\`](../blob/${{ github.sha }}/%s)  \n  \`\`\`diff\n%s\n  \`\`\`\n"  "$file" "$file" "$(git diff -p HEAD~1 HEAD VolumeControl/Localization/en.loc.json | tail -n +6 | awk '$0="  "$0')"  >> body.md
           done
 
         # Add comment to changelog issue
