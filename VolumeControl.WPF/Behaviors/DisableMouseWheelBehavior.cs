@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xaml.Behaviors;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace VolumeControl.WPF.Behaviors
@@ -6,7 +7,7 @@ namespace VolumeControl.WPF.Behaviors
     /// <summary>
     /// Behavior that prevent the mouse wheel from triggering events.
     /// </summary>
-    public class DisableMouseWheelBehavior : Behavior<Control>
+    public class DisableMouseWheelBehavior : Behavior<UIElement>
     {
         #region Properties
         /// <summary>
@@ -34,17 +35,20 @@ namespace VolumeControl.WPF.Behaviors
         #region EventHandlers
         private void AssociatedObject_PreviewMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
         {
-            if (!AllowScrollingInComboBoxDropDown)
+            if (AllowScrollingInComboBoxDropDown
+                && sender is ComboBox comboBox
+                && comboBox.IsDropDownOpen)
+                return; //< don't prevent scrolling in combo box dropdown
+
+            // prevent this element from receiving the scroll event
+            e.Handled = true;
+
+            // allow parent to receive the event
+            var e2 = new System.Windows.Input.MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
             {
-                e.Handled = true;
-                return;
-            }
-            if (sender is ComboBox comboBox)
-            {
-                if (!comboBox.IsDropDownOpen)
-                    e.Handled = true;
-            }
-            else e.Handled = true;
+                RoutedEvent = UIElement.MouseWheelEvent
+            };
+            AssociatedObject.RaiseEvent(e2);
         }
         #endregion EventHandlers
     }

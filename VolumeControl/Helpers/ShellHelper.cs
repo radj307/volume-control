@@ -94,6 +94,19 @@ namespace VolumeControl.Helpers
         }
         #endregion OpenWithDefault
 
+        #region Start
+        /// <summary>
+        /// Starts a new process using the specified <paramref name="processStartInfo"/> object.
+        /// </summary>
+        /// <param name="processStartInfo">A <see cref="ProcessStartInfo"/> object that defines the process to start.</param>
+        /// <returns><see langword="true"/> when the process was started successfully; otherwise, <see langword="false"/>.</returns>
+        public static bool Start(ProcessStartInfo processStartInfo)
+        {
+            using var proc = new Process() { StartInfo = processStartInfo };
+            return proc.Start();
+        }
+        #endregion Start
+
         #region OpenFolderAndSelectItem
 
         #region P/Invoke

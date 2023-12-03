@@ -179,7 +179,19 @@ namespace VolumeControl
         /// <inheritdoc cref="VolumeControlVM.ResetHotkeySettings"/>
         private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e)
         {
-            this.VCSettings.ResetHotkeySettings();
+            FLog.Info("User clicked the reset hotkeys button. Showing confirmation prompt.");
+            if (MessageBoxResult.Yes == MessageBox.Show(
+                Loc.Tr("VolumeControl.Dialogs.ResetHotkeys.Message"),
+                Loc.Tr("VolumeControl.Dialogs.ResetHotkeys.Caption"),
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question,
+                MessageBoxResult.No))
+            {
+                VCSettings.HotkeyAPI.ResetHotkeys();
+
+                FLog.Info("All hotkeys were reset to default.");
+            }
+            else FLog.Info("User cancelled the reset hotkeys operation.");
         }
         private void Handle_BrowseForLogFilePathClick(object sender, RoutedEventArgs e)
         {

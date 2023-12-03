@@ -374,6 +374,10 @@
           "Message": "Failed to start the installer, but it was downloaded successfully.\nYour system permissions may not allow running applications from your downloads folder.\n\nYou will have to start the installer manually."
         }
       },
+      "ResetHotkeys": {
+        "Message": "Are you sure you want to reset all hotkeys to their default values?\n\nThis cannot be undone!",
+        "Caption": "Reset Hotkeys?"
+      },
       "RemoveHotkey": {
         "Message": "Are you sure you want to delete hotkey ${ID}?\n\n- 'Yes'     Delete the hotkey.\n- 'No'      Do not delete the hotkey.\n- 'Cancel'  Don't show this again. (Press again to delete)\n",
         "Caption": "Confirm Delete"

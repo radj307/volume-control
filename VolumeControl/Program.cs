@@ -57,48 +57,6 @@ namespace VolumeControl
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static int Main(string[] args)
         {
-            //var sb = new StringBuilder();
-            //for (int i = 0; i < 4; ++i)
-            //{
-            //    sb.Append(new string('#', 100));
-            //    sb.AppendLine();
-            //}
-            //switch (CustomMessageBox.Show(new()
-            //{
-            //    Title = "Caption",
-            //    Message = "This is a message\n" + sb.ToString(),
-            //    Content = new TextBox() { Text = "Hello World!" },
-            //    Buttons =
-            //    {
-            //        "OK",
-            //        "No",
-            //    },
-            //    DefaultResult = "OK",
-            //    EnableEscapeKey = true,
-            //})?.ToMessageBoxResult())
-            //{
-            //case MessageBoxResult.OK:
-            //    break;
-            //case MessageBoxResult.No:
-            //    break;
-            //}
-            //if (CustomMessageBox.Show(new()
-            //{
-            //    Title = "Caption",
-            //    Message = "This is a message\n" + sb.ToString(),
-            //    Content = new TextBox() { Text = "Hello World!" },
-            //    Buttons =
-            //    {
-            //        "OK",
-            //        "Do the thing",
-            //    },
-            //    DefaultResult = "OK",
-            //    EnableEscapeKey = true,
-            //}) != MessageBoxResult.OK)
-            //{
-
-            //}
-            //return 0;
             try
             {
                 Console.Out.WriteLine("Application is starting.");
@@ -182,8 +140,8 @@ namespace VolumeControl
             FLog.Log.IsAsyncEnabled = false;
             // show all log message types in debug mode
             FLog.Log.EventTypeFilter = EventType.DEBUG | EventType.INFO | EventType.WARN | EventType.ERROR | EventType.FATAL | EventType.TRACE;
-            // open the log file in debug mode
-            ShellHelper.OpenWithDefault(Settings.LogPath);
+            // open the log file for monitoring
+            ShellHelper.Start(new("notepad++.exe", $"-monitor \"{Settings.LogPath}\"") { UseShellExecute = true });
 #endif
 
             // write the config & log filepaths to the log

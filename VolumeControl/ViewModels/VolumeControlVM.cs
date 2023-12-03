@@ -110,17 +110,6 @@ namespace VolumeControl.ViewModels
         #endregion Properties
 
         #region Methods
-
-        /// <summary>Displays a message box prompting the user for confirmation, and if confirmation is given, resets all hotkeys to their default settings using <see cref="HotkeyManager.ResetHotkeys"/>.</summary>
-        public void ResetHotkeySettings()
-        {
-            if (MessageBox.Show("Are you sure you want to reset your hotkeys to their default values?\n\nThis cannot be undone!", "Reset Hotkeys?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes)
-            {
-                this.HotkeyAPI.ResetHotkeys();
-
-                FLog.Info("Hotkey definitions were reset to default.");
-            }
-        }
         /// <summary>
         /// Refreshes the list of auto completion options for the target box.
         /// </summary>
