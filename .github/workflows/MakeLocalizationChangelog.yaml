@@ -31,9 +31,9 @@ jobs:
       - name: "Build comment body"
         if: steps.changes.outputs.modified_files_count != 0
         run: |
-          printf -- "| Date | Commit | User |\n"  >> body.md
-          printf -- "|------|--------|------|\n"  >> body.md
-          printf -- "| %s   | %s     | %s   |\n\n"  "$(date +%F)" "${{ github.sha }}" "${{ github.actor }}"  >> body.md
+          printf -- "| Date | Commit | Pushed By |\n"  >> body.md
+          printf -- "|------|--------|-----------|\n"  >> body.md
+          printf -- "| %s   | %s     | %s        |\n\n"  "$(date +%F)" "${{ github.sha }}" "${{ github.actor }}"  >> body.md
 
           printf -- "**Commit Message:** \n$(git show -s --format=%B)\n***\n"  >> body.md
 
