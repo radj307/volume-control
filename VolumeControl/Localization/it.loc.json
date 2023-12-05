@@ -374,6 +374,10 @@
           "Message": "Il programma di installazione è stato scaricato correttamnte ma è impossibile avviare il programma di installazione.\nLe autorizzazioni di sistema potrebbero non consentire l'esecuzione di applicazioni dalla cartella dei download.\n\nDovrai avviare il programma di installazione manualmente."
         }
       },
+      "ResetHotkeys": {
+        "Message": "Sei sicuro di voler ripristinare tutti i tasti di scelta rapida ai valori predefiniti?\n\nL'operazione non può essere annullata!",
+        "Caption": "Ripristino tasti rapidi"
+      },
       "RemoveHotkey": {
         "Message": "Sei sicuro di voler eliminare il tasto scelta rapida ${ID}?\n\n- 'Sì' elimina il tasto scelta rapida.\n- 'No' non elimina il tasto scelta rapida.\n- 'Annulla' disabilita queste richieste di conferma in futuro (non elimina il tasto di scelta rapida).\n",
         "Caption": "Conferma rimozione"
