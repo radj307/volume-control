@@ -35,7 +35,14 @@ namespace VolumeControl.CoreAudio
             // initialize devices
             foreach (var mmDevice in _deviceEnumerator.EnumerateAudioEndPoints(DeviceDataFlow, DeviceState.Active))
             {
-                CreateAndAddDeviceIfUnique(mmDevice);
+                try
+                {
+                    CreateAndAddDeviceIfUnique(mmDevice);
+                }
+                catch (Exception ex)
+                {
+                    FLog.Critical("An exception occurred while initializing an AudioDevice!", Log.Helpers.ObjectDebugger.ReflectionDump(mmDevice), ex);
+                }
             }
         }
         /// <summary>
@@ -160,7 +167,7 @@ namespace VolumeControl.CoreAudio
             if (_devices.Remove(device))
             {
                 NotifyDeviceRemovedFromList(device);
-                
+
                 device.Dispose();
 
                 return true;
