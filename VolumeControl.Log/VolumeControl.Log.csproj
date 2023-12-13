@@ -9,8 +9,8 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
-    <Version>6.6.3</Version>
-    <FileVersion>6.6.3</FileVersion>
+    <Version>6.6.4-rc1</Version>
+    <FileVersion>6.6.4</FileVersion>
     <Copyright>Copyright © 2022-2023 by $(Authors)</Copyright>
     <DocumentationFile>../publish/$(MSBuildProjectName).xml</DocumentationFile>
   </PropertyGroup>

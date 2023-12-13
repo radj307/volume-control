@@ -5,8 +5,8 @@
     <Nullable>enable</Nullable>
     <Configurations>Debug;Release</Configurations>
     <Authors>radj307</Authors>
-    <Version>6.6.3</Version>
-    <FileVersion>6.6.3</FileVersion>
+    <Version>6.6.4-rc1</Version>
+    <FileVersion>6.6.4</FileVersion>
     <Copyright>Copyright © 2022-2023 by $(Authors)</Copyright>
   </PropertyGroup>
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
