@@ -12,7 +12,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFiles", "{0FC57F73-5E25-404B-9E86-8EDA0E96F2BC}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
-		SetVersion.ps1 = SetVersion.ps1
 		vcsetup.iss = vcsetup.iss
 	EndProjectSection
 EndProject
@@ -37,6 +36,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.CoreAudio", "VolumeControl.CoreAudio\VolumeControl.CoreAudio.csproj", "{D8F276F9-35B3-4A89-AE0C-62828AA4BB32}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.HotkeyActions", "VolumeControl.HotkeyActions\VolumeControl.HotkeyActions.csproj", "{72D3AA30-6E95-4F9F-BC03-555688B0E553}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{23B4D613-D0AB-44B9-B499-84CE87DCAE90}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\scripts\SetProperty.ps1 = .github\workflows\scripts\SetProperty.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -201,6 +205,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FFC976AB-3F90-4DCD-B389-78DC9A459464} = {0FC57F73-5E25-404B-9E86-8EDA0E96F2BC}
+		{23B4D613-D0AB-44B9-B499-84CE87DCAE90} = {FFC976AB-3F90-4DCD-B389-78DC9A459464}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CCCF30EB-5FD3-4483-A469-50F52081CFE1}
