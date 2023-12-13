@@ -94,7 +94,7 @@ jobs:
                 if ($ExeVersion -ne $CsprojVersion) { echo "The executable's product version ($ExeVersion) differs from the one in the CSPROJ file ($CsprojVersion)!" ; exit 1 }
 
       - name:   Compile VolumeControl Installer
-        uses:   Minionguyjpro/Inno-Setup-Action@v1.1.0
+        uses:   Minionguyjpro/Inno-Setup-Action@v1.2.2
         with:
           path: vcsetup.iss
           options: /Opublish
