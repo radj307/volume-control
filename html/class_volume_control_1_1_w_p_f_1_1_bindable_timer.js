@@ -22,10 +22,10 @@ var class_volume_control_1_1_w_p_f_1_1_bindable_timer =
     [ "MinIntervalProperty", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#ae7ae64404ec2c028f274aa83533a95e6", null ],
     [ "AutoReset", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#a1f60dd1d0caf164612e3c3e37ca38cf6", null ],
     [ "Disposed", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#a676a9eb448b3285c96de4ca48569c905", null ],
-    [ "Elapsed", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#a19e626eb86c17f1b5a33e2d3a1fa6a82", null ],
     [ "Enabled", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#a551f71121f7675325442bd35c9134602", null ],
     [ "Interval", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#ab989a7a2b06b592f0e849197e5c8f23b", null ],
     [ "MaxInterval", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#afaa2314dbed8181d9a625508ee4ee9d0", null ],
     [ "MinInterval", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#aecfcb5f7db75042469b290c724c55fb9", null ],
-    [ "Site", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#a15e522cf818f717c4918270dddef1270", null ]
+    [ "Site", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#a15e522cf818f717c4918270dddef1270", null ],
+    [ "Elapsed", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#a19e626eb86c17f1b5a33e2d3a1fa6a82", null ]
 ];

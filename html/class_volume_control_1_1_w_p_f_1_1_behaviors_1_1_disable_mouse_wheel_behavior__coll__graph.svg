@@ -28,11 +28,11 @@
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:title=" ">
-<polygon fill="none" stroke="#bfbfbf" points="24.5,-127.5 24.5,-184.5 142.5,-184.5 142.5,-127.5 24.5,-127.5"/>
-<text text-anchor="middle" x="83.5" y="-172.5" font-family="Helvetica,sans-Serif" font-size="10.00">Behavior&lt; Control &gt;</text>
-<polyline fill="none" stroke="#bfbfbf" points="24.5,-165.5 142.5,-165.5 "/>
+<polygon fill="none" stroke="#bfbfbf" points="16.5,-127.5 16.5,-184.5 150.5,-184.5 150.5,-127.5 16.5,-127.5"/>
+<text text-anchor="middle" x="83.5" y="-172.5" font-family="Helvetica,sans-Serif" font-size="10.00">Behavior&lt; UIElement &gt;</text>
+<polyline fill="none" stroke="#bfbfbf" points="16.5,-165.5 150.5,-165.5 "/>
 <text text-anchor="middle" x="83.5" y="-153.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="24.5,-146.5 142.5,-146.5 "/>
+<polyline fill="none" stroke="#bfbfbf" points="16.5,-146.5 150.5,-146.5 "/>
 <text text-anchor="middle" x="83.5" y="-134.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>

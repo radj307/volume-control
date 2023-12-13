@@ -119,6 +119,7 @@ var annotated_dup =
           [ "NotInitializedException", "class_volume_control_1_1_log_1_1_exceptions_1_1_not_initialized_exception.html", "class_volume_control_1_1_log_1_1_exceptions_1_1_not_initialized_exception" ]
         ] ],
         [ "Helpers", "namespace_volume_control_1_1_log_1_1_helpers.html", [
+          [ "ObjectDebugger", "class_volume_control_1_1_log_1_1_helpers_1_1_object_debugger.html", "class_volume_control_1_1_log_1_1_helpers_1_1_object_debugger" ],
           [ "ExceptionMessageHelper", "class_volume_control_1_1_log_1_1_helpers_1_1_exception_message_helper.html", "class_volume_control_1_1_log_1_1_helpers_1_1_exception_message_helper" ],
           [ "ThreadedActionQueue", "class_volume_control_1_1_log_1_1_helpers_1_1_threaded_action_queue.html", "class_volume_control_1_1_log_1_1_helpers_1_1_threaded_action_queue" ]
         ] ],
@@ -198,11 +199,23 @@ var annotated_dup =
           [ "BoolToThicknessConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter" ],
           [ "BoolToCheckVisibleConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_check_visible_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_check_visible_converter" ],
           [ "ConverterChain", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain" ],
+          [ "EnumHasFlagConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_enum_has_flag_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_enum_has_flag_converter" ],
           [ "ListHasItemsBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_list_has_items_boolean_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_list_has_items_boolean_converter" ],
           [ "MultiBindingBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_multi_binding_boolean_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_multi_binding_boolean_converter" ],
           [ "NullToBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter" ],
           [ "SquaredCornerRadiusConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter" ],
           [ "TagDoubleConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_tag_double_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_tag_double_converter" ]
+        ] ],
+        [ "CustomMessageBox", "namespace_volume_control_1_1_w_p_f_1_1_custom_message_box.html", [
+          [ "CustomMessageBox", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box.html", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box" ],
+          [ "CustomMessageBoxButton", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_button.html", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_button" ],
+          [ "CustomAdorner", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_adorner.html", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_adorner" ],
+          [ "CustomMessageBoxStyle", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_style.html", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_style" ],
+          [ "CustomMessageBoxData", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_data.html", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_data" ]
+        ] ],
+        [ "Extensions", "namespace_volume_control_1_1_w_p_f_1_1_extensions.html", [
+          [ "DispatcherExtensions", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_dispatcher_extensions.html", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_dispatcher_extensions" ],
+          [ "WindowPositioningExtensions", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_window_positioning_extensions.html", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_window_positioning_extensions" ]
         ] ],
         [ "MessageHooks", "namespace_volume_control_1_1_w_p_f_1_1_message_hooks.html", [
           [ "WpfMaximizeBugFixHook", "class_volume_control_1_1_w_p_f_1_1_message_hooks_1_1_wpf_maximize_bug_fix_hook.html", "class_volume_control_1_1_w_p_f_1_1_message_hooks_1_1_wpf_maximize_bug_fix_hook" ],

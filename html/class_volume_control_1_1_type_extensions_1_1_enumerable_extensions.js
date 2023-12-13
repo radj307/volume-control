@@ -6,5 +6,6 @@ var class_volume_control_1_1_type_extensions_1_1_enumerable_extensions =
     [ "Select< TResult >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a543777d78d814f87090b56199e7301b1", null ],
     [ "SelectIf< TSource, TResult >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a69d5d8f17647cbb7d39884b60c13c8d7", null ],
     [ "SelectIfUnique< TSource, TResult >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a4aa7748a06ab62d3d7dfa7dc2b386ac8", null ],
-    [ "SelectValue< TSource, TResult >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a89d719809c9b9ef04392bed515bd68d5", null ]
+    [ "SelectValues< TSource >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#ac474c5614a680512f9c760225e53a396", null ],
+    [ "SelectValues< TSource, TResult >", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a2d3fca84a755596b7c7a33a7e28c1228", null ]
 ];

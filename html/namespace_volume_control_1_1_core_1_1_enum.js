@@ -8,12 +8,6 @@ var namespace_volume_control_1_1_core_1_1_enum =
       [ "AllItems", "namespace_volume_control_1_1_core_1_1_enum.html#adc1db88ac3c532c9bafbd196e6437459a3c68943f83d28af30ec40cc2997636a8", null ],
       [ "Everything", "namespace_volume_control_1_1_core_1_1_enum.html#adc1db88ac3c532c9bafbd196e6437459a709468af25e91284821d1bdbfdded24c", null ]
     ] ],
-    [ "EScreenCorner", "namespace_volume_control_1_1_core_1_1_enum.html#aca56ed2e295e884a71fbb14e4c927648", [
-      [ "TopLeft", "namespace_volume_control_1_1_core_1_1_enum.html#aca56ed2e295e884a71fbb14e4c927648ab32beb056fbfe36afbabc6c88c81ab36", null ],
-      [ "TopRight", "namespace_volume_control_1_1_core_1_1_enum.html#aca56ed2e295e884a71fbb14e4c927648a1d85a557894c340c318493f33bfa8efb", null ],
-      [ "BottomLeft", "namespace_volume_control_1_1_core_1_1_enum.html#aca56ed2e295e884a71fbb14e4c927648a98e5a1c44509157ebcaf46c515c78875", null ],
-      [ "BottomRight", "namespace_volume_control_1_1_core_1_1_enum.html#aca56ed2e295e884a71fbb14e4c927648a9146bfc669fddc88db2c4d89297d0e9a", null ]
-    ] ],
     [ "EVirtualKeyCode", "namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168", [
       [ "None", "namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a6adf97f83acf6453d4a6a4b1070f3754", null ],
       [ "VK_LBUTTON", "namespace_volume_control_1_1_core_1_1_enum.html#a20e0051e7111bfb97e7983c067298168a7d82fcbba679e2d54b7f6fd36d2b3bcb", null ],

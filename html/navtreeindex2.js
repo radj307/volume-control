@@ -1,5 +1,14 @@
 var NAVTREEINDEX2 =
 {
+"class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a9bd894368873eca8a4fe4231ad30d8a4a68eec46437c384d8dad18d5464ebc35c":[7,0,0,0,5,13,0,4],
+"class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a9bd894368873eca8a4fe4231ad30d8a4a6e7b34fa59e1bd229b207892956dc41c":[7,0,0,0,5,13,0,0],
+"class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a9bd894368873eca8a4fe4231ad30d8a4a768608b3a8f49fa3b72f7c70ecf70b10":[7,0,0,0,5,13,0,1],
+"class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a9bd894368873eca8a4fe4231ad30d8a4aff9e17d020c43413f4add77fb2fd0b14":[7,0,0,0,5,13,0,2],
+"class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#ab05a1e9263dfe8ccd7b6166abefd84d5":[7,0,0,0,5,13,7],
+"class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#acfcbafeff4989d44913efe0f90a0a337":[7,0,0,0,5,13,4],
+"class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#ae13db6bd3f8d24c189bbd2427d190d1e":[7,0,0,0,5,13,10],
+"class_volume_control_1_1_core_1_1_input_simulator.html":[7,0,0,0,11],
+"class_volume_control_1_1_core_1_1_input_simulator.html#a072fe976390232fb93f4a3a5a3de7797":[7,0,0,0,11,7],
 "class_volume_control_1_1_core_1_1_input_simulator.html#a122567eab17040f14dfdb66eb96fb246":[7,0,0,0,11,0],
 "class_volume_control_1_1_core_1_1_input_simulator.html#a4abca3e21f959095d42a48ec190e6fd4":[7,0,0,0,11,3],
 "class_volume_control_1_1_core_1_1_input_simulator.html#a4d1fc46d84f07b279576734bf1de8684":[7,0,0,0,11,6],
@@ -240,14 +249,5 @@ var NAVTREEINDEX2 =
 "class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_is_selected_event_args.html#a9ba9bd9f6da1e6ee3a0be541b0191c8a":[7,0,0,1,0,1,0],
 "class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_name_event_args.html":[7,0,0,1,0,2],
 "class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_name_event_args.html#a46735ee1a93a7e2d11dff38a09612de1":[7,0,0,1,0,2,1],
-"class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_name_event_args.html#a85e363342eedac10a44f0ea8c68cf78a":[7,0,0,1,0,2,0],
-"class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args.html":[7,0,0,1,0,3],
-"class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args.html#a8cbc1ffa3e99131c3806f78459557f2c":[7,0,0,1,0,3,0],
-"class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args.html#a91c785a2388a5dac0108ffcf73c709c6":[7,0,0,1,0,3,2],
-"class_volume_control_1_1_core_audio_1_1_events_1_1_volume_changed_event_args.html#aa3ac814ffa6e30495b833ab114b8e934":[7,0,0,1,0,3,1],
-"class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html":[7,0,0,1,1,0],
-"class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html#a320e7be9c756cd7e5557ce8d07ac1162":[7,0,0,1,1,0,2],
-"class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html#a3eafff85a8ef6dd7ea951a074c992977":[7,0,0,1,1,0,0],
-"class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html#a436d7288029dcf922f6c51f7dde21222":[7,0,0,1,1,0,5],
-"class_volume_control_1_1_core_audio_1_1_helpers_1_1_audio_control_extensions.html#a517af3216aacdf1174f4189c97df42ed":[7,0,0,1,1,0,7]
+"class_volume_control_1_1_core_audio_1_1_events_1_1_preview_session_name_event_args.html#a85e363342eedac10a44f0ea8c68cf78a":[7,0,0,1,0,2,0]
 };

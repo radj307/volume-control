@@ -6,6 +6,7 @@ var namespace_volume_control_1_1_w_p_f_1_1_converters =
     [ "BoolToThicknessConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter" ],
     [ "BoolToCheckVisibleConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_check_visible_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_check_visible_converter" ],
     [ "ConverterChain", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain" ],
+    [ "EnumHasFlagConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_enum_has_flag_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_enum_has_flag_converter" ],
     [ "ListHasItemsBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_list_has_items_boolean_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_list_has_items_boolean_converter" ],
     [ "MultiBindingBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_multi_binding_boolean_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_multi_binding_boolean_converter" ],
     [ "NullToBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter" ],

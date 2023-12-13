@@ -1,4 +1,4 @@
 <map id="VolumeControl.CoreAudio.AudioDeviceManager.AudioDeviceManager" name="VolumeControl.CoreAudio.AudioDeviceManager.AudioDeviceManager">
 <area shape="rect" id="node1" title="Creates a new AudioDeviceManager instance." alt="" coords="5,5,252,61"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#a09e652d1c8049b4b137d45dd2a6466a4" title="Write a formatted EventType.DEBUG message to the log endpoint." alt="" coords="300,13,515,54"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_f_log.html#a635b2f8dc52005229342d24a4da50138" title=" " alt="" coords="300,20,531,47"/>
 </map>

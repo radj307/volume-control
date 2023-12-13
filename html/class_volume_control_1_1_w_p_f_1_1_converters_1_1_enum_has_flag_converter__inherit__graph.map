@@ -1,0 +1,4 @@
+<map id="VolumeControl.WPF.Converters.EnumHasFlagConverter" name="VolumeControl.WPF.Converters.EnumHasFlagConverter">
+<area shape="rect" id="node1" title="Converts from an enum value to bool depending on the flag value specified as a converter parameter." alt="" coords="5,131,233,237"/>
+<area shape="rect" id="node2" title=" " alt="" coords="56,5,183,83"/>
+</map>

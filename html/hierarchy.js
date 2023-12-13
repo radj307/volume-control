@@ -2,6 +2,9 @@ var hierarchy =
 [
     [ "VolumeControl.Core.Input.Actions.Settings.ActionSettingDefinition", "class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_settings_1_1_action_setting_definition.html", null ],
     [ "VolumeControl.HotkeyActions.ActiveApplicationActions", "class_volume_control_1_1_hotkey_actions_1_1_active_application_actions.html", null ],
+    [ "Adorner", null, [
+      [ "VolumeControl.WPF.CustomMessageBox.CustomAdorner< T >", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_adorner.html", null ]
+    ] ],
     [ "AnimationTimeline", null, [
       [ "VolumeControl.WPF.Animations.BrushAnimation", "class_volume_control_1_1_w_p_f_1_1_animations_1_1_brush_animation.html", null ]
     ] ],
@@ -37,6 +40,9 @@ var hierarchy =
     [ "Control", null, [
       [ "VolumeControl.WPF.Controls.NumericUpDown", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down.html", null ]
     ] ],
+    [ "CustomAdorner", null, [
+      [ "VolumeControl.WPF.CustomMessageBox.CustomAdorner< T >", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_adorner.html", null ]
+    ] ],
     [ "DataGrid", null, [
       [ "VolumeControl.WPF.Controls.DataGridWithoutNavKeys", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_data_grid_without_nav_keys.html", null ]
     ] ],
@@ -51,6 +57,7 @@ var hierarchy =
       [ "VolumeControl.WPF.Converters.BoolToBrushConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_brush_converter.html", null ],
       [ "VolumeControl.WPF.FilteredTextItemsSource", "class_volume_control_1_1_w_p_f_1_1_filtered_text_items_source.html", null ]
     ] ],
+    [ "VolumeControl.WPF.Extensions.DispatcherExtensions", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_dispatcher_extensions.html", null ],
     [ "VolumeControl.TypeExtensions.EnumerableExtensions", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html", null ],
     [ "VolumeControl.TypeExtensions.EnumExtensions", "class_volume_control_1_1_type_extensions_1_1_enum_extensions.html", null ],
     [ "EventArgs", null, [
@@ -152,6 +159,12 @@ var hierarchy =
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ]
     ] ],
+    [ "IEquatable", null, [
+      [ "VolumeControl.WPF.CustomMessageBox.CustomMessageBoxButton", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_button.html", null ],
+      [ "VolumeControl.WPF.CustomMessageBox.CustomMessageBoxButton", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_button.html", null ],
+      [ "VolumeControl.WPF.CustomMessageBox.CustomMessageBoxButton", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_button.html", null ],
+      [ "VolumeControl.WPF.CustomMessageBox.CustomMessageBoxButton", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_button.html", null ]
+    ] ],
     [ "VolumeControl.Core.Input.IHotkeyMessageHook", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook.html", [
       [ "VolumeControl.Core.Input.HotkeyMessageHookAbstractor", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_message_hook_abstractor.html", null ],
       [ "VolumeControl.Core.Input.IHotkey", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html", null ]
@@ -196,6 +209,8 @@ var hierarchy =
       [ "VolumeControl.Log.Endpoints.BaseEndpointWriter", "class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableCollectionObject", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ],
+      [ "VolumeControl.WPF.CustomMessageBox.CustomMessageBoxData", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_data.html", null ],
+      [ "VolumeControl.WPF.CustomMessageBox.CustomMessageBoxStyle", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_style.html", null ],
       [ "VolumeControl.WPF.DataTemplateTypeBinding", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding.html", null ]
     ] ],
     [ "VolumeControl.Core.InputSimulator", "class_volume_control_1_1_core_1_1_input_simulator.html", null ],
@@ -222,6 +237,7 @@ var hierarchy =
       [ "VolumeControl.WPF.Converters.BoolToThicknessConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter.html", null ],
       [ "VolumeControl.WPF.Converters.BooleanInverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_boolean_inverter.html", null ],
       [ "VolumeControl.WPF.Converters.ConverterChain", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain.html", null ],
+      [ "VolumeControl.WPF.Converters.EnumHasFlagConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_enum_has_flag_converter.html", null ],
       [ "VolumeControl.WPF.Converters.ListHasItemsBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_list_has_items_boolean_converter.html", null ],
       [ "VolumeControl.WPF.Converters.NullToBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html", null ],
       [ "VolumeControl.WPF.Converters.SquaredCornerRadiusConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter.html", null ],
@@ -247,6 +263,7 @@ var hierarchy =
       [ "VolumeControl.WPF.Bindings.MultiBinding", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html", null ]
     ] ],
     [ "VolumeControl.TypeExtensions.NullableBoolExtensions", "class_volume_control_1_1_type_extensions_1_1_nullable_bool_extensions.html", null ],
+    [ "VolumeControl.Log.Helpers.ObjectDebugger", "class_volume_control_1_1_log_1_1_helpers_1_1_object_debugger.html", null ],
     [ "ObservableCollection", null, [
       [ "VolumeControl.WPF.Collections.ObservableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list.html", null ]
     ] ],
@@ -279,7 +296,11 @@ var hierarchy =
     [ "VolumeControl.SDK.Internal.VCEvents", "class_volume_control_1_1_s_d_k_1_1_internal_1_1_v_c_events.html", null ],
     [ "VolumeControl.WPF.VisualTreeHelpers", "class_volume_control_1_1_w_p_f_1_1_visual_tree_helpers.html", null ],
     [ "VolumeControl.CoreAudio.Helpers.VolumeLevelConverter", "class_volume_control_1_1_core_audio_1_1_helpers_1_1_volume_level_converter.html", null ],
+    [ "Window", null, [
+      [ "VolumeControl.WPF.CustomMessageBox.CustomMessageBox", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box.html", null ]
+    ] ],
     [ "VolumeControl.WPF.WindowHandleGetter", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html", null ],
+    [ "VolumeControl.WPF.Extensions.WindowPositioningExtensions", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_window_positioning_extensions.html", null ],
     [ "VolumeControl.TypeExtensions.WinFormsInterop", "class_volume_control_1_1_type_extensions_1_1_win_forms_interop.html", null ],
     [ "VolumeControl.WPF.MessageHooks.WpfMaximizeBugFixHook", "class_volume_control_1_1_w_p_f_1_1_message_hooks_1_1_wpf_maximize_bug_fix_hook.html", null ],
     [ "VolumeControl.WPF.MessageHooks.WpfTiltScrollHook", "class_volume_control_1_1_w_p_f_1_1_message_hooks_1_1_wpf_tilt_scroll_hook.html", null ]

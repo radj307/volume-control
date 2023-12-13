@@ -98,7 +98,8 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_type_extensio
 <div class="dynheader">
 Collaboration diagram for VolumeControl.TypeExtensions.EnumerableExtensions:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions__coll__graph.svg" width="247" height="250"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions__coll__graph.svg" width="247" height="264"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -115,9 +116,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a69d5d8f17647cbb7d39884b60c13c8d7"><td class="memItemLeft" align="right" valign="top">static IEnumerable&lt; TResult &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a69d5d8f17647cbb7d39884b60c13c8d7">SelectIf&lt; TSource, TResult &gt;</a> (this IEnumerable&lt; TSource &gt; source, Func&lt; TSource, TResult &gt; selector, Func&lt; TSource, bool &gt; predicate)</td></tr>
 <tr class="memdesc:a69d5d8f17647cbb7d39884b60c13c8d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does the same thing as the standard Linq Select() method, except this one uses a <em>predicate</em>  and applies the <em>selector</em>  only when the predicate returns <code>true</code>.  <a href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a69d5d8f17647cbb7d39884b60c13c8d7">More...</a><br /></td></tr>
 <tr class="separator:a69d5d8f17647cbb7d39884b60c13c8d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89d719809c9b9ef04392bed515bd68d5"><td class="memItemLeft" align="right" valign="top">static IEnumerable&lt; TResult &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a89d719809c9b9ef04392bed515bd68d5">SelectValue&lt; TSource, TResult &gt;</a> (this IEnumerable&lt; TSource &gt; source, Func&lt; TSource, TResult?&gt; selector)</td></tr>
-<tr class="memdesc:a89d719809c9b9ef04392bed515bd68d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects non-<code>null</code> values from the enumerable using the specified <em>selector</em> .  <a href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a89d719809c9b9ef04392bed515bd68d5">More...</a><br /></td></tr>
-<tr class="separator:a89d719809c9b9ef04392bed515bd68d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac474c5614a680512f9c760225e53a396"><td class="memItemLeft" align="right" valign="top">static IEnumerable&lt; TSource &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#ac474c5614a680512f9c760225e53a396">SelectValues&lt; TSource &gt;</a> (this IEnumerable&lt; TSource &gt; source)</td></tr>
+<tr class="memdesc:ac474c5614a680512f9c760225e53a396"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects non-<code>null</code> values from the enumerable.  <a href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#ac474c5614a680512f9c760225e53a396">More...</a><br /></td></tr>
+<tr class="separator:ac474c5614a680512f9c760225e53a396"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d3fca84a755596b7c7a33a7e28c1228"><td class="memItemLeft" align="right" valign="top">static IEnumerable&lt; TResult &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a2d3fca84a755596b7c7a33a7e28c1228">SelectValues&lt; TSource, TResult &gt;</a> (this IEnumerable&lt; TSource &gt; source, Func&lt; TSource, TResult?&gt; selector)</td></tr>
+<tr class="memdesc:a2d3fca84a755596b7c7a33a7e28c1228"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects non-<code>null</code> values from the enumerable using the specified <em>selector</em> .  <a href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a2d3fca84a755596b7c7a33a7e28c1228">More...</a><br /></td></tr>
+<tr class="separator:a2d3fca84a755596b7c7a33a7e28c1228"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a543777d78d814f87090b56199e7301b1"><td class="memItemLeft" align="right" valign="top">static IEnumerable&lt; TResult &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a543777d78d814f87090b56199e7301b1">Select&lt; TResult &gt;</a> (this IEnumerable source, Func&lt; object, TResult &gt; selector)</td></tr>
 <tr class="memdesc:a543777d78d814f87090b56199e7301b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies the specified <em>selector</em>  to each element and returns the resulting values.  <a href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a543777d78d814f87090b56199e7301b1">More...</a><br /></td></tr>
 <tr class="separator:a543777d78d814f87090b56199e7301b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -431,8 +435,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a89d719809c9b9ef04392bed515bd68d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89d719809c9b9ef04392bed515bd68d5">&#9670;&nbsp;</a></span>SelectValue&lt; TSource, TResult &gt;()</h2>
+<a id="ac474c5614a680512f9c760225e53a396"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac474c5614a680512f9c760225e53a396">&#9670;&nbsp;</a></span>SelectValues&lt; TSource &gt;()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -441,7 +445,42 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static IEnumerable&lt;TResult&gt; VolumeControl.TypeExtensions.EnumerableExtensions.SelectValue&lt; TSource, TResult &gt; </td>
+          <td class="memname">static IEnumerable&lt;TSource&gt; VolumeControl.TypeExtensions.EnumerableExtensions.SelectValues&lt; TSource &gt; </td>
+          <td>(</td>
+          <td class="paramtype">this IEnumerable&lt; TSource &gt;&#160;</td>
+          <td class="paramname"><em>source</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Selects non-<code>null</code> values from the enumerable. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TSource</td><td>The type of element in the enumerable.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The resulting elements that aren't <code>null</code>.</dd></dl>
+
+</div>
+</div>
+<a id="a2d3fca84a755596b7c7a33a7e28c1228"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d3fca84a755596b7c7a33a7e28c1228">&#9670;&nbsp;</a></span>SelectValues&lt; TSource, TResult &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static IEnumerable&lt;TResult&gt; VolumeControl.TypeExtensions.EnumerableExtensions.SelectValues&lt; TSource, TResult &gt; </td>
           <td>(</td>
           <td class="paramtype">this IEnumerable&lt; TSource &gt;&#160;</td>
           <td class="paramname"><em>source</em>, </td>

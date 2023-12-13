@@ -1,0 +1,4 @@
+<map id="VolumeControl.WPF.Extensions.WindowPositioningExtensions.GetClosestScreenCornerFromPoint" name="VolumeControl.WPF.Extensions.WindowPositioningExtensions.GetClosestScreenCornerFromPoint">
+<area shape="rect" id="node1" title="Gets the corner of the given screen &#160;that is closest to the specified point ." alt="" coords="5,5,297,61"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_extensions_1_1_window_positioning_extensions.html#a912a705b68cff2395d5ddc2ce5524459" title="Gets the centerpoint of the specified screen ." alt="" coords="345,5,633,61"/>
+</map>

@@ -2,6 +2,7 @@ var class_volume_control_1_1_core_1_1_config =
 [
     [ "Config", "class_volume_control_1_1_core_1_1_config.html#a3f8d7b3d96b474ea9c5a326dd2336be4", null ],
     [ "AttachReflectivePropertyChangedHandlers", "class_volume_control_1_1_core_1_1_config.html#a4876ffc7bcf2b147068f4f865d9a28c0", null ],
+    [ "Load", "class_volume_control_1_1_core_1_1_config.html#a908f58c82a7be1e6b539a340bc2bdeb0", null ],
     [ "PauseAutoSave", "class_volume_control_1_1_core_1_1_config.html#a6c890b9f23d737235d707b288ae0899f", null ],
     [ "ResumeAutoSave", "class_volume_control_1_1_core_1_1_config.html#acae4db80be97fb8bad0436613e473a10", null ],
     [ "Save", "class_volume_control_1_1_core_1_1_config.html#a7864f9d6068b5b42f7da85b7cf1dff8e", null ],

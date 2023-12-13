@@ -6,6 +6,8 @@ var namespace_volume_control_1_1_w_p_f =
     [ "Collections", "namespace_volume_control_1_1_w_p_f_1_1_collections.html", "namespace_volume_control_1_1_w_p_f_1_1_collections" ],
     [ "Controls", "namespace_volume_control_1_1_w_p_f_1_1_controls.html", "namespace_volume_control_1_1_w_p_f_1_1_controls" ],
     [ "Converters", "namespace_volume_control_1_1_w_p_f_1_1_converters.html", "namespace_volume_control_1_1_w_p_f_1_1_converters" ],
+    [ "CustomMessageBox", "namespace_volume_control_1_1_w_p_f_1_1_custom_message_box.html", "namespace_volume_control_1_1_w_p_f_1_1_custom_message_box" ],
+    [ "Extensions", "namespace_volume_control_1_1_w_p_f_1_1_extensions.html", "namespace_volume_control_1_1_w_p_f_1_1_extensions" ],
     [ "MessageHooks", "namespace_volume_control_1_1_w_p_f_1_1_message_hooks.html", "namespace_volume_control_1_1_w_p_f_1_1_message_hooks" ],
     [ "PInvoke", "namespace_volume_control_1_1_w_p_f_1_1_p_invoke.html", "namespace_volume_control_1_1_w_p_f_1_1_p_invoke" ],
     [ "BindableTimer", "class_volume_control_1_1_w_p_f_1_1_bindable_timer.html", "class_volume_control_1_1_w_p_f_1_1_bindable_timer" ],
