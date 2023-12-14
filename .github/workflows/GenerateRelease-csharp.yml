@@ -39,14 +39,14 @@ jobs:
         run:    foreach($file in $((dir "publish" | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
 
       - name:   Upload Executable Artifact
-        uses:   actions/upload-artifact@v3
+        uses:   actions/upload-artifact@v4
         with:
           name: portable
           path: '${{github.workspace}}/STAGING/*'
           if-no-files-found: error
 
       - name:   Upload SDK Artifact
-        uses:   actions/upload-artifact@v3
+        uses:   actions/upload-artifact@v4
         with:
           name: sdk
           path: '${{github.workspace}}/publish/SDK/*'
@@ -91,7 +91,7 @@ jobs:
         run:    foreach($file in $((dir "publish" | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
 
       - name:   Upload Executable Artifact
-        uses:   actions/upload-artifact@v3
+        uses:   actions/upload-artifact@v4
         with:
           name: installer
           path: '${{github.workspace}}/STAGING/*'
