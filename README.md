@@ -34,6 +34,8 @@ If you prefer to use a package manager, you can use [Winget](https://learn.micro
 winget install radj307.volume-control
 ```
 
+A basic usage guide is available on [the wiki](https://github.com/radj307/volume-control/wiki).
+
 ## Manual Installation
 
 Download `VolumeControl.exe` from the [latest release](https://github.com/radj307/volume-control/releases/latest) and move it to a location of your choice.
