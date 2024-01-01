@@ -82,7 +82,7 @@ jobs:
         run:    dotnet publish VolumeControl -c Release-ForInstaller -p:PublishProfile="VolumeControl/Properties/PublishProfiles/PublishForInstaller.pubxml"
 
       - name:   Compile VolumeControl Installer
-        uses:   Minionguyjpro/Inno-Setup-Action@v1.2.2
+        uses:   Minionguyjpro/Inno-Setup-Action@v1.2.3
         with:
           path: vcsetup.iss
           options: /Opublish
