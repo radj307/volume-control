@@ -1437,11 +1437,11 @@
                                                         ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.EnableDeviceControl.Tooltip',
                                                                      DefaultText='Toggle the visibility of volume &amp; mute controls in the Audio Devices section.'}" />
                                                     <CheckBox
-                                                        Content="{Tr 'VolumeControl.ListNotification.Options.HideInactiveSessions.Tooltip',
+                                                        Content="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.HideInactiveSessions.Content',
                                                                     DefaultText='Hide Inactive Sessions'}"
                                                         IsChecked="{Binding HideInactiveSessions, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                         Style="{StaticResource ApplicationSettingsCheckboxStyle}"
-                                                        ToolTip="{Tr 'VolumeControl.ListNotification.Options.HideInactiveSessions.Tooltip',
+                                                        ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.HideInactiveSessions.Tooltip',
                                                                     DefaultText=' '}" />
                                                 </StackPanel>
 

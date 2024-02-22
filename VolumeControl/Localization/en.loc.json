@@ -122,7 +122,11 @@
             "HiddenSessions": {
               "Content": "Hidden Sessions",
               "Tooltip": {}
-            }
+            },
+            "HideInactiveSessions": {
+              "Content": "Hide Inactive Sessions",
+              "Tooltip": "Toggle hiding inactive sessions in the notification window and also ignore inactive sessions with next/previous hotkeys."
+            },
           },
           "DeviceGrid": {
             "Enabled": {
