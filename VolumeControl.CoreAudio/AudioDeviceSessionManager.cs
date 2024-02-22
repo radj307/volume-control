@@ -178,11 +178,11 @@ namespace VolumeControl.CoreAudio
             {
                 if (CreateAndAddSessionIfUnique(audioSessionControl) is AudioSession newAudioSession)
                 {
-                    FLog.Debug($"New {nameof(AudioSession)} '{newAudioSession.ProcessName}' ({newAudioSession.PID}) created; successfully added it to the list.");
+                    FLog.Debug($"New {nameof(AudioSession)} '{newAudioSession.ProcessName}' ({newAudioSession.PID}) {newAudioSession.SessionIdentifier} created; successfully added it to the list.");
                 }
                 else if (FindSessionByAudioSessionControl(audioSessionControl) is AudioSession existingSession)
                 {
-                    FLog.Error($"New {nameof(AudioSession)} '{existingSession?.ProcessName}' ({existingSession?.PID}) created; but it was already in the list!");
+                    FLog.Error($"New {nameof(AudioSession)} '{existingSession?.ProcessName}' ({existingSession?.PID}) {existingSession?.SessionIdentifier} created; but it was already in the list!");
                 }
             }
             else

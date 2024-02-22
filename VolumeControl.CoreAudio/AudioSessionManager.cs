@@ -357,7 +357,7 @@ namespace VolumeControl.CoreAudio
             // remove preceding/trailing whitespace & colons (separator char)
             string s = processIdentifier.Trim(AudioSession.ProcessIdentifierSeparatorChar, ' ', '\t', '\v', '\r', '\n');
             if (s.Length == 0) return null;
-            
+
             var segments = s.Split(AudioSession.ProcessIdentifierSeparatorChar, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
             // parse the data flow segment
@@ -462,7 +462,7 @@ namespace VolumeControl.CoreAudio
         /// <param name="session">An <see cref="AudioSession"/> instance to add to the list.</param>
         internal void AddSession(AudioSession session)
         {
-            if (_sessions.Any(s => s.PID.Equals(session.PID) && s.DataFlow.Equals(session.DataFlow)))
+            if (_sessions.Any(s => s.PID.Equals(session.PID) && s.DataFlow.Equals(session.DataFlow) && s.SessionIdentifier.Equals(session.SessionIdentifier)))
                 return; // don't add duplicate sessions
 
             // allow handlers to edit the session's initial name:

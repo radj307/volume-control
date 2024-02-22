@@ -888,7 +888,18 @@
                                                                 HorizontalAlignment="Stretch"
                                                                 VerticalAlignment="Center"
                                                                 Background="#0000"
-                                                                Text="{Binding AudioSession.Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                                                                Text="{Binding AudioSession.Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}">
+                                                                <TextBlock.Style>
+                                                                    <Style TargetType="TextBlock">
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding AudioSession.State, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                                                                <Setter Property="Foreground"
+                                                                                        Value="Pink" />
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                                            </TextBlock>
                                                         </Grid>
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
