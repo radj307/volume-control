@@ -4,6 +4,7 @@ using VolumeControl.CoreAudio.Events;
 using VolumeControl.CoreAudio.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
+using CoreAudio;
 
 namespace VolumeControl.CoreAudio
 {
@@ -470,12 +471,12 @@ namespace VolumeControl.CoreAudio
         {
             if (LockCurrentIndex) return;
 
-            if (CurrentIndex < SelectionStates.Count - 1)
-                ++CurrentIndex;
-            else
-            { // loopback:
-                CurrentIndex = 0;
+            int oldIndex = CurrentIndex;
+            do
+            {
+                CurrentIndex = (CurrentIndex + 1) % SelectionStates.Count;
             }
+            while (Sessions[CurrentIndex].State != AudioSessionState.AudioSessionStateActive && CurrentIndex != oldIndex);
         }
         /// <summary>
         /// Decrements the CurrentIndex by 1, looping back around to the length of the Sessions list when it goes past 0.
@@ -487,12 +488,12 @@ namespace VolumeControl.CoreAudio
         {
             if (LockCurrentIndex) return;
 
-            if (CurrentIndex > 0)
-                --CurrentIndex;
-            else
-            { // loopback:
-                CurrentIndex = SelectionStates.Count - 1;
+            int oldIndex = CurrentIndex;
+            do
+            {
+                CurrentIndex = (SelectionStates.Count + CurrentIndex - 1) % SelectionStates.Count;
             }
+            while (Sessions[CurrentIndex].State != AudioSessionState.AudioSessionStateActive && CurrentIndex != oldIndex);
         }
         /// <summary>
         /// Sets the CurrentIndex to 0.

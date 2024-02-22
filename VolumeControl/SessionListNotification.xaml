@@ -278,6 +278,10 @@
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Style.Triggers>
+                            <!--  Hide inactive sessions TODO: probably needs an option  -->
+                            <DataTrigger Binding="{Binding AudioSession.State}" Value="0">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
                             <!--  Selector (Multi-Selection Mode Only):  -->
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
