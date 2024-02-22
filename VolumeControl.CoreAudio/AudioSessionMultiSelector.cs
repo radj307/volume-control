@@ -476,6 +476,8 @@ namespace VolumeControl.CoreAudio
             if (Settings.HideInactiveSessions)
             {
                 int oldIndex = CurrentIndex;
+                if (oldIndex == -1)
+                    oldIndex = 0;
                 do
                 {
                     CurrentIndex = (CurrentIndex + 1) % SelectionStates.Count;
@@ -505,6 +507,8 @@ namespace VolumeControl.CoreAudio
             if (Settings.HideInactiveSessions)
             {
                 int oldIndex = CurrentIndex;
+                if (oldIndex == -1)
+                    oldIndex = 0;
                 do
                 {
                     CurrentIndex = (SelectionStates.Count + CurrentIndex - 1) % SelectionStates.Count;
