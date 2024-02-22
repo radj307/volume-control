@@ -361,6 +361,10 @@ namespace VolumeControl.Core
         /// </summary>
         public bool LockTargetSession { get; set; } = false;
         /// <summary>
+        /// Hide inactive sessions from notification and hotkey navigation.
+        /// </summary>
+        public bool HideInactiveSessions { get; set; } = true;
+        /// <summary>
         /// Gets or sets the target device ID.
         /// </summary>
         public string TargetDeviceID { get; set; } = string.Empty;

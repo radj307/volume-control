@@ -893,8 +893,7 @@
                                                                     <Style TargetType="TextBlock">
                                                                         <Style.Triggers>
                                                                             <DataTrigger Binding="{Binding AudioSession.State, UpdateSourceTrigger=PropertyChanged}" Value="0">
-                                                                                <Setter Property="Foreground"
-                                                                                        Value="Pink" />
+                                                                                <Setter Property="Foreground" Value="{Binding SessionConfigVM.LockedAccentBrush, Source={StaticResource Settings}}" />
                                                                             </DataTrigger>
                                                                         </Style.Triggers>
                                                                     </Style>
@@ -1437,6 +1436,13 @@
                                                         Style="{StaticResource ApplicationSettingsCheckboxStyle}"
                                                         ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.EnableDeviceControl.Tooltip',
                                                                      DefaultText='Toggle the visibility of volume &amp; mute controls in the Audio Devices section.'}" />
+                                                    <CheckBox
+                                                        Content="{Tr 'VolumeControl.ListNotification.Options.HideInactiveSessions.Tooltip',
+                                                                    DefaultText='Hide Inactive Sessions'}"
+                                                        IsChecked="{Binding HideInactiveSessions, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        Style="{StaticResource ApplicationSettingsCheckboxStyle}"
+                                                        ToolTip="{Tr 'VolumeControl.ListNotification.Options.HideInactiveSessions.Tooltip',
+                                                                    DefaultText=' '}" />
                                                 </StackPanel>
 
                                                 <!--  Hidden Sessions  -->

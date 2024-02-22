@@ -143,13 +143,18 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         FontSize="13"
-                        Foreground="{Binding SessionConfigVM.ForegroundBrush, Source={StaticResource Settings}}"
                         Text="{Binding Name}">
                         <TextBlock.Style>
                             <Style TargetType="{x:Type TextBlock}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding AudioSession.DataFlow}" Value="Capture">
                                         <Setter Property="FontStyle" Value="Oblique" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding AudioSession.State, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="Foreground" Value="{Binding SessionConfigVM.LockedAccentBrush, Source={StaticResource Settings}}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding AudioSession.State, UpdateSourceTrigger=PropertyChanged}" Value="1">
+                                        <Setter Property="Foreground" Value="{Binding SessionConfigVM.ForegroundBrush, Source={StaticResource Settings}}" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -180,13 +185,18 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         FontSize="13"
-                        Foreground="{Binding SessionConfigVM.ForegroundBrush, Source={StaticResource Settings}}"
                         Text="{Binding Name}">
                         <TextBlock.Style>
                             <Style TargetType="{x:Type TextBlock}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding AudioSession.DataFlow}" Value="Capture">
                                         <Setter Property="FontStyle" Value="Oblique" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding AudioSession.State, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="Foreground" Value="{Binding SessionConfigVM.LockedAccentBrush, Source={StaticResource Settings}}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding AudioSession.State, UpdateSourceTrigger=PropertyChanged}" Value="1">
+                                        <Setter Property="Foreground" Value="{Binding SessionConfigVM.ForegroundBrush, Source={StaticResource Settings}}" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -278,10 +288,16 @@
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Style.Triggers>
-                            <!--  Hide inactive sessions TODO: probably needs an option  -->
-                            <DataTrigger Binding="{Binding AudioSession.State}" Value="0">
-                                <Setter Property="Visibility" Value="Collapsed" />
-                            </DataTrigger>
+                            <!--  Hide inactive sessions  -->
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding HideInactiveSessions, Source={StaticResource Settings}}" Value="True" />
+                                    <Condition Binding="{Binding AudioSession.State}" Value="0" />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
                             <!--  Selector (Multi-Selection Mode Only):  -->
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
