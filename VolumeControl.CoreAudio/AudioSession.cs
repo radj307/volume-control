@@ -119,6 +119,10 @@ namespace VolumeControl.CoreAudio
         /// </summary>
         public AudioSessionState State => AudioSessionControl.State;
         /// <summary>
+        /// Gets the device name of the device associated with this <see cref="AudioSession"/> instance.
+        /// </summary>
+        public string DeviceName => AudioDevice.Name;
+        /// <summary>
         /// Gets the process ID of the process associated with this <see cref="AudioSession"/> instance.
         /// </summary>
         public uint PID { get; }

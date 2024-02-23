@@ -903,6 +903,26 @@
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
+                                            <!--  Dev  -->
+                                            <DataGridTemplateColumn
+                                                x:Name="dgSessionDeviceColumn"
+                                                Width="Auto"
+                                                MinWidth="80"
+                                                Header="{Tr 'VolumeControl.MainWindow.Mixer.MixerGrid.Device.Header',
+                                                            DefaultText='Device'}"
+                                                IsReadOnly="True">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate DataType="{x:Type vm:AudioSessionVM}">
+                                                        <TextBlock
+                                                            Margin="6,0"
+                                                            Grid.Column="1"
+                                                            HorizontalAlignment="Stretch"
+                                                            VerticalAlignment="Center"
+                                                            Background="#0000"
+                                                            Text="{Binding AudioSession.DeviceName, Mode=OneWay, UpdateSourceTrigger=LostFocus}" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
                                             <!--  Mute  -->
                                             <DataGridTemplateColumn Width="40" Header="{Tr 'VolumeControl.MainWindow.Mixer.MixerGrid.Mute.Header', DefaultText='Mute'}">
                                                 <DataGridTemplateColumn.CellTemplate>

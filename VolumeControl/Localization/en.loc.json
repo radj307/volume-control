@@ -38,6 +38,9 @@
           },
           "Select": {
             "Button": "Select"
+          },
+          "Device": {
+            "Header": "Device"
           }
         }
       },
