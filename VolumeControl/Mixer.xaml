@@ -919,7 +919,7 @@
                                                             HorizontalAlignment="Stretch"
                                                             VerticalAlignment="Center"
                                                             Background="#0000"
-                                                            Text="{Binding AudioSession.DeviceName, Mode=OneWay, UpdateSourceTrigger=LostFocus}" />
+                                                            Text="{Binding AudioSession.DeviceFlowName, Mode=OneWay, UpdateSourceTrigger=LostFocus}" />
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>

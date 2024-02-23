@@ -123,6 +123,26 @@ namespace VolumeControl.CoreAudio
         /// </summary>
         public string DeviceName => AudioDevice.Name;
         /// <summary>
+        /// Gets the name of this <see cref="AudioSession"/> instance with a device name and flow direction.
+        /// </summary>
+        public string FlowName
+        {
+            get
+            {
+                return Name + (AudioDevice.DataFlow == DataFlow.Capture ? " ← " : " → ") + AudioDevice.Name;
+            }
+        }
+        /// <summary>
+        /// Gets the device name of this <see cref="AudioSession"/> instance with a flow direction.
+        /// </summary>
+        public string DeviceFlowName
+        {
+            get
+            {
+                return (AudioDevice.DataFlow == DataFlow.Capture ? "← " : "→ ") + AudioDevice.Name;
+            }
+        }
+        /// <summary>
         /// Gets the process ID of the process associated with this <see cref="AudioSession"/> instance.
         /// </summary>
         public uint PID { get; }
