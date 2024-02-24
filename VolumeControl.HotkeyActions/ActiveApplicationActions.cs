@@ -48,10 +48,10 @@ namespace VolumeControl.HotkeyActions
                 return null;
 
 
-            if (VCAPI.AudioSessionManager.FindSessionWithPID((uint)pid, includeHiddenSessions: true) is AudioSession session)
+            if ((VCAPI.AudioSessionManager.FindSessionWithPID((uint)pid, includeHiddenSessions: true, includeInactiveSessions: false) ?? VCAPI.AudioSessionManager.FindSessionWithPID((uint)pid, includeHiddenSessions: true, includeInactiveSessions: true)) is AudioSession session)
                 return session; //< found with process ID
 
-            return VCAPI.AudioSessionManager.FindSessionWithProcessName(System.Diagnostics.Process.GetProcessById(pid).ProcessName, includeHiddenSessions: true);
+            return VCAPI.AudioSessionManager.FindSessionWithProcessName(System.Diagnostics.Process.GetProcessById(pid).ProcessName, includeHiddenSessions: true, includeInactiveSessions: false) ?? VCAPI.AudioSessionManager.FindSessionWithProcessName(System.Diagnostics.Process.GetProcessById(pid).ProcessName, includeHiddenSessions: true, includeInactiveSessions: true);
         }
         #endregion Functions
 
