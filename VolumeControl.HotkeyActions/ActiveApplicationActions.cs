@@ -173,6 +173,13 @@ namespace VolumeControl.HotkeyActions
                 VCAPI.ShowSessionListNotification(sessions);
             }
         }
+        [HotkeyAction(Description = "Shows the active application notification if there are sessions to show.")]
+        public void Show(object? sender, HotkeyPressedEventArgs e)
+        {
+            var sessions = GetActiveSessions();
+            if (sessions.Count > 0)
+                VCAPI.ShowSessionListNotification(sessions);
+        }
         #endregion Methods
     }
 }
