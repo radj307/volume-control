@@ -377,6 +377,11 @@ namespace VolumeControl.HotkeyActions
 
             VCAPI.ShowSessionListNotification();
         }
+        [HotkeyAction(Description = "Shows the session notification.")]
+        public void Show(object? sender, HotkeyPressedEventArgs e)
+        {
+            VCAPI.ShowSessionListNotification();
+        }
         #endregion Action Methods
     }
 }

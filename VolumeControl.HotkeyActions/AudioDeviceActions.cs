@@ -146,6 +146,11 @@ namespace VolumeControl.HotkeyActions
 
             VCAPI.ShowDeviceListNotification();
         }
+        [HotkeyAction(Description = "Shows the device notification.")]
+        public void Show(object? sender, HotkeyPressedEventArgs e)
+        {
+            VCAPI.ShowDeviceListNotification();
+        }
         #endregion Action Methods
     }
 }

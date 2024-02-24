@@ -129,7 +129,7 @@ namespace VolumeControl.CoreAudio
         {
             get
             {
-                return Name + (AudioDevice.DataFlow == DataFlow.Capture ? " ← " : " → ") + AudioDevice.Name;
+                return Name + (AudioDevice.DataFlow == DataFlow.Capture ? " 🠈 " : " 🠊 ") + AudioDevice.Name;
             }
         }
         /// <summary>
@@ -139,7 +139,7 @@ namespace VolumeControl.CoreAudio
         {
             get
             {
-                return (AudioDevice.DataFlow == DataFlow.Capture ? "← " : "→ ") + AudioDevice.Name;
+                return (AudioDevice.DataFlow == DataFlow.Capture ? "🠈 " : "🠊 ") + AudioDevice.Name;
             }
         }
         /// <summary>
