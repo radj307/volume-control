@@ -307,6 +307,10 @@
                                         <Setter Property="Visibility" Value="Collapsed" />
                                     </MultiDataTrigger.Setters>
                                 </MultiDataTrigger>
+                                <!--  Hide hidden sessions  -->
+                                <DataTrigger Binding="{Binding AudioSession.IsHidden, Mode=OneWay}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
                                 <!--  Selector (Multi-Selection Mode Only):  -->
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>

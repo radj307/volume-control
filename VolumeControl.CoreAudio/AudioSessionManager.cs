@@ -20,7 +20,6 @@ namespace VolumeControl.CoreAudio
         {
             _sessionManagers = new();
             _sessions = new();
-            _hiddenSessions = new();
         }
         /// <summary>
         /// Creates a new <see cref="AudioSessionManager"/> instance with the given <paramref name="sessionManagers"/>.
@@ -144,11 +143,13 @@ namespace VolumeControl.CoreAudio
         /// <summary>
         /// Gets the list of hidden <see cref="AudioSession"/> instances (<see cref="AudioSession.IsHidden"/>) currently being managed by this <see cref="AudioSessionManager"/> instance.
         /// </summary>
-        public IReadOnlyList<AudioSession> HiddenSessions => _hiddenSessions;
-        /// <summary>
-        /// The underlying <see cref="List{T}"/> for the <see cref="HiddenSessions"/> property.
-        /// </summary>
-        private readonly List<AudioSession> _hiddenSessions;
+        public IReadOnlyList<AudioSession> HiddenSessions
+        {
+            get
+            {
+                return _sessions; //TODO
+            }
+        }
         #endregion Properties
 
         #region Methods
@@ -178,15 +179,7 @@ namespace VolumeControl.CoreAudio
             for (int i = 0, max = Sessions.Count; i < max; ++i)
             {
                 AudioSession session = Sessions[i];
-                if (session.PID == processId && session.DataFlow == dataFlow && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive)) return session;
-            }
-            if (includeHiddenSessions)
-            {
-                for (int i = 0, max = HiddenSessions.Count; i < max; ++i)
-                {
-                    AudioSession session = HiddenSessions[i];
-                    if (session.PID == processId && session.DataFlow == dataFlow && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive)) return session;
-                }
+                if (session.PID == processId && session.DataFlow == dataFlow && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive) && (includeHiddenSessions || !session.IsHidden)) return session;
             }
             return null;
         }
@@ -202,15 +195,7 @@ namespace VolumeControl.CoreAudio
             for (int i = 0, max = Sessions.Count; i < max; ++i)
             {
                 AudioSession session = Sessions[i];
-                if (session.PID == processId && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive)) return session;
-            }
-            if (includeHiddenSessions)
-            {
-                for (int i = 0, max = HiddenSessions.Count; i < max; ++i)
-                {
-                    AudioSession session = HiddenSessions[i];
-                    if (session.PID == processId && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive)) return session;
-                }
+                if (session.PID == processId && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive) && (includeHiddenSessions || !session.IsHidden)) return session;
             }
             return null;
         }
@@ -236,15 +221,7 @@ namespace VolumeControl.CoreAudio
             for (int i = 0, max = Sessions.Count; i < max; ++i)
             {
                 AudioSession session = Sessions[i];
-                if (session.ProcessName.Equals(processName, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive)) return session;
-            }
-            if (includeHiddenSessions)
-            {
-                for (int i = 0, max = HiddenSessions.Count; i < max; ++i)
-                {
-                    AudioSession session = HiddenSessions[i];
-                    if (session.ProcessName.Equals(processName, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive)) return session;
-                }
+                if (session.ProcessName.Equals(processName, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive) && (includeHiddenSessions || !session.IsHidden)) return session;
             }
             return null;
         }
@@ -267,17 +244,8 @@ namespace VolumeControl.CoreAudio
             for (int i = 0, max = Sessions.Count; i < max; ++i)
             {
                 AudioSession session = Sessions[i];
-                if ((dataFlow == null || session.DataFlow == dataFlow) && session.HasMatchingName(sessionName, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive))
+                if ((dataFlow == null || session.DataFlow == dataFlow) && session.HasMatchingName(sessionName, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive) && (includeHiddenSessions || !session.IsHidden))
                     return session;
-            }
-            if (includeHiddenSessions)
-            {
-                for (int i = 0, max = HiddenSessions.Count; i < max; ++i)
-                {
-                    AudioSession session = HiddenSessions[i];
-                    if ((dataFlow == null || session.DataFlow == dataFlow) && session.HasMatchingName(sessionName, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive))
-                        return session;
-                }
             }
             return null;
         }
@@ -296,17 +264,8 @@ namespace VolumeControl.CoreAudio
             for (int i = 0, max = Sessions.Count; i < max; ++i)
             {
                 AudioSession session = Sessions[i];
-                if (session.HasMatchingName(sessionName, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive))
+                if (session.HasMatchingName(sessionName, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive) && (includeHiddenSessions || !session.IsHidden))
                     return session;
-            }
-            if (includeHiddenSessions)
-            {
-                for (int i = 0, max = HiddenSessions.Count; i < max; ++i)
-                {
-                    AudioSession session = HiddenSessions[i];
-                    if (session.HasMatchingName(sessionName, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive))
-                        return session;
-                }
             }
             return null;
         }
@@ -329,17 +288,8 @@ namespace VolumeControl.CoreAudio
             for (int i = 0, max = Sessions.Count; i < max; ++i)
             {
                 AudioSession session = Sessions[i];
-                if (session.HasMatchingName(sessionName, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive))
+                if (session.HasMatchingName(sessionName, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive) && (includeHiddenSessions || !session.IsHidden))
                     sessions.Add(session);
-            }
-            if (includeHiddenSessions)
-            {
-                for (int i = 0, max = HiddenSessions.Count; i < max; ++i)
-                {
-                    AudioSession session = HiddenSessions[i];
-                    if (session.HasMatchingName(sessionName, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive))
-                        sessions.Add(session);
-                }
             }
             return sessions;
         }
@@ -361,15 +311,7 @@ namespace VolumeControl.CoreAudio
             for (int i = 0, max = Sessions.Count; i < max; ++i)
             {
                 AudioSession session = Sessions[i];
-                if (session.ProcessIdentifier.Equals(processIdentifier, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive)) return session;
-            }
-            if (includeHiddenSessions)
-            {
-                for (int i = 0, max = HiddenSessions.Count; i < max; ++i)
-                {
-                    AudioSession session = HiddenSessions[i];
-                    if (session.ProcessIdentifier.Equals(processIdentifier, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive)) return session;
-                }
+                if (session.ProcessIdentifier.Equals(processIdentifier, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive) && (includeHiddenSessions || !session.IsHidden)) return session;
             }
             return null;
         }
@@ -417,8 +359,8 @@ namespace VolumeControl.CoreAudio
                 string name = segments[1];
 
                 if (uint.TryParse(segments[0], out uint pid)
-                    && FindSessionWithPID(pid, dataFlow, includeHiddenSessions) is AudioSession session
-                    && session.HasMatchingName(name, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive))
+                    && FindSessionWithPID(pid, dataFlow, includeHiddenSessions, includeInactiveSessions) is AudioSession session
+                    && session.HasMatchingName(name, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive) && (includeHiddenSessions || !session.IsHidden))
                 { // found a session with a matching process ID and ProcessName
                     return session;
                 }
@@ -453,15 +395,7 @@ namespace VolumeControl.CoreAudio
             for (int i = 0, max = Sessions.Count; i < max; ++i)
             {
                 AudioSession session = Sessions[i];
-                if (session.SessionIdentifier.Equals(sessionIdentifier, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive)) return session;
-            }
-            if (includeHiddenSessions)
-            {
-                for (int i = 0, max = HiddenSessions.Count; i < max; ++i)
-                {
-                    AudioSession session = HiddenSessions[i];
-                    if (session.SessionIdentifier.Equals(sessionIdentifier, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive)) return session;
-                }
+                if (session.SessionIdentifier.Equals(sessionIdentifier, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive) && (includeHiddenSessions || !session.IsHidden)) return session;
             }
             return null;
         }
@@ -482,15 +416,7 @@ namespace VolumeControl.CoreAudio
             for (int i = 0, max = Sessions.Count; i < max; ++i)
             {
                 AudioSession session = Sessions[i];
-                if (session.SessionInstanceIdentifier.Equals(sessionInstanceIdentifier, stringComparison)) return session;
-            }
-            if (includeHiddenSessions)
-            {
-                for (int i = 0, max = HiddenSessions.Count; i < max; ++i)
-                {
-                    AudioSession session = HiddenSessions[i];
-                    if (session.SessionInstanceIdentifier.Equals(sessionInstanceIdentifier, stringComparison)) return session;
-                }
+                if (session.SessionInstanceIdentifier.Equals(sessionInstanceIdentifier, stringComparison) && (includeHiddenSessions || !session.IsHidden)) return session;
             }
             return null;
         }
@@ -514,7 +440,7 @@ namespace VolumeControl.CoreAudio
             if (session.IsHidden)
             { // add session to hidden list
                 NotifyAddingSessionToHiddenList(session);
-                _hiddenSessions.Add(session);
+                _sessions.Add(session);
                 NotifyAddedSessionToHiddenList(session);
             }
             else
@@ -531,17 +457,17 @@ namespace VolumeControl.CoreAudio
         internal void RemoveSession(AudioSession session)
         {
             // AudioSession.IsHidden is not reliable within this method
-            if (HiddenSessions.IndexOf(session, out int hiddenIndex))
+            if (Sessions.IndexOf(session, out int hiddenIndex))
             {
-                NotifyRemovingSessionFromHiddenList(session);
-                _hiddenSessions.RemoveAt(hiddenIndex);
-                NotifyRemovedSessionFromHiddenList(session);
-            }
-            else if (Sessions.IndexOf(session, out int index))
-            {
-                NotifyRemovingSessionFromList(session);
-                _sessions.RemoveAt(index);
-                NotifyRemovedSessionFromList(session);
+                if (session.IsHidden)
+                    NotifyRemovingSessionFromHiddenList(session);
+                else
+                    NotifyRemovingSessionFromList(session);
+                _sessions.RemoveAt(hiddenIndex);
+                if (session.IsHidden)
+                    NotifyRemovedSessionFromHiddenList(session);
+                else
+                    NotifyRemovedSessionFromList(session);
             }
         }
         #endregion Add/Remove Session
@@ -603,10 +529,11 @@ namespace VolumeControl.CoreAudio
         {
             if (session.IsHidden) return; //< don't do anything if the session is already hidden
 
+            NotifyRemovingSessionFromList(session);
+            NotifyAddingSessionToHiddenList(session);
             session.IsHidden = true;
-
-            RemoveSession(session); //< remove from the Sessions list
-            AddSession(session); //< add to the HiddenSessions list
+            NotifyRemovedSessionFromHiddenList(session);
+            NotifyAddedSessionToList(session);
         }
         /// <summary>
         /// Unhides the specified <paramref name="session"/> by moving it from the <see cref="HiddenSessions"/> list to the <see cref="Sessions"/> list.
@@ -616,10 +543,11 @@ namespace VolumeControl.CoreAudio
         {
             if (!session.IsHidden) return; //< don't do anything if the session isn't hidden
 
+            NotifyRemovingSessionFromHiddenList(session);
+            NotifyAddingSessionToList(session);
             session.IsHidden = false;
-
-            RemoveSession(session); //< remove from the HiddenSessions list
-            AddSession(session); //< add to the Sessions list
+            NotifyRemovedSessionFromList(session);
+            NotifyAddedSessionToHiddenList(session);
         }
         #endregion Hide/Unhide Session
 
@@ -651,7 +579,6 @@ namespace VolumeControl.CoreAudio
         public void Dispose()
         {
             Sessions.DisposeAll();
-            HiddenSessions.DisposeAll();
             SessionManagers.DisposeAll();
             GC.SuppressFinalize(this);
         }

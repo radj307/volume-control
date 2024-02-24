@@ -32,6 +32,7 @@ namespace VolumeControl.CoreAudio
 
             AudioSessionManager.AddedSessionToList += this.AudioSessionManager_SessionAddedToList;
             AudioSessionManager.RemovingSessionFromList += this.AudioSessionManager_RemovingSessionFromList;
+            AudioSessionManager.AddedSessionToHiddenList += this.AudioSessionManager_SessionAddedToList;
             AudioSessionManager.RemovingSessionFromHiddenList += this.AudioSessionManager_RemovingSessionFromList;
         }
         #endregion Constructor
@@ -512,26 +513,14 @@ namespace VolumeControl.CoreAudio
         {
             if (LockCurrentIndex) return;
 
-            if (Settings.HideInactiveSessions)
+            int oldIndex = CurrentIndex;
+            if (oldIndex == -1)
+                oldIndex = 0;
+            do
             {
-                int oldIndex = CurrentIndex;
-                if (oldIndex == -1)
-                    oldIndex = 0;
-                do
-                {
-                    CurrentIndex = (CurrentIndex + 1) % SelectionStates.Count;
-                }
-                while (Sessions[CurrentIndex].State != AudioSessionState.AudioSessionStateActive && CurrentIndex != oldIndex);
+                CurrentIndex = (CurrentIndex + 1) % SelectionStates.Count;
             }
-            else
-            {
-                if (CurrentIndex < SelectionStates.Count - 1)
-                    ++CurrentIndex;
-                else
-                { // loopback:
-                    CurrentIndex = 0;
-                }
-            }
+            while (Sessions[CurrentIndex].IsHidden || (Settings.HideInactiveSessions && Sessions[CurrentIndex].State != AudioSessionState.AudioSessionStateActive && CurrentIndex != oldIndex));
         }
         /// <summary>
         /// Decrements the CurrentIndex by 1, looping back around to the length of the Sessions list when it goes past 0.
@@ -543,26 +532,14 @@ namespace VolumeControl.CoreAudio
         {
             if (LockCurrentIndex) return;
 
-            if (Settings.HideInactiveSessions)
+            int oldIndex = CurrentIndex;
+            if (oldIndex == -1)
+                oldIndex = 0;
+            do
             {
-                int oldIndex = CurrentIndex;
-                if (oldIndex == -1)
-                    oldIndex = 0;
-                do
-                {
-                    CurrentIndex = (SelectionStates.Count + CurrentIndex - 1) % SelectionStates.Count;
-                }
-                while (Sessions[CurrentIndex].State != AudioSessionState.AudioSessionStateActive && CurrentIndex != oldIndex);
+                CurrentIndex = (SelectionStates.Count + CurrentIndex - 1) % SelectionStates.Count;
             }
-            else
-            {
-                if (CurrentIndex > 0)
-                    --CurrentIndex;
-                else
-                { // loopback:
-                    CurrentIndex = SelectionStates.Count - 1;
-                }
-            }
+            while (Sessions[CurrentIndex].IsHidden || (Settings.HideInactiveSessions && Sessions[CurrentIndex].State != AudioSessionState.AudioSessionStateActive && CurrentIndex != oldIndex));
         }
         /// <summary>
         /// Sets the CurrentIndex to 0.

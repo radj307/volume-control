@@ -844,6 +844,9 @@
                                                             <Setter Property="Background" Value="{StaticResource GridSecondaryRowAltBrush}" />
                                                         </MultiDataTrigger.Setters>
                                                     </MultiDataTrigger>
+                                                    <DataTrigger Binding="{Binding AudioSession.IsHidden, Mode=OneWay}" Value="True">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </DataGrid.RowStyle>
