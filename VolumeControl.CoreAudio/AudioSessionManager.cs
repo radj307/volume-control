@@ -312,6 +312,39 @@ namespace VolumeControl.CoreAudio
         }
         #endregion FindSessionWithName
 
+        #region FindSessionsWithName
+        /// <summary>
+        /// Finds all audio sessions whose owning process has the given <paramref name="sessionName"/>.
+        /// </summary>
+        /// <param name="sessionName">A Name or Process Name to search for. See <see cref="AudioSession.Name"/> &amp; <see cref="AudioSession.ProcessName"/>.</param>
+        /// <param name="stringComparison">The <see cref="StringComparison"/> type to use when comparing process name strings.</param>
+        /// <param name="includeHiddenSessions">When <see langword="true"/>, also searches the hidden sessions; otherwise when <see langword="false"/>, only searches through visible sessions.</param>
+        /// <param name="includeInactiveSessions">When <see langword="true"/>, also searches the inactive sessions; otherwise when <see langword="false"/>, only searches through active sessions.</param>
+        /// <returns>List of <see cref="AudioSession"/> with the given <paramref name="sessionName"/>.</returns>
+        public List<AudioSession> FindSessionsWithName(string sessionName, StringComparison stringComparison = StringComparison.Ordinal, bool includeHiddenSessions = false, bool includeInactiveSessions = true)
+        {
+            List<AudioSession> sessions = new();
+            if (sessionName.Length == 0) return sessions;
+
+            for (int i = 0, max = Sessions.Count; i < max; ++i)
+            {
+                AudioSession session = Sessions[i];
+                if (session.HasMatchingName(sessionName, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive))
+                    sessions.Add(session);
+            }
+            if (includeHiddenSessions)
+            {
+                for (int i = 0, max = HiddenSessions.Count; i < max; ++i)
+                {
+                    AudioSession session = HiddenSessions[i];
+                    if (session.HasMatchingName(sessionName, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive))
+                        sessions.Add(session);
+                }
+            }
+            return sessions;
+        }
+        #endregion FindSessionWithName
+
         #region FindSessionWithExactProcessIdentifier
         /// <summary>
         /// Finds the audio session with the given <paramref name="processIdentifier"/>.

@@ -282,11 +282,13 @@
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Style.Triggers>
-                            <!--  Hide inactive sessions  -->
+                            <!--  Hide inactive sessions, unless selected  -->
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
                                     <Condition Binding="{Binding HideInactiveSessions, Source={StaticResource Settings}}" Value="True" />
                                     <Condition Binding="{Binding AudioSession.State}" Value="0" />
+                                    <Condition Binding="{Binding IsSelected}" Value="False" />
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="False" />
                                 </MultiDataTrigger.Conditions>
                                 <MultiDataTrigger.Setters>
                                     <Setter Property="Visibility" Value="Collapsed" />

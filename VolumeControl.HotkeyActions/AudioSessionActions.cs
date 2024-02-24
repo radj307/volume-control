@@ -61,7 +61,7 @@ namespace VolumeControl.HotkeyActions
                 List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
-                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i]) is AudioSession session)
+                    foreach (var session in VCAPI.AudioSessionManager.FindSessionsWithName(specifier.Targets[i], includeHiddenSessions: true))
                     {
                         session.IncreaseVolume(volumeStep);
                         sessions.Add(session);
@@ -107,7 +107,7 @@ namespace VolumeControl.HotkeyActions
                 List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
-                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i]) is AudioSession session)
+                    foreach (var session in VCAPI.AudioSessionManager.FindSessionsWithName(specifier.Targets[i], includeHiddenSessions: true))
                     {
                         session.DecreaseVolume(volumeStep);
                         sessions.Add(session);
@@ -212,7 +212,7 @@ namespace VolumeControl.HotkeyActions
                 List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
-                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i]) is AudioSession session)
+                    foreach (var session in VCAPI.AudioSessionManager.FindSessionsWithName(specifier.Targets[i], includeHiddenSessions: true))
                     {
                         session.SetMute(true);
                         sessions.Add(session);
@@ -253,7 +253,7 @@ namespace VolumeControl.HotkeyActions
                 List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
-                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i]) is AudioSession session)
+                    foreach (var session in VCAPI.AudioSessionManager.FindSessionsWithName(specifier.Targets[i], includeHiddenSessions: true))
                     {
                         session.SetMute(false);
                         sessions.Add(session);
@@ -294,7 +294,7 @@ namespace VolumeControl.HotkeyActions
                 List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
-                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i]) is AudioSession session)
+                    foreach (var session in VCAPI.AudioSessionManager.FindSessionsWithName(specifier.Targets[i], includeHiddenSessions: true))
                     {
                         session.ToggleMute();
                         sessions.Add(session);
