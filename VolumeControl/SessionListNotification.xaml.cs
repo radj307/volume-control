@@ -197,7 +197,6 @@ namespace VolumeControl
                 base.Hide();
             });
             SavePosition();
-            VCSettings.AudioAPI.AudioSessionMultiSelector.ActiveSession = null;
         }
         #endregion Show/Hide
 
@@ -447,7 +446,6 @@ namespace VolumeControl
             _fadingIn = false;
             this.Opacity = 1.0; //< reset Opacity property now that we're done with it; this fixes a bug when FadeIn is disabled.
             SavePosition();
-            VCSettings.AudioAPI.AudioSessionMultiSelector.ActiveSession = null;
         }
         #endregion Storyboards
 

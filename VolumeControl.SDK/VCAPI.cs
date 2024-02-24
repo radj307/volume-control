@@ -82,12 +82,41 @@ namespace VolumeControl.SDK
         /// <summary>
         /// Display the SessionListNotification window.
         /// </summary>
-        public void ShowSessionListNotification(AudioSession? activeSession = null)
+        public void ShowSessionListNotification()
         {
             // don't trigger notification events if notifs are disabled-
             if (!Settings.SessionListNotificationConfig.Enabled) return;
 
-            AudioSessionMultiSelector.ActiveSession = activeSession;
+            AudioSessionMultiSelector.NotifyActiveSessionChanged(null);
+            VCEvents.NotifyShowSessionListNotification(this, EventArgs.Empty);
+        }
+        /// <summary>
+        /// Display the SessionListNotification window.
+        /// </summary>
+        public void ShowSessionListNotification(List<AudioSession> activeSessions)
+        {
+            // don't trigger notification events if notifs are disabled-
+            if (!Settings.SessionListNotificationConfig.Enabled) return;
+
+
+            if (activeSessions != null)
+            {
+                foreach (var session in activeSessions)
+                {
+                    AudioSessionMultiSelector.NotifyActiveSessionChanged(session);
+                }
+            }
+            VCEvents.NotifyShowSessionListNotification(this, EventArgs.Empty);
+        }
+        /// <summary>
+        /// Display the SessionListNotification window.
+        /// </summary>
+        public void ShowSessionListNotification(AudioSession activeSession)
+        {
+            // don't trigger notification events if notifs are disabled-
+            if (!Settings.SessionListNotificationConfig.Enabled) return;
+
+            AudioSessionMultiSelector.NotifyActiveSessionChanged(activeSession);
             VCEvents.NotifyShowSessionListNotification(this, EventArgs.Empty);
         }
         /// <summary>

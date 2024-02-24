@@ -68,10 +68,6 @@ namespace VolumeControl.ViewModels
                 NotifyPropertyChanged();
             }
         }
-        public bool IsActive
-        {
-            get => AudioDeviceManagerVM.AudioSessionMultiSelector.GetSessionIsActive(this.AudioSession);
-        }
         #endregion Properties
 
         #region Methods
@@ -125,7 +121,7 @@ namespace VolumeControl.ViewModels
         }
         private void AudioSessionMultiSelector_ActiveSessionChanged(object? sender, AudioSession? e)
         {
-            NotifyPropertyChanged(nameof(IsActive));
+            NotifyPropertyChanged("ActiveSessions");
         }
         #endregion AudioSessionMultiSelector
 

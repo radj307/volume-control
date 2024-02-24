@@ -2,6 +2,7 @@
 using Microsoft.VisualBasic.Devices;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -57,6 +58,7 @@ namespace VolumeControl.ViewModels
 
             // setup the sessions list
             AllSessions = new();
+            ActiveSessions = new();
 
             // attach handlers for sessions being added/removed at runtime
             AudioSessionManager.AddedSessionToList += this.AudioSessionManager_AddedSessionToList;
@@ -132,7 +134,7 @@ namespace VolumeControl.ViewModels
         public ObservableImmutableList<AudioSessionVM> SelectedSessions { get; }
         public Comparer<AudioSessionVM> SelectedSessionsComparer { get; }
         public AudioSessionVM? CurrentSession { get; set; }
-        public AudioSessionVM? ActiveSession { get; set; }
+        public ObservableImmutableList<AudioSessionVM> ActiveSessions { get; }
         public AudioDeviceSelector AudioDeviceSelector { get; }
         public AudioDeviceVM? SelectedDevice { get; set; }
         public AudioSessionMultiSelector AudioSessionMultiSelector { get; }
@@ -287,13 +289,17 @@ namespace VolumeControl.ViewModels
             // update the all selected checkbox
             NotifyPropertyChanged(nameof(AllSessionsSelected));
         }
+        private void AudioSessionMultiSelector_ActiveSessionChanged(object? sender, AudioSession? e)
+        {
+            if (e != null)
+                ActiveSessions.AddIfUnique(GetAudioSessionVM(e)!);
+            else
+                ActiveSessions.Clear();
+            NotifyPropertyChanged(nameof(ActiveSessions));
+        }
         private void AudioSessionMultiSelector_CurrentSessionChanged(object? sender, AudioSession? e)
         {
             CurrentSession = e == null ? null : GetAudioSessionVM(e);
-        }
-        private void AudioSessionMultiSelector_ActiveSessionChanged(object? sender, AudioSession? e)
-        {
-            ActiveSession = e == null ? null : GetAudioSessionVM(e);
         }
         #endregion AudioSessionMultiSelector
 
