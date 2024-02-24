@@ -10,6 +10,7 @@ using VolumeControl.Core.Enum;
 using VolumeControl.Core.Extensions;
 using VolumeControl.Core.Input.Enums;
 using VolumeControl.Log;
+using VolumeControl.SDK;
 using VolumeControl.SDK.Internal;
 using VolumeControl.TypeExtensions;
 using VolumeControl.ViewModels;
@@ -197,6 +198,7 @@ namespace VolumeControl
                 base.Hide();
             });
             SavePosition();
+            VCSettings.AudioAPI.ActiveSessions.Clear();
         }
         #endregion Show/Hide
 
@@ -446,6 +448,7 @@ namespace VolumeControl
             _fadingIn = false;
             this.Opacity = 1.0; //< reset Opacity property now that we're done with it; this fixes a bug when FadeIn is disabled.
             SavePosition();
+            VCSettings.AudioAPI.ActiveSessions.Clear();
         }
         #endregion Storyboards
 

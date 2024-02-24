@@ -273,7 +273,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <!--  Row 0 (ListView)  -->
@@ -284,7 +283,6 @@
                 Background="#0000"
                 ItemTemplate="{StaticResource SessionDisplayAlwaysBoldWidthDataTemplate}"
                 PreviewMouseDown="ListView_PreviewMouseDown"
-                SelectedIndex="{Binding AudioAPI.AudioSessionMultiSelector.CurrentIndex, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                 SelectionMode="Single">
                 <i:Interaction.Behaviors>
                     <wpfBehaviors:MouseWheelListViewBehavior />
@@ -292,6 +290,7 @@
                 <ListView.Style>
                     <Style TargetType="{x:Type ListView}">
                         <Setter Property="ItemsSource" Value="{Binding AudioAPI.AllSessions, Source={StaticResource Settings}, Mode=OneWay}" />
+                        <Setter Property="SelectedIndex" Value="{Binding AudioAPI.AudioSessionMultiSelector.CurrentIndex, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}" />
                         <Setter Property="BorderThickness" Value="0" />
                         <Setter Property="Background" Value="#0000" />
                         <Setter Property="FocusVisualStyle" Value="{StaticResource CustomFocusVisualStyle}" />
@@ -301,6 +300,7 @@
                             </DataTrigger>
                             <DataTrigger Binding="{Binding AudioAPI.ActiveSessions, Source={StaticResource Settings}, Mode=OneWay, Converter={StaticResource ListHasItemsBooleanConverter}}" Value="True">
                                 <Setter Property="ItemsSource" Value="{Binding AudioAPI.ActiveSessions, Source={StaticResource Settings}, Mode=OneWay}" />
+                                <Setter Property="SelectedIndex" Value="-1" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -388,6 +388,15 @@
                                     <Setter Property="Background" Value="{Binding SessionConfigVM.UnlockedAccentBrush, Source={StaticResource Settings}}" />
                                 </MultiDataTrigger.Setters>
                             </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding AudioAPI.ActiveSessions, Source={StaticResource Settings}, Mode=OneWay, Converter={StaticResource ListHasItemsBooleanConverter}}" Value="True" />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter Property="Background" Value="{Binding SessionConfigVM.ActiveAccentBrush, Source={StaticResource Settings}}" />
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
                         </Style.Triggers>
                         <Setter Property="BorderThickness" Value="1.5" />
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -452,9 +461,6 @@
                                 <!--  Override last and use display template when control bar isn't visible  -->
                                 <DataTrigger Binding="{Binding SessionConfigVM.FlagsVM.ShowControlBar, Source={StaticResource Settings}}" Value="False">
                                     <Setter Property="ItemTemplate" Value="{StaticResource SessionDisplayDataTemplate}" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding AudioAPI.ActiveSessions, Source={StaticResource Settings}, Mode=OneWay, Converter={StaticResource ListHasItemsBooleanConverter}}" Value="True">
-                                    <Setter Property="ItemsSource" Value="{Binding AudioAPI.ActiveSessions, Source={StaticResource Settings}, Mode=OneWay}" />
                                 </DataTrigger>
                             </Style.Triggers>
                             <Setter Property="ItemsSource" Value="{Binding AudioAPI.SelectedSessions, Source={StaticResource Settings}}" />
