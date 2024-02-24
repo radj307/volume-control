@@ -222,7 +222,7 @@ namespace VolumeControl.CoreAudio
         /// </summary>
         /// <remarks>
         /// Note that this method checks ONLY the <see cref="AudioSession.ProcessName"/> property, which can differ from the name shown in the UI (<see cref="AudioSession.Name"/>)!<br/>
-        /// To check both properties, use <see cref="FindSessionWithName(string, StringComparison, bool)"/> instead.
+        /// To check both properties, use <see cref="FindSessionWithName(string, StringComparison, bool, bool)"/> instead.
         /// </remarks>
         /// <param name="processName">A Process Name to search for. See <see cref="AudioSession.ProcessName"/>.</param>
         /// <param name="stringComparison">The <see cref="StringComparison"/> type to use when comparing process name strings.</param>
