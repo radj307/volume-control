@@ -4,6 +4,7 @@ using VolumeControl.Core.Input;
 using VolumeControl.CoreAudio;
 using VolumeControl.SDK;
 using VolumeControl.SDK.DataTemplates;
+using CoreAudio;
 
 namespace VolumeControl.HotkeyActions
 {
@@ -53,6 +54,28 @@ namespace VolumeControl.HotkeyActions
 
             return VCAPI.AudioSessionManager.FindSessionWithProcessName(System.Diagnostics.Process.GetProcessById(pid).ProcessName, includeHiddenSessions: true, includeInactiveSessions: false) ?? VCAPI.AudioSessionManager.FindSessionWithProcessName(System.Diagnostics.Process.GetProcessById(pid).ProcessName, includeHiddenSessions: true, includeInactiveSessions: true);
         }
+        /// <summary>
+        /// Gets all <see cref="AudioSession"/> associated with the current foreground window.
+        /// </summary>
+        /// <returns>The <see cref="AudioSession"/> associated with the current foreground application, if one was found; otherwise <see langword="null"/>.</returns>
+        private static List<AudioSession> GetActiveSessions()
+        {
+            var hwnd = GetForegroundWindow();
+
+            List<AudioSession> sessions = new();
+
+            if (hwnd == IntPtr.Zero)
+                return sessions;
+
+            if (GetWindowThreadProcessId(hwnd, out int pid) == 0)
+                return sessions;
+
+            sessions.AddRange(VCAPI.AudioSessionManager.FindSessionsWithPID((uint)pid, DataFlow.Render, includeHiddenSessions: true, includeInactiveSessions: !VCAPI.Settings.HideInactiveSessions));
+            if (sessions.Count == 0)
+                sessions.AddRange(VCAPI.AudioSessionManager.FindSessionsWithProcessName(System.Diagnostics.Process.GetProcessById(pid).ProcessName, includeHiddenSessions: true, includeInactiveSessions: !VCAPI.Settings.HideInactiveSessions));
+
+            return sessions;
+        }
         #endregion Functions
 
         #region Methods
@@ -61,16 +84,19 @@ namespace VolumeControl.HotkeyActions
         [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), "VolumeStepDataTemplate", DefaultValue = 2, Description = Setting_VolumeStep_Description, IsToggleable = true)]
         public void VolumeUp(object? sender, HotkeyPressedEventArgs e)
         {
-            if (GetActiveSession() is AudioSession session)
+            var volumeStep = e.GetValueOrDefault(Setting_VolumeStep_Name, VCAPI.Settings.VolumeStepSize);
+            var sessions = GetActiveSessions();
+            foreach (var session in sessions)
             {
-                var volumeStep = e.GetValueOrDefault(Setting_VolumeStep_Name, VCAPI.Settings.VolumeStepSize);
-
                 session.Volume += volumeStep;
+            }
+            if (sessions.Count > 0)
+            {
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
                 {
-                    VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
+                    VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(sessions);
                 }
-                VCAPI.ShowSessionListNotification(session);
+                VCAPI.ShowSessionListNotification(sessions);
             }
         }
         [HotkeyAction(Description = "Decreases the volume of the current foreground application.")]
@@ -78,58 +104,73 @@ namespace VolumeControl.HotkeyActions
         [HotkeyActionSetting(Setting_VolumeStep_Name, typeof(int), "VolumeStepDataTemplate", DefaultValue = 2, Description = Setting_VolumeStep_Description, IsToggleable = true)]
         public void VolumeDown(object? sender, HotkeyPressedEventArgs e)
         {
-            if (GetActiveSession() is AudioSession session)
+            var volumeStep = e.GetValueOrDefault(Setting_VolumeStep_Name, VCAPI.Settings.VolumeStepSize);
+            var sessions = GetActiveSessions();
+            foreach (var session in sessions)
             {
-                var volumeStep = e.GetValueOrDefault(Setting_VolumeStep_Name, VCAPI.Settings.VolumeStepSize);
-
                 session.Volume -= volumeStep;
+            }
+            if (sessions.Count > 0)
+            {
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
                 {
-                    VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
+                    VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(sessions);
                 }
-                VCAPI.ShowSessionListNotification(session);
+                VCAPI.ShowSessionListNotification(sessions);
             }
         }
         [HotkeyAction(Description = "Mutes the current foreground application.")]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         public void Mute(object? sender, HotkeyPressedEventArgs e)
         {
-            if (GetActiveSession() is AudioSession session)
+            var sessions = GetActiveSessions();
+            foreach (var session in sessions)
             {
                 session.Mute = true;
+            }
+            if (sessions.Count > 0)
+            {
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
                 {
-                    VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
+                    VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(sessions);
                 }
-                VCAPI.ShowSessionListNotification(session);
+                VCAPI.ShowSessionListNotification(sessions);
             }
         }
         [HotkeyAction(Description = "Unmutes the current foreground application.")]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         public void Unmute(object? sender, HotkeyPressedEventArgs e)
         {
-            if (GetActiveSession() is AudioSession session)
+            var sessions = GetActiveSessions();
+            foreach (var session in sessions)
             {
                 session.Mute = false;
+            }
+            if (sessions.Count > 0)
+            {
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
                 {
-                    VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
+                    VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(sessions);
                 }
-                VCAPI.ShowSessionListNotification(session);
+                VCAPI.ShowSessionListNotification(sessions);
             }
         }
         [HotkeyAction(Description = "(Un)Mutes the current foreground application.")]
         [HotkeyActionSetting(Setting_SelectTarget_Name, typeof(bool), Description = Setting_SelectTarget_Description)]
         public void ToggleMute(object? sender, HotkeyPressedEventArgs e)
         {
-            if (GetActiveSession() is AudioSession session)
+            var sessions = GetActiveSessions();
+            foreach (var session in sessions)
             {
                 session.Mute = !session.Mute;
+            }
+            if (sessions.Count > 0)
+            {
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
                 {
-                    VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
+                    VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(sessions);
                 }
-                VCAPI.ShowSessionListNotification(session);
+                VCAPI.ShowSessionListNotification(sessions);
             }
         }
         #endregion Methods

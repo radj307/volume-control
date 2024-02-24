@@ -201,6 +201,28 @@ namespace VolumeControl.CoreAudio
         }
         #endregion FindSessionWithPID
 
+        #region FindSessionsWithPID
+        /// <summary>
+        /// Finds the audio session whose owning process has the given <paramref name="processId"/>.
+        /// </summary>
+        /// <param name="processId">A Process ID to search for. See <see cref="AudioSession.PID"/>.</param>
+        /// <param name="dataFlow">The data flow type of the session to search for.</param>
+        /// <param name="includeHiddenSessions">When <see langword="true"/>, also searches the hidden sessions; otherwise when <see langword="false"/>, only searches through visible sessions.</param>
+        /// <param name="includeInactiveSessions">When <see langword="true"/>, also searches the inactive sessions; otherwise when <see langword="false"/>, only searches through active sessions.</param>
+        /// <returns>List of <see cref="AudioSession"/> with the given <paramref name="processId"/>.</returns>
+        public List<AudioSession> FindSessionsWithPID(uint processId, DataFlow? dataFlow, bool includeHiddenSessions = false, bool includeInactiveSessions = true)
+        { // don't use FindSession here, this way is more than 2x faster:
+            List<AudioSession> sessions = new();
+            for (int i = 0, max = Sessions.Count; i < max; ++i)
+            {
+                AudioSession session = Sessions[i];
+                if (session.PID == processId && session.DataFlow == dataFlow && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive) && (includeHiddenSessions || !session.IsHidden))
+                    sessions.Add(session);
+            }
+            return sessions;
+        }
+        #endregion FindSessionsWithPID
+
         #region FindSessionWithProcessName
         /// <summary>
         /// Finds the audio session whose owning process has the given <paramref name="processName"/>.
@@ -226,6 +248,34 @@ namespace VolumeControl.CoreAudio
             return null;
         }
         #endregion FindSessionWithProcessName
+
+        #region FindSessionsWithProcessName
+        /// <summary>
+        /// Finds all audio sessions whose owning process has the given <paramref name="processName"/>.
+        /// </summary>
+        /// <remarks>
+        /// Note that this method checks ONLY the <see cref="AudioSession.ProcessName"/> property, which can differ from the name shown in the UI (<see cref="AudioSession.Name"/>)!<br/>
+        /// To check both properties, use <see cref="FindSessionWithName(string, StringComparison, bool, bool)"/> instead.
+        /// </remarks>
+        /// <param name="processName">A Process Name to search for. See <see cref="AudioSession.ProcessName"/>.</param>
+        /// <param name="stringComparison">The <see cref="StringComparison"/> type to use when comparing process name strings.</param>
+        /// <param name="includeHiddenSessions">When <see langword="true"/>, also searches the hidden sessions; otherwise when <see langword="false"/>, only searches through visible sessions.</param>
+        /// <param name="includeInactiveSessions">When <see langword="true"/>, also searches the inactive sessions; otherwise when <see langword="false"/>, only searches through active sessions.</param>
+        /// <returns>List of <see cref="AudioSession"/> with the given <paramref name="processName"/>.</returns>
+        public List<AudioSession> FindSessionsWithProcessName(string processName, StringComparison stringComparison = StringComparison.Ordinal, bool includeHiddenSessions = false, bool includeInactiveSessions = true)
+        {
+            List<AudioSession> sessions = new();
+            if (processName.Length == 0) return sessions;
+
+            for (int i = 0, max = Sessions.Count; i < max; ++i)
+            {
+                AudioSession session = Sessions[i];
+                if (session.ProcessName.Equals(processName, stringComparison) && (includeInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive) && (includeHiddenSessions || !session.IsHidden))
+                    sessions.Add(session);
+            }
+            return sessions;
+        }
+        #endregion FindSessionsWithProcessName
 
         #region FindSessionWithName
         /// <summary>
