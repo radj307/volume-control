@@ -1,4 +1,5 @@
 ﻿using CoreAudio;
+using Microsoft.VisualBasic.Devices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,10 +57,13 @@ namespace VolumeControl.ViewModels
 
             // setup the sessions list
             AllSessions = new();
+            HiddenSessions = new();
 
             // attach handlers for sessions being added/removed at runtime
             AudioSessionManager.AddedSessionToList += this.AudioSessionManager_AddedSessionToList;
             AudioSessionManager.RemovedSessionFromList += this.AudioSessionManager_RemovedSessionFromList;
+            AudioSessionManager.AddedSessionToHiddenList += this.AudioSessionManager_AddedSessionToHiddenList;
+            AudioSessionManager.RemovedSessionFromHiddenList += this.AudioSessionManager_RemovedSessionFromHiddenList;
 
             // attach handler to override session names
             AudioSessionManager.PreviewSessionName += this.AudioSessionManager_PreviewSessionName;
@@ -105,6 +109,7 @@ namespace VolumeControl.ViewModels
             AudioSessionMultiSelector.SessionSelected += this.AudioSessionMultiSelector_SessionSelected;
             AudioSessionMultiSelector.SessionDeselected += this.AudioSessionMultiSelector_SessionDeselected;
             AudioSessionMultiSelector.CurrentSessionChanged += this.AudioSessionMultiSelector_CurrentSessionChanged;
+            AudioSessionMultiSelector.ActiveSessionChanged += this.AudioSessionMultiSelector_ActiveSessionChanged;
 
             if (doDebugLogging) FLog.Debug($"Successfully initialized {AudioSessionManager.Sessions.Count + AudioSessionManager.HiddenSessions.Count} {(AudioSessionManager.HiddenSessions.Count == 0 ? "" : $"({AudioSessionManager.HiddenSessions.Count} hidden)")} audio sessions.");
 
@@ -125,9 +130,11 @@ namespace VolumeControl.ViewModels
         public ObservableImmutableList<AudioDeviceVM> Devices { get; }
         public CoreAudio.AudioSessionManager AudioSessionManager { get; }
         public ObservableImmutableList<AudioSessionVM> AllSessions { get; }
+        public ObservableImmutableList<AudioSessionVM> HiddenSessions { get; }
         public ObservableImmutableList<AudioSessionVM> SelectedSessions { get; }
         public Comparer<AudioSessionVM> SelectedSessionsComparer { get; }
         public AudioSessionVM? CurrentSession { get; set; }
+        public AudioSessionVM? ActiveSession { get; set; }
         public AudioDeviceSelector AudioDeviceSelector { get; }
         public AudioDeviceVM? SelectedDevice { get; set; }
         public AudioSessionMultiSelector AudioSessionMultiSelector { get; }
@@ -176,7 +183,7 @@ namespace VolumeControl.ViewModels
         /// <param name="audioSession">An <see cref="AudioSession"/> instance.</param>
         /// <returns>The <see cref="AudioSessionVM"/> instance associated with the given session, or <see langword="null"/> if it wasn't found.</returns>
         public AudioSessionVM? GetAudioSessionVM(AudioSession audioSession)
-            => AllSessions.FirstOrDefault(audioSessionVM => audioSessionVM!.AudioSession.Equals(audioSession), null);
+            => AllSessions.FirstOrDefault(audioSessionVM => audioSessionVM!.AudioSession.Equals(audioSession), HiddenSessions.FirstOrDefault(audioSessionVM => audioSessionVM!.AudioSession.Equals(audioSession), null));
         #endregion Methods
 
         #region EventHandlers
@@ -214,6 +221,19 @@ namespace VolumeControl.ViewModels
                 vm.Dispose();
             }
             NotifyPropertyChanged(nameof(AllSessionsSelected));
+        }
+        private void AudioSessionManager_AddedSessionToHiddenList(object? sender, AudioSession e)
+        {
+            Dispatcher.Invoke(() => HiddenSessions.Add(new AudioSessionVM(this, e)));
+        }
+        private void AudioSessionManager_RemovedSessionFromHiddenList(object? sender, AudioSession e)
+        {
+            // check if the vm actually exists to prevent possible exception in rare cases
+            if (HiddenSessions.FirstOrDefault(svm => svm.AudioSession.Equals(e)) is AudioSessionVM vm)
+            {
+                HiddenSessions.Remove(vm);
+                vm.Dispose();
+            }
         }
         private void AudioSessionManager_PreviewSessionName(object sender, PreviewSessionNameEventArgs e)
         {
@@ -285,6 +305,10 @@ namespace VolumeControl.ViewModels
         private void AudioSessionMultiSelector_CurrentSessionChanged(object? sender, AudioSession? e)
         {
             CurrentSession = e == null ? null : GetAudioSessionVM(e);
+        }
+        private void AudioSessionMultiSelector_ActiveSessionChanged(object? sender, AudioSession? e)
+        {
+            ActiveSession = e == null ? null : GetAudioSessionVM(e);
         }
         #endregion AudioSessionMultiSelector
 

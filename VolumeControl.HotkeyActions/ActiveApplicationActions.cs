@@ -69,8 +69,8 @@ namespace VolumeControl.HotkeyActions
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
                 {
                     VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
-                    VCAPI.ShowSessionListNotification();
                 }
+                VCAPI.ShowSessionListNotification(session);
             }
         }
         [HotkeyAction(Description = "Decreases the volume of the current foreground application.")]
@@ -86,8 +86,8 @@ namespace VolumeControl.HotkeyActions
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
                 {
                     VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
-                    VCAPI.ShowSessionListNotification();
                 }
+                VCAPI.ShowSessionListNotification(session);
             }
         }
         [HotkeyAction(Description = "Mutes the current foreground application.")]
@@ -100,8 +100,8 @@ namespace VolumeControl.HotkeyActions
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
                 {
                     VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
-                    VCAPI.ShowSessionListNotification();
                 }
+                VCAPI.ShowSessionListNotification(session);
             }
         }
         [HotkeyAction(Description = "Unmutes the current foreground application.")]
@@ -114,8 +114,8 @@ namespace VolumeControl.HotkeyActions
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
                 {
                     VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
-                    VCAPI.ShowSessionListNotification();
                 }
+                VCAPI.ShowSessionListNotification(session);
             }
         }
         [HotkeyAction(Description = "(Un)Mutes the current foreground application.")]
@@ -128,8 +128,8 @@ namespace VolumeControl.HotkeyActions
                 if (e.GetValue<bool>(Setting_SelectTarget_Name))
                 {
                     VCAPI.AudioSessionMultiSelector.SetSelectedSessionsOrCurrentSession(session);
-                    VCAPI.ShowSessionListNotification();
                 }
+                VCAPI.ShowSessionListNotification(session);
             }
         }
         #endregion Methods

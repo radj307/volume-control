@@ -24,6 +24,7 @@ namespace VolumeControl.CoreAudio
             AudioSessionManager = audioSessionManager;
 
             CurrentIndex = -1;
+            ActiveSession = null;
             _selectedSessions = new();
             _selectionStates = new();
             // populate the lists:
@@ -31,6 +32,7 @@ namespace VolumeControl.CoreAudio
 
             AudioSessionManager.AddedSessionToList += this.AudioSessionManager_SessionAddedToList;
             AudioSessionManager.RemovingSessionFromList += this.AudioSessionManager_RemovingSessionFromList;
+            AudioSessionManager.RemovingSessionFromHiddenList += this.AudioSessionManager_RemovingSessionFromList;
         }
         #endregion Constructor
 
@@ -163,6 +165,22 @@ namespace VolumeControl.CoreAudio
                 NotifyCurrentSessionChanged(value);
             }
         }
+        /// <summary>
+        /// Gets or sets the active session temporarily for the notification.
+        /// </summary>
+        public AudioSession? ActiveSession
+        {
+            get => _activeSession;
+            set
+            {
+                //if (value != null && value.IsHidden)
+                //    return;
+                _activeSession = value;
+                NotifyPropertyChanged();
+                NotifyActiveSessionChanged(value);
+            }
+        }
+        private AudioSession? _activeSession;
         /// <inheritdoc/>
         public bool LockSelection
         {
@@ -210,6 +228,11 @@ namespace VolumeControl.CoreAudio
         /// </summary>
         public event EventHandler<AudioSession?>? CurrentSessionChanged;
         private void NotifyCurrentSessionChanged(AudioSession? audioSession) => CurrentSessionChanged?.Invoke(this, audioSession);
+        /// <summary>
+        /// Occurs when the ActiveSession is changed for any reason.
+        /// </summary>
+        public event EventHandler<AudioSession?>? ActiveSessionChanged;
+        private void NotifyActiveSessionChanged(AudioSession? audioSession) => ActiveSessionChanged?.Invoke(this, audioSession);
         /// <summary>
         /// Occurs prior to a new session being added, allowing handlers to determine if it should be selected by default.
         /// </summary>
@@ -269,7 +292,11 @@ namespace VolumeControl.CoreAudio
         }
         private void RemoveSession(AudioSession session)
         {
+            if (session.Equals(_activeSession))
+                ActiveSession = null;
             var index = Sessions.IndexOf(session); //< we can get the index here because the session hasn't been removed yet
+            if (index == -1)
+                return;
             if (index == _currentIndex)
             {
                 CurrentIndex = -1;
@@ -350,6 +377,18 @@ namespace VolumeControl.CoreAudio
             }
         }
         #endregion Get/Set SessionIsSelected
+
+        #region GetSessionIsActive
+        /// <summary>
+        /// Gets whether the specified <paramref name="audioSession"/> is active or not, i.e. currently controlled by Active Application hotkeys.
+        /// </summary>
+        /// <param name="audioSession">An <see cref="AudioSession"/> instance.</param>
+        /// <returns><see langword="true"/> when the <paramref name="audioSession"/> is active; otherwise <see langword="false"/>.</returns>
+        public bool GetSessionIsActive(AudioSession audioSession)
+        {
+            return audioSession.Equals(ActiveSession);
+        }
+        #endregion GetSessionIsActive
 
         #region SetAllSessionSelectionStates
         /// <summary>

@@ -21,6 +21,7 @@ namespace VolumeControl.ViewModels
         public NotificationViewFlagsVM FlagsVM { get; }
         public Brush LockedAccentBrush => new SolidColorBrush(ConfigSection.LockedColor);
         public Brush UnlockedAccentBrush => new SolidColorBrush(ConfigSection.UnlockedColor);
+        public Brush ActiveAccentBrush => new SolidColorBrush(ConfigSection.ActiveColor);
         public Brush BackgroundBrush => new SolidColorBrush(ConfigSection.BackgroundColor);
         public Brush ForegroundBrush => new SolidColorBrush(ConfigSection.TextColor);
         #endregion Properties
@@ -44,6 +45,10 @@ namespace VolumeControl.ViewModels
             else if (e.PropertyName.Equals(nameof(NotificationConfigSection.UnlockedColor), System.StringComparison.Ordinal))
             {
                 NotifyPropertyChanged(nameof(UnlockedAccentBrush));
+            }
+            else if (e.PropertyName.Equals(nameof(NotificationConfigSection.ActiveColor), System.StringComparison.Ordinal))
+            {
+                NotifyPropertyChanged(nameof(ActiveAccentBrush));
             }
             else if (e.PropertyName.Equals(nameof(NotificationConfigSection.BackgroundColor), System.StringComparison.Ordinal))
             {

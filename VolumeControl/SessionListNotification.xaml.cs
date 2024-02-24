@@ -60,6 +60,7 @@ namespace VolumeControl
 
             VCSettings.SessionConfigVM.FlagsVM.StateChanged += this.FlagsVM_StateChanged;
             VCSettings.AudioAPI.AudioSessionMultiSelector.CurrentSessionChanged += this.AudioSessionMultiSelector_CurrentSessionChanged;
+            VCSettings.AudioAPI.AudioSessionMultiSelector.ActiveSessionChanged += this.AudioSessionMultiSelector_ActiveSessionChanged;
             VCSettings.AudioAPI.AudioSessionMultiSelector.SessionSelected += this.AudioSessionMultiSelector_SessionSelectedOrDeselected;
             VCSettings.AudioAPI.AudioSessionMultiSelector.SessionDeselected += this.AudioSessionMultiSelector_SessionSelectedOrDeselected;
 
@@ -196,6 +197,7 @@ namespace VolumeControl
                 base.Hide();
             });
             SavePosition();
+            VCSettings.AudioAPI.AudioSessionMultiSelector.ActiveSession = null;
         }
         #endregion Show/Hide
 
@@ -445,6 +447,7 @@ namespace VolumeControl
             _fadingIn = false;
             this.Opacity = 1.0; //< reset Opacity property now that we're done with it; this fixes a bug when FadeIn is disabled.
             SavePosition();
+            VCSettings.AudioAPI.AudioSessionMultiSelector.ActiveSession = null;
         }
         #endregion Storyboards
 
@@ -545,6 +548,13 @@ namespace VolumeControl
 
         #region AudioSessionMultiSelector
         private void AudioSessionMultiSelector_CurrentSessionChanged(object? sender, CoreAudio.AudioSession? e)
+        {
+            if (e != null) return;
+
+            if (IsHiddenByViewMode)
+                HideNowNoFadeOut();
+        }
+        private void AudioSessionMultiSelector_ActiveSessionChanged(object? sender, CoreAudio.AudioSession? e)
         {
             if (e != null) return;
 
