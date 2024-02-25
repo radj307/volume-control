@@ -483,14 +483,10 @@ namespace VolumeControl.CoreAudio
         {
             if (LockCurrentIndex) return;
 
-            int oldIndex = CurrentIndex;
-            if (oldIndex == -1)
-                oldIndex = 0;
-            do
-            {
-                CurrentIndex = (CurrentIndex + 1) % SelectionStates.Count;
-            }
-            while (Sessions[CurrentIndex].IsHidden || (Settings.HideInactiveSessions && Sessions[CurrentIndex].State != AudioSessionState.AudioSessionStateActive && CurrentIndex != oldIndex));
+            int nextIndex = Sessions.Select((session, index) => new { Session = session, Index = index }).Where(o => o.Index > CurrentIndex && !o.Session.IsHidden && (!Settings.HideInactiveSessions || o.Session.State == AudioSessionState.AudioSessionStateActive)).Select(o => o.Index).FirstOrDefault<int>(CurrentIndex);
+            if (nextIndex == CurrentIndex)
+                nextIndex = Sessions.Select((session, index) => new { Session = session, Index = index }).Where(o => !o.Session.IsHidden && (!Settings.HideInactiveSessions || o.Session.State == AudioSessionState.AudioSessionStateActive)).Select(o => o.Index).FirstOrDefault<int>(CurrentIndex);
+            CurrentIndex = nextIndex;
         }
         /// <summary>
         /// Decrements the CurrentIndex by 1, looping back around to the length of the Sessions list when it goes past 0.
@@ -502,14 +498,10 @@ namespace VolumeControl.CoreAudio
         {
             if (LockCurrentIndex) return;
 
-            int oldIndex = CurrentIndex;
-            if (oldIndex == -1)
-                oldIndex = 0;
-            do
-            {
-                CurrentIndex = (SelectionStates.Count + CurrentIndex - 1) % SelectionStates.Count;
-            }
-            while (Sessions[CurrentIndex].IsHidden || (Settings.HideInactiveSessions && Sessions[CurrentIndex].State != AudioSessionState.AudioSessionStateActive && CurrentIndex != oldIndex));
+            int nextIndex = Sessions.Select((session, index) => new { Session = session, Index = index }).Where(o => o.Index < CurrentIndex && !o.Session.IsHidden && (!Settings.HideInactiveSessions || o.Session.State == AudioSessionState.AudioSessionStateActive)).Select(o => o.Index).LastOrDefault<int>(CurrentIndex);
+            if (nextIndex == CurrentIndex)
+                nextIndex = Sessions.Select((session, index) => new { Session = session, Index = index }).Where(o => !o.Session.IsHidden && (!Settings.HideInactiveSessions || o.Session.State == AudioSessionState.AudioSessionStateActive)).Select(o => o.Index).LastOrDefault<int>(CurrentIndex);
+            CurrentIndex = nextIndex;
         }
         /// <summary>
         /// Sets the CurrentIndex to 0.
