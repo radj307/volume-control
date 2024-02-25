@@ -85,29 +85,6 @@ namespace VolumeControl.CoreAudio
         private void NotifyRemovedSessionFromList(AudioSession session) => RemovedSessionFromList?.Invoke(this, session);
         #endregion List
 
-        #region HiddenList
-        /// <summary>
-        /// Occurs prior to an <see cref="AudioSession"/> being added to the <see cref="HiddenSessions"/> list for any reason.
-        /// </summary>
-        public event EventHandler<AudioSession>? AddingSessionToHiddenList;
-        private void NotifyAddingSessionToHiddenList(AudioSession session) => AddingSessionToHiddenList?.Invoke(this, session);
-        /// <summary>
-        /// Occurs when an <see cref="AudioSession"/> is added to the <see cref="HiddenSessions"/> list for any reason.
-        /// </summary>
-        public event EventHandler<AudioSession>? AddedSessionToHiddenList;
-        private void NotifyAddedSessionToHiddenList(AudioSession session) => AddedSessionToHiddenList?.Invoke(this, session);
-        /// <summary>
-        /// Occurs prior to an <see cref="AudioSession"/> being removed from the <see cref="HiddenSessions"/> list for any reason.
-        /// </summary>
-        public event EventHandler<AudioSession>? RemovingSessionFromHiddenList;
-        private void NotifyRemovingSessionFromHiddenList(AudioSession session) => RemovingSessionFromHiddenList?.Invoke(this, session);
-        /// <summary>
-        /// Occurs when an <see cref="AudioSession"/> is removed from the <see cref="HiddenSessions"/> list for any reason.
-        /// </summary>
-        public event EventHandler<AudioSession>? RemovedSessionFromHiddenList;
-        private void NotifyRemovedSessionFromHiddenList(AudioSession session) => RemovedSessionFromHiddenList?.Invoke(this, session);
-        #endregion HiddenList
-
         #region SessionManager
         /// <summary>
         /// Occurs when an <see cref="AudioDeviceSessionManager"/> is added to the <see cref="SessionManagers"/> list for any reason.
@@ -147,7 +124,7 @@ namespace VolumeControl.CoreAudio
         {
             get
             {
-                return _sessions; //TODO
+                return _sessions.Where(s => s.IsHidden).ToList();
             }
         }
         #endregion Properties
@@ -487,18 +464,9 @@ namespace VolumeControl.CoreAudio
             // allow handlers to edit the session's initial hidden state:
             session.IsHidden = NotifyPreviewSessionIsHidden(session).SessionIsHidden;
 
-            if (session.IsHidden)
-            { // add session to hidden list
-                NotifyAddingSessionToHiddenList(session);
-                _sessions.Add(session);
-                NotifyAddedSessionToHiddenList(session);
-            }
-            else
-            { // add session to visible list
-                NotifyAddingSessionToList(session);
-                _sessions.Add(session);
-                NotifyAddedSessionToList(session);
-            }
+            NotifyAddingSessionToList(session);
+            _sessions.Add(session);
+            NotifyAddedSessionToList(session);
         }
         /// <summary>
         /// Removes the specified <paramref name="session"/> from the managed sessions.
@@ -509,15 +477,9 @@ namespace VolumeControl.CoreAudio
             // AudioSession.IsHidden is not reliable within this method
             if (Sessions.IndexOf(session, out int hiddenIndex))
             {
-                if (session.IsHidden)
-                    NotifyRemovingSessionFromHiddenList(session);
-                else
-                    NotifyRemovingSessionFromList(session);
+                NotifyRemovingSessionFromList(session);
                 _sessions.RemoveAt(hiddenIndex);
-                if (session.IsHidden)
-                    NotifyRemovedSessionFromHiddenList(session);
-                else
-                    NotifyRemovedSessionFromList(session);
+                NotifyRemovedSessionFromList(session);
             }
         }
         #endregion Add/Remove Session
@@ -578,12 +540,7 @@ namespace VolumeControl.CoreAudio
         public void HideSession(AudioSession session)
         {
             if (session.IsHidden) return; //< don't do anything if the session is already hidden
-
-            NotifyRemovingSessionFromList(session);
-            NotifyAddingSessionToHiddenList(session);
             session.IsHidden = true;
-            NotifyRemovedSessionFromHiddenList(session);
-            NotifyAddedSessionToList(session);
         }
         /// <summary>
         /// Unhides the specified <paramref name="session"/> by moving it from the <see cref="HiddenSessions"/> list to the <see cref="Sessions"/> list.
@@ -592,12 +549,7 @@ namespace VolumeControl.CoreAudio
         public void UnhideSession(AudioSession session)
         {
             if (!session.IsHidden) return; //< don't do anything if the session isn't hidden
-
-            NotifyRemovingSessionFromHiddenList(session);
-            NotifyAddingSessionToList(session);
             session.IsHidden = false;
-            NotifyRemovedSessionFromList(session);
-            NotifyAddedSessionToHiddenList(session);
         }
         #endregion Hide/Unhide Session
 

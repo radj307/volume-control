@@ -31,8 +31,6 @@ namespace VolumeControl.CoreAudio
 
             AudioSessionManager.AddedSessionToList += this.AudioSessionManager_SessionAddedToList;
             AudioSessionManager.RemovingSessionFromList += this.AudioSessionManager_RemovingSessionFromList;
-            AudioSessionManager.AddedSessionToHiddenList += this.AudioSessionManager_SessionAddedToList;
-            AudioSessionManager.RemovingSessionFromHiddenList += this.AudioSessionManager_RemovingSessionFromList;
         }
         #endregion Constructor
 

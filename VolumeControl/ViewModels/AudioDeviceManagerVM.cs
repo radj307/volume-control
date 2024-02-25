@@ -63,8 +63,6 @@ namespace VolumeControl.ViewModels
             // attach handlers for sessions being added/removed at runtime
             AudioSessionManager.AddedSessionToList += this.AudioSessionManager_AddedSessionToList;
             AudioSessionManager.RemovedSessionFromList += this.AudioSessionManager_RemovedSessionFromList;
-            AudioSessionManager.AddedSessionToHiddenList += this.AudioSessionManager_AddedSessionToList;
-            AudioSessionManager.RemovedSessionFromHiddenList += this.AudioSessionManager_RemovedSessionFromList;
 
             // attach handler to override session names
             AudioSessionManager.PreviewSessionName += this.AudioSessionManager_PreviewSessionName;
