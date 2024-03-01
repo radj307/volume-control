@@ -317,6 +317,7 @@ namespace VolumeControl.CoreAudio
         /// <exception cref="ArgumentException">The specified <paramref name="audioSession"/> does not exist in the <see cref="AudioSessionManager"/>.</exception>
         public void SetSessionIsSelected(AudioSession audioSession, bool isSelected)
         {
+            audioSession.IsSelected = isSelected;
             var index = Sessions.IndexOf(audioSession);
             if (index == -1)
                 throw new ArgumentException($"The specified {nameof(AudioSession)} instance was not found in the {nameof(AudioSessionManager)}'s {nameof(Sessions)} list!", nameof(audioSession));
@@ -526,7 +527,7 @@ namespace VolumeControl.CoreAudio
         {
             foreach (var session in Sessions)
             {
-                if (!session.IsHidden && (!Settings.HideInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive || GetSessionIsSelected(session) || session.Equals(CurrentSession)))
+                if (!session.IsHidden && (!Settings.HideInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive || session.IsSelected || session.Equals(CurrentSession)))
                     return false;
             }
             return true;

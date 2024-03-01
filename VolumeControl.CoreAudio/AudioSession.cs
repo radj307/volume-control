@@ -266,6 +266,19 @@ namespace VolumeControl.CoreAudio
             }
         }
         private bool _isHidden;
+        /// <summary>
+        /// Gets or sets whether this session is selected in the <see cref="AudioSessionMultiSelector"/>.
+        /// </summary>
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                _isSelected = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private bool _isSelected;
         #endregion IHideableAudioControl Properties
 
         #region Methods
