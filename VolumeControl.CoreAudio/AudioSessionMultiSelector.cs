@@ -526,7 +526,7 @@ namespace VolumeControl.CoreAudio
         {
             foreach (var session in Sessions)
             {
-                if (!session.IsHidden && (!Settings.HideInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive))
+                if (!session.IsHidden && (!Settings.HideInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive || GetSessionIsSelected(session) || session.Equals(CurrentSession)))
                     return false;
             }
             return true;
