@@ -86,6 +86,7 @@ namespace VolumeControl.SDK
         {
             // don't trigger notification events if notifs are disabled-
             if (!Settings.SessionListNotificationConfig.Enabled) return;
+            if (AudioSessionMultiSelector.NotificationIsEmpty()) return;
 
             AudioSessionMultiSelector.NotifyActiveSessionChanged(null);
             VCEvents.NotifyShowSessionListNotification(this, EventArgs.Empty);

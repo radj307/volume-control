@@ -517,6 +517,22 @@ namespace VolumeControl.CoreAudio
         }
         #endregion Increment/Decrement/Unset CurrentIndex
 
+        #region Notifications
+        /// <summary>
+        /// Gets whether the session notification would be empty after applying all filters.
+        /// </summary>
+        /// <returns><see langword="true"/> when the session notification would be empty; otherwise <see langword="false"/>.</returns>
+        public bool NotificationIsEmpty()
+        {
+            foreach (var session in Sessions)
+            {
+                if (!session.IsHidden && (!Settings.HideInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive))
+                    return false;
+            }
+            return true;
+        }
+        #endregion Notifications
+
         #endregion Methods
 
         #region EventHandlers
