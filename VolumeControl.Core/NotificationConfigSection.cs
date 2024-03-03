@@ -87,6 +87,10 @@ namespace VolumeControl.Core
         /// </summary>
         public Color UnlockedColor { get; set; } = Color.FromRgb(0x49, 0x6D, 0x49);
         /// <summary>
+        /// Gets or sets the accent color when selection is active.
+        /// </summary>
+        public Color ActiveColor { get; set; } = Color.FromRgb(0x49, 0x89, 0xC3);
+        /// <summary>
         /// Gets or sets the text color.
         /// </summary>
         public Color TextColor { get; set; } = Colors.WhiteSmoke;

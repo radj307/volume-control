@@ -227,6 +227,7 @@
                                 <RowDefinition />
                                 <RowDefinition />
                                 <RowDefinition />
+                                <RowDefinition />
                             </Grid.RowDefinitions>
 
                             <!--  Row 0 ; Col 0-1  -->
@@ -281,17 +282,32 @@
                                 Grid.Row="1"
                                 Grid.Column="3"
                                 Fill="{Binding UnlockedAccentBrush}" />
+                            <!--  Row 1 ; Col 2-3  -->
+                            <TextBox
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Text="{Binding ConfigSection.ActiveColor}"
+                                ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.ColorPicker.ActiveAccent.Tooltip',
+                                             DefaultText='Sets the accent color of the notification window when selection is active.'}">
+                                <i:Interaction.Behaviors>
+                                    <wpfBehaviors:TextBoxEnterUpdatesTextSourceBehavior />
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                            <Ellipse
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Fill="{Binding ActiveAccentBrush}" />
 
                             <!--  Row 2 ; Col 0-3  -->
                             <TextBlock
-                                Grid.Row="2"
+                                Grid.Row="3"
                                 Grid.ColumnSpan="2"
                                 Margin="5,3"
                                 Style="{StaticResource TextBlockStyle}"
                                 Text="{Tr 'VolumeControl.MainWindow.Settings.Notifications.CornerRadius.Content',
                                           DefaultText='Corner Radius:'}" />
                             <TextBox
-                                Grid.Row="2"
+                                Grid.Row="3"
                                 Grid.Column="2"
                                 Grid.ColumnSpan="2"
                                 MaxLength="-1"
@@ -828,6 +844,9 @@
                                                             <Setter Property="Background" Value="{StaticResource GridSecondaryRowAltBrush}" />
                                                         </MultiDataTrigger.Setters>
                                                     </MultiDataTrigger>
+                                                    <DataTrigger Binding="{Binding AudioSession.IsHidden, Mode=OneWay}" Value="True">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </DataGrid.RowStyle>
@@ -888,8 +907,38 @@
                                                                 HorizontalAlignment="Stretch"
                                                                 VerticalAlignment="Center"
                                                                 Background="#0000"
-                                                                Text="{Binding AudioSession.Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                                                                Text="{Binding AudioSession.Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}">
+                                                                <TextBlock.Style>
+                                                                    <Style TargetType="TextBlock">
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding AudioSession.State, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                                                                <Setter Property="Foreground" Value="{Binding SessionConfigVM.LockedAccentBrush, Source={StaticResource Settings}}" />
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                                            </TextBlock>
                                                         </Grid>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <!--  Dev  -->
+                                            <DataGridTemplateColumn
+                                                x:Name="dgSessionDeviceColumn"
+                                                Width="Auto"
+                                                MinWidth="80"
+                                                Header="{Tr 'VolumeControl.MainWindow.Mixer.MixerGrid.Device.Header',
+                                                            DefaultText='Device'}"
+                                                IsReadOnly="True">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate DataType="{x:Type vm:AudioSessionVM}">
+                                                        <TextBlock
+                                                            Margin="6,0"
+                                                            Grid.Column="1"
+                                                            HorizontalAlignment="Stretch"
+                                                            VerticalAlignment="Center"
+                                                            Background="#0000"
+                                                            Text="{Binding AudioSession.DeviceFlowName, Mode=OneWay, UpdateSourceTrigger=LostFocus}" />
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
@@ -1426,6 +1475,13 @@
                                                         Style="{StaticResource ApplicationSettingsCheckboxStyle}"
                                                         ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.EnableDeviceControl.Tooltip',
                                                                      DefaultText='Toggle the visibility of volume &amp; mute controls in the Audio Devices section.'}" />
+                                                    <CheckBox
+                                                        Content="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.HideInactiveSessions.Content',
+                                                                    DefaultText='Hide Inactive Sessions'}"
+                                                        IsChecked="{Binding HideInactiveSessions, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        Style="{StaticResource ApplicationSettingsCheckboxStyle}"
+                                                        ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.HideInactiveSessions.Tooltip',
+                                                                    DefaultText=' '}" />
                                                 </StackPanel>
 
                                                 <!--  Hidden Sessions  -->

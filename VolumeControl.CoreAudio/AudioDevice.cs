@@ -24,6 +24,7 @@ namespace VolumeControl.CoreAudio
             Name = mmDevice.GetDeviceName();
             ID = mmDevice.ID;
             DataFlow = MMDevice.DataFlow;
+            IsDefault = MMDevice.Selected;
 
             if (MMDevice.AudioSessionManager2 is null)
                 throw new NullReferenceException($"{nameof(AudioDevice)} '{Name}' has a null {nameof(MMDevice.AudioSessionManager2)} property!");

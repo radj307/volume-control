@@ -4,6 +4,8 @@ using VolumeControl.CoreAudio.Events;
 using VolumeControl.CoreAudio.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
+using VolumeControl.Core;
+using CoreAudio;
 
 namespace VolumeControl.CoreAudio
 {
@@ -33,6 +35,7 @@ namespace VolumeControl.CoreAudio
         #endregion Constructor
 
         #region Properties
+        private static Config Settings => Config.Default;
         AudioSessionManager AudioSessionManager { get; }
         private IReadOnlyList<AudioSession> Sessions => AudioSessionManager.Sessions;
         /// <inheritdoc/>
@@ -208,6 +211,14 @@ namespace VolumeControl.CoreAudio
         public event EventHandler<AudioSession?>? CurrentSessionChanged;
         private void NotifyCurrentSessionChanged(AudioSession? audioSession) => CurrentSessionChanged?.Invoke(this, audioSession);
         /// <summary>
+        /// Occurs when the ActiveSession is changed for any reason.
+        /// </summary>
+        public event EventHandler<AudioSession?>? ActiveSessionChanged;
+        /// <summary>
+        /// Occurs when the ActiveSession is changed for any reason.
+        /// </summary>
+        public void NotifyActiveSessionChanged(AudioSession? audioSession) => ActiveSessionChanged?.Invoke(this, audioSession);
+        /// <summary>
         /// Occurs prior to a new session being added, allowing handlers to determine if it should be selected by default.
         /// </summary>
         public event PreviewSessionIsSelectedEventHandler? PreviewSessionIsSelected;
@@ -267,6 +278,8 @@ namespace VolumeControl.CoreAudio
         private void RemoveSession(AudioSession session)
         {
             var index = Sessions.IndexOf(session); //< we can get the index here because the session hasn't been removed yet
+            if (index == -1)
+                return;
             if (index == _currentIndex)
             {
                 CurrentIndex = -1;
@@ -304,6 +317,7 @@ namespace VolumeControl.CoreAudio
         /// <exception cref="ArgumentException">The specified <paramref name="audioSession"/> does not exist in the <see cref="AudioSessionManager"/>.</exception>
         public void SetSessionIsSelected(AudioSession audioSession, bool isSelected)
         {
+            audioSession.IsSelected = isSelected;
             var index = Sessions.IndexOf(audioSession);
             if (index == -1)
                 throw new ArgumentException($"The specified {nameof(AudioSession)} instance was not found in the {nameof(AudioSessionManager)}'s {nameof(Sessions)} list!", nameof(audioSession));
@@ -470,12 +484,10 @@ namespace VolumeControl.CoreAudio
         {
             if (LockCurrentIndex) return;
 
-            if (CurrentIndex < SelectionStates.Count - 1)
-                ++CurrentIndex;
-            else
-            { // loopback:
-                CurrentIndex = 0;
-            }
+            int nextIndex = Sessions.Select((session, index) => new { Session = session, Index = index }).Where(o => o.Index > CurrentIndex && !o.Session.IsHidden && (!Settings.HideInactiveSessions || o.Session.State == AudioSessionState.AudioSessionStateActive)).Select(o => o.Index).FirstOrDefault<int>(CurrentIndex);
+            if (nextIndex == CurrentIndex)
+                nextIndex = Sessions.Select((session, index) => new { Session = session, Index = index }).Where(o => !o.Session.IsHidden && (!Settings.HideInactiveSessions || o.Session.State == AudioSessionState.AudioSessionStateActive)).Select(o => o.Index).FirstOrDefault<int>(CurrentIndex);
+            CurrentIndex = nextIndex;
         }
         /// <summary>
         /// Decrements the CurrentIndex by 1, looping back around to the length of the Sessions list when it goes past 0.
@@ -487,12 +499,10 @@ namespace VolumeControl.CoreAudio
         {
             if (LockCurrentIndex) return;
 
-            if (CurrentIndex > 0)
-                --CurrentIndex;
-            else
-            { // loopback:
-                CurrentIndex = SelectionStates.Count - 1;
-            }
+            int nextIndex = Sessions.Select((session, index) => new { Session = session, Index = index }).Where(o => o.Index < CurrentIndex && !o.Session.IsHidden && (!Settings.HideInactiveSessions || o.Session.State == AudioSessionState.AudioSessionStateActive)).Select(o => o.Index).LastOrDefault<int>(CurrentIndex);
+            if (nextIndex == CurrentIndex)
+                nextIndex = Sessions.Select((session, index) => new { Session = session, Index = index }).Where(o => !o.Session.IsHidden && (!Settings.HideInactiveSessions || o.Session.State == AudioSessionState.AudioSessionStateActive)).Select(o => o.Index).LastOrDefault<int>(CurrentIndex);
+            CurrentIndex = nextIndex;
         }
         /// <summary>
         /// Sets the CurrentIndex to 0.
@@ -507,6 +517,22 @@ namespace VolumeControl.CoreAudio
             CurrentIndex = -1;
         }
         #endregion Increment/Decrement/Unset CurrentIndex
+
+        #region Notifications
+        /// <summary>
+        /// Gets whether the session notification would be empty after applying all filters.
+        /// </summary>
+        /// <returns><see langword="true"/> when the session notification would be empty; otherwise <see langword="false"/>.</returns>
+        public bool NotificationIsEmpty()
+        {
+            foreach (var session in Sessions)
+            {
+                if (!session.IsHidden && (!Settings.HideInactiveSessions || session.State == AudioSessionState.AudioSessionStateActive || session.IsSelected || session.Equals(CurrentSession)))
+                    return false;
+            }
+            return true;
+        }
+        #endregion Notifications
 
         #endregion Methods
 
