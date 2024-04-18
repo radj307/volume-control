@@ -19,7 +19,7 @@ jobs:
           persist-credentials: true
 
         # Get changed files
-      - uses: tj-actions/changed-files@v42.0.5
+      - uses: tj-actions/changed-files@v44.3.0
         id: changes
         with:
           include_all_old_new_renamed_files: true
