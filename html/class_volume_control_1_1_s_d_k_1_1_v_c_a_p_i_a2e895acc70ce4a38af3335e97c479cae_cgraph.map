@@ -1,0 +1,5 @@
+<map id="VolumeControl.SDK.VCAPI.ShowSessionListNotification" name="VolumeControl.SDK.VCAPI.ShowSessionListNotification">
+<area shape="rect" id="node1" title="Display the SessionListNotification window." alt="" coords="5,53,211,94"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a59c57daafb6d319b9a9e91ab8029d04a" title="Gets whether the session notification would be empty after applying all filters." alt="" coords="259,5,532,61"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a34d9287cb61ec8f31b0613208f22caaf" title="Occurs when the ActiveSession is changed for any reason." alt="" coords="277,85,514,141"/>
+</map>

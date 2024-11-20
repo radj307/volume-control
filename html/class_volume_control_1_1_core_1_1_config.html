@@ -100,12 +100,14 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_core_1_1_conf
 <div class="dynheader">
 Inheritance diagram for VolumeControl.Core.Config:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_config__inherit__graph.svg" width="250" height="478"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_config__inherit__graph.svg" width="250" height="478"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Core.Config:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_config__coll__graph.svg" width="472" height="595"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_config__coll__graph.svg" width="472" height="595"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -240,6 +242,9 @@ only controls <em>within</em> the window may use transparent background effects.
 <tr class="memitem:acc145bdcd9e96bb185cd648973619261"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#acc145bdcd9e96bb185cd648973619261">LockTargetSession</a> = false<code> [get, set]</code></td></tr>
 <tr class="memdesc:acc145bdcd9e96bb185cd648973619261"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets whether the target session is locked.  <a href="class_volume_control_1_1_core_1_1_config.html#acc145bdcd9e96bb185cd648973619261">More...</a><br /></td></tr>
 <tr class="separator:acc145bdcd9e96bb185cd648973619261"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15b8022f6636829ae649c3741ae2239d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#a15b8022f6636829ae649c3741ae2239d">HideInactiveSessions</a> = true<code> [get, set]</code></td></tr>
+<tr class="memdesc:a15b8022f6636829ae649c3741ae2239d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hide inactive sessions from notification and hotkey navigation.  <a href="class_volume_control_1_1_core_1_1_config.html#a15b8022f6636829ae649c3741ae2239d">More...</a><br /></td></tr>
+<tr class="separator:a15b8022f6636829ae649c3741ae2239d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86358232b4c1a58f1e6028e2057edcfa"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#a86358232b4c1a58f1e6028e2057edcfa">TargetDeviceID</a> = string.Empty<code> [get, set]</code></td></tr>
 <tr class="memdesc:a86358232b4c1a58f1e6028e2057edcfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the target device ID.  <a href="class_volume_control_1_1_core_1_1_config.html#a86358232b4c1a58f1e6028e2057edcfa">More...</a><br /></td></tr>
 <tr class="separator:a86358232b4c1a58f1e6028e2057edcfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -663,7 +668,7 @@ only controls <em>within</em> the window may use transparent background effects.
 </div><!-- fragment -->
 <p>Gets or sets the configuration for the DeviceListNotification window. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00095">VolumeControl.SDK.VCAPI.ShowDeviceListNotification()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00127">VolumeControl.SDK.VCAPI.ShowDeviceListNotification()</a>.</p>
 
 </div>
 </div>
@@ -761,6 +766,32 @@ only controls <em>within</em> the window may use transparent background effects.
 </div><div class="memdoc">
 
 <p>Gets or sets the list of (process names of) hidden audio sessions. </p>
+
+</div>
+</div>
+<a id="a15b8022f6636829ae649c3741ae2239d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15b8022f6636829ae649c3741ae2239d">&#9670;&nbsp;</a></span>HideInactiveSessions</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VolumeControl.Core.Config.HideInactiveSessions = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Hide inactive sessions from notification and hotkey navigation. </p>
+
+<p class="reference">Referenced by <a class="el" href="#l00498">VolumeControl.CoreAudio.AudioSessionMultiSelector.DecrementCurrentIndex()</a>, <a class="el" href="#l00483">VolumeControl.CoreAudio.AudioSessionMultiSelector.IncrementCurrentIndex()</a>, and <a class="el" href="#l00526">VolumeControl.CoreAudio.AudioSessionMultiSelector.NotificationIsEmpty()</a>.</p>
 
 </div>
 </div>

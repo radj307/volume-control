@@ -1,5 +1,6 @@
 <map id="VolumeControl.CoreAudio.AudioSession.HasMatchingName" name="VolumeControl.CoreAudio.AudioSession.HasMatchingName">
-<area shape="rect" id="node1" title="Determines whether the specified name &#160;is equal to this instance&#39;s Name or ProcessName." alt="" coords="595,46,832,87"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a8cb176f9d911b56b7df5c8cd4be3dd59" title="Finds the audio session whose owning process has the given sessionName ." alt="" coords="300,5,547,61"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a865d4f3af30e93d9dfc4a89340807aa9" title="Finds the audio session that matches &#45; or is very similar to &#45; the given processIdentifier ." alt="" coords="5,39,252,95"/>
+<area shape="rect" id="node1" title="Determines whether the specified name &#160;is equal to this instance&#39;s Name or ProcessName." alt="" coords="601,93,839,134"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#afbe61a2182efe4df1997a1735f3411f0" title="Finds all audio sessions whose owning process has the given sessionName ." alt="" coords="300,5,553,61"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a60f0361802eed5ad889db7e70190bd4f" title="Finds the audio session whose owning process has the given sessionName ." alt="" coords="303,85,550,141"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a362cba0adcf1b1ffe6c4a6c51ba6eca9" title="Finds the audio session that matches &#45; or is very similar to &#45; the given processIdentifier ." alt="" coords="5,119,252,175"/>
 </map>

@@ -3,6 +3,8 @@ var class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i =
     [ "ShowDeviceListNotification", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#af51d768d27755155c535713ce6c69806", null ],
     [ "ShowMixer", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#a2ff79fbc9eb44f2d2c5d0a3e572ca5b8", null ],
     [ "ShowSessionListNotification", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#a2e895acc70ce4a38af3335e97c479cae", null ],
+    [ "ShowSessionListNotification", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#ab3734566f77a70e46eb38d8c675a6ca2", null ],
+    [ "ShowSessionListNotification", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#a1ebf14959bcff58c9464493bef1cf328", null ],
     [ "AudioDeviceManager", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#af809953a8b9b7a8aad5a3e8e2e672b7e", null ],
     [ "AudioDeviceSelector", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#ac77bf8b42c8bb94eb4c6fca5e11c98cc", null ],
     [ "AudioSessionManager", "class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#a62bc7600731c34ac156abe876aee74f8", null ],

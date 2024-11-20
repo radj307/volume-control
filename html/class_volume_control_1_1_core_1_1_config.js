@@ -21,6 +21,7 @@ var class_volume_control_1_1_core_1_1_config =
     [ "EnableInputDevices", "class_volume_control_1_1_core_1_1_config.html#ae80d9680f2016e04838778bcebf841e9", null ],
     [ "EnableLogging", "class_volume_control_1_1_core_1_1_config.html#a342055f03cf42c0b60a7a635b612917c", null ],
     [ "HiddenSessionProcessNames", "class_volume_control_1_1_core_1_1_config.html#aeb7965013c0d6e98452d6ddb76b71563", null ],
+    [ "HideInactiveSessions", "class_volume_control_1_1_core_1_1_config.html#a15b8022f6636829ae649c3741ae2239d", null ],
     [ "Hotkeys", "class_volume_control_1_1_core_1_1_config.html#a5916666c0ab21a38dc92ec91879defa2", null ],
     [ "KeepRelativePosition", "class_volume_control_1_1_core_1_1_config.html#aa21e507e40d4f47e43e6015d85d17629", null ],
     [ "LanguageName", "class_volume_control_1_1_core_1_1_config.html#a3264ec7458bee9443d2f05192ced3e66", null ],

@@ -1,0 +1,4 @@
+<map id="VolumeControl.CoreAudio.AudioSessionManager.FindSessionWithName" name="VolumeControl.CoreAudio.AudioSessionManager.FindSessionWithName">
+<area shape="rect" id="node1" title="Finds the audio session whose owning process has the given sessionName ." alt="" coords="5,5,252,61"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_session.html#aaf7a37b3dc9484a667cc5222180ecbd2" title="Determines whether the specified name &#160;is equal to this instance&#39;s Name or ProcessName." alt="" coords="300,13,537,54"/>
+</map>

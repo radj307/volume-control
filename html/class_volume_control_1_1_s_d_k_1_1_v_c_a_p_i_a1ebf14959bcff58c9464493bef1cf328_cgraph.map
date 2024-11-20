@@ -1,0 +1,4 @@
+<map id="VolumeControl.SDK.VCAPI.ShowSessionListNotification" name="VolumeControl.SDK.VCAPI.ShowSessionListNotification">
+<area shape="rect" id="node1" title="Display the SessionListNotification window." alt="" coords="5,13,211,54"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a34d9287cb61ec8f31b0613208f22caaf" title="Occurs when the ActiveSession is changed for any reason." alt="" coords="259,5,496,61"/>
+</map>

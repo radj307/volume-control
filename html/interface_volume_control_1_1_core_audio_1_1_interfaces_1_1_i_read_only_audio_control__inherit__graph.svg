@@ -79,12 +79,12 @@
 <text text-anchor="start" x="171" y="-180.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SimpleAudioVolume</text>
 <text text-anchor="start" x="171" y="-169.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AudioMeterInformation</text>
 <text text-anchor="start" x="171" y="-158.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DataFlow</text>
-<text text-anchor="start" x="171" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ PID</text>
-<text text-anchor="start" x="171" y="-136.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ProcessName</text>
-<text text-anchor="start" x="171" y="-125.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
-<text text-anchor="start" x="171" y="-114.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ HasCustomName</text>
-<text text-anchor="start" x="171" y="-103.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ProcessIdentifier</text>
-<text text-anchor="start" x="171" y="-92.5" font-family="Helvetica,sans-Serif" font-size="10.00">and 7 more...</text>
+<text text-anchor="start" x="171" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ State</text>
+<text text-anchor="start" x="171" y="-136.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DeviceName</text>
+<text text-anchor="start" x="171" y="-125.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FlowName</text>
+<text text-anchor="start" x="171" y="-114.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DeviceFlowName</text>
+<text text-anchor="start" x="171" y="-103.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ PID</text>
+<text text-anchor="start" x="171" y="-92.5" font-family="Helvetica,sans-Serif" font-size="10.00">and 12 more...</text>
 <polyline fill="none" stroke="black" points="163,-85.5 342,-85.5 "/>
 <text text-anchor="start" x="171" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ToString()</text>
 <text text-anchor="start" x="171" y="-62.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GetProcess()</text>

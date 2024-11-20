@@ -6,6 +6,7 @@ var class_volume_control_1_1_hotkey_actions_1_1_audio_session_actions =
     [ "SelectNext", "class_volume_control_1_1_hotkey_actions_1_1_audio_session_actions.html#a39df3492679ac355d43ef859fa8781e3", null ],
     [ "SelectPrevious", "class_volume_control_1_1_hotkey_actions_1_1_audio_session_actions.html#af38ede8702936c635f198e603a21ad10", null ],
     [ "SetVolume", "class_volume_control_1_1_hotkey_actions_1_1_audio_session_actions.html#a458367de4c7a2a0ae24e867dee1f46be", null ],
+    [ "Show", "class_volume_control_1_1_hotkey_actions_1_1_audio_session_actions.html#aee540dac47780680e7c3442d78f488eb", null ],
     [ "ToggleLock", "class_volume_control_1_1_hotkey_actions_1_1_audio_session_actions.html#a099070b8096cda6596ddc6c01e26440a", null ],
     [ "ToggleMute", "class_volume_control_1_1_hotkey_actions_1_1_audio_session_actions.html#a9b3dd556547249ecaeba06152c5bf9f9", null ],
     [ "ToggleSelected", "class_volume_control_1_1_hotkey_actions_1_1_audio_session_actions.html#a1de17d4d30db1d59c367ee4007596384", null ],

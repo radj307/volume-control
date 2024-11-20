@@ -1,6 +1,7 @@
 var class_volume_control_1_1_core_1_1_notification_config_section =
 [
     [ "DefaultTimeoutMs", "class_volume_control_1_1_core_1_1_notification_config_section.html#a86a087cd740948274c82b79532f1df3f", null ],
+    [ "ActiveColor", "class_volume_control_1_1_core_1_1_notification_config_section.html#af964c4ad637f4722293b2a46ec15c081", null ],
     [ "BackgroundColor", "class_volume_control_1_1_core_1_1_notification_config_section.html#a5167e90aea8dbea256b24cf97f765cc7", null ],
     [ "CornerRadius", "class_volume_control_1_1_core_1_1_notification_config_section.html#af82c73a21a01fc95eddd7f9bf3a4ea72", null ],
     [ "DoFadeIn", "class_volume_control_1_1_core_1_1_notification_config_section.html#a9cf8e56a29fc9ec306852fab0af05b71", null ],

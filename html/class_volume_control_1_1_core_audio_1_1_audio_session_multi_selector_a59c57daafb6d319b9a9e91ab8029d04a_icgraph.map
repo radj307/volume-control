@@ -1,0 +1,4 @@
+<map id="VolumeControl.CoreAudio.AudioSessionMultiSelector.NotificationIsEmpty" name="VolumeControl.CoreAudio.AudioSessionMultiSelector.NotificationIsEmpty">
+<area shape="rect" id="node1" title="Gets whether the session notification would be empty after applying all filters." alt="" coords="259,5,532,61"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#a2e895acc70ce4a38af3335e97c479cae" title="Display the SessionListNotification window." alt="" coords="5,13,211,54"/>
+</map>
