@@ -1,6 +1,7 @@
 ﻿using Localization;
 using Semver;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -198,11 +199,22 @@ namespace VolumeControl
                 Settings.Save();
             }
 
+            // increase process priority to prevent lag after inactivity
+            try
+            {
+                Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.AboveNormal;
+            }
+            catch (Exception ex)
+            {
+                FLog.Error("Failed to increase process priority. The notification window may be delayed after periods of inactivity.", ex);
+            }
+
             // create the application class
             var app = new App();
             int rc = EXITCODE_FAILED;
             try
             {
+                // run the app
                 rc = app.Run();
                 FLog.Info($"App exited with code {rc}");
             }
