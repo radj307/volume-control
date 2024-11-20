@@ -115,6 +115,34 @@ namespace VolumeControl.CoreAudio
         /// </summary>
         public DataFlow DataFlow => AudioDevice.DataFlow;
         /// <summary>
+        /// Gets the AudioSessionState of this audio session.
+        /// </summary>
+        public AudioSessionState State => AudioSessionControl.State;
+        /// <summary>
+        /// Gets the device name of the device associated with this <see cref="AudioSession"/> instance.
+        /// </summary>
+        public string DeviceName => AudioDevice.Name;
+        /// <summary>
+        /// Gets the name of this <see cref="AudioSession"/> instance with a device name and flow direction.
+        /// </summary>
+        public string FlowName
+        {
+            get
+            {
+                return Name + (AudioDevice.DataFlow == DataFlow.Capture ? " 🠈 " : " 🠊 ") + AudioDevice.Name;
+            }
+        }
+        /// <summary>
+        /// Gets the device name of this <see cref="AudioSession"/> instance with a flow direction.
+        /// </summary>
+        public string DeviceFlowName
+        {
+            get
+            {
+                return (AudioDevice.DataFlow == DataFlow.Capture ? "🠈 " : "🠊 ") + AudioDevice.Name;
+            }
+        }
+        /// <summary>
         /// Gets the process ID of the process associated with this <see cref="AudioSession"/> instance.
         /// </summary>
         public uint PID { get; }
@@ -238,6 +266,19 @@ namespace VolumeControl.CoreAudio
             }
         }
         private bool _isHidden;
+        /// <summary>
+        /// Gets or sets whether this session is selected in the <see cref="AudioSessionMultiSelector"/>.
+        /// </summary>
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                _isSelected = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private bool _isSelected;
         #endregion IHideableAudioControl Properties
 
         #region Methods
@@ -399,7 +440,10 @@ namespace VolumeControl.CoreAudio
         /// Triggers the <see cref="StateChanged"/> event.
         /// </summary>
         private void AudioSessionControl_OnStateChanged(object sender, AudioSessionState newState)
-            => NotifyStateChanged(newState);
+        {
+            NotifyStateChanged(newState);
+            NotifyPropertyChanged(nameof(State));
+        }
         #endregion AudioSessionControl
 
         #endregion EventHandlers

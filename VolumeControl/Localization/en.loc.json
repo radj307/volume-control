@@ -38,6 +38,9 @@
           },
           "Select": {
             "Button": "Select"
+          },
+          "Device": {
+            "Header": "Device"
           }
         }
       },
@@ -122,7 +125,11 @@
             "HiddenSessions": {
               "Content": "Hidden Sessions",
               "Tooltip": {}
-            }
+            },
+            "HideInactiveSessions": {
+              "Content": "Ignore Inactive Sessions",
+              "Tooltip": "Toggle hiding inactive sessions in the notification window and ignore inactive sessions in hotkey actions."
+            },
           },
           "DeviceGrid": {
             "Enabled": {

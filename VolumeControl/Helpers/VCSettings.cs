@@ -175,6 +175,12 @@ namespace VolumeControl.Helpers
             get => Settings.LockTargetSession;
             set => Settings.LockTargetSession = value;
         }
+        /// <inheritdoc cref="Config.HideInactiveSessions"/>
+        public bool HideInactiveSessions
+        {
+            get => Settings.HideInactiveSessions;
+            set => Settings.HideInactiveSessions = value;
+        }
         /// <inheritdoc cref="Config.LockTargetDevice"/>
         public bool LockTargetDevice
         {

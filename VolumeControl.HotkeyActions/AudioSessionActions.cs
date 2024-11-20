@@ -52,16 +52,16 @@ namespace VolumeControl.HotkeyActions
         public void VolumeUp(object? sender, HotkeyPressedEventArgs e)
         {
             bool showNotification = false;
+            List<AudioSession> sessions = new();
 
             // get the volume step size
             int volumeStep = e.GetValueOrDefault(Setting_VolumeStep_Name, VCAPI.Settings.VolumeStepSize);
 
             if (e.GetValue<ActionTargetSpecifier>(Setting_TargetOverride_Name) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
             { // operate on target overrides:
-                List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
-                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i]) is AudioSession session)
+                    foreach (var session in VCAPI.AudioSessionManager.FindSessionsWithName(specifier.Targets[i], includeHiddenSessions: true, includeInactiveSessions: !VCAPI.Settings.HideInactiveSessions))
                     {
                         session.IncreaseVolume(volumeStep);
                         sessions.Add(session);
@@ -89,7 +89,7 @@ namespace VolumeControl.HotkeyActions
                 return; //< don't show notifs if they're disabled on volume change
 
             if (showNotification)
-                VCAPI.ShowSessionListNotification();
+                VCAPI.ShowSessionListNotification(sessions);
         }
         [HotkeyAction(Description = "Decreases the volume of the session(s).")]
         [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), "ActionTargetSpecifierDataTemplate", Description = Setting_TargetOverride_Description)]
@@ -98,16 +98,16 @@ namespace VolumeControl.HotkeyActions
         public void VolumeDown(object? sender, HotkeyPressedEventArgs e)
         {
             bool showNotification = false;
+            List<AudioSession> sessions = new();
 
             // get the volume step size
             int volumeStep = e.GetValueOrDefault(Setting_VolumeStep_Name, VCAPI.Settings.VolumeStepSize);
 
             if (e.GetValue<ActionTargetSpecifier>(Setting_TargetOverride_Name) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
             { // operate on target overrides:
-                List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
-                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i]) is AudioSession session)
+                    foreach (var session in VCAPI.AudioSessionManager.FindSessionsWithName(specifier.Targets[i], includeHiddenSessions: true, includeInactiveSessions: !VCAPI.Settings.HideInactiveSessions))
                     {
                         session.DecreaseVolume(volumeStep);
                         sessions.Add(session);
@@ -135,7 +135,7 @@ namespace VolumeControl.HotkeyActions
                 return; //< don't show notifs if they're disabled on volume change
 
             if (showNotification)
-                VCAPI.ShowSessionListNotification();
+                VCAPI.ShowSessionListNotification(sessions);
         }
         [HotkeyAction(Description = "Sets the volume and/or mute state of the session(s).")]
         [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), "ActionTargetSpecifierDataTemplate", Description = Setting_TargetOverride_Description)]
@@ -146,6 +146,7 @@ namespace VolumeControl.HotkeyActions
         public void SetVolume(object? sender, HotkeyPressedEventArgs e)
         {
             bool showNotification = false;
+            List<AudioSession> sessions = new();
 
             var (setVolumeLevel, volumeLevel) = e.GetSetting<int>(Setting_VolumeLevel_Name);
             var (setMuteState, muteState) = e.GetSetting<bool>(Setting_MuteState_Name);
@@ -156,7 +157,6 @@ namespace VolumeControl.HotkeyActions
             if (targetAllSessions || targetSpecifier.Targets.Count > 0)
             { // operate on target overrides:
                 var selectTargets = e.GetValue<bool>(Setting_SelectTarget_Name);
-                List<AudioSession>? sessions = selectTargets ? new() : null;
 
                 foreach (var session in VCAPI.AudioSessionManager.Sessions)
                 {
@@ -166,7 +166,7 @@ namespace VolumeControl.HotkeyActions
                             session.Volume = volumeLevel;
                         if (setMuteState)
                             session.Mute = muteState;
-                        sessions?.Add(session);
+                        sessions.Add(session);
                         showNotification = true;
                     }
                 }
@@ -199,7 +199,7 @@ namespace VolumeControl.HotkeyActions
                 return; //< don't show notifs if they're disabled on volume change
 
             if (showNotification)
-                VCAPI.ShowSessionListNotification();
+                VCAPI.ShowSessionListNotification(sessions);
         }
         [HotkeyAction(Description = "Mutes the session(s).")]
         [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), "ActionTargetSpecifierDataTemplate", Description = Setting_TargetOverride_Description)]
@@ -207,12 +207,13 @@ namespace VolumeControl.HotkeyActions
         public void Mute(object? sender, HotkeyPressedEventArgs e)
         {
             bool showNotification = false;
+            List<AudioSession> sessions = new();
+
             if (e.GetValue<ActionTargetSpecifier>(Setting_TargetOverride_Name) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
             { // operate on target overrides:
-                List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
-                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i]) is AudioSession session)
+                    foreach (var session in VCAPI.AudioSessionManager.FindSessionsWithName(specifier.Targets[i], includeHiddenSessions: true, includeInactiveSessions: !VCAPI.Settings.HideInactiveSessions))
                     {
                         session.SetMute(true);
                         sessions.Add(session);
@@ -240,7 +241,7 @@ namespace VolumeControl.HotkeyActions
                 return; //< don't show notifs if they're disabled on volume change
 
             if (showNotification)
-                VCAPI.ShowSessionListNotification();
+                VCAPI.ShowSessionListNotification(sessions);
         }
         [HotkeyAction(Description = "Unmutes the session(s).")]
         [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), "ActionTargetSpecifierDataTemplate", Description = Setting_TargetOverride_Description)]
@@ -248,12 +249,13 @@ namespace VolumeControl.HotkeyActions
         public void Unmute(object? sender, HotkeyPressedEventArgs e)
         {
             bool showNotification = false;
+            List<AudioSession> sessions = new();
+
             if (e.GetValue<ActionTargetSpecifier>(Setting_TargetOverride_Name) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
             { // operate on target overrides:
-                List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
-                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i]) is AudioSession session)
+                    foreach (var session in VCAPI.AudioSessionManager.FindSessionsWithName(specifier.Targets[i], includeHiddenSessions: true, includeInactiveSessions: !VCAPI.Settings.HideInactiveSessions))
                     {
                         session.SetMute(false);
                         sessions.Add(session);
@@ -281,7 +283,7 @@ namespace VolumeControl.HotkeyActions
                 return; //< don't show notifs if they're disabled on volume change
 
             if (showNotification)
-                VCAPI.ShowSessionListNotification();
+                VCAPI.ShowSessionListNotification(sessions);
         }
         [HotkeyAction(Description = "Toggles the mute state of the session(s).")]
         [HotkeyActionSetting(Setting_TargetOverride_Name, typeof(ActionTargetSpecifier), "ActionTargetSpecifierDataTemplate", Description = Setting_TargetOverride_Description)]
@@ -289,12 +291,13 @@ namespace VolumeControl.HotkeyActions
         public void ToggleMute(object? sender, HotkeyPressedEventArgs e)
         {
             bool showNotification = false;
+            List<AudioSession> sessions = new();
+
             if (e.GetValue<ActionTargetSpecifier>(Setting_TargetOverride_Name) is ActionTargetSpecifier specifier && specifier.Targets.Count > 0)
             { // operate on target overrides:
-                List<AudioSession> sessions = new();
                 for (int i = 0, max = specifier.Targets.Count; i < max; ++i)
                 {
-                    if (VCAPI.AudioSessionManager.FindSessionWithName(specifier.Targets[i]) is AudioSession session)
+                    foreach (var session in VCAPI.AudioSessionManager.FindSessionsWithName(specifier.Targets[i], includeHiddenSessions: true, includeInactiveSessions: !VCAPI.Settings.HideInactiveSessions))
                     {
                         session.ToggleMute();
                         sessions.Add(session);
@@ -322,7 +325,7 @@ namespace VolumeControl.HotkeyActions
                 return; //< don't show notifs if they're disabled on volume change
 
             if (showNotification)
-                VCAPI.ShowSessionListNotification();
+                VCAPI.ShowSessionListNotification(sessions);
         }
         [HotkeyAction(Description = "Changes the current session to the next session in the list.")]
         public void SelectNext(object? sender, HotkeyPressedEventArgs e)
@@ -375,6 +378,11 @@ namespace VolumeControl.HotkeyActions
         {
             MultiSelector.ToggleSelectCurrentItem();
 
+            VCAPI.ShowSessionListNotification();
+        }
+        [HotkeyAction(Description = "Shows the session notification.")]
+        public void Show(object? sender, HotkeyPressedEventArgs e)
+        {
             VCAPI.ShowSessionListNotification();
         }
         #endregion Action Methods

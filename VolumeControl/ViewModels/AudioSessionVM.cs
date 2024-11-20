@@ -27,6 +27,7 @@ namespace VolumeControl.ViewModels
             // update bindings on the IsSelected property when this session is selected or deselected
             manager.AudioSessionMultiSelector.SessionSelected += this.AudioSessionMultiSelector_SessionSelected_SessionDeselected;
             manager.AudioSessionMultiSelector.SessionDeselected += this.AudioSessionMultiSelector_SessionSelected_SessionDeselected;
+            manager.AudioSessionMultiSelector.ActiveSessionChanged += this.AudioSessionMultiSelector_ActiveSessionChanged;
         }
         #endregion Constructor
 
@@ -117,6 +118,10 @@ namespace VolumeControl.ViewModels
             {
                 NotifyPropertyChanged(nameof(IsSelected));
             }
+        }
+        private void AudioSessionMultiSelector_ActiveSessionChanged(object? sender, AudioSession? e)
+        {
+            NotifyPropertyChanged("ActiveSessions");
         }
         #endregion AudioSessionMultiSelector
 

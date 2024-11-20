@@ -16,6 +16,7 @@ namespace VolumeControl.ViewModels
 
             ConfigSection.PropertyChanged += this.ConfigSection_PropertyChanged;
             StateChanged += this.ListNotificationViewFlagsVM_StateChanged;
+            State = configSection.ViewMode; // I don't know what's going on, but the notification is not behaving correctly unless you go untick and tick All Items again...
         }
         #endregion Constructor
 
