@@ -114,7 +114,7 @@ jobs:
               ls -lAghR
 
       - name: 'Create Release'
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           draft: true
           fail_on_unmatched_files: true
