@@ -142,7 +142,7 @@ namespace VolumeControl
             // show all log message types in debug mode
             FLog.Log.EventTypeFilter = EventType.DEBUG | EventType.INFO | EventType.WARN | EventType.ERROR | EventType.FATAL | EventType.TRACE;
             // open the log file for monitoring
-            //no thanks ShellHelper.Start(new("notepad++.exe", $"-monitor \"{Settings.LogPath}\"") { UseShellExecute = true });
+            ShellHelper.Start(new("notepad++.exe", $"-monitor \"{Settings.LogPath}\"") { UseShellExecute = true });
 #endif
 
             // write the config & log filepaths to the log
