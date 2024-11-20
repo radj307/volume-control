@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <Configurations>Debug;Release</Configurations>
     <Authors>radj307</Authors>
-    <Version>6.7.0-rc1</Version>
+    <Version>6.7.0-rc2</Version>
     <FileVersion>6.7.0</FileVersion>
     <Copyright>Copyright © 2022-2024 by $(Authors)</Copyright>
   </PropertyGroup>
