@@ -21,7 +21,7 @@ jobs:
         with:
           ref:  ${{ github.event.release.tag_name }}
 
-      - uses: actions/setup-dotnet@v4.0.0
+      - uses: actions/setup-dotnet@v4.1.0
         with:
           dotnet-version:   6.0.x
           
