@@ -49,7 +49,7 @@ namespace VolumeControl.Helpers
 
 #if !DEBUG
             if (Settings.LogMissingTranslations)
-#endif
+#endif      // always do this in debug configuration:
             {
                 Loc.Instance.MissingTranslationStringRequested += Instance_MissingTranslationStringRequested;
             }
@@ -158,7 +158,7 @@ namespace VolumeControl.Helpers
         #region Loc.Instance
         private static void LocInstance_CurrentLanguageChanged(object? sender, CurrentLanguageChangedEventArgs e)
         { // update the language in the settings
-            if (!e.NewLanguageName.Equals(Settings.LanguageName, StringComparison.Ordinal))
+            if (e.NewLanguageName != null && !e.NewLanguageName.Equals(Settings.LanguageName, StringComparison.Ordinal))
             {
                 var previousLanguageName = Settings.LanguageName;
                 Settings.LanguageName = e.NewLanguageName;
