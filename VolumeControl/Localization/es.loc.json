@@ -1,0 +1,575 @@
+{
+  "$LanguageName": "Español (Spain)",
+
+  "VolumeControl": {
+    "MainWindow": {
+      "CaptionBar": {
+        "Title": {
+          "Content": "Volume Control"
+        },
+        "BugReport": {
+          "Content": "✏",
+          "Tooltip": "Informar de un error"
+        }
+      },
+      "Mixer": {
+        "TabHeader": "Mezclador",
+        "TargetBox": {
+          "Watermark": "ID del proceso o nombre",
+          "LockTarget": "Bloquear"
+        },
+        "MixerGrid": {
+          "Selected": {
+            "Header": {
+              "Tooltip": "(De)seleccionar todas las sesiones."
+            }
+          },
+          "PID": {
+            "Header": "ID Proceso"
+          },
+          "Name": {
+            "Header": "Nombre"
+          },
+          "Mute": {
+            "Header": "Silenciar"
+          },
+          "Volume": {
+            "Header": "Volumen"
+          },
+          "Select": {
+            "Button": "Seleccionar"
+          }
+        }
+      },
+      "Hotkeys": {
+        "TabHeader": "Atajos",
+        "ControlRow": {
+          "VolumeStep": {
+            "Content": "Intervalo de volumen",
+            "Tooltip": "Este número corresponde a la cantidad de volumen que se resta o se suma cada vez que presionas las teclas de subir o bajar volumen."
+          },
+          "ResetToDefault": {
+            "Content": "Restablecer atajos",
+            "Tooltip": "Restablecer la configuración actual a los valores predeterminados."
+          }
+        },
+        "HotkeyGrid": {
+          "Active": {
+            "Header": {
+              "Tooltip": "(Des)activar todos los atajos."
+            }
+          },
+          "Name": {
+            "Header": "Nombre"
+          },
+          "Key": {
+            "Header": "Tecla",
+            "KeySelector": {
+              "Content": "🖮",
+              "Tooltip": "Haz clic y mantén el botón presionado, luego pulsa cualquier tecla para seleccionarla sin buscarla en la lista."
+            }
+          },
+          "Alt": {
+            "Header": "Alt"
+          },
+          "Ctrl": {
+            "Header": "Ctrl"
+          },
+          "Shift": {
+            "Header": "Mayús"
+          },
+          "Windows": {
+            "Header": "Win"
+          },
+          "Action": {
+            "Header": "Acción"
+          }
+        },
+        "CreateNewHotkeyButton": {
+          "Content": "Crear un atajo",
+          "Tooltip": "Crear un atajo vacío."
+        }
+      },
+      "Settings": {
+        "TabHeader": "Configuración",
+        "Language": {
+          "Header": "Idioma",
+          "CustomLocations": "Ubicación personalizada",
+          "Reload": {
+            "Content": "Actualizar",
+            "Tooltip": "Actualizar todos los archivos de configuración de idioma desde el disco duro."
+          }
+        },
+        "Audio": {
+          "Header": "Audio",
+          "AdditionalSettings": {
+            "Header": {
+              "Content": "Configuración adicional",
+              "Tooltip": {}
+            },
+            "ShowPeakMeters": {
+              "Content": "Mostrar medidor de niveles de audio",
+              "Tooltip": "(Des)activar la visualización de los niveles de audio en las notificaciones."
+            },
+            "UpdateInterval": {
+              "Content": "Frecuencia de actualizacion",
+              "Tooltip": "La cantidad de tiempo, en milisegundos, entre cada actualización del medidor de volumen."
+            },
+            "EnableDeviceControl": {
+              "Content": "Mostrar controles de los dispositivos",
+              "Tooltip": "(Des)activar la visibilidad de los controles de volumen y silencio en la sección de dispositivos."
+            },
+            "HiddenSessions": {
+              "Content": "Sesiones ocultas",
+              "Tooltip": {}
+            }
+          },
+          "DeviceGrid": {
+            "Enabled": {
+              "Header": {
+                "Tooltip": "(De)seleccionar todos los dispositivos."
+              },
+              "Tooltip": "Puedes incluir o excluir dispositivos específicos desde aquí."
+            },
+            "Name": {
+              "Header": "Nombre del dispositivo"
+            },
+            "Interface": {
+              "Header": "Nombre de la interfaz"
+            },
+            "Mute": {
+              "Header": "Silenciar"
+            },
+            "Volume": {
+              "Header": "Volumen"
+            }
+          }
+        },
+        "Notifications": {
+          "Header": "Notificaciones",
+          "AdditionalSettings": {
+            "Header": {
+              "Content": "Configuración adicional",
+              "Tooltip": {}
+            },
+            "ResetPosition": {
+              "Content": "Restablecer la posición de las notificaciones",
+              "Tooltip": "Restablecer la posición de las notificaciones si desaparecen."
+            },
+            "ForceHide": {
+              "Content": "Ocultar",
+              "Tooltip": "Forzar la desaparición de la ventana de notificaciones."
+            },
+            "HiddenSessions": {
+              "Content": "Sesiones ocultas",
+              "Tooltip": {}
+            }
+          },
+          "Enable": {
+            "Content": "Habilitar",
+            "Tooltip": "(Des)habilitar las notificaciones de las sesiones."
+          },
+          "OnVolumeChange": {
+            "Content": "Al modificar el volumen",
+            "Tooltip": "Mostrar notificaciones al cambiar el volumen o al (de)silenciar."
+          },
+          "Timeout": {
+            "Content": "Tiempo de espera",
+            "Tooltip": "La cantidad de tiempo, en milisegundos, que las notificaciones permanecerán visibles tras ser activadas."
+          },
+          "SessionListNotificationConfig": {
+            "Header": {
+              "Content": "Ajustes de notificación de sesiones",
+              "Tooltip": {}
+            }
+          },
+          "DeviceListNotificationConfig": {
+            "Header": {
+              "Content": "Ajustes de notificación de dispositivos",
+              "Tooltip": {}
+            }
+          },
+          "ColorPicker": {
+            "Background": {
+              "Tooltip": "Establece el color de fondo de la ventana de notificaciones."
+            },
+            "Foreground": {
+              "Tooltip": "Establece el color del texto de la ventana de notificaciones."
+            },
+            "LockedAccent": {
+              "Tooltip": "Establece el color de énfasis de la ventana de notificaciones cuando la selección está bloqueada."
+            },
+            "UnlockedAccent": {
+              "Tooltip": "Establece el color de énfasis de la ventana de notificaciones cuando la selección está desbloqueada."
+            }
+          },
+          "CornerRadius": {
+            "Content": "Radio de las esquinas:",
+            "Tooltip": "Radio de las esquinas de la ventana de notificaciones, empezando en la esquina superior izquierda y avanzando en sentido horario."
+          }
+        },
+        "Log": {
+          "Header": "Registro de eventos",
+          "Enable": {
+            "Content": "Habilitar"
+          },
+          "Filter": {
+            "Text": "Filtros"
+          },
+          "Path": {
+            "Tooltip": "Especifica la ubicación y el nombre del archivo de registro. Las rutas relativas son relativas a la ubicación del archivo ejecutable.",
+            "WatermarkText": "Ruta al archivo de registro"
+          },
+          "OpenButton": {
+            "Content": "Abrir",
+            "Tooltip": "Abrir el archivo de registro en la aplicación predeterminada."
+          }
+        },
+        "Application": {
+          "Header": "Aplicación",
+          "RunAtStartup": {
+            "Content": "Ejecutar al iniciar",
+            "Tooltip": "Cuando está habilitado, Volume Control se iniciará al iniciar sesión.",
+            "AltTooltip": "Otra instancia de Volume Control está configurada para ejecutarse al inicio. Cambiar esto la reemplazará."
+          },
+          "StartMinimized": {
+            "Content": "Iniciar minimizado",
+            "Tooltip": "Cuando está habilitado, Volume Control se minimizará al iniciarse."
+          },
+          "MultiInstance": {
+            "Content": "Multi-instancias",
+            "Tooltip": "Permite que varias instancias de Volume Control se ejecuten al mismo tiempo, siempre que utilicen un archivo de configuración diferente."
+          },
+          "ShowInTaskbar": {
+            "Content": "Mostrar en la barra de tareas",
+            "Tooltip": {}
+          },
+          "AlwaysOnTop": {
+            "Content": "Siempre en primer plano",
+            "Tooltip": {}
+          },
+          "ShowIcons": {
+            "Content": "Mostrar iconos",
+            "Tooltip": "(Des)habilitar la visualización de los iconos de dispositivos y sesiones."
+          },
+          "KeepRelativePosition": {
+            "Content": "Mantener posición relativa",
+            "Tooltip": "Mantener la ventana principal en la misma posición relativa a la esquina de la pantalla más cercana cuando su tamaño cambia."
+          },
+          "RestorePosition": {
+            "Content": "Restaurar posición",
+            "Tooltip": "Restaurar la posición anterior de la ventana principal al iniciar el programa."
+          },
+          "EnableInputDevices": {
+            "Content": "Soporte de entrada de audio",
+            "Tooltip": "(Des)habilitar el soporte para dispositivos de captura y sesiones que graban audio."
+          }
+        },
+        "Updates": {
+          "Header": "Actualizaciones",
+          "CheckNow": {
+            "Content": "Comprobar ahora",
+            "Tooltip": "Comprobar manualmente si hay nuevas versiones de Volume Control."
+          },
+          "OnStartup": {
+            "Content": "Al iniciar",
+            "Tooltip": "Comprobar si hay nuevas versiones de Volume Control al iniciar."
+          },
+          "ShowPrompt": {
+            "Content": "Mostrar mensaje",
+            "Tooltip": "Si esta opción está seleccionada, se te pedirá que actualices mediante un cuadro de mensaje; de lo contrario, verás un icono en la esquina superior derecha."
+          }
+        }
+      },
+      "About": {
+        "TabHeader": "Acerca de",
+        "ReportABug": {
+          "Content": "Informar de un error",
+          "Tooltip": "Infórmanos si algo no está funcionando correctamente."
+        },
+        "OpenWebsite": {
+          "Content": "Sito web oficial",
+          "Tooltip": "Abrir el sitio web oficial de Volume Control en tu navegador predeterminado."
+        },
+        "ShowDebugInfo": {
+          "Header": {
+            "Content": "Mostrar información de depuración",
+            "Tooltip": {}
+          },
+          "ConfigPath": {
+            "Content": {
+              "Español (Spain)": ""
+            },
+            "Tooltip": {
+              "Español (Spain)": ""
+            }
+          }
+        }
+      }
+    },
+
+    "ListNotification": {
+      "Options": {
+        "Header": "Opciones",
+        "ShowControls": {
+          "Content": "Mostrar controles",
+          "Tooltip": "Alterna la visibilidad de los controles avanzados junto a los elementos de la lista."
+        },
+        "DragRequiresAlt": {
+          "Content": "Arrastrar requiere 'Alt'",
+          "Tooltip": "Si esta opción está seleccionada, se debe mantener presionada la tecla 'Alt' para arrastrar la ventana de notificaciones."
+        },
+        "SavePosition": {
+          "Content": "Guardar posición",
+          "Tooltip": {}
+        },
+        "DoFadeIn": {
+          "Content": "Desvanecer (entrada)",
+          "Tooltip": "Si esta opción está seleccionada, la ventana de notificaciones muestra una animación de desvanecimiento en lugar de aparecer de inmediato."
+        },
+        "FadeInDuration": {
+          "Tooltip": "Especifica la duración de la animación de desvanecimiento en milisegundos."
+        },
+        "DoFadeOut": {
+          "Content": "Desvanecer (salida)",
+          "Tooltip": "Si esta opción está seleccionada, la ventana de notificaciones muestra una animación de desvanecimiento en lugar de desaparecer de inmediato."
+        },
+        "FadeOutDuration": {
+          "Tooltip": "Especifica la duración de la animación de desvanecimiento en milisegundos."
+        }
+      }
+    },
+
+    "ActionSettingsWindow": {
+      "DataTemplateErrorTextBlock": {
+        "Tooltip": "¡No hay una plantilla de datos disponible para este tipo de valor!"
+      },
+      "ToggleActionSetting": {
+        "Content": "Habilitar",
+        "Tooltip": "Esta opción de acción se habilita cuando está marcada."
+      },
+      "ActionTargetSpecifierDataTemplate": {
+        "AddTargetBox": {
+          "DefaultText": "Nombre del destino..."
+        }
+      }
+    },
+
+    "Dialogs": {
+      "AnotherInstanceIsRunning": {
+        "MultiInstance": "¡Otra instancia de Volume Control está utilizando el archivo de configuración ubicado en '${PATH}'!",
+        "SingleInstance": "¡Otra instancia de Volume Control ya está en ejecución!"
+      },
+      "UpdatePrompt": {
+        "DontShowInFutureMsg": "No se mostrarán las notificaciones de actualización en el futuro.",
+        "NewVersionAvailableMessage": "¡Hay una nueva versión de Volume Control disponible!\n¿Quieres ir a la página de lanzamientos?\nVersión actual: ${CURRENT_VERSION}\nÚltima versión: ${LATEST_VERSION}",
+        "NewVersionAvailableOptions_AutoUpdate": "Haz clic en 'Sí' para instalar la última versión.\nHaz clic en 'No' si no deseas actualizar ahora.\nHaz clic en 'Cancelar' para desactivar estas notificaciones.",
+        "NewVersionAvailableOptions_OpenBrowser": "Haz clic en 'Sí' para ir a la página de lanzamientos.\nHaz clic en 'No' si no deseas actualizar ahora.\nHaz clic en 'Cancelar' para desactivar estas notificaciones.",
+        "DownloadFailed": {
+          "Caption": "Descarga fallida",
+          "Message": "Ocurrió un error al descargar el instalador, revisa el registro para más información.\n¿Quieres abrir la página de lanzamientos?"
+        },
+        "StartFailed": {
+          "Caption": "No se pudo iniciar el instalador",
+          "Message": "No se pudo iniciar el instalador\nNo se pudo iniciar el instalador, pero se descargó con éxito.\nEs posible que los permisos de tu sistema no permitan ejecutar aplicaciones desde la carpeta de descargas.\n\nTendrás que iniciar el instalador manualmente."
+        }
+      },
+      "ResetHotkeys": {
+        "Message": "¿Estás seguro de que quieres restablecer todos los atajos a sus valores predeterminados?\n\n¡Esto no se puede deshacer!",
+        "Caption": "¿Restablecer atajos?"
+      },
+      "RemoveHotkey": {
+        "Message": "¿Estás seguro de que deseas eliminar el atajo ${ID}?\n\n- 'Sí' Eliminar el atajo.\n- 'No' No eliminar el atajo.\n- 'Cancelar' No mostrar esto de nuevo. (Presiona de nuevo para eliminar)",
+        "Caption": "Confirmar eliminación"
+      },
+      "MultiInstanceChanged": {
+        "Message": "Los cambios en la configuración de Multi-Instancias tendrán efecto después de reiniciar Volume Control.\n\n¿Quieres reiniciar la aplicación ahora?",
+        "Caption": "Reinicio de la aplicación necesario"
+      }
+    },
+
+    "NotifyIcon": {
+      "BringToFront": "Traer al frente",
+      "Hide": "Ocultar",
+      "Show": "Mostrar",
+      "OpenLocation": "Abrir ubicación",
+      "OpenAppData": "Abrir AppDatta",
+      "Close": "Cerrar"
+    }
+  },
+
+  "Enums": {
+    "ENotificationViewMode": {
+      "ControlBar": "Barra de control",
+      "SelectedItemOnly": "Sólo elementos seleccionados",
+      "AllItems": "Todos los elementos"
+    },
+    "EFriendlyKey": {
+      "None": { "Español (Spain)": "Ninguno" },
+      "Cancel": { "Español (Spain)": "Cancelar" },
+      "Backspace": { "Español (Spain)": "Retroceso" },
+      "Tab": { "Español (Spain)": "Tabulador" },
+      "Clear": { "Español (Spain)": "Borrar" },
+      "Enter": { "Español (Spain)": "Entrar" },
+      "PauseBreak": { "Español (Spain)": "Pausa/Interrumpir" },
+      "CapsLock": { "Español (Spain)": "Bloq Mayús" },
+      "Escape": { "Español (Spain)": "Esc" },
+      "Space": { "Español (Spain)": "Espacio" },
+      "PageUp": { "Español (Spain)": "Re Pág" },
+      "PageDown": { "Español (Spain)": "Av Pág" },
+      "End": { "Español (Spain)": "Fin" },
+      "Home": { "Español (Spain)": "Inicio" },
+      "LeftArrow": { "Español (Spain)": "Flecha Izquierda" },
+      "UpArrow": { "Español (Spain)": "Flecha Arriba" },
+      "RightArrow": { "Español (Spain)": "Flecha Derecha" },
+      "DownArrow": { "Español (Spain)": "Flecha Abajo" },
+      "Select": { "Español (Spain)": "Seleccionar" },
+      "Print": { "Español (Spain)": "Imprimir" },
+      "Execute": { "Español (Spain)": "Ejecutar" },
+      "PrintScreen": { "Español (Spain)": "Imprimir Pantalla" },
+      "Insert": { "Español (Spain)": "Insertar" },
+      "Delete": { "Español (Spain)": "Suprimir" },
+      "Help": { "Español (Spain)": "Ayuda" },
+      "D0": { "Español (Spain)": "0" },
+      "D1": { "Español (Spain)": "1" },
+      "D2": { "Español (Spain)": "2" },
+      "D3": { "Español (Spain)": "3" },
+      "D4": { "Español (Spain)": "4" },
+      "D5": { "Español (Spain)": "5" },
+      "D6": { "Español (Spain)": "6" },
+      "D7": { "Español (Spain)": "7" },
+      "D8": { "Español (Spain)": "8" },
+      "D9": { "Español (Spain)": "9" },
+      "A": { "Español (Spain)": "A" },
+      "B": { "Español (Spain)": "B" },
+      "C": { "Español (Spain)": "C" },
+      "D": { "Español (Spain)": "D" },
+      "E": { "Español (Spain)": "E" },
+      "F": { "Español (Spain)": "F" },
+      "G": { "Español (Spain)": "G" },
+      "H": { "Español (Spain)": "H" },
+      "I": { "Español (Spain)": "I" },
+      "J": { "Español (Spain)": "J" },
+      "K": { "Español (Spain)": "K" },
+      "L": { "Español (Spain)": "L" },
+      "M": { "Español (Spain)": "M" },
+      "N": { "Español (Spain)": "N" },
+      "O": { "Español (Spain)": "O" },
+      "P": { "Español (Spain)": "P" },
+      "Q": { "Español (Spain)": "Q" },
+      "R": { "Español (Spain)": "R" },
+      "S": { "Español (Spain)": "S" },
+      "T": { "Español (Spain)": "T" },
+      "U": { "Español (Spain)": "U" },
+      "V": { "Español (Spain)": "V" },
+      "W": { "Español (Spain)": "W" },
+      "X": { "Español (Spain)": "X" },
+      "Y": { "Español (Spain)": "Y" },
+      "Z": { "Español (Spain)": "Z" },
+      "Apps": { "Español (Spain)": "Aplicaciones" },
+      "Sleep": { "Español (Spain)": "Suspender" },
+      "NumPad0": { "Español (Spain)": "Numpad 0" },
+      "NumPad1": { "Español (Spain)": "Numpad 1" },
+      "NumPad2": { "Español (Spain)": "Numpad 2" },
+      "NumPad3": { "Español (Spain)": "Numpad 3" },
+      "NumPad4": { "Español (Spain)": "Numpad 4" },
+      "NumPad5": { "Español (Spain)": "Numpad 5" },
+      "NumPad6": { "Español (Spain)": "Numpad 6" },
+      "NumPad7": { "Español (Spain)": "Numpad 7" },
+      "NumPad8": { "Español (Spain)": "Numpad 8" },
+      "NumPad9": { "Español (Spain)": "Numpad 9" },
+      "NumPadMultiply": { "Español (Spain)": "Numpad *" },
+      "NumPadAdd": { "Español (Spain)": "Numpad +" },
+      "Separator": { "Español (Spain)": "Separador" },
+      "NumPadSubtract": { "Español (Spain)": "Numpad -" },
+      "NumPadDecimal": { "Español (Spain)": "Numpad ." },
+      "NumPadDivide": { "Español (Spain)": "Numpad /" },
+      "F1": { "Español (Spain)": "F1" },
+      "F2": { "Español (Spain)": "F2" },
+      "F3": { "Español (Spain)": "F3" },
+      "F4": { "Español (Spain)": "F4" },
+      "F5": { "Español (Spain)": "F5" },
+      "F6": { "Español (Spain)": "F6" },
+      "F7": { "Español (Spain)": "F7" },
+      "F8": { "Español (Spain)": "F8" },
+      "F9": { "Español (Spain)": "F9" },
+      "F10": { "Español (Spain)": "F10" },
+      "F11": { "Español (Spain)": "F11" },
+      "F12": { "Español (Spain)": "F12" },
+      "F13": { "Español (Spain)": "F13" },
+      "F14": { "Español (Spain)": "F14" },
+      "F15": { "Español (Spain)": "F15" },
+      "F16": { "Español (Spain)": "F16" },
+      "F17": { "Español (Spain)": "F17" },
+      "F18": { "Español (Spain)": "F18" },
+      "F19": { "Español (Spain)": "F19" },
+      "F20": { "Español (Spain)": "F20" },
+      "F21": { "Español (Spain)": "F21" },
+      "F22": { "Español (Spain)": "F22" },
+      "F23": { "Español (Spain)": "F23" },
+      "F24": { "Español (Spain)": "F24" },
+      "NumLock": { "Español (Spain)": "NumLock" },
+      "ScrollLock": { "Español (Spain)": "ScrollLock" },
+      "BrowserBack": { "Español (Spain)": "Navegar Atrás" },
+      "BrowserForward": { "Español (Spain)": "Navegar Adelante" },
+      "BrowserRefresh": { "Español (Spain)": "Refrescar" },
+      "BrowserStop": { "Español (Spain)": "Detener" },
+      "BrowserSearch": { "Español (Spain)": "Buscar" },
+      "BrowserFavorites": { "Español (Spain)": "Favoritos" },
+      "BrowserHome": { "Español (Spain)": "Inicio" },
+      "VolumeMute": { "Español (Spain)": "Silenciar" },
+      "VolumeDown": { "Español (Spain)": "Bajar Volumen" },
+      "VolumeUp": { "Español (Spain)": "Subir Volumen" },
+      "MediaNextTrack": { "Español (Spain)": "Siguiente Pista" },
+      "MediaPreviousTrack": { "Español (Spain)": "Pista Anterior" },
+      "MediaStop": { "Español (Spain)": "Detener Multimedia" },
+      "MediaPlayPause": { "Español (Spain)": "Reproducir/Pausar" },
+      "LaunchMail": { "Español (Spain)": "Abrir Correo" },
+      "SelectMedia": { "Español (Spain)": "Seleccionar Multimedia" },
+      "LaunchApplication1": { "Español (Spain)": "Abrir Aplicación 1" },
+      "LaunchApplication2": { "Español (Spain)": "Abrir Aplicación 2" },
+      "Semicolon": { "Español (Spain)": "Punto y Coma" },
+      "Equals": { "Español (Spain)": "Igual" },
+      "Comma": { "Español (Spain)": "Coma" },
+      "Dash": { "Español (Spain)": "Guión" },
+      "Period": { "Español (Spain)": "Punto" },
+      "ForwardSlash": { "Español (Spain)": "Barra" },
+      "Grave": { "Español (Spain)": "Acento Grave" },
+      "OpenBracket": { "Español (Spain)": "Corchete Abierto" },
+      "BackSlash": { "Español (Spain)": "Barra Invertida" },
+      "CloseBracket": { "Español (Spain)": "Corchete Cerrado" },
+      "Quote": { "Español (Spain)": "Comillas" },
+      "Oem8": { "Español (Spain)": "Oem8" },
+      "OemBackslash": { "Español (Spain)": "Barra Invertida Oem" },
+      "ImeProcess": { "Español (Spain)": "Proceso Ime" },
+      "Attn": { "Español (Spain)": "Atención" },
+      "CrSel": { "Español (Spain)": "CrSel" },
+      "ExSel": { "Español (Spain)": "ExSel" },
+      "EraseEof": { "Español (Spain)": "Borrar Fin" },
+      "Play": { "Español (Spain)": "Reproducir" },
+      "Zoom": { "Español (Spain)": "Acercar" },
+      "Pa1": { "Español (Spain)": "Pa1" },
+      "OemClear": { "Español (Spain)": "OemClear" },
+      "ImeKanaMode": { "Español (Spain)": "Modo Ime Kana" },
+      "ImeJunjaMode": { "Español (Spain)": "Modo Ime Junja" },
+      "ImeFinalMode": { "Español (Spain)": "Modo Ime Final" },
+      "ImeHanjaMode": { "Español (Spain)": "Modo Ime Hanja" },
+      "ImeConvert": { "Español (Spain)": "Convertir Ime" },
+      "ImeNonConvert": { "Español (Spain)": "No Convertir Ime" },
+      "ImeAccept": { "Español (Spain)": "Aceptar Ime" },
+      "ImeModeChange": { "Español (Spain)": "Cambiar Modo Ime" }
+    }
+  },
+
+  "DefaultHotkeyNames": {
+    "Volume Up": "Subir volumen",
+    "Volume Down": "Bajar volumen",
+    "Toggle Mute": "Silenciar",
+    "Next Session": "Siguiente sesión",
+    "Previous Session": "Sesión anterior",
+    "Un/Lock Session": {
+      "Español (Spain)": "(Des)bloquear sesión"
+    },
+    "Toggle Selected": "Alternar seleccionado"
+  }
+}
