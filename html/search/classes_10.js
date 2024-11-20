@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['realnumberextensions_1403',['RealNumberExtensions',['../class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html',1,'VolumeControl::TypeExtensions']]],
-  ['rect_1404',['RECT',['../struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html',1,'VolumeControl::WPF::PInvoke']]],
-  ['reflectionextensions_1405',['ReflectionExtensions',['../class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html',1,'VolumeControl::TypeExtensions']]],
-  ['resourcedictionarytemplateprovider_1406',['ResourceDictionaryTemplateProvider',['../class_volume_control_1_1_core_1_1_resource_dictionary_template_provider.html',1,'VolumeControl::Core']]]
+  ['realnumberextensions_1404',['RealNumberExtensions',['../class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html',1,'VolumeControl::TypeExtensions']]],
+  ['rect_1405',['RECT',['../struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html',1,'VolumeControl::WPF::PInvoke']]],
+  ['reflectionextensions_1406',['ReflectionExtensions',['../class_volume_control_1_1_type_extensions_1_1_reflection_extensions.html',1,'VolumeControl::TypeExtensions']]],
+  ['resourcedictionarytemplateprovider_1407',['ResourceDictionaryTemplateProvider',['../class_volume_control_1_1_core_1_1_resource_dictionary_template_provider.html',1,'VolumeControl::Core']]]
 ];
