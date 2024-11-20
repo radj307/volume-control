@@ -92,12 +92,15 @@ namespace VolumeControl.Core
         /// <inheritdoc/>
         public void Save(Formatting formatting = Formatting.Indented, [CallerMemberName] string callerName = "")
         {
+            // write a log message if enabled
             if (FLog.FilterEventType(EventType.TRACE))
                 FLog.Trace($"Saved {nameof(Config)} (Caller: \"{callerName}\")");
             base.Save(formatting);
         }
+        /// <inheritdoc/>
         public override bool Load()
         {
+            // write a log message if enabled
             if (FLog.IsInitialized && FLog.FilterEventType(EventType.TRACE))
                 FLog.Trace($"Loaded {nameof(Config)} from {Location}.");
             return base.Load();
