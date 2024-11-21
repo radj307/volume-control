@@ -38,6 +38,9 @@
           },
           "Select": {
             "Button": "Seleziona"
+          },
+          "Device": {
+            "Header": "Dispositivi"
           }
         }
       },
@@ -122,6 +125,10 @@
             "HiddenSessions": {
               "Content": "Sessioni nascoste",
               "Tooltip": {}
+            },
+            "HideInactiveSessions": {
+              "Content": "Ignora sessioni non attive",
+              "Tooltip": "Attiva/disattiva l'opzione per nascondere le sessioni non attive nella finestra di notifica e ignorare le sessioni inattive nelle azioni dei tasti di scelta rapida."
             }
           },
           "DeviceGrid": {

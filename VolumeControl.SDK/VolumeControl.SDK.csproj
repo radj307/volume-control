@@ -20,7 +20,7 @@
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <FileVersion>6.7.0</FileVersion>
-    <Version>6.7.0-rc1</Version>
+    <Version>6.7.0-rc2</Version>
     <Copyright>Copyright © 2022-2024 by $(Authors)</Copyright>
     <DocumentationFile>../publish/$(MSBuildProjectName).xml</DocumentationFile>
   </PropertyGroup>
