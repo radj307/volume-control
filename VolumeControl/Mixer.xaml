@@ -140,7 +140,7 @@
                                                    Converter={StaticResource MultiBindingBooleanConverter}}"
                         Style="{StaticResource RoundedTextBoxStyle}"
                         Text="{Binding ConfigSection.FadeInDuration, UpdateSourceTrigger=LostFocus}"
-                        ToolTip="{Tr 'VolumeControl.ListNotification.Options.FadeIn.Tooltip',
+                        ToolTip="{Tr 'VolumeControl.ListNotification.Options.FadeInDuration.Tooltip',
                                      DefaultText='Specifies the duration of the fade-in animation in milliseconds.'}" />
 
                     <!--  Row 3 ; Column 0-1  -->
@@ -167,7 +167,7 @@
                                                    Converter={StaticResource MultiBindingBooleanConverter}}"
                         Style="{StaticResource RoundedTextBoxStyle}"
                         Text="{Binding ConfigSection.FadeOutDuration, UpdateSourceTrigger=LostFocus}"
-                        ToolTip="{Tr 'VolumeControl.ListNotification.Options.FadeOut.Tooltip',
+                        ToolTip="{Tr 'VolumeControl.ListNotification.Options.FadeOutDuration.Tooltip',
                                      DefaultText='Specifies the duration of the fade-out animation in milliseconds.'}" />
 
                     <!--  Row 4 ; Column 0-1  -->
@@ -933,8 +933,8 @@
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate DataType="{x:Type vm:AudioSessionVM}">
                                                         <TextBlock
-                                                            Margin="6,0"
                                                             Grid.Column="1"
+                                                            Margin="6,0"
                                                             HorizontalAlignment="Stretch"
                                                             VerticalAlignment="Center"
                                                             Background="#0000"
@@ -1477,11 +1477,11 @@
                                                                      DefaultText='Toggle the visibility of volume &amp; mute controls in the Audio Devices section.'}" />
                                                     <CheckBox
                                                         Content="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.HideInactiveSessions.Content',
-                                                                    DefaultText='Hide Inactive Sessions'}"
+                                                                     DefaultText='Hide Inactive Sessions'}"
                                                         IsChecked="{Binding HideInactiveSessions, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                         Style="{StaticResource ApplicationSettingsCheckboxStyle}"
                                                         ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.HideInactiveSessions.Tooltip',
-                                                                    DefaultText=' '}" />
+                                                                     DefaultText=' '}" />
                                                 </StackPanel>
 
                                                 <!--  Hidden Sessions  -->
