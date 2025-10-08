@@ -1,4 +1,5 @@
 <map id="VolumeControl.WPF.Converters.ArrayHasItemsBooleanConverter" name="VolumeControl.WPF.Converters.ArrayHasItemsBooleanConverter">
-<area shape="rect" id="node1" title="Converts from an arbitrary array of items to a boolean value that depends on whether the array is emp..." alt="" coords="5,131,241,237"/>
-<area shape="rect" id="node2" title=" " alt="" coords="60,5,187,83"/>
+<area shape="rect" id="Node000001" title="Converts from an arbitrary array of items to a boolean value that depends on whether the array is emp..." alt="" coords="5,119,233,219"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="60,5,179,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,84,122,119,117,119,117,84"/>
 </map>

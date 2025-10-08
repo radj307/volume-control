@@ -1,5 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,46,148,73"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html" title="Event arguments for hotkey action events." alt="" coords="203,5,397,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_registering_event_args.html" title="Provides data for the hotkey Registering and Unregistering events." alt="" coords="196,71,404,112"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,60,140,85"/>
+<area shape="rect" id="Node000001" href="$class_volume_control_1_1_w_p_f_1_1_controls_1_1_text_box_with_completion_options_1_1_committed_text_event_args.html" title="Event arguments for the CommittedTextEventHandler event type." alt="" coords="188,5,495,60"/>
+<area shape="poly" id="edge128_Node000000_Node000001" title=" " alt="" coords="153,58,187,53,188,58,154,63"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_w_p_f_1_1_controls_1_1_text_box_with_completion_options_1_1_suggestion_clicked_event_args.html" title="Event arguments for the SuggestionClickedEventHandler event type." alt="" coords="189,84,494,139"/>
+<area shape="poly" id="edge129_Node000000_Node000002" title=" " alt="" coords="154,82,189,87,188,92,153,87"/>
 </map>

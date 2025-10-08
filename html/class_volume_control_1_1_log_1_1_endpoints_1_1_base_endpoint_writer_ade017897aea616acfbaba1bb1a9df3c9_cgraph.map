@@ -1,0 +1,5 @@
+<map id="VolumeControl.Log.Endpoints.BaseEndpointWriter.Write" name="VolumeControl.Log.Endpoints.BaseEndpointWriter.Write">
+<area shape="rect" id="Node000001" title="Writes the specified string &#160;to the endpoint." alt="" coords="5,5,223,45"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#ae804decb0988d5b7b6031a95601b6a82" title="Gets a TextWriter object for writing to this endpoint.The caller is responsible for disposing of the ..." alt="" coords="271,5,515,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="223,23,257,23,257,28,223,28"/>
+</map>

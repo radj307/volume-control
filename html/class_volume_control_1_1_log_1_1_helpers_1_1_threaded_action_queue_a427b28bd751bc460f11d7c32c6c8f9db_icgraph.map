@@ -1,4 +1,5 @@
 <map id="VolumeControl.Log.Helpers.ThreadedActionQueue.Enqueue" name="VolumeControl.Log.Helpers.ThreadedActionQueue.Enqueue">
-<area shape="rect" id="node1" title="Adds the specified action &#160;to the queue." alt="" coords="264,5,491,47"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_async_log_writer.html#a3c401702e65b85ab4733c733e7a08b8c" title="Writes the specified logMessage &#160;to the log, if its event type is enabled by the filter." alt="" coords="5,5,216,47"/>
+<area shape="rect" id="Node000001" title="Adds the specified action &#160;to the queue." alt="" coords="264,5,491,45"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_log_1_1_async_log_writer.html#a3c401702e65b85ab4733c733e7a08b8c" title="Writes the specified logMessage &#160;to the log, if its event type is enabled by the filter...." alt="" coords="5,5,216,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="250,28,216,28,216,23,250,23"/>
 </map>

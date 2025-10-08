@@ -1,6 +1,9 @@
 <map id="VolumeControl.Log.Endpoints.ConsoleEndpoint" name="VolumeControl.Log.Endpoints.ConsoleEndpoint">
-<area shape="rect" id="node1" title="Allows using the Console as a logging endpoint." alt="" coords="63,388,281,539"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html" title="Abstract base class for endpoint writers." alt="" coords="73,175,271,340"/>
-<area shape="rect" id="node3" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html" title="Represents an endpoint that text can be written to." alt="" coords="5,5,152,127"/>
-<area shape="rect" id="node4" title=" " alt="" coords="177,27,354,105"/>
+<area shape="rect" id="Node000001" title="Allows using the Console as a logging endpoint." alt="" coords="59,412,269,572"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html" title="Abstract base class for endpoint writers." alt="" coords="69,179,259,364"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,378,167,412,161,412,161,378"/>
+<area shape="rect" id="Node000003" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html" title="Represents an endpoint that text can be written to." alt="" coords="5,5,144,131"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="110,142,126,177,121,180,105,144"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="169,35,338,101"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="236,114,207,180,202,178,231,112"/>
 </map>

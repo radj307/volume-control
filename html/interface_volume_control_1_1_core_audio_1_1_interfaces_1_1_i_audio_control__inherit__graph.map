@@ -1,6 +1,10 @@
 <map id="VolumeControl.CoreAudio.Interfaces.IAudioControl" name="VolumeControl.CoreAudio.Interfaces.IAudioControl">
-<area shape="rect" id="node1" title="Represents an audio instance with a controllable volume level and mute state." alt="" coords="140,5,333,141"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_device.html" title="An audio endpoint device." alt="" coords="5,189,199,531"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device." alt="" coords="195,579,433,964"/>
-<area shape="rect" id="node4" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_hideable_audio_control.html" title="Represents an audio instance that can be prevented from becoming selected." alt="" coords="274,314,511,406"/>
+<area shape="rect" id="Node000001" title="Represents an audio instance with a controllable volume level and mute state." alt="" coords="136,5,321,145"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_core_audio_1_1_audio_device.html" title="An audio endpoint device." alt="" coords="5,193,191,613"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,159,184,194,179,192,193,157"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device." alt="" coords="190,661,419,1161"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="232,159,239,366,246,489,257,613,263,661,257,661,251,614,240,490,233,366,227,159"/>
+<area shape="rect" id="Node000004" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_hideable_audio_control.html" title="Represents an audio instance that can be prevented from becoming selected." alt="" coords="266,363,495,443"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="269,157,365,362,360,364,264,159"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="375,458,345,661,339,661,370,457"/>
 </map>

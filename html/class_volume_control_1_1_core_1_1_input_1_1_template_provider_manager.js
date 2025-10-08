@@ -11,7 +11,7 @@ var class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager =
     [ "FindDataTemplate", "class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a9bc51db70005a6e1308df77609131c10", null ],
     [ "FindDataTemplateFor", "class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a692ff98bae9025c7dc0f0fb229067a07", null ],
     [ "FindDataTemplateFor", "class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#acfcbafeff4989d44913efe0f90a0a337", null ],
-    [ "GetProviderResourceDictionaries", "class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a8fd26e0aaa43db4cfa85f40d1d33253d", null ],
+    [ "GetProviderResourceDictionaries", "class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a735b37bc1702f51fe67e37a9186da8e0", null ],
     [ "IndexOfDictionaryProviderType", "class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a45dcb0ab3fcfe3333722b73ce9d0bbd8", null ],
     [ "IndexOfProviderType", "class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#ab05a1e9263dfe8ccd7b6166abefd84d5", null ],
     [ "TryGetDictionaryProvider", "class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a8c3fd49c36da88da9e1a49bd056d5df1", null ],

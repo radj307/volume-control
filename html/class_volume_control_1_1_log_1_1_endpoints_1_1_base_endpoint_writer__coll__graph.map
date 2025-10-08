@@ -1,5 +1,7 @@
 <map id="VolumeControl.Log.Endpoints.BaseEndpointWriter" name="VolumeControl.Log.Endpoints.BaseEndpointWriter">
-<area shape="rect" id="node1" title="Abstract base class for endpoint writers." alt="" coords="63,175,281,355"/>
-<area shape="rect" id="node2" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html" title="Represents an endpoint that text can be written to." alt="" coords="5,5,152,127"/>
-<area shape="rect" id="node3" title=" " alt="" coords="177,27,354,105"/>
+<area shape="rect" id="Node000001" title="Abstract base class for endpoint writers." alt="" coords="59,179,269,379"/>
+<area shape="rect" id="Node000002" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html" title="Represents an endpoint that text can be written to." alt="" coords="5,5,144,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,143,124,177,119,179,104,145"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="169,35,338,101"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="237,115,209,180,204,178,232,112"/>
 </map>

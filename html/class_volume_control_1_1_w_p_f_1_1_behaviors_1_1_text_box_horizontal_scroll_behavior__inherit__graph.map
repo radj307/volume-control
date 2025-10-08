@@ -1,4 +1,5 @@
 <map id="VolumeControl.WPF.Behaviors.TextBoxHorizontalScrollBehavior" name="VolumeControl.WPF.Behaviors.TextBoxHorizontalScrollBehavior">
-<area shape="rect" id="node1" title="Scrolls horizontally when scrolling while holding SHIFT in TextBoxBase controls." alt="" coords="5,131,240,252"/>
-<area shape="rect" id="node2" title=" " alt="" coords="25,5,220,83"/>
+<area shape="rect" id="Node000001" title="Scrolls horizontally when scrolling while holding SHIFT in TextBoxBase controls." alt="" coords="5,119,232,239"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="25,5,212,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,85,121,118,116,118,116,85"/>
 </map>

@@ -1,5 +1,7 @@
 <map id="VolumeControl.Log.Helpers.ThreadedActionQueue" name="VolumeControl.Log.Helpers.ThreadedActionQueue">
-<area shape="rect" id="node1" title="Manages a background thread to execute queued actions." alt="" coords="9,131,212,296"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_async_log_writer.html" title="Asynchonously writes messages to the log endpoint." alt="" coords="5,344,216,715"/>
-<area shape="rect" id="node2" title=" " alt="" coords="61,5,160,83"/>
+<area shape="rect" id="Node000001" title="Manages a background thread to execute queued actions." alt="" coords="9,119,204,299"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_log_1_1_async_log_writer.html" title="Asynchonously writes messages to the log endpoint." alt="" coords="5,347,208,807"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="109,312,109,346,104,346,104,312"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="61,5,152,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,85,109,118,104,118,104,85"/>
 </map>

@@ -1,5 +1,7 @@
 <map id="VolumeControl.WPF.Converters.BoolToBrushConverter" name="VolumeControl.WPF.Converters.BoolToBrushConverter">
-<area shape="rect" id="node1" title="Converts between bool and given Brush instances." alt="" coords="44,131,272,311"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,151,83"/>
-<area shape="rect" id="node3" title=" " alt="" coords="175,5,301,83"/>
+<area shape="rect" id="Node000001" title="Converts between bool and given Brush instances." alt="" coords="40,119,260,319"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,143,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,82,110,118,105,120,90,84"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="167,5,285,71"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="210,84,195,120,190,118,205,82"/>
 </map>

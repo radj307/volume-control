@@ -1,6 +1,6 @@
 var namespace_volume_control_1_1_w_p_f_1_1_extensions =
 [
-    [ "DispatcherExtensions", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_dispatcher_extensions.html", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_dispatcher_extensions" ],
+    [ "DispatcherExtensions", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_dispatcher_extensions.html", null ],
     [ "WindowPositioningExtensions", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_window_positioning_extensions.html", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_window_positioning_extensions" ],
     [ "EScreenCorner", "namespace_volume_control_1_1_w_p_f_1_1_extensions.html#a7c4076422fc41ddf7e7ecfeb2dd6293a", [
       [ "TopLeft", "namespace_volume_control_1_1_w_p_f_1_1_extensions.html#a7c4076422fc41ddf7e7ecfeb2dd6293aab32beb056fbfe36afbabc6c88c81ab36", null ],

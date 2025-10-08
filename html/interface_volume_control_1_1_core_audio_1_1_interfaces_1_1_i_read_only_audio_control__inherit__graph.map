@@ -1,5 +1,7 @@
 <map id="VolumeControl.CoreAudio.Interfaces.IReadOnlyAudioControl" name="VolumeControl.CoreAudio.Interfaces.IReadOnlyAudioControl">
-<area shape="rect" id="node1" title="Represents an audio instance with a read&#45;only volume level and mute state." alt="" coords="101,5,343,141"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_device.html" title="An audio endpoint device." alt="" coords="5,211,199,553"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device." alt="" coords="223,189,461,575"/>
+<area shape="rect" id="Node000001" title="Represents an audio instance with a read&#45;only volume level and mute state." alt="" coords="97,5,331,145"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_core_audio_1_1_audio_device.html" title="An audio endpoint device." alt="" coords="5,233,191,653"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="191,159,167,234,162,232,186,158"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device." alt="" coords="215,193,445,693"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="242,158,254,192,248,194,237,159"/>
 </map>

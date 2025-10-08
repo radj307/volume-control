@@ -1,0 +1,7 @@
+<map id="VolumeControl.Core.Config.Save" name="VolumeControl.Core.Config.Save">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,42,239,67"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_log_1_1_f_log.html#a4dcec7039adc7659b074ba4122cea0f8" title=" " alt="" coords="287,5,505,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="239,40,273,36,274,41,239,45"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_log_1_1_f_log.html#ac7a8c27d69096fadba3f4b55cd405857" title=" " alt="" coords="287,70,505,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="239,64,274,67,273,73,239,69"/>
+</map>

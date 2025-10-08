@@ -1,7 +1,12 @@
 <map id="VolumeControl.Log.AsyncLogWriter" name="VolumeControl.Log.AsyncLogWriter">
-<area shape="rect" id="node1" title="Asynchonously writes messages to the log endpoint." alt="" coords="126,403,337,773"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_helpers_1_1_threaded_action_queue.html" title="Manages a background thread to execute queued actions." alt="" coords="40,167,231,318"/>
-<area shape="rect" id="node3" title=" " alt="" coords="20,5,118,83"/>
-<area shape="rect" id="node4" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html" title="Represents a log writer instance." alt="" coords="256,131,402,355"/>
-<area shape="rect" id="node5" title=" " alt="" coords="427,204,604,281"/>
+<area shape="rect" id="Node000001" title="Asynchonously writes messages to the log endpoint." alt="" coords="124,432,327,892"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_log_1_1_helpers_1_1_threaded_action_queue.html" title="Manages a background thread to execute queued actions." alt="" coords="42,169,225,334"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="157,347,176,431,171,432,152,348"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="23,5,113,71"/>
+<area shape="poly" id="edge5_Node000001_Node000003" title=" " alt="" coords="45,84,32,119,16,193,9,252,13,311,32,383,49,428,72,471,126,549,122,552,67,474,44,430,27,385,8,312,3,252,10,192,27,118,40,82"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="84,83,111,168,105,169,79,85"/>
+<area shape="rect" id="Node000004" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html" title="Represents a log writer instance." alt="" coords="249,119,388,384"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="288,398,280,433,275,431,283,397"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="413,219,582,284"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="471,297,329,510,324,507,467,294"/>
 </map>

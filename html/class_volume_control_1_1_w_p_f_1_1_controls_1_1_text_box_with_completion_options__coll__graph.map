@@ -1,4 +1,5 @@
 <map id="VolumeControl.WPF.Controls.TextBoxWithCompletionOptions" name="VolumeControl.WPF.Controls.TextBoxWithCompletionOptions">
-<area shape="rect" id="node1" title="Interaction logic for TextBoxWithCompletionOptions.xaml" alt="" coords="5,131,268,648"/>
-<area shape="rect" id="node2" title=" " alt="" coords="87,5,186,83"/>
+<area shape="rect" id="Node000001" title="Interaction logic for TextBoxWithCompletionOptions.xaml." alt="" coords="5,119,259,768"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="87,5,177,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="135,84,135,118,129,118,129,84"/>
 </map>

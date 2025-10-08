@@ -6,7 +6,6 @@ var namespace_volume_control_1_1_core =
     [ "Extensions", "namespace_volume_control_1_1_core_1_1_extensions.html", "namespace_volume_control_1_1_core_1_1_extensions" ],
     [ "Helpers", "namespace_volume_control_1_1_core_1_1_helpers.html", "namespace_volume_control_1_1_core_1_1_helpers" ],
     [ "Input", "namespace_volume_control_1_1_core_1_1_input.html", "namespace_volume_control_1_1_core_1_1_input" ],
-    [ "Structs", "namespace_volume_control_1_1_core_1_1_structs.html", "namespace_volume_control_1_1_core_1_1_structs" ],
     [ "ActionSettingDataTemplate", "class_volume_control_1_1_core_1_1_action_setting_data_template.html", "class_volume_control_1_1_core_1_1_action_setting_data_template" ],
     [ "ActionTargetSpecifier", "class_volume_control_1_1_core_1_1_action_target_specifier.html", "class_volume_control_1_1_core_1_1_action_target_specifier" ],
     [ "Config", "class_volume_control_1_1_core_1_1_config.html", "class_volume_control_1_1_core_1_1_config" ],

@@ -1,7 +1,11 @@
 <map id="VolumeControl.WPF.BindableTimer" name="VolumeControl.WPF.BindableTimer">
-<area shape="rect" id="node1" title=" " alt="" coords="206,131,417,589"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,151,83"/>
-<area shape="rect" id="node3" title=" " alt="" coords="175,5,307,83"/>
-<area shape="rect" id="node4" title=" " alt="" coords="331,5,433,83"/>
-<area shape="rect" id="node5" title=" " alt="" coords="457,5,555,83"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="194,119,397,699"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,143,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,81,196,237,191,240,98,84"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="167,5,291,71"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="239,84,246,118,240,119,234,85"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="315,5,409,71"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="357,85,350,119,345,118,351,84"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="433,5,523,71"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="459,84,399,204,394,202,454,82"/>
 </map>

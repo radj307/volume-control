@@ -1,0 +1,5 @@
+<map id="VolumeControl.Core.ResourceDictionaryTemplateProvider.ProvideDataTemplate" name="VolumeControl.Core.ResourceDictionaryTemplateProvider.ProvideDataTemplate">
+<area shape="rect" id="Node000001" title="Provides an ActionSettingDataTemplate for the specified valueType .This method will not return templa..." alt="" coords="5,5,260,60"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_core_1_1_action_setting_data_template.html#a2f5cee15d4311b02225a06094c52cfc5" title="Checks if this ActionSettingDataTemplate instance supports the specified valueType ." alt="" coords="308,13,595,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="260,30,294,30,294,35,260,35"/>
+</map>

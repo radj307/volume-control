@@ -1,4 +1,5 @@
 <map id="VolumeControl.Core.Input.HotkeyRegisteringEventArgs" name="VolumeControl.Core.Input.HotkeyRegisteringEventArgs">
-<area shape="rect" id="node1" title="Provides data for the hotkey Registering and Unregistering events." alt="" coords="5,131,239,267"/>
-<area shape="rect" id="node2" title=" " alt="" coords="51,5,193,83"/>
+<area shape="rect" id="Node000001" title="Provides data for the hotkey Registering and Unregistering events." alt="" coords="5,119,231,253"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="51,5,185,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,84,121,119,115,119,115,84"/>
 </map>

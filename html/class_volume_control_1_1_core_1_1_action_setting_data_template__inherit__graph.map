@@ -1,4 +1,5 @@
 <map id="VolumeControl.Core.ActionSettingDataTemplate" name="VolumeControl.Core.ActionSettingDataTemplate">
-<area shape="rect" id="node1" title="Extends the DataTemplate class with metadata specific to action setting data template providers." alt="" coords="5,131,203,237"/>
-<area shape="rect" id="node2" title=" " alt="" coords="47,5,161,83"/>
+<area shape="rect" id="Node000001" title="Extends the DataTemplate class with metadata specific to action setting data template providers." alt="" coords="5,119,195,219"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="47,5,153,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,84,103,119,97,119,97,84"/>
 </map>

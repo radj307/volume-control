@@ -1,8 +1,14 @@
 <map id="VolumeControl.Log.Endpoints.PersistentFileEndpoint" name="VolumeControl.Log.Endpoints.PersistentFileEndpoint">
-<area shape="rect" id="node1" title="Log endpoint that allows writing logs directly to a file on disk, and keeps the file stream open." alt="" coords="114,587,331,737"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk." alt="" coords="68,388,225,539"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html" title="Abstract base class for endpoint writers." alt="" coords="115,175,314,340"/>
-<area shape="rect" id="node4" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html" title="Represents an endpoint that text can be written to." alt="" coords="5,5,152,127"/>
-<area shape="rect" id="node5" title=" " alt="" coords="177,27,354,105"/>
-<area shape="rect" id="node6" title=" " alt="" coords="249,425,348,502"/>
+<area shape="rect" id="Node000001" title="Log endpoint that allows writing logs directly to a file on disk, and keeps the file stream open." alt="" coords="107,625,317,785"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk." alt="" coords="65,412,215,577"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,590,187,624,182,626,170,591"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html" title="Abstract base class for endpoint writers." alt="" coords="112,179,301,364"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="178,378,167,413,162,411,172,377"/>
+<area shape="rect" id="Node000004" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html" title="Represents an endpoint that text can be written to." alt="" coords="5,5,144,131"/>
+<area shape="poly" id="edge5_Node000002_Node000004" title=" " alt="" coords="79,144,87,249,103,363,115,411,109,413,97,365,81,249,74,145"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="125,141,149,177,144,180,121,144"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="169,35,338,101"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="246,114,231,179,225,178,240,113"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="239,462,329,527"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="271,541,242,626,237,624,266,539"/>
 </map>

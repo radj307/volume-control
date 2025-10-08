@@ -1,6 +1,9 @@
 <map id="VolumeControl.Core.ResourceDictionaryTemplateProvider" name="VolumeControl.Core.ResourceDictionaryTemplateProvider">
-<area shape="rect" id="node1" title="Abstract ITemplateDictionaryProvider base implementation that inherits from ResourceDictionary." alt="" coords="73,285,289,407"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,145,155,223"/>
-<area shape="rect" id="node3" href="$interface_volume_control_1_1_core_1_1_i_template_dictionary_provider.html" title="An alternative to ITemplateProvider that can be combined with a ResourceDictionary (with a codebehind..." alt="" coords="179,131,386,237"/>
-<area shape="rect" id="node4" title=" " alt="" coords="231,5,335,83"/>
+<area shape="rect" id="Node000001" title="Abstract ITemplateDictionaryProvider base implementation that inherits from ResourceDictionary." alt="" coords="69,272,277,392"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,139,147,204"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,214,139,270,135,273,100,217"/>
+<area shape="rect" id="Node000003" href="$interface_volume_control_1_1_core_1_1_i_template_dictionary_provider.html" title="An alternative to ITemplateProvider that can be combined with a ResourceDictionary (with a codebehind..." alt="" coords="171,119,370,224"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="234,237,212,273,207,270,229,235"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="223,5,319,71"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="273,85,273,118,268,118,268,85"/>
 </map>

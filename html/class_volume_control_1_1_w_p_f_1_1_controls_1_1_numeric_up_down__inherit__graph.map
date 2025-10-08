@@ -1,4 +1,5 @@
 <map id="VolumeControl.WPF.Controls.NumericUpDown" name="VolumeControl.WPF.Controls.NumericUpDown">
-<area shape="rect" id="node1" title=" " alt="" coords="5,131,253,692"/>
-<area shape="rect" id="node2" title=" " alt="" coords="95,5,164,83"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,119,245,833"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="95,5,156,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,85,128,118,123,118,123,85"/>
 </map>

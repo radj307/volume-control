@@ -1,9 +1,16 @@
 <map id="VolumeControl.CoreAudio.AudioSession" name="VolumeControl.CoreAudio.AudioSession">
-<area shape="rect" id="node1" title="A single audio session running on an audio device." alt="" coords="297,344,536,729"/>
-<area shape="rect" id="node2" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_control.html" title="Represents an audio instance with a controllable volume level and mute state." alt="" coords="5,5,135,127"/>
-<area shape="rect" id="node4" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_hideable_audio_control.html" title="Represents an audio instance that can be prevented from becoming selected." alt="" coords="47,197,215,274"/>
-<area shape="rect" id="node3" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html" title="Represents an audio instance with a read&#45;only volume level and mute state." alt="" coords="239,175,413,296"/>
-<area shape="rect" id="node5" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_peak_meter.html" title="Represents some kind of object that has an audio peak meter." alt="" coords="437,197,580,274"/>
-<area shape="rect" id="node6" title=" " alt="" coords="604,197,781,274"/>
-<area shape="rect" id="node7" title=" " alt="" coords="806,197,905,274"/>
+<area shape="rect" id="Node000001" title="A single audio session running on an audio device." alt="" coords="283,352,513,852"/>
+<area shape="rect" id="Node000002" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_control.html" title="Represents an audio instance with a controllable volume level and mute state." alt="" coords="5,5,127,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="37,145,27,183,22,223,23,264,35,303,57,342,83,378,146,444,216,498,284,541,281,546,213,502,143,448,79,382,52,345,30,305,18,265,16,223,22,182,32,143"/>
+<area shape="rect" id="Node000004" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_hideable_audio_control.html" title="Represents an audio instance that can be prevented from becoming selected." alt="" coords="45,209,205,274"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="94,143,116,208,111,210,89,145"/>
+<area shape="rect" id="Node000003" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_read_only_audio_control.html" title="Represents an audio instance with a read&#45;only volume level and mute state." alt="" coords="229,179,394,304"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="332,317,340,351,335,352,327,318"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="159,284,285,449,281,452,155,287"/>
+<area shape="rect" id="Node000005" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_peak_meter.html" title="Represents some kind of object that has an audio peak meter." alt="" coords="419,209,553,274"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="477,289,462,353,457,351,472,287"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="577,209,747,274"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="633,287,515,446,511,443,628,284"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="771,209,862,274"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="781,286,761,306,635,417,514,515,511,511,632,413,758,302,778,282"/>
 </map>

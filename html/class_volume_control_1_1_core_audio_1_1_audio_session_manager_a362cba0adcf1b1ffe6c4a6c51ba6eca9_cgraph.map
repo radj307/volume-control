@@ -1,6 +1,10 @@
 <map id="VolumeControl.CoreAudio.AudioSessionManager.FindSessionWithSimilarProcessIdentifier" name="VolumeControl.CoreAudio.AudioSessionManager.FindSessionWithSimilarProcessIdentifier">
-<area shape="rect" id="node1" title="Finds the audio session that matches &#45; or is very similar to &#45; the given processIdentifier ." alt="" coords="5,71,252,127"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a60f0361802eed5ad889db7e70190bd4f" title="Finds the audio session whose owning process has the given sessionName ." alt="" coords="300,5,547,61"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_session.html#aaf7a37b3dc9484a667cc5222180ecbd2" title="Determines whether the specified name &#160;is equal to this instance&#39;s Name or ProcessName." alt="" coords="595,46,832,87"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a44a18627f5bd538785f8539cd1473f15" title="Finds the audio session whose owning process has the given processId ." alt="" coords="300,136,547,192"/>
+<area shape="rect" id="Node000001" title="Finds the audio session that matches &#45; or is very similar to &#45; the given processIdentifier ." alt="" coords="5,71,252,125"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a60f0361802eed5ad889db7e70190bd4f" title="Finds the audio session whose owning process has the given sessionName ." alt="" coords="300,5,547,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="252,68,286,60,287,66,253,73"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_core_audio_1_1_audio_session.html#aaf7a37b3dc9484a667cc5222180ecbd2" title="Determines whether the specified name &#160;is equal to this instance&#39;s Name or ProcessName." alt="" coords="595,46,832,86"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="252,89,581,71,581,76,252,94"/>
+<area shape="rect" id="Node000004" href="$class_volume_control_1_1_core_audio_1_1_audio_session_manager.html#a44a18627f5bd538785f8539cd1473f15" title="Finds the audio session whose owning process has the given processId ." alt="" coords="300,136,547,191"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="253,123,287,130,286,136,252,128"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="547,44,581,48,581,53,547,50"/>
 </map>

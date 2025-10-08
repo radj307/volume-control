@@ -1,4 +1,5 @@
 <map id="VolumeControl.CoreAudio.Interfaces.IHideableAudioControl" name="VolumeControl.CoreAudio.Interfaces.IHideableAudioControl">
-<area shape="rect" id="node1" title="Represents an audio instance that can be prevented from becoming selected." alt="" coords="5,175,243,267"/>
-<area shape="rect" id="node2" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_control.html" title="Represents an audio instance with a controllable volume level and mute state." alt="" coords="59,5,189,127"/>
+<area shape="rect" id="Node000001" title="Represents an audio instance that can be prevented from becoming selected." alt="" coords="5,179,235,259"/>
+<area shape="rect" id="Node000002" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_control.html" title="Represents an audio instance with a controllable volume level and mute state." alt="" coords="59,5,181,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="123,144,123,179,117,179,117,144"/>
 </map>

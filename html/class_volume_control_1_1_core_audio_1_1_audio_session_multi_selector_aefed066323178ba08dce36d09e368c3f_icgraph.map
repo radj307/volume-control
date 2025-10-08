@@ -1,4 +1,5 @@
 <map id="VolumeControl.CoreAudio.AudioSessionMultiSelector.SetSelectedSessions" name="VolumeControl.CoreAudio.AudioSessionMultiSelector.SetSelectedSessions">
-<area shape="rect" id="node1" title="Sets only the specified sessions &#160;as selected." alt="" coords="301,5,520,61"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a25657906f920f5b10a716d9554344528" title="Sets only the specified sessions &#160;as selected, unless sessions &#160;contains exactly 1 session in which c..." alt="" coords="5,5,253,61"/>
+<area shape="rect" id="Node000001" title="Sets only the specified sessions &#160;as selected." alt="" coords="301,5,520,60"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_core_audio_1_1_audio_session_multi_selector.html#a25657906f920f5b10a716d9554344528" title="Sets only the specified sessions &#160;as selected, unless sessions &#160;contains exactly 1 session in which c..." alt="" coords="5,5,253,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="288,35,254,35,254,30,288,30"/>
 </map>

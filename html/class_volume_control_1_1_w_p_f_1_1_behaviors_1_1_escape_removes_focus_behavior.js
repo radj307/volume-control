@@ -9,7 +9,7 @@ var class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavi
     [ "SetEventAsHandledProperty", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html#addbd51ff25aed5ea3df372fceeaa5168", null ],
     [ "AffectsKeyboardFocus", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html#aa603d16e796b0903fc7e4723db514611", null ],
     [ "AffectsLogicalFocus", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html#ad334d9eb5475e88af5c89d3b0448c671", null ],
-    [ "FocusOn", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html#af19f26cb89d469d7f4e2439f151ebbcd", null ],
+    [ "FocusOn", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html#a83228f23e823a8faba6f00a2cae2992a", null ],
     [ "FocusOnParentWindow", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html#a6da3522c871f86154cf18bff02ffdc77", null ],
     [ "SetEventAsHandled", "class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html#ab7096a09e4e7fe7c60ca8f6ef1115543", null ]
 ];

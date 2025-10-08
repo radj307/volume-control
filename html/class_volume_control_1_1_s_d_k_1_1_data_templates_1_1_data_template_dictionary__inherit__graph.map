@@ -1,7 +1,12 @@
 <map id="VolumeControl.SDK.DataTemplates.DataTemplateDictionary" name="VolumeControl.SDK.DataTemplates.DataTemplateDictionary">
-<area shape="rect" id="node1" title="Provides all of the default DataTemplate instances used by the built&#45;in hotkey actions." alt="" coords="83,455,338,547"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_resource_dictionary_template_provider.html" title="Abstract ITemplateDictionaryProvider base implementation that inherits from ResourceDictionary." alt="" coords="35,285,245,407"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,145,155,223"/>
-<area shape="rect" id="node4" href="$interface_volume_control_1_1_core_1_1_i_template_dictionary_provider.html" title="An alternative to ITemplateProvider that can be combined with a ResourceDictionary (with a codebehind..." alt="" coords="179,131,386,237"/>
-<area shape="rect" id="node5" title=" " alt="" coords="231,5,335,83"/>
+<area shape="rect" id="Node000001" title="Provides all of the default DataTemplate instances used by the built&#45;in hotkey actions." alt="" coords="78,440,325,520"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_core_1_1_resource_dictionary_template_provider.html" title="Abstract ITemplateDictionaryProvider base implementation that inherits from ResourceDictionary." alt="" coords="31,272,233,392"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,403,185,439,180,441,163,405"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,139,147,204"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="94,216,114,271,109,273,89,218"/>
+<area shape="rect" id="Node000004" href="$interface_volume_control_1_1_core_1_1_i_template_dictionary_provider.html" title="An alternative to ITemplateProvider that can be combined with a ResourceDictionary (with a codebehind..." alt="" coords="171,119,370,224"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="272,238,265,313,248,393,227,441,222,439,243,391,259,312,266,238"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="218,236,186,273,182,270,214,233"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="223,5,319,71"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="273,85,273,118,268,118,268,85"/>
 </map>

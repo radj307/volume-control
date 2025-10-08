@@ -1,9 +1,9 @@
 var class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer =
 [
     [ "BaseEndpointWriter", "class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#a141ba9fdaebc51db2dc4da05a56cec31", null ],
-    [ "GetTextWriter", "class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#a262930dfb62cf13beb231a59a0af7221", null ],
+    [ "GetTextWriter", "class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#ae804decb0988d5b7b6031a95601b6a82", null ],
     [ "NotifyPropertyChanged", "class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#a6c4519b97ff6dbe2e3119f0e844c7631", null ],
-    [ "Reset", "class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#ad67dfd807f1df8ed725c265430fd97ea", null ],
+    [ "Reset", "class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#ac056253e95a7dbe73bf73e2b751f1a19", null ],
     [ "Write", "class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#ade017897aea616acfbaba1bb1a9df3c9", null ],
     [ "WriteLine", "class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#aa57a3e9e584db72d3ec321fb17ac9bc6", null ],
     [ "WriteLine", "class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html#ad22ed408062df36652633893ed315191", null ],

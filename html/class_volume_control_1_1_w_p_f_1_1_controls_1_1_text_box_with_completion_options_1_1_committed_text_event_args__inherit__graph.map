@@ -1,4 +1,5 @@
 <map id="VolumeControl.WPF.Controls.TextBoxWithCompletionOptions.CommittedTextEventArgs" name="VolumeControl.WPF.Controls.TextBoxWithCompletionOptions.CommittedTextEventArgs">
-<area shape="rect" id="node1" title="Event arguments for the CommittedTextEventHandler event type." alt="" coords="5,131,312,237"/>
-<area shape="rect" id="node2" title=" " alt="" coords="91,5,226,83"/>
+<area shape="rect" id="Node000001" title="Event arguments for the CommittedTextEventHandler event type." alt="" coords="5,119,304,213"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="91,5,218,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="157,84,157,118,152,118,152,84"/>
 </map>

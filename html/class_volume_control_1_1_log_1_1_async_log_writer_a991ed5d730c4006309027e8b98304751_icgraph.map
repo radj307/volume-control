@@ -1,8 +1,13 @@
 <map id="VolumeControl.Log.AsyncLogWriter.FilterEventType" name="VolumeControl.Log.AsyncLogWriter.FilterEventType">
-<area shape="rect" id="node1" title="Checks if messages with the specified eventType &#160;are shown in the log." alt="" coords="644,104,855,145"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_device.html#a39f02cf93decd6dd0eb7a0b9b265f768" title=" " alt="" coords="361,5,555,47"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_core_audio_1_1_audio_session.html#ac7d080e2d81f450d4177ba7ca2ccd7fa" title=" " alt="" coords="361,71,555,112"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html#a9b4465da766fa2f363699dbd1324c98c" title="Invokes the method specified by the HotkeyActionDefinition" alt="" coords="327,136,589,177"/>
-<area shape="rect" id="node6" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html#a4433627a745c3edd66508a6cbc685e48" title="Loads hotkey actions from the specified types ." alt="" coords="320,201,596,243"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_device_session_manager.html#a66931393d3da762b7dfbac974c213b21" title=" " alt="" coords="5,5,272,47"/>
+<area shape="rect" id="Node000001" title="Checks if messages with the specified eventType &#160;are shown in the log.true when the eventType &#160;is sho..." alt="" coords="631,101,841,141"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_core_audio_1_1_audio_device.html#a39f02cf93decd6dd0eb7a0b9b265f768" title=" " alt="" coords="355,5,548,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="679,98,582,60,541,48,543,43,584,55,681,93"/>
+<area shape="rect" id="Node000004" href="$class_volume_control_1_1_core_audio_1_1_audio_session.html#ac7d080e2d81f450d4177ba7ca2ccd7fa" title=" " alt="" coords="355,69,548,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="617,111,548,103,548,98,617,105"/>
+<area shape="rect" id="Node000005" href="$class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html#a9b4465da766fa2f363699dbd1324c98c" title="Invokes the method specified by the HotkeyActionDefinition." alt="" coords="320,133,583,173"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="617,137,583,141,582,136,617,132"/>
+<area shape="rect" id="Node000006" href="$class_volume_control_1_1_log_1_1_async_log_writer.html#a3c401702e65b85ab4733c733e7a08b8c" title="Writes the specified logMessage &#160;to the log, if its event type is enabled by the filter...." alt="" coords="346,197,557,237"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="681,149,584,188,543,200,541,195,582,183,679,144"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_core_audio_1_1_audio_device_session_manager.html#a66931393d3da762b7dfbac974c213b21" title=" " alt="" coords="5,5,272,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="341,28,272,28,272,23,341,23"/>
 </map>

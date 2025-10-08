@@ -1,8 +1,13 @@
 <map id="VolumeControl.Log.Endpoints.BaseEndpointWriter" name="VolumeControl.Log.Endpoints.BaseEndpointWriter">
-<area shape="rect" id="node1" title="Abstract base class for endpoint writers." alt="" coords="125,175,343,355"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html" title="Allows using the Console as a logging endpoint." alt="" coords="5,410,223,561"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk." alt="" coords="247,403,464,568"/>
-<area shape="rect" id="node2" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html" title="Represents an endpoint that text can be written to." alt="" coords="67,5,214,127"/>
-<area shape="rect" id="node3" title=" " alt="" coords="239,27,416,105"/>
-<area shape="rect" id="node6" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_persistent_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk, and keeps the file stream open." alt="" coords="247,616,464,767"/>
+<area shape="rect" id="Node000001" title="Abstract base class for endpoint writers." alt="" coords="121,179,331,379"/>
+<area shape="rect" id="Node000004" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html" title="Allows using the Console as a logging endpoint." alt="" coords="5,437,215,597"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="174,392,151,438,146,435,169,390"/>
+<area shape="rect" id="Node000005" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk." alt="" coords="239,427,448,607"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="284,390,301,425,297,428,279,392"/>
+<area shape="rect" id="Node000002" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html" title="Represents an endpoint that text can be written to." alt="" coords="67,5,206,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,143,186,177,181,179,166,145"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="231,35,400,101"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="299,115,271,180,266,178,294,112"/>
+<area shape="rect" id="Node000006" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_persistent_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk, and keeps the file stream open." alt="" coords="239,655,448,815"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="346,620,346,654,341,654,341,620"/>
 </map>

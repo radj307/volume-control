@@ -36,16 +36,14 @@ var annotated_dup =
           [ "Exceptions", "namespace_volume_control_1_1_core_1_1_input_1_1_exceptions.html", [
             [ "ActionSettingNotFoundException", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_action_setting_not_found_exception.html", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_action_setting_not_found_exception" ],
             [ "HotkeyRegistrationException", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_hotkey_registration_exception.html", null ],
-            [ "InvalidActionSettingValueTypeException", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_action_setting_value_type_exception.html", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_action_setting_value_type_exception" ],
             [ "InvalidDataTemplateProviderTypeException", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_data_template_provider_type_exception.html", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_data_template_provider_type_exception" ],
             [ "InvalidProviderTypeException", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_provider_type_exception.html", "class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_provider_type_exception" ]
           ] ],
           [ "Json", "namespace_volume_control_1_1_core_1_1_input_1_1_json.html", [
-            [ "JsonHotkey", "struct_volume_control_1_1_core_1_1_input_1_1_json_1_1_json_hotkey.html", "struct_volume_control_1_1_core_1_1_input_1_1_json_1_1_json_hotkey" ],
-            [ "JsonActionSettingValue", "struct_volume_control_1_1_core_1_1_input_1_1_json_1_1_json_action_setting_value.html", "struct_volume_control_1_1_core_1_1_input_1_1_json_1_1_json_action_setting_value" ]
+            [ "JsonActionSettingValue", "struct_volume_control_1_1_core_1_1_input_1_1_json_1_1_json_action_setting_value.html", "struct_volume_control_1_1_core_1_1_input_1_1_json_1_1_json_action_setting_value" ],
+            [ "JsonHotkey", "struct_volume_control_1_1_core_1_1_input_1_1_json_1_1_json_hotkey.html", "struct_volume_control_1_1_core_1_1_input_1_1_json_1_1_json_hotkey" ]
           ] ],
           [ "Hotkey", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey" ],
-          [ "HotkeyActionAddonLoader", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader" ],
           [ "HotkeyExtensions", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_extensions.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_extensions" ],
           [ "HotkeyManager", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager" ],
           [ "HotkeyMessageHookAbstractor", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_message_hook_abstractor.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_message_hook_abstractor" ],
@@ -55,9 +53,6 @@ var annotated_dup =
           [ "IHotkey", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey.html", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey" ],
           [ "IHotkeyMessageHook", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook.html", "interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook" ],
           [ "TemplateProviderManager", "class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html", "class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager" ]
-        ] ],
-        [ "Structs", "namespace_volume_control_1_1_core_1_1_structs.html", [
-          [ "TargetInfo", "struct_volume_control_1_1_core_1_1_structs_1_1_target_info.html", "struct_volume_control_1_1_core_1_1_structs_1_1_target_info" ]
         ] ],
         [ "ActionSettingDataTemplate", "class_volume_control_1_1_core_1_1_action_setting_data_template.html", "class_volume_control_1_1_core_1_1_action_setting_data_template" ],
         [ "ActionTargetSpecifier", "class_volume_control_1_1_core_1_1_action_target_specifier.html", "class_volume_control_1_1_core_1_1_action_target_specifier" ],
@@ -100,12 +95,12 @@ var annotated_dup =
         [ "AudioSessionSelector", "class_volume_control_1_1_core_audio_1_1_audio_session_selector.html", "class_volume_control_1_1_core_audio_1_1_audio_session_selector" ]
       ] ],
       [ "HotkeyActions", "namespace_volume_control_1_1_hotkey_actions.html", [
-        [ "ActiveApplicationActions", "class_volume_control_1_1_hotkey_actions_1_1_active_application_actions.html", "class_volume_control_1_1_hotkey_actions_1_1_active_application_actions" ],
-        [ "ApplicationActions", "class_volume_control_1_1_hotkey_actions_1_1_application_actions.html", "class_volume_control_1_1_hotkey_actions_1_1_application_actions" ],
-        [ "AudioDeviceActions", "class_volume_control_1_1_hotkey_actions_1_1_audio_device_actions.html", "class_volume_control_1_1_hotkey_actions_1_1_audio_device_actions" ],
-        [ "AudioSessionActions", "class_volume_control_1_1_hotkey_actions_1_1_audio_session_actions.html", "class_volume_control_1_1_hotkey_actions_1_1_audio_session_actions" ],
-        [ "MediaActions", "class_volume_control_1_1_hotkey_actions_1_1_media_actions.html", "class_volume_control_1_1_hotkey_actions_1_1_media_actions" ],
-        [ "SystemActions", "class_volume_control_1_1_hotkey_actions_1_1_system_actions.html", "class_volume_control_1_1_hotkey_actions_1_1_system_actions" ]
+        [ "ActiveApplicationActions", "class_volume_control_1_1_hotkey_actions_1_1_active_application_actions.html", null ],
+        [ "ApplicationActions", "class_volume_control_1_1_hotkey_actions_1_1_application_actions.html", null ],
+        [ "AudioDeviceActions", "class_volume_control_1_1_hotkey_actions_1_1_audio_device_actions.html", null ],
+        [ "AudioSessionActions", "class_volume_control_1_1_hotkey_actions_1_1_audio_session_actions.html", null ],
+        [ "MediaActions", "class_volume_control_1_1_hotkey_actions_1_1_media_actions.html", null ],
+        [ "SystemActions", "class_volume_control_1_1_hotkey_actions_1_1_system_actions.html", null ]
       ] ],
       [ "Log", "namespace_volume_control_1_1_log.html", [
         [ "Endpoints", "namespace_volume_control_1_1_log_1_1_endpoints.html", [
@@ -119,7 +114,6 @@ var annotated_dup =
           [ "NotInitializedException", "class_volume_control_1_1_log_1_1_exceptions_1_1_not_initialized_exception.html", "class_volume_control_1_1_log_1_1_exceptions_1_1_not_initialized_exception" ]
         ] ],
         [ "Helpers", "namespace_volume_control_1_1_log_1_1_helpers.html", [
-          [ "ObjectDebugger", "class_volume_control_1_1_log_1_1_helpers_1_1_object_debugger.html", "class_volume_control_1_1_log_1_1_helpers_1_1_object_debugger" ],
           [ "ExceptionMessageHelper", "class_volume_control_1_1_log_1_1_helpers_1_1_exception_message_helper.html", "class_volume_control_1_1_log_1_1_helpers_1_1_exception_message_helper" ],
           [ "ThreadedActionQueue", "class_volume_control_1_1_log_1_1_helpers_1_1_threaded_action_queue.html", "class_volume_control_1_1_log_1_1_helpers_1_1_threaded_action_queue" ]
         ] ],
@@ -182,10 +176,10 @@ var annotated_dup =
           [ "MultiBinding", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding" ]
         ] ],
         [ "Collections", "namespace_volume_control_1_1_w_p_f_1_1_collections.html", [
-          [ "ObservableCollectionObject", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object" ],
-          [ "ObservableList", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list" ],
+          [ "ObservableCollectionObject", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object.html", null ],
           [ "ObservableImmutableList", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list" ],
-          [ "ObservableImmutableListExtension_Sort", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list_extension___sort.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list_extension___sort" ]
+          [ "ObservableImmutableListExtension_Sort", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list_extension___sort.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list_extension___sort" ],
+          [ "ObservableList", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list.html", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list" ]
         ] ],
         [ "Controls", "namespace_volume_control_1_1_w_p_f_1_1_controls.html", [
           [ "DataGridWithoutNavKeys", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_data_grid_without_nav_keys.html", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_data_grid_without_nav_keys" ],
@@ -196,8 +190,8 @@ var annotated_dup =
           [ "ArrayHasItemsBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_array_has_items_boolean_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_array_has_items_boolean_converter" ],
           [ "BooleanInverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_boolean_inverter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_boolean_inverter" ],
           [ "BoolToBrushConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_brush_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_brush_converter" ],
-          [ "BoolToThicknessConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter" ],
           [ "BoolToCheckVisibleConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_check_visible_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_check_visible_converter" ],
+          [ "BoolToThicknessConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter" ],
           [ "ConverterChain", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain" ],
           [ "EnumHasFlagConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_enum_has_flag_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_enum_has_flag_converter" ],
           [ "ListHasItemsBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_list_has_items_boolean_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_list_has_items_boolean_converter" ],
@@ -207,14 +201,14 @@ var annotated_dup =
           [ "TagDoubleConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_tag_double_converter.html", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_tag_double_converter" ]
         ] ],
         [ "CustomMessageBox", "namespace_volume_control_1_1_w_p_f_1_1_custom_message_box.html", [
+          [ "CustomAdorner", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_adorner.html", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_adorner" ],
           [ "CustomMessageBox", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box.html", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box" ],
           [ "CustomMessageBoxButton", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_button.html", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_button" ],
-          [ "CustomAdorner", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_adorner.html", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_adorner" ],
-          [ "CustomMessageBoxStyle", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_style.html", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_style" ],
-          [ "CustomMessageBoxData", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_data.html", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_data" ]
+          [ "CustomMessageBoxData", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_data.html", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_data" ],
+          [ "CustomMessageBoxStyle", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_style.html", "class_volume_control_1_1_w_p_f_1_1_custom_message_box_1_1_custom_message_box_style" ]
         ] ],
         [ "Extensions", "namespace_volume_control_1_1_w_p_f_1_1_extensions.html", [
-          [ "DispatcherExtensions", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_dispatcher_extensions.html", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_dispatcher_extensions" ],
+          [ "DispatcherExtensions", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_dispatcher_extensions.html", null ],
           [ "WindowPositioningExtensions", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_window_positioning_extensions.html", "class_volume_control_1_1_w_p_f_1_1_extensions_1_1_window_positioning_extensions" ]
         ] ],
         [ "MessageHooks", "namespace_volume_control_1_1_w_p_f_1_1_message_hooks.html", [
@@ -222,7 +216,7 @@ var annotated_dup =
           [ "WpfTiltScrollHook", "class_volume_control_1_1_w_p_f_1_1_message_hooks_1_1_wpf_tilt_scroll_hook.html", "class_volume_control_1_1_w_p_f_1_1_message_hooks_1_1_wpf_tilt_scroll_hook" ]
         ] ],
         [ "PInvoke", "namespace_volume_control_1_1_w_p_f_1_1_p_invoke.html", [
-          [ "MINMAXINFO", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_i_n_m_a_x_i_n_f_o.html", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_i_n_m_a_x_i_n_f_o" ],
+          [ "MINMAXINFO", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_i_n_m_a_x_i_n_f_o.html", null ],
           [ "MONITORINFO", "class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html", "class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o" ],
           [ "POINT", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_p_o_i_n_t.html", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_p_o_i_n_t" ],
           [ "RECT", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t" ]
@@ -231,8 +225,8 @@ var annotated_dup =
         [ "DataTemplateTypeBinding", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding.html", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding" ],
         [ "DataTemplateTypeBindingSelector", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding_selector.html", "class_volume_control_1_1_w_p_f_1_1_data_template_type_binding_selector" ],
         [ "FilteredTextItemsSource", "class_volume_control_1_1_w_p_f_1_1_filtered_text_items_source.html", "class_volume_control_1_1_w_p_f_1_1_filtered_text_items_source" ],
-        [ "MouseWheelHorizontalEventArgs", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_horizontal_event_args.html", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_horizontal_event_args" ],
         [ "HorizontalScroll", "class_volume_control_1_1_w_p_f_1_1_horizontal_scroll.html", "class_volume_control_1_1_w_p_f_1_1_horizontal_scroll" ],
+        [ "MouseWheelHorizontalEventArgs", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_horizontal_event_args.html", "class_volume_control_1_1_w_p_f_1_1_mouse_wheel_horizontal_event_args" ],
         [ "VisualTreeHelpers", "class_volume_control_1_1_w_p_f_1_1_visual_tree_helpers.html", "class_volume_control_1_1_w_p_f_1_1_visual_tree_helpers" ],
         [ "WindowHandleGetter", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html", "class_volume_control_1_1_w_p_f_1_1_window_handle_getter" ]
       ] ]

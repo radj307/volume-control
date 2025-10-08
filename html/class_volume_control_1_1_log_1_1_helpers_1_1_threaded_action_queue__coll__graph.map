@@ -1,4 +1,5 @@
 <map id="VolumeControl.Log.Helpers.ThreadedActionQueue" name="VolumeControl.Log.Helpers.ThreadedActionQueue">
-<area shape="rect" id="node1" title="Manages a background thread to execute queued actions." alt="" coords="5,131,208,296"/>
-<area shape="rect" id="node2" title=" " alt="" coords="57,5,156,83"/>
+<area shape="rect" id="Node000001" title="Manages a background thread to execute queued actions." alt="" coords="5,119,200,299"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="57,5,148,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,85,105,118,100,118,100,85"/>
 </map>

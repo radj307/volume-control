@@ -1,4 +1,5 @@
 <map id="VolumeControl.WPF.Behaviors.MouseWheelRangeBaseBehavior" name="VolumeControl.WPF.Behaviors.MouseWheelRangeBaseBehavior">
-<area shape="rect" id="node1" title="Behavior&lt;T&gt; that enables the mouse wheel to change the value of controls based on RangeBase." alt="" coords="5,131,243,252"/>
-<area shape="rect" id="node2" title=" " alt="" coords="33,5,215,83"/>
+<area shape="rect" id="Node000001" title="Behavior&lt;T&gt; that enables the mouse wheel to change the value of controls based on RangeBase." alt="" coords="5,119,235,239"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="33,5,207,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="123,85,123,118,117,118,117,85"/>
 </map>

@@ -1,5 +1,7 @@
 <map id="VolumeControl.CoreAudio.Interfaces.IAudioSelector" name="VolumeControl.CoreAudio.Interfaces.IAudioSelector">
-<area shape="rect" id="node1" title="Represents a list item selector." alt="" coords="113,5,307,112"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_device_selector.html" title="Manages the currently &quot;selected&quot; AudioDevice instance for a given CoreAudio.AudioDeviceManager object..." alt="" coords="5,160,199,369"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_session_selector.html" title="Manages the currently &quot;selected&quot; AudioSession instance for a given CoreAudio.AudioSessionManager obje..." alt="" coords="223,167,416,362"/>
+<area shape="rect" id="Node000001" title="Represents a list item selector." alt="" coords="109,5,295,105"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_core_audio_1_1_audio_device_selector.html" title="Manages the currently &quot;selected&quot; AudioDevice instance for a given CoreAudio.AudioDeviceManager object..." alt="" coords="5,153,191,393"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,119,158,154,153,152,170,117"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_core_audio_1_1_audio_session_selector.html" title="Manages the currently &quot;selected&quot; AudioSession instance for a given CoreAudio.AudioSessionManager obje..." alt="" coords="215,163,400,383"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="234,116,256,162,252,164,229,119"/>
 </map>

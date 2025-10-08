@@ -6,7 +6,7 @@ var class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args =
     [ "HotkeyPressedEventArgs", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#a34885e9f457817cc28780c5301cc638b", null ],
     [ "GetSetting", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#a3b97bcbd4fd7ebca5c61df6771574df6", null ],
     [ "GetSetting", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#aafb1fb380570fa372c0123d8492e94da", null ],
-    [ "GetSetting< T >", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#afe40e146c6be7534042b33658e72b521", null ],
+    [ "GetSetting< T >", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#a9f855e67eaa75fd3d4c9fbaad407e300", null ],
     [ "GetValue", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#ab1241a0d086fb208827c130f0901628a", null ],
     [ "GetValue", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#ac811a39772d79802fcf460f3d6a2f2e9", null ],
     [ "GetValue< T >", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#af94da383741c85973a40d0f5d9d4f7f7", null ],

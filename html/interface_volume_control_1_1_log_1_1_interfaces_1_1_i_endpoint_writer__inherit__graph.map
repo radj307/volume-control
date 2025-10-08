@@ -1,8 +1,14 @@
 <map id="VolumeControl.Log.Interfaces.IEndpointWriter" name="VolumeControl.Log.Interfaces.IEndpointWriter">
-<area shape="rect" id="node1" title="Represents an endpoint that text can be written to." alt="" coords="246,5,465,141"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html" title="Abstract base class for endpoint writers." alt="" coords="100,211,317,391"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk." alt="" coords="247,461,464,627"/>
-<area shape="rect" id="node6" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html" title="A log endpoint that implements IEndpointWriter and uses a MemoryStream as an endpoint." alt="" coords="393,189,611,413"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html" title="Allows using the Console as a logging endpoint." alt="" coords="5,469,223,619"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_persistent_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk, and keeps the file stream open." alt="" coords="247,675,464,825"/>
+<area shape="rect" id="Node000001" title="Represents an endpoint that text can be written to." alt="" coords="238,5,449,145"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_base_endpoint_writer.html" title="Abstract base class for endpoint writers." alt="" coords="96,223,305,423"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="299,159,260,225,256,222,294,156"/>
+<area shape="rect" id="Node000004" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk." alt="" coords="239,501,448,681"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="346,159,346,501,341,501,341,159"/>
+<area shape="rect" id="Node000006" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html" title="A log endpoint that implements IEndpointWriter and uses a MemoryStream as an endpoint." alt="" coords="381,193,591,453"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="393,156,413,192,409,194,388,159"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html" title="Allows using the Console as a logging endpoint." alt="" coords="5,511,215,671"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="165,437,140,512,134,510,160,435"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="263,434,298,500,293,502,258,437"/>
+<area shape="rect" id="Node000005" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_persistent_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk, and keeps the file stream open." alt="" coords="239,729,448,889"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="346,695,346,729,341,729,341,695"/>
 </map>

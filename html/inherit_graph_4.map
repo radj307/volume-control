@@ -1,3 +1,25 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_volume_control_1_1_core_1_1_enum_1_1_e_virtual_key_code_extensions.html" title="Extends the EVirtualKeyCode enumeration." alt="" coords="5,5,207,47"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,333,85,358"/>
+<area shape="rect" id="Node000001" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_disable_mouse_wheel_behavior.html" title="Behavior that prevent the mouse wheel from triggering events." alt="" coords="167,5,390,45"/>
+<area shape="poly" id="edge9_Node000000_Node000001" title=" " alt="" coords="44,318,47,263,59,192,70,155,86,119,106,85,132,55,148,43,166,34,168,39,151,48,135,59,110,88,90,121,75,157,64,193,52,264,49,319"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_escape_removes_focus_behavior.html" title="Removes logical and/or keyboard focus from the attached control when the Escape key is pressed." alt="" coords="167,69,391,109"/>
+<area shape="poly" id="edge10_Node000000_Node000002" title=" " alt="" coords="46,319,53,275,68,221,93,166,111,141,132,119,165,100,168,104,135,123,115,144,98,169,73,223,59,276,52,319"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_hyperlink_open_in_browser_behavior.html" title="Hyperlink behavior that opens the link in the default browser." alt="" coords="157,133,400,173"/>
+<area shape="poly" id="edge11_Node000000_Node000003" title=" " alt="" coords="51,319,62,287,78,250,101,214,132,183,156,169,158,174,135,187,105,217,83,253,66,289,56,320"/>
+<area shape="rect" id="Node000004" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_list_view_behavior.html" title="Behavior&lt;T&gt; that enables the mouse wheel to increment/decrement the selected item in a ListView." alt="" coords="167,197,390,237"/>
+<area shape="poly" id="edge12_Node000000_Node000004" title=" " alt="" coords="60,320,90,282,110,263,132,247,166,232,168,237,135,252,113,267,94,285,64,323"/>
+<area shape="rect" id="Node000005" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_numeric_up_down_behavior.html" title="Behavior&lt;T&gt; that enables the mouse wheel to change the value of NumericUpDown controls." alt="" coords="141,261,416,301"/>
+<area shape="poly" id="edge13_Node000000_Node000005" title=" " alt="" coords="90,325,133,311,178,299,180,304,134,316,91,330"/>
+<area shape="rect" id="Node000006" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_mouse_wheel_range_base_behavior.html" title="Behavior&lt;T&gt; that enables the mouse wheel to change the value of controls based on RangeBase." alt="" coords="160,325,397,365"/>
+<area shape="poly" id="edge14_Node000000_Node000006" title=" " alt="" coords="100,343,160,343,160,348,100,348"/>
+<area shape="rect" id="Node000007" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_scroll_viewer_horizontal_scroll_behavior.html" title="Scrolls horizontally when scrolling while holding SHIFT in TextBoxBase controls." alt="" coords="147,389,411,429"/>
+<area shape="poly" id="edge15_Node000000_Node000007" title=" " alt="" coords="91,360,134,375,180,387,178,392,133,380,90,365"/>
+<area shape="rect" id="Node000008" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_autocomplete_behavior.html" title="Behavior that implements autocomplete suggestions for TextBox controls." alt="" coords="167,453,390,493"/>
+<area shape="poly" id="edge16_Node000000_Node000008" title=" " alt="" coords="64,368,94,405,113,424,135,439,168,454,166,459,132,444,110,428,90,409,60,371"/>
+<area shape="rect" id="Node000009" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_enter_updates_text_source_behavior.html" title="Forces the TextBox.Text property&#39;s data binding to update its source when the Enter key is pressed or..." alt="" coords="133,517,424,557"/>
+<area shape="poly" id="edge17_Node000000_Node000009" title=" " alt="" coords="56,370,66,402,83,438,105,473,135,503,154,515,151,519,132,507,101,477,78,440,62,403,51,372"/>
+<area shape="rect" id="Node000010" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_horizontal_scroll_behavior.html" title="Scrolls horizontally when scrolling while holding SHIFT in TextBoxBase controls." alt="" coords="161,581,396,621"/>
+<area shape="poly" id="edge18_Node000000_Node000010" title=" " alt="" coords="52,371,59,415,73,468,98,522,115,546,135,567,163,584,160,589,132,571,111,550,93,525,68,470,53,416,46,372"/>
+<area shape="rect" id="Node000011" href="$class_volume_control_1_1_w_p_f_1_1_behaviors_1_1_text_box_input_filter_behavior.html" title="TextBox behavior that uses regular expressions to only allow certain types of input." alt="" coords="167,645,390,685"/>
+<area shape="poly" id="edge19_Node000000_Node000011" title=" " alt="" coords="49,372,52,427,64,497,75,534,90,570,110,603,135,631,151,643,168,652,166,656,148,648,132,635,106,606,86,572,70,536,59,498,47,428,44,372"/>
 </map>

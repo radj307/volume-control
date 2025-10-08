@@ -1,7 +1,11 @@
 <map id="VolumeControl.CoreAudio.AudioDeviceSelector.AudioDeviceSelector" name="VolumeControl.CoreAudio.AudioDeviceSelector.AudioDeviceSelector">
-<area shape="rect" id="node1" title="Creates a new AudioDeviceSelector instance bound to the given audioDeviceManager ." alt="" coords="5,20,248,76"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a4fb014a268ce81931a8f790e7020cfa7" title="Changes the Selected item to the default Multimedia audio device." alt="" coords="296,20,544,76"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#ac6aac6e1b31328d60c9ff21a11890151" title="Gets the default device for the specified dataFlow &#160;&amp; deviceRole ." alt="" coords="592,20,827,76"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_log_1_1_f_log.html#a3f7c162caaa5e1ca78eff52678cd3813" title=" " alt="" coords="901,5,1115,32"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#ae55cdb8375a591e11e444aa62dd355a9" title="Gets the AudioDevice instance associated with the given deviceID &#160;string. (MMDevice...." alt="" coords="875,57,1141,98"/>
+<area shape="rect" id="Node000001" title="Creates a new AudioDeviceSelector instance bound to the given audioDeviceManager ." alt="" coords="5,20,248,75"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_core_audio_1_1_audio_device_selector.html#a4fb014a268ce81931a8f790e7020cfa7" title="Changes the Selected item to the default Multimedia audio device." alt="" coords="296,20,544,75"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="248,45,282,45,282,50,248,50"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#ac6aac6e1b31328d60c9ff21a11890151" title="Gets the default device for the specified dataFlow &#160;&amp; deviceRole ." alt="" coords="592,20,827,75"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="544,45,578,45,578,50,544,50"/>
+<area shape="rect" id="Node000004" href="$class_volume_control_1_1_log_1_1_f_log.html#a3f7c162caaa5e1ca78eff52678cd3813" title=" " alt="" coords="901,5,1115,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="827,33,887,27,887,33,827,38"/>
+<area shape="rect" id="Node000005" href="$class_volume_control_1_1_core_audio_1_1_audio_device_manager.html#ae55cdb8375a591e11e444aa62dd355a9" title="Gets the AudioDevice instance associated with the given deviceID &#160;string. (MMDevice...." alt="" coords="875,55,1141,95"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="827,56,861,59,861,64,827,61"/>
 </map>

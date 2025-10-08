@@ -1,4 +1,5 @@
 <map id="VolumeControl.Core.Input.HotkeyPressedEventArgs" name="VolumeControl.Core.Input.HotkeyPressedEventArgs">
-<area shape="rect" id="node1" title="Event arguments for hotkey action events." alt="" coords="5,131,216,369"/>
-<area shape="rect" id="node2" title=" " alt="" coords="39,5,182,83"/>
+<area shape="rect" id="Node000001" title="Event arguments for hotkey action events." alt="" coords="5,119,207,399"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="39,5,173,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,84,109,119,103,119,103,84"/>
 </map>

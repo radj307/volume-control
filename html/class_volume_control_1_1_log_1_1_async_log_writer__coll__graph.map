@@ -1,8 +1,14 @@
 <map id="VolumeControl.Log.AsyncLogWriter" name="VolumeControl.Log.AsyncLogWriter">
-<area shape="rect" id="node1" title="Asynchonously writes messages to the log endpoint." alt="" coords="260,419,471,775"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_helpers_1_1_threaded_action_queue.html" title="Manages a background thread to execute queued actions." alt="" coords="77,169,267,319"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,5,104,83"/>
-<area shape="rect" id="node4" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html" title="Represents a log writer instance." alt="" coords="292,132,439,356"/>
-<area shape="rect" id="node5" title=" " alt="" coords="463,205,641,283"/>
-<area shape="rect" id="node6" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html" title="Represents an endpoint that text can be written to." alt="" coords="665,176,884,312"/>
+<area shape="rect" id="Node000001" title="Asynchonously writes messages to the log endpoint." alt="" coords="248,448,451,888"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_log_1_1_helpers_1_1_threaded_action_queue.html" title="Manages a background thread to execute queued actions." alt="" coords="73,170,255,335"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="209,347,254,447,249,449,204,349"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,5,96,71"/>
+<area shape="poly" id="edge5_Node000001_Node000003" title=" " alt="" coords="44,85,36,146,33,223,40,305,49,346,62,384,99,448,145,505,198,556,249,598,246,602,194,560,142,509,94,451,58,386,44,347,34,306,27,223,31,146,39,84"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="76,82,123,169,118,171,72,84"/>
+<area shape="rect" id="Node000004" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html" title="Represents a log writer instance." alt="" coords="280,120,419,385"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="352,399,352,448,347,448,347,399"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="443,220,613,285"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="512,299,447,449,442,447,507,297"/>
+<area shape="rect" id="Node000006" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html" title="Represents an endpoint that text can be written to." alt="" coords="637,183,848,323"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="684,325,627,387,464,556,460,552,623,384,680,321"/>
 </map>

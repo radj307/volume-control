@@ -1,5 +1,7 @@
 <map id="VolumeControl.CoreAudio.AudioDeviceSelector" name="VolumeControl.CoreAudio.AudioDeviceSelector">
-<area shape="rect" id="node1" title="Manages the currently &quot;selected&quot; AudioDevice instance for a given CoreAudio.AudioDeviceManager object..." alt="" coords="61,145,255,355"/>
-<area shape="rect" id="node2" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_selector.html" title="Represents a list item selector." alt="" coords="5,5,135,97"/>
-<area shape="rect" id="node3" title=" " alt="" coords="159,13,336,90"/>
+<area shape="rect" id="Node000001" title="Manages the currently &quot;selected&quot; AudioDevice instance for a given CoreAudio.AudioDeviceManager object..." alt="" coords="57,139,243,379"/>
+<area shape="rect" id="Node000002" href="$interface_volume_control_1_1_core_audio_1_1_interfaces_1_1_i_audio_selector.html" title="Represents a list item selector." alt="" coords="5,5,127,91"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,102,105,138,100,140,85,104"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="151,15,320,81"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="220,95,201,139,196,137,215,93"/>
 </map>

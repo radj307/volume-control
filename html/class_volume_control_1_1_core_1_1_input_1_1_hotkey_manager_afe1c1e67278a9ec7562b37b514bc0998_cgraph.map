@@ -1,8 +1,13 @@
 <map id="VolumeControl.Core.Input.HotkeyManager.SetHotkeysFromJsonHotkeys&lt; THotkey &gt;" name="VolumeControl.Core.Input.HotkeyManager.SetHotkeysFromJsonHotkeys&lt; THotkey &gt;">
-<area shape="rect" id="node1" title="Sets the list of managed hotkeys from the specified hotkeyJsonObjects ." alt="" coords="5,43,268,99"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#aaa4e6d47e4cc375b65398bc0231efcac" title="Creates and adds a Hotkey for each element of the specified hotkeyJsonObjects ." alt="" coords="316,5,549,61"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#a8c873d37958d80a9ebbbe1887bd0c2d0" title="Removes all hotkeys from the manager." alt="" coords="325,86,540,127"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#a8341c348e8787a903fde69522d3ce107" title="Adds the specified hotkey &#160;to the manager." alt="" coords="612,13,811,54"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#a8c582a292d4a72ef3caada32eff31cfe" title="Removes the specified hotkey &#160;from the manager." alt="" coords="597,86,825,127"/>
-<area shape="rect" id="node6" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#abc58db58ed561f5f0cac45eea2d3e8eb" title="Cleans up the Hotkey instance by unregistering it, if necessary." alt="" coords="873,86,1067,127"/>
+<area shape="rect" id="Node000001" title="Sets the list of managed hotkeys from the specified hotkeyJsonObjects ." alt="" coords="5,41,268,96"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#aaa4e6d47e4cc375b65398bc0231efcac" title="Creates and adds a Hotkey for each element of the specified hotkeyJsonObjects ." alt="" coords="316,5,549,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="268,50,302,46,302,51,269,55"/>
+<area shape="rect" id="Node000004" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#a8c873d37958d80a9ebbbe1887bd0c2d0" title="Removes all hotkeys from the manager." alt="" coords="325,85,540,125"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="269,82,312,87,311,93,268,87"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#a8341c348e8787a903fde69522d3ce107" title="Adds the specified hotkey &#160;to the manager." alt="" coords="612,13,811,53"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="549,30,598,30,598,35,549,35"/>
+<area shape="rect" id="Node000005" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html#a8c582a292d4a72ef3caada32eff31cfe" title="Removes the specified hotkey &#160;from the manager." alt="" coords="597,85,825,125"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="540,102,583,102,583,107,540,107"/>
+<area shape="rect" id="Node000006" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html#abc58db58ed561f5f0cac45eea2d3e8eb" title="Cleans up the Hotkey instance by unregistering it, if necessary." alt="" coords="873,85,1067,125"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="826,102,860,102,860,107,826,107"/>
 </map>

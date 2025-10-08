@@ -1,4 +1,5 @@
 <map id="VolumeControl.Core.Input.HotkeyPressedEventArgs.TryGetSetting" name="VolumeControl.Core.Input.HotkeyPressedEventArgs.TryGetSetting">
-<area shape="rect" id="node1" title="Attempts to get the action setting with the specified name ." alt="" coords="5,5,283,47"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#a3b97bcbd4fd7ebca5c61df6771574df6" title="Gets the action setting with the specified name ." alt="" coords="331,5,589,47"/>
+<area shape="rect" id="Node000001" title="Attempts to get the action setting with the specified name ." alt="" coords="5,5,283,45"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#a3b97bcbd4fd7ebca5c61df6771574df6" title="Gets the action setting with the specified name ." alt="" coords="331,5,589,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="283,23,317,23,317,28,283,28"/>
 </map>

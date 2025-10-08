@@ -1,5 +1,7 @@
 <map id="VolumeControl.WPF.Converters.ConverterChain" name="VolumeControl.WPF.Converters.ConverterChain">
-<area shape="rect" id="node1" title="Any number of IValueConverter objects that are used in assembly&#45;line fashion on a given value." alt="" coords="69,131,297,237"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,184,83"/>
-<area shape="rect" id="node3" title=" " alt="" coords="209,5,335,83"/>
+<area shape="rect" id="Node000001" title="Any number of IValueConverter objects that are used in assembly&#45;line fashion on a given value." alt="" coords="65,119,285,219"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,176,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,81,145,117,140,120,117,84"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="201,5,319,71"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="234,84,209,120,205,117,229,81"/>
 </map>

@@ -1,4 +1,5 @@
 <map id="VolumeControl.Core.Input.Exceptions.InvalidDataTemplateProviderTypeException" name="VolumeControl.Core.Input.Exceptions.InvalidDataTemplateProviderTypeException">
-<area shape="rect" id="node1" title="Represents errors that occur when the specified Attributes.HotkeyActionSettingAttribute...." alt="" coords="5,131,237,340"/>
-<area shape="rect" id="node2" title=" " alt="" coords="78,5,165,83"/>
+<area shape="rect" id="Node000001" title="Represents errors that occur when the specified Attributes.HotkeyActionSettingAttribute...." alt="" coords="5,119,229,332"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="78,5,157,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,85,120,118,115,118,115,85"/>
 </map>

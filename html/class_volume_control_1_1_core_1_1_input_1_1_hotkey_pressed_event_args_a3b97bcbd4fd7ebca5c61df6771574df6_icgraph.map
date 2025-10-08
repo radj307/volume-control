@@ -1,7 +1,19 @@
 <map id="VolumeControl.Core.Input.HotkeyPressedEventArgs.GetSetting" name="VolumeControl.Core.Input.HotkeyPressedEventArgs.GetSetting">
-<area shape="rect" id="node1" title="Gets the action setting with the specified name ." alt="" coords="645,43,904,84"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#ab1241a0d086fb208827c130f0901628a" title="Gets the value of the action setting with the specified name &#160;if it is enabled; otherwise gets the se..." alt="" coords="335,8,583,49"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#ac016523237e277829e095825d9031ab5" title="Attempts to get the action setting with the specified name ." alt="" coords="320,75,597,116"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#afff3b995a9da135c8a9546bc704b66b6" title="Attempts to get the value of the action setting with the specified name &#160;if it is enabled; otherwise ..." alt="" coords="5,5,272,47"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#a0cb8c3fa6e3263ad0cd4ef34b79f4094" title="Gets the value of the action setting with the specified name &#160;if it isn&#39;t null or disabled." alt="" coords="15,71,263,127"/>
+<area shape="rect" id="Node000001" title="Gets the action setting with the specified name ." alt="" coords="645,152,904,192"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#ab1241a0d086fb208827c130f0901628a" title="Gets the value of the action setting with the specified name &#160;if it is enabled; otherwise gets the se..." alt="" coords="335,56,583,96"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="709,150,597,111,552,99,553,93,598,105,711,144"/>
+<area shape="rect" id="Node000005" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#ac811a39772d79802fcf460f3d6a2f2e9" title="Gets the value of the action setting with the specified name &#160;and valueType &#160;if it is enabled; otherw..." alt="" coords="335,120,583,160"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="631,160,583,155,583,150,632,155"/>
+<area shape="rect" id="Node000006" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#ac016523237e277829e095825d9031ab5" title="Attempts to get the action setting with the specified name ." alt="" coords="320,184,597,224"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="632,189,598,193,598,187,631,184"/>
+<area shape="rect" id="Node000009" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#a7dc6e7b4fa88e6255f239864439cc461" title="Attempts to get the action setting with the specified name &#160;and valueType ." alt="" coords="320,248,597,288"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="711,200,598,239,553,251,552,245,597,233,709,194"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#afff3b995a9da135c8a9546bc704b66b6" title="Attempts to get the value of the action setting with the specified name &#160;if it is enabled; otherwise ..." alt="" coords="5,5,272,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="321,57,265,48,266,43,322,52"/>
+<area shape="rect" id="Node000004" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#ae66c2810936c00d55bddeb751366c415" title="Attempts to get the value of the action setting with the specified name &#160;and valueType &#160;if it is enab..." alt="" coords="5,69,272,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="321,84,272,86,272,81,321,79"/>
+<area shape="rect" id="Node000007" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#a0cb8c3fa6e3263ad0cd4ef34b79f4094" title="Gets the value of the action setting with the specified name &#160;if it isn&#39;t null or disabled." alt="" coords="15,162,263,217"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="307,200,263,198,263,192,307,194"/>
+<area shape="rect" id="Node000008" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#adbded5e92021bd744a256365d0541f0c" title="Gets the value of the action setting with the specified name &#160;and valueType &#160;if it isn&#39;t null or disa..." alt="" coords="15,241,263,295"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="345,229,264,246,263,241,344,224"/>
 </map>

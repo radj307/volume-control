@@ -4,7 +4,7 @@ var class_volume_control_1_1_log_1_1_log_message =
     [ "LogMessage", "class_volume_control_1_1_log_1_1_log_message.html#a18bf0d84b7c6ed7ed62ae76da71ed444", null ],
     [ "LogMessage", "class_volume_control_1_1_log_1_1_log_message.html#a4044552901c9de4e872cbee72c51e220", null ],
     [ "Add", "class_volume_control_1_1_log_1_1_log_message.html#a58f384161f2f0f7388add93e27b6ad77", null ],
-    [ "GetEnumerator", "class_volume_control_1_1_log_1_1_log_message.html#a05db1c1d7652b98ed991f20bac15a401", null ],
+    [ "GetEnumerator", "class_volume_control_1_1_log_1_1_log_message.html#a168574ac769c1b74ebea392e1a147a94", null ],
     [ "operator LogMessage", "class_volume_control_1_1_log_1_1_log_message.html#af2caf0c00b1f88b63959014e17f3dc01", null ],
     [ "SetEventType", "class_volume_control_1_1_log_1_1_log_message.html#a1a9bfc3a7b1bd3aea0c4a1aa14fd0bfe", null ],
     [ "ToString", "class_volume_control_1_1_log_1_1_log_message.html#a3230968ccec8969002158007646c0ad2", null ],

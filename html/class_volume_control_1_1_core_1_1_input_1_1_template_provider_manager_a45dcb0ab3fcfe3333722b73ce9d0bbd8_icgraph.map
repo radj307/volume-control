@@ -1,6 +1,9 @@
 <map id="VolumeControl.Core.Input.TemplateProviderManager.IndexOfDictionaryProviderType" name="VolumeControl.Core.Input.TemplateProviderManager.IndexOfDictionaryProviderType">
-<area shape="rect" id="node1" title="Gets the index of the ITemplateDictionaryProvider type specified by dictionaryProviderType &#160;in Dictio..." alt="" coords="919,5,1165,61"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a8c3fd49c36da88da9e1a49bd056d5df1" title="Attempts to get the dictionaryProvider &#160;instance with the specified dictionaryProviderType ." alt="" coords="632,5,871,61"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#acfcbafeff4989d44913efe0f90a0a337" title="Finds a suitable DataTemplate instance with the specified parameters." alt="" coords="329,5,584,61"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html#a4433627a745c3edd66508a6cbc685e48" title="Loads hotkey actions from the specified types ." alt="" coords="5,13,281,54"/>
+<area shape="rect" id="Node000001" title="Gets the index of the ITemplateDictionaryProvider type specified by dictionaryProviderType &#160;in Dictio..." alt="" coords="595,45,841,100"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a8c3fd49c36da88da9e1a49bd056d5df1" title="Attempts to get the dictionaryProvider &#160;instance with the specified dictionaryProviderType ." alt="" coords="308,45,547,100"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="581,75,547,75,547,70,581,70"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a692ff98bae9025c7dc0f0fb229067a07" title="Finds a suitable DataTemplate instance with the specified parameters." alt="" coords="5,5,260,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="294,57,260,53,260,47,295,52"/>
+<area shape="rect" id="Node000004" href="$class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#acfcbafeff4989d44913efe0f90a0a337" title="Finds a suitable DataTemplate instance with the specified parameters." alt="" coords="5,84,260,139"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="295,93,260,97,260,92,294,87"/>
 </map>

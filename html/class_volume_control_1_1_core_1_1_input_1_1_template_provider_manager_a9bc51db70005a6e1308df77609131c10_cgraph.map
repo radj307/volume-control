@@ -1,5 +1,7 @@
 <map id="VolumeControl.Core.Input.TemplateProviderManager.FindDataTemplate" name="VolumeControl.Core.Input.TemplateProviderManager.FindDataTemplate">
-<area shape="rect" id="node1" title="Finds the most recent DataTemplate instance that supports the specified valueType ." alt="" coords="5,27,260,83"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_f_log.html#a4dcec7039adc7659b074ba4122cea0f8" title=" " alt="" coords="309,5,526,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_f_log.html#ac7a8c27d69096fadba3f4b55cd405857" title=" " alt="" coords="308,71,527,98"/>
+<area shape="rect" id="Node000001" title="Finds the most recent DataTemplate instance that supports the specified valueType ." alt="" coords="5,27,260,82"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_log_1_1_f_log.html#a4dcec7039adc7659b074ba4122cea0f8" title=" " alt="" coords="309,5,526,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="260,39,295,35,295,41,260,44"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_log_1_1_f_log.html#ac7a8c27d69096fadba3f4b55cd405857" title=" " alt="" coords="308,70,527,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="260,65,294,68,294,73,260,70"/>
 </map>

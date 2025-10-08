@@ -1,4 +1,5 @@
 <map id="VolumeControl.Log.AsyncLogWriter.ResetEndpoint" name="VolumeControl.Log.AsyncLogWriter.ResetEndpoint">
-<area shape="rect" id="node1" title="Resets the endpoint to its default state by calling IEndpointWriter.Reset." alt="" coords="293,5,504,47"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_f_log.html#aea9f63c707dad245894df5d38aecee2d" title="Initializes the log. The settings object must be created before calling this method...." alt="" coords="5,13,245,39"/>
+<area shape="rect" id="Node000001" title="Resets the endpoint to its default state by calling IEndpointWriter.Reset." alt="" coords="293,5,504,45"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_log_1_1_f_log.html#aea9f63c707dad245894df5d38aecee2d" title="Initializes the log. The settings object must be created before calling this method...." alt="" coords="5,13,245,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="280,28,246,28,246,23,280,23"/>
 </map>

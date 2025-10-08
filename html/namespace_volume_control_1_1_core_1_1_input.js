@@ -169,7 +169,6 @@ var namespace_volume_control_1_1_core_1_1_input =
     [ "Exceptions", "namespace_volume_control_1_1_core_1_1_input_1_1_exceptions.html", "namespace_volume_control_1_1_core_1_1_input_1_1_exceptions" ],
     [ "Json", "namespace_volume_control_1_1_core_1_1_input_1_1_json.html", "namespace_volume_control_1_1_core_1_1_input_1_1_json" ],
     [ "Hotkey", "class_volume_control_1_1_core_1_1_input_1_1_hotkey.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey" ],
-    [ "HotkeyActionAddonLoader", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader" ],
     [ "HotkeyExtensions", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_extensions.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_extensions" ],
     [ "HotkeyManager", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_manager" ],
     [ "HotkeyMessageHookAbstractor", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_message_hook_abstractor.html", "class_volume_control_1_1_core_1_1_input_1_1_hotkey_message_hook_abstractor" ],

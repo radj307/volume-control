@@ -1,7 +1,11 @@
 <map id="VolumeControl.WPF.CustomMessageBox.CustomMessageBoxButton" name="VolumeControl.WPF.CustomMessageBox.CustomMessageBoxButton">
-<area shape="rect" id="node1" title="A button for use in a CustomMessageBox." alt="" coords="270,145,555,677"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,220,97"/>
-<area shape="rect" id="node3" title=" " alt="" coords="244,13,403,90"/>
-<area shape="rect" id="node4" title=" " alt="" coords="427,13,577,90"/>
-<area shape="rect" id="node5" title=" " alt="" coords="601,13,846,90"/>
+<area shape="rect" id="Node000001" title="A button for use in a CustomMessageBox." alt="" coords="258,133,535,797"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,212,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,95,260,261,256,264,141,98"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="236,13,387,78"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="323,91,332,133,326,134,318,92"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="411,13,553,78"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="475,92,467,134,462,133,470,91"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="577,13,814,78"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="667,90,538,271,534,268,663,87"/>
 </map>

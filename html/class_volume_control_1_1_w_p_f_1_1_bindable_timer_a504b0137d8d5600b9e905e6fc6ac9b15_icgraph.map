@@ -1,4 +1,6 @@
 <map id="VolumeControl.WPF.BindableTimer.Dispose" name="VolumeControl.WPF.BindableTimer.Dispose">
-<area shape="rect" id="node1" title="Disposes of the BindableTimer instance and the underlying timer object." alt="" coords="264,5,475,47"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#a8212ba18a357c96cb1f1817496cc84ac" title=" " alt="" coords="5,5,216,47"/>
+<area shape="rect" id="Node000001" title="Disposes of the BindableTimer instance and the underlying timer object." alt="" coords="264,29,475,69"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="413,18,398,11,369,8,345,10,330,15,324,21,327,28,322,30,319,20,327,10,343,5,369,3,399,6,415,13"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_w_p_f_1_1_bindable_timer.html#a8212ba18a357c96cb1f1817496cc84ac" title=" " alt="" coords="5,29,216,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="250,52,216,52,216,47,250,47"/>
 </map>

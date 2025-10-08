@@ -1,4 +1,7 @@
 <map id="VolumeControl.Core.Input.HotkeyPressedEventArgs.TryGetSetting" name="VolumeControl.Core.Input.HotkeyPressedEventArgs.TryGetSetting">
-<area shape="rect" id="node1" title="Attempts to get the action setting with the specified name ." alt="" coords="301,13,579,54"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#a0cb8c3fa6e3263ad0cd4ef34b79f4094" title="Gets the value of the action setting with the specified name &#160;if it isn&#39;t null or disabled." alt="" coords="5,5,253,61"/>
+<area shape="rect" id="Node000001" title="Attempts to get the action setting with the specified name ." alt="" coords="301,53,579,93"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#a0cb8c3fa6e3263ad0cd4ef34b79f4094" title="Gets the value of the action setting with the specified name &#160;if it isn&#39;t null or disabled." alt="" coords="5,5,253,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="288,56,253,51,254,46,288,50"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_pressed_event_args.html#adbded5e92021bd744a256365d0541f0c" title="Gets the value of the action setting with the specified name &#160;and valueType &#160;if it isn&#39;t null or disa..." alt="" coords="5,84,253,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="288,94,254,99,253,93,288,89"/>
 </map>

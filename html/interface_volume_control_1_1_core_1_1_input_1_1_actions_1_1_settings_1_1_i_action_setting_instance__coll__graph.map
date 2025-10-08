@@ -1,4 +1,6 @@
 <map id="VolumeControl.Core.Input.Actions.Settings.IActionSettingInstance&lt; T &gt;" name="VolumeControl.Core.Input.Actions.Settings.IActionSettingInstance&lt; T &gt;">
-<area shape="rect" id="node1" title="Represents an action setting instance." alt="" coords="5,131,228,384"/>
-<area shape="rect" id="node2" title=" " alt="" coords="28,5,205,83"/>
+<area shape="rect" id="Node000001" title="Represents an action setting instance." alt="" coords="5,119,220,413"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="28,5,197,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,85,107,118,101,118,103,85"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="123,85,124,118,119,118,117,85"/>
 </map>

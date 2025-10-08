@@ -1,5 +1,7 @@
 <map id="VolumeControl.Log.Endpoints.MemoryEndpoint.GetTextReader" name="VolumeControl.Log.Endpoints.MemoryEndpoint.GetTextReader">
-<area shape="rect" id="node1" title="Gets a new TextReader instance for this memory endpoint." alt="" coords="279,39,512,80"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#a07f919aa268f8b2d51d1db0752d9ca9d" title=" " alt="" coords="9,5,227,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#ad99410e9294ced575ec1cf30dddf75a6" title=" " alt="" coords="5,71,231,112"/>
+<area shape="rect" id="Node000001" title="Gets a new TextReader instance for this memory endpoint." alt="" coords="279,37,512,77"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#a07f919aa268f8b2d51d1db0752d9ca9d" title=" " alt="" coords="9,5,227,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="264,45,227,41,227,35,265,40"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#ad99410e9294ced575ec1cf30dddf75a6" title=" " alt="" coords="5,69,231,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="265,75,231,79,231,74,265,70"/>
 </map>

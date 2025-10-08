@@ -1,8 +1,13 @@
 <map id="VolumeControl.Core.Input.IHotkey" name="VolumeControl.Core.Input.IHotkey">
-<area shape="rect" id="node1" title="Represents a Win32 global hotkey." alt="" coords="185,131,379,369"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html" title="A hotkey that executes an action when pressed." alt="" coords="183,417,381,832"/>
-<area shape="rect" id="node2" href="$interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook.html" title="Represents an object that can be added to the hotkey message hook system." alt="" coords="5,5,169,83"/>
-<area shape="rect" id="node3" title=" " alt="" coords="193,5,371,83"/>
-<area shape="rect" id="node4" title=" " alt="" coords="395,5,494,83"/>
-<area shape="rect" id="node6" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html" title="A Hotkey that also maintains an error state property." alt="" coords="185,880,379,1031"/>
+<area shape="rect" id="Node000001" title="Represents a Win32 global hotkey." alt="" coords="177,119,363,399"/>
+<area shape="rect" id="Node000005" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey.html" title="A hotkey that executes an action when pressed." alt="" coords="175,447,365,967"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="273,412,273,447,267,447,267,412"/>
+<area shape="rect" id="Node000002" href="$interface_volume_control_1_1_core_1_1_input_1_1_i_hotkey_message_hook.html" title="Represents an object that can be added to the hotkey message hook system." alt="" coords="5,5,161,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,80,179,147,175,151,117,83"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="185,5,355,71"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="273,84,273,119,267,119,267,84"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="379,5,470,71"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="397,84,365,128,361,125,392,81"/>
+<area shape="rect" id="Node000006" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_with_error.html" title="A Hotkey that also maintains an error state property." alt="" coords="177,1015,363,1175"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="273,981,273,1015,267,1015,267,981"/>
 </map>

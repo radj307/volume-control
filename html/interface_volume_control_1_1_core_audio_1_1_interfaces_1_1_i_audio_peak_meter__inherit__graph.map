@@ -1,5 +1,7 @@
 <map id="VolumeControl.CoreAudio.Interfaces.IAudioPeakMeter" name="VolumeControl.CoreAudio.Interfaces.IAudioPeakMeter">
-<area shape="rect" id="node1" title="Represents some kind of object that has an audio peak meter." alt="" coords="121,5,323,97"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_audio_1_1_audio_device.html" title="An audio endpoint device." alt="" coords="5,167,199,509"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device." alt="" coords="223,145,461,531"/>
+<area shape="rect" id="Node000001" title="Represents some kind of object that has an audio peak meter." alt="" coords="117,5,311,85"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_core_audio_1_1_audio_device.html" title="An audio endpoint device." alt="" coords="5,173,191,593"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,100,173,174,168,172,193,98"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_core_audio_1_1_audio_session.html" title="A single audio session running on an audio device." alt="" coords="215,133,445,633"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="234,98,246,132,241,134,229,99"/>
 </map>

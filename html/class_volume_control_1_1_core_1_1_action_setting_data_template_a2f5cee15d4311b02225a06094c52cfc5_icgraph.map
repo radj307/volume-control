@@ -1,4 +1,5 @@
 <map id="VolumeControl.Core.ActionSettingDataTemplate.SupportsValueType" name="VolumeControl.Core.ActionSettingDataTemplate.SupportsValueType">
-<area shape="rect" id="node1" title="Checks if this ActionSettingDataTemplate instance supports the specified valueType ." alt="" coords="308,13,595,54"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_resource_dictionary_template_provider.html#a38350a1fb69e9a8002dab13f5f6845c6" title="Provides an ActionSettingDataTemplate for the specified valueType ." alt="" coords="5,5,260,61"/>
+<area shape="rect" id="Node000001" title="Checks if this ActionSettingDataTemplate instance supports the specified valueType ." alt="" coords="308,13,595,53"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_core_1_1_resource_dictionary_template_provider.html#a38350a1fb69e9a8002dab13f5f6845c6" title="Provides an ActionSettingDataTemplate for the specified valueType .This method will not return templa..." alt="" coords="5,5,260,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="294,35,260,35,260,30,294,30"/>
 </map>

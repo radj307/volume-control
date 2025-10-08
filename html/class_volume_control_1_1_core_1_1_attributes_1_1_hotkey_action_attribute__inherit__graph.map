@@ -1,4 +1,5 @@
 <map id="VolumeControl.Core.Attributes.HotkeyActionAttribute" name="VolumeControl.Core.Attributes.HotkeyActionAttribute">
-<area shape="rect" id="node1" title="Indicates that this is a hotkey action method." alt="" coords="5,131,236,296"/>
-<area shape="rect" id="node2" title=" " alt="" coords="81,5,160,83"/>
+<area shape="rect" id="Node000001" title="Indicates that this is a hotkey action method." alt="" coords="5,119,227,299"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="81,5,151,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,85,119,118,113,118,113,85"/>
 </map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['how_20to_20contribute_20translations_2604',['How to Contribute Translations',['../md_docs__how_to_contribute_translations.html',1,'']]]
+  ['development_0',['Addon Development',['../md_docs_2_addon_development.html',1,'']]]
 ];

@@ -1,4 +1,5 @@
 <map id="VolumeControl.Core.Input.Exceptions.HotkeyRegistrationException" name="VolumeControl.Core.Input.Exceptions.HotkeyRegistrationException">
-<area shape="rect" id="node1" title="Represents an error that occurs while registering or unregistering a hotkey." alt="" coords="5,131,292,223"/>
-<area shape="rect" id="node2" title=" " alt="" coords="105,5,192,83"/>
+<area shape="rect" id="Node000001" title="Represents an error that occurs while registering or unregistering a hotkey." alt="" coords="5,119,284,199"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="105,5,184,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,85,147,118,142,118,142,85"/>
 </map>

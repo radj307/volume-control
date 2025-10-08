@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['contributing_2603',['Contributing',['../md__home_runner_work_volume_control_volume_control__c_o_n_t_r_i_b_u_t_i_n_g.html',1,'']]]
+  ['contribute_20translations_0',['How to Contribute Translations',['../md_docs_2_how_to_contribute_translations.html',1,'']]],
+  ['contributing_1',['Contributing',['../md__2home_2runner_2work_2volume-control_2volume-control_2_c_o_n_t_r_i_b_u_t_i_n_g.html',1,'']]],
+  ['control_2',['Volume Control',['../index.html',1,'']]]
 ];

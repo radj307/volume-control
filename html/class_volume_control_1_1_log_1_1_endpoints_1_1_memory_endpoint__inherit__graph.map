@@ -1,5 +1,7 @@
 <map id="VolumeControl.Log.Endpoints.MemoryEndpoint" name="VolumeControl.Log.Endpoints.MemoryEndpoint">
-<area shape="rect" id="node1" title="A log endpoint that implements IEndpointWriter and uses a MemoryStream as an endpoint." alt="" coords="43,175,261,399"/>
-<area shape="rect" id="node2" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html" title="Represents an endpoint that text can be written to." alt="" coords="5,5,152,127"/>
-<area shape="rect" id="node3" title=" " alt="" coords="176,27,275,105"/>
+<area shape="rect" id="Node000001" title="A log endpoint that implements IEndpointWriter and uses a MemoryStream as an endpoint." alt="" coords="39,179,249,439"/>
+<area shape="rect" id="Node000002" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_endpoint_writer.html" title="Represents an endpoint that text can be written to." alt="" coords="5,5,144,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,144,109,178,104,179,94,145"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="168,35,259,101"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="203,115,184,179,179,178,198,113"/>
 </map>

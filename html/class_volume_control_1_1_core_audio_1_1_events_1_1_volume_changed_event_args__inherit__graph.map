@@ -1,4 +1,5 @@
 <map id="VolumeControl.CoreAudio.Events.VolumeChangedEventArgs" name="VolumeControl.CoreAudio.Events.VolumeChangedEventArgs">
-<area shape="rect" id="node1" title="Contains event data for the VolumeChangedEventHandler event type." alt="" coords="5,131,248,267"/>
-<area shape="rect" id="node2" title=" " alt="" coords="83,5,171,83"/>
+<area shape="rect" id="Node000001" title="Contains event data for the VolumeChangedEventHandler event type." alt="" coords="5,119,240,259"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="83,5,163,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,84,125,118,120,118,120,84"/>
 </map>

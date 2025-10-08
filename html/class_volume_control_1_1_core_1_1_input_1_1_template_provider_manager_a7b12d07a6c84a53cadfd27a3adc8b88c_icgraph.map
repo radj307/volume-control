@@ -1,5 +1,7 @@
 <map id="VolumeControl.Core.Input.TemplateProviderManager.FindDataTemplate" name="VolumeControl.Core.Input.TemplateProviderManager.FindDataTemplate">
-<area shape="rect" id="node1" title="Finds the DataTemplate with the specified key &#160;in the TemplateDictionaryProviders list." alt="" coords="632,5,887,61"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#acfcbafeff4989d44913efe0f90a0a337" title="Finds a suitable DataTemplate instance with the specified parameters." alt="" coords="329,5,584,61"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_input_1_1_hotkey_action_addon_loader.html#a4433627a745c3edd66508a6cbc685e48" title="Loads hotkey actions from the specified types ." alt="" coords="5,13,281,54"/>
+<area shape="rect" id="Node000001" title="Finds the DataTemplate with the specified key &#160;in the TemplateDictionaryProviders list." alt="" coords="308,45,563,100"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#a692ff98bae9025c7dc0f0fb229067a07" title="Finds a suitable DataTemplate instance with the specified parameters." alt="" coords="5,5,260,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="294,57,260,52,261,47,295,51"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_core_1_1_input_1_1_template_provider_manager.html#acfcbafeff4989d44913efe0f90a0a337" title="Finds a suitable DataTemplate instance with the specified parameters." alt="" coords="5,84,260,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="295,93,261,98,260,92,294,88"/>
 </map>

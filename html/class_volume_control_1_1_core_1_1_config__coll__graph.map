@@ -1,5 +1,7 @@
 <map id="VolumeControl.Core.Config" name="VolumeControl.Core.Config">
-<area shape="rect" id="node1" title="Contains the application configuration and logic to read from and write to JSON files." alt="" coords="111,263,349,589"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,64,212,141"/>
-<area shape="rect" id="node3" href="$struct_volume_control_1_1_core_1_1_input_1_1_json_1_1_json_hotkey.html" title="Contains the JSON object representation of a Hotkey instance." alt="" coords="237,5,466,200"/>
+<area shape="rect" id="Node000001" title="Contains the application configuration and logic to read from and write to JSON files." alt="" coords="107,288,337,688"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,83,204,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,160,162,287,156,289,116,162"/>
+<area shape="rect" id="Node000003" href="$struct_volume_control_1_1_core_1_1_input_1_1_json_1_1_json_hotkey.html" title="Contains the JSON object representation of a Hotkey instance." alt="" coords="229,5,450,225"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="307,226,292,273,287,272,302,225"/>
 </map>

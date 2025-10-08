@@ -1,4 +1,5 @@
 <map id="VolumeControl.Core.Input.Exceptions.InvalidProviderTypeException" name="VolumeControl.Core.Input.Exceptions.InvalidProviderTypeException">
-<area shape="rect" id="node1" title="Represents errors that occur because a type that does not implement ITemplateProvider or ITemplateDic..." alt="" coords="5,131,252,267"/>
-<area shape="rect" id="node2" title=" " alt="" coords="85,5,172,83"/>
+<area shape="rect" id="Node000001" title="Represents errors that occur because a type that does not implement ITemplateProvider or ITemplateDic..." alt="" coords="5,119,244,248"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="85,5,164,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,84,127,118,122,118,122,84"/>
 </map>

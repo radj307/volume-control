@@ -1,3 +1,15 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_volume_control_1_1_core_1_1_input_1_1_actions_1_1_hotkey_action_instance.html" title="An instance of a hotkey action." alt="" coords="5,5,221,47"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,193,92,218"/>
+<area shape="rect" id="Node000001" href="$class_volume_control_1_1_core_1_1_embedded_resource_not_found_exception.html" title="Represents errors that occur while trying to access an embedded resource file." alt="" coords="171,5,396,45"/>
+<area shape="poly" id="edge116_Node000000_Node000001" title=" " alt="" coords="56,179,85,116,109,83,138,55,169,39,172,44,142,60,113,87,90,119,61,181"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_action_setting_not_found_exception.html" title="Represents errors that occur when a hotkey action setting wasn&#39;t found in a HotkeyPressedEventArgs in..." alt="" coords="160,70,407,125"/>
+<area shape="poly" id="edge117_Node000000_Node000002" title=" " alt="" coords="72,181,103,157,139,135,169,122,171,127,141,140,106,162,75,186"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_hotkey_registration_exception.html" title="Represents an error that occurs while registering or unregistering a hotkey." alt="" coords="140,149,427,189"/>
+<area shape="poly" id="edge118_Node000000_Node000003" title=" " alt="" coords="105,194,152,187,153,192,106,199"/>
+<area shape="rect" id="Node000004" href="$class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_data_template_provider_type_exception.html" title="Represents errors that occur when the specified Attributes.HotkeyActionSettingAttribute...." alt="" coords="167,214,399,269"/>
+<area shape="poly" id="edge119_Node000000_Node000004" title=" " alt="" coords="106,211,168,221,167,226,105,217"/>
+<area shape="rect" id="Node000005" href="$class_volume_control_1_1_core_1_1_input_1_1_exceptions_1_1_invalid_provider_type_exception.html" title="Represents errors that occur because a type that does not implement ITemplateProvider or ITemplateDic..." alt="" coords="171,293,396,347"/>
+<area shape="poly" id="edge120_Node000000_Node000005" title=" " alt="" coords="73,226,104,253,141,278,172,291,169,296,139,282,101,257,70,230"/>
+<area shape="rect" id="Node000006" href="$class_volume_control_1_1_log_1_1_exceptions_1_1_not_initialized_exception.html" title="Represents errors that occur as a result of trying to access an object before it is initialized." alt="" coords="171,372,395,412"/>
+<area shape="poly" id="edge121_Node000000_Node000006" title=" " alt="" coords="61,231,72,260,89,295,113,328,142,357,172,373,170,378,138,361,108,332,85,297,67,263,56,232"/>
 </map>

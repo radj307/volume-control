@@ -1,0 +1,7 @@
+<map id="VolumeControl.Log.AsyncLogWriter.LogMessage" name="VolumeControl.Log.AsyncLogWriter.LogMessage">
+<area shape="rect" id="Node000001" title="Writes the specified logMessage &#160;to the log, if its event type is enabled by the filter...." alt="" coords="5,37,216,77"/>
+<area shape="rect" id="Node000002" href="$class_volume_control_1_1_log_1_1_helpers_1_1_threaded_action_queue.html#a427b28bd751bc460f11d7c32c6c8f9db" title="Adds the specified action &#160;to the queue." alt="" coords="264,5,491,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="216,42,250,38,251,43,217,47"/>
+<area shape="rect" id="Node000003" href="$class_volume_control_1_1_log_1_1_async_log_writer.html#a991ed5d730c4006309027e8b98304751" title="Checks if messages with the specified eventType &#160;are shown in the log.true when the eventType &#160;is sho..." alt="" coords="272,69,483,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="217,67,259,72,258,78,216,73"/>
+</map>
