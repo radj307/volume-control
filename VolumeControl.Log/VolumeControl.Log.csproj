@@ -9,9 +9,9 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
-    <Version>6.7.0-rc2</Version>
+    <Version>6.7.0-rc3</Version>
     <FileVersion>6.7.0</FileVersion>
-    <Copyright>Copyright © 2022-2024 by $(Authors)</Copyright>
+    <Copyright>Copyright © 2022-2025 by $(Authors)</Copyright>
     <DocumentationFile>../publish/$(MSBuildProjectName).xml</DocumentationFile>
   </PropertyGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
