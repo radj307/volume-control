@@ -342,6 +342,40 @@
           "English (US/CA)": "Decreases the volume of the current foreground application."
         }
       },
+      "SetVolume": {
+        "Name": {
+          "English (US/CA)": "Set Volume"
+        },
+        "Description": {
+          "English (US/CA)": "Sets the volume of the current foreground application to the specified value."
+        },
+        "Settings": {
+          "Select Session": {
+            "Name": {
+              "English (US/CA)": "Select Session"
+            },
+            "Description": {
+              "English (US/CA)": "Selects the foreground application in Volume Control."
+            }
+          },
+          "Volume Level": {
+            "Name": {
+              "English (US/CA)": "Volume Level"
+            },
+            "Description": {
+              "English (US/CA)": "The volume level to set the application to."
+            }
+          },
+          "Mute State": {
+            "Name": {
+              "English (US/CA)": "Mute State"
+            },
+            "Description": {
+              "English (US/CA)": "The mute state to set the application to."
+            }
+          }
+        }
+      },
       "Mute": {
         "Name": {
           "English (US/CA)": "Mute"
