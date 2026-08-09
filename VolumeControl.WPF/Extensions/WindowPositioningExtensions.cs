@@ -77,6 +77,10 @@ namespace VolumeControl.WPF.Extensions
         /// <param name="point">The absolute x/y coordinates of the target position.</param>
         public static void SetPosAtCorner(this Window wnd, EScreenCorner corner, Point point)
         {
+            var compositionTarget = PresentationSource.FromVisual(wnd)?.CompositionTarget;
+            // convert the point from device pixels to WPF units
+            point = compositionTarget?.TransformFromDevice.Transform(point) ?? point;
+
             switch (corner)
             {
             case EScreenCorner.TopLeft:
@@ -96,6 +100,16 @@ namespace VolumeControl.WPF.Extensions
                 wnd.Top = point.Y - wnd.Height;
                 break;
             }
+
+            // ensure window is not positioned outside of the screen's working area
+            if (wnd.Left + wnd.ActualWidth > SystemParameters.WorkArea.Right)
+                wnd.Left = SystemParameters.WorkArea.Right - wnd.ActualWidth;
+            if (wnd.Top + wnd.ActualHeight > SystemParameters.WorkArea.Bottom)
+                wnd.Top = SystemParameters.WorkArea.Bottom - wnd.ActualHeight;
+            if (wnd.Left < SystemParameters.WorkArea.Left)
+                wnd.Left = SystemParameters.WorkArea.Left;
+            if (wnd.Top < SystemParameters.WorkArea.Top)
+                wnd.Top = SystemParameters.WorkArea.Top;
         }
         #endregion Get/Set AtCorner
 
